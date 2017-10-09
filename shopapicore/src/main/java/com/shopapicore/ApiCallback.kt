@@ -1,0 +1,8 @@
+package com.shopapicore
+
+interface ApiCallback<in T> {
+
+    fun onResult(result: T)
+
+    fun onFailure(error: Error)
+}

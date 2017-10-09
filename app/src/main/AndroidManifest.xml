@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.client.shop">
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:noHistory="true"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name="com.client.shop.ui.details.DetailsActivity" />
+
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".ui.gallery.GalleryActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <activity android:name=".ui.blog.ArticleActivity" />
+
+        <activity android:name=".ui.policy.PolicyActivity" />
+
+        <activity android:name=".ui.category.CategoryActivity" />
+
+        <activity android:name=".ui.recent.RecentActivity" />
+
+        <activity android:name=".ui.blog.BlogActivity" />
+
+    </application>
+
+</manifest>

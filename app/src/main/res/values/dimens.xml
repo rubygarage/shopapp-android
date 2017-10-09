@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="image_aspect_ratio" format="float" type="dimen">1.6</item>
+
+    <dimen name="element_space">8dp</dimen>
+    <dimen name="content_space">16dp</dimen>
+    <dimen name="recycler_padding">3dp</dimen>
+
+    <dimen name="recent_container_height">200dp</dimen>
+    <dimen name="recent_title_height">30dp</dimen>
+    <dimen name="recent_item_size">170dp</dimen>
+    <dimen name="recent_item_image_height">100dp</dimen>
+
+    <dimen name="blog_title_height">30dp</dimen>
+
+</resources>

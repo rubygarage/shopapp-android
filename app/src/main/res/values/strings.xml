@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ShopClient</string>
+
+    <string name="price_holder">%1$s %2$s</string>
+    <string name="open_menu">Open menu</string>
+    <string name="close_menu">Close menu</string>
+    <string name="last_arrivals">Last Arrivals</string>
+    <string name="new_in_blog">New in blog</string>
+    <string name="more">More</string>
+    <string name="category">Category</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_of_service">Terms Of Service</string>
+    <string name="search">Search</string>
+    <string name="price_label">Price:</string>
+    <string name="quantity_label">Quantity:</string>
+    <string name="variant_label">Variant:</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="share">Share</string>
+    <string name="sort">Sort</string>
+    <string name="sort_title">Sort by</string>
+
+</resources>

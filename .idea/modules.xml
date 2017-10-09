@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopapicore/shopapicore.iml" filepath="$PROJECT_DIR$/shopapicore/shopapicore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopclient-android.iml" filepath="$PROJECT_DIR$/shopclient-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopifyapi/shopifyapi.iml" filepath="$PROJECT_DIR$/shopifyapi/shopifyapi.iml" />
+    </modules>
+  </component>
+</project>
