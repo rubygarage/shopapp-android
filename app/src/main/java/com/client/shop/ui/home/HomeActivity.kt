@@ -48,7 +48,6 @@ class HomeActivity : AppCompatActivity(), OnItemClickListener<Category> {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setHomeButtonEnabled(true)
-            it.setDisplayShowTitleEnabled(false)
         }
         setupDrawerLayout()
         setupRecyclerView(categories)

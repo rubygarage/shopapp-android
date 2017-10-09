@@ -1,6 +1,7 @@
 package com.client.shop.ui.category
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -54,6 +55,11 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         category = arguments.getParcelable(EXTRA_CATEGORY)
+        val compatActivity = activity
+        if (compatActivity is AppCompatActivity) {
+            compatActivity.supportActionBar?.setDisplayShowTitleEnabled(true)
+            compatActivity.supportActionBar?.title = category.title
+        }
         setHasOptionsMenu(true)
     }
 
@@ -102,5 +108,6 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
             this.dataList.addAll(productList)
             adapter?.notifyDataSetChanged()
         }
+        viewState.setData(dataList)
     }
 }

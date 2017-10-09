@@ -2,6 +2,7 @@ package com.client.shop.ui.home
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
 import com.client.shop.ui.blog.BlogFragment
@@ -16,6 +17,11 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val compatActivity = activity
+        if (compatActivity is AppCompatActivity) {
+            (compatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
 
         childFragmentManager.beginTransaction().replace(R.id.recentContainer, RecentFragment()).commit()
         childFragmentManager.beginTransaction().replace(R.id.blogContainer, BlogFragment()).commit()
