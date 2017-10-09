@@ -3,7 +3,6 @@ package com.client.shop.di.component
 import com.client.shop.di.module.NetworkModule
 import com.client.shop.ui.blog.BlogActivity
 import com.client.shop.ui.blog.BlogFragment
-import com.client.shop.ui.category.CategoryActivity
 import com.client.shop.ui.category.CategoryFragment
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.RecentActivity
@@ -18,8 +17,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(activity: SplashActivity)
-
-    fun inject(activity: CategoryActivity)
 
     fun inject(activity: DetailsActivity)
 

@@ -23,6 +23,7 @@
 
         <activity
             android:name=".ui.home.HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name="com.client.shop.ui.details.DetailsActivity" />
@@ -38,8 +39,6 @@
         <activity android:name=".ui.blog.ArticleActivity" />
 
         <activity android:name=".ui.policy.PolicyActivity" />
-
-        <activity android:name=".ui.category.CategoryActivity" />
 
         <activity android:name=".ui.recent.RecentActivity" />
 
