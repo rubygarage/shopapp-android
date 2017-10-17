@@ -7,7 +7,7 @@ class ArticleAdapter(adaptee: Storefront.Article) : Article(
         adaptee.id.toString(),
         adaptee.title,
         adaptee.content,
-        if (adaptee.image != null) ImageAdapter(adaptee.image) else null,
+        ImageAdapter.newInstance(adaptee.image),
         AutorAdapter(adaptee.author),
         adaptee.tags,
         adaptee.blog.id.toString(),

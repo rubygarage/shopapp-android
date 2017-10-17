@@ -7,7 +7,7 @@ class CategoryAdapter(shop: Storefront.Shop, collection: Storefront.Collection) 
         collection.id.toString(),
         collection.title,
         collection.description,
-        if (collection.image != null) ImageAdapter(collection.image) else null,
+        ImageAdapter.newInstance(collection.image),
         collection.updatedAt.toDate(),
         CategoryDetailsAdapter(shop, collection)
 )

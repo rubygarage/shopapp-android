@@ -3,6 +3,7 @@ package com.shopify.api.adapter
 import com.shopapicore.entity.Image
 import com.shopapicore.entity.Product
 import com.shopapicore.entity.ProductDetails
+import com.shopapicore.entity.ProductOption
 import com.shopify.buy3.Storefront
 
 class ProductAdapter(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product) : Product(
@@ -15,17 +16,17 @@ class ProductAdapter(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Pr
         tags = productAdaptee.tags,
         createdAt = productAdaptee.createdAt.toDate(),
         updatedAt = productAdaptee.updatedAt.toDate(),
-        price = priceExtractor(productAdaptee),
-        images = imageExtractor(productAdaptee),
-        productDetails = productDetailsExtractor(productAdaptee),
-        options = if (productAdaptee.options != null) ProductOptionListAdapter(productAdaptee.options) else listOf()
+        price = convertPrice(productAdaptee),
+        images = convertImage(productAdaptee),
+        productDetails = convertProductDetails(productAdaptee),
+        options = convertProductOptionList(productAdaptee.options)
 ) {
 
     companion object {
 
         private val DEFAULT_PRICE = "0"
 
-        private fun priceExtractor(productAdaptee: Storefront.Product): String {
+        private fun convertPrice(productAdaptee: Storefront.Product): String {
             val variantsList = productAdaptee.variants.edges
             return if (variantsList.size > 0) {
                 variantsList[0].node.price.toString()
@@ -34,14 +35,22 @@ class ProductAdapter(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Pr
             }
         }
 
-        private fun imageExtractor(productAdaptee: Storefront.Product): List<Image> {
-            return productAdaptee.images.edges.map { ImageAdapter(it.node) }
+        private fun convertImage(productAdaptee: Storefront.Product): List<Image> {
+            return productAdaptee.images.edges.map { ImageAdapter.newInstance(it.node)!! }
         }
 
-        private fun productDetailsExtractor(productAdaptee: Storefront.Product) =
+        private fun convertProductDetails(productAdaptee: Storefront.Product) =
                 ProductDetails(productAdaptee.variants
                         .edges
                         .map { ProductVariantAdapter(it.node) }, productAdaptee.descriptionHtml)
+
+        private fun convertProductOptionList(options: List<Storefront.ProductOption>?): List<ProductOption> {
+            return if (options != null) {
+                ProductOptionListAdapter(options)
+            } else {
+                listOf()
+            }
+        }
     }
 
 }
