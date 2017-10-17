@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/holo_red_dark" />
+    <padding
+        android:bottom="@dimen/variant_padding"
+        android:left="@dimen/variant_padding"
+        android:right="@dimen/variant_padding"
+        android:top="@dimen/variant_padding" />
+</shape>

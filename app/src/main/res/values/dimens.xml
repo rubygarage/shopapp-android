@@ -14,4 +14,9 @@
 
     <dimen name="blog_title_height">30dp</dimen>
 
+    <dimen name="variant_border_width">1dp</dimen>
+    <dimen name="variant_border_radius">3dp</dimen>
+    <dimen name="variant_padding">6dp</dimen>
+    <dimen name="variant_margin">8dp</dimen>
+
 </resources>

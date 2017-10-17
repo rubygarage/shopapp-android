@@ -28,7 +28,7 @@ class SortBottomSheet(context: Context, listener: OnItemClickListener<SortType>)
         val outValue = TypedValue()
         context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
 
-        (1..containerLayout.childCount)
+        (1 until containerLayout.childCount)
                 .map { containerLayout.getChildAt(it) }
                 .forEach {
                     if (it is TextView && it.text == selectedSortType.value) {

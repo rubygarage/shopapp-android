@@ -17,7 +17,8 @@ class ProductAdapter(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Pr
         updatedAt = productAdaptee.updatedAt.toDate(),
         price = priceExtractor(productAdaptee),
         images = imageExtractor(productAdaptee),
-        productDetails = productDetailsExtractor(productAdaptee)
+        productDetails = productDetailsExtractor(productAdaptee),
+        options = if (productAdaptee.options != null) ProductOptionListAdapter(productAdaptee.options) else listOf()
 ) {
 
     companion object {

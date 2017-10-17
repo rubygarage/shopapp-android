@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.util.TypedValue
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.FrameLayout
 import com.client.shop.R
 import com.client.shop.di.component.AppComponent
@@ -18,13 +16,14 @@ import com.client.shop.ui.base.ui.BaseMvpActivity
 import com.client.shop.ui.details.contract.DetailsPresenter
 import com.client.shop.ui.details.contract.DetailsView
 import com.client.shop.ui.gallery.GalleryFragment
+import com.client.shop.ui.item.OptionsContainer
 import com.shopapicore.entity.Product
 import com.shopapicore.entity.ProductVariant
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
-
-class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsViewState>(), DetailsView {
+class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsViewState>(), DetailsView,
+        OptionsContainer.OnVariantSelectListener {
 
     @Inject lateinit var detailsPresenter: DetailsPresenter
     private var galleryFragment: GalleryFragment? = null
@@ -61,6 +60,7 @@ class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsVi
 
         setupScrollView(galleryHeight)
         setupGallery(galleryHeight, product)
+        optionsContainer.variantSelectListener = this
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -105,34 +105,6 @@ class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsVi
         }
     }
 
-    private fun fillVariants(product: Product) {
-
-        val variants = product.productDetails.variants
-        if (variants.size > 1) {
-            variantLabel.visibility = View.VISIBLE
-            variantSpinner.visibility = View.VISIBLE
-            variantSpinner.adapter = SpinnerVariantAdapter(variants)
-            variantSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-                override fun onItemSelected(aV: AdapterView<*>?, v: View?, position: Int, id: Long) {
-                    setupVariant(variants[position], product.currency)
-                }
-
-                override fun onNothingSelected(aV: AdapterView<*>?) {
-                }
-            }
-        } else if (variants.size == 1) {
-            variantLabel.visibility = View.GONE
-            variantSpinner.visibility = View.GONE
-            setupVariant(variants[0], product.currency)
-        }
-    }
-
-    private fun setupVariant(variant: ProductVariant, currency: String) {
-
-        priceValue.text = getString(R.string.price_holder, variant.price, currency)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
             if (item.itemId == android.R.id.home) {
@@ -142,14 +114,22 @@ class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsVi
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onVariantSelected(productVariant: ProductVariant?) {
+        if (productVariant != null && productVariant.isAvailable) {
+            priceValue.text = getString(R.string.price_holder, productVariant.price, product.currency)
+            addToCartButton.isEnabled = true
+        } else {
+            priceValue.text = getString(R.string.price_holder, product.price, product.currency)
+            addToCartButton.isEnabled = false
+        }
+    }
 
     override fun productLoaded(product: Product) {
-
         viewState.setProduct(product)
         productTitle.text = product.title
         this.productDescription.text = product.productDescription
         galleryFragment?.updateProduct(product)
-        fillVariants(product)
+        optionsContainer.setProduct(product)
     }
 
     override fun showProgress() {

@@ -11,4 +11,6 @@
     <color name="textColorSecondary">#8A000000</color>
 
     <color name="selectedColor">#EEEEEE</color>
+
+    <color name="white">#FFFFFFFF</color>
 </resources>

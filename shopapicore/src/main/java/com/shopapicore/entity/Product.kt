@@ -17,6 +17,7 @@ open class Product(var id: String,
                    var tags: List<String>,
                    var images: List<Image>,
                    var productDetails: ProductDetails,
+                   var options: List<ProductOption>,
 
                    var paginationValue: String? = null) : Parcelable {
 
@@ -34,6 +35,7 @@ open class Product(var id: String,
             source.createStringArrayList(),
             source.createTypedArrayList(Image.CREATOR),
             source.readParcelable<ProductDetails>(ProductDetails::class.java.classLoader),
+            source.createTypedArrayList(ProductOption.CREATOR),
             source.readString()
     )
 
@@ -53,6 +55,7 @@ open class Product(var id: String,
         writeStringList(tags)
         writeTypedList(images)
         writeParcelable(productDetails, 0)
+        writeTypedList(options)
         writeString(paginationValue)
     }
 

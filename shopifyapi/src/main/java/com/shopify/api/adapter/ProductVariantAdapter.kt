@@ -8,5 +8,6 @@ class ProductVariantAdapter(productVariant: Storefront.ProductVariant) : Product
         productVariant.title,
         productVariant.price.toString(),
         productVariant.availableForSale == java.lang.Boolean.TRUE,
+        if (productVariant.selectedOptions != null) VariantOptionListAdapter(productVariant.selectedOptions) else listOf(),
         if (productVariant.image != null) ImageAdapter(productVariant.image) else null
 )
