@@ -3,7 +3,7 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-open class Policy(var title: String,
+data class Policy(var title: String,
                   var body: String,
                   var url: String) : Parcelable {
 

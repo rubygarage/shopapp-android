@@ -3,7 +3,7 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-open class ProductVariant(var id: String,
+data class ProductVariant(var id: String,
                           var title: String,
                           var price: String,
                           var isAvailable: Boolean,

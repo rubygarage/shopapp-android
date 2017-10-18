@@ -3,9 +3,12 @@ package com.shopify.api.adapter
 import com.shopapicore.entity.VariantOption
 import com.shopify.buy3.Storefront
 
-class VariantOptionListAdapter(options: List<Storefront.SelectedOption>) : ArrayList<VariantOption>() {
+class VariantOptionListAdapter {
 
-    init {
-        options.map { VariantOption(it.name, it.value) }.forEach { add(it) }
+    companion object {
+
+        fun adapt(adaptee: List<Storefront.SelectedOption>?): List<VariantOption> {
+            return adaptee?.map { VariantOption(it.name, it.value) } ?: listOf()
+        }
     }
 }

@@ -3,7 +3,7 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-class ProductOption(var id: String,
+data class ProductOption(var id: String,
                     var name: String,
                     var values: List<String>) : Parcelable {
 

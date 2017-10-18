@@ -3,7 +3,7 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-open class Shop(var name: String,
+data class Shop(var name: String,
                 var description: String?,
                 var privacyPolicy: Policy?,
                 var refundPolicy: Policy?,

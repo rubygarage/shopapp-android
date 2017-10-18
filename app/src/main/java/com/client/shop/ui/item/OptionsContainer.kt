@@ -63,7 +63,7 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
                         selectedVariantOptions.add(it)
                     }
                 }
-        val selectedVariant: ProductVariant? = product.productDetails.variants.firstOrNull {
+        val selectedVariant: ProductVariant? = product.variants.firstOrNull {
             it.selectedOptions.containsAll(selectedVariantOptions)
         }
         variantSelectListener?.onVariantSelected(selectedVariant)

@@ -3,15 +3,16 @@ package com.shopify.api.adapter
 import com.shopapicore.entity.Image
 import com.shopify.buy3.Storefront
 
-class ImageAdapter private constructor(image: Storefront.Image) : Image(
-        image.id.toString(),
-        image.src,
-        image.altText) {
+class ImageAdapter {
 
     companion object {
 
-        fun newInstance(image: Storefront.Image?): ImageAdapter? {
-            return if (image != null) ImageAdapter(image) else null
+        fun adapt(image: Storefront.Image?): Image? {
+            return if (image != null) {
+                Image(image.id.toString(),
+                        image.src,
+                        image.altText)
+            } else null
         }
     }
 }

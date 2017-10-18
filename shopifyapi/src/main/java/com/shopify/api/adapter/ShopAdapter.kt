@@ -1,20 +1,20 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Policy
 import com.shopapicore.entity.Shop
 import com.shopify.buy3.Storefront
 
-class ShopAdapter(data: Storefront.QueryRoot) : Shop(
-        data.shop.name,
-        data.shop.description,
-        convertPolicy(data.shop.privacyPolicy),
-        convertPolicy(data.shop.refundPolicy),
-        convertPolicy(data.shop.termsOfService)
-) {
+class ShopAdapter {
+
     companion object {
 
-        private fun convertPolicy(shopPolicy: Storefront.ShopPolicy?): Policy? {
-            return if (shopPolicy != null) PolicyAdapter(shopPolicy) else null
+        fun adapt(data: Storefront.QueryRoot): Shop {
+            return Shop(
+                    data.shop.name,
+                    data.shop.description,
+                    PolicyAdapter.adapt(data.shop.privacyPolicy),
+                    PolicyAdapter.adapt(data.shop.refundPolicy),
+                    PolicyAdapter.adapt(data.shop.termsOfService)
+            )
         }
     }
 }

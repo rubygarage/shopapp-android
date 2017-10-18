@@ -3,16 +3,12 @@ package com.shopify.api.adapter
 import com.shopapicore.entity.Article
 import com.shopify.buy3.Storefront
 
-import java.util.ArrayList
+class ArticleListAdapter {
 
-class ArticleListAdapter(edges: List<Storefront.ArticleEdge>) : ArrayList<Article>() {
+    companion object {
 
-    init {
-        for (articleEdge in edges) {
-            val adaptee = articleEdge.node
-            val article = ArticleAdapter(adaptee)
-            article.paginationValue = articleEdge.cursor
-            add(article)
+        fun adapt(edges: List<Storefront.ArticleEdge>): List<Article> {
+            return edges.map { ArticleAdapter.adapt(it.node) }
         }
     }
 }

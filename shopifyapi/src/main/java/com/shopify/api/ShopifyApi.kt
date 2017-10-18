@@ -84,7 +84,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopA
         val call = graphClient.queryGraph(query)
         call.enqueue(object : CallWrapper<Product>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Product {
-                return ProductAdapter(data.shop, data.node as Storefront.Product)
+                return ProductAdapter.adapt(data.shop, data.node as Storefront.Product)
             }
         })
     }
@@ -127,7 +127,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopA
         val call = graphClient.queryGraph(query)
         call.enqueue(object : CallWrapper<List<Category>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Category> {
-                return CategoryListAdapter(data.shop)
+                return CategoryListAdapter.adapt(data.shop)
             }
         })
     }
@@ -196,7 +196,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopA
         val call = graphClient.queryGraph(query)
         call.enqueue(object : CallWrapper<Category>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Category {
-                return CategoryAdapter(data.shop, data.node as Storefront.Collection)
+                return CategoryAdapter.adapt(data.shop, data.node as Storefront.Collection)
             }
         })
     }
@@ -217,7 +217,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopA
         val call = graphClient.queryGraph(query)
         call.enqueue(object : CallWrapper<Shop>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Shop {
-                return ShopAdapter(data)
+                return ShopAdapter.adapt(data)
             }
         })
     }
@@ -268,7 +268,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopA
         val call = graphClient.queryGraph(query)
         call.enqueue(object : CallWrapper<List<Article>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Article> {
-                return ArticleListAdapter(data.shop.articles.edges)
+                return ArticleListAdapter.adapt(data.shop.articles.edges)
             }
         })
     }
@@ -369,7 +369,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopA
         val call = graphClient.queryGraph(query)
         call.enqueue(object : CallWrapper<List<Product>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Product> {
-                return ProductListAdapter(data.shop, data.shop.products.edges)
+                return ProductListAdapter.adapt(data.shop, data.shop.products)
             }
         })
     }

@@ -119,7 +119,7 @@ class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsVi
             priceValue.text = getString(R.string.price_holder, productVariant.price, product.currency)
             addToCartButton.isEnabled = true
         } else {
-            priceValue.text = getString(R.string.price_holder, product.price, product.currency)
+            priceValue.text = ""
             addToCartButton.isEnabled = false
         }
     }

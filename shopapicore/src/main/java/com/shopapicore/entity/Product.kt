@@ -4,9 +4,10 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-open class Product(var id: String,
+data class Product(var id: String,
                    var title: String,
                    var productDescription: String,
+                   var additionalDescription: String,
                    var currency: String,
                    var price: String,
                    var discount: String? = null,
@@ -16,8 +17,8 @@ open class Product(var id: String,
                    var updatedAt: Date,
                    var tags: List<String>,
                    var images: List<Image>,
-                   var productDetails: ProductDetails,
                    var options: List<ProductOption>,
+                   var variants: List<ProductVariant>,
 
                    var paginationValue: String? = null) : Parcelable {
 
@@ -30,12 +31,13 @@ open class Product(var id: String,
             source.readString(),
             source.readString(),
             source.readString(),
+            source.readString(),
             source.readSerializable() as Date,
             source.readSerializable() as Date,
             source.createStringArrayList(),
             source.createTypedArrayList(Image.CREATOR),
-            source.readParcelable<ProductDetails>(ProductDetails::class.java.classLoader),
             source.createTypedArrayList(ProductOption.CREATOR),
+            source.createTypedArrayList(ProductVariant.CREATOR),
             source.readString()
     )
 
@@ -45,6 +47,7 @@ open class Product(var id: String,
         writeString(id)
         writeString(title)
         writeString(productDescription)
+        writeString(additionalDescription)
         writeString(currency)
         writeString(price)
         writeString(discount)
@@ -54,8 +57,8 @@ open class Product(var id: String,
         writeSerializable(updatedAt)
         writeStringList(tags)
         writeTypedList(images)
-        writeParcelable(productDetails, 0)
         writeTypedList(options)
+        writeTypedList(variants)
         writeString(paginationValue)
     }
 

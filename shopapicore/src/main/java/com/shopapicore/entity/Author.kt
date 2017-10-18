@@ -3,7 +3,7 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-open class Author(var firstName: String,
+data class Author(var firstName: String,
                   var lastName: String,
                   var fullName: String,
                   var email: String,
