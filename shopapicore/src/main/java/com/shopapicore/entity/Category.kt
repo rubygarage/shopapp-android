@@ -4,21 +4,24 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-open class Category(var id: String,
+data class Category(var id: String,
                     var title: String,
                     var categoryDescription: String,
+                    var additionalDescription: String,
                     var image: Image?,
                     var updatedAt: Date,
-                    var categoryDetails: CategoryDetails,
-                    var paginationValue: Any? = null) : Parcelable {
+                    var productList: List<Product>,
+                    var paginationValue: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
             source.readString(),
+            source.readString(),
             source.readParcelable<Image>(Image::class.java.classLoader),
             source.readSerializable() as Date,
-            source.readParcelable<CategoryDetails>(CategoryDetails::class.java.classLoader)
+            source.createTypedArrayList(Product.CREATOR),
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -27,9 +30,11 @@ open class Category(var id: String,
         writeString(id)
         writeString(title)
         writeString(categoryDescription)
+        writeString(additionalDescription)
         writeParcelable(image, 0)
         writeSerializable(updatedAt)
-        writeParcelable(categoryDetails, 0)
+        writeTypedList(productList)
+        writeString(paginationValue)
     }
 
     companion object {

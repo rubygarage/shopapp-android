@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-open class Article(var id: String,
+data class Article(var id: String,
                    var title: String,
                    var content: String,
                    var image: Image?,

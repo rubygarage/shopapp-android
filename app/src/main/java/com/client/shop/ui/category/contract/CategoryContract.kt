@@ -32,7 +32,7 @@ class CategoryPresenter @Inject constructor(private val shopApiCore: ShopApiCore
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     if (isViewAttached) {
-                        view.productListLoaded(result.categoryDetails.productList)
+                        view.productListLoaded(result.productList)
                     }
                 }, { error ->
                     error.printStackTrace()

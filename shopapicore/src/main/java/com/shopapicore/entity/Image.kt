@@ -3,7 +3,7 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-open class Image(var id: String,
+data class Image(var id: String,
                  var src: String,
                  var alt: String?) : Parcelable {
 

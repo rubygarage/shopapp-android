@@ -3,10 +3,11 @@ package com.shopapicore.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-open class ProductVariant(var id: String,
+data class ProductVariant(var id: String,
                           var title: String,
                           var price: String,
                           var isAvailable: Boolean,
+                          var selectedOptions: List<VariantOption>,
                           var image: Image? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
@@ -14,6 +15,7 @@ open class ProductVariant(var id: String,
             source.readString(),
             source.readString(),
             1 == source.readInt(),
+            source.createTypedArrayList(VariantOption.CREATOR),
             source.readParcelable<Image>(Image::class.java.classLoader)
     )
 
@@ -24,6 +26,7 @@ open class ProductVariant(var id: String,
         writeString(title)
         writeString(price)
         writeInt((if (isAvailable) 1 else 0))
+        writeTypedList(selectedOptions)
         writeParcelable(image, 0)
     }
 

@@ -3,17 +3,16 @@ package com.shopify.api.adapter
 import com.shopapicore.entity.Category
 import com.shopify.buy3.Storefront
 
-import java.util.ArrayList
+class CategoryListAdapter {
 
-class CategoryListAdapter(shop: Storefront.Shop) : ArrayList<Category>() {
+    companion object {
 
-    init {
-        val collectionEdges = shop.collections.edges
-        for (collectionEdge in collectionEdges) {
-            val collection = collectionEdge.node
-            val category = CategoryAdapter(shop, collection)
-            category.paginationValue = collectionEdge.cursor
-            add(category)
+        fun adapt(shop: Storefront.Shop): List<Category> {
+            return shop.collections.edges.map {
+                val category = CategoryAdapter.adapt(shop, it.node)
+                category.paginationValue = it.cursor
+                category
+            }
         }
     }
 }
