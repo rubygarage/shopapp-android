@@ -12,7 +12,8 @@ import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.adapter.RecentAdapter
 import com.client.shop.ui.recent.contract.RecentPresenter
 import com.client.shop.ui.recent.contract.RecentView
-import com.shopapicore.entity.Product
+import com.client.shop.ui.recent.di.RecentModule
+import com.domain.entity.Product
 import javax.inject.Inject
 
 class RecentActivity : PaginationActivity<Product, RecentView, RecentPresenter, RecentViewState>(),
@@ -31,7 +32,7 @@ class RecentActivity : PaginationActivity<Product, RecentView, RecentPresenter, 
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachRecentComponent(RecentModule()).inject(this)
     }
 
     override fun createPresenter() = recentPresenter

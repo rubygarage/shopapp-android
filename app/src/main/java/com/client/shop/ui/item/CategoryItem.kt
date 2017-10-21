@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.util.TypedValue
 import android.view.View
 import com.client.shop.R
-import com.shopapicore.entity.Category
+import com.domain.entity.Category
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryItem(context: Context) : LinearLayoutCompat(context) {

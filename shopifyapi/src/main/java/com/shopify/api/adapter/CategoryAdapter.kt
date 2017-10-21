@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Category
+import com.domain.entity.Category
 import com.shopify.buy3.Storefront
 
 class CategoryAdapter {

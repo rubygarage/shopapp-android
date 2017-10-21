@@ -15,9 +15,9 @@ import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.CategoryFragment
 import com.client.shop.ui.home.adapter.CategoriesAdapter
 import com.client.shop.ui.policy.PolicyActivity
-import com.shopapicore.entity.Category
-import com.shopapicore.entity.Policy
-import com.shopapicore.entity.Shop
+import com.domain.entity.Category
+import com.domain.entity.Policy
+import com.domain.entity.Shop
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity(), OnItemClickListener<Category> {

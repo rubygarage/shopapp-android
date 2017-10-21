@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.ProductOption
+import com.domain.entity.ProductOption
 import com.shopify.buy3.Storefront
 
 class ProductOptionListAdapter {

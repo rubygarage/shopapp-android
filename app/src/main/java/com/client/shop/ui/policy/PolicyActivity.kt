@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.client.shop.R
-import com.shopapicore.entity.Policy
+import com.domain.entity.Policy
 import kotlinx.android.synthetic.main.activity_policy.*
 
 class PolicyActivity : AppCompatActivity() {

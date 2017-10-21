@@ -1,15 +1,15 @@
 package com.shopify.api
 
 import android.content.Context
-import com.shopapicore.ApiCallback
-import com.shopapicore.ShopApi
-import com.shopapicore.entity.*
+import com.apicore.ApiCallback
+import com.domain.entity.*
+import com.apicore.Api
 import com.shopify.api.adapter.*
 import com.shopify.buy3.GraphClient
 import com.shopify.buy3.Storefront
 import com.shopify.graphql.support.ID
 
-class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : ShopApi {
+class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     private val graphClient: GraphClient = GraphClient.builder(context)
             .shopDomain(baseUrl)

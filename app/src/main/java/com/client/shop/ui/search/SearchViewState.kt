@@ -3,7 +3,7 @@ package com.client.shop.ui.search
 import android.os.Bundle
 import com.client.shop.ui.search.contract.SearchView
 import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 
 class SearchViewState : RestorableViewState<SearchView> {
 

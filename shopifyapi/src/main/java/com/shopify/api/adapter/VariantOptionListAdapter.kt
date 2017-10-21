@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.VariantOption
+import com.domain.entity.VariantOption
 import com.shopify.buy3.Storefront
 
 class VariantOptionListAdapter {

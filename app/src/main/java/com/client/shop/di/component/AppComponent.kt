@@ -1,35 +1,34 @@
 package com.client.shop.di.component
 
-import com.client.shop.di.module.NetworkModule
-import com.client.shop.ui.blog.BlogActivity
-import com.client.shop.ui.blog.BlogFragment
-import com.client.shop.ui.category.CategoryFragment
-import com.client.shop.ui.details.DetailsActivity
-import com.client.shop.ui.recent.RecentActivity
-import com.client.shop.ui.recent.RecentFragment
-import com.client.shop.ui.search.SearchActivity
-import com.client.shop.ui.splash.SplashActivity
+import com.client.shop.di.module.RepositoryModule
+import com.client.shop.ui.blog.di.BlogComponent
+import com.client.shop.ui.blog.di.BlogModule
+import com.client.shop.ui.category.di.CategoryComponent
+import com.client.shop.ui.category.di.CategoryModule
+import com.client.shop.ui.details.di.DetailsComponent
+import com.client.shop.ui.details.di.DetailsModule
+import com.client.shop.ui.recent.di.RecentComponent
+import com.client.shop.ui.recent.di.RecentModule
+import com.client.shop.ui.search.di.SearchComponent
+import com.client.shop.ui.search.di.SearchModule
+import com.client.shop.ui.splash.di.SplashComponent
+import com.client.shop.ui.splash.di.SplashModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(NetworkModule::class))
+@Component(modules = arrayOf(RepositoryModule::class))
 interface AppComponent {
 
-    fun inject(activity: SplashActivity)
+    fun attachBlogComponent(module: BlogModule): BlogComponent
 
-    fun inject(activity: DetailsActivity)
+    fun attachSplashComponent(module: SplashModule): SplashComponent
 
-    fun inject(activity: SearchActivity)
+    fun attachDetailsComponent(module: DetailsModule): DetailsComponent
 
-    fun inject(activity: RecentActivity)
+    fun attachSearchComponent(module: SearchModule): SearchComponent
 
-    fun inject(activity: BlogActivity)
+    fun attachRecentComponent(module: RecentModule): RecentComponent
 
-
-    fun inject(fragment: RecentFragment)
-
-    fun inject(fragment: BlogFragment)
-
-    fun inject(fragment: CategoryFragment)
+    fun attachCategoryComponent(module: CategoryModule): CategoryComponent
 }

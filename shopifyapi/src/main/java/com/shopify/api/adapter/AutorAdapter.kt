@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Author
+import com.domain.entity.Author
 import com.shopify.buy3.Storefront
 
 class AutorAdapter {

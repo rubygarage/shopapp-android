@@ -4,9 +4,9 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
-import com.shopapicore.entity.Product
-import com.shopapicore.entity.ProductVariant
-import com.shopapicore.entity.VariantOption
+import com.domain.entity.Product
+import com.domain.entity.ProductVariant
+import com.domain.entity.VariantOption
 
 
 class OptionsContainer @JvmOverloads constructor(context: Context,

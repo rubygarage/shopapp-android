@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.TextView
 import com.client.shop.R
 import com.google.android.flexbox.FlexboxLayout
-import com.shopapicore.entity.ProductOption
-import com.shopapicore.entity.VariantOption
+import com.domain.entity.ProductOption
+import com.domain.entity.VariantOption
 import kotlinx.android.synthetic.main.item_options.view.*
 
 class OptionsItem @JvmOverloads constructor(context: Context,

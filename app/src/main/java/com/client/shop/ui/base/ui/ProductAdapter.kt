@@ -5,7 +5,7 @@ import android.view.View
 import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.item.ProductItem
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 
 class ProductAdapter(productList: List<Product>, onItemClickListener: OnItemClickListener<Product>) :
         BaseRecyclerAdapter<Product>(productList, onItemClickListener) {

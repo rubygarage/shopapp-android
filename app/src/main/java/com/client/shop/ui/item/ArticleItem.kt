@@ -5,7 +5,7 @@ import android.support.v7.widget.CardView
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
-import com.shopapicore.entity.Article
+import com.domain.entity.Article
 import kotlinx.android.synthetic.main.item_article.view.*
 
 class ArticleItem(context: Context) : CardView(context) {

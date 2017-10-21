@@ -10,8 +10,9 @@ import com.client.shop.ui.base.ui.BaseMvpActivity
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.splash.contract.SplashPresenter
 import com.client.shop.ui.splash.contract.SplashView
-import com.shopapicore.entity.Category
-import com.shopapicore.entity.Shop
+import com.client.shop.ui.splash.di.SplashModule
+import com.domain.entity.Category
+import com.domain.entity.Shop
 import kotlinx.android.synthetic.main.activity_splash.*
 import javax.inject.Inject
 
@@ -38,7 +39,7 @@ class SplashActivity : BaseMvpActivity<SplashView, SplashPresenter, SplashViewSt
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachSplashComponent(SplashModule()).inject(this)
     }
 
     override fun createPresenter() = splashPresenter

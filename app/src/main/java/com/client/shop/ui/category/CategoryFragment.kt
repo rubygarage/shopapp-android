@@ -13,11 +13,12 @@ import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.adapter.CategoryAdapter
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
+import com.client.shop.ui.category.di.CategoryModule
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.modal.SortBottomSheet
-import com.shopapicore.entity.Category
-import com.shopapicore.entity.Product
-import com.shopapicore.entity.SortType
+import com.domain.entity.Category
+import com.domain.entity.Product
+import com.domain.entity.SortType
 import javax.inject.Inject
 
 class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPresenter, CategoryViewState>(),
@@ -64,7 +65,7 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachCategoryComponent(CategoryModule()).inject(this)
     }
 
     override fun createPresenter() = categoryPresenter

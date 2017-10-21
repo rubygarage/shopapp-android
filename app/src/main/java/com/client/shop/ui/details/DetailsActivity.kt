@@ -15,10 +15,11 @@ import com.client.shop.ext.getScreenSize
 import com.client.shop.ui.base.ui.BaseMvpActivity
 import com.client.shop.ui.details.contract.DetailsPresenter
 import com.client.shop.ui.details.contract.DetailsView
+import com.client.shop.ui.details.di.DetailsModule
 import com.client.shop.ui.gallery.GalleryFragment
 import com.client.shop.ui.item.OptionsContainer
-import com.shopapicore.entity.Product
-import com.shopapicore.entity.ProductVariant
+import com.domain.entity.Product
+import com.domain.entity.ProductVariant
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
@@ -66,7 +67,7 @@ class DetailsActivity : BaseMvpActivity<DetailsView, DetailsPresenter, DetailsVi
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachDetailsComponent(DetailsModule()).inject(this)
     }
 
     override fun createPresenter(): DetailsPresenter {

@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.ProductVariant
+import com.domain.entity.ProductVariant
 import com.shopify.buy3.Storefront
 
 class ProductVariantAdapter {

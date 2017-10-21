@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/apicore/apicore.iml" filepath="$PROJECT_DIR$/apicore/apicore.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shopapicore/shopapicore.iml" filepath="$PROJECT_DIR$/shopapicore/shopapicore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/daocore/daocore.iml" filepath="$PROJECT_DIR$/daocore/daocore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/repository/repository.iml" filepath="$PROJECT_DIR$/repository/repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/apicore/shopapicore.iml" filepath="$PROJECT_DIR$/apicore/shopapicore.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopclient-android.iml" filepath="$PROJECT_DIR$/shopclient-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopifyapi/shopifyapi.iml" filepath="$PROJECT_DIR$/shopifyapi/shopifyapi.iml" />
     </modules>

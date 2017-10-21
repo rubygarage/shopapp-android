@@ -1,7 +1,7 @@
 package com.client.shop.ui.base.ui
 
 import android.os.Bundle
-import com.client.shop.MainApplication
+import com.client.shop.ShopApplication
 import com.client.shop.di.component.AppComponent
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView
@@ -12,7 +12,7 @@ abstract class BaseMvpFragment<V : MvpView, P : MvpPresenter<V>, VS : ViewState<
         MvpViewStateFragment<V, P, VS>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        inject(MainApplication.appComponent)
+        inject(ShopApplication.appComponent)
         super.onCreate(savedInstanceState)
     }
 

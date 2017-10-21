@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Shop
+import com.domain.entity.Shop
 import com.shopify.buy3.Storefront
 
 class ShopAdapter {
