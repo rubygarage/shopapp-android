@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
+import android.view.View
 import com.client.shop.R
 import com.shopapicore.entity.Product
+import kotlinx.android.synthetic.main.activity_gallery.*
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -29,9 +32,34 @@ class GalleryActivity : AppCompatActivity() {
         val product: Product = intent.getParcelableExtra(EXTRA_PRODUCT)
         val selectedPosition = intent.getIntExtra(EXTRA_SELECTED_POSITION, 0)
 
+        setSupportActionBar(toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
+
+        val restoredFragment = supportFragmentManager.findFragmentByTag(GalleryFragment::javaClass.name)
+        val fragment: GalleryFragment = if (restoredFragment is GalleryFragment) {
+            restoredFragment
+        } else {
+            val newFragmentInstance = GalleryFragment.newInstance(product = product, selectedPosition = selectedPosition)
+            newFragmentInstance.imageClickListener = View.OnClickListener {
+                toolbar.visibility =
+                        if (toolbar.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            }
+            newFragmentInstance
+        }
         supportFragmentManager.beginTransaction()
-                .replace(R.id.galleryContainer, GalleryFragment.newInstance(product = product,
-                        selectedPosition = selectedPosition))
+                .replace(R.id.galleryContainer, fragment, fragment::javaClass.name)
                 .commit()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.let {
+            if (item.itemId == android.R.id.home) {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
-import com.client.shop.ui.custom.ClickableViewPager
 import com.shopapicore.entity.Product
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
@@ -17,6 +16,7 @@ class GalleryFragment : Fragment() {
     private var adapter: FragmentStatePagerAdapter? = null
     private lateinit var product: Product
     private var isThumbnailMode: Boolean = false
+    var imageClickListener: View.OnClickListener? = null
 
     companion object {
 
@@ -51,20 +51,19 @@ class GalleryFragment : Fragment() {
         pager.adapter = adapter
         pager.currentItem = selectedPosition
         indicator.setViewPager(pager)
-
-        if (isThumbnailMode) {
-            pager.setOnItemClickListener(object : ClickableViewPager.OnItemClickListener {
-                override fun onItemClick(position: Int) {
-                    startActivity(GalleryActivity.getStartIntent(context, product, pager.currentItem))
-                }
-            })
-        }
     }
 
     private fun setupAdapter(fragmentManager: FragmentManager) = object : FragmentStatePagerAdapter(fragmentManager) {
 
         override fun getItem(position: Int): Fragment {
-            return ImageFragment.newInstance(product.images[position], isThumbnailMode)
+            val fragment = ImageFragment.newInstance(product.images[position], isThumbnailMode)
+            if (isThumbnailMode) {
+                fragment.imageClickListener =
+                        View.OnClickListener { startActivity(GalleryActivity.getStartIntent(context, product, pager.currentItem)) }
+            } else {
+                fragment.imageClickListener = imageClickListener
+            }
+            return fragment
         }
 
         override fun getCount(): Int {

@@ -6,6 +6,7 @@
 
     <color name="colorBackgroundDark">#212121</color>
     <color name="colorBackgroundLight">#FAFAFA</color>
+    <color name="colorBackgroundDarkTranslucent">#7D212121</color>
 
     <color name="textColorPrimary">#DE000000</color>
     <color name="textColorSecondary">#8A000000</color>
@@ -13,4 +14,5 @@
     <color name="selectedColor">#EEEEEE</color>
 
     <color name="white">#FFFFFFFF</color>
+
 </resources>
