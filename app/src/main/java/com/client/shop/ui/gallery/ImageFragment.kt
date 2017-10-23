@@ -21,7 +21,7 @@ class ImageFragment : Fragment() {
         private const val IMAGE = "image"
         private const val IS_THUMBNAIL_MODE = "IS_THUMBNAIL_MODE"
 
-        fun newInstance(image: Image, isFullscreenMode: Boolean): ImageFragment {
+        fun newInstance(image: Image?, isFullscreenMode: Boolean): ImageFragment {
             val fragment = ImageFragment()
             val args = Bundle()
             args.putParcelable(IMAGE, image)
@@ -41,22 +41,21 @@ class ImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val thumbnailMode = arguments.getBoolean(IS_THUMBNAIL_MODE, false)
-        val image: Image = arguments.getParcelable(IMAGE)
+        val image: Image? = arguments.getParcelable(IMAGE)
 
-        if (view is ZoomableDraweeView && !TextUtils.isEmpty(image.src)) {
+        if (view is ZoomableDraweeView && !TextUtils.isEmpty(image?.src)) {
 
             if (thumbnailMode) {
                 view.isZoomEnabled = false
             } else {
                 view.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
                 view.setIsLongpressEnabled(false)
-                //view.isSoundEffectsEnabled = false
                 view.setTapListener(DoubleTapGestureListener(view))
             }
 
             imageClickListener?.let { view.setOnClickListener(it) }
             val controller = Fresco.newDraweeControllerBuilder()
-                    .setUri(image.src)
+                    .setUri(image?.src)
                     .setCallerContext("ImageFragment")
                     .build()
             view.controller = controller
