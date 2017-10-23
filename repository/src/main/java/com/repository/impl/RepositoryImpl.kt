@@ -2,22 +2,12 @@ package com.repository.impl
 
 import com.domain.entity.*
 import com.repository.*
-import com.apicore.Api
 import io.reactivex.Single
 
-class RepositoryImpl(api: Api) : Repository {
-
-    private val shopRepository: ShopRepository
-    private val blogRepository: BlogRepository
-    private val productRepository: ProductRepository
-    private val categoryRepository: CategoryRepository
-
-    init {
-        shopRepository = ShopRepositoryImpl(api)
-        blogRepository = BlogRepositoryImpl(api)
-        productRepository = ProductRepositoryImpl(api)
-        categoryRepository = CategoryRepositoryImpl(api)
-    }
+class RepositoryImpl(private val shopRepository: ShopRepository,
+                     private val blogRepository: BlogRepository,
+                     private val productRepository: ProductRepository,
+                     private val categoryRepository: CategoryRepository) : Repository {
 
     override fun getShop(): Single<Shop> {
         return shopRepository.getShop()

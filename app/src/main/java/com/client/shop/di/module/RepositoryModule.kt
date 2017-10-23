@@ -1,8 +1,8 @@
 package com.client.shop.di.module
 
 import com.repository.Repository
-import com.repository.impl.RepositoryImpl
 import com.apicore.Api
+import com.repository.impl.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -13,6 +13,9 @@ class RepositoryModule(private val shopApi: Api) {
     @Provides
     @Singleton
     fun provideRepository(): Repository {
-        return RepositoryImpl(shopApi)
+        return RepositoryImpl(ShopRepositoryImpl(shopApi),
+                BlogRepositoryImpl(shopApi),
+                ProductRepositoryImpl(shopApi),
+                CategoryRepositoryImpl(shopApi))
     }
 }
