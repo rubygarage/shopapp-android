@@ -11,8 +11,8 @@ import com.shopify.api.ShopifyApi
 class MainApplication : Application() {
 
     companion object {
-        private const val BASE_URL = "storeshmor.myshopify.com"
-        private const val ACCESS_TOKEN = "12a5873d85ff01cddea6261913ecf3e9"
+        private const val BASE_URL = "xpohstore.myshopify.com"
+        private const val ACCESS_TOKEN = "afc80014a08846feaf590e1db92e74b6"
 
         lateinit var appComponent: AppComponent
     }

@@ -26,7 +26,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name="com.client.shop.ui.details.DetailsActivity" />
+        <activity
+            android:name="com.client.shop.ui.details.DetailsActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.search.SearchActivity"

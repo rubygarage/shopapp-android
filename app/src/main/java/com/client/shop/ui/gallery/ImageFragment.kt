@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
+import com.client.shop.ui.custom.zoomable.DoubleTapGestureListener
+import com.client.shop.ui.custom.zoomable.ZoomableDraweeView
+import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.drawee.view.SimpleDraweeView
 import com.shopapicore.entity.Image
 
 
@@ -19,7 +21,7 @@ class ImageFragment : Fragment() {
         private const val IMAGE = "image"
         private const val IS_THUMBNAIL_MODE = "IS_THUMBNAIL_MODE"
 
-        fun newInstance(image: Image, isFullscreenMode: Boolean): ImageFragment {
+        fun newInstance(image: Image?, isFullscreenMode: Boolean): ImageFragment {
             val fragment = ImageFragment()
             val args = Bundle()
             args.putParcelable(IMAGE, image)
@@ -29,6 +31,8 @@ class ImageFragment : Fragment() {
         }
     }
 
+    var imageClickListener: View.OnClickListener? = null
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_image, container, false)
     }
@@ -36,15 +40,25 @@ class ImageFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val image: Image = arguments.getParcelable(IMAGE)
-        val isThumbnailMode = arguments.getBoolean(IS_THUMBNAIL_MODE, false)
+        val thumbnailMode = arguments.getBoolean(IS_THUMBNAIL_MODE, false)
+        val image: Image? = arguments.getParcelable(IMAGE)
 
-        if (view is SimpleDraweeView && !TextUtils.isEmpty(image.src)) {
-            view.setImageURI(image.src)
-            view.hierarchy.actualImageScaleType = if (isThumbnailMode)
-                ScalingUtils.ScaleType.CENTER_CROP
-            else
-                ScalingUtils.ScaleType.FIT_CENTER
+        if (view is ZoomableDraweeView && !TextUtils.isEmpty(image?.src)) {
+
+            if (thumbnailMode) {
+                view.isZoomEnabled = false
+            } else {
+                view.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
+                view.setIsLongpressEnabled(false)
+                view.setTapListener(DoubleTapGestureListener(view))
+            }
+
+            imageClickListener?.let { view.setOnClickListener(it) }
+            val controller = Fresco.newDraweeControllerBuilder()
+                    .setUri(image?.src)
+                    .setCallerContext("ImageFragment")
+                    .build()
+            view.controller = controller
         }
     }
 }
