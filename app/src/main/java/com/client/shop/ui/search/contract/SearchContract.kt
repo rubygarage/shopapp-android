@@ -3,10 +3,8 @@ package com.client.shop.ui.search.contract
 import android.text.TextUtils
 import com.client.shop.ui.base.contract.BaseMvpView
 import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.rx.RxCallback
-import com.shopapicore.ShopApiCore
-import com.shopapicore.entity.Product
-import io.reactivex.Observable
+import com.domain.entity.Product
+import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -15,7 +13,7 @@ interface SearchView : BaseMvpView {
     fun searchResultsReceived(productList: List<Product>, query: String)
 }
 
-class SearchPresenter @Inject constructor(private val shopApiCore: ShopApiCore) : BasePresenter<SearchView>() {
+class SearchPresenter @Inject constructor(repository: Repository) : BasePresenter<SearchView>(repository) {
 
     fun search(perPage: Int, paginationValue: String?, query: String) {
 
@@ -26,19 +24,17 @@ class SearchPresenter @Inject constructor(private val shopApiCore: ShopApiCore) 
 
         showProgress()
 
-        val call = Observable.create<List<Product>> { emitter ->
-            shopApiCore.searchProductList(perPage, paginationValue, query, RxCallback<List<Product>>(emitter))
-        }
-
-        val searchDisposable = call.observeOn(AndroidSchedulers.mainThread())
+        val searchDisposable = repository.searchProductListByQuery(query, perPage, paginationValue)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     if (isViewAttached) {
                         view.searchResultsReceived(result, query)
+                        view.hideProgress()
                     }
                 }, { error ->
                     error.printStackTrace()
                     hideProgress()
-                }, { hideProgress() })
+                })
         disposables.add(searchDisposable)
     }
 }

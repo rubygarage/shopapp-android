@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
 class GalleryFragment : Fragment() {
@@ -49,13 +49,12 @@ class GalleryFragment : Fragment() {
         pager.currentItem = selectedPosition
         indicator.setViewPager(pager)
 
-        setProduct()
+        setData()
     }
 
     private fun setupAdapter() {
         adapter = GalleryPagerAdapter(fragmentManager)
         adapter.registerDataSetObserver(indicator.dataSetObserver)
-
         adapter.imageClickListener = if (isThumbnailMode) {
             View.OnClickListener {
                 startActivity(GalleryActivity.getStartIntent(context, product, pager.currentItem))
@@ -65,14 +64,15 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    private fun setProduct() {
+    private fun setData() {
         adapter.product = product
+        adapter.isThumbnailMode = isThumbnailMode
         adapter.notifyDataSetChanged()
         indicator.visibility = if (product.images.size <= 1) View.INVISIBLE else View.VISIBLE
     }
 
     fun updateProduct(product: Product) {
         this.product = product
-        setProduct()
+        setData()
     }
 }

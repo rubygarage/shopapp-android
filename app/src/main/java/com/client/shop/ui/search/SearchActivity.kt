@@ -10,7 +10,8 @@ import com.client.shop.ui.base.ui.PaginationActivity
 import com.client.shop.ui.base.ui.ProductAdapter
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.search.contract.SearchPresenter
-import com.shopapicore.entity.Product
+import com.client.shop.ui.search.di.SearchModule
+import com.domain.entity.Product
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -48,7 +49,8 @@ class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresente
         super.onResume()
         searchObserver?.let {
             searchSubscription = it
-                    .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                    .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         paginationValue = null
                         fetchData()
@@ -66,7 +68,7 @@ class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresente
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachSearchComponent(SearchModule()).inject(this)
     }
 
     override fun onItemClicked(data: Product, position: Int) {

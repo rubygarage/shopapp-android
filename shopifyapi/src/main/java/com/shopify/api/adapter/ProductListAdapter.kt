@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 import com.shopify.buy3.Storefront
 
 class ProductListAdapter {
@@ -8,7 +8,7 @@ class ProductListAdapter {
     companion object {
 
         fun adapt(shop: Storefront.Shop, productConnection: Storefront.ProductConnection?): List<Product> {
-            return productConnection?.edges?.map { ProductAdapter.adapt(shop, it.node) } ?: listOf()
+            return productConnection?.edges?.map { ProductAdapter.adapt(shop, it.node, it.cursor) } ?: listOf()
         }
     }
 }

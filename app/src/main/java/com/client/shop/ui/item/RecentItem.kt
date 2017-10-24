@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v7.widget.CardView
 import android.view.View
 import com.client.shop.R
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 import kotlinx.android.synthetic.main.item_recent.view.*
 
 class RecentItem(context: Context?) : CardView(context) {

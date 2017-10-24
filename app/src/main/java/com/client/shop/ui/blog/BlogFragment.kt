@@ -12,7 +12,8 @@ import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
-import com.shopapicore.entity.Article
+import com.client.shop.ui.blog.di.BlogModule
+import com.domain.entity.Article
 import kotlinx.android.synthetic.main.fragment_blog.*
 import javax.inject.Inject
 
@@ -43,7 +44,7 @@ class BlogFragment : BaseMvpFragment<BlogView, BlogPresenter, BlogViewState>(), 
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachBlogComponent(BlogModule()).inject(this)
     }
 
     override fun createPresenter() = blogPresenter

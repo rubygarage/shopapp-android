@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.client.shop.R
-import com.shopapicore.entity.ProductVariant
+import com.domain.entity.ProductVariant
 
 
 class SpinnerVariantAdapter(private val variants: List<ProductVariant>) : BaseAdapter() {

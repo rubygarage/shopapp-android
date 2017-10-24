@@ -3,7 +3,7 @@
     package="com.client.shop">
 
     <application
-        android:name=".MainApplication"
+        android:name=".ShopApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

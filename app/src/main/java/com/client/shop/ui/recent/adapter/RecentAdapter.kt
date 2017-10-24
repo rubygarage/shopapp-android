@@ -7,7 +7,7 @@ import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.item.MoreItem
 import com.client.shop.ui.item.RecentItem
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 
 class RecentAdapter(productList: List<Product>, onItemClickListener: OnItemClickListener<Product>,
                     private val moreButtonListener: View.OnClickListener) :

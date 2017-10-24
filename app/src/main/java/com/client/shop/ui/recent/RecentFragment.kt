@@ -14,8 +14,9 @@ import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.adapter.RecentAdapter
 import com.client.shop.ui.recent.contract.RecentPresenter
 import com.client.shop.ui.recent.contract.RecentView
+import com.client.shop.ui.recent.di.RecentModule
+import com.domain.entity.Product
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.shopapicore.entity.Product
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
@@ -52,7 +53,7 @@ class RecentFragment : BaseMvpFragment<RecentView, RecentPresenter, RecentViewSt
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachRecentComponent(RecentModule()).inject(this)
     }
 
     override fun createPresenter() = recentPresenter

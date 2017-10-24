@@ -7,7 +7,7 @@ import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.item.CategoryItem
 import com.client.shop.ui.item.DrawerItem
-import com.shopapicore.entity.Category
+import com.domain.entity.Category
 
 class CategoriesAdapter(categories: List<Category>, onItemClickListener: OnItemClickListener<Category>) :
         BaseRecyclerAdapter<Category>(categories, onItemClickListener) {

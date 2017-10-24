@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Image
+import com.domain.entity.Image
 import com.shopify.buy3.Storefront
 
 class ImageAdapter {

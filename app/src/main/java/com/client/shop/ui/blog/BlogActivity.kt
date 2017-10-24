@@ -9,7 +9,8 @@ import com.client.shop.ui.base.ui.PaginationActivity
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
-import com.shopapicore.entity.Article
+import com.client.shop.ui.blog.di.BlogModule
+import com.domain.entity.Article
 import javax.inject.Inject
 
 class BlogActivity : PaginationActivity<Article, BlogView, BlogPresenter, BlogViewState>(), BlogView {
@@ -28,7 +29,7 @@ class BlogActivity : PaginationActivity<Article, BlogView, BlogPresenter, BlogVi
     }
 
     override fun inject(component: AppComponent) {
-        component.inject(this)
+        component.attachBlogComponent(BlogModule()).inject(this)
     }
 
     override fun createPresenter() = blogPresenter

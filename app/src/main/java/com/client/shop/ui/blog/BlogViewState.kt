@@ -3,7 +3,7 @@ package com.client.shop.ui.blog
 import android.os.Bundle
 import com.client.shop.ui.blog.contract.BlogView
 import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState
-import com.shopapicore.entity.Article
+import com.domain.entity.Article
 
 class BlogViewState : RestorableViewState<BlogView> {
 

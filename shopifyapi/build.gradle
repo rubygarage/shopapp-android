@@ -35,7 +35,7 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
 
-    implementation project(":shopapicore")
+    implementation project(':apicore')
 
     implementation 'com.shopify.mobilebuysdk:buy3:3.0.6'
     implementation 'com.shopify.mobilebuysdk:buy3-pay-support:1.0.2'

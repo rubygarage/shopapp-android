@@ -1,8 +1,8 @@
 package com.shopify.api.adapter
 
-import com.shopapicore.entity.Image
-import com.shopapicore.entity.Product
-import com.shopapicore.entity.ProductOption
+import com.domain.entity.Image
+import com.domain.entity.Product
+import com.domain.entity.ProductOption
 import com.shopify.buy3.Storefront
 
 class ProductAdapter {
@@ -11,7 +11,7 @@ class ProductAdapter {
 
         private val DEFAULT_PRICE = "0"
 
-        fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product): Product {
+        fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product, paginationValue: String? = null): Product {
             return Product(
                     id = productAdaptee.id.toString(),
                     title = productAdaptee.title,
@@ -26,7 +26,8 @@ class ProductAdapter {
                     price = convertPrice(productAdaptee),
                     images = convertImage(productAdaptee),
                     options = convertProductOptionList(productAdaptee.options),
-                    variants = productAdaptee.variants.edges.map { ProductVariantAdapter.adapt(it.node) }
+                    variants = productAdaptee.variants.edges.map { ProductVariantAdapter.adapt(it.node) },
+                    paginationValue = paginationValue
             )
         }
 

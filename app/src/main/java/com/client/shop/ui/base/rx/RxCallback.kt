@@ -1,15 +1,14 @@
 package com.client.shop.ui.base.rx
 
-import com.shopapicore.ApiCallback
-import io.reactivex.ObservableEmitter
+import com.apicore.ApiCallback
+import io.reactivex.SingleEmitter
 import java.lang.Error
 
-class RxCallback<T>(private val emitter: ObservableEmitter<T>) : ApiCallback<T> {
+class RxCallback<in T>(private val emitter: SingleEmitter<T>) : ApiCallback<T> {
 
     override fun onResult(result: T) {
         if (!emitter.isDisposed) {
-            emitter.onNext(result)
-            emitter.onComplete()
+            emitter.onSuccess(result)
         }
     }
 

@@ -2,11 +2,9 @@ package com.client.shop.ui.recent.contract
 
 import com.client.shop.ui.base.contract.BaseMvpView
 import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.rx.RxCallback
-import com.shopapicore.ShopApiCore
-import com.shopapicore.entity.Product
-import com.shopapicore.entity.SortType
-import io.reactivex.Observable
+import com.domain.entity.Product
+import com.domain.entity.SortType
+import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
@@ -15,26 +13,22 @@ interface RecentView : BaseMvpView {
     fun productListLoaded(productList: List<Product>)
 }
 
-class RecentPresenter @Inject constructor(private val shopApiCore: ShopApiCore) : BasePresenter<RecentView>() {
+class RecentPresenter @Inject constructor(repository: Repository) : BasePresenter<RecentView>(repository) {
 
     fun loadProductList(perPage: Int, paginationValue: String? = null) {
 
         showProgress()
 
-        val call = Observable.create<List<Product>> { emitter ->
-            shopApiCore.getProductList(perPage, paginationValue, SortType.RECENT, true,
-                    RxCallback<List<Product>>(emitter))
-        }
-
-        val productDisposable = call.observeOn(AndroidSchedulers.mainThread())
+        //TODO MOVE RECENT TO SHOPIFY
+        val productDisposable = repository.getProductList(perPage, paginationValue, SortType.RECENT, true)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     if (isViewAttached) {
                         view.productListLoaded(result)
+                        view.hideProgress()
                     }
                 }, { error ->
                     error.printStackTrace()
-                    hideProgress()
-                }, {
                     hideProgress()
                 })
         disposables.add(productDisposable)

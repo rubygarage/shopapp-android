@@ -6,7 +6,7 @@ import android.util.TypedValue
 import android.widget.TextView
 import com.client.shop.R
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.shopapicore.entity.SortType
+import com.domain.entity.SortType
 import kotlinx.android.synthetic.main.bottom_sheet_sort.*
 
 class SortBottomSheet(context: Context, listener: OnItemClickListener<SortType>) : BottomSheetDialog(context) {

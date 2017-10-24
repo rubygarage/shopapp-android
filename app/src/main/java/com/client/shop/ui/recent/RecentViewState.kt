@@ -3,7 +3,7 @@ package com.client.shop.ui.recent
 import android.os.Bundle
 import com.client.shop.ui.recent.contract.RecentView
 import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState
-import com.shopapicore.entity.Product
+import com.domain.entity.Product
 
 class RecentViewState : RestorableViewState<RecentView> {
 

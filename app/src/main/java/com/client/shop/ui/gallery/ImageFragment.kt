@@ -11,7 +11,7 @@ import com.client.shop.ui.custom.zoomable.DoubleTapGestureListener
 import com.client.shop.ui.custom.zoomable.ZoomableDraweeView
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.drawable.ScalingUtils
-import com.shopapicore.entity.Image
+import com.domain.entity.Image
 
 
 class ImageFragment : Fragment() {

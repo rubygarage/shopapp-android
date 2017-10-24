@@ -1,10 +1,11 @@
 package com.client.shop.ui.base.contract
 
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
+import com.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
 
 
-open class BasePresenter<V : BaseMvpView> : MvpBasePresenter<V>() {
+open class BasePresenter<V : BaseMvpView>(protected val repository: Repository) : MvpBasePresenter<V>() {
 
     protected var disposables = CompositeDisposable()
 

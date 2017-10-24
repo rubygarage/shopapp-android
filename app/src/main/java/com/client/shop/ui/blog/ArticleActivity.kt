@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ext.shareText
-import com.shopapicore.entity.Article
+import com.domain.entity.Article
 import kotlinx.android.synthetic.main.activity_article.*
 
 
