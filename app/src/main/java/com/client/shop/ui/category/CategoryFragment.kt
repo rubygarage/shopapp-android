@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.ui.PaginationFragment
+import com.client.shop.ui.base.ui.pagination.PaginationFragment
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.adapter.CategoryAdapter
 import com.client.shop.ui.category.contract.CategoryPresenter
@@ -21,7 +21,7 @@ import com.domain.entity.Product
 import com.domain.entity.SortType
 import javax.inject.Inject
 
-class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPresenter, CategoryViewState>(),
+class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPresenter>(),
         CategoryView {
 
     @Inject lateinit var categoryPresenter: CategoryPresenter
@@ -62,6 +62,7 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
             compatActivity.supportActionBar?.title = category.title
         }
         setHasOptionsMenu(true)
+        loadData(false)
     }
 
     override fun inject(component: AppComponent) {
@@ -74,13 +75,8 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     override fun initAdapter() = CategoryAdapter(dataList, this)
 
-    override fun createViewState() = CategoryViewState()
-
-    override fun onNewViewStateInstance() {
-        fetchData()
-    }
-
-    override fun fetchData() {
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
         presenter.loadProductList(PER_PAGE, paginationValue, category.id, selectedSortType)
     }
 
@@ -99,16 +95,15 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
     }
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(context, data))
+        startActivity(DetailsActivity.getStartIntent(context, data.id))
     }
 
-    override fun productListLoaded(productList: List<Product>?) {
-        val size = productList?.size ?: 0
-        if (productList != null && size > 0) {
-            paginationValue = productList.last().paginationValue
-            this.dataList.addAll(productList)
+    override fun showContent(data: List<Product>) {
+        super.showContent(data)
+        if (data.isNotEmpty()) {
+            paginationValue = data.last().paginationValue
+            this.dataList.addAll(data)
             adapter?.notifyDataSetChanged()
         }
-        viewState.setData(dataList)
     }
 }

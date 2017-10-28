@@ -1,3 +1,6 @@
 package com.domain.entity
 
-class Error : Exception()
+sealed class Error : Exception() {
+    class Critical : Error()
+    class Content(var isNetworkError: Boolean = false) : Error()
+}

@@ -28,6 +28,7 @@ class PolicyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_policy)
 
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         policy = intent.getParcelableExtra(EXTRA_POLICY)

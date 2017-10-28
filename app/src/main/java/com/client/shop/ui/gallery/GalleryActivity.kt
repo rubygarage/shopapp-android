@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import kotlinx.android.synthetic.main.activity_gallery.*
 import com.domain.entity.Product
+import kotlinx.android.synthetic.main.activity_gallery.*
 
 class GalleryActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class GalleryActivity : AppCompatActivity() {
         private const val EXTRA_PRODUCT = "product"
         private const val EXTRA_SELECTED_POSITION = "selected_position"
 
-        fun getStartIntent(context: Context, product: Product, selectedPosition: Int = 0): Intent {
+        fun getStartIntent(context: Context, product: Product?, selectedPosition: Int = 0): Intent {
             val intent = Intent(context, GalleryActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT, product)
             intent.putExtra(EXTRA_SELECTED_POSITION, selectedPosition)
@@ -29,7 +29,7 @@ class GalleryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery)
 
-        val product: Product = intent.getParcelableExtra(EXTRA_PRODUCT)
+        val product: Product? = intent.getParcelableExtra(EXTRA_PRODUCT)
         val selectedPosition = intent.getIntExtra(EXTRA_SELECTED_POSITION, 0)
 
         setSupportActionBar(toolbar)

@@ -27,12 +27,12 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
     /**
      * Gets the view bounds.
      */
-    val viewBounds = RectF()
+    private val viewBounds = RectF()
     // Non-transformed image bounds, in view-absolute coordinates
     /**
      * Gets the non-transformed image bounds, in view-absolute coordinates.
      */
-    val imageBounds = RectF()
+    private val imageBounds = RectF()
     // Transformed image bounds, in view-absolute coordinates
     /**
      * Gets the transformed image bounds, in view-absolute coordinates
@@ -54,15 +54,15 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         mIsEnabled = enabled
     }
 
-    var isRotationEnabled = false
+    private var isRotationEnabled = false
     /**
      * Gets/Sets whether the scale gesture is enabled or not.
      */
-    var isScaleEnabled = true
+    private var isScaleEnabled = true
     /**
      * Gets/Sets whether the translations gesture is enabled or not.
      */
-    var isTranslationEnabled = true
+    private var isTranslationEnabled = true
     /**
      * Gets/Sets the minimum scale factor allowed.
      */
@@ -306,7 +306,7 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * @param limitTypes   whether to limit translation and/or scale.
      * @return whether or not the transform has been corrected due to limitation
      */
-    protected fun calculateGestureTransform(
+    private fun calculateGestureTransform(
             outTransform: Matrix,
             @LimitFlag limitTypes: Int): Boolean {
         val detector = this.detector

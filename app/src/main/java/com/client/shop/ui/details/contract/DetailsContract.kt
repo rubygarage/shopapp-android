@@ -1,30 +1,23 @@
 package com.client.shop.ui.details.contract
 
-import com.client.shop.ui.base.contract.BaseMvpView
-import com.client.shop.ui.base.contract.BasePresenter
+import com.client.shop.ui.base.contract.BaseMvpViewLce
+import com.client.shop.ui.base.contract.BasePresenterLce
 import com.domain.entity.Product
 import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-interface DetailsView : BaseMvpView {
+interface DetailsView : BaseMvpViewLce<Product>
 
-    fun productLoaded(product: Product)
-}
-
-class DetailsPresenter @Inject constructor(repository: Repository) : BasePresenter<DetailsView>(repository) {
+class DetailsPresenter @Inject constructor(repository: Repository) : BasePresenterLce<Product, DetailsView>(repository) {
 
     fun loadProductDetails(productId: String) {
 
-        showProgress()
-
         disposables.add(repository.getProduct(productId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (isViewAttached) {
-                        view.productLoaded(result)
-                        view.hideProgress()
-                    }
-                }, { _ -> hideProgress() }))
+                .subscribe(
+                        { result -> view?.showContent(result) },
+                        { e -> resolveError(e) }
+                ))
     }
 }

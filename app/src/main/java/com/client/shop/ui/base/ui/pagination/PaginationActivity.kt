@@ -1,30 +1,31 @@
-package com.client.shop.ui.base.ui
+package com.client.shop.ui.base.ui.pagination
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.client.shop.R
-import com.client.shop.ui.base.contract.BaseMvpView
-import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
+import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.client.shop.ui.base.contract.BaseMvpViewLce
+import com.client.shop.ui.base.contract.BasePresenterLce
+import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.hannesdorfmann.mosby3.mvp.MvpPresenter
-import com.hannesdorfmann.mosby3.mvp.viewstate.ViewState
+import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 
-abstract class PaginationActivity<T, V : BaseMvpView, P : MvpPresenter<V>, VS : ViewState<V>> :
-        BaseMvpActivity<V, P, VS>(), OnItemClickListener<T>, SwipeRefreshLayout.OnRefreshListener,
-        BaseMvpView {
+abstract class PaginationActivity<M, V : BaseMvpViewLce<List<M>>, P : BasePresenterLce<List<M>, V>> :
+        BaseActivity<List<M>, V, P>(),
+        OnItemClickListener<M>,
+        SwipeRefreshLayout.OnRefreshListener {
 
     protected var paginationValue: String? = null
-    protected val dataList = mutableListOf<T>()
+    protected val dataList = mutableListOf<M>()
     protected lateinit var recycler: RecyclerView
     protected lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    protected lateinit var adapter: BaseRecyclerAdapter<T>
+    protected lateinit var adapter: BaseRecyclerAdapter<M>
 
     companion object {
         private const val SPAN_COUNT = 2
@@ -33,21 +34,17 @@ abstract class PaginationActivity<T, V : BaseMvpView, P : MvpPresenter<V>, VS : 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setContentView(getContentView())
         setupRecyclerView()
         setupSwipeRefreshLayout()
     }
 
-    @LayoutRes
-    protected open fun getContentView() = R.layout.activity_pagination
+    override fun getContentView() = R.layout.activity_pagination
 
     protected open fun isGrid() = false
 
-    abstract fun initAdapter(): BaseRecyclerAdapter<T>
+    protected open fun perPageCount() = DEFAULT_PER_PAGE_COUNT
 
-    override fun onNewViewStateInstance() {
-
-    }
+    abstract fun setupAdapter(): BaseRecyclerAdapter<M>
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
@@ -60,7 +57,7 @@ abstract class PaginationActivity<T, V : BaseMvpView, P : MvpPresenter<V>, VS : 
 
     protected open fun setupRecyclerView() {
 
-        adapter = initAdapter()
+        adapter = setupAdapter()
         recycler = findViewById(R.id.recyclerView)
 
         val layoutManager: RecyclerView.LayoutManager
@@ -75,7 +72,8 @@ abstract class PaginationActivity<T, V : BaseMvpView, P : MvpPresenter<V>, VS : 
         recycler.setHasFixedSize(true)
         recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(recycler.layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                fetchData()
+                if (totalItemsCount >= perPageCount())
+                    loadData(true)
             }
         })
     }
@@ -90,18 +88,21 @@ abstract class PaginationActivity<T, V : BaseMvpView, P : MvpPresenter<V>, VS : 
         paginationValue = null
         dataList.clear()
         adapter.notifyDataSetChanged()
-        fetchData()
+        loadData(true)
     }
 
-    protected open fun fetchData() {
-
-    }
-
-    override fun showProgress() {
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
         swipeRefreshLayout.isRefreshing = true
     }
 
-    override fun hideProgress() {
+    override fun showContent(data: List<M>) {
+        super.showContent(data)
+        swipeRefreshLayout.isRefreshing = false
+    }
+
+    override fun showError(isNetworkError: Boolean) {
+        super.showError(isNetworkError)
         swipeRefreshLayout.isRefreshing = false
     }
 }

@@ -1,8 +1,7 @@
-package com.client.shop.ui.base.ui
+package com.client.shop.ui.base.ui.recycler.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.item.ProductItem
 import com.domain.entity.Product

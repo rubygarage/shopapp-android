@@ -3,8 +3,8 @@ package com.client.shop.ui.blog.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
+import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.item.ArticleItem
 import com.client.shop.ui.item.MoreItem
 import com.domain.entity.Article
