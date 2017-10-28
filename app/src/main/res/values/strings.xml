@@ -19,5 +19,7 @@
     <string name="sort">Sort</string>
     <string name="sort_title">Sort by</string>
     <string name="try_again">Try Again</string>
+    <string name="network_connection_error">Sorry - something did not go through! Please check your network connection and try again.</string>
+    <string name="default_error">Something went wrong…</string>
 
 </resources>

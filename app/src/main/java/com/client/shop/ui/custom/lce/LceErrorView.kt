@@ -20,7 +20,8 @@ class LceErrorView @JvmOverloads constructor(
     fun show(isNetworkError: Boolean) {
         visibility = View.VISIBLE
 
-        errorMessage.text = if (isNetworkError) "NO INTERNET" else "SOMETHING WENT WRONG"
+        val errorRes = if (isNetworkError) R.string.network_connection_error else R.string.default_error
+        errorMessage.text = context.getString(errorRes)
     }
 
     fun hide() {
