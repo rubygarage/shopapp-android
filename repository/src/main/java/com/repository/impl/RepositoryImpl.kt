@@ -7,7 +7,8 @@ import io.reactivex.Single
 class RepositoryImpl(private val shopRepository: ShopRepository,
                      private val blogRepository: BlogRepository,
                      private val productRepository: ProductRepository,
-                     private val categoryRepository: CategoryRepository) : Repository {
+                     private val categoryRepository: CategoryRepository,
+                     private val cartRepository: CartRepository) : Repository {
 
     override fun getShop(): Single<Shop> {
         return shopRepository.getShop()
@@ -41,5 +42,21 @@ class RepositoryImpl(private val shopRepository: ShopRepository,
     override fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
                                 reverse: Boolean): Single<List<Article>> {
         return blogRepository.getArticleList(perPage, paginationValue, sortBy, reverse)
+    }
+
+    override fun getCart(): Single<Cart> {
+        return cartRepository.getCart()
+    }
+
+    override fun addProductToCart(product: ProductVariant, quantity: Int): Single<Cart> {
+        return cartRepository.addProductToCart(product, quantity)
+    }
+
+    override fun removeProductFromCart(productId: String): Single<Cart> {
+        return cartRepository.removeProductFromCart(productId)
+    }
+
+    override fun updateProductQuantity(productId: String, newQuantity: Int): Single<Cart> {
+        return cartRepository.updateProductQuantity(productId, newQuantity)
     }
 }

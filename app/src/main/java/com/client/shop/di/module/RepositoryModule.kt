@@ -17,6 +17,7 @@ class RepositoryModule(private val shopApi: Api) {
                 ShopRepositoryImpl(shopApi),
                 BlogRepositoryImpl(shopApi),
                 ProductRepositoryImpl(shopApi),
-                CategoryRepositoryImpl(shopApi))
+                CategoryRepositoryImpl(shopApi),
+                CartRepositoryImpl(shopApi))
     }
 }
