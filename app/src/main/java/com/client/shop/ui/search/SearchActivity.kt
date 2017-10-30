@@ -37,6 +37,8 @@ class SearchActivity :
         fun getStartIntent(context: Context) = Intent(context, SearchActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,13 +71,13 @@ class SearchActivity :
         }
     }
 
+    //INIT
+
     override fun inject(component: AppComponent) {
         component.attachSearchComponent(SearchModule()).inject(this)
     }
 
     override fun isGrid() = true
-
-    override fun setupAdapter() = ProductAdapter(dataList, this)
 
     override fun getContentView() = R.layout.activity_search
 
@@ -83,11 +85,21 @@ class SearchActivity :
         return searchPresenter
     }
 
+    //SETUP
+
+    override fun setupAdapter() = ProductAdapter(dataList, this)
+
     private fun setupSearch() {
         searchView.setIconifiedByDefault(false)
         searchObserver = Observable.create<String> { emitter ->
             searchView.setOnQueryTextListener(RxQueryTextListener(emitter))
         }
+    }
+
+    //LCE
+
+    override fun setQuery(query: String) {
+        currentQuery = query
     }
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -98,13 +110,8 @@ class SearchActivity :
         }
     }
 
-    override fun setQuery(query: String) {
-        currentQuery = query
-    }
-
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-
 
         if (lastQuery != null && lastQuery != currentQuery) {
             this.dataList.clear()
@@ -116,6 +123,8 @@ class SearchActivity :
             paginationValue = data.last().paginationValue
         }
     }
+
+    //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
         startActivity(DetailsActivity.getStartIntent(this, data.id))

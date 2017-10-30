@@ -1,8 +1,8 @@
 package com.client.shop.ui.home.contract
 
 import com.client.shop.const.Constant.MAXIMUM_PER_PAGE_COUNT
-import com.client.shop.ui.base.contract.BaseMvpViewLce
-import com.client.shop.ui.base.contract.BasePresenterLce
+import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BasePresenter
 import com.domain.entity.Category
 import com.domain.entity.Shop
 import com.repository.Repository
@@ -11,9 +11,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
-interface HomeView : BaseMvpViewLce<Pair<Shop, List<Category>>>
+interface HomeView : BaseMvpView<Pair<Shop, List<Category>>>
 
-class HomePresenter @Inject constructor(repository: Repository) : BasePresenterLce<Pair<Shop, List<Category>>, HomeView>(repository) {
+class HomePresenter @Inject constructor(repository: Repository) : BasePresenter<Pair<Shop, List<Category>>, HomeView>(repository) {
 
     fun requestData() {
 

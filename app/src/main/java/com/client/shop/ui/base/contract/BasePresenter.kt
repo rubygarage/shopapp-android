@@ -5,7 +5,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
 
-open class BasePresenterLce<in M, V : BaseMvpViewLce<M>>(protected val repository: Repository) : MvpBasePresenter<V>() {
+open class BasePresenter<in M, V : BaseMvpView<M>>(protected val repository: Repository) : MvpBasePresenter<V>() {
 
     protected var disposables = CompositeDisposable()
 

@@ -26,11 +26,15 @@ class RecentActivity :
         fun getStartIntent(context: Context) = Intent(context, RecentActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.last_arrivals)
         loadData(false)
     }
+
+    //INIT
 
     override fun inject(component: AppComponent) {
         component.attachRecentComponent(RecentModule()).inject(this)
@@ -42,11 +46,11 @@ class RecentActivity :
 
     override fun isGrid() = true
 
+    //SETUP
+
     override fun setupAdapter() = RecentAdapter(dataList, this, View.OnClickListener { })
 
-    override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(this, data.id))
-    }
+    //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
@@ -60,5 +64,11 @@ class RecentActivity :
             this.dataList.addAll(data)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    //CALLBACK
+
+    override fun onItemClicked(data: Product, position: Int) {
+        startActivity(DetailsActivity.getStartIntent(this, data.id))
     }
 }

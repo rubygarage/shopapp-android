@@ -7,16 +7,18 @@ import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.contract.BaseMvpViewLce
-import com.client.shop.ui.base.contract.BasePresenterLce
+import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.custom.lce.LceLayout
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.view_lce_error.*
 
-abstract class BaseActivity<in M, V : BaseMvpViewLce<M>, P : BasePresenterLce<M, V>> :
+abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         MvpActivity<V, P>(),
-        BaseMvpViewLce<M> {
+        BaseMvpView<M> {
+
+    //ACTIVITY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         inject(ShopApplication.appComponent)
@@ -26,6 +28,8 @@ abstract class BaseActivity<in M, V : BaseMvpViewLce<M>, P : BasePresenterLce<M,
         setSupportActionBar(toolbar)
         tryAgainButton.setOnClickListener { tryAgainButtonClicked() }
     }
+
+    //INIT
 
     abstract fun inject(component: AppComponent)
 
@@ -37,9 +41,7 @@ abstract class BaseActivity<in M, V : BaseMvpViewLce<M>, P : BasePresenterLce<M,
     @LayoutRes
     abstract fun getContentView(): Int
 
-    open fun tryAgainButtonClicked() {
-        loadData(false)
-    }
+    //LCE
 
     @CallSuper
     open fun loadData(pullToRefresh: Boolean) {
@@ -60,5 +62,9 @@ abstract class BaseActivity<in M, V : BaseMvpViewLce<M>, P : BasePresenterLce<M,
 
     override fun showMessage(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    open fun tryAgainButtonClicked() {
+        loadData(false)
     }
 }

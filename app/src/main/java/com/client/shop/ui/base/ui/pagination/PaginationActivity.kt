@@ -8,15 +8,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.ui.base.contract.BaseMvpViewLce
-import com.client.shop.ui.base.contract.BasePresenterLce
+import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 
-abstract class PaginationActivity<M, V : BaseMvpViewLce<List<M>>, P : BasePresenterLce<List<M>, V>> :
+abstract class PaginationActivity<M, V : BaseMvpView<List<M>>, P : BasePresenter<List<M>, V>> :
         BaseActivity<List<M>, V, P>(),
         OnItemClickListener<M>,
         SwipeRefreshLayout.OnRefreshListener {
@@ -31,20 +31,14 @@ abstract class PaginationActivity<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
         private const val SPAN_COUNT = 2
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupRecyclerView()
         setupSwipeRefreshLayout()
     }
-
-    override fun getContentView() = R.layout.activity_pagination
-
-    protected open fun isGrid() = false
-
-    protected open fun perPageCount() = DEFAULT_PER_PAGE_COUNT
-
-    abstract fun setupAdapter(): BaseRecyclerAdapter<M>
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
@@ -54,6 +48,18 @@ abstract class PaginationActivity<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
         }
         return super.onOptionsItemSelected(item)
     }
+
+    //INIT
+
+    override fun getContentView() = R.layout.activity_pagination
+
+    protected open fun isGrid() = false
+
+    protected open fun perPageCount() = DEFAULT_PER_PAGE_COUNT
+
+    //SETUP
+
+    abstract fun setupAdapter(): BaseRecyclerAdapter<M>
 
     protected open fun setupRecyclerView() {
 
@@ -84,12 +90,7 @@ abstract class PaginationActivity<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
     }
 
-    override fun onRefresh() {
-        paginationValue = null
-        dataList.clear()
-        adapter.notifyDataSetChanged()
-        loadData(true)
-    }
+    //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
@@ -104,5 +105,14 @@ abstract class PaginationActivity<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
     override fun showError(isNetworkError: Boolean) {
         super.showError(isNetworkError)
         swipeRefreshLayout.isRefreshing = false
+    }
+
+    //CALLBACK
+
+    override fun onRefresh() {
+        paginationValue = null
+        dataList.clear()
+        adapter.notifyDataSetChanged()
+        loadData(true)
     }
 }

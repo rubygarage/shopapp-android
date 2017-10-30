@@ -53,6 +53,8 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
         }
     }
 
+    //ANDROID
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         category = arguments.getParcelable(EXTRA_CATEGORY)
@@ -63,21 +65,6 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
         }
         setHasOptionsMenu(true)
         loadData(false)
-    }
-
-    override fun inject(component: AppComponent) {
-        component.attachCategoryComponent(CategoryModule()).inject(this)
-    }
-
-    override fun createPresenter() = categoryPresenter
-
-    override fun isGrid() = true
-
-    override fun initAdapter() = CategoryAdapter(dataList, this)
-
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.loadProductList(PER_PAGE, paginationValue, category.id, selectedSortType)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -94,8 +81,25 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
         }
     }
 
-    override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(context, data.id))
+    //INIT
+
+    override fun inject(component: AppComponent) {
+        component.attachCategoryComponent(CategoryModule()).inject(this)
+    }
+
+    override fun createPresenter() = categoryPresenter
+
+    override fun isGrid() = true
+
+    //SETUP
+
+    override fun setupAdapter() = CategoryAdapter(dataList, this)
+
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        presenter.loadProductList(PER_PAGE, paginationValue, category.id, selectedSortType)
     }
 
     override fun showContent(data: List<Product>) {
@@ -105,5 +109,11 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
             this.dataList.addAll(data)
             adapter?.notifyDataSetChanged()
         }
+    }
+
+    //CALLBACK
+
+    override fun onItemClicked(data: Product, position: Int) {
+        startActivity(DetailsActivity.getStartIntent(context, data.id))
     }
 }

@@ -9,15 +9,15 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.ui.base.contract.BaseMvpViewLce
-import com.client.shop.ui.base.contract.BasePresenterLce
+import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.base.ui.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 
-abstract class PaginationFragment<M, V : BaseMvpViewLce<List<M>>, P : BasePresenterLce<List<M>, V>> :
+abstract class PaginationFragment<M, V : BaseMvpView<List<M>>, P : BasePresenter<List<M>, V>> :
         BaseFragment<List<M>, V, P>(),
         OnItemClickListener<M>,
         SwipeRefreshLayout.OnRefreshListener {
@@ -32,18 +32,14 @@ abstract class PaginationFragment<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
         private const val SPAN_COUNT = 2
     }
 
+    //ANDROID
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
         setupSwipeRefreshLayout()
     }
-
-    override fun getContentView() = R.layout.activity_pagination
-
-    protected open fun isGrid() = false
-
-    abstract fun initAdapter(): BaseRecyclerAdapter<M>
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
@@ -54,11 +50,21 @@ abstract class PaginationFragment<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
         return super.onOptionsItemSelected(item)
     }
 
+    //INIT
+
+    override fun getContentView() = R.layout.activity_pagination
+
+    protected open fun isGrid() = false
+
     fun perPageCount() = DEFAULT_PER_PAGE_COUNT
+
+    //SETUP
+
+    abstract fun setupAdapter(): BaseRecyclerAdapter<M>
 
     protected open fun setupRecyclerView() {
 
-        adapter = initAdapter()
+        adapter = setupAdapter()
         recycler = view?.findViewById(R.id.recyclerView)
 
         recycler?.let {
@@ -89,12 +95,7 @@ abstract class PaginationFragment<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
         }
     }
 
-    override fun onRefresh() {
-        paginationValue = null
-        dataList.clear()
-        adapter?.notifyDataSetChanged()
-        loadData(true)
-    }
+    //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
@@ -111,5 +112,14 @@ abstract class PaginationFragment<M, V : BaseMvpViewLce<List<M>>, P : BasePresen
     override fun showError(isNetworkError: Boolean) {
         super.showError(isNetworkError)
         swipeRefreshLayout?.isRefreshing = false
+    }
+
+    //CALLBACK
+
+    override fun onRefresh() {
+        paginationValue = null
+        dataList.clear()
+        adapter?.notifyDataSetChanged()
+        loadData(true)
     }
 }

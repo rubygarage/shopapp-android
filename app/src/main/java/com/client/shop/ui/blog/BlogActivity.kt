@@ -25,6 +25,8 @@ class BlogActivity :
         fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.new_in_blog)

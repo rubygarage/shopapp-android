@@ -1,19 +1,19 @@
 package com.client.shop.ui.search.contract
 
 import android.text.TextUtils
-import com.client.shop.ui.base.contract.BaseMvpViewLce
-import com.client.shop.ui.base.contract.BasePresenterLce
+import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BasePresenter
 import com.domain.entity.Product
 import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-interface SearchView : BaseMvpViewLce<List<Product>> {
+interface SearchView : BaseMvpView<List<Product>> {
 
     fun setQuery(query: String)
 }
 
-class SearchPresenter @Inject constructor(repository: Repository) : BasePresenterLce<List<Product>, SearchView>(repository) {
+class SearchPresenter @Inject constructor(repository: Repository) : BasePresenter<List<Product>, SearchView>(repository) {
 
     fun search(perPage: Int, paginationValue: String?, query: String) {
 
