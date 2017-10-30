@@ -1,8 +1,8 @@
 package com.repository.rx
 
 import com.apicore.ApiCallback
+import com.domain.entity.Error
 import io.reactivex.SingleEmitter
-import java.lang.Error
 
 class RxCallback<in T>(private val emitter: SingleEmitter<T>) : ApiCallback<T> {
 

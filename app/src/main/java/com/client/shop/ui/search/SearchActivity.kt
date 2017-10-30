@@ -6,8 +6,8 @@ import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.di.component.AppComponent
 import com.client.shop.ui.base.rx.RxQueryTextListener
-import com.client.shop.ui.base.ui.PaginationActivity
-import com.client.shop.ui.base.ui.ProductAdapter
+import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.ui.recycler.adapter.ProductAdapter
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.search.contract.SearchPresenter
 import com.client.shop.ui.search.di.SearchModule
@@ -21,28 +21,32 @@ import javax.inject.Inject
 import com.client.shop.ui.search.contract.SearchView as MvpSearchView
 
 
-class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresenter, SearchViewState>(),
+class SearchActivity :
+        PaginationActivity<Product, MvpSearchView, SearchPresenter>(),
         MvpSearchView {
 
     @Inject lateinit var searchPresenter: SearchPresenter
     private var searchObserver: Observable<String>? = null
     private var searchSubscription: Disposable? = null
     private var lastQuery: String? = null
+    private var currentQuery: String? = null
 
     companion object {
-        private const val PER_PAGE = 10
         private const val SEARCH_DEBOUNCE = 500L
 
         fun getStartIntent(context: Context) = Intent(context, SearchActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.search)
         setupSearch()
+        val swipeProgressEndTarget = resources.getDimensionPixelSize(R.dimen.search_swipe_refresh_progress_end_target)
+        swipeRefreshLayout.setProgressViewEndTarget(false, swipeProgressEndTarget)
     }
 
     override fun onResume() {
@@ -53,7 +57,7 @@ class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresente
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         paginationValue = null
-                        fetchData()
+                        loadData(true)
                     }, { error -> error.printStackTrace() })
         }
     }
@@ -67,17 +71,13 @@ class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresente
         }
     }
 
+    //INIT
+
     override fun inject(component: AppComponent) {
         component.attachSearchComponent(SearchModule()).inject(this)
     }
 
-    override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(this, data))
-    }
-
     override fun isGrid() = true
-
-    override fun initAdapter() = ProductAdapter(dataList, this)
 
     override fun getContentView() = R.layout.activity_search
 
@@ -85,7 +85,9 @@ class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresente
         return searchPresenter
     }
 
-    override fun createViewState() = SearchViewState()
+    //SETUP
+
+    override fun setupAdapter() = ProductAdapter(dataList, this)
 
     private fun setupSearch() {
         searchView.setIconifiedByDefault(false)
@@ -94,23 +96,37 @@ class SearchActivity : PaginationActivity<Product, MvpSearchView, SearchPresente
         }
     }
 
-    override fun fetchData() {
+    //LCE
+
+    override fun setQuery(query: String) {
+        currentQuery = query
+    }
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
         val query = searchView.query
         if (query != null) {
-            presenter.search(PER_PAGE, paginationValue, query.toString())
+            presenter.search(perPageCount(), paginationValue, query.toString())
         }
     }
 
-    override fun searchResultsReceived(productList: List<Product>, query: String) {
-        if (lastQuery != null && lastQuery != query) {
+    override fun showContent(data: List<Product>) {
+        super.showContent(data)
+
+        if (lastQuery != null && lastQuery != currentQuery) {
             this.dataList.clear()
         }
-        lastQuery = query
-        this.dataList.addAll(productList)
+        lastQuery = currentQuery
+        this.dataList.addAll(data)
         adapter.notifyDataSetChanged()
-        if (productList.isNotEmpty()) {
-            paginationValue = productList.last().paginationValue
+        if (data.isNotEmpty()) {
+            paginationValue = data.last().paginationValue
         }
-        viewState.setSearchData(this.dataList, query)
+    }
+
+    //CALLBACK
+
+    override fun onItemClicked(data: Product, position: Int) {
+        startActivity(DetailsActivity.getStartIntent(this, data.id))
     }
 }

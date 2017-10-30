@@ -2,17 +2,15 @@ package com.client.shop.ui.base.contract
 
 import com.hannesdorfmann.mosby3.mvp.MvpView
 
-interface BaseMvpView : MvpView {
+interface BaseMvpView<in T> : MvpView {
 
-    fun showMessage(message: String, isError: Boolean) {
+    fun showContent(data: T)
 
-    }
+    fun showError(isNetworkError: Boolean)
 
-    fun showProgress() {
+    fun showMessage(message: String)
 
-    }
-
-    fun hideProgress() {
+    fun showActionError(action: String) {
 
     }
 }

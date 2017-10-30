@@ -1,10 +1,8 @@
 package com.shopify.api
 
 import com.apicore.ApiCallback
-import com.shopify.buy3.GraphCall
-import com.shopify.buy3.GraphError
-import com.shopify.buy3.GraphResponse
-import com.shopify.buy3.Storefront
+import com.domain.entity.Error
+import com.shopify.buy3.*
 
 abstract class CallWrapper<out T>(private val callback: ApiCallback<T>) : GraphCall.Callback<Storefront.QueryRoot> {
 
@@ -16,7 +14,11 @@ abstract class CallWrapper<out T>(private val callback: ApiCallback<T>) : GraphC
         }
     }
 
-    override fun onFailure(error: GraphError) {
-        callback.onFailure(Error(error))
+    override fun onFailure(graphError: GraphError) {
+        val error: Error = when (graphError) {
+            is GraphNetworkError -> Error.Content(isNetworkError = true)
+            else -> Error.Content()
+        }
+        callback.onFailure(error)
     }
 }

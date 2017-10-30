@@ -19,4 +19,6 @@
     <dimen name="variant_padding">6dp</dimen>
     <dimen name="variant_margin">8dp</dimen>
 
+    <dimen name="search_swipe_refresh_progress_end_target">100dp</dimen>
+
 </resources>

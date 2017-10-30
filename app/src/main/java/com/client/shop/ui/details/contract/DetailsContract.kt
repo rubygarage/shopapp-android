@@ -7,24 +7,19 @@ import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-interface DetailsView : BaseMvpView {
+interface DetailsView : BaseMvpView<Product>
 
-    fun productLoaded(product: Product)
-}
-
-class DetailsPresenter @Inject constructor(repository: Repository) : BasePresenter<DetailsView>(repository) {
+class DetailsPresenter @Inject constructor(repository: Repository) : BasePresenter<Product, DetailsView>(repository) {
 
     fun loadProductDetails(productId: String) {
 
-        showProgress()
-
-        disposables.add(repository.getProduct(productId)
+        val detailsDisposable = repository.getProduct(productId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (isViewAttached) {
-                        view.productLoaded(result)
-                        view.hideProgress()
-                    }
-                }, { _ -> hideProgress() }))
+                .subscribe(
+                        { result -> view?.showContent(result) },
+                        { e -> resolveError(e) }
+                )
+
+        disposables.add(detailsDisposable)
     }
 }

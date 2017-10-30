@@ -8,29 +8,17 @@ import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-interface RecentView : BaseMvpView {
+interface RecentView : BaseMvpView<List<Product>>
 
-    fun productListLoaded(productList: List<Product>)
-}
-
-class RecentPresenter @Inject constructor(repository: Repository) : BasePresenter<RecentView>(repository) {
+class RecentPresenter @Inject constructor(repository: Repository) : BasePresenter<List<Product>, RecentView>(repository) {
 
     fun loadProductList(perPage: Int, paginationValue: String? = null) {
 
-        showProgress()
-
-        //TODO MOVE RECENT TO SHOPIFY
+        //TODO MOVE REVERSE TO SHOPIFY
         val productDisposable = repository.getProductList(perPage, paginationValue, SortType.RECENT, true)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (isViewAttached) {
-                        view.productListLoaded(result)
-                        view.hideProgress()
-                    }
-                }, { error ->
-                    error.printStackTrace()
-                    hideProgress()
-                })
+                .subscribe({ result -> view?.showContent(result) },
+                        { error -> error.printStackTrace() })
         disposables.add(productDisposable)
     }
 }

@@ -1,9 +1,10 @@
-package com.client.shop.ui.item
+package com.client.shop.ui.container
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
+import com.client.shop.ui.item.OptionsItem
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
 import com.domain.entity.VariantOption

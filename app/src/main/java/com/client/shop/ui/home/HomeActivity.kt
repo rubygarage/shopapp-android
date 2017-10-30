@@ -5,91 +5,68 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
+import com.client.shop.di.component.AppComponent
+import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.CategoryFragment
 import com.client.shop.ui.home.adapter.CategoriesAdapter
+import com.client.shop.ui.home.contract.HomePresenter
+import com.client.shop.ui.home.contract.HomeView
+import com.client.shop.ui.home.di.HomeModule
 import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Category
 import com.domain.entity.Policy
 import com.domain.entity.Shop
 import kotlinx.android.synthetic.main.activity_home.*
+import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), OnItemClickListener<Category> {
+class HomeActivity :
+        BaseActivity<Pair<Shop, List<Category>>, HomeView, HomePresenter>(),
+        HomeView,
+        OnItemClickListener<Category> {
 
+    @Inject lateinit var homePresenter: HomePresenter
     private var drawerToggle: ActionBarDrawerToggle? = null
+    private var categories: MutableList<Category> = mutableListOf()
+    private var adapter: CategoriesAdapter? = null
 
     companion object {
 
-        private const val EXTRA_SHOP = "EXTRA_SHOP"
-        private const val EXTRA_CATEGORIES = "EXTRA_CATEGORIES"
-
-        fun getStartIntent(context: Context, shop: Shop, categories: List<Category>): Intent {
-            val intent = Intent(context, HomeActivity::class.java)
-            intent.putExtra(EXTRA_SHOP, shop)
-            intent.putParcelableArrayListExtra(EXTRA_CATEGORIES, ArrayList(categories))
-            return intent
-        }
+        fun getStartIntent(context: Context) = Intent(context, HomeActivity::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
-        val shop: Shop = intent.getParcelableExtra(EXTRA_SHOP)
-        val categories: List<Category> = intent.getParcelableArrayListExtra(EXTRA_CATEGORIES)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeButtonEnabled(true)
-        }
         setupDrawerLayout()
         setupRecyclerView(categories)
-        initShopInfo(shop.privacyPolicy, privacyPolicyLabel)
-        initShopInfo(shop.termsOfService, termsOfServiceLabel)
 
         homeLabel.setOnClickListener {
             drawerLayout.closeDrawer(Gravity.START)
             supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commit()
         }
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commit()
-        }
+        loadData(false)
     }
 
-    private fun setupDrawerLayout() {
-        drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.open_menu,
-                R.string.close_menu
-        ) {
-            override fun onDrawerClosed(view: View) {
-                super.onDrawerClosed(view)
-            }
+    //INIT
 
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-            }
-        }
+    override fun inject(component: AppComponent) {
+        component.attachHomeComponent(HomeModule()).inject(this)
     }
 
-    private fun setupRecyclerView(categories: List<Category>) {
+    override fun getMainLayout() = R.layout.activity_home
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CategoriesAdapter(categories, this)
-    }
+    override fun getContentView() = R.layout.activity_home_content
 
-    private fun initShopInfo(policy: Policy?, view: View) {
-        if (policy != null) {
-            view.visibility = View.VISIBLE
-            view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(this, policy)) }
-        }
-    }
+    override fun createPresenter() = homePresenter
+
+    //ACTIVITY
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -109,6 +86,62 @@ class HomeActivity : AppCompatActivity(), OnItemClickListener<Category> {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    //SETUP
+
+    private fun setupDrawerLayout() {
+        drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.open_menu,
+                R.string.close_menu
+        ) {
+            override fun onDrawerClosed(view: View) {
+                super.onDrawerClosed(view)
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+            }
+        }
+    }
+
+    private fun setupRecyclerView(categories: List<Category>) {
+        adapter = CategoriesAdapter(categories, this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+    }
+
+    private fun setupShopInfo(policy: Policy?, view: View) {
+        if (policy != null) {
+            view.visibility = View.VISIBLE
+            view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(this, policy)) }
+        }
+    }
+
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        presenter.requestData()
+    }
+
+    override fun showContent(data: Pair<Shop, List<Category>>) {
+        super.showContent(data)
+
+        val shop = data.first
+        categories.clear()
+        categories.addAll(data.second)
+        adapter?.notifyDataSetChanged()
+
+        setupShopInfo(shop.privacyPolicy, privacyPolicyLabel)
+        setupShopInfo(shop.termsOfService, termsOfServiceLabel)
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setHomeButtonEnabled(true)
+        }
+        supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commitNowAllowingStateLoss()
+    }
+
+    //CALLBACK
 
     override fun onItemClicked(data: Category, position: Int) {
         drawerLayout.closeDrawer(Gravity.START)

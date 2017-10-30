@@ -2,8 +2,8 @@ package com.client.shop.ui.details
 
 import android.os.Bundle
 import com.client.shop.ui.details.contract.DetailsView
-import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState
 import com.domain.entity.Product
+import com.hannesdorfmann.mosby3.mvp.viewstate.RestorableViewState
 
 
 class DetailsViewState : RestorableViewState<DetailsView> {
@@ -18,9 +18,7 @@ class DetailsViewState : RestorableViewState<DetailsView> {
         if (`in` == null) {
             return null
         }
-
         data = `in`.getParcelable(KEY_PRODUCT)
-
         return this
     }
 
@@ -31,12 +29,12 @@ class DetailsViewState : RestorableViewState<DetailsView> {
     override fun apply(view: DetailsView?, retained: Boolean) {
 
         data?.let {
-            view?.productLoaded(it)
-            view?.hideProgress()
+            view?.showContent(it)
         }
     }
 
-    fun setProduct(product: Product) {
-        data = product
+    fun setData(data: Product) {
+        this.data = data
     }
+
 }

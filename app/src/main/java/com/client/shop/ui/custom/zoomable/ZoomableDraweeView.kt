@@ -202,7 +202,7 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
      * @param controller          controller to be initially used
      * @param hugeImageController controller to be used after the client starts zooming-in
      */
-    fun setControllers(
+    private fun setControllers(
             controller: DraweeController?,
             hugeImageController: DraweeController?) {
         setControllersInternal(null, null)

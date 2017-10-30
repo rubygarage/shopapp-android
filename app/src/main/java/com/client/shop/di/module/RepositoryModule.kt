@@ -1,7 +1,7 @@
 package com.client.shop.di.module
 
-import com.repository.Repository
 import com.apicore.Api
+import com.repository.Repository
 import com.repository.impl.*
 import dagger.Module
 import dagger.Provides
@@ -13,7 +13,8 @@ class RepositoryModule(private val shopApi: Api) {
     @Provides
     @Singleton
     fun provideRepository(): Repository {
-        return RepositoryImpl(ShopRepositoryImpl(shopApi),
+        return RepositoryImpl(
+                ShopRepositoryImpl(shopApi),
                 BlogRepositoryImpl(shopApi),
                 ProductRepositoryImpl(shopApi),
                 CategoryRepositoryImpl(shopApi))

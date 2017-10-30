@@ -106,7 +106,7 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
      * @param durationMs          duration of the animation, or 0 to not animate
      * @param onAnimationComplete code to run when the animation completes. Ignored if durationMs=0
      */
-    fun setTransform(
+    private fun setTransform(
             newTransform: Matrix,
             durationMs: Long,
             onAnimationComplete: Runnable?) {

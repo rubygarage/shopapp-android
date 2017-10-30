@@ -15,14 +15,10 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            style="@style/ToolbarStyle" />
 
-        <FrameLayout
-            android:id="@+id/content"
+        <com.client.shop.ui.custom.lce.LceLayout
+            android:id="@+id/lceLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

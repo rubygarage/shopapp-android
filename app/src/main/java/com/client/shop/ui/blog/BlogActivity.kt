@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.ui.PaginationActivity
+import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
@@ -13,7 +13,9 @@ import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
 import javax.inject.Inject
 
-class BlogActivity : PaginationActivity<Article, BlogView, BlogPresenter, BlogViewState>(), BlogView {
+class BlogActivity :
+        PaginationActivity<Article, BlogView, BlogPresenter>(),
+        BlogView {
 
     @Inject lateinit var blogPresenter: BlogPresenter
 
@@ -23,10 +25,15 @@ class BlogActivity : PaginationActivity<Article, BlogView, BlogPresenter, BlogVi
         fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.new_in_blog)
+        loadData(false)
     }
+
+    //INIT
 
     override fun inject(component: AppComponent) {
         component.attachBlogComponent(BlogModule()).inject(this)
@@ -34,26 +41,27 @@ class BlogActivity : PaginationActivity<Article, BlogView, BlogPresenter, BlogVi
 
     override fun createPresenter() = blogPresenter
 
-    override fun createViewState() = BlogViewState()
+    //SETUP
 
-    override fun onNewViewStateInstance() {
-        fetchData()
-    }
+    override fun setupAdapter() = BlogAdapter(dataList, this)
 
-    override fun fetchData() {
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
         presenter.loadArticles(ARTICLES_COUNT, paginationValue)
     }
 
-    override fun initAdapter() = BlogAdapter(dataList, this)
-
-    override fun articleListLoaded(articleList: List<Article>) {
-        if (articleList.isNotEmpty()) {
-            paginationValue = articleList.last().paginationValue
-            this.dataList.addAll(articleList)
+    override fun showContent(data: List<Article>) {
+        super.showContent(data)
+        if (data.isNotEmpty()) {
+            paginationValue = data.last().paginationValue
+            this.dataList.addAll(data)
             adapter.notifyDataSetChanged()
         }
-        viewState.setData(this.dataList)
     }
+
+    //CALLBACK
 
     override fun onItemClicked(data: Article, position: Int) {
         startActivity(ArticleActivity.getStartIntent(this, data))

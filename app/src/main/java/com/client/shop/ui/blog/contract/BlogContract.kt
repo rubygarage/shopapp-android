@@ -8,24 +8,20 @@ import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-interface BlogView : BaseMvpView {
+interface BlogView : BaseMvpView<List<Article>>
 
-    fun articleListLoaded(articleList: List<Article>)
-}
-
-class BlogPresenter @Inject constructor(repository: Repository) : BasePresenter<BlogView>(repository) {
+class BlogPresenter @Inject constructor(repository: Repository) : BasePresenter<List<Article>, BlogView>(repository) {
 
     fun loadArticles(perPage: Int, paginationValue: String? = null) {
 
-        showProgress()
-
-        disposables.add(repository.getArticleList(perPage, paginationValue, SortType.RECENT, true)
+        val articlesDisposable = repository.getArticleList(perPage, paginationValue, SortType.RECENT, true)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
                     if (isViewAttached) {
-                        view.articleListLoaded(result)
-                        view.hideProgress()
+                        view?.showContent(result)
                     }
-                }, { _ -> hideProgress() }))
+                }, { e -> resolveError(e) })
+
+        disposables.add(articlesDisposable)
     }
 }

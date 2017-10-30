@@ -8,30 +8,22 @@ import com.repository.Repository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-interface CategoryView : BaseMvpView {
+interface CategoryView : BaseMvpView<List<Product>>
 
-    fun productListLoaded(productList: List<Product>?)
-}
-
-class CategoryPresenter @Inject constructor(repository: Repository) : BasePresenter<CategoryView>(repository) {
+class CategoryPresenter @Inject constructor(repository: Repository) : BasePresenter<List<Product>, CategoryView>(repository) {
 
     fun loadProductList(perPage: Int, paginationValue: String?, categoryId: String, sortType: SortType) {
-
-        showProgress()
 
         //TODO MOVE TO SHOPIFY
         val reverse = sortType == SortType.RECENT
 
-        disposables.add(repository.getCategory(categoryId, perPage, paginationValue, sortType, reverse)
+        val categoryDisposable = repository.getCategory(categoryId, perPage, paginationValue, sortType, reverse)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (isViewAttached) {
-                        view.productListLoaded(result.productList)
-                        view.hideProgress()
-                    }
-                }, { error ->
-                    error.printStackTrace()
-                    hideProgress()
-                }))
+                .subscribe({ result -> view?.showContent(result.productList) },
+                        { error ->
+                            error.printStackTrace()
+                        })
+
+        disposables.add(categoryDisposable)
     }
 }

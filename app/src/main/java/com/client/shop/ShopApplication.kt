@@ -7,6 +7,8 @@ import com.client.shop.di.module.RepositoryModule
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.shopify.api.ShopifyApi
+import io.reactivex.plugins.RxJavaPlugins
+
 
 class ShopApplication : Application() {
 
@@ -28,5 +30,7 @@ class ShopApplication : Application() {
                 .setDownsampleEnabled(true)
                 .build()
         Fresco.initialize(this, config)
+
+        RxJavaPlugins.setErrorHandler { e -> e.printStackTrace() }
     }
 }
