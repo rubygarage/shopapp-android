@@ -1,16 +1,16 @@
 package com.repository
 
-import com.domain.entity.Cart
+import com.domain.entity.CartItem
 import com.domain.entity.ProductVariant
-import io.reactivex.Single
+import io.reactivex.Flowable
 
 interface CartRepository {
 
-    fun getCart(): Single<Cart>
+    fun getCartItems(): Flowable<CartItem>
 
-    fun addProductToCart(product: ProductVariant, quantity: Int): Single<Cart>
+    fun addProductToCart(productVariant: ProductVariant, quantity: Int)
 
-    fun removeProductFromCart(productId: String): Single<Cart>
+    fun deleteProductFromCart(productVariantId: String)
 
-    fun updateProductQuantity(productId: String, newQuantity: Int): Single<Cart>
+    fun changeCartProductQuantity(productVariantId: String, newQuantity: Int)
 }

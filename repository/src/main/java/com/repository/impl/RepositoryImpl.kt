@@ -2,6 +2,7 @@ package com.repository.impl
 
 import com.domain.entity.*
 import com.repository.*
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 class RepositoryImpl(private val shopRepository: ShopRepository,
@@ -44,19 +45,19 @@ class RepositoryImpl(private val shopRepository: ShopRepository,
         return blogRepository.getArticleList(perPage, paginationValue, sortBy, reverse)
     }
 
-    override fun getCart(): Single<Cart> {
-        return cartRepository.getCart()
+    override fun getCartItems(): Flowable<CartItem> {
+        return cartRepository.getCartItems()
     }
 
-    override fun addProductToCart(product: ProductVariant, quantity: Int): Single<Cart> {
-        return cartRepository.addProductToCart(product, quantity)
+    override fun addProductToCart(productVariant: ProductVariant, quantity: Int) {
+        cartRepository.addProductToCart(productVariant, quantity)
     }
 
-    override fun removeProductFromCart(productId: String): Single<Cart> {
-        return cartRepository.removeProductFromCart(productId)
+    override fun deleteProductFromCart(productVariantId: String) {
+        cartRepository.deleteProductFromCart(productVariantId)
     }
 
-    override fun updateProductQuantity(productId: String, newQuantity: Int): Single<Cart> {
-        return cartRepository.updateProductQuantity(productId, newQuantity)
+    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int) {
+        cartRepository.changeCartProductQuantity(productVariantId, newQuantity)
     }
 }

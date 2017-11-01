@@ -4,6 +4,7 @@ import android.app.Application
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
 import com.client.shop.di.module.RepositoryModule
+import com.daocore.DaoImpl
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.shopify.api.ShopifyApi
@@ -22,8 +23,11 @@ class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        val api = ShopifyApi(this, BASE_URL, ACCESS_TOKEN)
+        val dao = DaoImpl(this)
+
         appComponent = DaggerAppComponent.builder()
-                .repositoryModule(RepositoryModule(ShopifyApi(this, BASE_URL, ACCESS_TOKEN)))
+                .repositoryModule(RepositoryModule(api, dao))
                 .build()
 
         val config = ImagePipelineConfig.newBuilder(this)

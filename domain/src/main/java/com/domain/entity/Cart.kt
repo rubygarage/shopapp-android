@@ -1,5 +1,3 @@
 package com.domain.entity
 
-data class Cart(
-        val id: String,
-        val productVariant: List<CartItem>)
+data class Cart(val cartItems: List<CartItem>)

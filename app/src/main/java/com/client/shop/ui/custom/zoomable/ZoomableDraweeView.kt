@@ -67,6 +67,7 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
         init()
     }
 
+    @Suppress("UNUSED_PARAMETER")
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context) {
         inflateHierarchy(context, attrs)
         init()
