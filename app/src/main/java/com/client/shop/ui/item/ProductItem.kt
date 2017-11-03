@@ -21,7 +21,7 @@ class ProductItem(context: Context) : CardView(context) {
     fun setProduct(product: Product) {
         title.text = product.title
         productDescription.text = product.productDescription
-        price.text = context.getString(R.string.price_holder, product.price, product.currency)
+        price.text = context.getString(R.string.price_pattern, product.price, product.currency)
         if (product.images.isNotEmpty()) {
             image.setImageURI(product.images[0].src)
         }

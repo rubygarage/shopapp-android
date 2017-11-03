@@ -2,13 +2,13 @@ package com.daocore
 
 import android.content.Context
 import com.daocore.adapter.CartItemAdapter
-import com.daocore.adapter.ProductVariantAdapter
 import com.daocore.entity.CartItemData
 import com.daocore.entity.CartItemDataEntity
 import com.daocore.entity.Models
-import com.domain.entity.CartItem
-import com.domain.entity.ProductVariant
-import io.reactivex.Flowable
+import com.domain.entity.CartProduct
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.requery.Persistable
 import io.requery.android.sqlite.DatabaseSource
 import io.requery.reactivex.KotlinReactiveEntityStore
@@ -25,46 +25,48 @@ class DaoImpl(context: Context) : Dao {
         store = KotlinReactiveEntityStore(KotlinEntityDataStore(source.configuration))
     }
 
-    override fun getCartItems(): Flowable<CartItem> {
+    override fun getCartDataList(): Observable<List<CartProduct>> {
         return store.select(CartItemDataEntity::class)
                 .get()
-                .flowable()
-                .map { CartItemAdapter.adaptFromStore(it) }
+                .observableResult()
+                .map { it -> it.asIterable() }
+                .map {
+                    val list: MutableList<CartProduct> = mutableListOf()
+                    it.iterator().forEach { list.add(CartItemAdapter.adaptFromStore(it)) }
+                    list
+                }
     }
 
-    override fun addProductToCart(productVariant: ProductVariant, quantity: Int) {
+    override fun addCartProduct(cartProduct: CartProduct): Single<CartProduct> {
+        val productVariant = cartProduct.productVariant
         var storeItem: CartItemData? = store.select(CartItemDataEntity::class)
                 .where(CartItemDataEntity.ID.eq(productVariant.id))
                 .get()
                 .singleOrNull()
         if (storeItem != null) {
-            storeItem.quantity = storeItem.quantity + quantity
+            storeItem.quantity = storeItem.quantity + cartProduct.quantity
         } else {
-            val dataEntity = CartItemDataEntity()
-            dataEntity.id = productVariant.id
-            dataEntity.productVariant = ProductVariantAdapter.adaptToStore(productVariant)
-            dataEntity.quantity = quantity
-            storeItem = dataEntity
+            storeItem = CartItemAdapter.adaptToStore(cartProduct)
         }
-        store.upsert(storeItem).blockingGet()
+        return store.upsert(storeItem).map { CartItemAdapter.adaptFromStore(it) }
     }
 
-    override fun deleteProductFromCart(productVariantId: String) {
+    override fun deleteProductFromCart(productVariantId: String): Completable? {
         val storeItem: CartItemData? = store.select(CartItemDataEntity::class)
                 .where(CartItemDataEntity.ID.eq(productVariantId))
                 .get()
                 .singleOrNull()
-        storeItem?.let { store.delete(storeItem).blockingGet() }
+        return storeItem?.let { store.delete(storeItem) }
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int) {
+    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>? {
         val storeItem: CartItemData? = store.select(CartItemDataEntity::class)
                 .where(CartItemDataEntity.ID.eq(productVariantId))
                 .get()
                 .singleOrNull()
-        storeItem?.let {
+        return storeItem?.let {
             it.quantity = newQuantity
-            store.update(storeItem).blockingGet()
+            store.update(storeItem).map { CartItemAdapter.adaptFromStore(it) }
         }
     }
 }

@@ -14,7 +14,7 @@ class ProductVariantAdapter {
             product.title = adaptee.title
             product.price = adaptee.price
             product.isAvailable = adaptee.isAvailable
-            product.image = null
+            product.image = ImageAdapter.adaptToStore(adaptee.image)
             return product
         }
 
@@ -25,7 +25,7 @@ class ProductVariantAdapter {
                     adaptee.price,
                     adaptee.isAvailable,
                     listOf(),
-                    null)
+                    ImageAdapter.adaptFromStore(adaptee.image))
         }
     }
 }

@@ -60,8 +60,8 @@ abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         lceLayout.changeState(LceLayout.LceState.ErrorState(isNetworkError))
     }
 
-    override fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    override fun showMessage(messageRes: Int) {
+        Toast.makeText(this, getString(messageRes), Toast.LENGTH_LONG).show()
     }
 
     open fun tryAgainButtonClicked() {

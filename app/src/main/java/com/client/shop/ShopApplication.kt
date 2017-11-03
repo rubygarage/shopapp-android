@@ -14,8 +14,8 @@ import io.reactivex.plugins.RxJavaPlugins
 class ShopApplication : Application() {
 
     companion object {
-        private const val BASE_URL = "xpohstore.myshopify.com"
-        private const val ACCESS_TOKEN = "afc80014a08846feaf590e1db92e74b6"
+        private const val BASE_URL = "lalkastore.myshopify.com"
+        private const val ACCESS_TOKEN = "677af790376ae84213f7ea1ed56f11ca"
 
         lateinit var appComponent: AppComponent
     }

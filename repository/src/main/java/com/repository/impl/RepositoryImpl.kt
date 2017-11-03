@@ -2,7 +2,8 @@ package com.repository.impl
 
 import com.domain.entity.*
 import com.repository.*
-import io.reactivex.Flowable
+import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class RepositoryImpl(private val shopRepository: ShopRepository,
@@ -45,19 +46,19 @@ class RepositoryImpl(private val shopRepository: ShopRepository,
         return blogRepository.getArticleList(perPage, paginationValue, sortBy, reverse)
     }
 
-    override fun getCartItems(): Flowable<CartItem> {
-        return cartRepository.getCartItems()
+    override fun getCartProductList(): Observable<List<CartProduct>> {
+        return cartRepository.getCartProductList()
     }
 
-    override fun addProductToCart(productVariant: ProductVariant, quantity: Int) {
-        cartRepository.addProductToCart(productVariant, quantity)
+    override fun addCartProduct(cartProduct: CartProduct): Single<CartProduct> {
+        return cartRepository.addCartProduct(cartProduct)
     }
 
-    override fun deleteProductFromCart(productVariantId: String) {
-        cartRepository.deleteProductFromCart(productVariantId)
+    override fun deleteProductFromCart(productVariantId: String): Completable? {
+        return cartRepository.deleteProductFromCart(productVariantId)
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int) {
-        cartRepository.changeCartProductQuantity(productVariantId, newQuantity)
+    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>? {
+        return cartRepository.changeCartProductQuantity(productVariantId, newQuantity)
     }
 }

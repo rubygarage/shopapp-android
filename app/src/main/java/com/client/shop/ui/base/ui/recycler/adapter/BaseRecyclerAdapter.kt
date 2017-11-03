@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 
-abstract class BaseRecyclerAdapter<in T>(private val dataList: List<T>,
+abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
                                          private val onItemClickListener: OnItemClickListener<T>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

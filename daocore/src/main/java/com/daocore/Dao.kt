@@ -1,16 +1,17 @@
 package com.daocore
 
-import com.domain.entity.CartItem
-import com.domain.entity.ProductVariant
-import io.reactivex.Flowable
+import com.domain.entity.CartProduct
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
 
 interface Dao {
 
-    fun getCartItems(): Flowable<CartItem>
+    fun getCartDataList(): Observable<List<CartProduct>>
 
-    fun addProductToCart(productVariant: ProductVariant, quantity: Int)
+    fun addCartProduct(cartProduct: CartProduct): Single<CartProduct>
 
-    fun deleteProductFromCart(productVariantId: String)
+    fun deleteProductFromCart(productVariantId: String): Completable?
 
-    fun changeCartProductQuantity(productVariantId: String, newQuantity: Int)
+    fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>?
 }

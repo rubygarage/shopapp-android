@@ -2,27 +2,28 @@ package com.repository.impl
 
 import com.apicore.Api
 import com.daocore.Dao
-import com.domain.entity.CartItem
-import com.domain.entity.ProductVariant
+import com.domain.entity.CartProduct
 import com.repository.CartRepository
-import io.reactivex.Flowable
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
 
 class CartRepositoryImpl(private val api: Api, private val dao: Dao) : CartRepository {
 
-    override fun getCartItems(): Flowable<CartItem> {
-        return dao.getCartItems()
+    override fun getCartProductList(): Observable<List<CartProduct>> {
+        return dao.getCartDataList()
     }
 
-    override fun addProductToCart(productVariant: ProductVariant, quantity: Int) {
-        dao.addProductToCart(productVariant, quantity)
+    override fun addCartProduct(cartProduct: CartProduct): Single<CartProduct> {
+        return dao.addCartProduct(cartProduct)
     }
 
-    override fun deleteProductFromCart(productVariantId: String) {
-        dao.deleteProductFromCart(productVariantId)
+    override fun deleteProductFromCart(productVariantId: String): Completable? {
+        return dao.deleteProductFromCart(productVariantId)
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int) {
-        dao.changeCartProductQuantity(productVariantId, newQuantity)
+    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>? {
+        return dao.changeCartProductQuantity(productVariantId, newQuantity)
     }
 
 }

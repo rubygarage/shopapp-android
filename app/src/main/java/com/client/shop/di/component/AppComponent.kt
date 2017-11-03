@@ -3,6 +3,8 @@ package com.client.shop.di.component
 import com.client.shop.di.module.RepositoryModule
 import com.client.shop.ui.blog.di.BlogComponent
 import com.client.shop.ui.blog.di.BlogModule
+import com.client.shop.ui.cart.di.CartComponent
+import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.category.di.CategoryComponent
 import com.client.shop.ui.category.di.CategoryModule
 import com.client.shop.ui.details.di.DetailsComponent
@@ -31,4 +33,6 @@ interface AppComponent {
     fun attachRecentComponent(module: RecentModule): RecentComponent
 
     fun attachCategoryComponent(module: CategoryModule): CategoryComponent
+
+    fun attachCartComponent(module: CartModule): CartComponent
 }

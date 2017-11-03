@@ -12,6 +12,7 @@ import com.client.shop.R
 import com.client.shop.di.component.AppComponent
 import com.client.shop.ext.getScreenSize
 import com.client.shop.ui.base.ui.lce.BaseActivity
+import com.client.shop.ui.cart.CartActivity
 import com.client.shop.ui.container.OptionsContainer
 import com.client.shop.ui.details.contract.DetailsPresenter
 import com.client.shop.ui.details.contract.DetailsView
@@ -42,23 +43,36 @@ class DetailsActivity :
     private var galleryFragment: GalleryFragment? = null
     private lateinit var productId: String
     private var product: Product? = null
+    private var selectedProductVariant: ProductVariant? = null
+    private var isAddedToCart = false
+
+    //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         productId = intent.getStringExtra(EXTRA_PRODUCT_ID)
 
         val typedValue = TypedValue()
         resources.getValue(R.dimen.image_aspect_ratio, typedValue, true)
-
         val galleryHeight = (getScreenSize().x / typedValue.float).toInt()
 
         setupScrollView(galleryHeight)
         setupGallery(galleryHeight)
+        setupCartButton()
 
         optionsContainer.variantSelectListener = this
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadData(false)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.let {
+            if (item.itemId == android.R.id.home) {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     //INITIAL
@@ -101,6 +115,19 @@ class DetailsActivity :
         }
     }
 
+    private fun setupCartButton() {
+        cartButton.setOnClickListener {
+            if (isAddedToCart) {
+                startActivity(CartActivity.getStartIntent(this))
+            } else {
+                selectedProductVariant?.let {
+                    presenter.addProductToCart(it, productId,
+                            product?.currency ?: "", quantityEditText.text.toString())
+                }
+            }
+        }
+    }
+
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -117,25 +144,23 @@ class DetailsActivity :
         optionsContainer.setProduct(data)
     }
 
+    override fun productAddedToCart() {
+        cartButton.text = getString(R.string.added_to_cart)
+        isAddedToCart = true
+    }
+
     //CALLBACK
 
     override fun onVariantSelected(productVariant: ProductVariant?) {
         if (productVariant != null && productVariant.isAvailable) {
-            priceValue.text = getString(R.string.price_holder, productVariant.price, product?.currency)
-            addToCartButton.isEnabled = true
+            priceValue.text = getString(R.string.price_pattern, productVariant.price, product?.currency)
+            cartButton.isEnabled = true
+            selectedProductVariant = productVariant
         } else {
             priceValue.text = ""
-            addToCartButton.isEnabled = false
+            cartButton.isEnabled = false
+            selectedProductVariant = null
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }
