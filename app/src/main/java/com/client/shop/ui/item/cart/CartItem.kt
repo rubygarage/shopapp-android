@@ -1,4 +1,4 @@
-package com.client.shop.ui.item
+package com.client.shop.ui.item.cart
 
 import android.content.Context
 import android.support.v7.widget.CardView
@@ -8,6 +8,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.EditText
 import com.client.shop.R
+import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.entity.CartProduct
 import kotlinx.android.synthetic.main.item_cart.view.*
@@ -42,6 +43,7 @@ class CartItem @JvmOverloads constructor(
         super.onDetachedFromWindow()
         quantityEditText.removeTextChangedListener(this)
         quantityEditText.onFocusChangeListener = null
+        quantityEditText.hideKeyboard()
     }
 
     fun setCartProduct(cartProduct: CartProduct) {

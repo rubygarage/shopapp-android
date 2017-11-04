@@ -13,7 +13,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="fitCenter"
-            app:layout_constraintStart_toStartOf="@+id/startVericalGuideline"
+            app:layout_constraintStart_toStartOf="@+id/startVerticalGuideline"
             app:layout_constraintTop_toTopOf="@+id/topHorizontalGuideline"
             app:placeholderImage="@drawable/ic_product_placeholder" />
 
@@ -85,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/eachPrice" />
 
         <android.support.constraint.Guideline
-            android:id="@+id/startVericalGuideline"
+            android:id="@+id/startVerticalGuideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

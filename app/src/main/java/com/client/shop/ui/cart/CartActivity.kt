@@ -14,7 +14,7 @@ import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
 import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.details.DetailsActivity
-import com.client.shop.ui.item.CartItem
+import com.client.shop.ui.item.cart.CartItem
 import com.domain.entity.CartProduct
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject

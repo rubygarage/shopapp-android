@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 
 abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
-                                         private val onItemClickListener: OnItemClickListener<T>) :
+                                      private val onItemClickListener: OnItemClickListener<T>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var withHeader = false
@@ -23,18 +23,20 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
         val context = parent.context
         return when (viewType) {
             HEADER_TYPE -> HeaderViewHolder(getHeaderView(context))
-            FOOTER_TYPE -> HeaderViewHolder(getFooterView(context))
+            FOOTER_TYPE -> FooterViewHolder(getFooterView(context))
             else -> DefaultViewHolder(getItemView(context, viewType))
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemPosition = position - if (withHeader) 1 else 0
-        if (holder != null && itemPosition >= 0 && dataList.size > itemPosition) {
+        if (itemPosition >= 0 && dataList.size > itemPosition) {
             val itemView = holder.itemView
             val data = dataList[itemPosition]
             itemView.setOnClickListener({ onItemClickListener.onItemClicked(data, itemPosition) })
             bindData(itemView, data, itemPosition)
+        } else if (dataList.size == itemPosition && withFooter) {
+            bindFooterData(holder.itemView, position)
         }
     }
 
@@ -57,6 +59,10 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
     abstract fun getItemView(context: Context, viewType: Int): View
 
     abstract fun bindData(itemView: View, data: T, position: Int)
+
+    open protected fun bindFooterData(itemView: View, position: Int) {
+
+    }
 
     protected open fun getHeaderView(context: Context): View? {
         return null

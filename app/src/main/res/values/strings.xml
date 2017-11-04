@@ -27,5 +27,6 @@
     <string name="remove_button">Remove</string>
     <string name="each_price_pattern">%1$s %2$s each</string>
     <string name="cart">Cart</string>
+    <string name="proceed_to_checkout">Proceed to checkout</string>
 
 </resources>

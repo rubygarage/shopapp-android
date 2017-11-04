@@ -3,6 +3,7 @@ package com.client.shop.ui.recent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
@@ -32,6 +33,11 @@ class RecentActivity :
         super.onCreate(savedInstanceState)
         title = getString(R.string.last_arrivals)
         loadData(false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_cart, menu)
+        return true
     }
 
     //INIT
