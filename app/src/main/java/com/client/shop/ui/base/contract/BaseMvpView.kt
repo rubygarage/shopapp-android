@@ -7,6 +7,8 @@ interface BaseMvpView<in T> : MvpView {
 
     fun showContent(data: T)
 
+    fun showEmptyState()
+
     fun showError(isNetworkError: Boolean)
 
     fun showMessage(@StringRes messageRes: Int)

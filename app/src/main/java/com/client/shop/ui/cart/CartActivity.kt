@@ -15,8 +15,11 @@ import com.client.shop.ui.cart.contract.CartView
 import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.item.cart.CartItem
+import com.client.shop.ui.recent.RecentActivity
 import com.domain.entity.CartProduct
 import kotlinx.android.synthetic.main.activity_cart.*
+import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import javax.inject.Inject
 
 class CartActivity :
@@ -39,6 +42,7 @@ class CartActivity :
         super.onCreate(savedInstanceState)
 
         setupRecyclerView()
+        setupEmptyView()
 
         loadData(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -74,6 +78,14 @@ class CartActivity :
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
+    private fun setupEmptyView() {
+        val emptyView = lceLayout.emptyView
+        emptyView.customiseEmptyImage(R.drawable.ic_empty_shopping_cart)
+        emptyView.customiseEmptyMessage(R.string.empty_cart_message)
+        emptyView.customiseEmptyButtonText(R.string.empty_cart_button)
+        emptyView.customiseEmptyButtonVisibility(true)
+    }
+
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -89,6 +101,10 @@ class CartActivity :
     }
 
     //CALLBACK
+
+    override fun emptyButtonClicked() {
+        startActivity(RecentActivity.getStartIntent(this))
+    }
 
     override fun onItemClicked(data: CartProduct, position: Int) {
         startActivity(DetailsActivity.getStartIntent(this, data.productId))

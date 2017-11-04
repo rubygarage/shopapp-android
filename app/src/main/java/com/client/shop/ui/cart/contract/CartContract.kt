@@ -21,7 +21,13 @@ class CartPresenter @Inject constructor(repository: Repository) :
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> view?.showContent(result) },
+                        { result ->
+                            if (result.isNotEmpty()) {
+                                view?.showContent(result)
+                            } else {
+                                view?.showEmptyState()
+                            }
+                        },
                         { error -> error.printStackTrace() })
         disposables.add(cartDisposable)
     }

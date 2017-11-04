@@ -3,6 +3,7 @@ package com.client.shop.ui.base.ui.lce
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.LayoutRes
+import android.view.View
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
@@ -12,7 +13,6 @@ import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.custom.lce.LceLayout
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.view_lce_error.*
 
 abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         MvpActivity<V, P>(),
@@ -25,8 +25,9 @@ abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         super.onCreate(savedInstanceState)
         setContentView(getMainLayout())
         lceLayout.setupContentLayout(getContentView())
+        lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
+        lceLayout.emptyButtonClickListener = View.OnClickListener { emptyButtonClicked() }
         setSupportActionBar(toolbar)
-        tryAgainButton.setOnClickListener { tryAgainButtonClicked() }
     }
 
     //INIT
@@ -55,6 +56,10 @@ abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         lceLayout.changeState(LceLayout.LceState.ContentState)
     }
 
+    override fun showEmptyState() {
+        lceLayout.changeState(LceLayout.LceState.EmptyState)
+    }
+
     @CallSuper
     override fun showError(isNetworkError: Boolean) {
         lceLayout.changeState(LceLayout.LceState.ErrorState(isNetworkError))
@@ -64,7 +69,13 @@ abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         Toast.makeText(this, getString(messageRes), Toast.LENGTH_LONG).show()
     }
 
+    //CALLBACK
+
     open fun tryAgainButtonClicked() {
         loadData(false)
+    }
+
+    open fun emptyButtonClicked() {
+
     }
 }
