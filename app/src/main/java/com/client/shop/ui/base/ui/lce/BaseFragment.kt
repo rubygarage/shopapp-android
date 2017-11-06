@@ -57,12 +57,16 @@ abstract class BaseFragment<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
         lceLayout.changeState(LceLayout.LceState.ContentState)
     }
 
+    override fun showEmptyState() {
+        lceLayout.changeState(LceLayout.LceState.EmptyState)
+    }
+
     @CallSuper
     override fun showError(isNetworkError: Boolean) {
         lceLayout.changeState(LceLayout.LceState.ErrorState(isNetworkError))
     }
 
-    override fun showMessage(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    override fun showMessage(messageRes: Int) {
+        Toast.makeText(context, messageRes, Toast.LENGTH_LONG).show()
     }
 }

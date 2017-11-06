@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 
-abstract class BaseRecyclerAdapter<in T>(private val dataList: List<T>,
-                                         private val onItemClickListener: OnItemClickListener<T>) :
+abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
+                                      private val onItemClickListener: OnItemClickListener<T>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var withHeader = false
@@ -23,18 +23,19 @@ abstract class BaseRecyclerAdapter<in T>(private val dataList: List<T>,
         val context = parent.context
         return when (viewType) {
             HEADER_TYPE -> HeaderViewHolder(getHeaderView(context))
-            FOOTER_TYPE -> HeaderViewHolder(getFooterView(context))
+            FOOTER_TYPE -> FooterViewHolder(getFooterView(context))
             else -> DefaultViewHolder(getItemView(context, viewType))
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val itemPosition = position - if (withHeader) 1 else 0
-        if (holder != null && itemPosition >= 0 && dataList.size > itemPosition) {
+        if (itemPosition >= 0 && dataList.size > itemPosition) {
             val itemView = holder.itemView
             val data = dataList[itemPosition]
-            itemView.setOnClickListener({ onItemClickListener.onItemClicked(data, itemPosition) })
             bindData(itemView, data, itemPosition)
+        } else if (dataList.size == itemPosition && withFooter) {
+            bindFooterData(holder.itemView, position)
         }
     }
 
@@ -58,6 +59,10 @@ abstract class BaseRecyclerAdapter<in T>(private val dataList: List<T>,
 
     abstract fun bindData(itemView: View, data: T, position: Int)
 
+    open protected fun bindFooterData(itemView: View, position: Int) {
+
+    }
+
     protected open fun getHeaderView(context: Context): View? {
         return null
     }
@@ -66,7 +71,21 @@ abstract class BaseRecyclerAdapter<in T>(private val dataList: List<T>,
         return null
     }
 
-    class DefaultViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    inner class DefaultViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView),
+            View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition - if (withHeader) 1 else 0
+            if (position >= 0 && dataList.size > position) {
+                onItemClickListener.onItemClicked(dataList[position], position)
+            }
+        }
+    }
 
     class HeaderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 

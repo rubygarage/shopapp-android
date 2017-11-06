@@ -8,7 +8,7 @@ class ArticleListAdapter {
     companion object {
 
         fun adapt(edges: List<Storefront.ArticleEdge>): List<Article> {
-            return edges.map { ArticleAdapter.adapt(it.node) }
+            return edges.map { ArticleAdapter.adapt(it.node, it.cursor) }
         }
     }
 }

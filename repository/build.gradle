@@ -34,7 +34,7 @@ dependencies {
     })
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    implementation 'io.reactivex.rxjava2:rxjava:2.1.1'
+    implementation "io.reactivex.rxjava2:rxjava:$rxVersion"
 
     compile project(":daocore")
     implementation project(':apicore')

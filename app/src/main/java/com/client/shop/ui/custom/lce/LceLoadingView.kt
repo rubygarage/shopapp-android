@@ -10,7 +10,8 @@ class LceLoadingView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr),
+        LceView {
 
     companion object {
         private const val MIN_SHOW_TIME = 500L
@@ -50,23 +51,23 @@ class LceLoadingView @JvmOverloads constructor(
         removeCallbacks(mDelayedHide)
     }
 
-    fun hide() {
-        mDismissed = true
-        val diff = System.currentTimeMillis() - mStartTime
-        if (diff >= MIN_SHOW_TIME || mStartTime == -1L) {
-            visibility = View.GONE
+    override fun changeState(state: LceLayout.LceState) {
+        if (state == LceLayout.LceState.LoadingState) {
+            mDismissed = false
+            mPostedShow = false
+            mStartTime = System.currentTimeMillis()
+            visibility = View.VISIBLE
         } else {
-            if (!mPostedHide) {
-                postDelayed(mDelayedHide, MIN_SHOW_TIME - diff)
-                mPostedHide = true
+            mDismissed = true
+            val diff = System.currentTimeMillis() - mStartTime
+            if (diff >= MIN_SHOW_TIME || mStartTime == -1L) {
+                visibility = View.GONE
+            } else {
+                if (!mPostedHide) {
+                    postDelayed(mDelayedHide, MIN_SHOW_TIME - diff)
+                    mPostedHide = true
+                }
             }
         }
-    }
-
-    fun show() {
-        mDismissed = false
-        mPostedShow = false
-        mStartTime = System.currentTimeMillis()
-        visibility = View.VISIBLE
     }
 }

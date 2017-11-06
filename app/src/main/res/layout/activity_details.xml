@@ -126,14 +126,15 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:ems="10"
+                        android:maxLength="3"
                         android:inputType="number"
                         android:minWidth="50dp"
-                        android:text="1"
+                        android:text="@string/default_product_quantity"
                         app:layout_constraintStart_toEndOf="@+id/quantity"
                         app:layout_constraintTop_toBottomOf="@+id/optionsContainer" />
 
                     <Button
-                        android:id="@+id/addToCartButton"
+                        android:id="@+id/cartButton"
                         style="@style/Widget.AppCompat.Button.Borderless.Colored"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

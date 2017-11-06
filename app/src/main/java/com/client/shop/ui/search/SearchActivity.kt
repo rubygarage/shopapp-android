@@ -3,6 +3,7 @@ package com.client.shop.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import com.client.shop.R
 import com.client.shop.di.component.AppComponent
 import com.client.shop.ui.base.rx.RxQueryTextListener
@@ -69,6 +70,11 @@ class SearchActivity :
                 it.dispose()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_cart, menu)
+        return true
     }
 
     //INIT

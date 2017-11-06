@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.client.shop.R
+import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.di.component.AppComponent
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.blog.adapter.BlogAdapter
@@ -20,8 +21,6 @@ class BlogActivity :
     @Inject lateinit var blogPresenter: BlogPresenter
 
     companion object {
-        private const val ARTICLES_COUNT = 10
-
         fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)
     }
 
@@ -49,7 +48,7 @@ class BlogActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadArticles(ARTICLES_COUNT, paginationValue)
+        presenter.loadArticles(DEFAULT_PER_PAGE_COUNT, paginationValue)
     }
 
     override fun showContent(data: List<Article>) {

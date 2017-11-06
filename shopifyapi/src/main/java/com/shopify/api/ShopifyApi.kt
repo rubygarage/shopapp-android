@@ -1,15 +1,20 @@
 package com.shopify.api
 
 import android.content.Context
+import com.apicore.Api
 import com.apicore.ApiCallback
 import com.domain.entity.*
-import com.apicore.Api
 import com.shopify.api.adapter.*
 import com.shopify.buy3.GraphClient
 import com.shopify.buy3.Storefront
 import com.shopify.graphql.support.ID
+import net.danlew.android.joda.JodaTimeAndroid
 
 class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
+
+    init {
+        JodaTimeAndroid.init(context)
+    }
 
     private val graphClient: GraphClient = GraphClient.builder(context)
             .shopDomain(baseUrl)
@@ -271,6 +276,10 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 return ArticleListAdapter.adapt(data.shop.articles.edges)
             }
         })
+    }
+
+    override fun addProductToCart(productId: String, quantity: Int, callback: ApiCallback<Void>) {
+
     }
 
     private fun getProductSortKey(sortType: SortType?): Storefront.ProductSortKeys? {

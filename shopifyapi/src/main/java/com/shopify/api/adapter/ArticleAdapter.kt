@@ -7,7 +7,7 @@ class ArticleAdapter {
 
     companion object {
 
-        fun adapt(adaptee: Storefront.Article): Article {
+        fun adapt(adaptee: Storefront.Article, paginationValue: String? = null): Article {
             return Article(
                     adaptee.id.toString(),
                     adaptee.title,
@@ -18,7 +18,8 @@ class ArticleAdapter {
                     adaptee.blog.id.toString(),
                     adaptee.blog.title,
                     adaptee.publishedAt.toDate(),
-                    adaptee.url)
+                    adaptee.url,
+                    paginationValue)
         }
     }
 }

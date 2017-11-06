@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_white"
         android:title="@string/search"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/cart"
+        android:title="@string/cart"
+        app:actionViewClass="com.client.shop.ui.cart.CartWidget"
+        app:showAsAction="always" />
 
 </menu>

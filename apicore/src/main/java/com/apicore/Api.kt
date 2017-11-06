@@ -22,4 +22,6 @@ interface Api {
 
     fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType? = null,
                        reverse: Boolean = false, callback: ApiCallback<List<Article>>)
+
+    fun addProductToCart(productId: String, quantity: Int, callback: ApiCallback<Void>)
 }

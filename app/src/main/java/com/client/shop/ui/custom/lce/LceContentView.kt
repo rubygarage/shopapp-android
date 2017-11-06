@@ -10,17 +10,14 @@ class LceContentView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr),
+    LceView {
 
     init {
         View.inflate(context, R.layout.view_lce_content, this)
     }
 
-    fun show() {
-        visibility = View.VISIBLE
-    }
-
-    fun hide() {
-        visibility = View.GONE
+    override fun changeState(state: LceLayout.LceState) {
+        visibility = if (state == LceLayout.LceState.ContentState) View.VISIBLE else View.GONE
     }
 }

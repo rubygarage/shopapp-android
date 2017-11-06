@@ -37,13 +37,25 @@
             android:name=".ui.gallery.GalleryActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <activity android:name=".ui.blog.ArticleActivity" />
+        <activity
+            android:name=".ui.blog.ArticleActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.policy.PolicyActivity" />
+        <activity
+            android:name=".ui.policy.PolicyActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.recent.RecentActivity" />
+        <activity
+            android:name=".ui.recent.RecentActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.blog.BlogActivity" />
+        <activity
+            android:name=".ui.blog.BlogActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.cart.CartActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 
