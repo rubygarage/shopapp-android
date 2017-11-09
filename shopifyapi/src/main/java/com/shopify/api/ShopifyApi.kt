@@ -289,8 +289,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val customerQuery = Storefront.CustomerCreatePayloadQueryDefinition { queryDefinition ->
             queryDefinition.customer { customerQuery ->
-                customerQuery.id().
-                        firstName()
+                customerQuery.id()
+                        .firstName()
                         .lastName()
                         .email()
             }.userErrors { errorsQuery ->

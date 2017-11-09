@@ -24,14 +24,14 @@ class HomePresenter @Inject constructor(repository: Repository) :
                 repository.getCategoryList(MAXIMUM_PER_PAGE_COUNT),
                 repository.isLoggedIn(),
                 Function3<Shop, List<Category>, Boolean, Triple<Shop, List<Category>, Boolean>>
-                { t1, t2, t3 ->
-                    Triple(t1, t2, t3)
+                { shop, categories, isAuthorized ->
+                    Triple(shop, categories, isAuthorized)
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> view?.showContent(result) },
-                        { e -> resolveError(e) })
+                        { view?.showContent(it) },
+                        { resolveError(it) })
 
         disposables.add(disposable)
     }

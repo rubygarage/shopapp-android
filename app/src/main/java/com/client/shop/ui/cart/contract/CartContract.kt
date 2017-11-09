@@ -34,7 +34,8 @@ class CartPresenter @Inject constructor(repository: Repository) :
 
     fun removeProduct(productVariantId: String) {
 
-        val deleteDisposable = repository.deleteProductFromCart(productVariantId).subscribeOn(Schedulers.io())
+        val deleteDisposable = repository.deleteProductFromCart(productVariantId)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {},
@@ -45,7 +46,8 @@ class CartPresenter @Inject constructor(repository: Repository) :
 
     fun changeProductQuantity(productVariantId: String, newQuantity: Int) {
 
-        val quantityDisposable = repository.changeCartProductQuantity(productVariantId, newQuantity).subscribeOn(Schedulers.io())
+        val quantityDisposable = repository.changeCartProductQuantity(productVariantId, newQuantity)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {},

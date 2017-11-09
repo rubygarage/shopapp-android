@@ -22,11 +22,15 @@ class SignUpFragment :
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity.title = getString(R.string.create_account)
 
         createButton.setOnClickListener {
             loadData(true)
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        activity.title = getString(R.string.create_account)
     }
 
     //INIT
