@@ -13,6 +13,8 @@ interface BaseMvpView<in T> : MvpView {
 
     fun showMessage(@StringRes messageRes: Int)
 
+    fun showMessage(message: String)
+
     fun showActionError(action: String) {
 
     }

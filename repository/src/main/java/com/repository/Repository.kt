@@ -5,4 +5,6 @@ interface Repository :
         CategoryRepository,
         ProductRepository,
         BlogRepository,
-        CartRepository
+        CartRepository,
+        AuthRepository,
+        SessionRepository

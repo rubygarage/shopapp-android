@@ -25,6 +25,10 @@ open class BasePresenter<in M, V : BaseMvpView<M>>(protected val repository: Rep
                 view?.showError(error.isNetworkError)
                 true
             }
+            is Error.NonCritical -> {
+                view?.showMessage(error.message)
+                true
+            }
             is Error.Critical -> {
                 //TODO ADD ROUTING
                 true

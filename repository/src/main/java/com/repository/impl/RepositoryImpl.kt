@@ -10,7 +10,9 @@ class RepositoryImpl(private val shopRepository: ShopRepository,
                      private val blogRepository: BlogRepository,
                      private val productRepository: ProductRepository,
                      private val categoryRepository: CategoryRepository,
-                     private val cartRepository: CartRepository) : Repository {
+                     private val cartRepository: CartRepository,
+                     private val authRepository: AuthRepository,
+                     private val sessionRepository: SessionRepository) : Repository {
 
     override fun getShop(): Single<Shop> {
         return shopRepository.getShop()
@@ -54,11 +56,35 @@ class RepositoryImpl(private val shopRepository: ShopRepository,
         return cartRepository.addCartProduct(cartProduct)
     }
 
-    override fun deleteProductFromCart(productVariantId: String): Completable? {
+    override fun deleteProductFromCart(productVariantId: String): Completable {
         return cartRepository.deleteProductFromCart(productVariantId)
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>? {
+    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct> {
         return cartRepository.changeCartProductQuantity(productVariantId, newQuantity)
+    }
+
+    override fun signUp(firstName: String, lastName: String, email: String, password: String): Single<Customer> {
+        return authRepository.signUp(firstName, lastName, email, password)
+                .flatMap {
+                    requestToken(email, password).map { saveSession(it) }
+                    Single.just(it)
+                }
+    }
+
+    override fun isLoggedIn(): Single<Boolean> {
+        return authRepository.isLoggedIn()
+    }
+
+    override fun requestToken(email: String, password: String): Single<AccessData> {
+        return authRepository.requestToken(email, password)
+    }
+
+    override fun saveSession(accessData: AccessData) {
+        sessionRepository.saveSession(accessData)
+    }
+
+    override fun getSession(): AccessData? {
+        return sessionRepository.getSession()
     }
 }

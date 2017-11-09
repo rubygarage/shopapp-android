@@ -1,14 +1,14 @@
 package com.daocore.adapter
 
-import com.daocore.entity.CartItemData
-import com.daocore.entity.CartItemDataEntity
+import com.daocore.entity.CartProductData
+import com.daocore.entity.CartProductDataEntity
 import com.domain.entity.CartProduct
 
-class CartItemAdapter {
+class CartProductAdapter {
 
     companion object {
 
-        fun adaptFromStore(adaptee: CartItemData): CartProduct {
+        fun adaptFromStore(adaptee: CartProductData): CartProduct {
             return CartProduct(
                     ProductVariantAdapter.adaptFromStore(adaptee.productVariant),
                     adaptee.productId,
@@ -17,8 +17,8 @@ class CartItemAdapter {
             )
         }
 
-        fun adaptToStore(adaptee: CartProduct): CartItemData {
-            val cartItem = CartItemDataEntity()
+        fun adaptToStore(adaptee: CartProduct): CartProductData {
+            val cartItem = CartProductDataEntity()
             cartItem.id = adaptee.productVariant.id
             cartItem.productVariant = ProductVariantAdapter.adaptToStore(adaptee.productVariant)
             cartItem.productId = adaptee.productId

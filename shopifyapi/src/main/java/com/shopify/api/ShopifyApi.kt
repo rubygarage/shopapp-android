@@ -5,6 +5,8 @@ import com.apicore.Api
 import com.apicore.ApiCallback
 import com.domain.entity.*
 import com.shopify.api.adapter.*
+import com.shopify.api.call.MutationCallWrapper
+import com.shopify.api.call.QuaryCallWrapper
 import com.shopify.buy3.GraphClient
 import com.shopify.buy3.Storefront
 import com.shopify.graphql.support.ID
@@ -87,7 +89,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : CallWrapper<Product>(callback) {
+        call.enqueue(object : QuaryCallWrapper<Product>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Product {
                 return ProductAdapter.adapt(data.shop, data.node as Storefront.Product)
             }
@@ -130,7 +132,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : CallWrapper<List<Category>>(callback) {
+        call.enqueue(object : QuaryCallWrapper<List<Category>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Category> {
                 return CategoryListAdapter.adapt(data.shop)
             }
@@ -199,7 +201,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : CallWrapper<Category>(callback) {
+        call.enqueue(object : QuaryCallWrapper<Category>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Category {
                 return CategoryAdapter.adapt(data.shop, data.node as Storefront.Collection)
             }
@@ -220,7 +222,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : CallWrapper<Shop>(callback) {
+        call.enqueue(object : QuaryCallWrapper<Shop>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Shop {
                 return ShopAdapter.adapt(data)
             }
@@ -271,15 +273,68 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : CallWrapper<List<Article>>(callback) {
+        call.enqueue(object : QuaryCallWrapper<List<Article>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Article> {
                 return ArticleListAdapter.adapt(data.shop.articles.edges)
             }
         })
     }
 
-    override fun addProductToCart(productId: String, quantity: Int, callback: ApiCallback<Void>) {
+    override fun signUp(firstName: String, lastName: String, email: String, password: String,
+                        callback: ApiCallback<Customer>) {
 
+        val customerCreateInput = Storefront.CustomerCreateInput(email, password)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+
+        val customerQuery = Storefront.CustomerCreatePayloadQueryDefinition { queryDefinition ->
+            queryDefinition.customer { customerQuery ->
+                customerQuery.id()
+                        .firstName()
+                        .lastName()
+                        .email()
+            }.userErrors { errorsQuery ->
+                errorsQuery.field()
+                        .message()
+            }
+        }
+
+        val mutationQuery = Storefront.mutation { query -> query.customerCreate(customerCreateInput, customerQuery) }
+        val call = graphClient.mutateGraph(mutationQuery)
+        call.enqueue(object : MutationCallWrapper<Customer>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Customer? {
+                return data?.customerCreate?.let {
+                    if (it.userErrors.isNotEmpty()) {
+                        callback.onFailure(Error.NonCritical(data.customerCreate
+                                .userErrors
+                                .first()
+                                .message))
+
+                    } else if (it.customer != null) {
+                        return CustomerAdapter.adapt(it.customer)
+                    }
+                    return null
+                }
+            }
+        })
+    }
+
+    override fun requestToken(email: String, password: String, callback: ApiCallback<AccessData>) {
+
+        val accessTokenInput = Storefront.CustomerAccessTokenCreateInput(email, password)
+        val accessTokenQuery = Storefront.CustomerAccessTokenCreatePayloadQueryDefinition { queryDefinition ->
+            queryDefinition.customerAccessToken { accessTokenQuery -> accessTokenQuery.accessToken().expiresAt() }
+        }
+
+        val mutationQuery = Storefront.mutation { query -> query.customerAccessTokenCreate(accessTokenInput, accessTokenQuery) }
+        val call = graphClient.mutateGraph(mutationQuery)
+        call.enqueue(object : MutationCallWrapper<AccessData>(callback) {
+            override fun adapt(data: Storefront.Mutation?): AccessData? {
+                return data?.customerAccessTokenCreate?.customerAccessToken?.let {
+                    AccessData(email, it.accessToken, it.expiresAt.millis)
+                }
+            }
+        })
     }
 
     private fun getProductSortKey(sortType: SortType?): Storefront.ProductSortKeys? {
@@ -376,7 +431,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : CallWrapper<List<Product>>(callback) {
+        call.enqueue(object : QuaryCallWrapper<List<Product>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Product> {
                 return ProductListAdapter.adapt(data.shop, data.shop.products)
             }

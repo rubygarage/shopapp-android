@@ -27,19 +27,14 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
 
     fun setProduct(product: Product) {
 
-        if (product.options.isEmpty() || (product.options.size == 1 && product.options[0].values.size == 1)) {
-            visibility = View.GONE
+        visibility = if (product.options.isEmpty() ||
+                (product.options.size == 1 && product.options.first().values.size == 1)) {
+            View.GONE
         } else {
-            visibility = View.VISIBLE
             alpha = 0f
             animate().alpha(1f).duration = ANIMATION_DURATION
-        }
-
-        visibility = if (product.options.isEmpty() ||
-                (product.options.size == 1 && product.options[0].values.size == 1))
-            View.GONE
-        else
             View.VISIBLE
+        }
 
         for (productOption in product.options) {
             val optionItem = OptionsItem(context)

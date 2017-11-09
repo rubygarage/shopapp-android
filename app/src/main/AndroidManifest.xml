@@ -57,6 +57,10 @@
             android:name=".ui.cart.CartActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

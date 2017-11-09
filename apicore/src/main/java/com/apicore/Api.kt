@@ -23,5 +23,7 @@ interface Api {
     fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType? = null,
                        reverse: Boolean = false, callback: ApiCallback<List<Article>>)
 
-    fun addProductToCart(productId: String, quantity: Int, callback: ApiCallback<Void>)
+    fun signUp(firstName: String, lastName: String, email: String, password: String, callback: ApiCallback<Customer>)
+
+    fun requestToken(email: String, password: String, callback: ApiCallback<AccessData>)
 }

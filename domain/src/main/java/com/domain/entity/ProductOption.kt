@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 data class ProductOption(var id: String,
                     var name: String,
-                    var values: List<String>) : Parcelable {
+                    var values: List<String>
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

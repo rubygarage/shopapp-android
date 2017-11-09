@@ -7,9 +7,11 @@
     <string name="last_arrivals">Last Arrivals</string>
     <string name="new_in_blog">New in blog</string>
     <string name="more">More</string>
+    <string name="home">Home</string>
     <string name="category">Category</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="terms_of_service">Terms Of Service</string>
+    <string name="account">Account</string>
     <string name="search">Search</string>
     <string name="price_label">Price:</string>
     <string name="quantity_label">Quantity:</string>
@@ -31,5 +33,17 @@
     <string name="empty_message">It\'s empty in here.</string>
     <string name="empty_cart_message">Your shopping cart is empty</string>
     <string name="empty_cart_button">See last arrivals</string>
+    <string name="create_account">Create account</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create">Create</string>
+    <string name="empty_fields_error_message">Please fill required fields</string>
+    <string name="invalid_email_error_message">Email is not valid</string>
+    <string name="invalid_password_error_message">Your password needs to be at least 6 characters long</string>
+    <string name="register">Register</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register_success_message">You have been successfully registered and logged in.</string>
 
 </resources>

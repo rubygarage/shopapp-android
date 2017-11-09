@@ -8,21 +8,30 @@ import com.domain.entity.Shop
 import com.repository.Repository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-interface HomeView : BaseMvpView<Pair<Shop, List<Category>>>
+interface HomeView : BaseMvpView<Triple<Shop, List<Category>, Boolean>>
 
-class HomePresenter @Inject constructor(repository: Repository) : BasePresenter<Pair<Shop, List<Category>>, HomeView>(repository) {
+class HomePresenter @Inject constructor(repository: Repository) :
+        BasePresenter<Triple<Shop, List<Category>, Boolean>, HomeView>(repository) {
 
     fun requestData() {
 
-        val disposable = Single.zip<Shop, List<Category>, Pair<Shop, List<Category>>>(repository.getShop(),
-                repository.getCategoryList(MAXIMUM_PER_PAGE_COUNT), BiFunction { t1, t2 -> Pair(t1, t2) })
+        val disposable = Single.zip<Shop, List<Category>, Boolean, Triple<Shop, List<Category>, Boolean>>(
+                repository.getShop(),
+                repository.getCategoryList(MAXIMUM_PER_PAGE_COUNT),
+                repository.isLoggedIn(),
+                Function3<Shop, List<Category>, Boolean, Triple<Shop, List<Category>, Boolean>>
+                { shop, categories, isAuthorized ->
+                    Triple(shop, categories, isAuthorized)
+                })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { result -> view?.showContent(result) },
-                        { e -> resolveError(e) })
+                        { view?.showContent(it) },
+                        { resolveError(it) })
 
         disposables.add(disposable)
     }

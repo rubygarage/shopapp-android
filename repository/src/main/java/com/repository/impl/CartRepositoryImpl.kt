@@ -18,11 +18,11 @@ class CartRepositoryImpl(private val api: Api, private val dao: Dao) : CartRepos
         return dao.addCartProduct(cartProduct)
     }
 
-    override fun deleteProductFromCart(productVariantId: String): Completable? {
+    override fun deleteProductFromCart(productVariantId: String): Completable {
         return dao.deleteProductFromCart(productVariantId)
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>? {
+    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct> {
         return dao.changeCartProductQuantity(productVariantId, newQuantity)
     }
 

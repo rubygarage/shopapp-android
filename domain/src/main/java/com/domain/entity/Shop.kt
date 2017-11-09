@@ -7,7 +7,8 @@ data class Shop(var name: String,
                 var description: String?,
                 var privacyPolicy: Policy?,
                 var refundPolicy: Policy?,
-                var termsOfService: Policy?) : Parcelable {
+                var termsOfService: Policy?
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
