@@ -19,8 +19,8 @@ data class Product(var id: String,
                    var images: List<Image>,
                    var options: List<ProductOption>,
                    var variants: List<ProductVariant>,
-
-                   var paginationValue: String? = null) : Parcelable {
+                   var paginationValue: String? = null
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

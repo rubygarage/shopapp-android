@@ -7,7 +7,8 @@ data class Author(var firstName: String,
                   var lastName: String,
                   var fullName: String,
                   var email: String,
-                  var bio: String?) : Parcelable {
+                  var bio: String?
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

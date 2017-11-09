@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 data class Policy(var title: String,
                   var body: String,
-                  var url: String) : Parcelable {
+                  var url: String
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

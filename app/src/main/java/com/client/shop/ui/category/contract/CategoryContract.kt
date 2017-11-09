@@ -19,13 +19,8 @@ class CategoryPresenter @Inject constructor(repository: Repository) : BasePresen
 
         val categoryDisposable = repository.getCategory(categoryId, perPage, paginationValue, sortType, reverse)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (result.productList.isNotEmpty()) {
-                        view?.showContent(result.productList)
-                    } else {
-                        view?.showEmptyState()
-                    }
-                },
+                .subscribe(
+                        { result -> view?.showContent(result.productList) },
                         { error ->
                             error.printStackTrace()
                         })

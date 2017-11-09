@@ -1,6 +1,8 @@
 package com.client.shop.di.component
 
 import com.client.shop.di.module.RepositoryModule
+import com.client.shop.ui.auth.di.AuthComponent
+import com.client.shop.ui.auth.di.AuthModule
 import com.client.shop.ui.blog.di.BlogComponent
 import com.client.shop.ui.blog.di.BlogModule
 import com.client.shop.ui.cart.di.CartComponent
@@ -35,4 +37,6 @@ interface AppComponent {
     fun attachCategoryComponent(module: CategoryModule): CategoryComponent
 
     fun attachCartComponent(module: CartModule): CartComponent
+
+    fun attachAuthComponent(module: AuthModule): AuthComponent
 }

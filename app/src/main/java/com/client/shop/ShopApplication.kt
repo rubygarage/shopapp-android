@@ -27,7 +27,7 @@ class ShopApplication : Application() {
         val dao = DaoImpl(this)
 
         appComponent = DaggerAppComponent.builder()
-                .repositoryModule(RepositoryModule(api, dao))
+                .repositoryModule(RepositoryModule(this, api, dao))
                 .build()
 
         val config = ImagePipelineConfig.newBuilder(this)

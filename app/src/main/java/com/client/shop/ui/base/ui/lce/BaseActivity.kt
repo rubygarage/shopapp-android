@@ -66,7 +66,11 @@ abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
     }
 
     override fun showMessage(messageRes: Int) {
-        Toast.makeText(this, getString(messageRes), Toast.LENGTH_LONG).show()
+        showMessage(getString(messageRes))
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     //CALLBACK

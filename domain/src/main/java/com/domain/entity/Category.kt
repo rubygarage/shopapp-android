@@ -11,7 +11,8 @@ data class Category(var id: String,
                     var image: Image?,
                     var updatedAt: Date,
                     var productList: List<Product>,
-                    var paginationValue: String? = null) : Parcelable {
+                    var paginationValue: String? = null
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

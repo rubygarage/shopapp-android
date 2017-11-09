@@ -8,7 +8,8 @@ data class ProductVariant(var id: String,
                           var price: String,
                           var isAvailable: Boolean,
                           var selectedOptions: List<VariantOption>,
-                          var image: Image? = null) : Parcelable {
+                          var image: Image? = null
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 data class Image(var id: String,
                  var src: String,
-                 var alt: String?) : Parcelable {
+                 var alt: String?
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

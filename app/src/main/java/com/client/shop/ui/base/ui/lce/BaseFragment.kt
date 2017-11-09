@@ -34,6 +34,7 @@ abstract class BaseFragment<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lceLayout.setupContentLayout(getContentView())
+        lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
     }
 
     //INIT
@@ -67,6 +68,16 @@ abstract class BaseFragment<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
     }
 
     override fun showMessage(messageRes: Int) {
-        Toast.makeText(context, messageRes, Toast.LENGTH_LONG).show()
+        showMessage(getString(messageRes))
+    }
+
+    override fun showMessage(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    //CALLBACK
+
+    open fun tryAgainButtonClicked() {
+        loadData(false)
     }
 }

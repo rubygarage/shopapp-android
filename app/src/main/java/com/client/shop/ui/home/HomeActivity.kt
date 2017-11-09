@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.di.component.AppComponent
+import com.client.shop.ui.auth.AuthActivity
 import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.CategoryFragment
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class HomeActivity :
-        BaseActivity<Pair<Shop, List<Category>>, HomeView, HomePresenter>(),
+        BaseActivity<Triple<Shop, List<Category>, Boolean>, HomeView, HomePresenter>(),
         HomeView,
         OnItemClickListener<Category> {
 
@@ -50,6 +51,7 @@ class HomeActivity :
             drawerLayout.closeDrawer(Gravity.START)
             supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commit()
         }
+        accountLabel.setOnClickListener { startActivity(AuthActivity.getStartIntent(this)) }
 
         loadData(false)
     }
@@ -123,7 +125,7 @@ class HomeActivity :
         presenter.requestData()
     }
 
-    override fun showContent(data: Pair<Shop, List<Category>>) {
+    override fun showContent(data: Triple<Shop, List<Category>, Boolean>) {
         super.showContent(data)
 
         val shop = data.first
@@ -131,6 +133,7 @@ class HomeActivity :
         categories.addAll(data.second)
         adapter?.notifyDataSetChanged()
 
+        accountLabel.visibility = if (data.third) View.GONE else View.VISIBLE
         setupShopInfo(shop.privacyPolicy, privacyPolicyLabel)
         setupShopInfo(shop.termsOfService, termsOfServiceLabel)
 

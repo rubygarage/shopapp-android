@@ -3,7 +3,7 @@ package com.daocore.entity
 import io.requery.*
 
 @Entity
-interface CartItemData : Persistable {
+interface CartProductData : Persistable {
 
     @get:Key
     var id: String

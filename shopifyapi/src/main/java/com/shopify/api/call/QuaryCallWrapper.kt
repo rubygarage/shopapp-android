@@ -1,10 +1,10 @@
-package com.shopify.api
+package com.shopify.api.call
 
 import com.apicore.ApiCallback
 import com.domain.entity.Error
 import com.shopify.buy3.*
 
-abstract class CallWrapper<out T>(private val callback: ApiCallback<T>) : GraphCall.Callback<Storefront.QueryRoot> {
+abstract class QuaryCallWrapper<out T>(private val callback: ApiCallback<T>) : GraphCall.Callback<Storefront.QueryRoot> {
 
     internal abstract fun adapt(data: Storefront.QueryRoot): T
 

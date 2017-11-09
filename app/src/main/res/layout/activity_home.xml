@@ -24,7 +24,7 @@
 
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/drawerContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,65 +34,57 @@
         android:fitsSystemWindows="true"
         android:focusable="true">
 
-        <com.client.shop.ui.item.DrawerItem
-            android:id="@+id/homeLabel"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:src="@drawable/ic_home_black"
-            app:title="Home" />
+            android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:overScrollMode="never"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/homeLabel"
-            tools:layout_editor_absoluteY="56dp" />
+            <com.client.shop.ui.item.DrawerItem
+                android:id="@+id/homeLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:src="@drawable/ic_home"
+                app:title="@string/home" />
 
-        <com.client.shop.ui.item.DrawerItem
-            android:id="@+id/privacyPolicyLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-            app:title="Privacy Policy" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorBackgroundDarkTranslucent" />
 
-        <com.client.shop.ui.item.DrawerItem
-            android:id="@+id/termsOfServiceLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/privacyPolicyLabel"
-            app:title="Terms Of Service" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="never" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@color/textColorSecondary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/colorBackgroundDarkTranslucent" />
 
-    </android.support.constraint.ConstraintLayout>
+            <com.client.shop.ui.item.DrawerItem
+                android:id="@+id/accountLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:src="@drawable/ic_account"
+                app:title="@string/account" />
+
+            <com.client.shop.ui.item.DrawerItem
+                android:id="@+id/privacyPolicyLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:title="@string/privacy_policy" />
+
+            <com.client.shop.ui.item.DrawerItem
+                android:id="@+id/termsOfServiceLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:title="@string/terms_of_service" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.v4.widget.DrawerLayout>
