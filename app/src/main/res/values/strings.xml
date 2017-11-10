@@ -34,6 +34,7 @@
     <string name="empty_cart_message">Your shopping cart is empty</string>
     <string name="empty_cart_button">See last arrivals</string>
     <string name="create_account">Create account</string>
+    <string name="login">Login</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email</string>
@@ -45,5 +46,6 @@
     <string name="register">Register</string>
     <string name="sign_in">Sign In</string>
     <string name="register_success_message">You have been successfully registered and logged in.</string>
+    <string name="login_success_message">You have been successfully logged in.</string>
 
 </resources>

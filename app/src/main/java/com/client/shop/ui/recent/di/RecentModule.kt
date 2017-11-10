@@ -1,7 +1,7 @@
 package com.client.shop.ui.recent.di
 
 import com.client.shop.ui.recent.contract.RecentPresenter
-import com.repository.Repository
+import com.client.shop.ui.recent.contract.RecentUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ import dagger.Provides
 class RecentModule {
 
     @Provides
-    fun provideBlogPresenter(repository: Repository): RecentPresenter {
-        return RecentPresenter(repository)
+    fun provideBlogPresenter(recentUseCase: RecentUseCase): RecentPresenter {
+        return RecentPresenter(recentUseCase)
     }
 }

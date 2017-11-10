@@ -1,7 +1,7 @@
 package com.client.shop.ui.search.di
 
 import com.client.shop.ui.search.contract.SearchPresenter
-import com.repository.Repository
+import com.client.shop.ui.search.contract.SearchUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ import dagger.Provides
 class SearchModule {
 
     @Provides
-    fun provideSearchPresenter(repository: Repository): SearchPresenter {
-        return SearchPresenter(repository)
+    fun provideSearchPresenter(searchUseCase: SearchUseCase): SearchPresenter {
+        return SearchPresenter(searchUseCase)
     }
 }

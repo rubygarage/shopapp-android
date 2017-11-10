@@ -1,19 +1,21 @@
 package com.client.shop.ui.search.contract
 
 import android.text.TextUtils
-import com.client.shop.ui.base.contract.BaseMvpView
 import com.client.shop.ui.base.contract.BasePresenter
+import com.client.shop.ui.base.contract.BaseView
+import com.client.shop.ui.base.contract.SingleUseCase
 import com.domain.entity.Product
-import com.repository.Repository
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.repository.ProductRepository
+import io.reactivex.Single
 import javax.inject.Inject
 
-interface SearchView : BaseMvpView<List<Product>> {
+interface SearchView : BaseView<List<Product>> {
 
     fun setQuery(query: String)
 }
 
-class SearchPresenter @Inject constructor(repository: Repository) : BasePresenter<List<Product>, SearchView>(repository) {
+class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) :
+        BasePresenter<List<Product>, SearchView>(arrayOf(searchUseCase)) {
 
     fun search(perPage: Int, paginationValue: String?, query: String) {
 
@@ -22,14 +24,29 @@ class SearchPresenter @Inject constructor(repository: Repository) : BasePresente
             view?.showContent(listOf())
             return
         }
-
-        val searchDisposable = repository.searchProductListByQuery(query, perPage, paginationValue)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
+        searchUseCase.execute(
+                {
                     view?.setQuery(query)
-                    view?.showContent(result)
+                    view?.showContent(it)
                 },
-                        { error -> error.printStackTrace() })
-        disposables.add(searchDisposable)
+                { it.printStackTrace() },
+                SearchUseCase.Params(perPage, paginationValue, query)
+        )
     }
+}
+
+class SearchUseCase @Inject constructor(private val productRepository: ProductRepository) :
+        SingleUseCase<List<Product>, SearchUseCase.Params>() {
+
+    override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
+        return with(params) {
+            productRepository.searchProductListByQuery(query, perPage, paginationValue)
+        }
+    }
+
+    data class Params(
+            val perPage: Int,
+            val paginationValue: String?,
+            val query: String
+    )
 }

@@ -3,7 +3,7 @@ package com.client.shop.ui.base.contract
 import android.support.annotation.StringRes
 import com.hannesdorfmann.mosby3.mvp.MvpView
 
-interface BaseMvpView<in T> : MvpView {
+interface BaseView<in T> : MvpView {
 
     fun showContent(data: T)
 

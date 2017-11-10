@@ -1,34 +1,34 @@
 package com.client.shop.ui.details.contract
 
 import com.client.shop.R
-import com.client.shop.ui.base.contract.BaseMvpView
 import com.client.shop.ui.base.contract.BasePresenter
+import com.client.shop.ui.base.contract.BaseView
+import com.client.shop.ui.base.contract.SingleUseCase
 import com.domain.entity.CartProduct
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
-import com.repository.Repository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.repository.CartRepository
+import com.repository.ProductRepository
+import io.reactivex.Single
 import javax.inject.Inject
 
-interface DetailsView : BaseMvpView<Product> {
+interface DetailsView : BaseView<Product> {
 
     fun productAddedToCart()
 }
 
-class DetailsPresenter @Inject constructor(repository: Repository) : BasePresenter<Product, DetailsView>(repository) {
+class DetailsPresenter @Inject constructor(
+        private val detailsProductUseCase: DetailsProductUseCase,
+        private val cartUseCase: DetailsCartUseCase
+) : BasePresenter<Product, DetailsView>(arrayOf(detailsProductUseCase, cartUseCase)) {
 
     fun loadProductDetails(productId: String) {
 
-        val detailsDisposable = repository.getProduct(productId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result -> view?.showContent(result) },
-                        { e -> resolveError(e) }
-                )
-
-        disposables.add(detailsDisposable)
+        detailsProductUseCase.execute(
+                { view?.showContent(it) },
+                { resolveError(it) },
+                productId
+        )
     }
 
     fun addProductToCart(productVariant: ProductVariant, productId: String, currency: String, quantityStr: String) {
@@ -38,14 +38,27 @@ class DetailsPresenter @Inject constructor(repository: Repository) : BasePresent
             view?.showMessage(R.string.quantity_warning_message)
         } else {
             val cartProduct = CartProduct(productVariant, productId, currency, quantity)
-            val addToCartDisposable = repository.addCartProduct(cartProduct)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            { view?.productAddedToCart() },
-                            { e -> resolveError(e) }
-                    )
-            disposables.add(addToCartDisposable)
+            cartUseCase.execute(
+                    { view?.productAddedToCart() },
+                    { resolveError(it) },
+                    cartProduct
+            )
         }
+    }
+}
+
+class DetailsProductUseCase @Inject constructor(private val productRepository: ProductRepository) :
+        SingleUseCase<Product, String>() {
+
+    override fun buildUseCaseSingle(params: String): Single<Product> {
+        return productRepository.getProduct(params)
+    }
+}
+
+class DetailsCartUseCase @Inject constructor(private val cartRepository: CartRepository) :
+        SingleUseCase<CartProduct, CartProduct>() {
+
+    override fun buildUseCaseSingle(params: CartProduct): Single<CartProduct> {
+        return cartRepository.addCartProduct(params)
     }
 }

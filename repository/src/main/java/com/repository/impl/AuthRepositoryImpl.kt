@@ -15,6 +15,11 @@ class AuthRepositoryImpl(private val api: Api, private val dao: Dao) : AuthRepos
                 .flatMap { dao.saveCustomer(it) }
     }
 
+    override fun signIn(email: String, authToken: String): Single<Customer> {
+        return Single.create<Customer> { api.signIn(email, authToken, RxCallback<Customer>(it)) }
+                .flatMap { dao.saveCustomer(it) }
+    }
+
     override fun requestToken(email: String, password: String): Single<AccessData> {
         return Single.create<AccessData> { api.requestToken(email, password, RxCallback<AccessData>(it)) }
     }

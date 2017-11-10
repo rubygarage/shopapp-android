@@ -3,33 +3,32 @@ package com.client.shop.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
 import com.client.shop.R
+import com.client.shop.di.component.AppComponent
+import com.client.shop.ui.auth.contract.AuthPresenter
+import com.client.shop.ui.auth.contract.AuthView
+import com.client.shop.ui.auth.di.AuthModule
+import com.client.shop.ui.base.ui.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_auth.*
+import javax.inject.Inject
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView {
+
+    @Inject lateinit var authPresenter: AuthPresenter
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, AuthActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_auth)
-
-        setSupportActionBar(toolbar)
+        setTitle(R.string.account)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        signUpButton.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, SignUpFragment())
-                    .addToBackStack(null)
-                    .commit()
-        }
-        signInButton.setOnClickListener {
-
-        }
+        loadData(false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -41,8 +40,38 @@ class AuthActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        setTitle(R.string.app_name)
+    //INIT
+
+    override fun inject(component: AppComponent) {
+        component.attachAuthComponent(AuthModule()).inject(this)
+    }
+
+    override fun getContentView() = R.layout.activity_auth
+
+    override fun createPresenter() = authPresenter
+
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        presenter.isAuthorized()
+    }
+
+    override fun showContent(data: Boolean) {
+        super.showContent(data)
+        if (data) {
+            //TODO ADD LOGOUT
+        } else {
+            setupViewPager()
+        }
+    }
+
+    //SETUP
+
+    private fun setupViewPager() {
+        tabLayout.visibility = View.VISIBLE
+        viewPager.visibility = View.VISIBLE
+        viewPager.adapter = AuthPagerAdapter(this, supportFragmentManager)
+        tabLayout.setupWithViewPager(viewPager)
     }
 }

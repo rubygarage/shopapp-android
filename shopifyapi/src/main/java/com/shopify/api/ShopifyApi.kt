@@ -309,7 +309,6 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                 .userErrors
                                 .first()
                                 .message))
-
                     } else if (it.customer != null) {
                         return CustomerAdapter.adapt(it.customer)
                     }
@@ -319,19 +318,53 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
+    override fun signIn(email: String, authToken: String, callback: ApiCallback<Customer>) {
+
+        val query = Storefront.query { rootQuery ->
+            rootQuery.customer(authToken, { customer ->
+                customer
+                        .id()
+                        .firstName()
+                        .lastName()
+                        .email()
+            })
+        }
+
+        val call = graphClient.queryGraph(query)
+        call.enqueue(object : QuaryCallWrapper<Customer>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): Customer {
+                return CustomerAdapter.adapt(data.customer)
+            }
+        })
+    }
+
     override fun requestToken(email: String, password: String, callback: ApiCallback<AccessData>) {
 
         val accessTokenInput = Storefront.CustomerAccessTokenCreateInput(email, password)
         val accessTokenQuery = Storefront.CustomerAccessTokenCreatePayloadQueryDefinition { queryDefinition ->
             queryDefinition.customerAccessToken { accessTokenQuery -> accessTokenQuery.accessToken().expiresAt() }
+                    .userErrors { errorsQuery ->
+                        errorsQuery
+                                .field()
+                                .message()
+                    }
         }
 
         val mutationQuery = Storefront.mutation { query -> query.customerAccessTokenCreate(accessTokenInput, accessTokenQuery) }
         val call = graphClient.mutateGraph(mutationQuery)
         call.enqueue(object : MutationCallWrapper<AccessData>(callback) {
             override fun adapt(data: Storefront.Mutation?): AccessData? {
-                return data?.customerAccessTokenCreate?.customerAccessToken?.let {
-                    AccessData(email, it.accessToken, it.expiresAt.millis)
+                return data?.customerAccessTokenCreate?.let {
+                    if (it.userErrors.isNotEmpty()) {
+                        callback.onFailure(Error.NonCritical(
+                                it
+                                        .userErrors
+                                        .first()
+                                        .message))
+                    } else if (it.customerAccessToken != null) {
+                        return AccessData(email, it.customerAccessToken.accessToken, it.customerAccessToken.expiresAt.millis)
+                    }
+                    return null
                 }
             }
         })
