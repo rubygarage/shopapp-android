@@ -1,7 +1,7 @@
 package com.client.shop.ui.home.di
 
 import com.client.shop.ui.home.contract.HomePresenter
-import com.repository.Repository
+import com.client.shop.ui.home.contract.HomeUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ import dagger.Provides
 class HomeModule {
 
     @Provides
-    fun provideSplashPresenter(repository: Repository): HomePresenter {
-        return HomePresenter(repository)
+    fun provideSplashPresenter(homeUseCase: HomeUseCase): HomePresenter {
+        return HomePresenter(homeUseCase)
     }
 }

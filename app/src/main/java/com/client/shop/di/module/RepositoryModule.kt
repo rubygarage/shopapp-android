@@ -3,7 +3,7 @@ package com.client.shop.di.module
 import android.content.Context
 import com.apicore.Api
 import com.daocore.Dao
-import com.repository.Repository
+import com.repository.*
 import com.repository.impl.*
 import dagger.Module
 import dagger.Provides
@@ -14,14 +14,42 @@ class RepositoryModule(private val context: Context, private val api: Api, priva
 
     @Provides
     @Singleton
-    fun provideRepository(): Repository {
-        return RepositoryImpl(
-                ShopRepositoryImpl(api),
-                BlogRepositoryImpl(api),
-                ProductRepositoryImpl(api),
-                CategoryRepositoryImpl(api),
-                CartRepositoryImpl(api, dao),
-                AuthRepositoryImpl(api, dao),
-                SessionRepositoryImpl(context))
+    fun provideShopRepository(): ShopRepository {
+        return ShopRepositoryImpl(api)
+    }
+    @Provides
+    @Singleton
+    fun provideBlogRepository(): BlogRepository {
+        return BlogRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideProductRepository(): ProductRepository {
+        return ProductRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCategoryRepository(): CategoryRepository {
+        return CategoryRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCartRepository(): CartRepository {
+        return CartRepositoryImpl(dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(): AuthRepository {
+        return AuthRepositoryImpl(api, dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSessionRepository(): SessionRepository {
+        return SessionRepositoryImpl(context)
     }
 }

@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class HomeActivity :
-        BaseActivity<Triple<Shop, List<Category>, Boolean>, HomeView, HomePresenter>(),
+        BaseActivity<Pair<Shop, List<Category>>, HomeView, HomePresenter>(),
         HomeView,
         OnItemClickListener<Category> {
 
@@ -125,7 +125,7 @@ class HomeActivity :
         presenter.requestData()
     }
 
-    override fun showContent(data: Triple<Shop, List<Category>, Boolean>) {
+    override fun showContent(data: Pair<Shop, List<Category>>) {
         super.showContent(data)
 
         val shop = data.first
@@ -133,7 +133,6 @@ class HomeActivity :
         categories.addAll(data.second)
         adapter?.notifyDataSetChanged()
 
-        accountLabel.visibility = if (data.third) View.GONE else View.VISIBLE
         setupShopInfo(shop.privacyPolicy, privacyPolicyLabel)
         setupShopInfo(shop.termsOfService, termsOfServiceLabel)
 

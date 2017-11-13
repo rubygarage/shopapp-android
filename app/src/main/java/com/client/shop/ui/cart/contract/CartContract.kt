@@ -1,58 +1,78 @@
 package com.client.shop.ui.cart.contract
 
-import com.client.shop.ui.base.contract.BaseMvpView
 import com.client.shop.ui.base.contract.BasePresenter
+import com.client.shop.ui.base.contract.BaseView
+import com.client.shop.ui.base.contract.CompletableUseCase
+import com.client.shop.ui.base.contract.SingleUseCase
 import com.domain.entity.CartProduct
-import com.repository.Repository
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.repository.CartRepository
+import io.reactivex.Completable
+import io.reactivex.Single
 import javax.inject.Inject
 
-interface CartView : BaseMvpView<List<CartProduct>> {
+interface CartView : BaseView<List<CartProduct>>
 
-}
-
-class CartPresenter @Inject constructor(repository: Repository) :
-        BasePresenter<List<CartProduct>, CartView>(repository) {
+class CartPresenter @Inject constructor(
+        private val cartItemsUseCase: CartItemsUseCase,
+        private val cartRemoveUseCase: CartRemoveUseCase,
+        private val cartQuantityUseCase: CartQuantityUseCase
+) :
+        BasePresenter<List<CartProduct>, CartView>(arrayOf(cartItemsUseCase, cartRemoveUseCase, cartQuantityUseCase)) {
 
     fun loadCartItems() {
 
-        val cartDisposable = repository.getCartProductList()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { result ->
-                            if (result.isNotEmpty()) {
-                                view?.showContent(result)
-                            } else {
-                                view?.showEmptyState()
-                            }
-                        },
-                        { error -> error.printStackTrace() })
-        disposables.add(cartDisposable)
+        cartItemsUseCase.execute(
+                {
+                    if (it.isNotEmpty()) {
+                        view?.showContent(it)
+                    } else {
+                        view?.showEmptyState()
+                    }
+                },
+                { it.printStackTrace() },
+                { },
+                Unit
+        )
     }
 
     fun removeProduct(productVariantId: String) {
 
-        val deleteDisposable = repository.deleteProductFromCart(productVariantId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {},
-                        { error -> error.printStackTrace() }
-                )
-        disposables.add(deleteDisposable)
+        cartRemoveUseCase.execute(
+                { },
+                { it.printStackTrace() },
+                productVariantId
+        )
     }
 
     fun changeProductQuantity(productVariantId: String, newQuantity: Int) {
 
-        val quantityDisposable = repository.changeCartProductQuantity(productVariantId, newQuantity)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {},
-                        { error -> error.printStackTrace() }
-                )
-        disposables.add(quantityDisposable)
+        cartQuantityUseCase.execute(
+                { },
+                { it.printStackTrace() },
+                CartQuantityUseCase.Params(productVariantId, newQuantity)
+        )
     }
+}
+
+class CartRemoveUseCase @Inject constructor(private val cartRepository: CartRepository) :
+        CompletableUseCase<String>() {
+
+    override fun buildUseCaseCompletable(params: String): Completable {
+        return cartRepository.deleteProductFromCart(params)
+    }
+}
+
+class CartQuantityUseCase @Inject constructor(private val cartRepository: CartRepository) :
+        SingleUseCase<CartProduct, CartQuantityUseCase.Params>() {
+
+    override fun buildUseCaseSingle(params: Params): Single<CartProduct> {
+        return with(params) {
+            cartRepository.changeCartProductQuantity(productVariantId, newQuantity)
+        }
+    }
+
+    data class Params(
+            val productVariantId: String,
+            val newQuantity: Int
+    )
 }

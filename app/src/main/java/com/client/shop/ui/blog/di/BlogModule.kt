@@ -1,7 +1,7 @@
 package com.client.shop.ui.blog.di
 
+import com.client.shop.ui.blog.contract.ArticleListUseCase
 import com.client.shop.ui.blog.contract.BlogPresenter
-import com.repository.Repository
 import dagger.Module
 import dagger.Provides
 
@@ -9,7 +9,7 @@ import dagger.Provides
 class BlogModule {
 
     @Provides
-    fun provideBlogPresenter(repository: Repository): BlogPresenter {
-        return BlogPresenter(repository)
+    fun provideBlogPresenter(articleListUseCase: ArticleListUseCase): BlogPresenter {
+        return BlogPresenter(articleListUseCase)
     }
 }

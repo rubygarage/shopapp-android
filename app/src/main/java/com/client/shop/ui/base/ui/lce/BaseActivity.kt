@@ -8,15 +8,15 @@ import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BaseView
 import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.custom.lce.LceLayout
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 
-abstract class BaseActivity<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
+abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
         MvpActivity<V, P>(),
-        BaseMvpView<M> {
+        BaseView<M> {
 
     //ACTIVITY
 

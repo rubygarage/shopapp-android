@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BaseView
 import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.base.ui.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
@@ -17,7 +17,7 @@ import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 
-abstract class PaginationFragment<M, V : BaseMvpView<List<M>>, P : BasePresenter<List<M>, V>> :
+abstract class PaginationFragment<M, V : BaseView<List<M>>, P : BasePresenter<List<M>, V>> :
         BaseFragment<List<M>, V, P>(),
         OnItemClickListener<M>,
         SwipeRefreshLayout.OnRefreshListener {

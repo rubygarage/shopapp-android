@@ -10,15 +10,15 @@ import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.contract.BaseMvpView
+import com.client.shop.ui.base.contract.BaseView
 import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.custom.lce.LceLayout
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import kotlinx.android.synthetic.main.activity_lce.*
 
-abstract class BaseFragment<in M, V : BaseMvpView<M>, P : BasePresenter<M, V>> :
+abstract class BaseFragment<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
         MvpFragment<V, P>(),
-        BaseMvpView<M> {
+        BaseView<M> {
 
     //ANDROID
 

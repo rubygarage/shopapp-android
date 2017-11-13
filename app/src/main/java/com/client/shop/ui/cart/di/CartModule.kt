@@ -1,8 +1,6 @@
 package com.client.shop.ui.cart.di
 
-import com.client.shop.ui.cart.contract.CartPresenter
-import com.client.shop.ui.cart.contract.CartWidgetPresenter
-import com.repository.Repository
+import com.client.shop.ui.cart.contract.*
 import dagger.Module
 import dagger.Provides
 
@@ -10,12 +8,14 @@ import dagger.Provides
 class CartModule {
 
     @Provides
-    fun provideCartPresenter(repository: Repository): CartPresenter {
-        return CartPresenter(repository)
+    fun provideCartPresenter(cartItemsUseCase: CartItemsUseCase,
+                             cartRemoveUseCase: CartRemoveUseCase,
+                             cartQuantityUseCase: CartQuantityUseCase): CartPresenter {
+        return CartPresenter(cartItemsUseCase, cartRemoveUseCase, cartQuantityUseCase)
     }
 
     @Provides
-    fun provideCartWidgetPresenter(repository: Repository): CartWidgetPresenter {
-        return CartWidgetPresenter(repository)
+    fun provideCartWidgetPresenter(cartItemsUseCase: CartItemsUseCase): CartWidgetPresenter {
+        return CartWidgetPresenter(cartItemsUseCase)
     }
 }

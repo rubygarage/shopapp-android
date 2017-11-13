@@ -1,6 +1,5 @@
 package com.client.shop.ui.auth.contract
 
-import com.client.shop.R
 import com.client.shop.ext.isEmailValid
 import com.client.shop.ext.isPasswordValid
 import com.client.shop.ui.base.contract.BasePresenter
@@ -12,7 +11,7 @@ import com.repository.SessionRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface SignUpView : BaseView<Customer> {
+interface SignInView : BaseView<Customer> {
 
     fun showEmailError()
 
@@ -23,51 +22,45 @@ interface SignUpView : BaseView<Customer> {
     fun onFailure()
 }
 
-class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCase) :
-        BasePresenter<Customer, SignUpView>(arrayOf(signUpUseCase)) {
+class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCase) :
+        BasePresenter<Customer, SignInView>(arrayOf(signInUseCase)) {
 
-    fun signUp(firstName: String, lastName: String, email: String, password: String) {
+    fun logIn(email: String, password: String) {
 
-        if (firstName.isEmpty() || lastName.isEmpty()) {
-            view?.showMessage(R.string.empty_fields_error_message)
-        } else if (!email.isEmailValid()) {
+        if (!email.isEmailValid()) {
             view?.showEmailError()
         } else if (!password.isPasswordValid()) {
             view?.showPasswordError()
         } else {
             view?.onCheckPassed()
-            signUpUseCase.execute(
+            signInUseCase.execute(
                     { view?.showContent(it) },
                     {
                         view?.onFailure()
                         resolveError(it)
                     },
-                    SignUpUseCase.Params(firstName, lastName, email, password)
-            )
+                    SignInUseCase.Params(email, password))
         }
     }
 }
 
-class SignUpUseCase @Inject constructor(
+class SignInUseCase @Inject constructor(
         private val authRepository: AuthRepository,
         private val sessionRepository: SessionRepository
 ) :
-        SingleUseCase<Customer, SignUpUseCase.Params>() {
+        SingleUseCase<Customer, SignInUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<Customer> {
         return with(params) {
-            authRepository.signUp(firstName, lastName, email, password)
+            authRepository.requestToken(email, password)
                     .flatMap {
-                        authRepository.requestToken(email, password)
-                                .map { sessionRepository.saveSession(it) }
-                        Single.just(it)
+                        sessionRepository.saveSession(it)
+                        authRepository.signIn(email, it.accessToken)
                     }
         }
     }
 
     data class Params(
-            val firstName: String,
-            val lastName: String,
             val email: String,
             val password: String
     )
