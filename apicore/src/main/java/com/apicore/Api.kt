@@ -25,7 +25,9 @@ interface Api {
 
     fun signUp(firstName: String, lastName: String, email: String, password: String, callback: ApiCallback<Customer>)
 
-    fun signIn(email: String, authToken: String, callback: ApiCallback<Customer>)
+    fun signIn(email: String, password: String, callback: ApiCallback<Customer>)
 
-    fun requestToken(email: String, password: String, callback: ApiCallback<AccessData>)
+    fun isLoggedIn(callback: ApiCallback<Boolean>)
+
+    fun getCustomer(callback: ApiCallback<Customer>)
 }

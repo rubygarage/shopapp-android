@@ -1,12 +1,15 @@
 package com.shopify.api
 
 import android.content.Context
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.apicore.Api
 import com.apicore.ApiCallback
 import com.domain.entity.*
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QuaryCallWrapper
+import com.shopify.api.entity.AccessData
 import com.shopify.buy3.GraphClient
 import com.shopify.buy3.Storefront
 import com.shopify.graphql.support.ID
@@ -14,17 +17,44 @@ import net.danlew.android.joda.JodaTimeAndroid
 
 class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
-    init {
-        JodaTimeAndroid.init(context)
-    }
-
+    private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val graphClient: GraphClient = GraphClient.builder(context)
             .shopDomain(baseUrl)
             .accessToken(accessToken)
             .build()
 
+    init {
+        JodaTimeAndroid.init(context)
+    }
+
     companion object {
         private val ITEMS_COUNT = 250
+        private const val EMAIL = "email"
+        private const val ACCESS_TOKEN = "access_token"
+        private const val EXPIRES_DATE = "expires_date"
+    }
+
+    private fun saveSession(accessData: AccessData) {
+        preferences.edit()
+                .putString(EMAIL, accessData.email)
+                .putString(ACCESS_TOKEN, accessData.accessToken)
+                .putLong(EXPIRES_DATE, accessData.expiresAt)
+                .apply()
+    }
+
+    private fun getSession(): AccessData? {
+        val email = preferences.getString(EMAIL, null)
+        val accessToken = preferences.getString(ACCESS_TOKEN, null)
+        val expiresDate = preferences.getLong(EXPIRES_DATE, 0)
+        return if (email != null && accessToken != null) {
+            AccessData(
+                    email,
+                    accessToken,
+                    expiresDate
+            )
+        } else {
+            null
+        }
     }
 
     override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?, reverse: Boolean,
@@ -303,14 +333,22 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val call = graphClient.mutateGraph(mutationQuery)
         call.enqueue(object : MutationCallWrapper<Customer>(callback) {
             override fun adapt(data: Storefront.Mutation?): Customer? {
-                return data?.customerCreate?.let {
-                    if (it.userErrors.isNotEmpty()) {
+                return data?.customerCreate?.let { customerCreate ->
+                    if (customerCreate.userErrors.isNotEmpty()) {
                         callback.onFailure(Error.NonCritical(data.customerCreate
                                 .userErrors
                                 .first()
                                 .message))
-                    } else if (it.customer != null) {
-                        return CustomerAdapter.adapt(it.customer)
+                    } else if (customerCreate.customer != null) {
+                        val tokenResponse = requestToken(email, password)
+                        if (tokenResponse != null) {
+                            tokenResponse.first?.let {
+                                return CustomerAdapter.adapt(customerCreate.customer)
+                            }
+                            tokenResponse.second?.let {
+                                callback.onFailure(it)
+                            }
+                        }
                     }
                     return null
                 }
@@ -318,27 +356,46 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    override fun signIn(email: String, authToken: String, callback: ApiCallback<Customer>) {
+    override fun signIn(email: String, password: String, callback: ApiCallback<Customer>) {
 
-        val query = Storefront.query { rootQuery ->
-            rootQuery.customer(authToken, { customer ->
-                customer
-                        .id()
-                        .firstName()
-                        .lastName()
-                        .email()
-            })
-        }
+        val tokenResponse = requestToken(email, password)
 
-        val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Customer>(callback) {
-            override fun adapt(data: Storefront.QueryRoot): Customer {
-                return CustomerAdapter.adapt(data.customer)
+        if (tokenResponse != null) {
+            tokenResponse.first?.let {
+                val query = Storefront.query { rootQuery ->
+                    rootQuery.customer(it.accessToken, { customer ->
+                        customer
+                                .id()
+                                .firstName()
+                                .lastName()
+                                .email()
+                    })
+                }
+
+                val call = graphClient.queryGraph(query)
+                call.enqueue(object : QuaryCallWrapper<Customer>(callback) {
+                    override fun adapt(data: Storefront.QueryRoot): Customer {
+                        return CustomerAdapter.adapt(data.customer)
+                    }
+                })
             }
-        })
+            tokenResponse.second?.let {
+                callback.onFailure(it)
+            }
+        } else {
+            callback.onFailure(Error.Content())
+        }
     }
 
-    override fun requestToken(email: String, password: String, callback: ApiCallback<AccessData>) {
+    override fun isLoggedIn(callback: ApiCallback<Boolean>) {
+        callback.onResult(getSession() != null)
+    }
+
+    override fun getCustomer(callback: ApiCallback<Customer>) {
+
+    }
+
+    private fun requestToken(email: String, password: String): Pair<AccessData?, Error.NonCritical?>? {
 
         val accessTokenInput = Storefront.CustomerAccessTokenCreateInput(email, password)
         val accessTokenQuery = Storefront.CustomerAccessTokenCreatePayloadQueryDefinition { queryDefinition ->
@@ -352,7 +409,17 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val mutationQuery = Storefront.mutation { query -> query.customerAccessTokenCreate(accessTokenInput, accessTokenQuery) }
         val call = graphClient.mutateGraph(mutationQuery)
-        call.enqueue(object : MutationCallWrapper<AccessData>(callback) {
+        return call.execute().data()?.customerAccessTokenCreate?.let {
+            val accessData = it.customerAccessToken?.let {
+                val accessData = AccessData(email, it.accessToken, it.expiresAt.millis)
+                saveSession(accessData)
+                accessData
+            }
+            val error = it.userErrors?.let { it.firstOrNull()?.let { Error.NonCritical(it.message) } }
+            Pair(accessData, error)
+        }
+
+        /*call.enqueue(object : MutationCallWrapper<AccessData>(callback) {
             override fun adapt(data: Storefront.Mutation?): AccessData? {
                 return data?.customerAccessTokenCreate?.let {
                     if (it.userErrors.isNotEmpty()) {
@@ -362,12 +429,14 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                         .first()
                                         .message))
                     } else if (it.customerAccessToken != null) {
-                        return AccessData(email, it.customerAccessToken.accessToken, it.customerAccessToken.expiresAt.millis)
+                        val accessData = AccessData(email, it.customerAccessToken.accessToken, it.customerAccessToken.expiresAt.millis)
+                        saveSession(accessData)
+                        return accessData
                     }
                     return null
                 }
             }
-        })
+        })*/
     }
 
     private fun getProductSortKey(sortType: SortType?): Storefront.ProductSortKeys? {

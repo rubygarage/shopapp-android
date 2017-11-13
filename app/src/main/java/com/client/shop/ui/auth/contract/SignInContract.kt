@@ -4,14 +4,12 @@ import com.client.shop.ext.isEmailValid
 import com.client.shop.ext.isPasswordValid
 import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.SingleUseCase
-import com.domain.entity.Customer
+import com.client.shop.ui.base.contract.CompletableUseCase
 import com.repository.AuthRepository
-import com.repository.SessionRepository
-import io.reactivex.Single
+import io.reactivex.Completable
 import javax.inject.Inject
 
-interface SignInView : BaseView<Customer> {
+interface SignInView : BaseView<Unit> {
 
     fun showEmailError()
 
@@ -23,7 +21,7 @@ interface SignInView : BaseView<Customer> {
 }
 
 class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCase) :
-        BasePresenter<Customer, SignInView>(arrayOf(signInUseCase)) {
+        BasePresenter<Unit, SignInView>(arrayOf(signInUseCase)) {
 
     fun logIn(email: String, password: String) {
 
@@ -34,7 +32,7 @@ class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCa
         } else {
             view?.onCheckPassed()
             signInUseCase.execute(
-                    { view?.showContent(it) },
+                    { view?.showContent(Unit) },
                     {
                         view?.onFailure()
                         resolveError(it)
@@ -44,19 +42,12 @@ class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCa
     }
 }
 
-class SignInUseCase @Inject constructor(
-        private val authRepository: AuthRepository,
-        private val sessionRepository: SessionRepository
-) :
-        SingleUseCase<Customer, SignInUseCase.Params>() {
+class SignInUseCase @Inject constructor(private val authRepository: AuthRepository) :
+        CompletableUseCase<SignInUseCase.Params>() {
 
-    override fun buildUseCaseSingle(params: Params): Single<Customer> {
+    override fun buildUseCaseCompletable(params: Params): Completable {
         return with(params) {
-            authRepository.requestToken(email, password)
-                    .flatMap {
-                        sessionRepository.saveSession(it)
-                        authRepository.signIn(email, it.accessToken)
-                    }
+            authRepository.signIn(email, password)
         }
     }
 

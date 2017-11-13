@@ -1,4 +1,4 @@
-package com.domain.entity
+package com.shopify.api.entity
 
 data class AccessData(
         val email: String,

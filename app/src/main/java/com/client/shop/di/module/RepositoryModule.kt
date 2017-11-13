@@ -1,6 +1,5 @@
 package com.client.shop.di.module
 
-import android.content.Context
 import com.apicore.Api
 import com.daocore.Dao
 import com.repository.*
@@ -10,13 +9,14 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class RepositoryModule(private val context: Context, private val api: Api, private val dao: Dao) {
+class RepositoryModule(private val api: Api, private val dao: Dao) {
 
     @Provides
     @Singleton
     fun provideShopRepository(): ShopRepository {
         return ShopRepositoryImpl(api)
     }
+
     @Provides
     @Singleton
     fun provideBlogRepository(): BlogRepository {
@@ -44,12 +44,6 @@ class RepositoryModule(private val context: Context, private val api: Api, priva
     @Provides
     @Singleton
     fun provideAuthRepository(): AuthRepository {
-        return AuthRepositoryImpl(api, dao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideSessionRepository(): SessionRepository {
-        return SessionRepositoryImpl(context)
+        return AuthRepositoryImpl(api)
     }
 }

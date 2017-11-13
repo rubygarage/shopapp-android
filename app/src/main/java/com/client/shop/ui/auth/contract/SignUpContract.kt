@@ -5,14 +5,12 @@ import com.client.shop.ext.isEmailValid
 import com.client.shop.ext.isPasswordValid
 import com.client.shop.ui.base.contract.BasePresenter
 import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.SingleUseCase
-import com.domain.entity.Customer
+import com.client.shop.ui.base.contract.CompletableUseCase
 import com.repository.AuthRepository
-import com.repository.SessionRepository
-import io.reactivex.Single
+import io.reactivex.Completable
 import javax.inject.Inject
 
-interface SignUpView : BaseView<Customer> {
+interface SignUpView : BaseView<Unit> {
 
     fun showEmailError()
 
@@ -24,7 +22,7 @@ interface SignUpView : BaseView<Customer> {
 }
 
 class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCase) :
-        BasePresenter<Customer, SignUpView>(arrayOf(signUpUseCase)) {
+        BasePresenter<Unit, SignUpView>(arrayOf(signUpUseCase)) {
 
     fun signUp(firstName: String, lastName: String, email: String, password: String) {
 
@@ -37,7 +35,7 @@ class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCa
         } else {
             view?.onCheckPassed()
             signUpUseCase.execute(
-                    { view?.showContent(it) },
+                    { view?.showContent(Unit) },
                     {
                         view?.onFailure()
                         resolveError(it)
@@ -48,20 +46,12 @@ class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCa
     }
 }
 
-class SignUpUseCase @Inject constructor(
-        private val authRepository: AuthRepository,
-        private val sessionRepository: SessionRepository
-) :
-        SingleUseCase<Customer, SignUpUseCase.Params>() {
+class SignUpUseCase @Inject constructor(private val authRepository: AuthRepository) :
+        CompletableUseCase<SignUpUseCase.Params>() {
 
-    override fun buildUseCaseSingle(params: Params): Single<Customer> {
+    override fun buildUseCaseCompletable(params: Params): Completable {
         return with(params) {
             authRepository.signUp(firstName, lastName, email, password)
-                    .flatMap {
-                        authRepository.requestToken(email, password)
-                                .map { sessionRepository.saveSession(it) }
-                        Single.just(it)
-                    }
         }
     }
 
