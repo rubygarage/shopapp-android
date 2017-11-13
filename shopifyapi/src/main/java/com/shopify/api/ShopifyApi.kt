@@ -418,25 +418,6 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             val error = it.userErrors?.let { it.firstOrNull()?.let { Error.NonCritical(it.message) } }
             Pair(accessData, error)
         }
-
-        /*call.enqueue(object : MutationCallWrapper<AccessData>(callback) {
-            override fun adapt(data: Storefront.Mutation?): AccessData? {
-                return data?.customerAccessTokenCreate?.let {
-                    if (it.userErrors.isNotEmpty()) {
-                        callback.onFailure(Error.NonCritical(
-                                it
-                                        .userErrors
-                                        .first()
-                                        .message))
-                    } else if (it.customerAccessToken != null) {
-                        val accessData = AccessData(email, it.customerAccessToken.accessToken, it.customerAccessToken.expiresAt.millis)
-                        saveSession(accessData)
-                        return accessData
-                    }
-                    return null
-                }
-            }
-        })*/
     }
 
     private fun getProductSortKey(sortType: SortType?): Storefront.ProductSortKeys? {
