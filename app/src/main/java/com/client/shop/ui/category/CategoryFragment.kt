@@ -7,9 +7,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
+import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationFragment
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.adapter.CategoryAdapter
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
@@ -26,13 +25,14 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     @Inject lateinit var categoryPresenter: CategoryPresenter
     private lateinit var category: Category
-    private var selectedSortType: SortType = SortType.NAME
+    private var sortType: SortType = SortType.NAME
 
     private val sortBottomSheet: SortBottomSheet by lazy {
-        SortBottomSheet(context, object : OnItemClickListener<SortType> {
-            override fun onItemClicked(data: SortType, position: Int) {
-                if (selectedSortType != data) {
-                    selectedSortType = data
+        SortBottomSheet(context, object : SortBottomSheet.OnSortTypeSelectListener {
+
+            override fun onSortTypeSelected(selectedSortType: SortType) {
+                if (sortType != selectedSortType) {
+                    sortType = selectedSortType
                     onRefresh()
                 }
             }
@@ -74,7 +74,7 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return if (item?.itemId == R.id.sort) {
-            sortBottomSheet.show(selectedSortType)
+            sortBottomSheet.show(sortType)
             true
         } else {
             super.onOptionsItemSelected(item)
@@ -83,8 +83,8 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachCategoryComponent(CategoryModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachCategoryComponent(CategoryModule()).inject(this)
     }
 
     override fun createPresenter() = categoryPresenter
@@ -99,7 +99,7 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(PER_PAGE, paginationValue, category.id, selectedSortType)
+        presenter.loadProductList(PER_PAGE, paginationValue, category.id, sortType)
     }
 
     override fun showContent(data: List<Product>) {

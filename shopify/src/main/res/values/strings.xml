@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ShopifyApi</string>
+    <string name="please_select_payment">Please select a Payment Method</string>
+    <string name="web_payment_label">Use the card to pay for on our website</string>
+    <string name="card_payment_label">Use the card to pay for on our app</string>
+    <string name="android_payment_label">You can use any credit or debit card in your Google Account (including your cards in Android Pay) for quick, easy checkout</string>
+    <string name="web_payment">Pay on our website</string>
+    <string name="card_payment">Pay by Card</string>
+    <string name="android_payment">Android Pay</string>
+</resources>

@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
+import com.client.shop.ShopApplication
 import com.client.shop.ui.base.rx.RxQueryTextListener
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.base.ui.recycler.adapter.ProductAdapter
@@ -79,8 +79,8 @@ class SearchActivity :
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachSearchComponent(SearchModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachSearchComponent(SearchModule()).inject(this)
     }
 
     override fun isGrid() = true

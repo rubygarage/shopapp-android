@@ -6,8 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.ui.lce.BaseActivity
+import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
@@ -17,18 +16,20 @@ import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.recent.RecentActivity
 import com.domain.entity.CartProduct
+import com.domain.router.Router
+import com.ui.lce.BaseActivity
+import com.ui.lce.view.LceEmptyView
 import kotlinx.android.synthetic.main.activity_cart.*
-import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
 import javax.inject.Inject
 
 class CartActivity :
         BaseActivity<List<CartProduct>, CartView, CartPresenter>(),
         CartView,
-        OnItemClickListener<CartProduct>,
+        OnItemClickListener,
         CartItem.ActionListener {
 
     @Inject lateinit var cartPresenter: CartPresenter
+    @Inject lateinit var router: Router
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
 
@@ -60,8 +61,8 @@ class CartActivity :
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachCartComponent(CartModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachCartComponent(CartModule()).inject(this)
     }
 
     override fun getContentView() = R.layout.activity_cart
@@ -79,7 +80,7 @@ class CartActivity :
     }
 
     private fun setupEmptyView() {
-        val emptyView = lceLayout.emptyView
+        val emptyView = findViewById<LceEmptyView>(R.id.emptyView)
         emptyView.customiseEmptyImage(R.drawable.ic_empty_shopping_cart)
         emptyView.customiseEmptyMessage(R.string.empty_cart_message)
         emptyView.customiseEmptyButtonText(R.string.empty_cart_button)
@@ -106,8 +107,15 @@ class CartActivity :
         startActivity(RecentActivity.getStartIntent(this))
     }
 
-    override fun onItemClicked(data: CartProduct, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(this, data.productId))
+    override fun onItemClicked(position: Int) {
+        data.getOrNull(position)?.let {
+            startActivity(DetailsActivity.getStartIntent(this, it.productId))
+        }
+    }
+
+    override fun onFooterClicked() {
+        super.onFooterClicked()
+        router.startCheckoutFlow(this)
     }
 
     override fun onRemoveButtonClicked(productVariantId: String) {

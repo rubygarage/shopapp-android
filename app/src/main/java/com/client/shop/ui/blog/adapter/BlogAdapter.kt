@@ -9,7 +9,7 @@ import com.client.shop.ui.item.ArticleItem
 import com.client.shop.ui.item.MoreItem
 import com.domain.entity.Article
 
-class BlogAdapter(dataList: List<Article>, onItemClickListener: OnItemClickListener<Article>,
+class BlogAdapter(dataList: List<Article>, onItemClickListener: OnItemClickListener,
                   private val moreButtonListener: View.OnClickListener? = null) :
         BaseRecyclerAdapter<Article>(dataList, onItemClickListener) {
 

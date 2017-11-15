@@ -5,11 +5,10 @@ import android.support.design.widget.BottomSheetDialog
 import android.util.TypedValue
 import android.widget.TextView
 import com.client.shop.R
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.domain.entity.SortType
 import kotlinx.android.synthetic.main.bottom_sheet_sort.*
 
-class SortBottomSheet(context: Context, listener: OnItemClickListener<SortType>) : BottomSheetDialog(context) {
+class SortBottomSheet(context: Context, listener: OnSortTypeSelectListener) : BottomSheetDialog(context) {
 
     init {
         setContentView(R.layout.bottom_sheet_sort)
@@ -17,7 +16,7 @@ class SortBottomSheet(context: Context, listener: OnItemClickListener<SortType>)
             val itemView = layoutInflater.inflate(R.layout.item_sort, containerLayout, false) as TextView
             itemView.text = value.value
             itemView.setOnClickListener {
-                listener.onItemClicked(value, -1)
+                listener.onSortTypeSelected(value)
                 dismiss()
             }
             containerLayout.addView(itemView)
@@ -43,5 +42,10 @@ class SortBottomSheet(context: Context, listener: OnItemClickListener<SortType>)
     @Deprecated("Use an overloaded method", ReplaceWith("show(selectedSortType: SortType)", "android.support.design.widget.BottomSheetDialog"))
     override fun show() {
         super.show()
+    }
+
+    interface OnSortTypeSelectListener {
+
+        fun onSortTypeSelected(selectedSortType: SortType)
     }
 }

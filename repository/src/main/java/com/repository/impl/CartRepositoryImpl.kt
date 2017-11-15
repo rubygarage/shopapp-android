@@ -1,6 +1,6 @@
 package com.repository.impl
 
-import com.daocore.Dao
+import com.domain.database.Dao
 import com.domain.entity.CartProduct
 import com.repository.CartRepository
 import io.reactivex.Completable

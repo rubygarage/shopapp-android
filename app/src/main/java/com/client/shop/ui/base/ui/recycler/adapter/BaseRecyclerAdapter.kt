@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 
 abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
-                                      private val onItemClickListener: OnItemClickListener<T>) :
+                                      protected val onItemClickListener: OnItemClickListener) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var withHeader = false
@@ -24,7 +24,7 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
         return when (viewType) {
             HEADER_TYPE -> HeaderViewHolder(getHeaderView(context))
             FOOTER_TYPE -> FooterViewHolder(getFooterView(context))
-            else -> DefaultViewHolder(getItemView(context, viewType))
+            else -> DefaultViewHolder(getItemView(context, viewType), onItemClickListener, withHeader)
         }
     }
 
@@ -71,23 +71,20 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
         return null
     }
 
-    inner class DefaultViewHolder(itemView: View) :
-            RecyclerView.ViewHolder(itemView),
-            View.OnClickListener {
+    class DefaultViewHolder(itemView: View, onItemClickListener: OnItemClickListener, withHeader: Boolean) :
+            RecyclerView.ViewHolder(itemView) {
 
         init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            val position = adapterPosition - if (withHeader) 1 else 0
-            if (position >= 0 && dataList.size > position) {
-                onItemClickListener.onItemClicked(dataList[position], position)
+            itemView.setOnClickListener {
+                val position = adapterPosition - if (withHeader) 1 else 0
+                if (position >= 0) {
+                    onItemClickListener.onItemClicked(position)
+                }
             }
         }
     }
 
-    class HeaderViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    class HeaderViewHolder(headerView: View?) : RecyclerView.ViewHolder(headerView)
 
-    class FooterViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
+    class FooterViewHolder(footerView: View?) : RecyclerView.ViewHolder(footerView)
 }

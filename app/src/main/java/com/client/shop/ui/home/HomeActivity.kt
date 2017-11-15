@@ -10,9 +10,8 @@ import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
+import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.AuthActivity
-import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.category.CategoryFragment
 import com.client.shop.ui.home.adapter.CategoriesAdapter
@@ -23,13 +22,14 @@ import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Category
 import com.domain.entity.Policy
 import com.domain.entity.Shop
+import com.ui.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class HomeActivity :
         BaseActivity<Pair<Shop, List<Category>>, HomeView, HomePresenter>(),
         HomeView,
-        OnItemClickListener<Category> {
+        OnItemClickListener {
 
     @Inject lateinit var homePresenter: HomePresenter
     private var drawerToggle: ActionBarDrawerToggle? = null
@@ -58,8 +58,8 @@ class HomeActivity :
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachHomeComponent(HomeModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachHomeComponent(HomeModule()).inject(this)
     }
 
     override fun getMainLayout() = R.layout.activity_home
@@ -145,8 +145,12 @@ class HomeActivity :
 
     //CALLBACK
 
-    override fun onItemClicked(data: Category, position: Int) {
+    override fun onItemClicked(position: Int) {
         drawerLayout.closeDrawer(Gravity.START)
-        supportFragmentManager.beginTransaction().replace(R.id.content, CategoryFragment.newInstance(data)).commit()
+        categories.getOrNull(position)?.let {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.content, CategoryFragment.newInstance(it))
+                    .commit()
+        }
     }
 }

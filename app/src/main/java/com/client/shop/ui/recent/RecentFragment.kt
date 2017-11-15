@@ -5,9 +5,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
 import com.client.shop.R
+import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.ui.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.adapter.RecentAdapter
@@ -16,13 +15,14 @@ import com.client.shop.ui.recent.contract.RecentView
 import com.client.shop.ui.recent.di.RecentModule
 import com.domain.entity.Product
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
+import com.ui.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
 class RecentFragment :
         BaseFragment<List<Product>, RecentView, RecentPresenter>(),
         RecentView,
-        OnItemClickListener<Product> {
+        OnItemClickListener {
 
     @Inject lateinit var recentPresenter: RecentPresenter
 
@@ -37,8 +37,8 @@ class RecentFragment :
 
     //INITIAL
 
-    override fun inject(component: AppComponent) {
-        component.attachRecentComponent(RecentModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachRecentComponent(RecentModule()).inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_recent
@@ -75,7 +75,9 @@ class RecentFragment :
 
     //CALLBACK
 
-    override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(context, data.id))
+    override fun onItemClicked(position: Int) {
+        productList.getOrNull(position)?.let {
+            startActivity(DetailsActivity.getStartIntent(context, it.id))
+        }
     }
 }

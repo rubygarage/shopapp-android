@@ -1,14 +1,14 @@
 package com.client.shop.ui.details.contract
 
 import com.client.shop.R
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.SingleUseCase
 import com.domain.entity.CartProduct
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
+import com.domain.interactor.base.SingleUseCase
 import com.repository.CartRepository
 import com.repository.ProductRepository
+import com.ui.contract.BasePresenter
+import com.ui.contract.BaseView
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package com.client.shop.di.module
 
-import com.apicore.Api
-import com.daocore.Dao
+import com.domain.database.Dao
+import com.domain.network.Api
 import com.repository.*
 import com.repository.impl.*
 import dagger.Module

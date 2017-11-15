@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.client.shop.R
+import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.di.component.AppComponent
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
@@ -34,8 +35,8 @@ class BlogActivity :
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachBlogComponent(BlogModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
     }
 
     override fun createPresenter() = blogPresenter

@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.client.shop.R
+import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.di.component.AppComponent
-import com.client.shop.ui.base.ui.lce.BaseFragment
+import com.ui.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class BlogFragment :
         BaseFragment<List<Article>, BlogView, BlogPresenter>(),
         BlogView,
-        OnItemClickListener<Article> {
+        OnItemClickListener {
 
     @Inject lateinit var blogPresenter: BlogPresenter
     private var articleList = mutableListOf<Article>()
@@ -31,8 +32,8 @@ class BlogFragment :
         loadData(false)
     }
 
-    override fun inject(component: AppComponent) {
-        component.attachBlogComponent(BlogModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
     }
 
     //SETUP
@@ -67,8 +68,10 @@ class BlogFragment :
 
     //CALLBACK
 
-    override fun onItemClicked(data: Article, position: Int) {
-        startActivity(ArticleActivity.getStartIntent(context, data))
+    override fun onItemClicked(position: Int) {
+        articleList.getOrNull(position)?.let {
+            startActivity(ArticleActivity.getStartIntent(context, it))
+        }
     }
 
 }

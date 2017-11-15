@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import com.client.shop.R
+import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.di.component.AppComponent
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.adapter.RecentAdapter
@@ -42,8 +42,8 @@ class RecentActivity :
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachRecentComponent(RecentModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachRecentComponent(RecentModule()).inject(this)
     }
 
     override fun createPresenter() = recentPresenter

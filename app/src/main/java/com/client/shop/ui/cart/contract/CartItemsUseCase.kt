@@ -1,7 +1,7 @@
 package com.client.shop.ui.cart.contract
 
-import com.client.shop.ui.base.contract.ObservableUseCase
 import com.domain.entity.CartProduct
+import com.domain.interactor.base.ObservableUseCase
 import com.repository.CartRepository
 import io.reactivex.Observable
 import javax.inject.Inject

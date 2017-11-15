@@ -3,7 +3,7 @@ package com.repository.impl
 import com.domain.entity.Shop
 import com.repository.rx.RxCallback
 import com.repository.ShopRepository
-import com.apicore.Api
+import com.domain.network.Api
 import io.reactivex.Single
 
 class ShopRepositoryImpl(private val api: Api) : ShopRepository {

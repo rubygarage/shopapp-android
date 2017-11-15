@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             style="@style/ToolbarStyle" />
 
-        <com.client.shop.ui.custom.lce.LceLayout
+        <com.ui.lce.view.LceLayout
             android:id="@+id/lceLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

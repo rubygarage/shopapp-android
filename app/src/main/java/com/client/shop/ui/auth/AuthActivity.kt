@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
+import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.AuthPresenter
 import com.client.shop.ui.auth.contract.AuthView
 import com.client.shop.ui.auth.di.AuthModule
-import com.client.shop.ui.base.ui.lce.BaseActivity
+import com.ui.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
@@ -42,8 +42,8 @@ class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView 
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachAuthComponent(AuthModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
     }
 
     override fun getContentView() = R.layout.activity_auth

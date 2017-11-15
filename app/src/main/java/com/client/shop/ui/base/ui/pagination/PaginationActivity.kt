@@ -8,17 +8,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
+import com.ui.contract.BasePresenter
+import com.ui.contract.BaseView
+import com.ui.lce.BaseActivity
 
 abstract class PaginationActivity<M, V : BaseView<List<M>>, P : BasePresenter<List<M>, V>> :
         BaseActivity<List<M>, V, P>(),
-        OnItemClickListener<M>,
+        OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener {
 
     protected var paginationValue: String? = null
@@ -108,6 +108,14 @@ abstract class PaginationActivity<M, V : BaseView<List<M>>, P : BasePresenter<Li
     }
 
     //CALLBACK
+
+    override fun onItemClicked(position: Int) {
+        if (position >= 0 && dataList.size >= position) {
+            onItemClicked(dataList[position], position)
+        }
+    }
+
+    abstract fun onItemClicked(data: M, position: Int)
 
     override fun onRefresh() {
         paginationValue = null

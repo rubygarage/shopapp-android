@@ -1,6 +1,7 @@
 package com.client.shop.di.component
 
 import com.client.shop.di.module.RepositoryModule
+import com.client.shop.di.module.RouterModule
 import com.client.shop.ui.auth.di.AuthComponent
 import com.client.shop.ui.auth.di.AuthModule
 import com.client.shop.ui.blog.di.BlogComponent
@@ -17,11 +18,12 @@ import com.client.shop.ui.recent.di.RecentComponent
 import com.client.shop.ui.recent.di.RecentModule
 import com.client.shop.ui.search.di.SearchComponent
 import com.client.shop.ui.search.di.SearchModule
+import com.shopify.di.ShopComponent
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(RepositoryModule::class))
+@Component(modules = arrayOf(RouterModule::class, RepositoryModule::class))
 interface AppComponent {
 
     fun attachBlogComponent(module: BlogModule): BlogComponent
@@ -39,4 +41,6 @@ interface AppComponent {
     fun attachCartComponent(module: CartModule): CartComponent
 
     fun attachAuthComponent(module: AuthModule): AuthComponent
+
+    fun attachShopComponent(module: RepositoryModule): ShopComponent
 }
