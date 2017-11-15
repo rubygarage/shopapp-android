@@ -3,16 +3,14 @@ package com.shopify.api
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.apicore.Api
 import com.apicore.ApiCallback
 import com.domain.entity.*
+import com.domain.network.Api
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QuaryCallWrapper
-import com.shopify.buy3.*
 import com.shopify.api.entity.AccessData
-import com.shopify.buy3.GraphClient
-import com.shopify.buy3.Storefront
+import com.shopify.buy3.*
 import com.shopify.graphql.support.ID
 import net.danlew.android.joda.JodaTimeAndroid
 

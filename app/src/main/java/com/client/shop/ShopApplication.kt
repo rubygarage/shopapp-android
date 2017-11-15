@@ -22,11 +22,11 @@ class ShopApplication : Application() {
         super.onCreate()
 
         val dao = DaoImpl(this)
-        val shopModule = ShopifyWrapper(this, dao)
+        val shopWrapper = ShopifyWrapper(this, dao)
 
         appComponent = DaggerAppComponent.builder()
-                .routerModule(RouterModule(shopModule))
-                .repositoryModule(RepositoryModule(shopModule.api, dao))
+                .routerModule(RouterModule(shopWrapper))
+                .repositoryModule(RepositoryModule(shopWrapper.api, dao))
                 .build()
 
         val config = ImagePipelineConfig.newBuilder(this)

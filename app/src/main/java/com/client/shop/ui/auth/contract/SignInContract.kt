@@ -2,17 +2,11 @@ package com.client.shop.ui.auth.contract
 
 import com.client.shop.ext.isEmailValid
 import com.client.shop.ext.isPasswordValid
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.CompletableUseCase
-import com.domain.entity.Customer
-import com.domain.interactor.base.SingleUseCase
+import com.domain.interactor.base.CompletableUseCase
 import com.repository.AuthRepository
-import io.reactivex.Completable
-import com.repository.SessionRepository
 import com.ui.contract.BasePresenter
 import com.ui.contract.BaseView
-import io.reactivex.Single
+import io.reactivex.Completable
 import javax.inject.Inject
 
 interface SignInView : BaseView<Unit> {
