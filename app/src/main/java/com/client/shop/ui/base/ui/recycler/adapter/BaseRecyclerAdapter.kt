@@ -29,7 +29,8 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemPosition = position - if (withHeader) 1 else 0
+        val headerOffset = if (withHeader) 1 else 0
+        val itemPosition = position - headerOffset
         if (itemPosition >= 0 && dataList.size > itemPosition) {
             val itemView = holder.itemView
             val data = dataList[itemPosition]

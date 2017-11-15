@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import com.repository.CartRepository
 import com.shopify.ShopifyWrapper
@@ -30,8 +29,6 @@ class CheckoutActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, PaymentMethodFragment())
                 .commit()
-
-        Log.d("TEST", repo.toString())
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
