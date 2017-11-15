@@ -29,8 +29,7 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val headerOffset = if (withHeader) 1 else 0
-        val itemPosition = position - headerOffset
+        val itemPosition = position - getHeaderOffset()
         if (itemPosition >= 0 && dataList.size > itemPosition) {
             val itemView = holder.itemView
             val data = dataList[itemPosition]
@@ -40,11 +39,7 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
         }
     }
 
-    override fun getItemCount(): Int {
-        val headerOffset = if (withHeader) 1 else 0
-        val footerOffset = if (withFooter) 1 else 0
-        return dataList.size + headerOffset + footerOffset
-    }
+    override fun getItemCount(): Int = dataList.size + getHeaderOffset() + getFooterOffset()
 
     override fun getItemViewType(position: Int): Int {
         return if (withHeader && position == 0) {
@@ -56,6 +51,10 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
         }
     }
 
+    private fun getHeaderOffset() = if (withHeader) 1 else 0
+
+    private fun getFooterOffset() = if (withFooter) 1 else 0
+
     abstract fun getItemView(context: Context, viewType: Int): View
 
     abstract fun bindData(itemView: View, data: T, position: Int)
@@ -64,20 +63,17 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
 
     }
 
-    protected open fun getHeaderView(context: Context): View? {
-        return null
-    }
+    protected open fun getHeaderView(context: Context): View? = null
 
-    protected open fun getFooterView(context: Context): View? {
-        return null
-    }
+    protected open fun getFooterView(context: Context): View? = null
 
     class DefaultViewHolder(itemView: View, onItemClickListener: OnItemClickListener, withHeader: Boolean) :
             RecyclerView.ViewHolder(itemView) {
 
         init {
             itemView.setOnClickListener {
-                val position = adapterPosition - if (withHeader) 1 else 0
+                val headerOffset = if (withHeader) 1 else 0
+                val position = adapterPosition - headerOffset
                 if (position >= 0) {
                     onItemClickListener.onItemClicked(position)
                 }
