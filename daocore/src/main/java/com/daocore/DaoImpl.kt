@@ -2,13 +2,10 @@ package com.daocore
 
 import android.content.Context
 import com.daocore.adapter.CartProductAdapter
-import com.daocore.adapter.CustomerAdapter
 import com.daocore.entity.CartProductData
 import com.daocore.entity.CartProductDataEntity
-import com.daocore.entity.CustomerDataEntity
 import com.daocore.entity.Models
 import com.domain.entity.CartProduct
-import com.domain.entity.Customer
 import com.domain.entity.Error
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -74,18 +71,5 @@ class DaoImpl(context: Context) : Dao {
             it.quantity = newQuantity
             store.update(storeItem).map { CartProductAdapter.adaptFromStore(it) }
         } ?: Single.error(Error.NonCritical("Product not found"))
-    }
-
-    override fun saveCustomer(customer: Customer): Single<Customer> {
-        store.delete(CustomerDataEntity::class).get().value()
-        return store.insert(CustomerAdapter.adaptToStore(customer)).map { customer }
-    }
-
-    override fun isLoggedIn(): Single<Boolean> {
-
-        return Single.create<Boolean> {
-            val result = store.select(CustomerDataEntity::class).get().toList()
-            it.onSuccess(result.isNotEmpty())
-        }
     }
 }

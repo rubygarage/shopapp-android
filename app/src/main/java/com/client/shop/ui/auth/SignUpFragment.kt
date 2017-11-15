@@ -8,12 +8,11 @@ import com.client.shop.ui.auth.contract.SignUpPresenter
 import com.client.shop.ui.auth.contract.SignUpView
 import com.client.shop.ui.auth.di.AuthModule
 import com.client.shop.ui.base.ui.lce.BaseFragment
-import com.domain.entity.Customer
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import javax.inject.Inject
 
 class SignUpFragment :
-        BaseFragment<Customer, SignUpView, SignUpPresenter>(),
+        BaseFragment<Unit, SignUpView, SignUpPresenter>(),
         SignUpView {
 
     @Inject lateinit var signUpPresenter: SignUpPresenter
@@ -49,7 +48,7 @@ class SignUpFragment :
                 passwordInput.text.trim().toString())
     }
 
-    override fun showContent(data: Customer) {
+    override fun showContent(data: Unit) {
         super.showContent(data)
         showMessage(R.string.register_success_message)
         activity.finish()
