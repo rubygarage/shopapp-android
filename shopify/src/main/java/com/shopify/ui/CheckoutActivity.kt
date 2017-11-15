@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
 import com.repository.CartRepository
-import com.shopify.ShopifyModule
+import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import kotlinx.android.synthetic.main.activity_checkout.*
 import javax.inject.Inject
@@ -21,8 +21,7 @@ class CheckoutActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        application
-        ShopifyModule.shopComponent.inject(this)
+        ShopifyWrapper.component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
         setSupportActionBar(toolbar)

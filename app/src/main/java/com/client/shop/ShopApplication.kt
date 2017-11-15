@@ -8,7 +8,7 @@ import com.client.shop.di.module.RouterModule
 import com.daocore.DaoImpl
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
-import com.shopify.ShopifyModule
+import com.shopify.ShopifyWrapper
 import io.reactivex.plugins.RxJavaPlugins
 
 
@@ -21,8 +21,8 @@ class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val shopModule = ShopifyModule(this)
         val dao = DaoImpl(this)
+        val shopModule = ShopifyWrapper(this, dao)
 
         appComponent = DaggerAppComponent.builder()
                 .routerModule(RouterModule(shopModule))

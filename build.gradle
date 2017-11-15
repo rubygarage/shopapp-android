@@ -8,6 +8,7 @@ buildscript {
     ext.rxAndroidVersion = '2.0.1'
     ext.constraintLayoutVersion = '1.0.2'
     ext.mosbyVersion = '3.0.4'
+    ext.daggerVersion = '2.11'
 
     repositories {
         google()

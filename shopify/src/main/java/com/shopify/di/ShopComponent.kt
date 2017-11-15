@@ -1,9 +1,11 @@
 package com.shopify.di
 
 import com.shopify.ui.CheckoutActivity
-import dagger.Subcomponent
+import dagger.Component
+import javax.inject.Singleton
 
-@Subcomponent
+@Singleton
+@Component(modules = arrayOf(CheckoutModule::class))
 interface ShopComponent {
 
     fun inject(activity: CheckoutActivity)

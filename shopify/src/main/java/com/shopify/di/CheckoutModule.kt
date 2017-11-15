@@ -9,11 +9,9 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class TestModule(private val api: Api, private val dao: Dao) {
+class CheckoutModule(private val api: Api, private val dao: Dao) {
 
     @Provides
     @Singleton
-    fun provideCartRepository(): CartRepository {
-        return CartRepositoryImpl(dao)
-    }
+    fun provideCartRepository(): CartRepository = CartRepositoryImpl(dao)
 }

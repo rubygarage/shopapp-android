@@ -3,7 +3,7 @@ package com.domain
 import com.domain.network.Api
 import com.domain.router.Router
 
-interface ShopModule {
+interface ShopWrapper {
 
     val api: Api
     val router: Router

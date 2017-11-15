@@ -1,7 +1,7 @@
 package com.shopify
 
 import android.content.Context
-import com.domain.ShopModule
+import com.domain.ShopWrapper
 import com.domain.database.Dao
 import com.shopify.api.ShopifyApi
 import com.shopify.di.CheckoutModule
@@ -9,7 +9,7 @@ import com.shopify.di.DaggerShopComponent
 import com.shopify.di.ShopComponent
 import com.shopify.router.ShopifyRouter
 
-class ShopifyModule(context: Context, dao: Dao) : ShopModule {
+class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
 
     companion object {
         private const val BASE_URL = "lalkastore.myshopify.com"
@@ -24,11 +24,4 @@ class ShopifyModule(context: Context, dao: Dao) : ShopModule {
     init {
         component = DaggerShopComponent.builder().checkoutModule(CheckoutModule(api, dao)).build()
     }
-
-    /*var shopComponent: ShopComponent? = null
-        set(value) {
-            value?.let { component = it }
-        }*/
-
-
 }
