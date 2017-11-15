@@ -4,7 +4,7 @@ import com.domain.entity.Product
 import com.domain.entity.SortType
 import com.repository.ProductRepository
 import com.repository.rx.RxCallback
-import com.apicore.Api
+import com.domain.network.Api
 import io.reactivex.Single
 
 class ProductRepositoryImpl(private val api: Api) : ProductRepository {

@@ -23,14 +23,10 @@
     <string name="share">Share</string>
     <string name="sort">Sort</string>
     <string name="sort_title">Sort by</string>
-    <string name="try_again">Try Again</string>
-    <string name="network_connection_error">Sorry - something did not go through! Please check your network connection and try again.</string>
-    <string name="default_error">Something went wrong…</string>
     <string name="remove_button">Remove</string>
     <string name="each_price_pattern">%1$s %2$s each</string>
     <string name="cart">Cart</string>
     <string name="proceed_to_checkout">Proceed to checkout</string>
-    <string name="empty_message">It\'s empty in here.</string>
     <string name="empty_cart_message">Your shopping cart is empty</string>
     <string name="empty_cart_button">See last arrivals</string>
     <string name="create_account">Create account</string>

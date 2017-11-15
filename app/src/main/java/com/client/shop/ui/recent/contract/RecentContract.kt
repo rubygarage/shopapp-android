@@ -1,11 +1,11 @@
 package com.client.shop.ui.recent.contract
 
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.SingleUseCase
 import com.domain.entity.Product
 import com.domain.entity.SortType
+import com.domain.interactor.base.SingleUseCase
 import com.repository.ProductRepository
+import com.ui.contract.BasePresenter
+import com.ui.contract.BaseView
 import io.reactivex.Single
 import javax.inject.Inject
 

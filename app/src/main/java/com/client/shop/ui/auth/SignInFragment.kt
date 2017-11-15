@@ -3,11 +3,11 @@ package com.client.shop.ui.auth
 import android.os.Bundle
 import android.view.View
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
+import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.SignInPresenter
 import com.client.shop.ui.auth.contract.SignInView
 import com.client.shop.ui.auth.di.AuthModule
-import com.client.shop.ui.base.ui.lce.BaseFragment
+import com.ui.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import javax.inject.Inject
 
@@ -28,8 +28,8 @@ class SignInFragment :
 
     //INIT
 
-    override fun inject(component: AppComponent) {
-        component.attachAuthComponent(AuthModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_sign_in

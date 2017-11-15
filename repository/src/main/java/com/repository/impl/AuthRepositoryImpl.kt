@@ -1,6 +1,6 @@
 package com.repository.impl
 
-import com.apicore.Api
+import com.domain.network.Api
 import com.domain.entity.Customer
 import com.repository.AuthRepository
 import com.repository.rx.RxCallback

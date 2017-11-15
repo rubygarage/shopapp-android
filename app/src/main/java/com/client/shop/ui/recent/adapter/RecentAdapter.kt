@@ -3,13 +3,13 @@ package com.client.shop.ui.recent.adapter
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
+import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.item.MoreItem
 import com.client.shop.ui.item.RecentItem
 import com.domain.entity.Product
 
-class RecentAdapter(productList: List<Product>, onItemClickListener: OnItemClickListener<Product>,
+class RecentAdapter(productList: List<Product>, onItemClickListener: OnItemClickListener,
                     private val moreButtonListener: View.OnClickListener) :
         BaseRecyclerAdapter<Product>(productList, onItemClickListener) {
 

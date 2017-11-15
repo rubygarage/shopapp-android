@@ -4,7 +4,7 @@ import com.domain.entity.Category
 import com.domain.entity.SortType
 import com.repository.CategoryRepository
 import com.repository.rx.RxCallback
-import com.apicore.Api
+import com.domain.network.Api
 import io.reactivex.Single
 
 class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {

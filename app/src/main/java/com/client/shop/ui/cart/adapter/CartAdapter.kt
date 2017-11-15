@@ -7,8 +7,9 @@ import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.item.cart.FooterCartItem
 import com.domain.entity.CartProduct
+import kotlinx.android.synthetic.main.item_footer_cart.view.*
 
-class CartAdapter(dataList: List<CartProduct>, onItemClickListener: OnItemClickListener<CartProduct>) :
+class CartAdapter(dataList: List<CartProduct>, onItemClickListener: OnItemClickListener) :
         BaseRecyclerAdapter<CartProduct>(dataList, onItemClickListener) {
 
     var actionListener: CartItem.ActionListener? = null
@@ -34,7 +35,13 @@ class CartAdapter(dataList: List<CartProduct>, onItemClickListener: OnItemClickL
         return CartItem(context)
     }
 
-    override fun getFooterView(context: Context) = FooterCartItem(context)
+    override fun getFooterView(context: Context): View? {
+        val footerView = FooterCartItem(context)
+        footerView.checkoutButton.setOnClickListener {
+            onItemClickListener.onFooterClicked()
+        }
+        return footerView
+    }
 
     override fun getItemId(position: Int): Long {
         return if (dataList.size > position) {

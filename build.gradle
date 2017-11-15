@@ -2,9 +2,13 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.1.60'
     ext.androidSupportVersion = '26.1.0'
     ext.rxVersion = '2.1.6'
+    ext.rxAndroidVersion = '2.0.1'
+    ext.constraintLayoutVersion = '1.0.2'
+    ext.mosbyVersion = '3.0.4'
+    ext.daggerVersion = '2.11'
 
     repositories {
         google()

@@ -1,7 +1,7 @@
 package com.client.shop.di.module
 
-import com.apicore.Api
-import com.daocore.Dao
+import com.domain.database.Dao
+import com.domain.network.Api
 import com.repository.*
 import com.repository.impl.*
 import dagger.Module
@@ -13,37 +13,25 @@ class RepositoryModule(private val api: Api, private val dao: Dao) {
 
     @Provides
     @Singleton
-    fun provideShopRepository(): ShopRepository {
-        return ShopRepositoryImpl(api)
-    }
+    fun provideShopRepository(): ShopRepository = ShopRepositoryImpl(api)
 
     @Provides
     @Singleton
-    fun provideBlogRepository(): BlogRepository {
-        return BlogRepositoryImpl(api)
-    }
+    fun provideBlogRepository(): BlogRepository = BlogRepositoryImpl(api)
 
     @Provides
     @Singleton
-    fun provideProductRepository(): ProductRepository {
-        return ProductRepositoryImpl(api)
-    }
+    fun provideProductRepository(): ProductRepository = ProductRepositoryImpl(api)
 
     @Provides
     @Singleton
-    fun provideCategoryRepository(): CategoryRepository {
-        return CategoryRepositoryImpl(api)
-    }
+    fun provideCategoryRepository(): CategoryRepository = CategoryRepositoryImpl(api)
 
     @Provides
     @Singleton
-    fun provideCartRepository(): CartRepository {
-        return CartRepositoryImpl(dao)
-    }
+    fun provideCartRepository(): CartRepository = CartRepositoryImpl(dao)
 
     @Provides
     @Singleton
-    fun provideAuthRepository(): AuthRepository {
-        return AuthRepositoryImpl(api)
-    }
+    fun provideAuthRepository(): AuthRepository = AuthRepositoryImpl(api)
 }

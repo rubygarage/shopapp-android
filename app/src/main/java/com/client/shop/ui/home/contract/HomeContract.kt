@@ -1,13 +1,13 @@
 package com.client.shop.ui.home.contract
 
 import com.client.shop.const.Constant.MAXIMUM_PER_PAGE_COUNT
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.contract.BaseView
-import com.client.shop.ui.base.contract.SingleUseCase
 import com.domain.entity.Category
 import com.domain.entity.Shop
+import com.domain.interactor.base.SingleUseCase
 import com.repository.CategoryRepository
 import com.repository.ShopRepository
+import com.ui.contract.BasePresenter
+import com.ui.contract.BaseView
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject

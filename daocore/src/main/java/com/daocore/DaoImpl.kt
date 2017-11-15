@@ -5,6 +5,7 @@ import com.daocore.adapter.CartProductAdapter
 import com.daocore.entity.CartProductData
 import com.daocore.entity.CartProductDataEntity
 import com.daocore.entity.Models
+import com.domain.database.Dao
 import com.domain.entity.CartProduct
 import com.domain.entity.Error
 import io.reactivex.Completable

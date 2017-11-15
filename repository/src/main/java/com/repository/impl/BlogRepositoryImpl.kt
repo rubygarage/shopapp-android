@@ -4,7 +4,7 @@ import com.domain.entity.Article
 import com.domain.entity.SortType
 import com.repository.BlogRepository
 import com.repository.rx.RxCallback
-import com.apicore.Api
+import com.domain.network.Api
 import io.reactivex.Single
 
 class BlogRepositoryImpl(private val api: Api) : BlogRepository {

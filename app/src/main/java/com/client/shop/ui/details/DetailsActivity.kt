@@ -10,9 +10,8 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.client.shop.R
-import com.client.shop.di.component.AppComponent
+import com.client.shop.ShopApplication
 import com.client.shop.ext.getScreenSize
-import com.client.shop.ui.base.ui.lce.BaseActivity
 import com.client.shop.ui.cart.CartActivity
 import com.client.shop.ui.container.OptionsContainer
 import com.client.shop.ui.details.contract.DetailsPresenter
@@ -21,6 +20,7 @@ import com.client.shop.ui.details.di.DetailsModule
 import com.client.shop.ui.gallery.GalleryFragment
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
+import com.ui.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
@@ -83,8 +83,8 @@ class DetailsActivity :
 
     //INITIAL
 
-    override fun inject(component: AppComponent) {
-        component.attachDetailsComponent(DetailsModule()).inject(this)
+    override fun inject() {
+        ShopApplication.appComponent.attachDetailsComponent(DetailsModule()).inject(this)
     }
 
     override fun getContentView() = R.layout.activity_details

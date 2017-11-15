@@ -1,6 +1,7 @@
 package com.client.shop.di.component
 
 import com.client.shop.di.module.RepositoryModule
+import com.client.shop.di.module.RouterModule
 import com.client.shop.ui.auth.di.AuthComponent
 import com.client.shop.ui.auth.di.AuthModule
 import com.client.shop.ui.blog.di.BlogComponent
@@ -21,7 +22,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(RepositoryModule::class))
+@Component(modules = arrayOf(RouterModule::class, RepositoryModule::class))
 interface AppComponent {
 
     fun attachBlogComponent(module: BlogModule): BlogComponent

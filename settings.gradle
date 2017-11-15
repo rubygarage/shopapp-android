@@ -1,1 +1,1 @@
-include ':app', ':apicore', ':shopifyapi', ':domain', ':daocore', ':repository'
+include ':app', ':shopify', ':domain', ':daocore', ':repository', ':ui'
