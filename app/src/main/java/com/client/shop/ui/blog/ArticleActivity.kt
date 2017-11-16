@@ -64,7 +64,7 @@ class ArticleActivity :
         item?.let {
             return when (item.itemId) {
                 R.id.share -> {
-                    shareText(shareUrl!!, "Share")
+                    shareUrl?.let { shareText(it, "Share") }
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
