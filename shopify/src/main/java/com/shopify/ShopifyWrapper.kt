@@ -4,16 +4,16 @@ import android.content.Context
 import com.domain.ShopWrapper
 import com.domain.database.Dao
 import com.shopify.api.ShopifyApi
-import com.shopify.di.CheckoutModule
 import com.shopify.di.DaggerShopComponent
 import com.shopify.di.ShopComponent
+import com.shopify.di.ShopifyModule
 import com.shopify.router.ShopifyRouter
 
 class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
 
     companion object {
-        private const val BASE_URL = "lalkastore.myshopify.com"
-        private const val ACCESS_TOKEN = "677af790376ae84213f7ea1ed56f11ca"
+        private const val BASE_URL = "fosox.myshopify.com"
+        private const val ACCESS_TOKEN = "b7ec986195fe87de18cb74a09b81ea1d"
 
         lateinit var component: ShopComponent
     }
@@ -22,6 +22,6 @@ class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
     override val router = ShopifyRouter()
 
     init {
-        component = DaggerShopComponent.builder().checkoutModule(CheckoutModule(api, dao)).build()
+        component = DaggerShopComponent.builder().shopifyModule(ShopifyModule(api, dao)).build()
     }
 }

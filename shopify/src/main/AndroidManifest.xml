@@ -4,7 +4,7 @@
     <application>
 
         <activity
-            android:name="com.shopify.ui.CheckoutActivity"
+            android:name="com.shopify.ui.checkout.CheckoutActivity"
             android:screenOrientation="portrait" />
 
     </application>

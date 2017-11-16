@@ -32,5 +32,5 @@ interface Api {
 
     fun getCustomer(callback: ApiCallback<Customer>)
 
-    fun createCheckout(cartProductList: List<CartProduct>)
+    fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Pair<String, String>>)
 }

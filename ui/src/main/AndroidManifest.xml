@@ -1,2 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ui" />
+    package="com.ui">
+
+    <application>
+
+        <activity
+            android:name=".browser.BrowserActivity"
+            android:screenOrientation="portrait" />
+
+    </application>
+
+</manifest>

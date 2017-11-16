@@ -10,7 +10,8 @@ import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QuaryCallWrapper
 import com.shopify.api.entity.AccessData
-import com.shopify.buy3.*
+import com.shopify.buy3.GraphClient
+import com.shopify.buy3.Storefront
 import com.shopify.graphql.support.ID
 import net.danlew.android.joda.JodaTimeAndroid
 
@@ -422,7 +423,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
     }
 
-    override fun createCheckout(cartProductList: List<CartProduct>) {
+    override fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Pair<String, String>>) {
 
         val input = Storefront.CheckoutCreateInput().setLineItems(
                 cartProductList.map {
@@ -447,18 +448,21 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     }
         }
 
-        graphClient.mutateGraph(query).enqueue(object : GraphCall.Callback<Storefront.Mutation> {
-            override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
-                if (!response.data()!!.checkoutCreate.userErrors.isEmpty()) {
-                    // handle user friendly errors
-                } else {
-                    val checkoutId = response.data()!!.checkoutCreate.checkout.id.toString()
-                    val checkoutWebUrl = response.data()!!.checkoutCreate.checkout.webUrl
+        graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Pair<String, String>>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Pair<String, String>? {
+                return data?.let {
+                    if (!it.checkoutCreate.userErrors.isEmpty()) {
+                        callback.onFailure(Error.NonCritical(data.customerCreate
+                                .userErrors
+                                .first()
+                                .message))
+                        null
+                    } else {
+                        val checkoutId = it.checkoutCreate.checkout.id.toString()
+                        val checkoutWebUrl = it.checkoutCreate.checkout.webUrl
+                        return Pair(checkoutId, checkoutWebUrl)
+                    }
                 }
-            }
-
-            override fun onFailure(error: GraphError) {
-                // handle errors
             }
         })
     }
