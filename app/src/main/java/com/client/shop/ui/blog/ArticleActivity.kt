@@ -24,8 +24,8 @@ class ArticleActivity :
 
     @Inject lateinit var articlePresenter: ArticlePresenter
 
-    var shareUrl: String? = null
-    var shareMenuItem: MenuItem? = null
+    private var shareUrl: String? = null
+    private var shareMenuItem: MenuItem? = null
 
     companion object {
         private const val EXTRA_ARTICLE_ID = "extra_article_id"
