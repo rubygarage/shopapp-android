@@ -2,7 +2,7 @@ package com.shopify.router
 
 import android.app.Activity
 import com.domain.router.Router
-import com.shopify.ui.CheckoutActivity
+import com.shopify.ui.checkout.CheckoutActivity
 
 class ShopifyRouter : Router {
 

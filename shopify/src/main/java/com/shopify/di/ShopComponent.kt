@@ -1,12 +1,13 @@
 package com.shopify.di
 
-import com.shopify.ui.CheckoutActivity
+import com.shopify.ui.checkout.di.CheckoutComponent
+import com.shopify.ui.checkout.di.CheckoutModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(CheckoutModule::class))
+@Component(modules = arrayOf(ShopifyModule::class))
 interface ShopComponent {
 
-    fun inject(activity: CheckoutActivity)
+    fun attachCheckoutComponent(module: CheckoutModule): CheckoutComponent
 }
