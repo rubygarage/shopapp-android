@@ -3,19 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\app\app.iml" filepath="D:\projects\shopclient-android\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/daocore/daocore.iml" filepath="$PROJECT_DIR$/daocore/daocore.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\daocore\daocore.iml" filepath="D:\projects\shopclient-android\daocore\daocore.iml" />
       <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\domain\domain.iml" filepath="D:\projects\shopclient-android\domain\domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/repository/repository.iml" filepath="$PROJECT_DIR$/repository/repository.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\repository\repository.iml" filepath="D:\projects\shopclient-android\repository\repository.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopclient-android.iml" filepath="$PROJECT_DIR$/shopclient-android.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\shopclient-android.iml" filepath="D:\projects\shopclient-android\shopclient-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopify/shopify.iml" filepath="$PROJECT_DIR$/shopify/shopify.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\shopify\shopify.iml" filepath="D:\projects\shopclient-android\shopify\shopify.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
-      <module fileurl="file://D:\projects\shopclient-android\ui\ui.iml" filepath="D:\projects\shopclient-android\ui\ui.iml" />
     </modules>
   </component>
 </project>

@@ -15,7 +15,6 @@ import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
 import com.ui.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 
@@ -26,6 +25,7 @@ class ArticleActivity :
     @Inject lateinit var articlePresenter: ArticlePresenter
 
     var shareUrl: String? = null
+    var shareMenuItem: MenuItem? = null
 
     companion object {
         private const val EXTRA_ARTICLE_ID = "extra_article_id"
@@ -37,16 +37,6 @@ class ArticleActivity :
         }
     }
 
-    //INIT
-
-    override fun inject() {
-        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
-    }
-
-    override fun getContentView(): Int = R.layout.activity_article
-
-    override fun createPresenter(): ArticlePresenter = articlePresenter
-
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +45,9 @@ class ArticleActivity :
         loadData(false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_article, menu)
+        shareMenuItem = menu.findItem(R.id.share)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -77,11 +68,21 @@ class ArticleActivity :
         return super.onOptionsItemSelected(item)
     }
 
+    //INIT
+
+    override fun inject() {
+        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
+    }
+
+    override fun getContentView(): Int = R.layout.activity_article
+
+    override fun createPresenter(): ArticlePresenter = articlePresenter
+
     //LCE
 
     override fun showContent(data: Article) {
         super.showContent(data)
-        toolbar.menu.getItem(0).isVisible = true
+        shareMenuItem?.isVisible = true
         shareUrl = data.url
         articleTitle.text = data.title
         content.text = data.content
