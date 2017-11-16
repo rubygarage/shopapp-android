@@ -33,4 +33,6 @@ interface Api {
     fun getCustomer(callback: ApiCallback<Customer>)
 
     fun createCheckout(cartProductList: List<CartProduct>)
+
+    fun getArticle(id: String, callback: ApiCallback<Article>)
 }

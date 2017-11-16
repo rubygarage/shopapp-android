@@ -64,6 +64,6 @@ class BlogActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Article, position: Int) {
-        startActivity(ArticleActivity.getStartIntent(this, data))
+        startActivity(ArticleActivity.getStartIntent(this, data.id))
     }
 }
