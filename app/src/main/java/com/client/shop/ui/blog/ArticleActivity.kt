@@ -68,7 +68,7 @@ class ArticleActivity :
                     true
                 }
                 R.id.share -> {
-                    shareText(shareUrl!!, "Share")
+                    shareUrl?.let { shareText(it, "Share") }
                     true
                 }
                 else -> super.onOptionsItemSelected(item)
