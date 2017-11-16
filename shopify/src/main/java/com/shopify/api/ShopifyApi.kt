@@ -283,6 +283,25 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
+    override fun getArticle(id: String, callback: ApiCallback<Article>) {
+        val nodeId = ID(id)
+        val query = Storefront.query {
+            it.node(nodeId) {
+                it.onArticle {
+                    getDefaultArticleQuery(it)
+                }
+            }
+        }
+
+        val call = graphClient.queryGraph(query)
+        call.enqueue(object : QuaryCallWrapper<Article>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): Article {
+                return ArticleAdapter.adapt(data.node as Storefront.Article)
+            }
+        })
+    }
+
+
     override fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
                                 reverse: Boolean, callback: ApiCallback<List<Article>>) {
         val query = Storefront.query { rootQuery ->
@@ -299,28 +318,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     args.reverse(reverse)
                 }) { articleConnectionQuery ->
                     articleConnectionQuery.edges { articleEdgeQuery ->
-                        articleEdgeQuery.cursor().node { articleQuery ->
-                            articleQuery
-                                    .title()
-                                    .content()
-                                    .tags()
-                                    .publishedAt()
-                                    .url()
-                                    .image({ imageQuery ->
-                                        imageQuery
-                                                .id()
-                                                .src()
-                                                .altText()
-                                    })
-                                    .author { articleAuthorQuery ->
-                                        articleAuthorQuery
-                                                .firstName()
-                                                .lastName()
-                                                .name()
-                                                .email()
-                                                .bio()
-                                    }
-                                    .blog({ it.title() })
+                        articleEdgeQuery.cursor().node {
+                            getDefaultArticleQuery(it)
                         }
                     }
                 }
@@ -941,5 +940,27 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 .createdAt()
                 .updatedAt()
                 .tags()
+    }
+
+    private fun getDefaultArticleQuery(articleQuery: Storefront.ArticleQuery): Storefront.ArticleQuery {
+        return articleQuery
+                .title()
+                .content()
+                .tags()
+                .publishedAt()
+                .url()
+                .image({
+                    it.id()
+                            .src()
+                            .altText()
+                })
+                .author {
+                    it.firstName()
+                            .lastName()
+                            .name()
+                            .email()
+                            .bio()
+                }
+                .blog({ it.title() })
     }
 }
