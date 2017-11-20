@@ -3,7 +3,6 @@ package com.shopify.ui.checkout
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
@@ -33,21 +32,12 @@ class CheckoutActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setTitle(R.string.checkout)
 
         webPaymentButton.setOnClickListener(this)
         cardPaymentButton.setOnClickListener(this)
 
         loadData()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //INIT

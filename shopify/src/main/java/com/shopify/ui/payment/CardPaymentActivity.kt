@@ -40,6 +40,7 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.setTitle(R.string.checkout)
 
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
 

@@ -32,7 +32,6 @@ class ArticleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_article)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         article = intent.getParcelableExtra(EXTRA_ARTICLE)
         articleTitle.text = article.title
@@ -51,10 +50,6 @@ class ArticleActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
             return when (item.itemId) {
-                android.R.id.home -> {
-                    onBackPressed()
-                    true
-                }
                 R.id.share -> {
                     shareText(article.url, "Share")
                     true

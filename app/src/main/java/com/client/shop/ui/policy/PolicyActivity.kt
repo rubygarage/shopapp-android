@@ -29,23 +29,9 @@ class PolicyActivity : AppCompatActivity() {
         setContentView(R.layout.activity_policy)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         policy = intent.getParcelableExtra(EXTRA_POLICY)
         title = policy.title
         body.text = policy.body
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            return when (item.itemId) {
-                android.R.id.home -> {
-                    onBackPressed()
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }
