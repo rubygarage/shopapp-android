@@ -64,7 +64,7 @@ class DetailsActivity :
         setupCartButton()
 
         optionsContainer.variantSelectListener = this
-        loadData(false)
+        loadData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

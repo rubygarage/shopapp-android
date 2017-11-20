@@ -53,7 +53,7 @@ class HomeActivity :
         }
         accountLabel.setOnClickListener { startActivity(AuthActivity.getStartIntent(this)) }
 
-        loadData(false)
+        loadData()
     }
 
     //INIT

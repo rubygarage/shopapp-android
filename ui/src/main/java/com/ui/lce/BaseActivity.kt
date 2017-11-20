@@ -43,7 +43,7 @@ abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
     //LCE
 
     @CallSuper
-    open fun loadData(pullToRefresh: Boolean) {
+    open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
             lceLayout.changeState(LceLayout.LceState.LoadingState)
         }
@@ -74,7 +74,7 @@ abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
     //CALLBACK
 
     open fun tryAgainButtonClicked() {
-        loadData(false)
+        loadData()
     }
 
     open fun emptyButtonClicked() {

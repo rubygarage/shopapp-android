@@ -45,7 +45,7 @@ abstract class BaseFragment<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
     //LCE
 
     @CallSuper
-    open fun loadData(pullToRefresh: Boolean) {
+    open fun loadData(pullToRefresh: Boolean  = false) {
         if (!pullToRefresh) {
             lceLayout.changeState(LceLayout.LceState.ContentState)
         }
@@ -76,6 +76,6 @@ abstract class BaseFragment<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
     //CALLBACK
 
     open fun tryAgainButtonClicked() {
-        loadData(false)
+        loadData()
     }
 }

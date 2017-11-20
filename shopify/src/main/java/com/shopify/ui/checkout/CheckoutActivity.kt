@@ -4,25 +4,30 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
+import com.shopify.entity.Checkout
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
+import com.shopify.ui.payment.CardPaymentActivity
 import com.ui.browser.BrowserActivity
 import com.ui.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_checkout.*
 import javax.inject.Inject
 
-class CheckoutActivity : BaseActivity<Pair<String, String>, CheckoutView, CheckoutPresenter>(), CheckoutView {
+class CheckoutActivity :
+        BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
+        CheckoutView,
+        View.OnClickListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CheckoutActivity::class.java)
     }
 
     @Inject lateinit var checkoutPresenter: CheckoutPresenter
-    private var checkoutId: String? = null
-    private var webUrl: String? = null
+    private var checkout: Checkout? = null
 
     //ANDROID
 
@@ -30,9 +35,10 @@ class CheckoutActivity : BaseActivity<Pair<String, String>, CheckoutView, Checko
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        webPaymentButton.setOnClickListener { startWebPaymentFlow() }
+        webPaymentButton.setOnClickListener(this)
+        cardPaymentButton.setOnClickListener(this)
 
-        loadData(false)
+        loadData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -63,17 +69,25 @@ class CheckoutActivity : BaseActivity<Pair<String, String>, CheckoutView, Checko
         presenter.createCheckout()
     }
 
-    override fun showContent(data: Pair<String, String>) {
+    override fun showContent(data: Checkout) {
         super.showContent(data)
-        checkoutId = data.first
-        webUrl = data.second
+        checkout = data
     }
 
     //CALLBACK
 
-    private fun startWebPaymentFlow() {
-        webUrl?.let {
-            startActivity(BrowserActivity.getStartIntent(this, it, getString(R.string.checkout)))
+    override fun onClick(v: View) {
+        when (v) {
+            webPaymentButton -> {
+                checkout?.let {
+                    startActivity(BrowserActivity.getStartIntent(this, it.webUrl, getString(R.string.checkout)))
+                }
+            }
+            cardPaymentButton -> {
+                checkout?.let {
+                    startActivity(CardPaymentActivity.getStartIntent(this, it.checkoutId))
+                }
+            }
         }
     }
 }

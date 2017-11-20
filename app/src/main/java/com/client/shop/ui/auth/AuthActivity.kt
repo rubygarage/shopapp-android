@@ -28,7 +28,7 @@ class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView 
         super.onCreate(savedInstanceState)
         setTitle(R.string.account)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        loadData(false)
+        loadData()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

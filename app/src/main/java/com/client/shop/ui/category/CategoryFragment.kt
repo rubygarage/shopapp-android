@@ -64,7 +64,7 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
             compatActivity.supportActionBar?.title = category.title
         }
         setHasOptionsMenu(true)
-        loadData(false)
+        loadData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

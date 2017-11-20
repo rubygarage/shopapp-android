@@ -32,7 +32,7 @@ class RecentActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.last_arrivals)
-        loadData(false)
+        loadData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

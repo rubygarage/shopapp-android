@@ -31,6 +31,4 @@ interface Api {
     fun isLoggedIn(callback: ApiCallback<Boolean>)
 
     fun getCustomer(callback: ApiCallback<Customer>)
-
-    fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Pair<String, String>>)
 }

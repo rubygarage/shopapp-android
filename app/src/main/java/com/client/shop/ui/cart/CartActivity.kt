@@ -45,7 +45,7 @@ class CartActivity :
         setupRecyclerView()
         setupEmptyView()
 
-        loadData(false)
+        loadData()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = getString(R.string.cart)
     }
