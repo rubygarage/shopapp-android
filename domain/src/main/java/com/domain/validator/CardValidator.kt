@@ -1,9 +1,9 @@
-package com.domain.manager
+package com.domain.validator
 
 import com.domain.entity.Card
 import java.util.*
 
-class CardManager {
+class CardValidator {
 
     fun splitHolderName(holderName: String): Pair<String, String>? =
             split(holderName, "\\s".toRegex())

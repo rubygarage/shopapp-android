@@ -7,7 +7,7 @@ import android.os.Bundle
 import com.cooltechworks.creditcarddesign.CardEditActivity
 import com.cooltechworks.creditcarddesign.CreditCardUtils
 import com.domain.entity.Card
-import com.domain.manager.CardManager
+import com.domain.validator.CardValidator
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.ui.payment.contract.CardPaymentPresenter
@@ -33,7 +33,7 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
 
     @Inject lateinit var cardPaymentPresenter: CardPaymentPresenter
     private lateinit var checkoutId: String
-    private val cardManager = CardManager()
+    private val cardManager = CardValidator()
     private var card: Card? = null
 
     //ANDROID
@@ -113,14 +113,14 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
         card = null
 
         when (cardManager.isCardValid(creditCard)) {
-            CardManager.CardValidationResult.VALID -> {
+            CardValidator.CardValidationResult.VALID -> {
                 card = creditCard
                 payButton.isEnabled = true
             }
-            CardManager.CardValidationResult.INVALID_NAME -> showMessage(R.string.card_name_error)
-            CardManager.CardValidationResult.INVALID_DATE -> showMessage(R.string.card_date_error)
-            CardManager.CardValidationResult.INVALID_CVV -> showMessage(R.string.card_cvv_error)
-            CardManager.CardValidationResult.INVALID_NUMBER -> showMessage(R.string.card_number_error)
+            CardValidator.CardValidationResult.INVALID_NAME -> showMessage(R.string.card_name_error)
+            CardValidator.CardValidationResult.INVALID_DATE -> showMessage(R.string.card_date_error)
+            CardValidator.CardValidationResult.INVALID_CVV -> showMessage(R.string.card_cvv_error)
+            CardValidator.CardValidationResult.INVALID_NUMBER -> showMessage(R.string.card_number_error)
         }
     }
 }

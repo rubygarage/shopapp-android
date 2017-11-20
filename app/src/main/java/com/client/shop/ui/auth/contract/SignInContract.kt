@@ -1,8 +1,7 @@
 package com.client.shop.ui.auth.contract
 
-import com.client.shop.ext.isEmailValid
-import com.client.shop.ext.isPasswordValid
 import com.domain.interactor.base.CompletableUseCase
+import com.domain.validator.FieldValidator
 import com.repository.AuthRepository
 import com.ui.contract.BasePresenter
 import com.ui.contract.BaseView
@@ -23,11 +22,13 @@ interface SignInView : BaseView<Unit> {
 class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCase) :
         BasePresenter<Unit, SignInView>(arrayOf(signInUseCase)) {
 
+    private val validator = FieldValidator()
+
     fun logIn(email: String, password: String) {
 
-        if (!email.isEmailValid()) {
+        if (!validator.isEmailValid(email)) {
             view?.showEmailError()
-        } else if (!password.isPasswordValid()) {
+        } else if (!validator.isPasswordValid(password)) {
             view?.showPasswordError()
         } else {
             view?.onCheckPassed()
