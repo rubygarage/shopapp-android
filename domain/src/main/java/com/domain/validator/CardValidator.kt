@@ -18,7 +18,7 @@ class CardValidator {
                 return CardValidationResult.INVALID_NAME
             } else if (!isDateValid(expireMonth, expireYear)) {
                 return CardValidationResult.INVALID_DATE
-            } else if (verificationCode.isBlank() || verificationCode.length > 3) {
+            } else if (verificationCode.isBlank() || verificationCode.length !in 3..4) {
                 return CardValidationResult.INVALID_CVV
             } else if (!isNumberValid(cardNumber)) {
                 return CardValidationResult.INVALID_NUMBER

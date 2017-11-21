@@ -89,7 +89,6 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
         card?.let { presenter.pay(checkoutId, it) }
-
     }
 
     override fun showContent(data: Boolean) {
