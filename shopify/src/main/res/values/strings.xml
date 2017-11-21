@@ -7,4 +7,11 @@
     <string name="web_payment">Pay on our website</string>
     <string name="card_payment">Pay by Card</string>
     <string name="android_payment">Android Pay</string>
+
+    <string name="pay_button">Pay</string>
+    <string name="card_name_error">The card holder name is incorrect</string>
+    <string name="card_date_error">The card\'s expiration date is invalid</string>
+    <string name="card_cvv_error">The card\'s security code is invalid</string>
+    <string name="card_number_error">The card number is incorrect</string>
+    <string name="payment_canceled">Payment canceled</string>
 </resources>

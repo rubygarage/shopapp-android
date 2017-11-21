@@ -29,7 +29,7 @@ class BlogFragment :
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecycler()
-        loadData(false)
+        loadData()
     }
 
     override fun inject() {

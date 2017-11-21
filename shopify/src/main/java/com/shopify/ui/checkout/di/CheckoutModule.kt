@@ -9,6 +9,6 @@ import dagger.Provides
 class CheckoutModule {
 
     @Provides
-    fun provideBlogPresenter(checkoutUseCase: CheckoutUseCase): CheckoutPresenter =
+    fun provideCheckoutPresenter(checkoutUseCase: CheckoutUseCase): CheckoutPresenter =
             CheckoutPresenter(checkoutUseCase)
 }

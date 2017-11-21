@@ -45,18 +45,8 @@ class CartActivity :
         setupRecyclerView()
         setupEmptyView()
 
-        loadData(false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        loadData()
         title = getString(R.string.cart)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //INIT

@@ -3,6 +3,7 @@ package com.ui.lce
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.LayoutRes
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
@@ -26,6 +27,16 @@ abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
         lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
         lceLayout.emptyButtonClickListener = View.OnClickListener { emptyButtonClicked() }
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.let {
+            if (item.itemId == android.R.id.home) {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     //INIT
@@ -43,7 +54,7 @@ abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
     //LCE
 
     @CallSuper
-    open fun loadData(pullToRefresh: Boolean) {
+    open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
             lceLayout.changeState(LceLayout.LceState.LoadingState)
         }
@@ -74,7 +85,7 @@ abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
     //CALLBACK
 
     open fun tryAgainButtonClicked() {
-        loadData(false)
+        loadData()
     }
 
     open fun emptyButtonClicked() {

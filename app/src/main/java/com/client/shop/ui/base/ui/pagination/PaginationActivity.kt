@@ -35,18 +35,8 @@ abstract class PaginationActivity<M, V : BaseView<List<M>>, P : BasePresenter<Li
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupRecyclerView()
         setupSwipeRefreshLayout()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //INIT

@@ -43,7 +43,6 @@ class SearchActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.search)
         setupSearch()
         val swipeProgressEndTarget = resources.getDimensionPixelSize(R.dimen.search_swipe_refresh_progress_end_target)
@@ -87,9 +86,7 @@ class SearchActivity :
 
     override fun getContentView() = R.layout.activity_search
 
-    override fun createPresenter(): SearchPresenter {
-        return searchPresenter
-    }
+    override fun createPresenter() = searchPresenter
 
     //SETUP
 

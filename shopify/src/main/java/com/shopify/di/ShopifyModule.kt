@@ -1,17 +1,17 @@
 package com.shopify.di
 
 import com.domain.database.Dao
-import com.domain.network.Api
 import com.repository.CartRepository
-import com.repository.CheckoutRepository
 import com.repository.impl.CartRepositoryImpl
-import com.repository.impl.CheckoutRepositoryImpl
+import com.shopify.api.ShopifyApi
+import com.shopify.repository.CheckoutRepository
+import com.shopify.repository.impl.CheckoutRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ShopifyModule(private val api: Api, private val dao: Dao) {
+class ShopifyModule(private val api: ShopifyApi, private val dao: Dao) {
 
     @Provides
     @Singleton

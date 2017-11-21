@@ -2,6 +2,8 @@ package com.shopify.di
 
 import com.shopify.ui.checkout.di.CheckoutComponent
 import com.shopify.ui.checkout.di.CheckoutModule
+import com.shopify.ui.payment.di.PaymentComponent
+import com.shopify.ui.payment.di.PaymentModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -10,4 +12,6 @@ import javax.inject.Singleton
 interface ShopComponent {
 
     fun attachCheckoutComponent(module: CheckoutModule): CheckoutComponent
+
+    fun attachPaymentComponent(module: PaymentModule): PaymentComponent
 }

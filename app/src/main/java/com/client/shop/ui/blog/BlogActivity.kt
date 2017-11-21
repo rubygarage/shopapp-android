@@ -6,7 +6,6 @@ import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.di.component.AppComponent
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
@@ -30,7 +29,7 @@ class BlogActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = getString(R.string.new_in_blog)
-        loadData(false)
+        loadData()
     }
 
     //INIT

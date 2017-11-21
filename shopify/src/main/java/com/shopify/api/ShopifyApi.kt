@@ -10,10 +10,13 @@ import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QuaryCallWrapper
 import com.shopify.api.entity.AccessData
-import com.shopify.buy3.GraphClient
-import com.shopify.buy3.Storefront
+import com.shopify.buy3.*
+import com.shopify.entity.Checkout
 import com.shopify.graphql.support.ID
 import net.danlew.android.joda.JodaTimeAndroid
+import java.io.IOException
+import java.math.BigDecimal
+import java.util.*
 
 
 class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
@@ -423,7 +426,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
     }
 
-    override fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Pair<String, String>>) {
+    fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Checkout>) {
 
         val input = Storefront.CheckoutCreateInput().setLineItems(
                 cartProductList.map {
@@ -448,11 +451,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     }
         }
 
-        graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Pair<String, String>>(callback) {
-            override fun adapt(data: Storefront.Mutation?): Pair<String, String>? {
+        graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Checkout>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Checkout? {
                 return data?.let {
                     if (!it.checkoutCreate.userErrors.isEmpty()) {
-                        callback.onFailure(Error.NonCritical(data.customerCreate
+                        callback.onFailure(Error.NonCritical(data.checkoutCreate
                                 .userErrors
                                 .first()
                                 .message))
@@ -460,7 +463,90 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     } else {
                         val checkoutId = it.checkoutCreate.checkout.id.toString()
                         val checkoutWebUrl = it.checkoutCreate.checkout.webUrl
-                        return Pair(checkoutId, checkoutWebUrl)
+                        return Checkout(checkoutId, checkoutWebUrl)
+                    }
+                }
+            }
+        })
+    }
+
+    fun payByCard(card: Card, callback: ApiCallback<String>) {
+
+        val vaultCallback = object : ApiCallback<String> {
+            override fun onResult(result: String) {
+                val cardClient = CardClient()
+                val creditCard = CreditCard.builder()
+                        .firstName(card.firstName)
+                        .lastName(card.lastName)
+                        .number(card.cardNumber)
+                        .expireMonth(card.expireMonth)
+                        .expireYear(card.expireYear)
+                        .verificationCode(card.verificationCode)
+                        .build()
+                cardClient.vault(creditCard, result).enqueue(object : CreditCardVaultCall.Callback {
+
+                    override fun onResponse(token: String) {
+                        callback.onResult(token)
+                    }
+
+                    override fun onFailure(error: IOException) {
+                        callback.onFailure(Error.Content())
+                    }
+                })
+            }
+
+            override fun onFailure(error: Error) {
+                callback.onFailure(error)
+            }
+        }
+
+        val query = Storefront.query {
+            it.shop {
+                it.paymentSettings { it.cardVaultUrl() }
+            }
+        }
+        val call = graphClient.queryGraph(query)
+        call.enqueue(object : QuaryCallWrapper<String>(vaultCallback) {
+            override fun adapt(data: Storefront.QueryRoot): String =
+                    data.shop?.paymentSettings?.cardVaultUrl ?: ""
+        })
+    }
+
+    fun completeCheckoutByCard(checkoutId: String, creditCardVaultToken: String,
+                               callback: ApiCallback<Boolean>) {
+
+        val amount = BigDecimal(1)
+        val idempotencyKey = UUID.randomUUID().toString()
+        val billingAddress = Storefront.MailingAddressInput()
+
+        val creditCardPaymentInput = Storefront.CreditCardPaymentInput(amount, idempotencyKey, billingAddress,
+                creditCardVaultToken)
+
+        val mutationQuery = Storefront.mutation {
+            it.checkoutCompleteWithCreditCard(ID(checkoutId), creditCardPaymentInput) {
+                it.payment {
+                    it.ready().errorMessage()
+                }.checkout {
+                    it.ready()
+                }.userErrors {
+                    it.message().field()
+                }
+            }
+        }
+
+        graphClient.mutateGraph(mutationQuery).enqueue(object : MutationCallWrapper<Boolean>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Boolean? {
+                return data?.let {
+                    if (it.checkoutCompleteWithCreditCard?.userErrors?.isNotEmpty() == true) {
+                        callback.onFailure(Error.NonCritical(data.customerCreate
+                                .userErrors
+                                .first()
+                                .message))
+                        null
+                    } else {
+                        val checkoutReady = it.checkoutCompleteWithCreditCard?.checkout?.ready ?: false
+                        val paymentReady = it.checkoutCompleteWithCreditCard?.payment?.ready ?: false
+                        checkoutReady && paymentReady
                     }
                 }
             }

@@ -52,7 +52,6 @@ class DetailsActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         productId = intent.getStringExtra(EXTRA_PRODUCT_ID)
 
         val typedValue = TypedValue()
@@ -64,21 +63,12 @@ class DetailsActivity :
         setupCartButton()
 
         optionsContainer.variantSelectListener = this
-        loadData(false)
+        loadData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_cart, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //INITIAL

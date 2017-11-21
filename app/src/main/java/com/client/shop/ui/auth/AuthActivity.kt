@@ -27,17 +27,7 @@ class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(R.string.account)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        loadData(false)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        loadData()
     }
 
     //INIT
