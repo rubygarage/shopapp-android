@@ -5,16 +5,15 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.MenuItem
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
-import com.ui.lce.BaseActivity
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
+import com.ui.base.lce.BaseActivity
 
 abstract class PaginationActivity<M, V : BaseView<List<M>>, P : BasePresenter<List<M>, V>> :
         BaseActivity<List<M>, V, P>(),

@@ -4,8 +4,8 @@ import com.domain.entity.CartProduct
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.interactor.base.SingleUseCase
 import com.repository.CartRepository
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

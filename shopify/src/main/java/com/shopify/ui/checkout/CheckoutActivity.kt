@@ -10,9 +10,9 @@ import com.shopify.entity.Checkout
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
-import com.shopify.ui.payment.CardPaymentActivity
-import com.ui.browser.BrowserActivity
-import com.ui.lce.BaseActivity
+import com.shopify.ui.shipping.ShippingActivity
+import com.ui.base.browser.BrowserActivity
+import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_checkout.*
 import javax.inject.Inject
 
@@ -36,6 +36,7 @@ class CheckoutActivity :
 
         webPaymentButton.setOnClickListener(this)
         cardPaymentButton.setOnClickListener(this)
+        androidPaymentButton.setOnClickListener(this)
 
         loadData()
     }
@@ -67,15 +68,19 @@ class CheckoutActivity :
     //CALLBACK
 
     override fun onClick(v: View) {
-        when (v) {
-            webPaymentButton -> {
-                checkout?.let {
+        checkout?.let {
+            when (v) {
+                webPaymentButton -> {
                     startActivity(BrowserActivity.getStartIntent(this, it.webUrl, getString(R.string.checkout)))
                 }
-            }
-            cardPaymentButton -> {
-                checkout?.let {
-                    startActivity(CardPaymentActivity.getStartIntent(this, it.checkoutId))
+                cardPaymentButton -> {
+                    startActivity(ShippingActivity.getStartIntentWithCard(this, it))
+                }
+                androidPaymentButton -> {
+                    startActivity(ShippingActivity.getStartIntentWithAndroid(this, it))
+                }
+                else -> {
+                    showError(false)
                 }
             }
         }

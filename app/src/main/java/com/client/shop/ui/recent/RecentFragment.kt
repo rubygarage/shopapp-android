@@ -15,7 +15,7 @@ import com.client.shop.ui.recent.contract.RecentView
 import com.client.shop.ui.recent.di.RecentModule
 import com.domain.entity.Product
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.ui.lce.BaseFragment
+import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 

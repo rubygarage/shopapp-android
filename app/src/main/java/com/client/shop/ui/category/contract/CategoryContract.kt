@@ -5,8 +5,8 @@ import com.domain.entity.Product
 import com.domain.entity.SortType
 import com.domain.interactor.base.SingleUseCase
 import com.repository.CategoryRepository
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
 import io.reactivex.Single
 import javax.inject.Inject
 

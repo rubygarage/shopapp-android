@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.MenuItem
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
@@ -17,8 +16,8 @@ import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.recent.RecentActivity
 import com.domain.entity.CartProduct
 import com.domain.router.Router
-import com.ui.lce.BaseActivity
-import com.ui.lce.view.LceEmptyView
+import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceEmptyView
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 

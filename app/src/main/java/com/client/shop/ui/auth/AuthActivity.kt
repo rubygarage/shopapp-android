@@ -3,14 +3,13 @@ package com.client.shop.ui.auth
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.AuthPresenter
 import com.client.shop.ui.auth.contract.AuthView
 import com.client.shop.ui.auth.di.AuthModule
-import com.ui.lce.BaseActivity
+import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 

@@ -7,7 +7,7 @@ import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.SignInPresenter
 import com.client.shop.ui.auth.contract.SignInView
 import com.client.shop.ui.auth.di.AuthModule
-import com.ui.lce.BaseFragment
+import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import javax.inject.Inject
 

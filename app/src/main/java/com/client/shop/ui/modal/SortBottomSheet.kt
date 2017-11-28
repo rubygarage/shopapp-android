@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_sort.*
 class SortBottomSheet(context: Context, listener: OnSortTypeSelectListener) : BottomSheetDialog(context) {
 
     init {
-        setContentView(R.layout.bottom_sheet_sort)
+        setContentView(R.layout.bottom_sheet_shipping)
         for (value in SortType.values()) {
             val itemView = layoutInflater.inflate(R.layout.item_sort, containerLayout, false) as TextView
             itemView.text = value.value
