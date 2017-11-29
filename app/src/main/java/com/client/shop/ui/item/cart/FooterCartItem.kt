@@ -1,5 +1,6 @@
 package com.client.shop.ui.item.cart
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
@@ -7,9 +8,11 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import com.client.shop.R
 import com.domain.entity.CartProduct
+import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
 
-class FooterCartItem(context: Context?) : ConstraintLayout(context) {
+@SuppressLint("ViewConstructor")
+class FooterCartItem(context: Context, private val formatter: NumberFormatter) : ConstraintLayout(context) {
 
     init {
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
@@ -24,7 +27,7 @@ class FooterCartItem(context: Context?) : ConstraintLayout(context) {
                 .sum()
 
         orderTotalLabel.text = context.resources.getQuantityString(R.plurals.order_total_plurals, data.size, data.size)
-        orderTotalValue.text = context.getString(R.string.price_pattern, totalPrice.toString(), currency)
+        orderTotalValue.text = context.getString(R.string.price_pattern, formatter.formatPrice(totalPrice), currency)
     }
 
 }

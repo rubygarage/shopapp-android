@@ -5,14 +5,15 @@ import com.shopify.entity.Checkout
 
 object CheckoutAdapter {
 
-    fun adapt(adaptee: Storefront.Checkout): Checkout {
+    fun adapt(adaptee: Storefront.Checkout, currency: String): Checkout {
         return Checkout(
                 adaptee.id.toString(),
                 adaptee.webUrl,
                 adaptee.requiresShipping,
                 adaptee.subtotalPrice,
                 adaptee.totalPrice,
-                adaptee.totalTax
+                adaptee.totalTax,
+                currency
         )
     }
 }
