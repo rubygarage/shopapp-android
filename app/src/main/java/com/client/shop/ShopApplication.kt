@@ -5,7 +5,7 @@ import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
 import com.client.shop.di.module.RepositoryModule
 import com.client.shop.di.module.RouterModule
-import com.daocore.DaoImpl
+import com.data.dao.DaoImpl
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.shopify.ShopifyWrapper

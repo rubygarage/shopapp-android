@@ -2,11 +2,9 @@ package com.client.shop.ui.search.contract
 
 import android.text.TextUtils
 import com.domain.entity.Product
-import com.domain.interactor.base.SingleUseCase
-import com.repository.ProductRepository
+import com.domain.interactor.search.SearchUseCase
 import com.ui.base.contract.BasePresenter
 import com.ui.base.contract.BaseView
-import io.reactivex.Single
 import javax.inject.Inject
 
 interface SearchView : BaseView<List<Product>> {
@@ -33,20 +31,4 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
                 SearchUseCase.Params(perPage, paginationValue, query)
         )
     }
-}
-
-class SearchUseCase @Inject constructor(private val productRepository: ProductRepository) :
-        SingleUseCase<List<Product>, SearchUseCase.Params>() {
-
-    override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
-        return with(params) {
-            productRepository.searchProductListByQuery(query, perPage, paginationValue)
-        }
-    }
-
-    data class Params(
-            val perPage: Int,
-            val paginationValue: String?,
-            val query: String
-    )
 }

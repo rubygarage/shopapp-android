@@ -1,8 +1,8 @@
 package com.shopify.di
 
 import com.domain.database.Dao
-import com.repository.CartRepository
-import com.repository.impl.CartRepositoryImpl
+import com.domain.repository.CartRepository
+import com.data.impl.CartRepositoryImpl
 import com.shopify.api.ShopifyApi
 import com.shopify.repository.CheckoutRepository
 import com.shopify.repository.impl.CheckoutRepositoryImpl

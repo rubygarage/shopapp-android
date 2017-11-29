@@ -1,6 +1,9 @@
 package com.client.shop.ui.auth.di
 
-import com.client.shop.ui.auth.contract.*
+import com.client.shop.ui.auth.contract.SignInPresenter
+import com.client.shop.ui.auth.contract.SignUpPresenter
+import com.domain.interactor.auth.SignInUseCase
+import com.domain.interactor.auth.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 

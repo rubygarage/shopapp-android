@@ -1,13 +1,11 @@
 package com.client.shop.ui.cart.contract
 
 import com.domain.entity.CartProduct
-import com.domain.interactor.base.CompletableUseCase
-import com.domain.interactor.base.SingleUseCase
-import com.repository.CartRepository
+import com.domain.interactor.cart.CartItemsUseCase
+import com.domain.interactor.cart.CartQuantityUseCase
+import com.domain.interactor.cart.CartRemoveUseCase
 import com.ui.base.contract.BasePresenter
 import com.ui.base.contract.BaseView
-import io.reactivex.Completable
-import io.reactivex.Single
 import javax.inject.Inject
 
 interface CartView : BaseView<List<CartProduct>>
@@ -52,27 +50,4 @@ class CartPresenter @Inject constructor(
                 CartQuantityUseCase.Params(productVariantId, newQuantity)
         )
     }
-}
-
-class CartRemoveUseCase @Inject constructor(private val cartRepository: CartRepository) :
-        CompletableUseCase<String>() {
-
-    override fun buildUseCaseCompletable(params: String): Completable {
-        return cartRepository.deleteProductFromCart(params)
-    }
-}
-
-class CartQuantityUseCase @Inject constructor(private val cartRepository: CartRepository) :
-        SingleUseCase<CartProduct, CartQuantityUseCase.Params>() {
-
-    override fun buildUseCaseSingle(params: Params): Single<CartProduct> {
-        return with(params) {
-            cartRepository.changeCartProductQuantity(productVariantId, newQuantity)
-        }
-    }
-
-    data class Params(
-            val productVariantId: String,
-            val newQuantity: Int
-    )
 }

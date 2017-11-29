@@ -6,7 +6,7 @@ import com.domain.interactor.base.SingleUseCase
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.wallet.FullWallet
 import com.google.android.gms.wallet.MaskedWallet
-import com.repository.CartRepository
+import com.domain.repository.CartRepository
 import com.shopify.ShopifyWrapper
 import com.shopify.buy3.pay.PayCart
 import com.shopify.buy3.pay.PayHelper

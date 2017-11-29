@@ -32,7 +32,7 @@ dependencies {
 
     implementation "com.hannesdorfmann.mosby3:mvp:$mosbyVersion"
 
-    implementation project(":repository")
+    implementation project(':data')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

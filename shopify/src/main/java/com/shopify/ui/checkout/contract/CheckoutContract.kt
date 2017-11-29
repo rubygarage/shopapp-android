@@ -1,7 +1,7 @@
 package com.shopify.ui.checkout.contract
 
 import com.domain.interactor.base.SingleUseCase
-import com.repository.CartRepository
+import com.domain.repository.CartRepository
 import com.shopify.entity.Checkout
 import com.shopify.repository.CheckoutRepository
 import com.ui.base.contract.BasePresenter

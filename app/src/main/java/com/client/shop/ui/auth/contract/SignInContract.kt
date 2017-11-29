@@ -1,12 +1,9 @@
 package com.client.shop.ui.auth.contract
 
-import com.client.shop.R
-import com.domain.interactor.base.CompletableUseCase
+import com.domain.interactor.auth.SignInUseCase
 import com.domain.validator.FieldValidator
-import com.repository.AuthRepository
 import com.ui.base.contract.BasePresenter
 import com.ui.base.contract.BaseView
-import io.reactivex.Completable
 import javax.inject.Inject
 
 interface SignInView : BaseView<Unit> {

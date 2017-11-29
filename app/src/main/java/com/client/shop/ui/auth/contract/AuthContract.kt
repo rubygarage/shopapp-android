@@ -3,6 +3,7 @@ package com.client.shop.ui.auth.contract
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.interactor.base.SingleUseCase
 import com.repository.AuthRepository
+import com.domain.interactor.auth.AuthUseCase
 import com.ui.base.contract.BasePresenter
 import com.ui.base.contract.BaseView
 import io.reactivex.Completable
