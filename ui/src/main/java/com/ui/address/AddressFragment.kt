@@ -57,19 +57,19 @@ class AddressFragment : Fragment() {
 
     fun getValidAddress(): Address? {
         val address = Address(
-                addressInput.text.toString(),
-                cityInput.text.toString(),
-                countryInput.text.toString(),
-                firstNameInput.text.toString(),
-                lastNameInput.text.toString(),
-                postalCodeInput.text.toString(),
-                phoneInput.text.toString()
+                addressInput.text.toString().trim(),
+                cityInput.text.toString().trim(),
+                countryInput.text.toString().trim(),
+                firstNameInput.text.toString().trim(),
+                lastNameInput.text.toString().trim(),
+                postalCodeInput.text.toString().trim(),
+                phoneInput.text.toString().trim()
         )
         return if (fieldValidator.isAddressValid(address)) address else null
     }
 
     fun getValidEmail(): String? {
-        val email = emailInput.text.toString()
+        val email = emailInput.text.toString().trim()
         return if (fieldValidator.isEmailValid(email)) email else null
     }
 
