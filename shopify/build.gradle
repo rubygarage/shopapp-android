@@ -56,7 +56,7 @@ dependencies {
     implementation project(':domain')
     implementation project(":repository")
 
-    implementation 'com.shopify.mobilebuysdk:buy3:3.0.6'
+    implementation 'com.shopify.mobilebuysdk:buy3:3.1.1'
     implementation 'com.shopify.mobilebuysdk:buy3-pay-support:1.0.2'
 
     testImplementation 'junit:junit:4.12'

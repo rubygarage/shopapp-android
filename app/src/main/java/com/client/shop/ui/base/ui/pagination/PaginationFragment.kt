@@ -9,13 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.ui.lce.BaseFragment
+import com.ui.base.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
 
 abstract class PaginationFragment<M, V : BaseView<List<M>>, P : BasePresenter<List<M>, V>> :
         BaseFragment<List<M>, V, P>(),

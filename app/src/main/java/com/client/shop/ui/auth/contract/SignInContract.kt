@@ -3,8 +3,8 @@ package com.client.shop.ui.auth.contract
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.validator.FieldValidator
 import com.repository.AuthRepository
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
 import io.reactivex.Completable
 import javax.inject.Inject
 

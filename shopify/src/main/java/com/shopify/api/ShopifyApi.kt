@@ -6,12 +6,19 @@ import android.preference.PreferenceManager
 import com.apicore.ApiCallback
 import com.domain.entity.*
 import com.domain.network.Api
+import com.google.android.gms.wallet.FullWallet
+import com.shopify.ShopifyWrapper
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
-import com.shopify.api.call.QuaryCallWrapper
+import com.shopify.api.call.QueryCallWrapper
 import com.shopify.api.entity.AccessData
 import com.shopify.buy3.*
+import com.shopify.buy3.pay.PayAddress
+import com.shopify.buy3.pay.PayCart
+import com.shopify.buy3.pay.PayHelper
+import com.shopify.buy3.pay.PaymentToken
 import com.shopify.entity.Checkout
+import com.shopify.entity.ShippingRate
 import com.shopify.graphql.support.ID
 import net.danlew.android.joda.JodaTimeAndroid
 import java.io.IOException
@@ -82,7 +89,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                         nodeQuery.onProduct { productQuery ->
                             getDefaultProductQuery(productQuery)
                                     .descriptionHtml()
-                                    .images(ITEMS_COUNT, { imageConnectionQuery ->
+                                    .images({ it.first(ITEMS_COUNT) }, { imageConnectionQuery ->
                                         imageConnectionQuery.edges({ imageEdgeQuery ->
                                             imageEdgeQuery.node({ imageQuery ->
                                                 imageQuery
@@ -92,7 +99,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                             })
                                         })
                                     })
-                                    .variants(ITEMS_COUNT) { productVariantConnectionQuery ->
+                                    .variants({ it.first(ITEMS_COUNT) }) { productVariantConnectionQuery ->
                                         productVariantConnectionQuery
                                                 .edges { productVariantEdgeQuery ->
                                                     productVariantEdgeQuery
@@ -123,7 +130,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Product>(callback) {
+        call.enqueue(object : QueryCallWrapper<Product>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Product {
                 return ProductAdapter.adapt(data.shop, data.node as Storefront.Product)
             }
@@ -135,7 +142,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val query = Storefront.query { rootQuery ->
             rootQuery.shop { shopQuery ->
-                shopQuery.collections(perPage, { args ->
+                shopQuery.collections({ args ->
+                    args.first(ITEMS_COUNT)
                     if (paginationValue != null) {
                         args.after(paginationValue.toString())
                     }
@@ -166,7 +174,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<List<Category>>(callback) {
+        call.enqueue(object : QueryCallWrapper<List<Category>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Category> {
                 return CategoryListAdapter.adapt(data.shop)
             }
@@ -194,7 +202,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                         .src()
                                                         .altText()
                                             })
-                                            .products(ITEMS_COUNT, { args ->
+                                            .products({ args ->
+                                                args.first(ITEMS_COUNT)
                                                 if (paginationValue != null) {
                                                     args.after(paginationValue.toString())
                                                 }
@@ -209,7 +218,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                             .cursor()
                                                             .node({ productQuery ->
                                                                 getDefaultProductQuery(productQuery)
-                                                                        .images(1, { imageConnectionQuery ->
+                                                                        .images({ it.first(1) }, { imageConnectionQuery ->
                                                                             imageConnectionQuery.edges({ imageEdgeQuery ->
                                                                                 imageEdgeQuery.node({ imageQuery ->
                                                                                     imageQuery
@@ -219,7 +228,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                                                 })
                                                                             })
                                                                         })
-                                                                        .variants(1) { productVariantConnectionQuery ->
+                                                                        .variants({ it.first(1) }) { productVariantConnectionQuery ->
                                                                             productVariantConnectionQuery.edges { productVariantEdgeQuery ->
                                                                                 productVariantEdgeQuery.node({
                                                                                     it.price()
@@ -235,7 +244,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Category>(callback) {
+        call.enqueue(object : QueryCallWrapper<Category>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Category {
                 return CategoryAdapter.adapt(data.shop, data.node as Storefront.Collection)
             }
@@ -256,7 +265,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Shop>(callback) {
+        call.enqueue(object : QueryCallWrapper<Shop>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Shop {
                 return ShopAdapter.adapt(data)
             }
@@ -267,7 +276,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                 reverse: Boolean, callback: ApiCallback<List<Article>>) {
         val query = Storefront.query { rootQuery ->
             rootQuery.shop { shopQuery ->
-                shopQuery.articles(perPage, { args ->
+                shopQuery.articles({ args ->
+                    args.first(perPage)
                     if (paginationValue != null) {
                         args.after(paginationValue.toString())
                     }
@@ -307,7 +317,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<List<Article>>(callback) {
+        call.enqueue(object : QueryCallWrapper<List<Article>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Article> {
                 return ArticleListAdapter.adapt(data.shop.articles.edges)
             }
@@ -340,11 +350,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         call.enqueue(object : MutationCallWrapper<Customer>(callback) {
             override fun adapt(data: Storefront.Mutation?): Customer? {
                 return data?.customerCreate?.let { customerCreate ->
-                    if (customerCreate.userErrors.isNotEmpty()) {
-                        callback.onFailure(Error.NonCritical(data.customerCreate
-                                .userErrors
-                                .first()
-                                .message))
+                    val userError = ErrorAdapter.adaptUserError(customerCreate.userErrors)
+                    if (userError != null) {
+                        callback.onFailure(userError)
                     } else if (customerCreate.customer != null) {
                         val tokenResponse = requestToken(email, password)
                         if (tokenResponse != null) {
@@ -379,7 +387,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
 
                 val call = graphClient.queryGraph(query)
-                call.enqueue(object : QuaryCallWrapper<Customer>(callback) {
+                call.enqueue(object : QueryCallWrapper<Customer>(callback) {
                     override fun adapt(data: Storefront.QueryRoot): Customer {
                         return CustomerAdapter.adapt(data.customer)
                     }
@@ -401,7 +409,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     }
 
-    private fun requestToken(email: String, password: String): Pair<AccessData?, Error.NonCritical?>? {
+    private fun requestToken(email: String, password: String): Pair<AccessData?, Error?>? {
 
         val accessTokenInput = Storefront.CustomerAccessTokenCreateInput(email, password)
         val accessTokenQuery = Storefront.CustomerAccessTokenCreatePayloadQueryDefinition { queryDefinition ->
@@ -421,7 +429,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 saveSession(accessData)
                 accessData
             }
-            val error = it.userErrors?.let { it.firstOrNull()?.let { Error.NonCritical(it.message) } }
+
+            val error = ErrorAdapter.adaptUserError(it.userErrors)
             Pair(accessData, error)
         }
     }
@@ -436,12 +445,16 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val query = Storefront.mutation { mutationQuery ->
             mutationQuery
-                    .checkoutCreate(input
-                    ) { createPayloadQuery ->
+                    .checkoutCreate(input) { createPayloadQuery ->
                         createPayloadQuery
                                 .checkout { checkoutQuery ->
                                     checkoutQuery
                                             .webUrl()
+                                            .email()
+                                            .requiresShipping()
+                                            .totalPrice()
+                                            .subtotalPrice()
+                                            .totalTax()
                                 }
                                 .userErrors { userErrorQuery ->
                                     userErrorQuery
@@ -453,18 +466,99 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Checkout>(callback) {
             override fun adapt(data: Storefront.Mutation?): Checkout? {
-                return data?.let {
-                    if (!it.checkoutCreate.userErrors.isEmpty()) {
-                        callback.onFailure(Error.NonCritical(data.checkoutCreate
-                                .userErrors
-                                .first()
-                                .message))
-                        null
+                return data?.checkoutCreate?.let {
+                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                    if (userError != null) {
+                        callback.onFailure(userError)
                     } else {
-                        val checkoutId = it.checkoutCreate.checkout.id.toString()
-                        val checkoutWebUrl = it.checkoutCreate.checkout.webUrl
-                        return Checkout(checkoutId, checkoutWebUrl)
+                        return CheckoutAdapter.adapt(it.checkout)
                     }
+                    return null
+                }
+            }
+        })
+    }
+
+    fun getShippingRates(checkoutId: String, email: String, address: Address, callback: ApiCallback<List<ShippingRate>>) {
+
+        val mailingAddressInput = Storefront.MailingAddressInput()
+                .setAddress1(address.address)
+                .setCity(address.city)
+                .setCountry(address.country)
+                .setFirstName(address.firstName)
+                .setLastName(address.lastName)
+                .setPhone(address.phone)
+                .setZip(address.zip)
+
+        val checkoutQuery = Storefront.mutation {
+            it.checkoutEmailUpdate(ID(checkoutId), email, { it.checkout { } })
+                    .checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), { it.checkout { } })
+        }
+
+        val checkoutCallback = object : GraphCall.Callback<Storefront.Mutation> {
+            override fun onFailure(error: GraphError) {
+                callback.onFailure(ErrorAdapter.adapt(error))
+            }
+
+            override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
+                val query = Storefront.query {
+                    it.node(ID(checkoutId), {
+                        it.onCheckout {
+                            it.availableShippingRates {
+                                it.ready()
+                                        .shippingRates {
+                                            it.title()
+                                                    .price()
+                                                    .handle()
+                                        }
+                            }
+                        }
+                    })
+                }
+
+                graphClient.queryGraph(query).enqueue(object : GraphCall.Callback<Storefront.QueryRoot> {
+
+                    override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
+                        val checkout = (response.data()?.node as? Storefront.Checkout)
+                        checkout?.availableShippingRates?.shippingRates?.let {
+                            callback.onResult(it.map { ShippingRateAdapter.adapt(it) })
+                        }
+                    }
+
+                    override fun onFailure(error: GraphError) {
+                        callback.onFailure(ErrorAdapter.adapt(error))
+                    }
+                })
+            }
+        }
+        graphClient.mutateGraph(checkoutQuery).enqueue(checkoutCallback)
+    }
+
+    fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate, callback: ApiCallback<Checkout>) {
+
+        val checkoutQuery = Storefront.mutation {
+            it.checkoutShippingLineUpdate(ID(checkoutId), shippingRate.handle, {
+                it.userErrors { it.field().message() }
+                        .checkout {
+                            it
+                                    .webUrl()
+                                    .requiresShipping()
+                                    .subtotalPrice()
+                                    .totalPrice()
+                                    .totalTax()
+                        }
+            })
+        }
+        graphClient.mutateGraph(checkoutQuery).enqueue(object : MutationCallWrapper<Checkout>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Checkout? {
+                return data?.checkoutShippingLineUpdate?.let {
+                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                    if (userError != null) {
+                        callback.onFailure(userError)
+                    } else {
+                        return CheckoutAdapter.adapt(it.checkout)
+                    }
+                    return null
                 }
             }
         })
@@ -506,24 +600,31 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             }
         }
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<String>(vaultCallback) {
+        call.enqueue(object : QueryCallWrapper<String>(vaultCallback) {
             override fun adapt(data: Storefront.QueryRoot): String =
                     data.shop?.paymentSettings?.cardVaultUrl ?: ""
         })
     }
 
-    fun completeCheckoutByCard(checkoutId: String, creditCardVaultToken: String,
+    fun completeCheckoutByCard(checkout: Checkout, address: Address, creditCardVaultToken: String,
                                callback: ApiCallback<Boolean>) {
 
-        val amount = BigDecimal(1)
+        val amount = checkout.totalPrice
         val idempotencyKey = UUID.randomUUID().toString()
         val billingAddress = Storefront.MailingAddressInput()
 
-        val creditCardPaymentInput = Storefront.CreditCardPaymentInput(amount, idempotencyKey, billingAddress,
-                creditCardVaultToken)
+        billingAddress.setAddress1(address.address)
+                .setCity(address.city)
+                .setCountry(address.country)
+                .setFirstName(address.firstName)
+                .setLastName(address.lastName)
+                .setPhone(address.phone).zip = address.zip
+
+        val creditCardPaymentInput = Storefront.CreditCardPaymentInput(amount, idempotencyKey,
+                billingAddress, creditCardVaultToken)
 
         val mutationQuery = Storefront.mutation {
-            it.checkoutCompleteWithCreditCard(ID(checkoutId), creditCardPaymentInput) {
+            it.checkoutCompleteWithCreditCard(ID(checkout.checkoutId), creditCardPaymentInput) {
                 it.payment {
                     it.ready().errorMessage()
                 }.checkout {
@@ -536,16 +637,102 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         graphClient.mutateGraph(mutationQuery).enqueue(object : MutationCallWrapper<Boolean>(callback) {
             override fun adapt(data: Storefront.Mutation?): Boolean? {
-                return data?.let {
-                    if (it.checkoutCompleteWithCreditCard?.userErrors?.isNotEmpty() == true) {
-                        callback.onFailure(Error.NonCritical(data.customerCreate
-                                .userErrors
-                                .first()
-                                .message))
+                return data?.checkoutCompleteWithCreditCard?.let {
+                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                    if (userError != null) {
+                        callback.onFailure(userError)
                         null
                     } else {
-                        val checkoutReady = it.checkoutCompleteWithCreditCard?.checkout?.ready ?: false
-                        val paymentReady = it.checkoutCompleteWithCreditCard?.payment?.ready ?: false
+                        val checkoutReady = it.checkout?.ready ?: false
+                        val paymentReady = it.payment?.ready ?: false
+                        checkoutReady && paymentReady
+                    }
+                }
+            }
+        })
+    }
+
+    fun createAndroidPayCart(checkout: Checkout, cartProductList: List<CartProduct>, callback: ApiCallback<PayCart>) {
+
+        val shopCallback = object : GraphCall.Callback<Storefront.QueryRoot> {
+            override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
+                val currency = response.data()?.shop?.paymentSettings?.currencyCode?.name ?: ""
+                val countryCode = response.data()?.shop?.paymentSettings?.countryCode?.name ?: ""
+
+                val payCartBuilder = PayCart.builder()
+                        .merchantName(ShopifyWrapper.BASE_URL)
+                        .currencyCode(currency)
+                        .shippingAddressRequired(checkout.requiresShipping)
+                        .countryCode(countryCode)
+                        .subtotal(checkout.subtotalPrice)
+                        .totalPrice(checkout.totalPrice)
+                        .taxPrice(checkout.taxPrice)
+
+                for (cartProduct in cartProductList) {
+                    val productVariant = cartProduct.productVariant
+                    val price = productVariant.price.toDoubleOrNull() ?: 0.0
+                    payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity, BigDecimal.valueOf(price))
+                }
+
+                callback.onResult(payCartBuilder.build())
+            }
+
+            override fun onFailure(error: GraphError) {
+                callback.onFailure(ErrorAdapter.adapt(error))
+            }
+        }
+
+        val query = Storefront.query {
+            it.shop {
+                it.paymentSettings {
+                    it.currencyCode()
+                            .countryCode()
+                }
+            }
+        }
+        val call = graphClient.queryGraph(query)
+        call.enqueue(shopCallback)
+    }
+
+    fun completeCheckoutByAndroid(checkout: Checkout, payCart: PayCart, fullWallet: FullWallet, callback: ApiCallback<Boolean>) {
+
+        val paymentToken: PaymentToken = PayHelper.extractPaymentToken(fullWallet, ShopifyWrapper.ANDROID_PAY_PUBLIC_KEY)
+        val billingAddress = PayAddress.fromUserAddress(fullWallet.buyerBillingAddress)
+        val idempotencyKey: String = UUID.randomUUID().toString()
+
+        val mailingAddressInput = Storefront.MailingAddressInput()
+                .setAddress1(billingAddress.address1)
+                .setAddress2(billingAddress.address2)
+                .setCity(billingAddress.city)
+                .setCountry(billingAddress.country)
+                .setFirstName(billingAddress.firstName)
+                .setLastName(billingAddress.lastName)
+                .setPhone(billingAddress.phone)
+                .setProvince(billingAddress.province)
+                .setZip(billingAddress.zip)
+
+        val input = Storefront.TokenizedPaymentInput(payCart.totalPrice, idempotencyKey,
+                mailingAddressInput, paymentToken.token, "android_pay")
+                .setIdentifier(paymentToken.publicKeyHash).setAmount(checkout.totalPrice)
+
+        val query = Storefront.mutation {
+            it.checkoutCompleteWithTokenizedPayment(ID(checkout.checkoutId), input, {
+                it.payment({ it.ready().errorMessage() })
+                        .checkout({ it.ready() })
+                        .userErrors({ it.field().message() })
+            })
+        }
+
+        graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Boolean>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Boolean? {
+                return data?.checkoutCompleteWithTokenizedPayment?.let {
+                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                    if (userError != null) {
+                        callback.onFailure(userError)
+                        null
+                    } else {
+                        val checkoutReady = it.checkout?.ready ?: false
+                        val paymentReady = it.payment?.ready ?: false
                         checkoutReady && paymentReady
                     }
                 }
@@ -605,7 +792,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             rootQuery.shop { shopQuery ->
                 shopQuery
                         .paymentSettings({ it.currencyCode() })
-                        .products(perPage, { args ->
+                        .products({ args ->
+                            args.first(perPage)
                             if (paginationValue != null) {
                                 args.after(paginationValue.toString())
                             }
@@ -622,7 +810,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                             productConnectionQuery.edges { productEdgeQuery ->
                                 productEdgeQuery.cursor().node { productQuery ->
                                     getDefaultProductQuery(productQuery)
-                                            .images(1, { imageConnectionQuery ->
+                                            .images({ it.first(1) }, { imageConnectionQuery ->
                                                 imageConnectionQuery.edges({ imageEdgeQuery ->
                                                     imageEdgeQuery.node({ imageQuery ->
                                                         imageQuery
@@ -632,7 +820,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                     })
                                                 })
                                             })
-                                            .variants(1) { productVariantConnectionQuery ->
+                                            .variants({ it.first(1) }) { productVariantConnectionQuery ->
                                                 productVariantConnectionQuery.edges { productVariantEdgeQuery ->
                                                     productVariantEdgeQuery.node({
                                                         it.price()
@@ -647,10 +835,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<List<Product>>(callback) {
-            override fun adapt(data: Storefront.QueryRoot): List<Product> {
-                return ProductListAdapter.adapt(data.shop, data.shop.products)
-            }
+        call.enqueue(object : QueryCallWrapper<List<Product>>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): List<Product> =
+                    ProductListAdapter.adapt(data.shop, data.shop.products)
         })
     }
 

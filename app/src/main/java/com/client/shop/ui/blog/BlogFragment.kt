@@ -6,8 +6,7 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.di.component.AppComponent
-import com.ui.lce.BaseFragment
+import com.ui.base.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter

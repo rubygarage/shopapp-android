@@ -6,8 +6,8 @@ import com.domain.entity.Shop
 import com.domain.interactor.base.SingleUseCase
 import com.repository.CategoryRepository
 import com.repository.ShopRepository
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject

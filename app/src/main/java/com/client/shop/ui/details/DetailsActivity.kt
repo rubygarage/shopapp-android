@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.util.TypedValue
 import android.view.Menu
-import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.client.shop.R
@@ -20,7 +19,7 @@ import com.client.shop.ui.details.di.DetailsModule
 import com.client.shop.ui.gallery.GalleryFragment
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
-import com.ui.lce.BaseActivity
+import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ui.lce.view.LceLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ui.base.lce.view.LceLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lceLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />

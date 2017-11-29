@@ -3,24 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ui.lce.view.LceContentView
+    <com.ui.base.lce.view.LceContentView
         android:id="@+id/contentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.ui.lce.view.LceEmptyView
+    <com.ui.base.lce.view.LceEmptyView
         android:id="@+id/emptyView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <com.ui.lce.view.LceErrorView
+    <com.ui.base.lce.view.LceErrorView
         android:id="@+id/errorView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <com.ui.lce.view.LceLoadingView
+    <com.ui.base.lce.view.LceLoadingView
         android:id="@+id/loadingView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

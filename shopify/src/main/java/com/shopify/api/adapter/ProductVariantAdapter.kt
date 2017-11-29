@@ -3,17 +3,14 @@ package com.shopify.api.adapter
 import com.domain.entity.ProductVariant
 import com.shopify.buy3.Storefront
 
-class ProductVariantAdapter {
+object ProductVariantAdapter {
 
-    companion object {
-
-        fun adapt(adaptee: Storefront.ProductVariant): ProductVariant {
-            return ProductVariant(adaptee.id.toString(),
-                    adaptee.title,
-                    adaptee.price.toString(),
-                    adaptee.availableForSale == true,
-                    VariantOptionListAdapter.adapt(adaptee.selectedOptions),
-                    ImageAdapter.adapt(adaptee.image))
-        }
+    fun adapt(adaptee: Storefront.ProductVariant): ProductVariant {
+        return ProductVariant(adaptee.id.toString(),
+                adaptee.title,
+                adaptee.price.toString(),
+                adaptee.availableForSale == true,
+                VariantOptionListAdapter.adapt(adaptee.selectedOptions),
+                ImageAdapter.adapt(adaptee.image))
     }
 }

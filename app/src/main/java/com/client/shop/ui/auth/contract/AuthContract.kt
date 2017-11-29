@@ -2,8 +2,8 @@ package com.client.shop.ui.auth.contract
 
 import com.domain.interactor.base.SingleUseCase
 import com.repository.AuthRepository
-import com.ui.contract.BasePresenter
-import com.ui.contract.BaseView
+import com.ui.base.contract.BasePresenter
+import com.ui.base.contract.BaseView
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -22,7 +22,7 @@ import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Category
 import com.domain.entity.Policy
 import com.domain.entity.Shop
-import com.ui.lce.BaseActivity
+import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 

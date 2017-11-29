@@ -4,7 +4,7 @@
     <application>
 
         <activity
-            android:name=".browser.BrowserActivity"
+            android:name="com.ui.base.browser.BrowserActivity"
             android:screenOrientation="portrait" />
 
     </application>
