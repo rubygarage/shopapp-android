@@ -7,7 +7,7 @@ import com.shopify.buy3.GraphError
 import com.shopify.buy3.GraphResponse
 import com.shopify.buy3.Storefront
 
-abstract class QuaryCallWrapper<out T>(private val callback: ApiCallback<T>) : GraphCall.Callback<Storefront.QueryRoot> {
+abstract class QueryCallWrapper<out T>(private val callback: ApiCallback<T>) : GraphCall.Callback<Storefront.QueryRoot> {
 
     internal abstract fun adapt(data: Storefront.QueryRoot): T
 

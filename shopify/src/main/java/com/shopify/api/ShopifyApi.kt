@@ -10,7 +10,7 @@ import com.google.android.gms.wallet.FullWallet
 import com.shopify.ShopifyWrapper
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
-import com.shopify.api.call.QuaryCallWrapper
+import com.shopify.api.call.QueryCallWrapper
 import com.shopify.api.entity.AccessData
 import com.shopify.buy3.*
 import com.shopify.buy3.pay.PayAddress
@@ -130,7 +130,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Product>(callback) {
+        call.enqueue(object : QueryCallWrapper<Product>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Product {
                 return ProductAdapter.adapt(data.shop, data.node as Storefront.Product)
             }
@@ -174,7 +174,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<List<Category>>(callback) {
+        call.enqueue(object : QueryCallWrapper<List<Category>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Category> {
                 return CategoryListAdapter.adapt(data.shop)
             }
@@ -244,7 +244,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Category>(callback) {
+        call.enqueue(object : QueryCallWrapper<Category>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Category {
                 return CategoryAdapter.adapt(data.shop, data.node as Storefront.Collection)
             }
@@ -265,7 +265,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Shop>(callback) {
+        call.enqueue(object : QueryCallWrapper<Shop>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Shop {
                 return ShopAdapter.adapt(data)
             }
@@ -317,7 +317,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<List<Article>>(callback) {
+        call.enqueue(object : QueryCallWrapper<List<Article>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Article> {
                 return ArticleListAdapter.adapt(data.shop.articles.edges)
             }
@@ -387,7 +387,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
 
                 val call = graphClient.queryGraph(query)
-                call.enqueue(object : QuaryCallWrapper<Customer>(callback) {
+                call.enqueue(object : QueryCallWrapper<Customer>(callback) {
                     override fun adapt(data: Storefront.QueryRoot): Customer {
                         return CustomerAdapter.adapt(data.customer)
                     }
@@ -600,7 +600,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             }
         }
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<String>(vaultCallback) {
+        call.enqueue(object : QueryCallWrapper<String>(vaultCallback) {
             override fun adapt(data: Storefront.QueryRoot): String =
                     data.shop?.paymentSettings?.cardVaultUrl ?: ""
         })
@@ -835,7 +835,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<List<Product>>(callback) {
+        call.enqueue(object : QueryCallWrapper<List<Product>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Product> =
                     ProductListAdapter.adapt(data.shop, data.shop.products)
         })
