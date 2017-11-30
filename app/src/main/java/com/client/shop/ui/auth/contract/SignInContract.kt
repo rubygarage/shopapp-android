@@ -1,5 +1,6 @@
 package com.client.shop.ui.auth.contract
 
+import com.client.shop.R
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.validator.FieldValidator
 import com.repository.AuthRepository
@@ -19,7 +20,10 @@ interface SignInView : BaseView<Unit> {
     fun onFailure()
 }
 
-class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCase) :
+class SignInPresenter @Inject constructor(
+        private val signInUseCase: SignInUseCase,
+        private val forgotPasswordUseCase: ForgotPasswordUseCase
+) :
         BasePresenter<Unit, SignInView>(arrayOf(signInUseCase)) {
 
     private val validator = FieldValidator()
@@ -41,6 +45,19 @@ class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCa
                     SignInUseCase.Params(email, password))
         }
     }
+
+    fun forgotPassword(email: String) {
+
+        if (!validator.isEmailValid(email)) {
+            view?.showMessage(R.string.invalid_email_error_message)
+        } else {
+            forgotPasswordUseCase.execute(
+                    { view?.showMessage(R.string.check_inbox_message) },
+                    { resolveError(it) },
+                    email
+            )
+        }
+    }
 }
 
 class SignInUseCase @Inject constructor(private val authRepository: AuthRepository) :
@@ -56,4 +73,12 @@ class SignInUseCase @Inject constructor(private val authRepository: AuthReposito
             val email: String,
             val password: String
     )
+}
+
+class ForgotPasswordUseCase @Inject constructor(private val authRepository: AuthRepository) :
+        CompletableUseCase<String>() {
+
+    override fun buildUseCaseCompletable(params: String): Completable {
+        return authRepository.forgotPassword(params)
+    }
 }

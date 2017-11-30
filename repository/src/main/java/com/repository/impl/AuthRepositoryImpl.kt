@@ -1,7 +1,9 @@
 package com.repository.impl
 
-import com.domain.network.Api
+import com.apicore.ApiCallback
 import com.domain.entity.Customer
+import com.domain.entity.Error
+import com.domain.network.Api
 import com.repository.AuthRepository
 import com.repository.rx.RxCallback
 import io.reactivex.Completable
@@ -21,6 +23,20 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
 
     override fun isLoggedIn(): Single<Boolean> {
         return Single.create<Boolean> { api.isLoggedIn(RxCallback<Boolean>(it)) }
+    }
+
+    override fun forgotPassword(email: String): Completable {
+        return Completable.create {
+            api.forgotPassword(email, object : ApiCallback<Unit> {
+                override fun onResult(result: Unit) {
+                    it.onComplete()
+                }
+
+                override fun onFailure(error: Error) {
+                    it.onError(error)
+                }
+            })
+        }
     }
 
     override fun getCustomer(): Single<Customer> {

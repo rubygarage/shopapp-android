@@ -1,9 +1,6 @@
 package com.client.shop.ui.auth.di
 
-import com.client.shop.ui.auth.contract.SignInPresenter
-import com.client.shop.ui.auth.contract.SignInUseCase
-import com.client.shop.ui.auth.contract.SignUpPresenter
-import com.client.shop.ui.auth.contract.SignUpUseCase
+import com.client.shop.ui.auth.contract.*
 import dagger.Module
 import dagger.Provides
 
@@ -16,7 +13,7 @@ class AuthModule {
     }
 
     @Provides
-    fun provideSignInPresenter(signInUseCase: SignInUseCase): SignInPresenter {
-        return SignInPresenter(signInUseCase)
+    fun provideSignInPresenter(signInUseCase: SignInUseCase, forgotPasswordUseCase: ForgotPasswordUseCase): SignInPresenter {
+        return SignInPresenter(signInUseCase, forgotPasswordUseCase)
     }
 }
