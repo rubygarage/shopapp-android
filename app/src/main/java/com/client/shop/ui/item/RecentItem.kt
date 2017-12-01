@@ -1,13 +1,16 @@
 package com.client.shop.ui.item
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.CardView
 import android.view.View
 import com.client.shop.R
 import com.domain.entity.Product
+import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_recent.view.*
 
-class RecentItem(context: Context?) : CardView(context) {
+@SuppressLint("ViewConstructor")
+class RecentItem(context: Context, private val formatter: NumberFormatter) : CardView(context) {
 
     init {
         View.inflate(context, R.layout.item_recent, this)
@@ -19,7 +22,7 @@ class RecentItem(context: Context?) : CardView(context) {
 
     fun setProduct(product: Product) {
         title.text = product.title
-        price.text = context.getString(R.string.price_pattern, product.price, product.currency)
+        price.text = formatter.formatPrice(product.price, product.currency)
         if (product.images.isNotEmpty()) {
             image.setImageURI(product.images[0].src)
         }

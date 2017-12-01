@@ -1,8 +1,8 @@
 package com.client.shop.ui.item.cart
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.CardView
-import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -11,14 +11,11 @@ import com.client.shop.R
 import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.entity.CartProduct
+import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_cart.view.*
 
-class CartItem @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
-) :
-        CardView(context, attrs, defStyleAttr),
+@SuppressLint("ViewConstructor")
+class CartItem constructor(context: Context, private val formatter: NumberFormatter) : CardView(context),
         SimpleTextWatcher,
         View.OnFocusChangeListener {
 
@@ -58,14 +55,14 @@ class CartItem @JvmOverloads constructor(
         changeEachPriceVisibility(product.price, cartProduct.quantity)
     }
 
-    private fun getTotalPrice(priceStr: String, quantity: Int): String {
-        val price = priceStr.toFloatOrNull() ?: 0f
-        return context.getString(R.string.price_pattern, price * quantity, cartProduct.currency)
+    private fun getTotalPrice(price: Float, quantity: Int): String {
+        return formatter.formatPrice(price * quantity, cartProduct.currency)
     }
 
-    private fun changeEachPriceVisibility(priceStr: String, quantity: Int) {
+    private fun changeEachPriceVisibility(price: Float, quantity: Int) {
         if (quantity > 1) {
-            eachPrice.text = context.getString(R.string.each_price_pattern, priceStr, cartProduct.currency)
+            eachPrice.text = context.getString(R.string.each_price_pattern,
+                    formatter.formatPrice(price, cartProduct.currency))
             eachPrice.visibility = View.VISIBLE
         } else {
             eachPrice.visibility = View.GONE

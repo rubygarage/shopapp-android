@@ -19,6 +19,7 @@ import com.client.shop.ui.details.di.DetailsModule
 import com.client.shop.ui.gallery.GalleryFragment
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
+import com.domain.formatter.NumberFormatter
 import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
@@ -40,8 +41,9 @@ class DetailsActivity :
     }
 
     @Inject lateinit var detailsPresenter: DetailsPresenter
-    private var galleryFragment: GalleryFragment? = null
     private lateinit var productId: String
+    private lateinit var formatter: NumberFormatter
+    private var galleryFragment: GalleryFragment? = null
     private var product: Product? = null
     private var selectedProductVariant: ProductVariant? = null
     private var isAddedToCart = false
@@ -52,6 +54,7 @@ class DetailsActivity :
         super.onCreate(savedInstanceState)
 
         productId = intent.getStringExtra(EXTRA_PRODUCT_ID)
+        formatter = NumberFormatter()
 
         val typedValue = TypedValue()
         resources.getValue(R.dimen.image_aspect_ratio, typedValue, true)
@@ -148,7 +151,7 @@ class DetailsActivity :
 
     override fun onVariantSelected(productVariant: ProductVariant?) {
         if (productVariant != null && productVariant.isAvailable) {
-            priceValue.text = getString(R.string.price_pattern, productVariant.price, product?.currency)
+            priceValue.text = product?.let { formatter.formatPrice(productVariant.price, it.currency) }
             cartButton.isEnabled = true
             selectedProductVariant = productVariant
         } else {

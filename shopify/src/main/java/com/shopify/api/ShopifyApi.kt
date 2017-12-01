@@ -443,7 +443,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
         )
 
-        val query = Storefront.mutation { mutationQuery ->
+        val mutateQuery = Storefront.mutation { mutationQuery ->
             mutationQuery
                     .checkoutCreate(input) { createPayloadQuery ->
                         createPayloadQuery
@@ -464,17 +464,48 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     }
         }
 
-        graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Checkout>(callback) {
-            override fun adapt(data: Storefront.Mutation?): Checkout? {
-                return data?.checkoutCreate?.let {
-                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
-                    if (userError != null) {
-                        callback.onFailure(userError)
-                    } else {
-                        return CheckoutAdapter.adapt(it.checkout)
+        val shopCallback = object : ApiCallback<String> {
+            override fun onResult(result: String) {
+                graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Checkout>(callback) {
+                    override fun adapt(data: Storefront.Mutation?): Checkout? {
+                        return data?.checkoutCreate?.let {
+                            val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                            if (userError != null) {
+                                callback.onFailure(userError)
+                            } else {
+                                return CheckoutAdapter.adapt(it.checkout, result)
+                            }
+                            return null
+                        }
                     }
-                    return null
+                })
+            }
+
+            override fun onFailure(error: Error) {
+                callback.onFailure(error)
+            }
+        }
+
+        getCurrency(shopCallback)
+    }
+
+    private fun getCurrency(callback: ApiCallback<String>) {
+        val query = Storefront.query {
+            it.shop {
+                it.paymentSettings {
+                    it.currencyCode()
+                            .countryCode()
                 }
+            }
+        }
+        val call = graphClient.queryGraph(query)
+        call.enqueue(object : GraphCall.Callback<Storefront.QueryRoot> {
+            override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
+                callback.onResult(response.data()?.shop?.paymentSettings?.currencyCode?.name ?: "")
+            }
+
+            override fun onFailure(error: GraphError) {
+                callback.onFailure(ErrorAdapter.adapt(error))
             }
         })
     }
@@ -549,19 +580,30 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                         }
             })
         }
-        graphClient.mutateGraph(checkoutQuery).enqueue(object : MutationCallWrapper<Checkout>(callback) {
-            override fun adapt(data: Storefront.Mutation?): Checkout? {
-                return data?.checkoutShippingLineUpdate?.let {
-                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
-                    if (userError != null) {
-                        callback.onFailure(userError)
-                    } else {
-                        return CheckoutAdapter.adapt(it.checkout)
+
+        val shopCallback = object : ApiCallback<String> {
+            override fun onResult(result: String) {
+                graphClient.mutateGraph(checkoutQuery).enqueue(object : MutationCallWrapper<Checkout>(callback) {
+                    override fun adapt(data: Storefront.Mutation?): Checkout? {
+                        return data?.checkoutShippingLineUpdate?.let {
+                            val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                            if (userError != null) {
+                                callback.onFailure(userError)
+                            } else {
+                                return CheckoutAdapter.adapt(it.checkout, result)
+                            }
+                            return null
+                        }
                     }
-                    return null
-                }
+                })
             }
-        })
+
+            override fun onFailure(error: Error) {
+                callback.onFailure(error)
+            }
+        }
+
+        getCurrency(shopCallback)
     }
 
     fun payByCard(card: Card, callback: ApiCallback<String>) {
@@ -670,8 +712,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
                 for (cartProduct in cartProductList) {
                     val productVariant = cartProduct.productVariant
-                    val price = productVariant.price.toDoubleOrNull() ?: 0.0
-                    payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity, BigDecimal.valueOf(price))
+                    payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity,
+                            BigDecimal.valueOf(productVariant.price.toDouble()))
                 }
 
                 callback.onResult(payCartBuilder.build())

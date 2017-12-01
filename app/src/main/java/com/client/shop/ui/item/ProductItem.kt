@@ -6,10 +6,11 @@ import android.support.v7.widget.CardView
 import android.view.View
 import com.client.shop.R
 import com.domain.entity.Product
+import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_product_grid.view.*
 
 @SuppressLint("ViewConstructor")
-class ProductItem(context: Context) : CardView(context) {
+class ProductItem(context: Context, private val formatter: NumberFormatter) : CardView(context) {
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -21,7 +22,7 @@ class ProductItem(context: Context) : CardView(context) {
     fun setProduct(product: Product) {
         title.text = product.title
         productDescription.text = product.productDescription
-        price.text = context.getString(R.string.price_pattern, product.price, product.currency)
+        price.text = formatter.formatPrice(product.price, product.currency)
         if (product.images.isNotEmpty()) {
             image.setImageURI(product.images[0].src)
         }

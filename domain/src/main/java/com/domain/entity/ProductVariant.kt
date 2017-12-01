@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 data class ProductVariant(var id: String,
                           var title: String,
-                          var price: String,
+                          var price: Float,
                           var isAvailable: Boolean,
                           var selectedOptions: List<VariantOption>,
                           var image: Image? = null
@@ -14,7 +14,7 @@ data class ProductVariant(var id: String,
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
-            source.readString(),
+            source.readFloat(),
             1 == source.readInt(),
             source.createTypedArrayList(VariantOption.CREATOR),
             source.readParcelable<Image>(Image::class.java.classLoader)
@@ -25,7 +25,7 @@ data class ProductVariant(var id: String,
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
         writeString(title)
-        writeString(price)
+        writeFloat(price)
         writeInt((if (isAvailable) 1 else 0))
         writeTypedList(selectedOptions)
         writeParcelable(image, 0)

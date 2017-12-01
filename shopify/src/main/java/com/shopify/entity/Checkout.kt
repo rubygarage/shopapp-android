@@ -10,7 +10,8 @@ data class Checkout(
         val requiresShipping: Boolean,
         val subtotalPrice: BigDecimal,
         val totalPrice: BigDecimal,
-        val taxPrice: BigDecimal
+        val taxPrice: BigDecimal,
+        val currency: String
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
@@ -19,7 +20,8 @@ data class Checkout(
             1 == source.readInt(),
             source.readSerializable() as BigDecimal,
             source.readSerializable() as BigDecimal,
-            source.readSerializable() as BigDecimal
+            source.readSerializable() as BigDecimal,
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -31,6 +33,7 @@ data class Checkout(
         writeSerializable(subtotalPrice)
         writeSerializable(totalPrice)
         writeSerializable(taxPrice)
+        writeString(currency)
     }
 
     companion object {
