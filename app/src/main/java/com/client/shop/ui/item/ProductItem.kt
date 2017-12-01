@@ -22,8 +22,7 @@ class ProductItem(context: Context, private val formatter: NumberFormatter) : Ca
     fun setProduct(product: Product) {
         title.text = product.title
         productDescription.text = product.productDescription
-        val priceValue = product.price.toFloatOrNull() ?: 0f
-        price.text = context.getString(R.string.price_pattern, formatter.formatPrice(priceValue), product.currency)
+        price.text = formatter.formatPrice(product.price, product.currency)
         if (product.images.isNotEmpty()) {
             image.setImageURI(product.images[0].src)
         }

@@ -27,5 +27,4 @@
     <string name="address_empty_fields_error">Please fill all required fields</string>
     <string name="empty_shipping_rates_message">There are no suitable deliveries</string>
 
-    <string name="price_pattern">%1$s %2$s</string>
 </resources>

@@ -2,26 +2,21 @@ package com.domain.formatter
 
 import java.math.BigDecimal
 import java.text.DecimalFormat
+import java.util.*
 
 class NumberFormatter {
 
-    fun formatPrice(value: Float): String {
-        return formatPriceValue(value)
+    fun formatPrice(value: Float, currencyCode: String): String {
+        return formatPriceValue(value, currencyCode)
     }
 
-    fun formatPrice(value: BigDecimal): String {
-        return formatPriceValue(value)
+    fun formatPrice(value: BigDecimal, currencyCode: String): String {
+        return formatPriceValue(value, currencyCode)
     }
 
-    private fun formatPriceValue(value: Any): String {
-        val formatter = DecimalFormat.getCurrencyInstance() as DecimalFormat
-        val symbols = formatter.decimalFormatSymbols
-        symbols.currencySymbol = ""
-        symbols.internationalCurrencySymbol = ""
-        formatter.decimalFormatSymbols = symbols
-        formatter.negativePrefix = "-"
-        formatter.positiveSuffix = ""
-        formatter.negativeSuffix = ""
+    private fun formatPriceValue(value: Any, currencyCode: String): String {
+        val formatter = DecimalFormat.getCurrencyInstance()
+        formatter.currency = Currency.getInstance(currencyCode)
         return formatter.format(value)
     }
 }

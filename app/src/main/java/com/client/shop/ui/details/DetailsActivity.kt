@@ -151,8 +151,7 @@ class DetailsActivity :
 
     override fun onVariantSelected(productVariant: ProductVariant?) {
         if (productVariant != null && productVariant.isAvailable) {
-            val price = productVariant.price.toFloatOrNull() ?: 0f
-            priceValue.text = getString(R.string.price_pattern, formatter.formatPrice(price), product?.currency)
+            priceValue.text = product?.let { formatter.formatPrice(productVariant.price, it.currency) }
             cartButton.isEnabled = true
             selectedProductVariant = productVariant
         } else {

@@ -9,7 +9,7 @@ data class Product(var id: String,
                    var productDescription: String,
                    var additionalDescription: String,
                    var currency: String,
-                   var price: String,
+                   var price: Float,
                    var discount: String? = null,
                    var vendor: String,
                    var type: String,
@@ -28,7 +28,7 @@ data class Product(var id: String,
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readString(),
+            source.readFloat(),
             source.readString(),
             source.readString(),
             source.readString(),
@@ -49,7 +49,7 @@ data class Product(var id: String,
         writeString(productDescription)
         writeString(additionalDescription)
         writeString(currency)
-        writeString(price)
+        writeFloat(price)
         writeString(discount)
         writeString(vendor)
         writeString(type)

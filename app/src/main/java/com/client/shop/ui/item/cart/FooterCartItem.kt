@@ -23,11 +23,10 @@ class FooterCartItem(context: Context, private val formatter: NumberFormatter) :
 
         val currency = data.getOrNull(0)?.currency ?: ""
         val totalPrice: Float = data
-                .map { it.quantity * (it.productVariant.price.toFloatOrNull() ?: 0f) }
+                .map { it.quantity * it.productVariant.price }
                 .sum()
 
         orderTotalLabel.text = context.resources.getQuantityString(R.plurals.order_total_plurals, data.size, data.size)
-        orderTotalValue.text = context.getString(R.string.price_pattern, formatter.formatPrice(totalPrice), currency)
+        orderTotalValue.text = formatter.formatPrice(totalPrice, currency)
     }
-
 }

@@ -8,7 +8,7 @@ object ProductVariantAdapter {
     fun adapt(adaptee: Storefront.ProductVariant): ProductVariant {
         return ProductVariant(adaptee.id.toString(),
                 adaptee.title,
-                adaptee.price.toString(),
+                adaptee.price.toFloat(),
                 adaptee.availableForSale == true,
                 VariantOptionListAdapter.adapt(adaptee.selectedOptions),
                 ImageAdapter.adapt(adaptee.image))

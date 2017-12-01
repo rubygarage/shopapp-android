@@ -24,12 +24,10 @@ class PriceView @JvmOverloads constructor(
 
     fun setCheckout(checkout: Checkout) {
         with(checkout) {
-            val patternRes = R.string.price_pattern
-            priceValue.text = context.getString(patternRes, formatter.formatPrice(subtotalPrice), currency)
-            deliveryPriceValue.text = context.getString(patternRes,
-                    formatter.formatPrice(totalPrice - subtotalPrice), currency)
-            taxValue.text = context.getString(patternRes, formatter.formatPrice(taxPrice), currency)
-            totalValue.text = context.getString(patternRes, formatter.formatPrice(totalPrice), currency)
+            priceValue.text = formatter.formatPrice(subtotalPrice, currency)
+            deliveryPriceValue.text = formatter.formatPrice(totalPrice - subtotalPrice, currency)
+            taxValue.text = formatter.formatPrice(taxPrice, currency)
+            totalValue.text = formatter.formatPrice(totalPrice, currency)
         }
     }
 }

@@ -712,8 +712,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
                 for (cartProduct in cartProductList) {
                     val productVariant = cartProduct.productVariant
-                    val price = productVariant.price.toDoubleOrNull() ?: 0.0
-                    payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity, BigDecimal.valueOf(price))
+                    payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity,
+                            BigDecimal.valueOf(productVariant.price.toDouble()))
                 }
 
                 callback.onResult(payCartBuilder.build())

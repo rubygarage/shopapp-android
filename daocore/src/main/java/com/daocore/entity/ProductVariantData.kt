@@ -8,7 +8,7 @@ interface ProductVariantData : Persistable {
     @get:Key
     var id: String
     var title: String
-    var price: String
+    var price: Float
     var isAvailable: Boolean
     @get:ForeignKey
     @get:OneToOne

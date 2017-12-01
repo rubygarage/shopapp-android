@@ -55,17 +55,14 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
         changeEachPriceVisibility(product.price, cartProduct.quantity)
     }
 
-    private fun getTotalPrice(priceStr: String, quantity: Int): String {
-        val price = priceStr.toFloatOrNull() ?: 0f
-        return context.getString(R.string.price_pattern,
-                formatter.formatPrice(price * quantity), cartProduct.currency)
+    private fun getTotalPrice(price: Float, quantity: Int): String {
+        return formatter.formatPrice(price * quantity, cartProduct.currency)
     }
 
-    private fun changeEachPriceVisibility(priceStr: String, quantity: Int) {
-        val price = priceStr.toFloatOrNull() ?: 0f
+    private fun changeEachPriceVisibility(price: Float, quantity: Int) {
         if (quantity > 1) {
             eachPrice.text = context.getString(R.string.each_price_pattern,
-                    formatter.formatPrice(price), cartProduct.currency)
+                    formatter.formatPrice(price, cartProduct.currency))
             eachPrice.visibility = View.VISIBLE
         } else {
             eachPrice.visibility = View.GONE

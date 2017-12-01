@@ -7,7 +7,7 @@ import com.shopify.buy3.Storefront
 
 object ProductAdapter {
 
-    private const val DEFAULT_PRICE = "0"
+    private const val DEFAULT_PRICE = 0f
 
     fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product, paginationValue: String? = null): Product {
         return Product(
@@ -29,10 +29,10 @@ object ProductAdapter {
         )
     }
 
-    private fun convertPrice(productAdaptee: Storefront.Product): String {
+    private fun convertPrice(productAdaptee: Storefront.Product): Float {
         val variantsList = productAdaptee.variants.edges
         return if (variantsList.size > 0) {
-            variantsList[0].node.price.toString()
+            variantsList[0].node.price.toFloat()
         } else {
             DEFAULT_PRICE
         }
