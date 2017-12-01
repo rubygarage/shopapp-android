@@ -6,11 +6,11 @@ import com.domain.entity.Product
 import com.domain.entity.ProductVariant
 import com.domain.interactor.details.DetailsCartUseCase
 import com.domain.interactor.details.DetailsProductUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface DetailsView : BaseView<Product> {
+interface DetailsView : BaseLceView<Product> {
 
     fun productAddedToCart()
 }
@@ -18,7 +18,7 @@ interface DetailsView : BaseView<Product> {
 class DetailsPresenter @Inject constructor(
         private val detailsProductUseCase: DetailsProductUseCase,
         private val cartUseCase: DetailsCartUseCase
-) : BasePresenter<Product, DetailsView>(arrayOf(detailsProductUseCase, cartUseCase)) {
+) : BaseLcePresenter<Product, DetailsView>(detailsProductUseCase, cartUseCase) {
 
     fun loadProductDetails(productId: String) {
 

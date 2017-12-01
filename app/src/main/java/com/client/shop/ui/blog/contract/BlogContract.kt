@@ -2,14 +2,14 @@ package com.client.shop.ui.blog.contract
 
 import com.domain.entity.Article
 import com.domain.interactor.blog.ArticleListUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface BlogView : BaseView<List<Article>>
+interface BlogView : BaseLceView<List<Article>>
 
 class BlogPresenter @Inject constructor(private val articleListUseCase: ArticleListUseCase) :
-        BasePresenter<List<Article>, BlogView>(arrayOf(articleListUseCase)) {
+        BaseLcePresenter<List<Article>, BlogView>(articleListUseCase) {
 
     fun loadArticles(perPage: Int, paginationValue: String? = null) {
 

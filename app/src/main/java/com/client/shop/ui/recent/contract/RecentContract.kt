@@ -2,14 +2,14 @@ package com.client.shop.ui.recent.contract
 
 import com.domain.entity.Product
 import com.domain.interactor.recent.RecentUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface RecentView : BaseView<List<Product>>
+interface RecentView : BaseLceView<List<Product>>
 
 class RecentPresenter @Inject constructor(private val recentUseCase: RecentUseCase) :
-        BasePresenter<List<Product>, RecentView>(arrayOf(recentUseCase)) {
+        BaseLcePresenter<List<Product>, RecentView>(recentUseCase) {
 
     fun loadProductList(perPage: Int, paginationValue: String? = null) {
 

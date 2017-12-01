@@ -3,17 +3,17 @@ package com.client.shop.ui.search.contract
 import android.text.TextUtils
 import com.domain.entity.Product
 import com.domain.interactor.search.SearchUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SearchView : BaseView<List<Product>> {
+interface SearchView : BaseLceView<List<Product>> {
 
     fun setQuery(query: String)
 }
 
 class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) :
-        BasePresenter<List<Product>, SearchView>(arrayOf(searchUseCase)) {
+        BaseLcePresenter<List<Product>, SearchView>(searchUseCase) {
 
     fun search(perPage: Int, paginationValue: String?, query: String) {
 

@@ -4,18 +4,18 @@ import com.domain.entity.CartProduct
 import com.domain.interactor.cart.CartItemsUseCase
 import com.domain.interactor.cart.CartQuantityUseCase
 import com.domain.interactor.cart.CartRemoveUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface CartView : BaseView<List<CartProduct>>
+interface CartView : BaseLceView<List<CartProduct>>
 
 class CartPresenter @Inject constructor(
         private val cartItemsUseCase: CartItemsUseCase,
         private val cartRemoveUseCase: CartRemoveUseCase,
         private val cartQuantityUseCase: CartQuantityUseCase
 ) :
-        BasePresenter<List<CartProduct>, CartView>(arrayOf(cartItemsUseCase, cartRemoveUseCase, cartQuantityUseCase)) {
+        BaseLcePresenter<List<CartProduct>, CartView>(cartItemsUseCase, cartRemoveUseCase, cartQuantityUseCase) {
 
     fun loadCartItems() {
 

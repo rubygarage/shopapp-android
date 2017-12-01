@@ -3,22 +3,22 @@ package com.shopify.ui.payment.android.contract
 import android.app.Activity
 import android.content.Intent
 import com.domain.interactor.base.SingleUseCase
+import com.domain.repository.CartRepository
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.wallet.FullWallet
 import com.google.android.gms.wallet.MaskedWallet
-import com.domain.repository.CartRepository
 import com.shopify.ShopifyWrapper
 import com.shopify.buy3.pay.PayCart
 import com.shopify.buy3.pay.PayHelper
 import com.shopify.entity.Checkout
 import com.shopify.repository.CheckoutRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import io.reactivex.Single
 import javax.inject.Inject
 
 
-interface AndroidPaymentView : BaseView<Boolean> {
+interface AndroidPaymentView : BaseLceView<Boolean> {
 
     fun paymentCanceled()
 }
@@ -27,7 +27,7 @@ class AndroidPaymentPresenter constructor(
         private val androidPayCartUseCase: AndroidPayCartUseCase,
         private val androidPaymentCompleteUseCase: AndroidPaymentCompleteUseCase
 ) :
-        BasePresenter<Boolean, AndroidPaymentView>(arrayOf(androidPayCartUseCase)) {
+        BaseLcePresenter<Boolean, AndroidPaymentView>(androidPayCartUseCase, androidPaymentCompleteUseCase) {
 
     private var googleApiClient: GoogleApiClient? = null
     private var payCart: PayCart? = null

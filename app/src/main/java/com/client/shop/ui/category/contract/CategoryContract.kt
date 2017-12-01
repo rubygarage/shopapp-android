@@ -3,14 +3,14 @@ package com.client.shop.ui.category.contract
 import com.domain.entity.Product
 import com.domain.entity.SortType
 import com.domain.interactor.category.CategoryUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface CategoryView : BaseView<List<Product>>
+interface CategoryView : BaseLceView<List<Product>>
 
 class CategoryPresenter @Inject constructor(private val categoryUseCase: CategoryUseCase) :
-        BasePresenter<List<Product>, CategoryView>(arrayOf(categoryUseCase)) {
+        BaseLcePresenter<List<Product>, CategoryView>(categoryUseCase) {
 
     fun loadProductList(perPage: Int, paginationValue: String?, categoryId: String, sortType: SortType) {
 

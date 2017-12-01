@@ -5,15 +5,15 @@ import com.domain.entity.Card
 import com.domain.interactor.base.SingleUseCase
 import com.shopify.entity.Checkout
 import com.shopify.repository.CheckoutRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface CardPaymentView : BaseView<Boolean>
+interface CardPaymentView : BaseLceView<Boolean>
 
 class CardPaymentPresenter constructor(private val cardPaymentUseCase: CardPaymentUseCase) :
-        BasePresenter<Boolean, CardPaymentView>(arrayOf(cardPaymentUseCase)) {
+        BaseLcePresenter<Boolean, CardPaymentView>(cardPaymentUseCase) {
 
     fun pay(checkout: Checkout, card: Card, address: Address) {
         cardPaymentUseCase.execute(

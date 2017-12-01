@@ -4,15 +4,15 @@ import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.CartRepository
 import com.shopify.entity.Checkout
 import com.shopify.repository.CheckoutRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface CheckoutView : BaseView<Checkout>
+interface CheckoutView : BaseLceView<Checkout>
 
 class CheckoutPresenter @Inject constructor(private val checkoutUseCase: CheckoutUseCase) :
-        BasePresenter<Checkout, CheckoutView>(arrayOf(checkoutUseCase)) {
+        BaseLcePresenter<Checkout, CheckoutView>(checkoutUseCase) {
 
     fun createCheckout() {
 

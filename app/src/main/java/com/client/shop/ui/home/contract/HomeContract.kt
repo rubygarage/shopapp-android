@@ -4,14 +4,14 @@ import com.client.shop.const.Constant.MAXIMUM_PER_PAGE_COUNT
 import com.domain.entity.Category
 import com.domain.entity.Shop
 import com.domain.interactor.home.HomeUseCase
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface HomeView : BaseView<Pair<Shop, List<Category>>>
+interface HomeView : BaseLceView<Pair<Shop, List<Category>>>
 
 class HomePresenter @Inject constructor(private val homeUseCase: HomeUseCase) :
-        BasePresenter<Pair<Shop, List<Category>>, HomeView>(arrayOf(homeUseCase)) {
+        BaseLcePresenter<Pair<Shop, List<Category>>, HomeView>(homeUseCase) {
 
     fun requestData() {
 
