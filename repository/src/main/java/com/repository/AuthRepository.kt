@@ -10,6 +10,8 @@ interface AuthRepository {
 
     fun signIn(email: String, authToken: String): Completable
 
+    fun signOut(): Completable
+
     fun isLoggedIn(): Single<Boolean>
 
     fun forgotPassword(email: String): Completable

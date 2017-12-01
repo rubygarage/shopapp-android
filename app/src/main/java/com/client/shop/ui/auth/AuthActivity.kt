@@ -49,18 +49,31 @@ class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView 
     override fun showContent(data: Boolean) {
         super.showContent(data)
         if (data) {
-            //TODO ADD LOGOUT
+            setupLogout()
         } else {
             setupViewPager()
         }
     }
 
+    override fun signedOut() {
+        showMessage(R.string.logout_success_message)
+        loadData()
+    }
+
     //SETUP
 
     private fun setupViewPager() {
+        logoutButton.visibility = View.GONE
         tabLayout.visibility = View.VISIBLE
         viewPager.visibility = View.VISIBLE
         viewPager.adapter = AuthPagerAdapter(this, supportFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
+    }
+
+    private fun setupLogout() {
+        logoutButton.visibility = View.VISIBLE
+        tabLayout.visibility = View.GONE
+        viewPager.visibility = View.GONE
+        logoutButton.setOnClickListener { presenter.signOut() }
     }
 }

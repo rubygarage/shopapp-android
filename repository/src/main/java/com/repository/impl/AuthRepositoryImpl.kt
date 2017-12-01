@@ -21,6 +21,20 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
                 .toCompletable()
     }
 
+    override fun signOut(): Completable {
+        return Completable.create {
+            api.signOut(object : ApiCallback<Unit> {
+                override fun onResult(result: Unit) {
+                    it.onComplete()
+                }
+
+                override fun onFailure(error: Error) {
+                    it.onError(error)
+                }
+            })
+        }
+    }
+
     override fun isLoggedIn(): Single<Boolean> {
         return Single.create<Boolean> { api.isLoggedIn(RxCallback<Boolean>(it)) }
     }
