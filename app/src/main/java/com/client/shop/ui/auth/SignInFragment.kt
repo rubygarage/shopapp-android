@@ -1,7 +1,9 @@
 package com.client.shop.ui.auth
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
+import android.widget.EditText
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.SignInPresenter
@@ -16,14 +18,15 @@ class SignInFragment :
         SignInView {
 
     @Inject lateinit var signInPresenter: SignInPresenter
+    private lateinit var forgotPasswordDialog: AlertDialog
 
     //ANDROID
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loginButton.setOnClickListener {
-            loadData(true)
-        }
+
+        setupForgotDialog()
+        setupButtons()
     }
 
     //INIT
@@ -35,6 +38,30 @@ class SignInFragment :
     override fun getContentView() = R.layout.fragment_sign_in
 
     override fun createPresenter() = signInPresenter
+
+    //SETUP
+
+    private fun setupForgotDialog() {
+        forgotPasswordDialog = AlertDialog.Builder(context)
+                .setTitle(R.string.reset_password_title)
+                .setView(R.layout.dialog_forgot_password)
+                .setPositiveButton(R.string.submit_button, { _, _ ->
+                    val emailInput: EditText? = forgotPasswordDialog.findViewById(R.id.emailInput)
+                    emailInput?.let { presenter.forgotPassword(emailInput.text.toString().trim()) }
+                    emailInput?.setText("")
+                })
+                .setNegativeButton(R.string.cancel_button, { _, _ -> })
+                .create()
+    }
+
+    private fun setupButtons() {
+        loginButton.setOnClickListener {
+            loadData(true)
+        }
+        forgotPassword.setOnClickListener {
+            forgotPasswordDialog.show()
+        }
+    }
 
     //LCE
 

@@ -405,6 +405,31 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         callback.onResult(getSession() != null)
     }
 
+    override fun forgotPassword(email: String, callback: ApiCallback<Unit>) {
+
+        val mutationQuery = Storefront.mutation {
+            it.customerRecover(email, {
+                it.userErrors { it.field().message() }
+            })
+        }
+
+        graphClient.mutateGraph(mutationQuery).enqueue(object : GraphCall.Callback<Storefront.Mutation> {
+            override fun onFailure(error: GraphError) {
+                callback.onFailure(ErrorAdapter.adapt(error))
+            }
+
+            override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
+                val error = ErrorAdapter.adaptErrors(response.errors())
+                val userError = ErrorAdapter.adaptUserError(response.data()?.customerRecover?.userErrors)
+                when {
+                    error != null -> callback.onFailure(error)
+                    userError != null -> callback.onFailure(userError)
+                    else -> callback.onResult(Unit)
+                }
+            }
+        })
+    }
+
     override fun getCustomer(callback: ApiCallback<Customer>) {
 
     }

@@ -12,5 +12,7 @@ interface AuthRepository {
 
     fun isLoggedIn(): Single<Boolean>
 
+    fun forgotPassword(email: String): Completable
+
     fun getCustomer(): Single<Customer>
 }

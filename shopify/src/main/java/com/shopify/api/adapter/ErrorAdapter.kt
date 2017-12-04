@@ -12,6 +12,14 @@ object ErrorAdapter {
         else -> Error.Content()
     }
 
+    fun adaptErrors(adaptee: List<com.shopify.graphql.support.Error>?): Error? {
+        return if (adaptee != null) {
+            adaptee.firstOrNull()?.let { Error.NonCritical(it.message()) }
+        } else {
+            null
+        }
+    }
+
     fun adaptUserError(adaptee: List<Storefront.UserError>?): Error? {
         return if (adaptee != null) {
             adaptee.firstOrNull()?.let { Error.NonCritical(it.message) }
