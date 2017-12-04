@@ -1,6 +1,6 @@
 package com.shopify.api.call
 
-import com.apicore.ApiCallback
+import com.domain.network.ApiCallback
 import com.domain.entity.Error
 import com.shopify.api.adapter.ErrorAdapter
 import com.shopify.buy3.GraphCall

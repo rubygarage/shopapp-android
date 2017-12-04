@@ -5,7 +5,7 @@ import com.client.shop.ui.auth.SignInFragment
 import com.client.shop.ui.auth.SignUpFragment
 import dagger.Subcomponent
 
-@Subcomponent(modules = arrayOf(AuthModule::class))
+@Subcomponent(modules = [AuthModule::class])
 interface AuthComponent {
 
     fun inject(activity: AuthActivity)

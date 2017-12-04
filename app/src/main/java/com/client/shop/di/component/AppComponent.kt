@@ -22,7 +22,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(RouterModule::class, RepositoryModule::class))
+@Component(modules = [RouterModule::class, RepositoryModule::class])
 interface AppComponent {
 
     fun attachBlogComponent(module: BlogModule): BlogComponent

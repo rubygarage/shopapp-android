@@ -499,8 +499,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         return viewBounds.height().toInt()
     }
 
-    @IntDef(flag = true, value = *longArrayOf(LIMIT_NONE.toLong(), LIMIT_TRANSLATION_X.toLong(),
-            LIMIT_TRANSLATION_Y.toLong(), LIMIT_SCALE.toLong(), LIMIT_ALL.toLong()))
+    @IntDef(flag = true, value = [LIMIT_NONE.toLong(), LIMIT_TRANSLATION_X.toLong(),
+            LIMIT_TRANSLATION_Y.toLong(), LIMIT_SCALE.toLong(), LIMIT_ALL.toLong()])
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
     annotation class LimitFlag
 

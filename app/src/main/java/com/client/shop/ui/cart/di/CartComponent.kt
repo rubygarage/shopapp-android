@@ -4,7 +4,7 @@ import com.client.shop.ui.cart.CartActivity
 import com.client.shop.ui.cart.CartWidget
 import dagger.Subcomponent
 
-@Subcomponent(modules = arrayOf(CartModule::class))
+@Subcomponent(modules = [CartModule::class])
 interface CartComponent {
 
     fun inject(activity: CartActivity)

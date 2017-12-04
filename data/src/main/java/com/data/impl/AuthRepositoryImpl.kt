@@ -1,9 +1,11 @@
 package com.data.impl
 
+import com.domain.network.ApiCallback
+import com.data.rx.RxCallback
 import com.domain.entity.Customer
+import com.domain.entity.Error
 import com.domain.network.Api
 import com.domain.repository.AuthRepository
-import com.data.rx.RxCallback
 import io.reactivex.Completable
 import io.reactivex.Single
 

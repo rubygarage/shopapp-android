@@ -3,7 +3,7 @@ package com.shopify.api
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.apicore.ApiCallback
+import com.domain.network.ApiCallback
 import com.domain.entity.*
 import com.domain.network.Api
 import com.google.android.gms.wallet.FullWallet

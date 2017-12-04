@@ -1,4 +1,4 @@
-package com.apicore
+package com.domain.network
 
 import com.domain.entity.Error
 
