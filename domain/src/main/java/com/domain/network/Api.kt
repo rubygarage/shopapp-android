@@ -28,6 +28,8 @@ interface Api {
 
     fun signIn(email: String, password: String, callback: ApiCallback<Customer>)
 
+    fun signOut(callback: ApiCallback<Unit>)
+
     fun isLoggedIn(callback: ApiCallback<Boolean>)
 
     fun forgotPassword(email: String, callback: ApiCallback<Unit>)

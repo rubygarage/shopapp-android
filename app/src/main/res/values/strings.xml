@@ -37,6 +37,7 @@
     <string name="invalid_password_error_message">Your password needs to be at least 6 characters long</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
     <string name="register_success_message">You have been successfully registered and logged in</string>
     <string name="login_success_message">You have been successfully logged in</string>
     <string name="forgot_label">Forgot?</string>
@@ -44,5 +45,6 @@
     <string name="submit_button">Submit</string>
     <string name="cancel_button">Cancel</string>
     <string name="check_inbox_message">Please check your inbox</string>
+    <string name="logout_success_message">You are logged out</string>
 
 </resources>

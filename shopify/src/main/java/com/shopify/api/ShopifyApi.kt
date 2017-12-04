@@ -68,6 +68,14 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
     }
 
+    private fun removeSession() {
+        preferences.edit()
+                .remove(EMAIL)
+                .remove(ACCESS_TOKEN)
+                .remove(EXPIRES_DATE)
+                .apply()
+    }
+
     override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?, reverse: Boolean,
                                 callback: ApiCallback<List<Product>>) {
         queryProducts(perPage, paginationValue, null, reverse, sortBy, callback)
@@ -428,6 +436,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
             }
         })
+    }
+
+    override fun signOut(callback: ApiCallback<Unit>) {
+        removeSession()
+        callback.onResult(Unit)
     }
 
     override fun getCustomer(callback: ApiCallback<Customer>) {

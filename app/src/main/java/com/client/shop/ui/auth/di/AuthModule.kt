@@ -16,4 +16,9 @@ class AuthModule {
     fun provideSignInPresenter(signInUseCase: SignInUseCase, forgotPasswordUseCase: ForgotPasswordUseCase): SignInPresenter {
         return SignInPresenter(signInUseCase, forgotPasswordUseCase)
     }
+
+    @Provides
+    fun provideAuthPresenter(authUseCase: AuthUseCase, signOutUseCase: SignOutUseCase): AuthPresenter {
+        return AuthPresenter(authUseCase, signOutUseCase)
+    }
 }
