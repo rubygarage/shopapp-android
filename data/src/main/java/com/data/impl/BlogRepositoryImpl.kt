@@ -1,13 +1,10 @@
 package com.data.impl
 
+import com.data.rx.RxCallback
 import com.domain.entity.Article
 import com.domain.entity.SortType
 import com.domain.network.Api
-import com.repository.BlogRepository
-import com.repository.rx.RxCallback
-import com.domain.network.Api
 import com.domain.repository.BlogRepository
-import com.data.rx.RxCallback
 import io.reactivex.Single
 
 class BlogRepositoryImpl(private val api: Api) : BlogRepository {
@@ -25,5 +22,4 @@ class BlogRepositoryImpl(private val api: Api) : BlogRepository {
             api.getArticle(id, RxCallback<Article>(emitter))
         }
     }
-
 }

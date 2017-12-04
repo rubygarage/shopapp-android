@@ -13,7 +13,7 @@ import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
-import com.ui.lce.BaseActivity
+import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 

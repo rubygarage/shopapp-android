@@ -3,9 +3,9 @@ package com.shopify.api
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.domain.network.ApiCallback
 import com.domain.entity.*
 import com.domain.network.Api
+import com.domain.network.ApiCallback
 import com.google.android.gms.wallet.FullWallet
 import com.shopify.ShopifyWrapper
 import com.shopify.api.adapter.*
@@ -294,7 +294,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
 
         val call = graphClient.queryGraph(query)
-        call.enqueue(object : QuaryCallWrapper<Article>(callback) {
+        call.enqueue(object : QueryCallWrapper<Article>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Article {
                 return ArticleAdapter.adapt(data.node as Storefront.Article)
             }

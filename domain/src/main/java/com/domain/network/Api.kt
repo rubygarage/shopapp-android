@@ -1,6 +1,5 @@
 package com.domain.network
 
-import com.apicore.ApiCallback
 import com.domain.entity.*
 
 interface Api {
@@ -35,8 +34,6 @@ interface Api {
     fun forgotPassword(email: String, callback: ApiCallback<Unit>)
 
     fun getCustomer(callback: ApiCallback<Customer>)
-
-    fun createCheckout(cartProductList: List<CartProduct>)
 
     fun getArticle(id: String, callback: ApiCallback<Article>)
 }
