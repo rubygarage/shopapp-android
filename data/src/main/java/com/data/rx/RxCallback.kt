@@ -1,6 +1,6 @@
 package com.data.rx
 
-import com.apicore.ApiCallback
+import com.domain.network.ApiCallback
 import com.domain.entity.Error
 import io.reactivex.SingleEmitter
 

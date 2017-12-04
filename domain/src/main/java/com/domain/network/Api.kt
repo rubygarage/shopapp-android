@@ -1,6 +1,5 @@
 package com.domain.network
 
-import com.apicore.ApiCallback
 import com.domain.entity.*
 
 interface Api {

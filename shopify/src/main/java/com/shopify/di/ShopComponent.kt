@@ -12,7 +12,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(ShopifyModule::class))
+@Component(modules = [ShopifyModule::class])
 interface ShopComponent {
 
     fun attachCheckoutComponent(module: CheckoutModule): CheckoutComponent
