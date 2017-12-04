@@ -1,7 +1,5 @@
 package com.client.shop.ui.auth
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.client.shop.R
@@ -9,23 +7,16 @@ import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.AuthPresenter
 import com.client.shop.ui.auth.contract.AuthView
 import com.client.shop.ui.auth.di.AuthModule
-import com.ui.base.lce.BaseActivity
-import kotlinx.android.synthetic.main.activity_auth.*
+import com.ui.base.lce.BaseFragment
+import kotlinx.android.synthetic.main.fragment_account.*
 import javax.inject.Inject
 
-class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView {
+class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthView {
 
     @Inject lateinit var authPresenter: AuthPresenter
 
-    companion object {
-        fun getStartIntent(context: Context) = Intent(context, AuthActivity::class.java)
-    }
-
-    //ANDROID
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setTitle(R.string.account)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         loadData()
     }
 
@@ -35,7 +26,7 @@ class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView 
         ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
     }
 
-    override fun getContentView() = R.layout.activity_auth
+    override fun getContentView() = R.layout.fragment_account
 
     override fun createPresenter() = authPresenter
 
@@ -66,7 +57,7 @@ class AuthActivity : BaseActivity<Boolean, AuthView, AuthPresenter>(), AuthView 
         logoutButton.visibility = View.GONE
         tabLayout.visibility = View.VISIBLE
         viewPager.visibility = View.VISIBLE
-        viewPager.adapter = AuthPagerAdapter(this, supportFragmentManager)
+        viewPager.adapter = AuthPagerAdapter(context, childFragmentManager)
         tabLayout.setupWithViewPager(viewPager)
     }
 
