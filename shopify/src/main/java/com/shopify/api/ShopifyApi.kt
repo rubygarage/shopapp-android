@@ -24,6 +24,7 @@ import net.danlew.android.joda.JodaTimeAndroid
 import java.io.IOException
 import java.math.BigDecimal
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
@@ -43,6 +44,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         private const val EMAIL = "email"
         private const val ACCESS_TOKEN = "access_token"
         private const val EXPIRES_DATE = "expires_date"
+        private const val RETRY_HANDLER_DELAY = 500L
+        private const val RETRY_HANDLER_MAX_COUNT = 5
     }
 
     private fun saveSession(accessData: AccessData) {
@@ -564,6 +567,13 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     .checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), { it.checkout { } })
         }
 
+        val retryHandler = RetryHandler.delay(RETRY_HANDLER_DELAY, TimeUnit.MILLISECONDS)
+                .maxCount(RETRY_HANDLER_MAX_COUNT)
+                .whenResponse<Storefront.QueryRoot> {
+                    val checkout = (it.data()?.node as? Storefront.Checkout)
+                    checkout?.availableShippingRates?.let { !it.ready } ?: true
+                }.build()
+
         val checkoutCallback = object : GraphCall.Callback<Storefront.Mutation> {
             override fun onFailure(error: GraphError) {
                 callback.onFailure(ErrorAdapter.adapt(error))
@@ -589,15 +599,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
                     override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
                         val checkout = (response.data()?.node as? Storefront.Checkout)
-                        checkout?.availableShippingRates?.shippingRates?.let {
-                            callback.onResult(it.map { ShippingRateAdapter.adapt(it) })
-                        }
+                        callback.onResult(checkout?.availableShippingRates?.shippingRates?.let {
+                            it.map { ShippingRateAdapter.adapt(it) }
+                        } ?: emptyList())
                     }
 
                     override fun onFailure(error: GraphError) {
                         callback.onFailure(ErrorAdapter.adapt(error))
                     }
-                })
+                }, null, retryHandler)
             }
         }
         graphClient.mutateGraph(checkoutQuery).enqueue(checkoutCallback)
