@@ -1,8 +1,8 @@
 package com.client.shop.ui.details.di
 
-import com.client.shop.ui.details.contract.DetailsCartUseCase
 import com.client.shop.ui.details.contract.DetailsPresenter
-import com.client.shop.ui.details.contract.DetailsProductUseCase
+import com.domain.interactor.details.DetailsCartUseCase
+import com.domain.interactor.details.DetailsProductUseCase
 import dagger.Module
 import dagger.Provides
 

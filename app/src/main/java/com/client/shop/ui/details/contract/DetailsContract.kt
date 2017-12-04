@@ -4,15 +4,13 @@ import com.client.shop.R
 import com.domain.entity.CartProduct
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
-import com.domain.interactor.base.SingleUseCase
-import com.repository.CartRepository
-import com.repository.ProductRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
-import io.reactivex.Single
+import com.domain.interactor.details.DetailsCartUseCase
+import com.domain.interactor.details.DetailsProductUseCase
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface DetailsView : BaseView<Product> {
+interface DetailsView : BaseLceView<Product> {
 
     fun productAddedToCart()
 }
@@ -20,7 +18,7 @@ interface DetailsView : BaseView<Product> {
 class DetailsPresenter @Inject constructor(
         private val detailsProductUseCase: DetailsProductUseCase,
         private val cartUseCase: DetailsCartUseCase
-) : BasePresenter<Product, DetailsView>(arrayOf(detailsProductUseCase, cartUseCase)) {
+) : BaseLcePresenter<Product, DetailsView>(detailsProductUseCase, cartUseCase) {
 
     fun loadProductDetails(productId: String) {
 
@@ -44,21 +42,5 @@ class DetailsPresenter @Inject constructor(
                     cartProduct
             )
         }
-    }
-}
-
-class DetailsProductUseCase @Inject constructor(private val productRepository: ProductRepository) :
-        SingleUseCase<Product, String>() {
-
-    override fun buildUseCaseSingle(params: String): Single<Product> {
-        return productRepository.getProduct(params)
-    }
-}
-
-class DetailsCartUseCase @Inject constructor(private val cartRepository: CartRepository) :
-        SingleUseCase<CartProduct, CartProduct>() {
-
-    override fun buildUseCaseSingle(params: CartProduct): Single<CartProduct> {
-        return cartRepository.addCartProduct(params)
     }
 }

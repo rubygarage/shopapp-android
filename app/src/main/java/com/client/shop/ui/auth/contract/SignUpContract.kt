@@ -1,15 +1,13 @@
 package com.client.shop.ui.auth.contract
 
 import com.client.shop.R
-import com.domain.interactor.base.CompletableUseCase
+import com.domain.interactor.auth.SignUpUseCase
 import com.domain.validator.FieldValidator
-import com.repository.AuthRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
-import io.reactivex.Completable
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SignUpView : BaseView<Unit> {
+interface SignUpView : BaseLceView<Unit> {
 
     fun showEmailError()
 
@@ -21,7 +19,7 @@ interface SignUpView : BaseView<Unit> {
 }
 
 class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCase) :
-        BasePresenter<Unit, SignUpView>(arrayOf(signUpUseCase)) {
+        BaseLcePresenter<Unit, SignUpView>(signUpUseCase) {
 
     private val validator = FieldValidator()
 
@@ -45,21 +43,4 @@ class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCa
             )
         }
     }
-}
-
-class SignUpUseCase @Inject constructor(private val authRepository: AuthRepository) :
-        CompletableUseCase<SignUpUseCase.Params>() {
-
-    override fun buildUseCaseCompletable(params: Params): Completable {
-        return with(params) {
-            authRepository.signUp(firstName, lastName, email, password)
-        }
-    }
-
-    data class Params(
-            val firstName: String,
-            val lastName: String,
-            val email: String,
-            val password: String
-    )
 }

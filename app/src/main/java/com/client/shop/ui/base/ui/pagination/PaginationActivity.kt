@@ -11,11 +11,11 @@ import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import com.ui.base.lce.BaseActivity
 
-abstract class PaginationActivity<M, V : BaseView<List<M>>, P : BasePresenter<List<M>, V>> :
+abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresenter<List<M>, V>> :
         BaseActivity<List<M>, V, P>(),
         OnItemClickListener,
         SwipeRefreshLayout.OnRefreshListener {

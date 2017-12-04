@@ -1,7 +1,8 @@
 package com.client.shop.ui.cart.contract
 
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
+import com.domain.interactor.cart.CartItemsUseCase
 import com.hannesdorfmann.mosby3.mvp.MvpView
+import com.ui.base.contract.BasePresenter
 import javax.inject.Inject
 
 interface CartWidgetView : MvpView {
@@ -10,7 +11,7 @@ interface CartWidgetView : MvpView {
 }
 
 class CartWidgetPresenter @Inject constructor(private val cartItemsUseCase: CartItemsUseCase) :
-        MvpBasePresenter<CartWidgetView>() {
+        BasePresenter<CartWidgetView>(cartItemsUseCase) {
 
     override fun attachView(view: CartWidgetView?) {
         super.attachView(view)

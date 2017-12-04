@@ -2,8 +2,8 @@ package com.client.shop.di.module
 
 import com.domain.database.Dao
 import com.domain.network.Api
-import com.repository.*
-import com.repository.impl.*
+import com.domain.repository.*
+import com.data.impl.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

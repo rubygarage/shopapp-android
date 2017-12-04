@@ -13,7 +13,7 @@ class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
 
     companion object {
         const val BASE_URL = "lubitax.myshopify.com"
-        const val ANDROID_PAY_PUBLIC_KEY = "BDNYYBH0YY3R3In4v1L2apVJLzjAqyl+tcYKQpMlcaeemPpmQUfMrR0/HyBwjXUKJ0LsqFKwY208rJ1/fhyxaA8="
+        const val ANDROID_PAY_PUBLIC_KEY = "BFzGr2NExzZ49C01KldmyMg9zYE0s0EOY2zf4f+lTMp3uB8wES5oUu6WJSdsthXHWJuIhrSEvDpXugILc1ZZV3E="
         private const val ACCESS_TOKEN = "98fb98180b7f5987f1fff84416d3a697"
 
         lateinit var component: ShopComponent

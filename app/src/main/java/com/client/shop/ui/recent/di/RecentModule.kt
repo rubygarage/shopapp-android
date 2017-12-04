@@ -1,7 +1,7 @@
 package com.client.shop.ui.recent.di
 
 import com.client.shop.ui.recent.contract.RecentPresenter
-import com.client.shop.ui.recent.contract.RecentUseCase
+import com.domain.interactor.recent.RecentUseCase
 import dagger.Module
 import dagger.Provides
 

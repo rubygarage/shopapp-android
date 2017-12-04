@@ -5,12 +5,12 @@ import com.domain.interactor.base.SingleUseCase
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.repository.CheckoutRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import io.reactivex.Single
 import javax.inject.Inject
 
-interface ShippingView : BaseView<List<ShippingRate>> {
+interface ShippingView : BaseLceView<List<ShippingRate>> {
 
     fun shippingRateSelected(checkout: Checkout)
 }
@@ -19,7 +19,10 @@ class ShippingPresenter(
         private val getShippingRatesUseCase: GetShippingRatesUseCase,
         private val selectShippingRateUseCase: SelectShippingRateUseCase
 ) :
-        BasePresenter<List<ShippingRate>, ShippingView>(arrayOf(getShippingRatesUseCase)) {
+        BaseLcePresenter<List<ShippingRate>, ShippingView>(
+                getShippingRatesUseCase,
+                selectShippingRateUseCase
+        ) {
 
     fun getShippingRates(checkoutId: String, email: String, address: Address) {
 

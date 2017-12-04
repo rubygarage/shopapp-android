@@ -54,7 +54,7 @@ dependencies {
 
     implementation project(":ui")
     implementation project(':domain')
-    implementation project(":repository")
+    implementation project(':data')
 
     implementation 'com.shopify.mobilebuysdk:buy3:3.1.1'
     implementation 'com.shopify.mobilebuysdk:buy3-pay-support:1.0.2'

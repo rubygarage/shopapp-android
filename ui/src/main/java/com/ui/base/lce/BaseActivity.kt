@@ -8,14 +8,14 @@ import android.view.View
 import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import com.ui.R
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import com.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.activity_lce.*
 
-abstract class BaseActivity<in M, V : BaseView<M>, P : BasePresenter<M, V>> :
+abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
         MvpActivity<V, P>(),
-        BaseView<M> {
+        BaseLceView<M> {
 
     //ACTIVITY
 

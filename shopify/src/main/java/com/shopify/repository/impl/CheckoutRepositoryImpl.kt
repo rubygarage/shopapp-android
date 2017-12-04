@@ -4,7 +4,7 @@ import com.domain.entity.Address
 import com.domain.entity.Card
 import com.domain.entity.CartProduct
 import com.google.android.gms.wallet.FullWallet
-import com.repository.rx.RxCallback
+import com.data.rx.RxCallback
 import com.shopify.api.ShopifyApi
 import com.shopify.buy3.pay.PayCart
 import com.shopify.entity.Checkout

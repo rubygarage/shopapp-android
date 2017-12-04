@@ -1,15 +1,12 @@
 package com.client.shop.ui.auth.contract
 
-import com.client.shop.R
-import com.domain.interactor.base.CompletableUseCase
+import com.domain.interactor.auth.SignInUseCase
 import com.domain.validator.FieldValidator
-import com.repository.AuthRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
-import io.reactivex.Completable
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SignInView : BaseView<Unit> {
+interface SignInView : BaseLceView<Unit> {
 
     fun showEmailError()
 
@@ -20,11 +17,8 @@ interface SignInView : BaseView<Unit> {
     fun onFailure()
 }
 
-class SignInPresenter @Inject constructor(
-        private val signInUseCase: SignInUseCase,
-        private val forgotPasswordUseCase: ForgotPasswordUseCase
-) :
-        BasePresenter<Unit, SignInView>(arrayOf(signInUseCase)) {
+class SignInPresenter @Inject constructor(private val signInUseCase: SignInUseCase) :
+        BaseLcePresenter<Unit, SignInView>(signInUseCase) {
 
     private val validator = FieldValidator()
 

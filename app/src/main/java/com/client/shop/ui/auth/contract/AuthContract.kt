@@ -1,12 +1,8 @@
 package com.client.shop.ui.auth.contract
 
-import com.domain.interactor.base.CompletableUseCase
-import com.domain.interactor.base.SingleUseCase
-import com.repository.AuthRepository
-import com.ui.base.contract.BasePresenter
-import com.ui.base.contract.BaseView
-import io.reactivex.Completable
-import io.reactivex.Single
+import com.domain.interactor.auth.AuthUseCase
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface AuthView : BaseView<Boolean> {

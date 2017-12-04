@@ -1,7 +1,7 @@
 package com.client.shop.ui.home.di
 
 import com.client.shop.ui.home.contract.HomePresenter
-import com.client.shop.ui.home.contract.HomeUseCase
+import com.domain.interactor.home.HomeUseCase
 import dagger.Module
 import dagger.Provides
 
