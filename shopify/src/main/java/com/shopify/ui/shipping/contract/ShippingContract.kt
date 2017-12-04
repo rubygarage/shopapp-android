@@ -25,7 +25,7 @@ class ShippingPresenter(
 
         getShippingRatesUseCase.execute(
                 { view?.showContent(it) },
-                { it.printStackTrace() },
+                { resolveError(it) },
                 GetShippingRatesUseCase.Params(checkoutId, email, address)
         )
     }
@@ -34,7 +34,7 @@ class ShippingPresenter(
 
         selectShippingRateUseCase.execute(
                 { view?.shippingRateSelected(it) },
-                { it.printStackTrace() },
+                { resolveError(it) },
                 SelectShippingRateUseCase.Params(checkoutId, shippingRate)
         )
     }
