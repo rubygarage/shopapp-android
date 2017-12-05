@@ -34,4 +34,6 @@ interface Api {
     fun forgotPassword(email: String, callback: ApiCallback<Unit>)
 
     fun getCustomer(callback: ApiCallback<Customer>)
+
+    fun getArticle(id: String, callback: ApiCallback<Article>)
 }

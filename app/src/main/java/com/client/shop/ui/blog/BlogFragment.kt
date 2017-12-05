@@ -69,7 +69,7 @@ class BlogFragment :
 
     override fun onItemClicked(position: Int) {
         articleList.getOrNull(position)?.let {
-            startActivity(ArticleActivity.getStartIntent(context, it))
+            startActivity(ArticleActivity.getStartIntent(context, it.id))
         }
     }
 

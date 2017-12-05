@@ -1,10 +1,10 @@
 package com.data.impl
 
+import com.data.rx.RxCallback
 import com.domain.entity.Article
 import com.domain.entity.SortType
 import com.domain.network.Api
 import com.domain.repository.BlogRepository
-import com.data.rx.RxCallback
 import io.reactivex.Single
 
 class BlogRepositoryImpl(private val api: Api) : BlogRepository {
@@ -14,6 +14,12 @@ class BlogRepositoryImpl(private val api: Api) : BlogRepository {
         return Single.create<List<Article>> { emitter ->
             api.getArticleList(perPage, paginationValue, sortBy, reverse,
                     RxCallback<List<Article>>(emitter))
+        }
+    }
+
+    override fun getArticle(id: String): Single<Article> {
+        return Single.create<Article> { emitter ->
+            api.getArticle(id, RxCallback<Article>(emitter))
         }
     }
 }
