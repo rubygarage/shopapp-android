@@ -19,7 +19,7 @@ class LceLoadingView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_lce_loading, this)
-        setBackgroundResource(android.R.color.white)
+        setBackgroundResource(R.color.colorBackgroundLight)
     }
 
     private var mStartTime: Long = -1

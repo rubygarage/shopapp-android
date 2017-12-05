@@ -8,6 +8,7 @@ import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
+import com.client.shop.ui.base.ui.recycler.VerticalSpaceDecoration
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.adapter.RecentAdapter
 import com.client.shop.ui.recent.contract.RecentPresenter
@@ -50,12 +51,13 @@ class RecentFragment :
     private fun setupRecycler() {
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        adapter = RecentAdapter(productList, this,
-                View.OnClickListener { startActivity(RecentActivity.getStartIntent(context)) })
+        adapter = RecentAdapter(productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
+        val decoration = VerticalSpaceDecoration(resources.getDimensionPixelSize(R.dimen.content_space))
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
+        recyclerView.addItemDecoration(decoration)
     }
 
     //LCE
@@ -69,8 +71,14 @@ class RecentFragment :
         super.showContent(data)
         productList.clear()
         productList.addAll(data)
-        adapter.withFooter = productList.size == DEFAULT_PER_PAGE_COUNT
         adapter.notifyDataSetChanged()
+
+        if (productList.size == DEFAULT_PER_PAGE_COUNT) {
+            seeAll.visibility = View.VISIBLE
+            seeAll.setOnClickListener { startActivity(RecentActivity.getStartIntent(context)) }
+        } else {
+            seeAll.visibility = View.GONE
+        }
     }
 
     //CALLBACK

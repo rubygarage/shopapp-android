@@ -2,16 +2,13 @@ package com.client.shop.ui.recent.adapter
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
-import com.client.shop.ui.item.MoreItem
 import com.client.shop.ui.item.RecentItem
 import com.domain.entity.Product
 import com.domain.formatter.NumberFormatter
 
-class RecentAdapter(productList: List<Product>, onItemClickListener: OnItemClickListener,
-                    private val moreButtonListener: View.OnClickListener) :
+class RecentAdapter(productList: List<Product>, onItemClickListener: OnItemClickListener) :
         BaseRecyclerAdapter<Product>(productList, onItemClickListener) {
 
     private val formatter = NumberFormatter()
@@ -24,11 +21,5 @@ class RecentAdapter(productList: List<Product>, onItemClickListener: OnItemClick
         if (itemView is RecentItem) {
             itemView.setProduct(data)
         }
-    }
-
-    override fun getFooterView(context: Context): View? {
-        val footer = MoreItem(context, width = ViewGroup.LayoutParams.WRAP_CONTENT)
-        footer.moreButton.setOnClickListener(moreButtonListener)
-        return footer
     }
 }

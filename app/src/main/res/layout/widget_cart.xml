@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:background="?selectableItemBackgroundBorderless"
         android:padding="2dp"
-        android:src="@drawable/ic_shopping_cart"
+        android:src="@drawable/ic_cart"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -19,11 +19,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/background_badge"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:textColor="@color/textColorPrimary"
-        android:visibility="gone" />
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:visibility="visible"
+        tools:ignore="SmallSp" />
 
 </merge>

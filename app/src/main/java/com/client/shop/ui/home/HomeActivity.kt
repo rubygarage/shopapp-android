@@ -127,6 +127,7 @@ class HomeActivity :
         super.showContent(data)
 
         bottomTabNavigation.visibility = View.VISIBLE
+        bottomNavigationDivider.visibility = View.VISIBLE
         val shop = data.first
         categories.clear()
         categories.addAll(data.second)

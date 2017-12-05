@@ -3,9 +3,9 @@
 
     <string name="open_menu">Open menu</string>
     <string name="close_menu">Close menu</string>
-    <string name="last_arrivals">Last Arrivals</string>
+    <string name="latest_arrivals">Latest Arrivals</string>
     <string name="new_in_blog">New in blog</string>
-    <string name="more">More</string>
+    <string name="see_all">See All</string>
     <string name="home">Home</string>
     <string name="category">Category</string>
     <string name="privacy_policy">Privacy Policy</string>
