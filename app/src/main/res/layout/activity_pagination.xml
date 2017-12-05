@@ -8,6 +8,8 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_animation_slide_from_bottom" />
+        android:clipToPadding="false"
+        android:layoutAnimation="@anim/layout_animation_slide_from_bottom"
+        android:padding="16dp" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

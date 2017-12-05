@@ -11,7 +11,7 @@ import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.ui.base.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
-import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
+import com.client.shop.ui.base.ui.recycler.divider.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
 import com.ui.base.contract.BaseLcePresenter

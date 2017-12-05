@@ -3,6 +3,9 @@ package com.client.shop.ui.blog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
@@ -12,6 +15,7 @@ import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
+import kotlinx.android.synthetic.main.activity_pagination.*
 import javax.inject.Inject
 
 class BlogActivity :
@@ -28,7 +32,7 @@ class BlogActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = getString(R.string.new_in_blog)
+        title = getString(R.string.blog_posts)
         loadData()
     }
 
@@ -43,6 +47,14 @@ class BlogActivity :
     //SETUP
 
     override fun setupAdapter() = BlogAdapter(dataList, this)
+
+    override fun setupRecyclerView() {
+        super.setupRecyclerView()
+        val divider = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
+        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider_line))
+        recyclerView.addItemDecoration(divider)
+        recyclerView.setBackgroundResource(R.color.white)
+    }
 
     //LCE
 
