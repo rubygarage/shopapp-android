@@ -6,13 +6,13 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.ui.base.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
+import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_blog.*
 import javax.inject.Inject
 
@@ -38,7 +38,7 @@ class BlogFragment :
     //SETUP
 
     private fun setupRecycler() {
-        adapter = BlogAdapter(articleList, this, View.OnClickListener { startActivity(BlogActivity.getStartIntent(context)) })
+        adapter = BlogAdapter(articleList, this)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false

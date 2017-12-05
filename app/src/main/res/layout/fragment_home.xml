@@ -12,13 +12,15 @@
         <FrameLayout
             android:id="@+id/recentContainer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/recent_container_height"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:background="@color/colorBackgroundLight" />
 
         <FrameLayout
             android:id="@+id/blogContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 

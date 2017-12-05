@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
@@ -31,7 +30,7 @@ class RecentActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = getString(R.string.last_arrivals)
+        title = getString(R.string.latest_arrivals)
         loadData()
     }
 
@@ -54,7 +53,7 @@ class RecentActivity :
 
     //SETUP
 
-    override fun setupAdapter() = RecentAdapter(dataList, this, View.OnClickListener { })
+    override fun setupAdapter() = RecentAdapter(dataList, this)
 
     //LCE
 

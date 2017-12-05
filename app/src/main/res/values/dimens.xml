@@ -6,6 +6,7 @@
     <dimen name="element_space">8dp</dimen>
     <dimen name="content_space">16dp</dimen>
     <dimen name="recycler_padding">3dp</dimen>
+    <dimen name="text_size">13sp</dimen>
 
     <dimen name="recent_container_height">200dp</dimen>
     <dimen name="recent_title_height">30dp</dimen>
