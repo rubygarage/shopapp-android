@@ -1,30 +1,29 @@
 package com.client.shop.ui.search
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
+import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.rx.RxQueryTextListener
-import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.ui.pagination.PaginationFragment
 import com.client.shop.ui.base.ui.recycler.adapter.ProductAdapter
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.search.contract.SearchPresenter
+import com.client.shop.ui.search.contract.SearchView
 import com.client.shop.ui.search.di.SearchModule
 import com.domain.entity.Product
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import com.client.shop.ui.search.contract.SearchView as MvpSearchView
 
-
-class SearchActivity :
-        PaginationActivity<Product, MvpSearchView, SearchPresenter>(),
-        MvpSearchView {
+class SearchFragment :
+        PaginationFragment<Product, SearchView, SearchPresenter>(),
+        SearchView {
 
     @Inject lateinit var searchPresenter: SearchPresenter
     private var searchObserver: Observable<String>? = null
@@ -34,19 +33,15 @@ class SearchActivity :
 
     companion object {
         private const val SEARCH_DEBOUNCE = 500L
-
-        fun getStartIntent(context: Context) = Intent(context, SearchActivity::class.java)
     }
 
     //ANDROID
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        supportActionBar?.title = getString(R.string.search)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupSearch()
         val swipeProgressEndTarget = resources.getDimensionPixelSize(R.dimen.search_swipe_refresh_progress_end_target)
-        swipeRefreshLayout.setProgressViewEndTarget(false, swipeProgressEndTarget)
+        swipeRefreshLayout?.setProgressViewEndTarget(false, swipeProgressEndTarget)
     }
 
     override fun onResume() {
@@ -71,9 +66,9 @@ class SearchActivity :
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_cart, menu)
-        return true
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_cart, menu)
     }
 
     //INIT
@@ -84,7 +79,7 @@ class SearchActivity :
 
     override fun isGrid() = true
 
-    override fun getContentView() = R.layout.activity_search
+    override fun getContentView() = R.layout.fragment_search
 
     override fun createPresenter() = searchPresenter
 
@@ -121,7 +116,7 @@ class SearchActivity :
         }
         lastQuery = currentQuery
         this.dataList.addAll(data)
-        adapter.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
         if (data.isNotEmpty()) {
             paginationValue = data.last().paginationValue
         }
@@ -130,6 +125,6 @@ class SearchActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(this, data.id))
+        startActivity(DetailsActivity.getStartIntent(context, data.id))
     }
 }

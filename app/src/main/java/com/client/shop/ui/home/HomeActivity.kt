@@ -4,23 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.auth.AuthActivity
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.client.shop.ui.category.CategoryFragment
-import com.client.shop.ui.home.adapter.CategoriesAdapter
+import com.client.shop.ui.auth.AccountFragment
+import com.client.shop.ui.custom.SimpleOnTabSelectedListener
 import com.client.shop.ui.home.contract.HomePresenter
 import com.client.shop.ui.home.contract.HomeView
 import com.client.shop.ui.home.di.HomeModule
-import com.client.shop.ui.policy.PolicyActivity
+import com.client.shop.ui.search.SearchFragment
 import com.domain.entity.Category
-import com.domain.entity.Policy
 import com.domain.entity.Shop
 import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
@@ -28,47 +25,28 @@ import javax.inject.Inject
 
 class HomeActivity :
         BaseActivity<Pair<Shop, List<Category>>, HomeView, HomePresenter>(),
-        HomeView,
-        OnItemClickListener {
+        HomeView {
 
     @Inject lateinit var homePresenter: HomePresenter
     private var drawerToggle: ActionBarDrawerToggle? = null
     private var categories: MutableList<Category> = mutableListOf()
-    private var adapter: CategoriesAdapter? = null
 
     companion object {
+
+        private const val HOME = 0
+        private const val SEARCH = 1
+        private const val ACCOUNT = 2
 
         fun getStartIntent(context: Context) = Intent(context, HomeActivity::class.java)
     }
 
+    //ANDROID
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setupDrawerLayout()
-        setupRecyclerView(categories)
-
-        homeLabel.setOnClickListener {
-            drawerLayout.closeDrawer(Gravity.START)
-            supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commit()
-        }
-        accountLabel.setOnClickListener { startActivity(AuthActivity.getStartIntent(this)) }
-
         loadData()
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
-
-    //INIT
-
-    override fun inject() {
-        ShopApplication.appComponent.attachHomeComponent(HomeModule()).inject(this)
-    }
-
-    override fun getMainLayout() = R.layout.activity_home
-
-    override fun getContentView() = R.layout.activity_home_content
-
-    override fun createPresenter() = homePresenter
-
-    //ACTIVITY
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
@@ -89,33 +67,53 @@ class HomeActivity :
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() {
+        if (bottomTabNavigation.selectedTabPosition != HOME) {
+            selectTab(HOME)
+        } else {
+            finish()
+        }
+    }
+
+    //INIT
+
+    override fun inject() {
+        ShopApplication.appComponent.attachHomeComponent(HomeModule()).inject(this)
+    }
+
+    override fun getMainLayout() = R.layout.activity_home
+
+    override fun getContentView() = R.layout.activity_home_content
+
+    override fun createPresenter() = homePresenter
+
     //SETUP
 
-    private fun setupDrawerLayout() {
-        drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.open_menu,
-                R.string.close_menu
-        ) {
-            override fun onDrawerClosed(view: View) {
-                super.onDrawerClosed(view)
+    private fun setupNavigation() {
+        bottomTabNavigation.addOnTabSelectedListener(object : SimpleOnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                switchFragment(tab.position)
             }
-
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-            }
-        }
+        })
     }
 
-    private fun setupRecyclerView(categories: List<Category>) {
-        adapter = CategoriesAdapter(categories, this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+    private fun switchFragment(position: Int) {
+        var fragment: Fragment? = supportFragmentManager.findFragmentByTag(position.toString())
+        if (fragment == null) {
+            fragment = when (position) {
+                HOME -> HomeFragment()
+                SEARCH -> SearchFragment()
+                else -> AccountFragment()
+            }
+        }
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.content, fragment, position.toString())
+                .addToBackStack(null)
+                .commit()
     }
 
-    private fun setupShopInfo(policy: Policy?, view: View) {
-        if (policy != null) {
-            view.visibility = View.VISIBLE
-            view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(this, policy)) }
-        }
+    private fun selectTab(position: Int) {
+        bottomTabNavigation.getTabAt(position)?.select()
     }
 
     //LCE
@@ -128,29 +126,11 @@ class HomeActivity :
     override fun showContent(data: Pair<Shop, List<Category>>) {
         super.showContent(data)
 
+        bottomTabNavigation.visibility = View.VISIBLE
         val shop = data.first
         categories.clear()
         categories.addAll(data.second)
-        adapter?.notifyDataSetChanged()
-
-        setupShopInfo(shop.privacyPolicy, privacyPolicyLabel)
-        setupShopInfo(shop.termsOfService, termsOfServiceLabel)
-
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeButtonEnabled(true)
-        }
-        supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commitNowAllowingStateLoss()
-    }
-
-    //CALLBACK
-
-    override fun onItemClicked(position: Int) {
-        drawerLayout.closeDrawer(Gravity.START)
-        categories.getOrNull(position)?.let {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.content, CategoryFragment.newInstance(it))
-                    .commit()
-        }
+        setupNavigation()
+        switchFragment(HOME)
     }
 }

@@ -2,12 +2,10 @@ package com.client.shop.ui.home
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.recent.RecentFragment
-import com.client.shop.ui.search.SearchActivity
 
 class HomeFragment : Fragment() {
 
@@ -17,11 +15,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val compatActivity = activity
-        if (compatActivity is AppCompatActivity) {
-            (compatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
-        }
 
         childFragmentManager.beginTransaction().replace(R.id.recentContainer, RecentFragment()).commit()
         childFragmentManager.beginTransaction().replace(R.id.blogContainer, BlogFragment()).commit()
@@ -34,14 +27,4 @@ class HomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        item?.let {
-            if (item.itemId == R.id.search) {
-                startActivity(SearchActivity.getStartIntent(context))
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

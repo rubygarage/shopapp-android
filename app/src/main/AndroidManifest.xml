@@ -30,10 +30,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.search.SearchActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".ui.gallery.GalleryActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
@@ -55,10 +51,6 @@
 
         <activity
             android:name=".ui.cart.CartActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".ui.auth.AuthActivity"
             android:screenOrientation="portrait" />
 
     </application>
