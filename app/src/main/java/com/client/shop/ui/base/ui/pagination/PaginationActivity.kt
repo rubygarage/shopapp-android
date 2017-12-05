@@ -1,6 +1,7 @@
 package com.client.shop.ui.base.ui.pagination
 
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -8,9 +9,9 @@ import android.support.v7.widget.RecyclerView
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
-import com.client.shop.ui.base.ui.recycler.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
+import com.client.shop.ui.base.ui.recycler.divider.GridSpaceDecoration
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import com.ui.base.lce.BaseActivity
@@ -50,6 +51,7 @@ abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresen
 
     abstract fun setupAdapter(): BaseRecyclerAdapter<M>
 
+    @CallSuper
     protected open fun setupRecyclerView() {
 
         adapter = setupAdapter()
@@ -64,7 +66,6 @@ abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresen
         }
         recycler.layoutManager = layoutManager
         recycler.adapter = adapter
-        recycler.setHasFixedSize(true)
         recycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(recycler.layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
                 if (totalItemsCount >= perPageCount())

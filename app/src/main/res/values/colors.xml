@@ -8,8 +8,8 @@
     <color name="colorBackgroundLight">#FFF5F5F5</color>
     <color name="colorBackgroundDarkTranslucent">#7DE6E6E6</color>
 
-    <color name="textColorPrimary">#DE000000</color>
-    <color name="textColorSecondary">#8A000000</color>
+    <color name="textColorPrimary">#FF000000</color>
+    <color name="textColorSecondary">#FF8B8B8B</color>
 
     <color name="selectedColor">#EEEEEE</color>
 

@@ -14,6 +14,7 @@ import com.client.shop.ui.recent.contract.RecentPresenter
 import com.client.shop.ui.recent.contract.RecentView
 import com.client.shop.ui.recent.di.RecentModule
 import com.domain.entity.Product
+import kotlinx.android.synthetic.main.activity_pagination.*
 import javax.inject.Inject
 
 class RecentActivity :
@@ -54,6 +55,11 @@ class RecentActivity :
     //SETUP
 
     override fun setupAdapter() = RecentAdapter(dataList, this)
+
+    override fun setupRecyclerView() {
+        super.setupRecyclerView()
+        recyclerView.setBackgroundResource(R.color.white)
+    }
 
     //LCE
 

@@ -1,6 +1,8 @@
 package com.client.shop.ui.blog
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.client.shop.R
@@ -39,9 +41,13 @@ class BlogFragment :
 
     private fun setupRecycler() {
         adapter = BlogAdapter(articleList, this)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
+        val divider = DividerItemDecoration(context, layoutManager.orientation)
+        divider.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_line))
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false
+        recyclerView.addItemDecoration(divider)
     }
 
     //INITIAL
@@ -61,8 +67,13 @@ class BlogFragment :
         super.showContent(data)
         this.articleList.clear()
         this.articleList.addAll(data)
-        adapter.withFooter = this.articleList.size == DEFAULT_PER_PAGE_COUNT
         adapter.notifyDataSetChanged()
+        if (articleList.size == DEFAULT_PER_PAGE_COUNT) {
+            seeAll.visibility = View.VISIBLE
+            seeAll.setOnClickListener { startActivity(BlogActivity.getStartIntent(context)) }
+        } else {
+            seeAll.visibility = View.GONE
+        }
     }
 
     //CALLBACK

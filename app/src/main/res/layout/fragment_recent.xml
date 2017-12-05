@@ -1,35 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
+        style="@style/home_section_title"
         android:text="@string/latest_arrivals"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="@dimen/text_size"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/seeAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:drawableEnd="@drawable/ic_small_arrow_right"
-        android:drawablePadding="16dp"
-        android:text="@string/see_all"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="@dimen/text_size"
+        style="@style/see_all_text"
+        android:text="@string/home_section_see_all"
         app:layout_constraintBaseline_toBaselineOf="@+id/title"
         app:layout_constraintEnd_toEndOf="parent" />
 
