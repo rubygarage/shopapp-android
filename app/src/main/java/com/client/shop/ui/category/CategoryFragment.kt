@@ -55,6 +55,11 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     //ANDROID
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         category = arguments.getParcelable(EXTRA_CATEGORY)
@@ -63,7 +68,6 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
             compatActivity.supportActionBar?.setDisplayShowTitleEnabled(true)
             compatActivity.supportActionBar?.title = category.title
         }
-        setHasOptionsMenu(true)
         loadData()
     }
 

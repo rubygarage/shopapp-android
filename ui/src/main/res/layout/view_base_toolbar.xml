@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    style="@style/ToolbarStyle">
+
+    <TextView
+        android:id="@+id/toolbarTitle"
+        style="@style/ToolbarTitle" />
+
+</merge>

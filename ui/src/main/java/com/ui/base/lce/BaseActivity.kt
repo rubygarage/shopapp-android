@@ -17,7 +17,7 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
         MvpActivity<V, P>(),
         BaseLceView<M> {
 
-    //ACTIVITY
+    //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         inject()
@@ -26,8 +26,14 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
         lceLayout.setupContentLayout(getContentView())
         lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
         lceLayout.emptyButtonClickListener = View.OnClickListener { emptyButtonClicked() }
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar?.let {
+            setSupportActionBar(it)
+        }
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -37,6 +43,20 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun setTitle(title: String) {
+        toolbar?.setTitle(title)
+    }
+
+    @Deprecated("Use an overloaded function instead", ReplaceWith("setTitle(title: String)"))
+    override fun setTitle(titleId: Int) {
+        super.setTitle(titleId)
+    }
+
+    @Deprecated("Use an overloaded function instead", ReplaceWith("setTitle(title: String)"))
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
     }
 
     //INIT

@@ -46,5 +46,6 @@
     <string name="cancel_button">Cancel</string>
     <string name="check_inbox_message">Please check your inbox</string>
     <string name="logout_success_message">You are logged out</string>
+    <string name="shop">Shop</string>
 
 </resources>
