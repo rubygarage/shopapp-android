@@ -11,6 +11,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_home, container, false)
     }
@@ -20,8 +25,6 @@ class HomeFragment : Fragment() {
 
         childFragmentManager.beginTransaction().replace(R.id.recentContainer, RecentFragment()).commit()
         childFragmentManager.beginTransaction().replace(R.id.blogContainer, BlogFragment()).commit()
-
-        setHasOptionsMenu(true)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
