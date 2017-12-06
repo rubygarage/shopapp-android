@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
+    <com.ui.base.view.BaseToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyle" />
 

@@ -8,6 +8,9 @@ import com.client.shop.ShopApplication
 import com.client.shop.ui.auth.contract.AuthPresenter
 import com.client.shop.ui.auth.contract.AuthView
 import com.client.shop.ui.auth.di.AuthModule
+import com.client.shop.ui.policy.PolicyActivity
+import com.domain.entity.Policy
+import com.domain.entity.Shop
 import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_account.*
 import javax.inject.Inject
@@ -15,6 +18,19 @@ import javax.inject.Inject
 class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthView {
 
     @Inject lateinit var authPresenter: AuthPresenter
+
+    companion object {
+
+        private const val SHOP = "shop"
+
+        fun newInstance(shop: Shop?): AccountFragment {
+            val fragment = AccountFragment()
+            val args = Bundle()
+            args.putParcelable(SHOP, shop)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     //ANDROID
 
@@ -26,13 +42,15 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData()
+        setHasOptionsMenu(true)
+        setupShop()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val compatActivity = activity
         if (compatActivity is AppCompatActivity) {
-            toolbar.setTitle(getString(R.string.account))
+            toolbar.setTitle(getString(R.string.my_account))
             compatActivity.setSupportActionBar(toolbar)
             compatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
         }
@@ -58,9 +76,7 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
     override fun showContent(data: Boolean) {
         super.showContent(data)
         if (data) {
-            setupLogout()
         } else {
-            setupViewPager()
         }
     }
 
@@ -71,18 +87,22 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
 
     //SETUP
 
-    private fun setupViewPager() {
-        logoutButton.visibility = View.GONE
-        tabLayout.visibility = View.VISIBLE
-        viewPager.visibility = View.VISIBLE
-        viewPager.adapter = AuthPagerAdapter(context, childFragmentManager)
-        tabLayout.setupWithViewPager(viewPager)
+    private fun setupShop() {
+
+        val shop: Shop? = arguments.getParcelable(SHOP)
+        shop?.let {
+            setupPolicy(privacyPolicy, it.privacyPolicy)
+            setupPolicy(refundPolicy, it.refundPolicy)
+            setupPolicy(termsOfService, it.termsOfService)
+        }
     }
 
-    private fun setupLogout() {
-        logoutButton.visibility = View.VISIBLE
-        tabLayout.visibility = View.GONE
-        viewPager.visibility = View.GONE
-        logoutButton.setOnClickListener { presenter.signOut() }
+    private fun setupPolicy(view: View, policy: Policy?) {
+        if (policy != null) {
+            view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(context, policy)) }
+            view.visibility = View.VISIBLE
+        } else {
+            view.visibility = View.GONE
+        }
     }
 }

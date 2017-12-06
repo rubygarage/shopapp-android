@@ -9,8 +9,9 @@
     <string name="home">Home</string>
     <string name="category">Category</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="refund_policy">Refund Policy</string>
     <string name="terms_of_service">Terms Of Service</string>
-    <string name="account">Account</string>
+    <string name="my_account">My Account</string>
     <string name="search">Search</string>
     <string name="price_label">Price:</string>
     <string name="quantity_label">Quantity:</string>
@@ -28,7 +29,7 @@
     <string name="proceed_to_checkout">Proceed to checkout</string>
     <string name="empty_cart_message">Your shopping cart is empty</string>
     <string name="empty_cart_button">See last arrivals</string>
-    <string name="create_account">Create account</string>
+    <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="create">Create</string>
@@ -47,5 +48,6 @@
     <string name="check_inbox_message">Please check your inbox</string>
     <string name="logout_success_message">You are logged out</string>
     <string name="shop">Shop</string>
+    <string name="account_sign_in_message">Sign In to shop and view orders</string>
 
 </resources>
