@@ -31,7 +31,7 @@ class RecentActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = getString(R.string.latest_arrivals)
+        setTitle(getString(R.string.latest_arrivals))
         loadData()
     }
 
@@ -47,8 +47,6 @@ class RecentActivity :
     }
 
     override fun createPresenter() = recentPresenter
-
-    override fun getContentView() = R.layout.activity_pagination
 
     override fun isGrid() = true
 

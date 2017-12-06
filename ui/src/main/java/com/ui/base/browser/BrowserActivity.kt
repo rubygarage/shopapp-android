@@ -33,7 +33,7 @@ class BrowserActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         setContentView(R.layout.activity_browser)
 
         setSupportActionBar(toolbar)
-        title = intent.getStringExtra(TITLE)
+        toolbar.setTitle(intent.getStringExtra(TITLE))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         refreshLayout.setOnRefreshListener(this)

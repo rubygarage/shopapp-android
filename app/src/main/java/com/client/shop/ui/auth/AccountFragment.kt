@@ -1,6 +1,7 @@
 package com.client.shop.ui.auth
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
@@ -15,9 +16,22 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
 
     @Inject lateinit var authPresenter: AuthPresenter
 
+    //ANDROID
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val compatActivity = activity
+        if (compatActivity is AppCompatActivity) {
+            toolbar.setTitle(getString(R.string.account))
+            compatActivity.setSupportActionBar(toolbar)
+            compatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
     }
 
     //INIT

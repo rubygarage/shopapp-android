@@ -32,7 +32,7 @@ class BlogActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = getString(R.string.blog_posts)
+        setTitle(getString(R.string.blog_posts))
         loadData()
     }
 
