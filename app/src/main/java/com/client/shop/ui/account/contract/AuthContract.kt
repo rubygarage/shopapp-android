@@ -1,4 +1,4 @@
-package com.client.shop.ui.auth.contract
+package com.client.shop.ui.account.contract
 
 import com.domain.interactor.auth.AuthUseCase
 import com.domain.interactor.auth.SignOutUseCase

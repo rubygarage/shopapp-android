@@ -1,4 +1,4 @@
-package com.client.shop.ui.auth.contract
+package com.client.shop.ui.account.contract
 
 import com.client.shop.R
 import com.domain.interactor.auth.ForgotPasswordUseCase
@@ -29,11 +29,16 @@ class SignInPresenter @Inject constructor(
 
     fun logIn(email: String, password: String) {
 
+        var isError = false
         if (!validator.isEmailValid(email)) {
+            isError = true
             view?.showEmailError()
-        } else if (!validator.isPasswordValid(password)) {
+        }
+        if (!validator.isPasswordValid(password)) {
+            isError = true
             view?.showPasswordError()
-        } else {
+        }
+        if (!isError) {
             view?.onCheckPassed()
             signInUseCase.execute(
                     { view?.showContent(Unit) },

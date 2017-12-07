@@ -11,7 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.auth.AccountFragment
+import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
 import com.client.shop.ui.home.contract.HomePresenter
 import com.client.shop.ui.home.contract.HomeView

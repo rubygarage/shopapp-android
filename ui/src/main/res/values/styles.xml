@@ -28,4 +28,16 @@
         <item name="android:textSize">23sp</item>
     </style>
 
+    <style name="HintTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColorHint">@color/textColorSecondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextInputLayout" parent="@style/Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/textColorSecondary</item>
+        <item name="colorControlActivated">@color/textColorPrimary</item>
+        <item name="colorControlHighlight">@color/textColorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

@@ -8,6 +8,8 @@
     <dimen name="recycler_padding">3dp</dimen>
     <dimen name="text_size">13sp</dimen>
 
+    <dimen name="error_padding">4dp</dimen>
+
     <dimen name="recent_container_height">200dp</dimen>
     <dimen name="recent_title_height">30dp</dimen>
     <dimen name="recent_item_size">170dp</dimen>

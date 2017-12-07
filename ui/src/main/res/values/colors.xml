@@ -2,10 +2,12 @@
 <resources>
 
     <color name="colorPrimary">#FF000000</color>
+    <color name="colorPrimaryTransparent">#CC000000</color>
     <color name="colorPrimaryDark">#FF000000</color>
     <color name="colorAccent">#FF007AFF</color>
 
-    <color name="colorPrimaryTransparent">#CC000000</color>
+    <color name="colorError">#FFE44F4F</color>
+    <color name="colorErrorTransparent">#55E44F4F</color>
 
     <color name="colorBackgroundDark">#FFE6E6E6</color>
     <color name="colorBackgroundLight">#FFF5F5F5</color>

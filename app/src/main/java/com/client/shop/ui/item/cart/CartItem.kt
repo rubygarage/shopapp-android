@@ -69,7 +69,7 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
         }
     }
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         val quantity = s.toString().toIntOrNull() ?: 0
         if (quantity > 0 && quantity != cartProduct.quantity) {
             totalPrice.text = getTotalPrice(cartProduct.productVariant.price, quantity)

@@ -1,4 +1,4 @@
-package com.client.shop.ui.auth.contract
+package com.client.shop.ui.account.contract
 
 import com.client.shop.R
 import com.domain.interactor.auth.SignUpUseCase
