@@ -30,6 +30,7 @@ class HomeActivity :
     @Inject lateinit var homePresenter: HomePresenter
     private var drawerToggle: ActionBarDrawerToggle? = null
     private var categories: MutableList<Category> = mutableListOf()
+    private var shop: Shop? = null
 
     companion object {
 
@@ -103,7 +104,7 @@ class HomeActivity :
             fragment = when (position) {
                 HOME -> HomeFragment()
                 SEARCH -> SearchFragment()
-                else -> AccountFragment()
+                else -> AccountFragment.newInstance(shop)
             }
         }
         supportFragmentManager.beginTransaction()
@@ -128,7 +129,7 @@ class HomeActivity :
 
         bottomTabNavigation.visibility = View.VISIBLE
         bottomNavigationDivider.visibility = View.VISIBLE
-        val shop = data.first
+        shop = data.first
         categories.clear()
         categories.addAll(data.second)
         setupNavigation()

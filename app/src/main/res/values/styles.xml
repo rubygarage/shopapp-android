@@ -35,4 +35,18 @@
         <item name="android:textSize">@dimen/text_size</item>
     </style>
 
+    <style name="policy_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:drawableEnd">@drawable/ic_small_arrow_right</item>
+        <item name="android:paddingBottom">22dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingTop">22dp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
 </resources>
