@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.getUpperCaseString
 import com.client.shop.ui.account.contract.SignInPresenter
 import com.client.shop.ui.account.contract.SignInView
 import com.client.shop.ui.account.di.AuthModule
@@ -32,8 +33,8 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setTitle(getString(R.string.sign_in))
+        setupHints()
         setupInputListeners()
         setupButtonListeners()
     }
@@ -55,6 +56,11 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
     override fun createPresenter() = signInPresenter
 
     //SETUP
+
+    private fun setupHints() {
+        emailInputLayout.hint = getUpperCaseString(R.string.email)
+        passwordInputLayout.hint = getUpperCaseString(R.string.password)
+    }
 
     private fun setupInputListeners() {
         emailTextWatcher = object : SimpleTextWatcher {

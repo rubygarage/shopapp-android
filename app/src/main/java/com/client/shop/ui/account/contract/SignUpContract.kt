@@ -1,6 +1,5 @@
 package com.client.shop.ui.account.contract
 
-import com.client.shop.R
 import com.domain.interactor.auth.SignUpUseCase
 import com.domain.validator.FieldValidator
 import com.ui.base.contract.BaseLcePresenter
@@ -23,15 +22,18 @@ class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCa
 
     private val validator = FieldValidator()
 
-    fun signUp(firstName: String, lastName: String, email: String, password: String) {
+    fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String) {
 
-        if (firstName.isEmpty() || lastName.isEmpty()) {
-            view?.showMessage(R.string.empty_fields_error_message)
-        } else if (!validator.isEmailValid(email)) {
+        var isError = false
+        if (!validator.isEmailValid(email)) {
+            isError = true
             view?.showEmailError()
-        } else if (!validator.isPasswordValid(password)) {
+        }
+        if (!validator.isPasswordValid(password)) {
+            isError = true
             view?.showPasswordError()
-        } else {
+        }
+        if (!isError) {
             view?.onCheckPassed()
             signUpUseCase.execute(
                     { view?.showContent(Unit) },
@@ -39,7 +41,7 @@ class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCa
                         view?.onFailure()
                         resolveError(it)
                     },
-                    SignUpUseCase.Params(firstName, lastName, email, password)
+                    SignUpUseCase.Params(firstName, lastName, email, password, phone)
             )
         }
     }

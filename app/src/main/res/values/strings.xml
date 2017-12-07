@@ -32,12 +32,13 @@
     <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
     <string name="password">Password*</string>
-    <string name="create">Create</string>
+    <string name="create_password">Create Password*</string>
     <string name="empty_fields_error_message">Please fill required fields</string>
     <string name="invalid_email_error_message">Please enter correct email address</string>
     <string name="invalid_password_error_message">Please enter correct password</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="sign_out">Sign Out</string>
     <string name="register_success_message">You have been successfully registered and logged in</string>
     <string name="login_success_message">You have been successfully logged in</string>
@@ -49,5 +50,7 @@
     <string name="logout_success_message">You are logged out</string>
     <string name="shop">Shop</string>
     <string name="account_sign_in_message">Sign In to shop and view orders</string>
+    <string name="policy_text">By creating your account, you accept our</string>
+    <string name="and">and</string>
 
 </resources>

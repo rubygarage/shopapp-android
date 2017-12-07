@@ -334,12 +334,16 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    override fun signUp(firstName: String, lastName: String, email: String, password: String,
-                        callback: ApiCallback<Customer>) {
+    override fun signUp(firstName: String, lastName: String, email: String,
+                        password: String, phone: String, callback: ApiCallback<Customer>) {
 
         val customerCreateInput = Storefront.CustomerCreateInput(email, password)
                 .setFirstName(firstName)
                 .setLastName(lastName)
+
+        if (phone.isNotBlank()) {
+            customerCreateInput.phone = phone
+        }
 
         val customerQuery = Storefront.CustomerCreatePayloadQueryDefinition { queryDefinition ->
             queryDefinition.customer {

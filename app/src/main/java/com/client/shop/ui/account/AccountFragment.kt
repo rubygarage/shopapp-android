@@ -21,6 +21,7 @@ import javax.inject.Inject
 class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthView {
 
     @Inject lateinit var authPresenter: AuthPresenter
+    private var shop: Shop? = null
 
     companion object {
 
@@ -101,11 +102,13 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
         signInButton.setOnClickListener {
             startActivityForResult(SignInActivity.getStartIntent(context), RequestCode.SIGN_IN)
         }
+        createAccount.setOnClickListener {
+            startActivityForResult(SignUpActivity.getStartIntent(context, shop?.privacyPolicy, shop?.termsOfService), RequestCode.SIGN_UP)
+        }
     }
 
     private fun setupShop() {
-
-        val shop: Shop? = arguments.getParcelable(SHOP)
+        shop = arguments.getParcelable(SHOP)
         shop?.let {
             setupPolicy(privacyPolicy, it.privacyPolicy)
             setupPolicy(refundPolicy, it.refundPolicy)

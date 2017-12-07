@@ -1,7 +1,7 @@
 package com.shopify.api.call
 
-import com.domain.network.ApiCallback
 import com.domain.entity.Error
+import com.domain.network.ApiCallback
 import com.shopify.api.adapter.ErrorAdapter
 import com.shopify.buy3.GraphCall
 import com.shopify.buy3.GraphError
@@ -13,11 +13,12 @@ abstract class MutationCallWrapper<out T>(private val callback: ApiCallback<T>) 
     internal abstract fun adapt(data: Storefront.Mutation?): T?
 
     override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
+        val error = ErrorAdapter.adaptErrors(response.errors())
         val result = adapt(response.data())
-        if (result != null) {
-            callback.onResult(result)
-        } else {
-            callback.onFailure(Error.Content())
+        when {
+            error != null -> callback.onFailure(error)
+            result != null -> callback.onResult(result)
+            else -> callback.onFailure(Error.Content())
         }
     }
 

@@ -34,6 +34,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.account.SignUpActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".ui.gallery.GalleryActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 

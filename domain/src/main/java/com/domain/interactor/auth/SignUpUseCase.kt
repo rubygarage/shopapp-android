@@ -10,7 +10,7 @@ class SignUpUseCase @Inject constructor(private val authRepository: AuthReposito
 
     override fun buildUseCaseCompletable(params: Params): Completable {
         return with(params) {
-            authRepository.signUp(firstName, lastName, email, password)
+            authRepository.signUp(firstName, lastName, email, password, phone)
         }
     }
 
@@ -18,6 +18,7 @@ class SignUpUseCase @Inject constructor(private val authRepository: AuthReposito
             val firstName: String,
             val lastName: String,
             val email: String,
-            val password: String
+            val password: String,
+            val phone: String
     )
 }
