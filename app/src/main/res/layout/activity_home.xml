@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.ui.base.lce.view.LceLayout
-        android:id="@+id/lceLayout"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomTabNavigation"
@@ -18,16 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorBackgroundDark"
-        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/bottomTabNavigation" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/bottomTabNavigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tabIndicatorHeight="0dp">
 

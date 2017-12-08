@@ -2,35 +2,17 @@ package com.client.shop.ui.home
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBarDrawerToggle
-import android.view.MenuItem
-import android.view.View
+import android.support.v7.app.AppCompatActivity
 import com.client.shop.R
-import com.client.shop.ShopApplication
 import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
-import com.client.shop.ui.home.contract.HomePresenter
-import com.client.shop.ui.home.contract.HomeView
-import com.client.shop.ui.home.di.HomeModule
 import com.client.shop.ui.search.SearchFragment
-import com.domain.entity.Category
-import com.domain.entity.Shop
-import com.ui.base.lce.BaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
-import javax.inject.Inject
 
-class HomeActivity :
-        BaseActivity<Pair<Shop, List<Category>>, HomeView, HomePresenter>(),
-        HomeView {
-
-    @Inject lateinit var homePresenter: HomePresenter
-    private var drawerToggle: ActionBarDrawerToggle? = null
-    private var categories: MutableList<Category> = mutableListOf()
-    private var shop: Shop? = null
+class HomeActivity : AppCompatActivity() {
 
     companion object {
 
@@ -45,27 +27,9 @@ class HomeActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loadData()
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        drawerToggle?.syncState()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-        drawerToggle?.onConfigurationChanged(newConfig)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (drawerToggle?.onOptionsItemSelected(item) == true) {
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+        setContentView(R.layout.activity_home)
+        setupNavigation()
+        switchFragment(HOME)
     }
 
     override fun onBackPressed() {
@@ -75,18 +39,6 @@ class HomeActivity :
             finish()
         }
     }
-
-    //INIT
-
-    override fun inject() {
-        ShopApplication.appComponent.attachHomeComponent(HomeModule()).inject(this)
-    }
-
-    override fun getMainLayout() = R.layout.activity_home
-
-    override fun getContentView() = R.layout.activity_home_content
-
-    override fun createPresenter() = homePresenter
 
     //SETUP
 
@@ -104,7 +56,7 @@ class HomeActivity :
             fragment = when (position) {
                 HOME -> HomeFragment()
                 SEARCH -> SearchFragment()
-                else -> AccountFragment.newInstance(shop)
+                else -> AccountFragment()
             }
         }
         supportFragmentManager.beginTransaction()
@@ -115,24 +67,5 @@ class HomeActivity :
 
     private fun selectTab(position: Int) {
         bottomTabNavigation.getTabAt(position)?.select()
-    }
-
-    //LCE
-
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.requestData()
-    }
-
-    override fun showContent(data: Pair<Shop, List<Category>>) {
-        super.showContent(data)
-
-        bottomTabNavigation.visibility = View.VISIBLE
-        bottomNavigationDivider.visibility = View.VISIBLE
-        shop = data.first
-        categories.clear()
-        categories.addAll(data.second)
-        setupNavigation()
-        switchFragment(HOME)
     }
 }

@@ -1,40 +1,32 @@
 package com.client.shop.ui.account
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.RequestCode
-import com.client.shop.ui.account.contract.AuthPresenter
-import com.client.shop.ui.account.contract.AuthView
+import com.client.shop.ui.account.contract.AccountPresenter
+import com.client.shop.ui.account.contract.AccountView
 import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.policy.PolicyActivity
+import com.domain.entity.Customer
 import com.domain.entity.Policy
 import com.domain.entity.Shop
 import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_account.*
 import javax.inject.Inject
 
-class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthView {
+class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), AccountView {
 
-    @Inject lateinit var authPresenter: AuthPresenter
+    @Inject lateinit var accountPresenter: AccountPresenter
     private var shop: Shop? = null
-
-    companion object {
-
-        private const val SHOP = "shop"
-
-        fun newInstance(shop: Shop?): AccountFragment {
-            val fragment = AccountFragment()
-            val args = Bundle()
-            args.putParcelable(SHOP, shop)
-            fragment.arguments = args
-            return fragment
-        }
-    }
+    private var customer: Customer? = null
 
     //ANDROID
 
@@ -45,9 +37,15 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadData()
+
         setupButtons()
-        setupShop()
+        if (shop == null) {
+            presenter.getShopInfo()
+        } else {
+            setupShop()
+        }
+        customer?.let { customerReceived(it) }
+        loadData()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,10 +58,15 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_account, menu)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RequestCode.SIGN_IN && resultCode == Activity.RESULT_OK) {
-            //TODO UPDATE VIEW
+        if ((requestCode == RequestCode.SIGN_IN || requestCode == RequestCode.SIGN_UP) && resultCode == Activity.RESULT_OK) {
+            loadData(false)
         }
     }
 
@@ -75,26 +78,7 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
 
     override fun getContentView() = R.layout.fragment_account
 
-    override fun createPresenter() = authPresenter
-
-    //LCE
-
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.isAuthorized()
-    }
-
-    override fun showContent(data: Boolean) {
-        super.showContent(data)
-        if (data) {
-        } else {
-        }
-    }
-
-    override fun signedOut() {
-        showMessage(R.string.logout_success_message)
-        loadData()
-    }
+    override fun createPresenter() = accountPresenter
 
     //SETUP
 
@@ -107,15 +91,6 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
         }
     }
 
-    private fun setupShop() {
-        shop = arguments.getParcelable(SHOP)
-        shop?.let {
-            setupPolicy(privacyPolicy, it.privacyPolicy)
-            setupPolicy(refundPolicy, it.refundPolicy)
-            setupPolicy(termsOfService, it.termsOfService)
-        }
-    }
-
     private fun setupPolicy(view: View, policy: Policy?) {
         if (policy != null) {
             view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(context, policy)) }
@@ -123,5 +98,56 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
         } else {
             view.visibility = View.GONE
         }
+    }
+
+    private fun setupShop() {
+        shop?.let {
+            setupPolicy(privacyPolicy, it.privacyPolicy)
+            setupPolicy(refundPolicy, it.refundPolicy)
+            setupPolicy(termsOfService, it.termsOfService)
+        }
+    }
+
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        presenter.isAuthorized()
+    }
+
+    override fun showContent(data: Boolean) {
+        super.showContent(data)
+        if (data) {
+            presenter.getCustomer()
+        } else {
+            unauthGroup.visibility = View.VISIBLE
+            authGroup.visibility = View.GONE
+        }
+    }
+
+    override fun shopReceived(shop: Shop) {
+        this.shop = shop
+        setupShop()
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun customerReceived(customer: Customer) {
+        this.customer = customer
+        authGroup.visibility = View.VISIBLE
+        unauthGroup.visibility = View.GONE
+
+        if (customer.firstName.isNotBlank() || customer.lastName.isNotBlank()) {
+            val fullName = "${customer.firstName} ${customer.lastName}".trim()
+            name.text = fullName
+            avatarView.setName(fullName)
+        } else {
+            name.text = customer.email
+            avatarView.setName(customer.email)
+        }
+    }
+
+    override fun signedOut() {
+        showMessage(R.string.logout_success_message)
+        loadData()
     }
 }

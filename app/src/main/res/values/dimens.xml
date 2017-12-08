@@ -7,6 +7,7 @@
     <dimen name="content_space">16dp</dimen>
     <dimen name="recycler_padding">3dp</dimen>
     <dimen name="text_size">13sp</dimen>
+    <dimen name="avatar_text_size">24sp</dimen>
 
     <dimen name="error_padding">4dp</dimen>
 

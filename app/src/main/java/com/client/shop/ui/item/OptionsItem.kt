@@ -33,7 +33,7 @@ class OptionsItem @JvmOverloads constructor(context: Context,
 
     fun setProductOption(productOption: ProductOption) {
 
-        title.text = productOption.name
+        titleText.text = productOption.name
         val values = productOption.values
         for (index in values.indices) {
             val optionTextView = TextView(context)
@@ -52,7 +52,7 @@ class OptionsItem @JvmOverloads constructor(context: Context,
 
     private fun setDefaultVariant(optionTextView: TextView) {
         optionTextView.setBackgroundResource(selectedRes)
-        selectedVariantOptions = VariantOption(title.text.toString(), optionTextView.text.toString())
+        selectedVariantOptions = VariantOption(titleText.text.toString(), optionTextView.text.toString())
     }
 
     override fun onClick(view: View) {
@@ -62,7 +62,7 @@ class OptionsItem @JvmOverloads constructor(context: Context,
                 .forEach {
                     if (it === view && view is TextView) {
                         it.setBackgroundResource(selectedRes)
-                        selectedVariantOptions = VariantOption(title.text.toString(), view.text.toString())
+                        selectedVariantOptions = VariantOption(titleText.text.toString(), view.text.toString())
                         onSelectOptionListener?.onOptionsSelected()
                     } else {
                         it.setBackgroundResource(unselectedRes)

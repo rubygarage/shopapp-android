@@ -1,6 +1,6 @@
 package com.client.shop.ui.account.contract
 
-import com.domain.interactor.auth.SignUpUseCase
+import com.domain.interactor.account.SignUpUseCase
 import com.domain.validator.FieldValidator
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView

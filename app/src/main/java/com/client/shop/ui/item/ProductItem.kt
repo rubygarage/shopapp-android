@@ -20,7 +20,7 @@ class ProductItem(context: Context, private val formatter: NumberFormatter) : Ca
     }
 
     fun setProduct(product: Product) {
-        title.text = product.title
+        titleText.text = product.title
         productDescription.text = product.productDescription
         price.text = formatter.formatPrice(product.price, product.currency)
         if (product.images.isNotEmpty()) {

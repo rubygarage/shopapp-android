@@ -60,7 +60,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val email = preferences.getString(EMAIL, null)
         val accessToken = preferences.getString(ACCESS_TOKEN, null)
         val expiresDate = preferences.getLong(EXPIRES_DATE, 0)
-        return if (email != null && accessToken != null) {
+        val isExpired = expiresDate <= System.currentTimeMillis()
+        return if (email != null && accessToken != null && !isExpired) {
             AccessData(
                     email,
                     accessToken,
@@ -451,6 +452,26 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     override fun getCustomer(callback: ApiCallback<Customer>) {
 
+        val accessData = getSession()
+
+        if (accessData != null) {
+            val query = Storefront.query {
+                it.customer(accessData.accessToken) {
+                    it
+                            .id()
+                            .firstName()
+                            .lastName()
+                            .email()
+                }
+            }
+            graphClient.queryGraph(query).enqueue(object : QueryCallWrapper<Customer>(callback) {
+                override fun adapt(data: Storefront.QueryRoot): Customer {
+                    return CustomerAdapter.adapt(data.customer)
+                }
+            })
+        } else {
+            callback.onFailure(Error.NonCritical("Unauthorized"))
+        }
     }
 
     private fun requestToken(email: String, password: String): Pair<AccessData?, Error?>? {

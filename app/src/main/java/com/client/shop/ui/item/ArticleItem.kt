@@ -16,7 +16,7 @@ class ArticleItem(context: Context) : ConstraintLayout(context) {
     }
 
     fun setArticle(article: Article) {
-        title.text = article.title
+        titleTextView.text = article.title
         content.text = article.content
         author.text = article.author.fullName
         val src = article.image?.src

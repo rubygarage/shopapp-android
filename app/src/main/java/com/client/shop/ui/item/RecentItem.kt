@@ -19,7 +19,7 @@ class RecentItem(context: Context, private val formatter: NumberFormatter) : Con
     }
 
     fun setProduct(product: Product) {
-        title.text = product.title
+        titleTextView.text = product.title
         price.text = formatter.formatPrice(product.price, product.currency)
         if (product.images.isNotEmpty()) {
             image.setImageURI(product.images[0].src)
