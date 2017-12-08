@@ -1,13 +1,16 @@
-package com.client.shop.ui.auth
+package com.client.shop.ui.account
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.auth.contract.AuthPresenter
-import com.client.shop.ui.auth.contract.AuthView
-import com.client.shop.ui.auth.di.AuthModule
+import com.client.shop.const.RequestCode
+import com.client.shop.ui.account.contract.AuthPresenter
+import com.client.shop.ui.account.contract.AuthView
+import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Policy
 import com.domain.entity.Shop
@@ -42,7 +45,7 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData()
-        setHasOptionsMenu(true)
+        setupButtons()
         setupShop()
     }
 
@@ -53,6 +56,13 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
             toolbar.setTitle(getString(R.string.my_account))
             compatActivity.setSupportActionBar(toolbar)
             compatActivity.supportActionBar?.setDisplayShowTitleEnabled(false)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RequestCode.SIGN_IN && resultCode == Activity.RESULT_OK) {
+            //TODO UPDATE VIEW
         }
     }
 
@@ -86,6 +96,12 @@ class AccountFragment : BaseFragment<Boolean, AuthView, AuthPresenter>(), AuthVi
     }
 
     //SETUP
+
+    private fun setupButtons() {
+        signInButton.setOnClickListener {
+            startActivityForResult(SignInActivity.getStartIntent(context), RequestCode.SIGN_IN)
+        }
+    }
 
     private fun setupShop() {
 

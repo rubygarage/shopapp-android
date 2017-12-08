@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.client.shop.R
 import com.domain.entity.Policy
 import kotlinx.android.synthetic.main.activity_policy.*
@@ -39,5 +40,14 @@ class PolicyActivity : AppCompatActivity() {
         policy = intent.getParcelableExtra(EXTRA_POLICY)
         toolbar.setTitle(policy.title)
         body.text = policy.body
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.let {
+            if (item.itemId == android.R.id.home) {
+                onBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

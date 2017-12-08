@@ -31,11 +31,11 @@
     <string name="empty_cart_button">See last arrivals</string>
     <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
-    <string name="password">Password</string>
+    <string name="password">Password*</string>
     <string name="create">Create</string>
     <string name="empty_fields_error_message">Please fill required fields</string>
-    <string name="invalid_email_error_message">Email is not valid</string>
-    <string name="invalid_password_error_message">Your password needs to be at least 6 characters long</string>
+    <string name="invalid_email_error_message">Please enter correct email address</string>
+    <string name="invalid_password_error_message">Please enter correct password</string>
     <string name="register">Register</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>

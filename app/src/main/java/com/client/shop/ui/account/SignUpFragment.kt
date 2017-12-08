@@ -1,12 +1,12 @@
-package com.client.shop.ui.auth
+package com.client.shop.ui.account
 
 import android.os.Bundle
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.auth.contract.SignUpPresenter
-import com.client.shop.ui.auth.contract.SignUpView
-import com.client.shop.ui.auth.di.AuthModule
+import com.client.shop.ui.account.contract.SignUpPresenter
+import com.client.shop.ui.account.contract.SignUpView
+import com.client.shop.ui.account.di.AuthModule
 import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import javax.inject.Inject
