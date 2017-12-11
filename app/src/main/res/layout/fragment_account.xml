@@ -30,19 +30,16 @@
 
     <Button
         android:id="@+id/signInButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/selector_button"
         android:text="@string/sign_in"
-        android:textColor="@drawable/selector_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/signInLabel"
+        style="@style/primary_button" />
 
     <TextView
         android:id="@+id/createAccount"

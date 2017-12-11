@@ -56,15 +56,12 @@
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/primary_button"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="18dp"
-        android:background="@drawable/selector_button"
         android:enabled="false"
         android:text="@string/sign_in"
-        android:textColor="@drawable/selector_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forgotPassword" />
