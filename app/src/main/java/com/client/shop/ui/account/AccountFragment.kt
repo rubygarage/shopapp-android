@@ -1,6 +1,5 @@
 package com.client.shop.ui.account
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -130,14 +129,13 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         setupShop()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun customerReceived(customer: Customer) {
         this.customer = customer
         authGroup.visibility = View.VISIBLE
         unauthGroup.visibility = View.GONE
 
         if (customer.firstName.isNotBlank() || customer.lastName.isNotBlank()) {
-            val fullName = "${customer.firstName} ${customer.lastName}".trim()
+            val fullName = getString(R.string.full_name_pattern, customer.firstName, customer.lastName).trim()
             name.text = fullName
             avatarView.setName(fullName)
         } else {
