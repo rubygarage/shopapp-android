@@ -45,7 +45,7 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setTitle(R.string.checkout)
+        setTitle(getString(R.string.checkout))
 
         checkout = intent.getParcelableExtra(CHECKOUT)
         address = intent.getParcelableExtra(ADDRESS)

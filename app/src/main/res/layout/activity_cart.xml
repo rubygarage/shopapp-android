@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <com.client.shop.ui.item.cart.CartTotalPriceView
+        android:id="@+id/totalPriceView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/cart_total_price_view_height" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
-        android:layoutAnimation="@anim/layout_animation_slide_from_bottom"
-        android:paddingLeft="@dimen/recycler_padding"
-        android:paddingRight="@dimen/recycler_padding" />
+        android:layoutAnimation="@anim/layout_animation_slide_from_bottom" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/checkoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_button"
+        android:text="@string/checkout"
+        android:textColor="@drawable/selector_button_text" />
+
+</LinearLayout>

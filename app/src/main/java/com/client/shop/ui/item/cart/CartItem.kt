@@ -1,8 +1,10 @@
 package com.client.shop.ui.item.cart
 
+import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v7.widget.CardView
+import android.graphics.Color
+import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -15,7 +17,7 @@ import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_cart.view.*
 
 @SuppressLint("ViewConstructor")
-class CartItem constructor(context: Context, private val formatter: NumberFormatter) : CardView(context),
+class CartItem constructor(context: Context, private val formatter: NumberFormatter) : ConstraintLayout(context),
         SimpleTextWatcher,
         View.OnFocusChangeListener {
 
@@ -24,10 +26,9 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
 
     init {
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        useCompatPadding = true
-        preventCornerOverlap = true
         View.inflate(context, R.layout.item_cart, this)
-        removeButton.setOnClickListener { actionListener?.onRemoveButtonClicked(cartProduct.productVariant.id) }
+        setBackgroundColor(Color.WHITE)
+        layoutTransition = LayoutTransition()
     }
 
     override fun onAttachedToWindow() {

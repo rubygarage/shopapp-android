@@ -24,5 +24,7 @@
     <dimen name="variant_margin">8dp</dimen>
 
     <dimen name="search_swipe_refresh_progress_end_target">100dp</dimen>
+    <dimen name="cart_item_divider">4dp</dimen>
+    <dimen name="cart_total_price_view_height">50dp</dimen>
 
 </resources>

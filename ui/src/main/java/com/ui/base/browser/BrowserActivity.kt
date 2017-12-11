@@ -34,7 +34,11 @@ class BrowserActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
 
         setSupportActionBar(toolbar)
         toolbar.setTitle(intent.getStringExtra(TITLE))
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        }
 
         refreshLayout.setOnRefreshListener(this)
         refreshLayout.setColorSchemeResources(R.color.colorAccent)

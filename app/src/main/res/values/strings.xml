@@ -14,7 +14,7 @@
     <string name="my_account">My Account</string>
     <string name="search">Search</string>
     <string name="price_label">Price:</string>
-    <string name="quantity_label">Quantity:</string>
+    <string name="quantity_label">QTY:</string>
     <string name="variant_label">Variant:</string>
     <string name="add_to_cart">Add to cart</string>
     <string name="added_to_cart">Added to cart</string>
