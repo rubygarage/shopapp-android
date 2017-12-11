@@ -1,9 +1,9 @@
 package com.client.shop.ui.account.di
 
-import com.client.shop.ui.account.contract.AuthPresenter
+import com.client.shop.ui.account.contract.AccountPresenter
 import com.client.shop.ui.account.contract.SignInPresenter
 import com.client.shop.ui.account.contract.SignUpPresenter
-import com.domain.interactor.auth.*
+import com.domain.interactor.account.*
 import dagger.Module
 import dagger.Provides
 
@@ -21,7 +21,8 @@ class AuthModule {
     }
 
     @Provides
-    fun provideAuthPresenter(authUseCase: AuthUseCase, signOutUseCase: SignOutUseCase): AuthPresenter {
-        return AuthPresenter(authUseCase, signOutUseCase)
+    fun provideAuthPresenter(sessionCheckUseCase: SessionCheckUseCase, signOutUseCase: SignOutUseCase,
+                             shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
+        return AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
     }
 }

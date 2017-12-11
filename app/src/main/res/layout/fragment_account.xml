@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:layout_editor_absoluteY="25dp">
+    android:animateLayoutChanges="true">
 
     <com.ui.base.view.BaseToolbar
         android:id="@+id/toolbar"
@@ -61,19 +60,82 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
+    <android.support.constraint.Group
+        android:id="@+id/unauthGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="createAccount,signInButton,signInLabel" />
+
+    <com.client.shop.ui.custom.AvatarView
+        android:id="@+id/avatarView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:textSize="@dimen/avatar_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/welcomeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        android:text="@string/welcome"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/avatarView"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="17sp"
+        app:layout_constraintStart_toEndOf="@+id/avatarView"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeLabel" />
+
+    <TextView
+        android:id="@+id/myOrders"
+        style="@style/policy_style"
+        android:layout_marginTop="20dp"
+        android:text="@string/my_orders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatarView" />
+
+    <android.support.constraint.Group
+        android:id="@+id/authGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="welcomeLabel,name,myOrders,avatarView" />
+
     <TextView
         android:id="@+id/privacyPolicy"
         style="@style/policy_style"
+        android:layout_marginTop="20dp"
         android:text="@string/privacy_policy"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createAccount" />
+        app:layout_constraintTop_toTopOf="@+id/barrier" />
 
     <TextView
         android:id="@+id/refundPolicy"
         style="@style/policy_style"
         android:layout_marginTop="4dp"
         android:text="@string/refund_policy"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacyPolicy" />
@@ -83,8 +145,16 @@
         style="@style/policy_style"
         android:layout_marginTop="4dp"
         android:text="@string/terms_of_service"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/refundPolicy" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="createAccount,myOrders" />
 
 </android.support.constraint.ConstraintLayout>

@@ -22,6 +22,6 @@ class CategoryItem(context: Context) : LinearLayoutCompat(context) {
 
     fun setCategory(category: Category) {
         image.setImageURI(category.image?.src)
-        title.text = category.title
+        titleText.text = category.title
     }
 }

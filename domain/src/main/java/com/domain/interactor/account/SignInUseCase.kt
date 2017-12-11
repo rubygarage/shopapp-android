@@ -1,4 +1,4 @@
-package com.domain.interactor.auth
+package com.domain.interactor.account
 
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.repository.AuthRepository

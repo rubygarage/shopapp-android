@@ -1,8 +1,8 @@
 package com.client.shop.ui.account.contract
 
 import com.client.shop.R
-import com.domain.interactor.auth.ForgotPasswordUseCase
-import com.domain.interactor.auth.SignInUseCase
+import com.domain.interactor.account.ForgotPasswordUseCase
+import com.domain.interactor.account.SignInUseCase
 import com.domain.validator.FieldValidator
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView

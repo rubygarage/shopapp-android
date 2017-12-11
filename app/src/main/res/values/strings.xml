@@ -21,6 +21,7 @@
     <string name="quantity_warning_message">Please select a quantity</string>
     <string name="default_product_quantity">1</string>
     <string name="share">Share</string>
+    <string name="settings">Settings</string>
     <string name="sort">Sort</string>
     <string name="sort_title">Sort by</string>
     <string name="remove_button">Remove</string>
@@ -52,5 +53,8 @@
     <string name="account_sign_in_message">Sign In to shop and view orders</string>
     <string name="policy_text">By creating your account, you accept our</string>
     <string name="and">and</string>
+    <string name="welcome">Welcome</string>
+    <string name="my_orders">My Orders</string>
+    <string name="full_name_pattern">%1$s %2$s</string>
 
 </resources>
