@@ -56,8 +56,16 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onResume() {
+        super.onResume()
+        if (this::emailTextWatcher.isInitialized && this::passwordTextWatcher.isInitialized) {
+            emailInput.addTextChangedListener(emailTextWatcher)
+            passwordInput.addTextChangedListener(passwordTextWatcher)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
         emailInput.removeTextChangedListener(emailTextWatcher)
         passwordInput.removeTextChangedListener(passwordTextWatcher)
     }
@@ -131,8 +139,6 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
                 checkInputFields(passwordInputLayout)
             }
         }
-        emailInput.addTextChangedListener(emailTextWatcher)
-        passwordInput.addTextChangedListener(passwordTextWatcher)
     }
 
     private fun checkInputFields(inputLayout: TextInputLayout) {
