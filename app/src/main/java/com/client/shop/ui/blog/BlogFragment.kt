@@ -29,6 +29,8 @@ class BlogFragment :
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        seeAll.setOnClickListener { startActivity(BlogActivity.getStartIntent(context)) }
+        changeSeeAllState()
         setupRecycler()
         loadData()
     }
@@ -50,6 +52,14 @@ class BlogFragment :
         recyclerView.addItemDecoration(divider)
     }
 
+    private fun changeSeeAllState() {
+        if (articleList.size == DEFAULT_PER_PAGE_COUNT) {
+            seeAll.visibility = View.VISIBLE
+        } else {
+            seeAll.visibility = View.GONE
+        }
+    }
+
     //INITIAL
 
     override fun createPresenter() = blogPresenter
@@ -68,12 +78,7 @@ class BlogFragment :
         this.articleList.clear()
         this.articleList.addAll(data)
         adapter.notifyDataSetChanged()
-        if (articleList.size == DEFAULT_PER_PAGE_COUNT) {
-            seeAll.visibility = View.VISIBLE
-            seeAll.setOnClickListener { startActivity(BlogActivity.getStartIntent(context)) }
-        } else {
-            seeAll.visibility = View.GONE
-        }
+        changeSeeAllState()
     }
 
     //CALLBACK

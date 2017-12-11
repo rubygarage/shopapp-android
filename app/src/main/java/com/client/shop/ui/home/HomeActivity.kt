@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.client.shop.R
+import com.client.shop.ext.replaceByTag
 import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
 import com.client.shop.ui.search.SearchFragment
@@ -51,18 +51,13 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun switchFragment(position: Int) {
-        var fragment: Fragment? = supportFragmentManager.findFragmentByTag(position.toString())
-        if (fragment == null) {
-            fragment = when (position) {
+        supportFragmentManager.replaceByTag(R.id.content, position.toString(), {
+            when (position) {
                 HOME -> HomeFragment()
                 SEARCH -> SearchFragment()
                 else -> AccountFragment()
             }
-        }
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.content, fragment, position.toString())
-                .addToBackStack(null)
-                .commit()
+        }).commit()
     }
 
     private fun selectTab(position: Int) {
