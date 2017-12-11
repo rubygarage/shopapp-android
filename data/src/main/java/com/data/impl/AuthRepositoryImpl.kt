@@ -1,18 +1,18 @@
 package com.data.impl
 
-import com.domain.network.ApiCallback
 import com.data.rx.RxCallback
 import com.domain.entity.Customer
 import com.domain.entity.Error
 import com.domain.network.Api
+import com.domain.network.ApiCallback
 import com.domain.repository.AuthRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class AuthRepositoryImpl(private val api: Api) : AuthRepository {
 
-    override fun signUp(firstName: String, lastName: String, email: String, password: String): Completable {
-        return Single.create<Customer> { api.signUp(firstName, lastName, email, password, RxCallback<Customer>(it)) }
+    override fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String): Completable {
+        return Single.create<Customer> { api.signUp(firstName, lastName, email, password, phone, RxCallback<Customer>(it)) }
                 .toCompletable()
     }
 

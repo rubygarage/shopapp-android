@@ -61,8 +61,8 @@ class AndroidPaymentActivity :
         presenter.handleMaskedWalletResponse(requestCode, resultCode, data)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         if (googleApiClient.isConnected) {
             googleApiClient.disconnect()
         }

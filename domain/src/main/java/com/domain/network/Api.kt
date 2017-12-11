@@ -23,7 +23,7 @@ interface Api {
     fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType? = null,
                        reverse: Boolean = false, callback: ApiCallback<List<Article>>)
 
-    fun signUp(firstName: String, lastName: String, email: String, password: String, callback: ApiCallback<Customer>)
+    fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String, callback: ApiCallback<Customer>)
 
     fun signIn(email: String, password: String, callback: ApiCallback<Customer>)
 
