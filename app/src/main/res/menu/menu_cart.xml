@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/cart"
-        android:title="@string/cart"
+        android:title="@string/my_cart"
         app:actionViewClass="com.client.shop.ui.cart.CartWidget"
         app:showAsAction="always" />
 

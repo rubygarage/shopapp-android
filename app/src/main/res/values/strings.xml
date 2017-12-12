@@ -26,10 +26,10 @@
     <string name="sort_title">Sort by</string>
     <string name="remove_button">Remove</string>
     <string name="each_price_pattern">%s each</string>
-    <string name="cart">Cart</string>
+    <string name="my_cart">My Cart</string>
     <string name="proceed_to_checkout">Proceed to checkout</string>
-    <string name="empty_cart_message">Your shopping cart is empty</string>
-    <string name="empty_cart_button">See last arrivals</string>
+    <string name="empty_cart_message">Your cart is empty :(</string>
+    <string name="empty_cart_button">Start Shopping</string>
     <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
     <string name="password">Password*</string>

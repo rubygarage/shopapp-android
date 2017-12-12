@@ -45,7 +45,7 @@ class CartActivity :
         setupEmptyView()
 
         loadData()
-        title = getString(R.string.cart)
+        setTitle(getString(R.string.my_cart))
     }
 
     //INIT
@@ -70,7 +70,7 @@ class CartActivity :
 
     private fun setupEmptyView() {
         val emptyView = findViewById<LceEmptyView>(R.id.emptyView)
-        emptyView.customiseEmptyImage(R.drawable.ic_empty_shopping_cart)
+        emptyView.customiseEmptyImage(R.drawable.ic_cart_empty)
         emptyView.customiseEmptyMessage(R.string.empty_cart_message)
         emptyView.customiseEmptyButtonText(R.string.empty_cart_button)
         emptyView.customiseEmptyButtonVisibility(true)

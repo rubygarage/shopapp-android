@@ -117,15 +117,12 @@
 
     <Button
         android:id="@+id/createButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/primary_button"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="52dp"
-        android:background="@drawable/selector_button"
         android:enabled="false"
         android:text="@string/create_new_account"
-        android:textColor="@drawable/selector_button_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
