@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
+import com.client.shop.ext.replaceOnce
 import com.domain.entity.Product
 import kotlinx.android.synthetic.main.activity_gallery.*
 
@@ -38,20 +39,14 @@ class GalleryActivity : AppCompatActivity() {
             it.setDisplayShowTitleEnabled(false)
         }
 
-        val restoredFragment = supportFragmentManager.findFragmentByTag(GalleryFragment::javaClass.name)
-        val fragment: GalleryFragment = if (restoredFragment is GalleryFragment) {
-            restoredFragment
-        } else {
-            val newFragmentInstance = GalleryFragment.newInstance(product = product, selectedPosition = selectedPosition)
-            newFragmentInstance.imageClickListener = View.OnClickListener {
+        supportFragmentManager.replaceOnce(R.id.galleryContainer, GalleryFragment::javaClass.name, {
+            val fragment = GalleryFragment.newInstance(product = product, selectedPosition = selectedPosition)
+            fragment.imageClickListener = View.OnClickListener {
                 toolbar.visibility =
                         if (toolbar.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
-            newFragmentInstance
-        }
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.galleryContainer, fragment, fragment::javaClass.name)
-                .commit()
+            fragment
+        }, false).commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

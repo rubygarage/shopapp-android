@@ -32,6 +32,8 @@ class RecentFragment :
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        seeAll.setOnClickListener { startActivity(RecentActivity.getStartIntent(context)) }
+        changeSeeAllState()
         setupRecycler()
         loadData()
     }
@@ -49,7 +51,6 @@ class RecentFragment :
     //SETUP
 
     private fun setupRecycler() {
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = RecentAdapter(productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
@@ -58,6 +59,14 @@ class RecentFragment :
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.addItemDecoration(decoration)
+    }
+
+    private fun changeSeeAllState() {
+        if (productList.size == DEFAULT_PER_PAGE_COUNT) {
+            seeAll.visibility = View.VISIBLE
+        } else {
+            seeAll.visibility = View.GONE
+        }
     }
 
     //LCE
@@ -72,13 +81,7 @@ class RecentFragment :
         productList.clear()
         productList.addAll(data)
         adapter.notifyDataSetChanged()
-
-        if (productList.size == DEFAULT_PER_PAGE_COUNT) {
-            seeAll.visibility = View.VISIBLE
-            seeAll.setOnClickListener { startActivity(RecentActivity.getStartIntent(context)) }
-        } else {
-            seeAll.visibility = View.GONE
-        }
+        changeSeeAllState()
     }
 
     //CALLBACK

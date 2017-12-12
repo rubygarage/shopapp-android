@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
+import com.client.shop.ext.replaceOnce
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.recent.RecentFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -23,8 +24,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        childFragmentManager.beginTransaction().replace(R.id.recentContainer, RecentFragment()).commit()
-        childFragmentManager.beginTransaction().replace(R.id.blogContainer, BlogFragment()).commit()
+        childFragmentManager.replaceOnce(R.id.recentContainer, RecentFragment::javaClass.name, { RecentFragment() }).commit()
+        childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name, { BlogFragment() }).commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
