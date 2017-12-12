@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.client.shop.ext.replaceByTag
+import com.client.shop.ext.replaceOnce
 import com.domain.entity.Product
 import kotlinx.android.synthetic.main.activity_gallery.*
 
@@ -39,7 +39,7 @@ class GalleryActivity : AppCompatActivity() {
             it.setDisplayShowTitleEnabled(false)
         }
 
-        supportFragmentManager.replaceByTag(R.id.galleryContainer, GalleryFragment::javaClass.name, {
+        supportFragmentManager.replaceOnce(R.id.galleryContainer, GalleryFragment::javaClass.name, {
             val fragment = GalleryFragment.newInstance(product = product, selectedPosition = selectedPosition)
             fragment.imageClickListener = View.OnClickListener {
                 toolbar.visibility =
