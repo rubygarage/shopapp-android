@@ -1,37 +1,50 @@
-package com.client.shop.ui.recent
+package com.client.shop.ui.product
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.details.DetailsActivity
-import com.client.shop.ui.recent.adapter.RecentAdapter
-import com.client.shop.ui.recent.contract.RecentPresenter
-import com.client.shop.ui.recent.contract.RecentView
-import com.client.shop.ui.recent.di.RecentModule
+import com.client.shop.ui.product.adapter.ProductAdapter
+import com.client.shop.ui.product.contract.ProductListPresenter
+import com.client.shop.ui.product.contract.ProductListView
+import com.client.shop.ui.product.di.ProductModule
 import com.domain.entity.Product
+import com.domain.entity.SortType
 import kotlinx.android.synthetic.main.activity_pagination.*
 import javax.inject.Inject
 
-class RecentActivity :
-        PaginationActivity<Product, RecentView, RecentPresenter>(),
-        RecentView {
+class ProductListActivity :
+        PaginationActivity<Product, ProductListView, ProductListPresenter>(),
+        ProductListView {
 
-    @Inject lateinit var recentPresenter: RecentPresenter
+    @Inject lateinit var productListPresenter: ProductListPresenter
+    private lateinit var sortType: SortType
 
     companion object {
-        fun getStartIntent(context: Context) = Intent(context, RecentActivity::class.java)
+
+        private const val TITLE = "title"
+        private const val SORT_TYPE = "SORT_TYPE"
+
+        fun getStartIntent(context: Context, title: String, sortType: SortType = SortType.NAME): Intent {
+            val intent = Intent(context, ProductListActivity::class.java)
+            intent.putExtra(TITLE, title)
+            intent.putExtra(SORT_TYPE, sortType)
+            return intent
+        }
     }
 
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle(getString(R.string.latest_arrivals))
+        sortType = intent.getSerializableExtra(SORT_TYPE) as SortType
+        setTitle(intent.getStringExtra(TITLE))
         loadData()
     }
 
@@ -43,16 +56,19 @@ class RecentActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachRecentComponent(RecentModule()).inject(this)
+        ShopApplication.appComponent.attachProductComponent(ProductModule()).inject(this)
     }
 
-    override fun createPresenter() = recentPresenter
+    override fun createPresenter() = productListPresenter
 
     override fun isGrid() = true
 
     //SETUP
 
-    override fun setupAdapter() = RecentAdapter(dataList, this)
+    override fun setupAdapter(): ProductAdapter {
+        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        return ProductAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
+    }
 
     override fun setupRecyclerView() {
         super.setupRecyclerView()
@@ -63,7 +79,7 @@ class RecentActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(DEFAULT_PER_PAGE_COUNT, paginationValue)
+        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, paginationValue)
     }
 
     override fun showContent(data: List<Product>) {

@@ -13,7 +13,7 @@
 
     <dimen name="recent_container_height">200dp</dimen>
     <dimen name="recent_title_height">30dp</dimen>
-    <dimen name="recent_item_size">170dp</dimen>
+    <dimen name="product_item_size">170dp</dimen>
     <dimen name="recent_item_image_height">100dp</dimen>
 
     <dimen name="blog_title_height">30dp</dimen>

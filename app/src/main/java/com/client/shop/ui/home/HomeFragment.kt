@@ -7,6 +7,7 @@ import android.view.*
 import com.client.shop.R
 import com.client.shop.ext.replaceOnce
 import com.client.shop.ui.blog.BlogFragment
+import com.client.shop.ui.popular.PopularFragment
 import com.client.shop.ui.recent.RecentFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -25,6 +26,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         childFragmentManager.replaceOnce(R.id.recentContainer, RecentFragment::javaClass.name, { RecentFragment() }).commit()
+        childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name, {   PopularFragment() }).commit()
         childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name, { BlogFragment() }).commit()
     }
 

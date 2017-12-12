@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.rx.RxQueryTextListener
 import com.client.shop.ui.base.ui.pagination.PaginationFragment
-import com.client.shop.ui.base.ui.recycler.adapter.ProductAdapter
 import com.client.shop.ui.details.DetailsActivity
+import com.client.shop.ui.product.adapter.ProductAdapter
 import com.client.shop.ui.search.contract.SearchPresenter
 import com.client.shop.ui.search.contract.SearchView
 import com.client.shop.ui.search.di.SearchModule
@@ -85,7 +86,10 @@ class SearchFragment :
 
     //SETUP
 
-    override fun setupAdapter() = ProductAdapter(dataList, this)
+    override fun setupAdapter(): ProductAdapter {
+        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        return ProductAdapter(MATCH_PARENT, size, dataList, this)
+    }
 
     private fun setupSearch() {
         searchView.setIconifiedByDefault(false)

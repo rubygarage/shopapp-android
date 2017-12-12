@@ -80,8 +80,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 .apply()
     }
 
-    override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?, reverse: Boolean,
+    override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
                                 callback: ApiCallback<List<Product>>) {
+        val reverse = sortBy == SortType.RECENT
         queryProducts(perPage, paginationValue, null, reverse, sortBy, callback)
     }
 
