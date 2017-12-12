@@ -1,22 +1,24 @@
 package com.client.shop.ui.item.cart
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
+import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import com.client.shop.R
 import com.domain.entity.CartProduct
 import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
 
-@SuppressLint("ViewConstructor")
-class FooterCartItem(context: Context, private val formatter: NumberFormatter) : ConstraintLayout(context) {
+class CartTotalPriceView @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private val formatter: NumberFormatter
 
     init {
-        layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         View.inflate(context, R.layout.item_footer_cart, this)
+        formatter = NumberFormatter()
+        setBackgroundResource(R.color.colorBackgroundLight)
     }
 
     fun setData(data: List<CartProduct>) {

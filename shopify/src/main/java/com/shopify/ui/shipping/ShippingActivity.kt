@@ -53,7 +53,7 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setTitle(R.string.checkout)
+        setTitle(getString(R.string.checkout))
         checkout = intent.getParcelableExtra(CHECKOUT)
         payment = intent.getStringExtra(PAYMENT)
 

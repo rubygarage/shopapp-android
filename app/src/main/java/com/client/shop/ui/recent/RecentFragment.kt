@@ -8,7 +8,7 @@ import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.client.shop.ui.base.ui.recycler.divider.LeftSpaceDecoration
+import com.client.shop.ui.base.ui.recycler.divider.SpaceDecoration
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.recent.adapter.RecentAdapter
 import com.client.shop.ui.recent.contract.RecentPresenter
@@ -54,7 +54,7 @@ class RecentFragment :
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         adapter = RecentAdapter(productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        val decoration = LeftSpaceDecoration(resources.getDimensionPixelSize(R.dimen.content_space))
+        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)

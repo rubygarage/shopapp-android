@@ -32,7 +32,7 @@ class CheckoutActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setTitle(R.string.checkout)
+        setTitle(getString(R.string.checkout))
 
         webPaymentButton.setOnClickListener(this)
         cardPaymentButton.setOnClickListener(this)

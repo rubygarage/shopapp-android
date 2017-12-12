@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
+import com.client.shop.ui.base.ui.recycler.divider.SpaceDecoration
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
@@ -41,6 +42,7 @@ class CartActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        checkoutButton.setOnClickListener { router.startCheckoutFlow(this) }
         setupRecyclerView()
         setupEmptyView()
 
@@ -64,8 +66,10 @@ class CartActivity :
         adapter = CartAdapter(data, this)
         adapter.setHasStableIds(true)
         adapter.actionListener = this
+        val decoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.cart_item_divider))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(decoration)
     }
 
     private fun setupEmptyView() {
@@ -88,6 +92,7 @@ class CartActivity :
         this.data.clear()
         this.data.addAll(data)
         adapter.notifyDataSetChanged()
+        totalPriceView.setData(this.data)
     }
 
     //CALLBACK
@@ -100,11 +105,6 @@ class CartActivity :
         data.getOrNull(position)?.let {
             startActivity(DetailsActivity.getStartIntent(this, it.productId))
         }
-    }
-
-    override fun onFooterClicked() {
-        super.onFooterClicked()
-        router.startCheckoutFlow(this)
     }
 
     override fun onRemoveButtonClicked(productVariantId: String) {
