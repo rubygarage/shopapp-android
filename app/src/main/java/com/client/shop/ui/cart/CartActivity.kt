@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
+import com.client.shop.ui.base.ui.recycler.SwipeToDeleteCallback
 import com.client.shop.ui.base.ui.recycler.divider.SpaceDecoration
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
@@ -70,6 +73,16 @@ class CartActivity :
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(decoration)
+        val swipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                data.getOrNull(viewHolder.adapterPosition)?.let {
+                    presenter.removeProduct(it.productVariant.id)
+                }
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
     }
 
     private fun setupEmptyView() {

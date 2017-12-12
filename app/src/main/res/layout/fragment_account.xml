@@ -98,7 +98,7 @@
     <TextView
         android:id="@+id/myOrders"
         style="@style/policy_style"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="@string/my_orders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -117,7 +117,7 @@
     <TextView
         android:id="@+id/privacyPolicy"
         style="@style/policy_style"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="@string/privacy_policy"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"

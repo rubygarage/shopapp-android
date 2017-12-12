@@ -1,10 +1,10 @@
 package com.data.rx
 
-import com.domain.network.ApiCallback
 import com.domain.entity.Error
+import com.domain.network.ApiCallback
 import io.reactivex.SingleEmitter
 
-class RxCallback<in T>(private val emitter: SingleEmitter<T>) : ApiCallback<T> {
+class RxCallbackSingle<in T>(private val emitter: SingleEmitter<T>) : ApiCallback<T> {
 
     override fun onResult(result: T) {
         if (!emitter.isDisposed) {

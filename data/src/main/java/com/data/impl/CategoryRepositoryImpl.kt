@@ -1,21 +1,19 @@
 package com.data.impl
 
+import com.data.rx.RxCallbackSingle
 import com.domain.entity.Category
 import com.domain.entity.SortType
 import com.domain.network.Api
 import com.domain.repository.CategoryRepository
-import com.data.rx.RxCallback
 import io.reactivex.Single
 
 class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {
 
     override fun getCategory(categoryId: String, productPerPage: Int, productPaginationValue: String?,
                              sortBy: SortType?, reverse: Boolean): Single<Category> {
-        //val reverse = sortBy == SortType.RECENT //TODO MOVE TO SHOPIFY
-
         return Single.create<Category> { emitter ->
             api.getCategoryDetails(categoryId, productPerPage, productPaginationValue,
-                    sortBy, reverse, RxCallback<Category>(emitter))
+                    sortBy, reverse, RxCallbackSingle<Category>(emitter))
         }
     }
 
@@ -23,7 +21,7 @@ class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {
                                  reverse: Boolean): Single<List<Category>> {
         return Single.create<List<Category>> { emitter ->
             api.getCategoryList(perPage, paginationValue, sortBy, reverse,
-                    RxCallback<List<Category>>(emitter))
+                    RxCallbackSingle<List<Category>>(emitter))
         }
     }
 }

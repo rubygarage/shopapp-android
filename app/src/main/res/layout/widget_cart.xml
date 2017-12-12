@@ -26,7 +26,7 @@
         android:paddingRight="4dp"
         android:textColor="@color/white"
         android:textSize="10sp"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:ignore="SmallSp" />
 
 </merge>

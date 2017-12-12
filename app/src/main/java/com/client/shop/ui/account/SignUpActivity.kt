@@ -1,5 +1,6 @@
 package com.client.shop.ui.account
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -163,6 +164,7 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     override fun showContent(data: Unit) {
         super.showContent(data)
         showMessage(R.string.register_success_message)
+        setResult(Activity.RESULT_OK)
         finish()
     }
 

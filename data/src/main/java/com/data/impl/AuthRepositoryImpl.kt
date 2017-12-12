@@ -1,10 +1,9 @@
 package com.data.impl
 
-import com.data.rx.RxCallback
+import com.data.rx.RxCallbackCompletable
+import com.data.rx.RxCallbackSingle
 import com.domain.entity.Customer
-import com.domain.entity.Error
 import com.domain.network.Api
-import com.domain.network.ApiCallback
 import com.domain.repository.AuthRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -12,48 +11,28 @@ import io.reactivex.Single
 class AuthRepositoryImpl(private val api: Api) : AuthRepository {
 
     override fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String): Completable {
-        return Single.create<Customer> { api.signUp(firstName, lastName, email, password, phone, RxCallback<Customer>(it)) }
-                .toCompletable()
+        return Completable.create { api.signUp(firstName, lastName, email, password, phone, RxCallbackCompletable(it)) }
     }
 
     override fun signIn(email: String, authToken: String): Completable {
-        return Single.create<Customer> { api.signIn(email, authToken, RxCallback<Customer>(it)) }
-                .toCompletable()
+        return Completable.create { api.signIn(email, authToken, RxCallbackCompletable(it)) }
     }
 
     override fun signOut(): Completable {
-        return Completable.create {
-            api.signOut(object : ApiCallback<Unit> {
-                override fun onResult(result: Unit) {
-                    it.onComplete()
-                }
-
-                override fun onFailure(error: Error) {
-                    it.onError(error)
-                }
-            })
-        }
+        return Completable.create { RxCallbackCompletable(it) }
     }
 
     override fun isLoggedIn(): Single<Boolean> {
-        return Single.create<Boolean> { api.isLoggedIn(RxCallback<Boolean>(it)) }
+        return Single.create<Boolean> { api.isLoggedIn(RxCallbackSingle<Boolean>(it)) }
     }
 
     override fun forgotPassword(email: String): Completable {
         return Completable.create {
-            api.forgotPassword(email, object : ApiCallback<Unit> {
-                override fun onResult(result: Unit) {
-                    it.onComplete()
-                }
-
-                override fun onFailure(error: Error) {
-                    it.onError(error)
-                }
-            })
+            api.forgotPassword(email, RxCallbackCompletable(it))
         }
     }
 
     override fun getCustomer(): Single<Customer> {
-        return Single.create { api.getCustomer(RxCallback<Customer>(it)) }
+        return Single.create { api.getCustomer(RxCallbackSingle<Customer>(it)) }
     }
 }
