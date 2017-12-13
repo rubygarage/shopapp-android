@@ -5,7 +5,7 @@ import com.domain.entity.*
 interface Api {
 
     fun getProductList(perPage: Int, paginationValue: Any? = null, sortBy: SortType? = null,
-                       reverse: Boolean = false, callback: ApiCallback<List<Product>>)
+                       callback: ApiCallback<List<Product>>)
 
     fun searchProductList(perPage: Int, paginationValue: Any? = null, searchQuery: String,
                           callback: ApiCallback<List<Product>>)

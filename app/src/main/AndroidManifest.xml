@@ -50,7 +50,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.recent.RecentActivity"
+            android:name=".ui.product.ProductListActivity"
             android:screenOrientation="portrait" />
 
         <activity

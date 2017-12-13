@@ -12,6 +12,10 @@ import com.client.shop.ui.category.di.CategoryComponent
 import com.client.shop.ui.category.di.CategoryModule
 import com.client.shop.ui.details.di.DetailsComponent
 import com.client.shop.ui.details.di.DetailsModule
+import com.client.shop.ui.popular.di.PopularComponent
+import com.client.shop.ui.popular.di.PopularModule
+import com.client.shop.ui.product.di.ProductComponent
+import com.client.shop.ui.product.di.ProductModule
 import com.client.shop.ui.recent.di.RecentComponent
 import com.client.shop.ui.recent.di.RecentModule
 import com.client.shop.ui.search.di.SearchComponent
@@ -29,7 +33,11 @@ interface AppComponent {
 
     fun attachSearchComponent(module: SearchModule): SearchComponent
 
+    fun attachProductComponent(module: ProductModule): ProductComponent
+
     fun attachRecentComponent(module: RecentModule): RecentComponent
+
+    fun attachPopularComponent(module: PopularModule): PopularComponent
 
     fun attachCategoryComponent(module: CategoryModule): CategoryComponent
 

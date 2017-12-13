@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/titleText"
         style="@style/home_section_title"
-        android:text="@string/latest_arrivals"
+        android:text="@string/popular"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

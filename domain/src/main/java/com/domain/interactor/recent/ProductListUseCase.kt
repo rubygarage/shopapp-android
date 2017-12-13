@@ -7,17 +7,17 @@ import com.domain.repository.ProductRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RecentUseCase @Inject constructor(private val productRepository: ProductRepository) :
-        SingleUseCase<List<Product>, RecentUseCase.Params>() {
+class ProductListUseCase @Inject constructor(private val productRepository: ProductRepository) :
+        SingleUseCase<List<Product>, ProductListUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
         return with(params) {
-            //TODO MOVE REVERSE TO SHOPIFY
-            productRepository.getProductList(perPage, paginationValue, SortType.RECENT, true)
+            productRepository.getProductList(perPage, paginationValue, sortType)
         }
     }
 
     data class Params(
+            val sortType: SortType,
             val perPage: Int,
             val paginationValue: String?
     )

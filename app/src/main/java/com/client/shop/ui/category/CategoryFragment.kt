@@ -2,19 +2,16 @@ package com.client.shop.ui.category
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationFragment
-import com.client.shop.ui.category.adapter.CategoryAdapter
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
 import com.client.shop.ui.category.di.CategoryModule
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.modal.SortBottomSheet
+import com.client.shop.ui.product.adapter.ProductAdapter
 import com.domain.entity.Category
 import com.domain.entity.Product
 import com.domain.entity.SortType
@@ -97,7 +94,10 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     //SETUP
 
-    override fun setupAdapter() = CategoryAdapter(dataList, this)
+    override fun setupAdapter(): ProductAdapter {
+        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        return ProductAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
+    }
 
     //LCE
 
