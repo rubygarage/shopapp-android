@@ -20,7 +20,7 @@ class AvatarView @JvmOverloads constructor(
     fun setName(name: String) {
         if (name.isNotBlank()) {
             text = ""
-            val parts = name.split(Character.SPACE_SEPARATOR.toChar())
+            val parts = name.split("\\s".toRegex())
             for (part in parts) {
                 append(part.first().toUpperCase().toString())
             }

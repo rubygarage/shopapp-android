@@ -3,7 +3,6 @@ package com.client.shop.ui.item.cart
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
@@ -27,7 +26,6 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
     init {
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         View.inflate(context, R.layout.item_cart, this)
-        setBackgroundColor(Color.WHITE)
         layoutTransition = LayoutTransition()
     }
 

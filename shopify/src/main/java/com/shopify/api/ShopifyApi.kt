@@ -336,7 +336,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     override fun signUp(firstName: String, lastName: String, email: String,
-                        password: String, phone: String, callback: ApiCallback<Customer>) {
+                        password: String, phone: String, callback: ApiCallback<Unit>) {
 
         val customerCreateInput = Storefront.CustomerCreateInput(email, password)
                 .setFirstName(firstName)
@@ -362,9 +362,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val mutationQuery = Storefront.mutation { query -> query.customerCreate(customerCreateInput, customerQuery) }
         val call = graphClient.mutateGraph(mutationQuery)
-        call.enqueue(object : MutationCallWrapper<Customer>(callback) {
-            override fun adapt(data: Storefront.Mutation?): Customer? {
-                return data?.customerCreate?.let { customerCreate ->
+        call.enqueue(object : GraphCall.Callback<Storefront.Mutation> {
+            override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
+                response.data()?.customerCreate?.let { customerCreate ->
                     val userError = ErrorAdapter.adaptUserError(customerCreate.userErrors)
                     if (userError != null) {
                         callback.onFailure(userError)
@@ -372,41 +372,27 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                         val tokenResponse = requestToken(email, password)
                         if (tokenResponse != null) {
                             tokenResponse.first?.let {
-                                return CustomerAdapter.adapt(customerCreate.customer)
+                                callback.onResult(Unit)
                             }
                             tokenResponse.second?.let {
                                 callback.onFailure(it)
                             }
                         }
                     }
-                    return null
                 }
+            }
+
+            override fun onFailure(error: GraphError) {
+                callback.onFailure(ErrorAdapter.adapt(error))
             }
         })
     }
 
-    override fun signIn(email: String, password: String, callback: ApiCallback<Customer>) {
-
+    override fun signIn(email: String, password: String, callback: ApiCallback<Unit>) {
         val tokenResponse = requestToken(email, password)
-
         if (tokenResponse != null) {
             tokenResponse.first?.let {
-                val query = Storefront.query { rootQuery ->
-                    rootQuery.customer(it.accessToken, { customer ->
-                        customer
-                                .id()
-                                .firstName()
-                                .lastName()
-                                .email()
-                    })
-                }
-
-                val call = graphClient.queryGraph(query)
-                call.enqueue(object : QueryCallWrapper<Customer>(callback) {
-                    override fun adapt(data: Storefront.QueryRoot): Customer {
-                        return CustomerAdapter.adapt(data.customer)
-                    }
-                })
+                callback.onResult(Unit)
             }
             tokenResponse.second?.let {
                 callback.onFailure(it)

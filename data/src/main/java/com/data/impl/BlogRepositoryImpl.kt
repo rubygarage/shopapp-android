@@ -1,6 +1,6 @@
 package com.data.impl
 
-import com.data.rx.RxCallback
+import com.data.rx.RxCallbackSingle
 import com.domain.entity.Article
 import com.domain.entity.SortType
 import com.domain.network.Api
@@ -13,13 +13,13 @@ class BlogRepositoryImpl(private val api: Api) : BlogRepository {
                                 reverse: Boolean): Single<List<Article>> {
         return Single.create<List<Article>> { emitter ->
             api.getArticleList(perPage, paginationValue, sortBy, reverse,
-                    RxCallback<List<Article>>(emitter))
+                    RxCallbackSingle<List<Article>>(emitter))
         }
     }
 
     override fun getArticle(id: String): Single<Article> {
         return Single.create<Article> { emitter ->
-            api.getArticle(id, RxCallback<Article>(emitter))
+            api.getArticle(id, RxCallbackSingle<Article>(emitter))
         }
     }
 }
