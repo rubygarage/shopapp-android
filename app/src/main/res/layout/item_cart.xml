@@ -79,7 +79,7 @@
             android:gravity="start"
             android:labelFor="@id/quantityEditText"
             android:text="@string/quantity_label"
-            android:textColor="@color/textColorSecondary"
+            android:textColor="@color/textColorPrimary"
             android:textSize="13sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
             app:layout_constraintStart_toEndOf="@+id/productImage" />
@@ -95,6 +95,7 @@
             android:minWidth="50dp"
             android:text="@string/default_product_quantity"
             android:textSize="13sp"
+            android:theme="@style/EditText"
             app:layout_constraintBottom_toTopOf="@+id/bottomHorizontalGuideline"
             app:layout_constraintEnd_toStartOf="@+id/totalPrice"
             app:layout_constraintHorizontal_bias="0.0"

@@ -37,6 +37,7 @@ class GalleryActivity : AppCompatActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(R.drawable.ic_arrow_left_white)
         }
 
         supportFragmentManager.replaceOnce(R.id.galleryContainer, GalleryFragment::javaClass.name, {
