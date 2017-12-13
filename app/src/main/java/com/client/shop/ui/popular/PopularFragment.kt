@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.const.Constant
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.divider.GridSpaceDecoration
 import com.client.shop.ui.details.DetailsActivity
@@ -86,14 +85,14 @@ class PopularFragment :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(sortType, Constant.DEFAULT_PER_PAGE_COUNT)
+        presenter.loadProductList(sortType, MAX_ITEMS)
     }
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
 
         productList.clear()
-        if (data.size > MAX_ITEMS) {
+        if (data.size >= MAX_ITEMS) {
             productList.addAll(data.subList(0, MAX_ITEMS))
         } else {
             productList.addAll(data)
