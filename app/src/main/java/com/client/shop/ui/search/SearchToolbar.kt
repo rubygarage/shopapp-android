@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.inputmethod.EditorInfo
 import com.client.shop.R
 import com.client.shop.ext.hideKeyboard
 import com.client.shop.ext.showKeyboard
@@ -27,7 +28,7 @@ class SearchToolbar @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), View.OnClickListener {
 
-    var toolbarSearchListener: ToolbarSearchListener? = null
+    var searchToolbarListener: SearchToolbarListener? = null
     private var isExpanded = false
     private val expandedLineMarginStart: Int
     private val expandedLineMarginEnd: Int
@@ -58,6 +59,13 @@ class SearchToolbar @JvmOverloads constructor(
         clickableArea.setOnClickListener(this)
         setOnClickListener(this)
         clear.setOnClickListener(this)
+        searchInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchProcessor.onNext(searchInput.text.toString())
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
     }
 
     companion object {
@@ -72,7 +80,7 @@ class SearchToolbar @JvmOverloads constructor(
                     .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ query ->
-                        toolbarSearchListener?.onQueryChanged(query)
+                        searchToolbarListener?.onQueryChanged(query)
                     }, { error -> error.printStackTrace() })
         }
     }
@@ -149,7 +157,7 @@ class SearchToolbar @JvmOverloads constructor(
         }
     }
 
-    interface ToolbarSearchListener {
+    interface SearchToolbarListener {
 
         fun onQueryChanged(query: String)
     }

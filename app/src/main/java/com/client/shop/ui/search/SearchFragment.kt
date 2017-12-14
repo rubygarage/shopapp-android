@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class SearchFragment :
         PaginationFragment<Product, SearchView, SearchPresenter>(),
-        SearchView, SearchToolbar.ToolbarSearchListener {
+        SearchView, SearchToolbar.SearchToolbarListener {
 
     @Inject lateinit var searchPresenter: SearchPresenter
 
@@ -31,7 +31,7 @@ class SearchFragment :
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataList.clear()
-        searchView.toolbarSearchListener = this
+        searchView.searchToolbarListener = this
         val swipeProgressEndTarget = resources.getDimensionPixelSize(R.dimen.search_swipe_refresh_progress_end_target)
         swipeRefreshLayout?.setProgressViewEndTarget(false, swipeProgressEndTarget)
     }
