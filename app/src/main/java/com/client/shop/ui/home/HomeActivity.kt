@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.client.shop.R
 import com.client.shop.ext.replaceByTag
@@ -33,7 +34,12 @@ class HomeActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (bottomTabNavigation.selectedTabPosition != HOME) {
+        if (bottomTabNavigation.selectedTabPosition == SEARCH) {
+            val searchFragment: Fragment? = supportFragmentManager.findFragmentByTag(SEARCH.toString())
+            if (searchFragment is SearchFragment && searchFragment.onBackPressed()) {
+                selectTab(HOME)
+            }
+        } else if (bottomTabNavigation.selectedTabPosition != HOME) {
             selectTab(HOME)
         } else {
             finish()

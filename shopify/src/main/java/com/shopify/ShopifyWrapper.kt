@@ -12,9 +12,9 @@ import com.shopify.router.ShopifyRouter
 class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
 
     companion object {
-        const val BASE_URL = "lubitax.myshopify.com"
-        const val ANDROID_PAY_PUBLIC_KEY = "BFzGr2NExzZ49C01KldmyMg9zYE0s0EOY2zf4f+lTMp3uB8wES5oUu6WJSdsthXHWJuIhrSEvDpXugILc1ZZV3E="
-        private const val ACCESS_TOKEN = "98fb98180b7f5987f1fff84416d3a697"
+        const val BASE_URL = "vatosozu.myshopify.com"
+        const val ANDROID_PAY_PUBLIC_KEY = "BIDbJPP1q4qo8QAgTucnHcsPLewIz2uv5mYjUWM3sHewR4mbh8zq16iOT2j0tURRfY5b32YK7sSGpC2Ncfy7Jkg="
+        private const val ACCESS_TOKEN = "1634a4d3079dba0d6f73625e3c1ca0c2"
 
         lateinit var component: ShopComponent
     }

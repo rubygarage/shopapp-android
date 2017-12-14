@@ -1,6 +1,7 @@
 package com.client.shop.ui.cart
 
 import android.content.Context
+import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import com.client.shop.R
@@ -13,8 +14,10 @@ import kotlinx.android.synthetic.main.widget_cart.view.*
 import javax.inject.Inject
 
 
-class CartWidget(context: Context) :
-        MvpFrameLayout<CartWidgetView, CartWidgetPresenter>(context),
+class CartWidget @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
+        MvpFrameLayout<CartWidgetView, CartWidgetPresenter>(context, attrs, defStyleAttr),
         CartWidgetView,
         View.OnClickListener {
 

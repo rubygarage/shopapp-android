@@ -19,5 +19,7 @@
     <color name="selectedColor">#EEEEEE</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="blackTranslucent">#80000000</color>
 
 </resources>

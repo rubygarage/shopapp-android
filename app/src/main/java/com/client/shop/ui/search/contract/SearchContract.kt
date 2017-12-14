@@ -7,10 +7,7 @@ import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SearchView : BaseLceView<List<Product>> {
-
-    fun setQuery(query: String)
-}
+interface SearchView : BaseLceView<List<Product>>
 
 class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) :
         BaseLcePresenter<List<Product>, SearchView>(searchUseCase) {
@@ -18,15 +15,11 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
     fun search(perPage: Int, paginationValue: String?, query: String) {
 
         if (TextUtils.isEmpty(query)) {
-            view?.setQuery(query)
             view?.showContent(listOf())
             return
         }
         searchUseCase.execute(
-                {
-                    view?.setQuery(query)
-                    view?.showContent(it)
-                },
+                { view?.showContent(it) },
                 { it.printStackTrace() },
                 SearchUseCase.Params(perPage, paginationValue, query)
         )
