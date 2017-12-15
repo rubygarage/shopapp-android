@@ -3,6 +3,7 @@ package com.ui.base.lce
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.LayoutRes
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -30,17 +31,27 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
             setSupportActionBar(it)
         }
         supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayHomeAsUpEnabled(!useModalStyle())
             it.setDisplayShowTitleEnabled(false)
             it.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         }
+        if (useModalStyle()) {
+            overridePendingTransition(R.anim.slide_in, R.anim.no_animation)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        if (useModalStyle()) {
+            menuInflater.inflate(R.menu.menu_modal, menu)
+            return true
+        }
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (item.itemId == android.R.id.home) {
-                onBackPressed()
-            }
+        val itemId = item?.itemId
+        if (itemId == android.R.id.home || itemId == R.id.close) {
+            onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -48,6 +59,15 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     fun setTitle(title: String) {
         toolbar?.setTitle(title)
     }
+
+    override fun finish() {
+        super.finish()
+        if (useModalStyle()) {
+            overridePendingTransition(R.anim.no_animation, R.anim.slide_out)
+        }
+    }
+
+    open protected fun useModalStyle() = false
 
     @Deprecated("Use an overloaded function instead", ReplaceWith("setTitle(title: String)"))
     override fun setTitle(titleId: Int) {

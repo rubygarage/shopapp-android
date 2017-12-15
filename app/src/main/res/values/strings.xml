@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">ShopClient</string>
 
-    <string name="open_menu">Open menu</string>
-    <string name="close_menu">Close menu</string>
     <string name="latest_arrivals">Latest Arrivals</string>
     <string name="popular">Popular</string>
     <string name="blog_posts">Blog posts</string>
@@ -58,5 +56,6 @@
     <string name="my_orders">My Orders</string>
     <string name="full_name_pattern">%1$s %2$s</string>
     <string name="clear">Clear</string>
+    <string name="close">Close</string>
 
 </resources>

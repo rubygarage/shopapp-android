@@ -53,6 +53,8 @@ class CheckoutActivity :
 
     override fun createPresenter() = checkoutPresenter
 
+    override fun useModalStyle() = true
+
     //SETUP
 
     override fun loadData(pullToRefresh: Boolean) {
