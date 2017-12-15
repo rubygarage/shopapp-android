@@ -9,13 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.ui.base.lce.BaseFragment
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
-import com.client.shop.ui.base.ui.recycler.divider.GridSpaceDecoration
 import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
+import com.client.shop.ui.base.ui.recycler.divider.GridSpaceDecoration
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
+import com.ui.base.lce.BaseFragment
 
 abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresenter<List<M>, V>> :
         BaseFragment<List<M>, V, P>(),
@@ -71,7 +71,7 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
             val layoutManager: RecyclerView.LayoutManager
             if (isGrid()) {
                 layoutManager = GridLayoutManager(context, SPAN_COUNT)
-                it.addItemDecoration(GridSpaceDecoration(resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
+                it.addItemDecoration(GridSpaceDecoration(resources.getDimensionPixelSize(R.dimen.recycler_divider_space), SPAN_COUNT))
             } else {
                 layoutManager = LinearLayoutManager(context)
             }
@@ -91,7 +91,7 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
         swipeRefreshLayout = view?.findViewById(R.id.swipeRefreshLayout)
         swipeRefreshLayout?.let {
             it.setOnRefreshListener(this)
-            it.setColorSchemeResources(R.color.colorAccent)
+            it.setColorSchemeResources(R.color.colorPrimary)
         }
     }
 

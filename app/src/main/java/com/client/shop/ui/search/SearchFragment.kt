@@ -1,13 +1,12 @@
 package com.client.shop.ui.search
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationFragment
+import com.client.shop.ui.base.ui.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.product.adapter.ProductAdapter
 import com.client.shop.ui.search.contract.SearchPresenter
@@ -19,7 +18,7 @@ import javax.inject.Inject
 
 class SearchFragment :
         PaginationFragment<Product, SearchView, SearchPresenter>(),
-        SearchView, SearchToolbar.SearchToolbarListener {
+        SearchView {
 
     @Inject lateinit var searchPresenter: SearchPresenter
 
@@ -31,14 +30,6 @@ class SearchFragment :
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataList.clear()
-        searchView.searchToolbarListener = this
-        val swipeProgressEndTarget = resources.getDimensionPixelSize(R.dimen.search_swipe_refresh_progress_end_target)
-        swipeRefreshLayout?.setProgressViewEndTarget(false, swipeProgressEndTarget)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_cart, menu)
     }
 
     //INIT
@@ -47,17 +38,22 @@ class SearchFragment :
         ShopApplication.appComponent.attachSearchComponent(SearchModule()).inject(this)
     }
 
-    override fun isGrid() = true
-
     override fun getContentView() = R.layout.fragment_search
 
     override fun createPresenter() = searchPresenter
 
     //SETUP
 
+    override fun isGrid() = true
+
     override fun setupAdapter(): ProductAdapter {
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
         return ProductAdapter(MATCH_PARENT, size, dataList, this)
+    }
+
+    override fun setupRecyclerView() {
+        super.setupRecyclerView()
+        recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }
 
     //LCE
@@ -81,9 +77,7 @@ class SearchFragment :
         }
     }
 
-    //CALLBACK
-
-    override fun onQueryChanged(query: String) {
+    fun queryChanged(query: String) {
         paginationValue = null
         currentQuery = query
         loadData(true)
@@ -91,17 +85,5 @@ class SearchFragment :
 
     override fun onItemClicked(data: Product, position: Int) {
         startActivity(DetailsActivity.getStartIntent(context, data.id))
-    }
-
-    /**
-     * @return 'true' if onBackPressed allowed
-     */
-    fun onBackPressed(): Boolean {
-        return if (searchView.isToolbarExpanded()) {
-            searchView.changeToolbarState()
-            false
-        } else {
-            true
-        }
     }
 }

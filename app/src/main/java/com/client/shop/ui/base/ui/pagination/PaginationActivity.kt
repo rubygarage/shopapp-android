@@ -77,7 +77,7 @@ abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresen
     protected open fun setupSwipeRefreshLayout() {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         swipeRefreshLayout.setOnRefreshListener(this)
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent)
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
     }
 
     //LCE

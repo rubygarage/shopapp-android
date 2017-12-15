@@ -1,12 +1,12 @@
 package com.client.shop.ui.search
 
-import android.animation.LayoutTransition
 import android.content.Context
 import android.support.annotation.ColorRes
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.support.constraint.ConstraintSet.END
 import android.support.constraint.ConstraintSet.START
+import android.support.transition.*
 import android.support.v4.content.ContextCompat
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -33,22 +33,27 @@ class SearchToolbar @JvmOverloads constructor(
     private val expandedLineMarginStart: Int
     private val expandedLineMarginEnd: Int
     private val collapsedLineMargin: Int
+    private val transitionSet: Transition
+    private val inputTextWatcher: TextWatcher
     private var searchDisposable: Disposable? = null
     private val searchProcessor: PublishProcessor<String>
-    private val inputTextWatched: TextWatcher
 
     init {
         View.inflate(context, R.layout.toolbar_search, this)
-        layoutTransition = LayoutTransition()
+
+        transitionSet = TransitionSet()
+        transitionSet.addTransition(ChangeBounds())
+        transitionSet.addTransition(Fade())
 
         expandedLineMarginStart = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start)
         expandedLineMarginEnd = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end)
         collapsedLineMargin = resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin)
 
         searchProcessor = PublishProcessor.create<String>()
-        inputTextWatched = object : SimpleTextWatcher {
+        inputTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 val query = s.toString()
+                TransitionManager.beginDelayedTransition(this@SearchToolbar)
                 clear.visibility = if (query.isNotEmpty() && isExpanded) View.VISIBLE else View.GONE
                 searchProcessor.onNext(query)
             }
@@ -74,7 +79,7 @@ class SearchToolbar @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        searchInput.addTextChangedListener(inputTextWatched)
+        searchInput.addTextChangedListener(inputTextWatcher)
         searchProcessor.let {
             searchDisposable = it
                     .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
@@ -87,7 +92,7 @@ class SearchToolbar @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        searchInput.removeTextChangedListener(inputTextWatched)
+        searchInput.removeTextChangedListener(inputTextWatcher)
         searchDisposable?.let {
             if (!it.isDisposed) {
                 it.dispose()
@@ -130,12 +135,14 @@ class SearchToolbar @JvmOverloads constructor(
     }
 
     fun changeToolbarState() {
+        TransitionManager.beginDelayedTransition(this, transitionSet)
         if (isExpanded) {
             collapseToolbar()
         } else {
             expandToolbar()
         }
         isExpanded = !isExpanded
+        searchToolbarListener?.onToolbarStateChanged(isExpanded)
     }
 
     fun isToolbarExpanded() = isExpanded
@@ -160,5 +167,7 @@ class SearchToolbar @JvmOverloads constructor(
     interface SearchToolbarListener {
 
         fun onQueryChanged(query: String)
+
+        fun onToolbarStateChanged(isExpanded: Boolean)
     }
 }

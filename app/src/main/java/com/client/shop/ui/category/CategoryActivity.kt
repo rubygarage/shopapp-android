@@ -1,11 +1,15 @@
 package com.client.shop.ui.category
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.pagination.PaginationFragment
+import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.ui.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
 import com.client.shop.ui.category.di.CategoryModule
@@ -17,7 +21,7 @@ import com.domain.entity.Product
 import com.domain.entity.SortType
 import javax.inject.Inject
 
-class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPresenter>(),
+class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPresenter>(),
         CategoryView {
 
     @Inject lateinit var categoryPresenter: CategoryPresenter
@@ -25,7 +29,7 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
     private var sortType: SortType = SortType.NAME
 
     private val sortBottomSheet: SortBottomSheet by lazy {
-        SortBottomSheet(context, object : SortBottomSheet.OnSortTypeSelectListener {
+        SortBottomSheet(this, object : SortBottomSheet.OnSortTypeSelectListener {
 
             override fun onSortTypeSelected(selectedSortType: SortType) {
                 if (sortType != selectedSortType) {
@@ -41,12 +45,10 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
         private const val PER_PAGE = 10
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 
-        fun newInstance(category: Category): CategoryFragment {
-            val fragment = CategoryFragment()
-            val args = Bundle()
-            args.putParcelable(EXTRA_CATEGORY, category)
-            fragment.arguments = args
-            return fragment
+        fun getStartIntent(context: Context, category: Category): Intent {
+            val intent = Intent(context, CategoryActivity::class.java)
+            intent.putExtra(EXTRA_CATEGORY, category)
+            return intent
         }
     }
 
@@ -54,23 +56,14 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        category = arguments.getParcelable(EXTRA_CATEGORY)
-        val compatActivity = activity
-        if (compatActivity is AppCompatActivity) {
-            compatActivity.supportActionBar?.setDisplayShowTitleEnabled(true)
-            compatActivity.supportActionBar?.title = category.title
-        }
+        category = intent.getParcelableExtra(EXTRA_CATEGORY)
+        setTitle(category.title)
         loadData()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.menu_categories, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_categories, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -92,6 +85,11 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
 
     override fun isGrid() = true
 
+    override fun setupRecyclerView() {
+        super.setupRecyclerView()
+        recycler.addItemDecoration(BackgroundItemDecoration(R.color.white))
+    }
+
     //SETUP
 
     override fun setupAdapter(): ProductAdapter {
@@ -111,13 +109,13 @@ class CategoryFragment : PaginationFragment<Product, CategoryView, CategoryPrese
         if (data.isNotEmpty()) {
             paginationValue = data.last().paginationValue
             this.dataList.addAll(data)
-            adapter?.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
         }
     }
 
     //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(context, data.id))
+        startActivity(DetailsActivity.getStartIntent(this, data.id))
     }
 }

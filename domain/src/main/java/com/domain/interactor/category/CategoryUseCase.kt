@@ -12,9 +12,7 @@ class CategoryUseCase @Inject constructor(private val categoryRepository: Catego
 
     override fun buildUseCaseSingle(params: Params): Single<Category> {
         return with(params) {
-            //TODO MOVE TO SHOPIFY
-            val reverse = sortType == SortType.RECENT
-            categoryRepository.getCategory(categoryId, perPage, paginationValue, sortType, reverse)
+            categoryRepository.getCategory(categoryId, perPage, paginationValue, sortType)
         }
     }
 

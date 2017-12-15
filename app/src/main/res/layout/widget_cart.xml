@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="?attr/actionBarSize"
     android:layout_height="?attr/actionBarSize">
@@ -11,7 +12,7 @@
         android:layout_gravity="center"
         android:background="?selectableItemBackgroundBorderless"
         android:padding="2dp"
-        android:src="@drawable/ic_cart"
+        app:srcCompat="@drawable/ic_cart"
         tools:ignore="ContentDescription" />
 
     <TextView
