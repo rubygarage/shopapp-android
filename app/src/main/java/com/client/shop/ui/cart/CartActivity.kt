@@ -64,6 +64,8 @@ class CartActivity :
 
     override fun createPresenter() = cartPresenter
 
+    override fun useModalStyle() = true
+
     //SETUP
 
     private fun setupRecyclerView() {

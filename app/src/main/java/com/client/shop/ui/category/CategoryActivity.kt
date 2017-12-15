@@ -61,7 +61,7 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
         loadData()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_categories, menu)
         return true
     }

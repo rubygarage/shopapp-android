@@ -81,6 +81,8 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
         ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
     }
 
+    override fun useModalStyle() = true
+
     //SETUP
 
     private fun setupHints() {

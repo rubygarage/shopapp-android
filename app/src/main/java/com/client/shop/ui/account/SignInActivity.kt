@@ -63,6 +63,8 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
 
     override fun createPresenter() = signInPresenter
 
+    override fun useModalStyle() = true
+
     //SETUP
 
     private fun setupHints() {
