@@ -88,6 +88,9 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         createAccount.setOnClickListener {
             startActivityForResult(SignUpActivity.getStartIntent(context, shop?.privacyPolicy, shop?.termsOfService), RequestCode.SIGN_UP)
         }
+        logout.setOnClickListener {
+            presenter.signOut()
+        }
     }
 
     private fun setupPolicy(view: View, policy: Policy?) {

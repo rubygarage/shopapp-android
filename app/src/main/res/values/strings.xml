@@ -39,7 +39,7 @@
     <string name="register">Register</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
-    <string name="sign_out">Sign Out</string>
+    <string name="log_out">Log Out</string>
     <string name="register_success_message">You have been successfully registered and logged in</string>
     <string name="login_success_message">You have been successfully logged in</string>
     <string name="forgot_label">Forgot?</string>
@@ -56,6 +56,5 @@
     <string name="my_orders">My Orders</string>
     <string name="full_name_pattern">%1$s %2$s</string>
     <string name="clear">Clear</string>
-    <string name="close">Close</string>
 
 </resources>

@@ -6,6 +6,7 @@
     <string name="default_error">Something went wrong…</string>
     <string name="empty_message">It\'s empty in here.</string>
     <string name="try_again">Try Again</string>
+    <string name="close">Close</string>
 
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
