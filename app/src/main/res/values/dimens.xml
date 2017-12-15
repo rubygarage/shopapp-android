@@ -30,5 +30,6 @@
     <dimen name="search_toolbar_expanded_line_margin_start">50dp</dimen>
     <dimen name="search_toolbar_expanded_line_margin_end">16dp</dimen>
     <dimen name="search_toolbar_collapsed_line_margin">60dp</dimen>
+    <dimen name="recycler_divider_space">6dp</dimen>
 
 </resources>

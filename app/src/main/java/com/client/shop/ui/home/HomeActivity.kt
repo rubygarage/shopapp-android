@@ -10,7 +10,7 @@ import com.client.shop.R
 import com.client.shop.ext.replaceByTag
 import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
-import com.client.shop.ui.search.SearchFragment
+import com.client.shop.ui.search.SearchWithCategoriesFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
@@ -36,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (bottomTabNavigation.selectedTabPosition == SEARCH) {
             val searchFragment: Fragment? = supportFragmentManager.findFragmentByTag(SEARCH.toString())
-            if (searchFragment is SearchFragment && searchFragment.onBackPressed()) {
+            if (searchFragment is SearchWithCategoriesFragment && searchFragment.onBackPressed()) {
                 selectTab(HOME)
             }
         } else if (bottomTabNavigation.selectedTabPosition != HOME) {
@@ -60,7 +60,7 @@ class HomeActivity : AppCompatActivity() {
         supportFragmentManager.replaceByTag(R.id.content, position.toString(), {
             when (position) {
                 HOME -> HomeFragment()
-                SEARCH -> SearchFragment()
+                SEARCH -> SearchWithCategoriesFragment()
                 else -> AccountFragment()
             }
         }).commit()

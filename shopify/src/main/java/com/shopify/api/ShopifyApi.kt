@@ -150,8 +150,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    override fun getCategoryList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
-                                 reverse: Boolean, callback: ApiCallback<List<Category>>) {
+    override fun getCategoryList(perPage: Int, paginationValue: Any?, callback: ApiCallback<List<Category>>) {
 
         val query = Storefront.query { rootQuery ->
             rootQuery.shop { shopQuery ->
@@ -160,11 +159,6 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     if (paginationValue != null) {
                         args.after(paginationValue.toString())
                     }
-                    val key = getCollectionSortKey(sortBy)
-                    if (key != null) {
-                        args.sortKey(key)
-                    }
-                    args.reverse(reverse)
                 }) { collectionConnectionQuery ->
                     collectionConnectionQuery.edges { collectionEdgeQuery ->
                         collectionEdgeQuery
@@ -195,7 +189,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     override fun getCategoryDetails(id: String, perPage: Int, paginationValue: Any?, sortBy: SortType?,
-                                    reverse: Boolean, callback: ApiCallback<Category>) {
+                                    callback: ApiCallback<Category>) {
+
+        val reverse = sortBy == SortType.RECENT
 
         val nodeId = ID(id)
         val query = Storefront.query { rootQuery ->
