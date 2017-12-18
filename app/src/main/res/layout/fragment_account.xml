@@ -30,6 +30,7 @@
 
     <Button
         android:id="@+id/signInButton"
+        style="@style/primary_button"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="15dp"
@@ -38,8 +39,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInLabel"
-        style="@style/primary_button" />
+        app:layout_constraintTop_toBottomOf="@+id/signInLabel" />
 
     <TextView
         android:id="@+id/createAccount"
@@ -61,6 +61,7 @@
         android:id="@+id/unauthGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="visible"
         app:constraint_referenced_ids="createAccount,signInButton,signInLabel" />
 
     <com.client.shop.ui.custom.AvatarView
@@ -112,7 +113,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="welcomeLabel,name,myOrders,avatarView" />
+        app:constraint_referenced_ids="welcomeLabel,name,myOrders,avatarView,logout" />
 
     <TextView
         android:id="@+id/privacyPolicy"
@@ -146,6 +147,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/refundPolicy" />
+
+    <TextView
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/selector_underline"
+        android:paddingBottom="3dp"
+        android:text="@string/log_out"
+        android:textAllCaps="true"
+        android:textColor="@drawable/selector_underline_text"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termsOfService" />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier"

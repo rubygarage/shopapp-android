@@ -19,7 +19,7 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
     }
 
     override fun signOut(): Completable {
-        return Completable.create { RxCallbackCompletable(it) }
+        return Completable.create { api.signOut(RxCallbackCompletable(it)) }
     }
 
     override fun isLoggedIn(): Single<Boolean> {
