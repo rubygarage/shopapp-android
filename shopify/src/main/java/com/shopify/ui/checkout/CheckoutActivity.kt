@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.view.Gravity
-import android.view.View
 import com.domain.entity.CartProduct
 import com.domain.router.AppRouter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
@@ -17,19 +16,15 @@ import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
-import com.shopify.ui.shipping.ShippingActivity
-import com.ui.base.browser.BrowserActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_checkout.*
-import kotlinx.android.synthetic.main.activity_payment.*
 import javax.inject.Inject
 
 class CheckoutActivity :
         BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
         CheckoutView,
-        View.OnClickListener,
         OnItemClickListener {
 
     companion object {
@@ -46,10 +41,6 @@ class CheckoutActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.checkout))
-
-        /*webPaymentButton.setOnClickListener(this)
-        cardPaymentButton.setOnClickListener(this)
-        androidPaymentButton.setOnClickListener(this)*/
 
         setupCartRecycler()
         setupButtons()
@@ -107,25 +98,6 @@ class CheckoutActivity :
     override fun onItemClicked(position: Int) {
         cartProductList.getOrNull(position)?.let {
             router.openProductDetailsScreen(this, it.productId)
-        }
-    }
-
-    override fun onClick(v: View) {
-        checkout?.let {
-            when (v) {
-                webPaymentButton -> {
-                    startActivity(BrowserActivity.getStartIntent(this, it.webUrl, getString(R.string.checkout)))
-                }
-                cardPaymentButton -> {
-                    startActivity(ShippingActivity.getStartIntentWithCard(this, it))
-                }
-                androidPaymentButton -> {
-                    startActivity(ShippingActivity.getStartIntentWithAndroid(this, it))
-                }
-                else -> {
-                    showError(false)
-                }
-            }
         }
     }
 }
