@@ -8,13 +8,13 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
 import com.ui.base.lce.BaseFragment
+import com.ui.base.recycler.OnItemClickListener
 import kotlinx.android.synthetic.main.fragment_blog.*
 import javax.inject.Inject
 
@@ -32,7 +32,7 @@ class BlogFragment :
         seeAll.setOnClickListener { startActivity(BlogActivity.getStartIntent(context)) }
         changeSeeAllState()
         setupRecycler()
-        loadData()
+        loadData(true)
     }
 
     override fun inject() {

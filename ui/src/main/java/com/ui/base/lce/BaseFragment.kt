@@ -26,7 +26,7 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_lce, container, false)
+        return inflater?.inflate(getRootView(), container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -40,14 +40,17 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     abstract fun inject()
 
     @LayoutRes
+    open protected fun getRootView() = R.layout.fragment_lce
+
+    @LayoutRes
     abstract fun getContentView(): Int
 
     //LCE
 
     @CallSuper
-    open fun loadData(pullToRefresh: Boolean  = false) {
+    open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
-            lceLayout.changeState(LceLayout.LceState.ContentState)
+            lceLayout.changeState(LceLayout.LceState.LoadingState)
         }
     }
 

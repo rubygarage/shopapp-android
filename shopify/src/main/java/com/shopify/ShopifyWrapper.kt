@@ -3,13 +3,15 @@ package com.shopify
 import android.content.Context
 import com.domain.ShopWrapper
 import com.domain.database.Dao
+import com.domain.router.AppRouter
 import com.shopify.api.ShopifyApi
-import com.shopify.di.DaggerShopComponent
-import com.shopify.di.ShopComponent
-import com.shopify.di.ShopifyModule
+import com.shopify.di.component.DaggerShopComponent
+import com.shopify.di.component.ShopComponent
+import com.shopify.di.module.RouterModule
+import com.shopify.di.module.ShopifyModule
 import com.shopify.router.ShopifyRouter
 
-class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
+class ShopifyWrapper(context: Context, dao: Dao, appRouter: AppRouter) : ShopWrapper {
 
     companion object {
         const val BASE_URL = "vatosozu.myshopify.com"
@@ -23,6 +25,9 @@ class ShopifyWrapper(context: Context, dao: Dao) : ShopWrapper {
     override val router = ShopifyRouter()
 
     init {
-        component = DaggerShopComponent.builder().shopifyModule(ShopifyModule(api, dao)).build()
+        component = DaggerShopComponent.builder()
+                .shopifyModule(ShopifyModule(api, dao))
+                .routerModule(RouterModule(appRouter))
+                .build()
     }
 }

@@ -7,8 +7,6 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.client.shop.ui.base.ui.recycler.divider.SpaceDecoration
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.product.ProductListActivity
 import com.client.shop.ui.product.adapter.ProductAdapter
@@ -19,6 +17,8 @@ import com.domain.entity.Product
 import com.domain.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.ui.base.lce.BaseFragment
+import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
@@ -40,7 +40,7 @@ class RecentFragment :
         }
         changeSeeAllState()
         setupRecycler()
-        loadData()
+        loadData(true)
     }
 
     //INITIAL

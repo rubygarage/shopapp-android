@@ -7,16 +7,17 @@
 
     <TextView
         android:id="@+id/titleText"
-        style="@style/home_section_title"
+        style="@style/section_title"
         android:text="@string/popular"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/seeAll"
         style="@style/see_all_text"
-        android:text="@string/home_section_see_all"
+        android:text="@string/section_see_all"
         app:layout_constraintBaseline_toBaselineOf="@+id/titleText"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -26,7 +27,9 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:minHeight="@dimen/product_item_size"
-        android:padding="16dp"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

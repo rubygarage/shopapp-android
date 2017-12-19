@@ -8,9 +8,8 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.base.ui.recycler.SwipeToDeleteCallback
-import com.client.shop.ui.base.ui.recycler.divider.SpaceDecoration
+import com.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
@@ -20,9 +19,10 @@ import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.product.ProductListActivity
 import com.domain.entity.CartProduct
 import com.domain.entity.SortType
-import com.domain.router.Router
+import com.domain.router.ExternalRouter
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceEmptyView
+import com.ui.base.recycler.OnItemClickListener
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ class CartActivity :
         CartItem.ActionListener {
 
     @Inject lateinit var cartPresenter: CartPresenter
-    @Inject lateinit var router: Router
+    @Inject lateinit var router: ExternalRouter
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
 
@@ -46,7 +46,7 @@ class CartActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkoutButton.setOnClickListener { router.startCheckoutFlow(this) }
+        checkoutButton.setOnClickListener { router.openCheckoutActivity(this) }
         setupRecyclerView()
         setupEmptyView()
 

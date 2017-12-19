@@ -52,7 +52,7 @@ class LceLoadingView @JvmOverloads constructor(
     }
 
     override fun changeState(state: LceLayout.LceState) {
-        post{
+        post {
             if (state == LceLayout.LceState.LoadingState) {
                 mDismissed = false
                 mPostedShow = false

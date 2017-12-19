@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="checkout_cart_item_width">110dp</dimen>
+    <dimen name="checkout_cart_item_height">100dp</dimen>
+    <dimen name="checkout_cart_item_divider">3dp</dimen>
+</resources>

@@ -16,5 +16,7 @@
     <string name="country">Country</string>
     <string name="zip">zip</string>
     <string name="phone_number">Phone number</string>
+    <string name="my_cart">My Cart</string>
+    <string name="section_see_all">See All</string>
 
 </resources>

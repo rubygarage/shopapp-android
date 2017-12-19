@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.ui.recycler.divider
+package com.ui.base.recycler.divider
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

@@ -1,10 +1,10 @@
 package com.domain
 
 import com.domain.network.Api
-import com.domain.router.Router
+import com.domain.router.ExternalRouter
 
 interface ShopWrapper {
 
     val api: Api
-    val router: Router
+    val router: ExternalRouter
 }
