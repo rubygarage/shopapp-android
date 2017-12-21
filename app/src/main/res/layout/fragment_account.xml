@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
-
-    <com.ui.base.view.BaseToolbar
-        android:id="@+id/toolbar"
-        style="@style/ToolbarStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/signInLabel"
@@ -26,7 +18,7 @@
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/signInButton"
@@ -57,12 +49,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
+    <Space
+        android:id="@+id/space"
+        android:layout_width="0dp"
+        android:layout_height="9dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccount" />
+
     <android.support.constraint.Group
         android:id="@+id/unauthGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="createAccount,signInButton,signInLabel" />
+        app:constraint_referenced_ids="createAccount,signInButton,signInLabel,space" />
 
     <com.client.shop.ui.custom.AvatarView
         android:id="@+id/avatarView"
@@ -72,7 +72,7 @@
         android:layout_marginTop="25dp"
         android:textSize="@dimen/avatar_text_size"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeLabel"
@@ -84,7 +84,7 @@
         android:textColor="@color/textColorSecondary"
         android:textSize="13sp"
         app:layout_constraintStart_toEndOf="@+id/avatarView"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name"
@@ -169,6 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="createAccount,myOrders" />
+        app:constraint_referenced_ids="myOrders,space"
+        tools:layout_editor_absoluteY="155dp" />
 
 </android.support.constraint.ConstraintLayout>

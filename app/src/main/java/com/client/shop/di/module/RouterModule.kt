@@ -1,7 +1,7 @@
 package com.client.shop.di.module
 
 import com.domain.ShopWrapper
-import com.domain.router.Router
+import com.domain.router.ExternalRouter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -11,7 +11,7 @@ class RouterModule(private val shopWrapper: ShopWrapper) {
 
     @Provides
     @Singleton
-    fun provideRouter(): Router {
+    fun provideRouter(): ExternalRouter {
         return shopWrapper.router
     }
 }

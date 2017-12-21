@@ -10,9 +10,9 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.client.shop.ui.base.ui.recycler.adapter.BaseRecyclerAdapter
-import com.client.shop.ui.base.ui.recycler.divider.GridSpaceDecoration
+import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.ui.base.recycler.divider.GridSpaceDecoration
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import com.ui.base.lce.BaseFragment

@@ -19,6 +19,7 @@ import com.domain.entity.Policy
 import com.domain.entity.Shop
 import com.ui.base.lce.BaseFragment
 import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.fragment_account_lce.*
 import javax.inject.Inject
 
 class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), AccountView {
@@ -43,8 +44,9 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         } else {
             setupShop()
         }
+
         customer?.let { customerReceived(it) }
-        loadData()
+        loadData(customer != null)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -65,7 +67,7 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if ((requestCode == RequestCode.SIGN_IN || requestCode == RequestCode.SIGN_UP) && resultCode == Activity.RESULT_OK) {
-            loadData(false)
+            loadData()
         }
     }
 
@@ -74,6 +76,8 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     override fun inject() {
         ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
     }
+
+    override fun getRootView() = R.layout.fragment_account_lce
 
     override fun getContentView() = R.layout.fragment_account
 

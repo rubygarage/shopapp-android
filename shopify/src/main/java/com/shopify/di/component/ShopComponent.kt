@@ -1,5 +1,7 @@
-package com.shopify.di
+package com.shopify.di.component
 
+import com.shopify.di.module.RouterModule
+import com.shopify.di.module.ShopifyModule
 import com.shopify.ui.checkout.di.CheckoutComponent
 import com.shopify.ui.checkout.di.CheckoutModule
 import com.shopify.ui.payment.android.di.AndroidPaymentComponent
@@ -12,7 +14,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ShopifyModule::class])
+@Component(modules = [ShopifyModule::class, RouterModule::class])
 interface ShopComponent {
 
     fun attachCheckoutComponent(module: CheckoutModule): CheckoutComponent

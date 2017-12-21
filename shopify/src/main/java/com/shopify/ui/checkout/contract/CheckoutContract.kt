@@ -1,38 +1,43 @@
 package com.shopify.ui.checkout.contract
 
-import com.domain.interactor.base.SingleUseCase
-import com.domain.repository.CartRepository
+import com.domain.entity.CartProduct
+import com.domain.interactor.cart.CartItemsUseCase
 import com.shopify.entity.Checkout
-import com.shopify.repository.CheckoutRepository
+import com.shopify.interactor.checkout.CheckoutUseCase
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
-import io.reactivex.Single
 import javax.inject.Inject
 
-interface CheckoutView : BaseLceView<Checkout>
+interface CheckoutView : BaseLceView<Checkout> {
 
-class CheckoutPresenter @Inject constructor(private val checkoutUseCase: CheckoutUseCase) :
-        BaseLcePresenter<Checkout, CheckoutView>(checkoutUseCase) {
+    fun cartProductListReceived(cartProductList: List<CartProduct>)
+}
 
-    fun createCheckout() {
+class CheckoutPresenter @Inject constructor(
+        private val cartItemsUseCase: CartItemsUseCase,
+        private val checkoutUseCase: CheckoutUseCase
+) :
+        BaseLcePresenter<Checkout, CheckoutView>(cartItemsUseCase, checkoutUseCase) {
+
+    fun getCartProductList() {
+
+        cartItemsUseCase.execute(
+                {
+                    view?.cartProductListReceived(it)
+                    createCheckout(it)
+                },
+                { resolveError(it) },
+                {},
+                Unit
+        )
+    }
+
+    private fun createCheckout(cartProductList: List<CartProduct>) {
 
         checkoutUseCase.execute(
                 { view?.showContent(it) },
                 { resolveError(it) },
-                Unit
+                cartProductList
         )
-    }
-}
-
-class CheckoutUseCase @Inject constructor(
-        private val cartRepository: CartRepository,
-        private val checkoutRepository: CheckoutRepository
-) :
-        SingleUseCase<Checkout, Unit>() {
-
-    override fun buildUseCaseSingle(params: Unit): Single<Checkout> {
-        return cartRepository.getCartProductList()
-                .first(listOf())
-                .flatMap { checkoutRepository.createCheckout(it) }
     }
 }

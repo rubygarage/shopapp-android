@@ -6,13 +6,13 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationFragment
-import com.client.shop.ui.base.ui.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.product.adapter.ProductAdapter
 import com.client.shop.ui.search.contract.SearchPresenter
 import com.client.shop.ui.search.contract.SearchView
 import com.client.shop.ui.search.di.SearchModule
 import com.domain.entity.Product
+import com.ui.base.recycler.divider.BackgroundItemDecoration
 import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
 
@@ -78,9 +78,11 @@ class SearchFragment :
     }
 
     fun queryChanged(query: String) {
-        paginationValue = null
-        currentQuery = query
-        loadData(true)
+        if (query != currentQuery) {
+            paginationValue = null
+            currentQuery = query
+            loadData(true)
+        }
     }
 
     override fun onItemClicked(data: Product, position: Int) {

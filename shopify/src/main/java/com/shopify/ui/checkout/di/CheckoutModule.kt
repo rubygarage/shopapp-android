@@ -1,7 +1,8 @@
 package com.shopify.ui.checkout.di
 
+import com.domain.interactor.cart.CartItemsUseCase
+import com.shopify.interactor.checkout.CheckoutUseCase
 import com.shopify.ui.checkout.contract.CheckoutPresenter
-import com.shopify.ui.checkout.contract.CheckoutUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -9,6 +10,6 @@ import dagger.Provides
 class CheckoutModule {
 
     @Provides
-    fun provideCheckoutPresenter(checkoutUseCase: CheckoutUseCase): CheckoutPresenter =
-            CheckoutPresenter(checkoutUseCase)
+    fun provideCheckoutPresenter(cartItemsUseCase: CartItemsUseCase, checkoutUseCase: CheckoutUseCase): CheckoutPresenter =
+            CheckoutPresenter(cartItemsUseCase, checkoutUseCase)
 }

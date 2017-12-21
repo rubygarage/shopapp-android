@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
-import com.client.shop.ui.base.ui.recycler.divider.BackgroundItemDecoration
+import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
 import com.client.shop.ui.category.di.CategoryModule

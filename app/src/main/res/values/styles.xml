@@ -9,27 +9,6 @@
         <item name="colorAccent">@android:color/white</item>
     </style>
 
-    <style name="see_all_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginEnd">16dp</item>
-        <item name="android:drawableEnd">@drawable/ic_small_arrow_right</item>
-        <item name="android:drawablePadding">16dp</item>
-        <item name="android:textColor">@color/textColorPrimary</item>
-        <item name="android:textSize">@dimen/text_size</item>
-        <item name="android:visibility">gone</item>
-    </style>
-
-    <style name="home_section_title">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginTop">16dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/textColorPrimary</item>
-        <item name="android:textSize">@dimen/text_size</item>
-    </style>
-
     <style name="policy_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

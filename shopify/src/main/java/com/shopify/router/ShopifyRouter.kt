@@ -1,12 +1,12 @@
 package com.shopify.router
 
 import android.app.Activity
-import com.domain.router.Router
+import com.domain.router.ExternalRouter
 import com.shopify.ui.checkout.CheckoutActivity
 
-class ShopifyRouter : Router {
+class ShopifyRouter : ExternalRouter {
 
-    override fun startCheckoutFlow(activity: Activity) {
+    override fun openCheckoutActivity(activity: Activity) {
         activity.startActivity(CheckoutActivity.getStartIntent(activity))
     }
 }
