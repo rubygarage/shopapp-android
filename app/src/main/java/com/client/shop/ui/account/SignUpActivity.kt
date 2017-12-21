@@ -15,14 +15,14 @@ import android.text.style.ClickableSpan
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ext.getUpperCaseString
 import com.client.shop.ui.account.contract.SignUpPresenter
 import com.client.shop.ui.account.contract.SignUpView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.custom.SimpleTextWatcher
 import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Policy
 import com.ui.base.lce.BaseActivity
+import com.ui.custom.SimpleTextWatcher
+import com.ui.ext.getTrimmedString
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
@@ -49,7 +49,6 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.sign_up))
-        setupHints()
         setupInputListeners()
         setupInfoText()
         createButton.setOnClickListener {
@@ -84,14 +83,6 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     override fun useModalStyle() = true
 
     //SETUP
-
-    private fun setupHints() {
-        emailInputLayout.hint = getUpperCaseString(R.string.email)
-        firstNameInputLayout.hint = getUpperCaseString(R.string.first_name)
-        lastNameInputLayout.hint = getUpperCaseString(R.string.last_name)
-        phoneInputLayout.hint = getUpperCaseString(R.string.phone_number)
-        passwordInputLayout.hint = getUpperCaseString(R.string.create_password)
-    }
 
     private fun setupInfoText() {
 
@@ -156,11 +147,12 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
         presenter.signUp(
-                firstNameInput.text.trim().toString(),
-                lastNameInput.text.trim().toString(),
-                emailInput.text.trim().toString(),
-                passwordInput.text.trim().toString(),
-                phoneInput.text.trim().toString())
+                firstNameInput.getTrimmedString(),
+                lastNameInput.getTrimmedString(),
+                emailInput.getTrimmedString(),
+                passwordInput.getTrimmedString(),
+                phoneInput.getTrimmedString()
+        )
     }
 
     override fun showContent(data: Unit) {

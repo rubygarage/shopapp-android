@@ -23,6 +23,10 @@
             android:name="com.shopify.ui.shipping.ShippingActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.shopify.ui.address.AddressActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />

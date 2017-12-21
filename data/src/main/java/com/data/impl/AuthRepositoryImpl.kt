@@ -2,6 +2,7 @@ package com.data.impl
 
 import com.data.rx.RxCallbackCompletable
 import com.data.rx.RxCallbackSingle
+import com.domain.entity.Address
 import com.domain.entity.Customer
 import com.domain.network.Api
 import com.domain.repository.AuthRepository
@@ -34,5 +35,13 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
 
     override fun getCustomer(): Single<Customer> {
         return Single.create { api.getCustomer(RxCallbackSingle<Customer>(it)) }
+    }
+
+    override fun createCustomerAddress(address: Address): Single<String> {
+        return Single.create { api.createCustomerAddress(address, RxCallbackSingle<String>(it)) }
+    }
+
+    override fun setDefaultShippingAddress(addressId: String): Completable {
+        return Completable.create { api.setDefaultShippingAddress(addressId, RxCallbackCompletable(it)) }
     }
 }

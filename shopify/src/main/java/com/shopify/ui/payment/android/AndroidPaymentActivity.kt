@@ -33,7 +33,6 @@ class AndroidPaymentActivity :
 
         fun getStartIntent(context: Context, checkout: Checkout): Intent {
             val intent = Intent(context, AndroidPaymentActivity::class.java)
-            intent.putExtra(CHECKOUT, checkout)
             return intent
         }
     }
@@ -44,7 +43,6 @@ class AndroidPaymentActivity :
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.checkout))
 
-        checkout = intent.getParcelableExtra(CHECKOUT)
         environment = if (BuildConfig.DEBUG) {
             WalletConstants.ENVIRONMENT_TEST
         } else {

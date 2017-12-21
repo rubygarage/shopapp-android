@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ext.shareText
+import com.ui.ext.shareText
 import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
 import com.client.shop.ui.blog.di.BlogModule

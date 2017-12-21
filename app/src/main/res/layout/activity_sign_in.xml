@@ -7,13 +7,14 @@
     android:background="@color/white"
     android:focusableInTouchMode="true">
 
-    <android.support.design.widget.TextInputLayout
+    <com.ui.custom.UpperCaseHintTextInputLayout
         android:id="@+id/emailInputLayout"
         style="@style/text_input_layout"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="30dp"
         android:animateLayoutChanges="true"
+        android:hint="@string/email"
         app:hintTextAppearance="@style/HintTextAppearance"
         app:layout_constraintBottom_toTopOf="@+id/passwordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,15 +29,16 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:lines="1" />
-    </android.support.design.widget.TextInputLayout>
+    </com.ui.custom.UpperCaseHintTextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.ui.custom.UpperCaseHintTextInputLayout
         android:id="@+id/passwordInputLayout"
         style="@style/text_input_layout"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="20dp"
         android:animateLayoutChanges="true"
+        android:hint="@string/password"
         app:hintTextAppearance="@style/HintTextAppearance"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +54,7 @@
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:max="1" />
-    </android.support.design.widget.TextInputLayout>
+    </com.ui.custom.UpperCaseHintTextInputLayout>
 
     <Button
         android:id="@+id/loginButton"

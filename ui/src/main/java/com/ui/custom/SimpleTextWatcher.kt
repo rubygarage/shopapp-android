@@ -1,4 +1,4 @@
-package com.client.shop.ui.custom
+package com.ui.custom
 
 import android.text.Editable
 import android.text.TextWatcher

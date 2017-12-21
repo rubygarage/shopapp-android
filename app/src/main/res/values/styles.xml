@@ -23,16 +23,4 @@
         <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="text_input_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:theme">@style/TextInputLayout</item>
-    </style>
-
-    <style name="text_input_edit_text">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
 </resources>

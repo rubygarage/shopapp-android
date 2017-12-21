@@ -7,7 +7,7 @@ import com.shopify.repository.CheckoutRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CheckoutUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
+class CreateCheckoutUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
         SingleUseCase<Checkout, List<CartProduct>>() {
 
     override fun buildUseCaseSingle(params: List<CartProduct>): Single<Checkout> {

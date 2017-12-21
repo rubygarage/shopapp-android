@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
-import com.client.shop.ext.replaceOnce
+import com.ui.ext.replaceOnce
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.popular.PopularFragment
 import com.client.shop.ui.recent.RecentFragment
