@@ -12,7 +12,6 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.entity.Checkout
-import com.shopify.ui.address.AddressActivity
 import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
@@ -74,9 +73,6 @@ class CheckoutActivity :
 
     private fun setupButtons() {
         seeAll.setOnClickListener { router.openCartScreen(this) }
-        address.setOnClickListener {
-            checkout?.let { startActivity(AddressActivity.getStartIntent(this, it.checkoutId)) }
-        }
     }
 
     //LCE
