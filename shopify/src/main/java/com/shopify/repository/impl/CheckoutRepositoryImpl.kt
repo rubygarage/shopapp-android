@@ -28,9 +28,9 @@ class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
         }
     }
 
-    override fun setShippingAddress(checkoutId: String, address: Address): Completable {
-        return Completable.create {
-            api.setShippingAddress(checkoutId, address, RxCallbackCompletable(it))
+    override fun setShippingAddress(checkoutId: String, address: Address): Single<Checkout> {
+        return Single.create {
+            api.setShippingAddress(checkoutId, address, RxCallbackSingle<Checkout>(it))
         }
     }
 

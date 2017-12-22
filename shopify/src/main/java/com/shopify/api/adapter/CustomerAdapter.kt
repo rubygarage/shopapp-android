@@ -10,7 +10,9 @@ object CustomerAdapter {
                 adaptee.id.toString(),
                 adaptee.email,
                 adaptee.firstName,
-                adaptee.lastName
+                adaptee.lastName,
+                AddressAdapter.adapt(adaptee.addresses),
+                adaptee.defaultAddress?.let { AddressAdapter.adapt(it) }
         )
     }
 }

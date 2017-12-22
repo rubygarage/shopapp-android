@@ -99,7 +99,12 @@ class CheckoutActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        checkout?.let { presenter.getCheckout(it.checkoutId) } ?: presenter.getCartProductList()
+        val checkout = this.checkout
+        if (checkout != null) {
+            presenter.getCheckout(checkout.checkoutId)
+        } else {
+            presenter.getCartProductList()
+        }
     }
 
     override fun showContent(data: Checkout) {
