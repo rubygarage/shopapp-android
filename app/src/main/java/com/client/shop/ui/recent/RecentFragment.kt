@@ -6,7 +6,7 @@ import android.view.Gravity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.product.ProductListActivity
 import com.client.shop.ui.product.adapter.ProductAdapter

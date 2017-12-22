@@ -9,7 +9,7 @@ import android.view.MenuInflater
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.const.RequestCode
+import com.ui.const.RequestCode
 import com.client.shop.ui.account.contract.AccountPresenter
 import com.client.shop.ui.account.contract.AccountView
 import com.client.shop.ui.account.di.AuthModule

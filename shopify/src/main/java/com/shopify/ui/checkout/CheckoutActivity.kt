@@ -1,17 +1,20 @@
 package com.shopify.ui.checkout
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.view.Gravity
+import android.view.View
 import com.domain.entity.CartProduct
 import com.domain.router.AppRouter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.entity.Checkout
+import com.shopify.ui.address.AddressActivity
 import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
@@ -19,6 +22,7 @@ import com.shopify.ui.checkout.di.CheckoutModule
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
+import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_checkout.*
 import javax.inject.Inject
 
@@ -43,8 +47,15 @@ class CheckoutActivity :
         setTitle(getString(R.string.checkout))
 
         setupCartRecycler()
-        setupButtons()
+        setupListeners()
         loadData()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RequestCode.ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
+            loadData()
+        }
     }
 
     //INIT
@@ -71,20 +82,30 @@ class CheckoutActivity :
         recyclerView.addItemDecoration(decoration)
     }
 
-    private fun setupButtons() {
+    private fun setupListeners() {
         seeAll.setOnClickListener { router.openCartScreen(this) }
+        shippingAddressView.setClickListeners(
+                View.OnClickListener { },
+                View.OnClickListener {
+                    checkout?.let {
+                        startActivityForResult(
+                                AddressActivity.getStartIntent(this, it.checkoutId), RequestCode.ADD_ADDRESS)
+                    }
+                }
+        )
     }
 
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.getCartProductList()
+        checkout?.let { presenter.getCheckout(it.checkoutId) } ?: presenter.getCartProductList()
     }
 
     override fun showContent(data: Checkout) {
         super.showContent(data)
         checkout = data
+        shippingAddressView.setAddress(data.address)
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {
