@@ -1,7 +1,9 @@
 package com.shopify.di.module
 
+import com.data.impl.AuthRepositoryImpl
 import com.data.impl.CartRepositoryImpl
 import com.domain.database.Dao
+import com.domain.repository.AuthRepository
 import com.domain.repository.CartRepository
 import com.shopify.api.ShopifyApi
 import com.shopify.repository.CheckoutRepository
@@ -20,4 +22,8 @@ class ShopifyModule(private val api: ShopifyApi, private val dao: Dao) {
     @Provides
     @Singleton
     fun provideCheckoutRepository(): CheckoutRepository = CheckoutRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(): AuthRepository = AuthRepositoryImpl(api)
 }

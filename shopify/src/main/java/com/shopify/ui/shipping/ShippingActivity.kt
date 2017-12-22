@@ -45,7 +45,6 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
         private fun getStartIntent(context: Context, payment: String, checkout: Checkout): Intent {
             val intent = Intent(context, ShippingActivity::class.java)
             intent.putExtra(PAYMENT, payment)
-            intent.putExtra(CHECKOUT, checkout)
             return intent
         }
     }
@@ -54,7 +53,6 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
         super.onCreate(savedInstanceState)
 
         setTitle(getString(R.string.checkout))
-        checkout = intent.getParcelableExtra(CHECKOUT)
         payment = intent.getStringExtra(PAYMENT)
 
         setupViews()
@@ -73,40 +71,17 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
     //SETUP
 
     private fun setupViews() {
-        val adapter = AddressPageAdapter(this, sameAddressCheckBox.isChecked, supportFragmentManager)
-        viewPager.adapter = adapter
+
         tabLayout.setupWithViewPager(viewPager)
         sameAddressCheckBox.visibility = if (payment == ANDROID_PAYMENT) View.GONE else View.VISIBLE
 
         sameAddressCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            adapter.sameAddress = isChecked
-            adapter.notifyDataSetChanged()
+
             viewPager.currentItem = 0
             tabLayout.visibility = if (isChecked) View.GONE else View.VISIBLE
         }
 
         applyAddressButton.setOnClickListener {
-
-            val billingAddressFragment = adapter.getBillingFragment(viewPager)
-            val shippingAddressFragment = adapter.getShippingFragment(viewPager)
-
-            if (billingAddressFragment != null && shippingAddressFragment != null) {
-                val email = billingAddressFragment.getValidEmail()
-                val billingAddress = billingAddressFragment.getValidAddress()
-                val shippingAddress = shippingAddressFragment.getValidAddress()
-                if ((email != null && billingAddress != null)) {
-                    this.email = email
-                    this.billingAddress = billingAddress
-                    if (!sameAddressCheckBox.isChecked && shippingAddress == null) {
-                        showMessage(R.string.shipping_empty_fields_error)
-                    } else {
-                        this.shippingAddress = shippingAddress
-                        loadData()
-                    }
-                } else {
-                    showMessage(R.string.address_empty_fields_error)
-                }
-            }
         }
     }
 

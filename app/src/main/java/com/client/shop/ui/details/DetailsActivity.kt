@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ext.getScreenSize
+import com.ui.ext.getScreenSize
 import com.client.shop.ui.cart.CartActivity
 import com.client.shop.ui.container.OptionsContainer
 import com.client.shop.ui.details.contract.DetailsPresenter

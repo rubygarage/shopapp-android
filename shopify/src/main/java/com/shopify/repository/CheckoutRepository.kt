@@ -7,11 +7,16 @@ import com.google.android.gms.wallet.FullWallet
 import com.shopify.buy3.pay.PayCart
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
+import io.reactivex.Completable
 import io.reactivex.Single
 
 interface CheckoutRepository {
 
     fun createCheckout(cartProductList: List<CartProduct>): Single<Checkout>
+
+    fun getCheckout(checkoutId: String): Single<Checkout>
+
+    fun setShippingAddress(checkoutId: String, address: Address): Completable
 
     fun getShippingRates(checkoutId: String, email: String, address: Address): Single<List<ShippingRate>>
 

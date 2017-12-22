@@ -13,7 +13,8 @@ object CheckoutAdapter {
                 adaptee.subtotalPrice,
                 adaptee.totalPrice,
                 adaptee.totalTax,
-                currency
+                currency,
+                adaptee.shippingAddress?.let { AddressAdapter.adapt(it) }
         )
     }
 }

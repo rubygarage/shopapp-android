@@ -1,12 +1,12 @@
-package com.client.shop.ext
+package com.ui.ext
 
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
-import android.support.annotation.StringRes
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 
 
 fun Context.getScreenSize(): Point {
@@ -26,6 +26,6 @@ fun View.showKeyboard() {
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 }
 
-fun Context.getUpperCaseString(@StringRes resId: Int): String {
-    return getString(resId).toUpperCase()
+fun EditText.getTrimmedString(): String {
+    return text.trim().toString()
 }

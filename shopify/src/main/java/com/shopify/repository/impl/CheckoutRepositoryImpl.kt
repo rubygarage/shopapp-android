@@ -1,15 +1,17 @@
 package com.shopify.repository.impl
 
+import com.data.rx.RxCallbackCompletable
+import com.data.rx.RxCallbackSingle
 import com.domain.entity.Address
 import com.domain.entity.Card
 import com.domain.entity.CartProduct
 import com.google.android.gms.wallet.FullWallet
-import com.data.rx.RxCallbackSingle
 import com.shopify.api.ShopifyApi
 import com.shopify.buy3.pay.PayCart
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.repository.CheckoutRepository
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
@@ -17,6 +19,18 @@ class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
     override fun createCheckout(cartProductList: List<CartProduct>): Single<Checkout> {
         return Single.create<Checkout> {
             api.createCheckout(cartProductList, RxCallbackSingle<Checkout>(it))
+        }
+    }
+
+    override fun getCheckout(checkoutId: String): Single<Checkout> {
+        return Single.create<Checkout> {
+            api.getCheckout(checkoutId, RxCallbackSingle<Checkout>(it))
+        }
+    }
+
+    override fun setShippingAddress(checkoutId: String, address: Address): Completable {
+        return Completable.create {
+            api.setShippingAddress(checkoutId, address, RxCallbackCompletable(it))
         }
     }
 

@@ -26,5 +26,6 @@
     <string name="shipping_empty_fields_error">Please fill required fields on the shipping screen</string>
     <string name="address_empty_fields_error">Please fill all required fields</string>
     <string name="empty_shipping_rates_message">There are no suitable deliveries</string>
+    <string name="add_new_address">Add new address</string>
 
 </resources>

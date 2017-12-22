@@ -29,8 +29,7 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
 
         fun getStartIntent(context: Context, checkout: Checkout, address: Address): Intent {
             val intent = Intent(context, CardPaymentActivity::class.java)
-            intent.putExtra(CHECKOUT, checkout)
-            intent.putExtra(ADDRESS, address)
+
             return intent
         }
     }
@@ -46,9 +45,6 @@ class CardPaymentActivity : BaseActivity<Boolean, CardPaymentView, CardPaymentPr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.checkout))
-
-        checkout = intent.getParcelableExtra(CHECKOUT)
-        address = intent.getParcelableExtra(ADDRESS)
 
         addCardListener()
         priceView.setCheckout(checkout)

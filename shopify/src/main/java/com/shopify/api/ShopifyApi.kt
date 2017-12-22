@@ -46,6 +46,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         private const val EXPIRES_DATE = "expires_date"
         private const val RETRY_HANDLER_DELAY = 500L
         private const val RETRY_HANDLER_MAX_COUNT = 5
+        private const val UNAUTHORIZED_ERROR = "Unauthorized"
     }
 
     private fun saveSession(accessData: AccessData) {
@@ -159,18 +160,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     if (paginationValue != null) {
                         args.after(paginationValue.toString())
                     }
-                }) { collectionConnectionQuery ->
-                    collectionConnectionQuery.edges { collectionEdgeQuery ->
-                        collectionEdgeQuery
-                                .cursor()
-                                .node { collectionQuery ->
-                                    collectionQuery
-                                            .title()
+                }) {
+                    it.edges {
+                        it.cursor()
+                                .node {
+                                    it.title()
                                             .description()
                                             .updatedAt()
-                                            .image({ imageQuery ->
-                                                imageQuery
-                                                        .id()
+                                            .image({
+                                                it.id()
                                                         .src()
                                                         .altText()
                                             })
@@ -343,18 +341,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             customerCreateInput.phone = phone
         }
 
-        val customerQuery = Storefront.CustomerCreatePayloadQueryDefinition { queryDefinition ->
-            queryDefinition.customer {
-                it
-                        .id()
-                        .firstName()
-                        .lastName()
-                        .email()
-            }.userErrors {
-                it
-                        .field()
-                        .message()
-            }
+        val customerQuery = Storefront.CustomerCreatePayloadQueryDefinition {
+            it.customer { getDefaultCustomerQuery(it) }
+                    .userErrors { getDefaultUserErrors(it) }
         }
 
         val mutationQuery = Storefront.mutation { query -> query.customerCreate(customerCreateInput, customerQuery) }
@@ -407,7 +396,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val mutationQuery = Storefront.mutation {
             it.customerRecover(email, {
-                it.userErrors { it.field().message() }
+                it.userErrors { getDefaultUserErrors(it) }
             })
         }
 
@@ -439,13 +428,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         if (accessData != null) {
             val query = Storefront.query {
-                it.customer(accessData.accessToken) {
-                    it
-                            .id()
-                            .firstName()
-                            .lastName()
-                            .email()
-                }
+                it.customer(accessData.accessToken) { getDefaultCustomerQuery(it) }
             }
             graphClient.queryGraph(query).enqueue(object : QueryCallWrapper<Customer>(callback) {
                 override fun adapt(data: Storefront.QueryRoot): Customer {
@@ -453,7 +436,75 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
             })
         } else {
-            callback.onFailure(Error.NonCritical("Unauthorized"))
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        }
+    }
+
+    override fun createCustomerAddress(address: Address, callback: ApiCallback<String>) {
+
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+            val mailingAddressInput = Storefront.MailingAddressInput()
+                    .setAddress1(address.address)
+                    .setAddress2(address.secondAddress)
+                    .setCity(address.city)
+                    .setProvince(address.state)
+                    .setCountry(address.country)
+                    .setFirstName(address.firstName)
+                    .setLastName(address.lastName)
+                    .setPhone(address.phone)
+                    .setZip(address.zip)
+
+            val mutation = Storefront.mutation {
+                it.customerAddressCreate(session.accessToken, mailingAddressInput, {
+                    it.customerAddress { it.firstName() }
+                    it.userErrors { getDefaultUserErrors(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutation).enqueue(object : MutationCallWrapper<String>(callback) {
+                override fun adapt(data: Storefront.Mutation?): String? {
+                    return data?.customerAddressCreate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            return it.customerAddress.id.toString()
+                        }
+                        return null
+                    }
+                }
+            })
+        }
+    }
+
+    override fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>) {
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+            val mutation = Storefront.mutation {
+                it.customerDefaultAddressUpdate(session.accessToken, ID(addressId), {
+                    it.customer { it.firstName() }
+                    it.userErrors { getDefaultUserErrors(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutation).enqueue(object : MutationCallWrapper<Unit>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Unit? {
+                    return data?.customerDefaultAddressUpdate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            return Unit
+                        }
+                        return null
+                    }
+                }
+            })
         }
     }
 
@@ -462,11 +513,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val accessTokenInput = Storefront.CustomerAccessTokenCreateInput(email, password)
         val accessTokenQuery = Storefront.CustomerAccessTokenCreatePayloadQueryDefinition { queryDefinition ->
             queryDefinition.customerAccessToken { accessTokenQuery -> accessTokenQuery.accessToken().expiresAt() }
-                    .userErrors { errorsQuery ->
-                        errorsQuery
-                                .field()
-                                .message()
-                    }
+                    .userErrors { getDefaultUserErrors(it) }
         }
 
         val mutationQuery = Storefront.mutation { query -> query.customerAccessTokenCreate(accessTokenInput, accessTokenQuery) }
@@ -491,25 +538,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
         )
 
-        val mutateQuery = Storefront.mutation { mutationQuery ->
-            mutationQuery
-                    .checkoutCreate(input) { createPayloadQuery ->
-                        createPayloadQuery
-                                .checkout { checkoutQuery ->
-                                    checkoutQuery
-                                            .webUrl()
-                                            .email()
-                                            .requiresShipping()
-                                            .totalPrice()
-                                            .subtotalPrice()
-                                            .totalTax()
-                                }
-                                .userErrors { userErrorQuery ->
-                                    userErrorQuery
-                                            .field()
-                                            .message()
-                                }
-                    }
+        val mutateQuery = Storefront.mutation {
+            it.checkoutCreate(input) {
+                it.checkout { getDefaultCheckoutQuery(it) }
+                        .userErrors { getDefaultUserErrors(it) }
+            }
         }
 
         val shopCallback = object : ApiCallback<String> {
@@ -554,6 +587,60 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
             override fun onFailure(error: GraphError) {
                 callback.onFailure(ErrorAdapter.adapt(error))
+            }
+        })
+    }
+
+    fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>) {
+        val query = Storefront.query({
+            it.shop { it.paymentSettings { it.currencyCode() } }
+                    .node(ID(checkoutId), {
+                        it.onCheckout {
+                            getDefaultCheckoutQuery(it)
+                        }
+                    })
+        })
+
+        graphClient.queryGraph(query).enqueue(object : QueryCallWrapper<Checkout>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): Checkout {
+                val checkout = data.node as Storefront.Checkout
+                val currency = data.shop.paymentSettings.currencyCode.name
+                return CheckoutAdapter.adapt(checkout, currency)
+            }
+        })
+    }
+
+    fun setShippingAddress(checkoutId: String, address: Address, callback: ApiCallback<Unit>) {
+
+        val mailingAddressInput = Storefront.MailingAddressInput()
+                .setAddress1(address.address)
+                .setAddress2(address.secondAddress)
+                .setCity(address.city)
+                .setProvince(address.state)
+                .setCountry(address.country)
+                .setFirstName(address.firstName)
+                .setLastName(address.lastName)
+                .setPhone(address.phone)
+                .setZip(address.zip)
+
+        val checkoutQuery = Storefront.mutation {
+            it.checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), {
+                it.checkout {}
+                it.userErrors { getDefaultUserErrors(it) }
+            })
+        }
+
+        graphClient.mutateGraph(checkoutQuery).enqueue(object : MutationCallWrapper<Unit>(callback) {
+            override fun adapt(data: Storefront.Mutation?): Unit? {
+                return data?.checkoutShippingAddressUpdate?.let {
+                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                    if (userError != null) {
+                        callback.onFailure(userError)
+                    } else {
+                        return Unit
+                    }
+                    return null
+                }
             }
         })
     }
@@ -624,7 +711,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val checkoutQuery = Storefront.mutation {
             it.checkoutShippingLineUpdate(ID(checkoutId), shippingRate.handle, {
-                it.userErrors { it.field().message() }
+                it.userErrors { getDefaultUserErrors(it) }
                         .checkout {
                             it
                                     .webUrl()
@@ -726,9 +813,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     it.ready().errorMessage()
                 }.checkout {
                     it.ready()
-                }.userErrors {
-                    it.message().field()
-                }
+                }.userErrors { getDefaultUserErrors(it) }
             }
         }
 
@@ -816,7 +901,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             it.checkoutCompleteWithTokenizedPayment(ID(checkout.checkoutId), input, {
                 it.payment({ it.ready().errorMessage() })
                         .checkout({ it.ready() })
-                        .userErrors({ it.field().message() })
+                        .userErrors({ getDefaultUserErrors(it) })
             })
         }
 
@@ -939,8 +1024,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     private fun getDefaultProductQuery(productQuery: Storefront.ProductQuery): Storefront.ProductQuery {
-        return productQuery
-                .title()
+        return productQuery.title()
                 .description()
                 .descriptionHtml()
                 .vendor()
@@ -951,8 +1035,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     private fun getDefaultArticleQuery(articleQuery: Storefront.ArticleQuery): Storefront.ArticleQuery {
-        return articleQuery
-                .title()
+        return articleQuery.title()
                 .content()
                 .tags()
                 .publishedAt()
@@ -970,5 +1053,48 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                             .bio()
                 }
                 .blog({ it.title() })
+    }
+
+    private fun getDefaultCheckoutQuery(checkoutQuery: Storefront.CheckoutQuery): Storefront.CheckoutQuery {
+        return checkoutQuery.webUrl()
+                .email()
+                .requiresShipping()
+                .totalPrice()
+                .subtotalPrice()
+                .totalTax()
+                .shippingAddress { getDefaultAddressQuery(it) }
+    }
+
+    private fun getDefaultAddressQuery(addressQuery: Storefront.MailingAddressQuery): Storefront.MailingAddressQuery {
+        return addressQuery.country()
+                .firstName()
+                .lastName()
+                .address1()
+                .address2()
+                .city()
+                .province()
+                .zip()
+                .phone()
+    }
+
+    private fun getDefaultCustomerQuery(customerQuery: Storefront.CustomerQuery): Storefront.CustomerQuery {
+        return customerQuery.id()
+                .defaultAddress { getDefaultAddressQuery(it) }
+                .addresses({ it.first(ITEMS_COUNT) }, {
+                    it.edges {
+                        it.cursor().node {
+                            getDefaultAddressQuery(it)
+                        }
+                    }
+                })
+                .firstName()
+                .lastName()
+                .email()
+    }
+
+    private fun getDefaultUserErrors(userErrorQuery: Storefront.UserErrorQuery): Storefront.UserErrorQuery {
+        return userErrorQuery
+                .field()
+                .message()
     }
 }

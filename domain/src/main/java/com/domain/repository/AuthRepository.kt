@@ -1,5 +1,6 @@
 package com.domain.repository
 
+import com.domain.entity.Address
 import com.domain.entity.Customer
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -17,4 +18,8 @@ interface AuthRepository {
     fun forgotPassword(email: String): Completable
 
     fun getCustomer(): Single<Customer>
+
+    fun createCustomerAddress(address: Address): Single<String>
+
+    fun setDefaultShippingAddress(addressId: String): Completable
 }

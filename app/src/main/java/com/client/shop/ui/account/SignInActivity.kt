@@ -9,12 +9,12 @@ import android.text.TextWatcher
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ext.getUpperCaseString
 import com.client.shop.ui.account.contract.SignInPresenter
 import com.client.shop.ui.account.contract.SignInView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.custom.SimpleTextWatcher
 import com.ui.base.lce.BaseActivity
+import com.ui.custom.SimpleTextWatcher
+import com.ui.ext.getTrimmedString
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import javax.inject.Inject
 
@@ -34,7 +34,6 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.sign_in))
-        setupHints()
         setupInputListeners()
         setupButtonListeners()
     }
@@ -66,11 +65,6 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
     override fun useModalStyle() = true
 
     //SETUP
-
-    private fun setupHints() {
-        emailInputLayout.hint = getUpperCaseString(R.string.email)
-        passwordInputLayout.hint = getUpperCaseString(R.string.password)
-    }
 
     private fun setupInputListeners() {
         emailTextWatcher = object : SimpleTextWatcher {
@@ -104,7 +98,7 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.logIn(emailInput.text.trim().toString(), passwordInput.text.trim().toString())
+        presenter.logIn(emailInput.getTrimmedString(), passwordInput.getTrimmedString())
     }
 
     override fun showContent(data: Unit) {

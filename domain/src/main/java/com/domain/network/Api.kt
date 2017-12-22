@@ -34,5 +34,9 @@ interface Api {
 
     fun getCustomer(callback: ApiCallback<Customer>)
 
+    fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>)
+
+    fun createCustomerAddress(address: Address, callback: ApiCallback<String>)
+
     fun getArticle(id: String, callback: ApiCallback<Article>)
 }

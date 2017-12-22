@@ -10,6 +10,7 @@ object ProductAdapter {
     private const val DEFAULT_PRICE = 0f
 
     fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product, paginationValue: String? = null): Product {
+        val productImages = convertImage(productAdaptee)
         return Product(
                 id = productAdaptee.id.toString(),
                 title = productAdaptee.title,
@@ -22,9 +23,11 @@ object ProductAdapter {
                 createdAt = productAdaptee.createdAt.toDate(),
                 updatedAt = productAdaptee.updatedAt.toDate(),
                 price = convertPrice(productAdaptee),
-                images = convertImage(productAdaptee),
+                images = productImages,
                 options = convertProductOptionList(productAdaptee.options),
-                variants = productAdaptee.variants.edges.map { ProductVariantAdapter.adapt(it.node) },
+                variants = productAdaptee.variants.edges.map {
+                    ProductVariantAdapter.adapt(it.node, productImages.firstOrNull())
+                },
                 paginationValue = paginationValue
         )
     }
