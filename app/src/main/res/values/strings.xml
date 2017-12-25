@@ -52,7 +52,6 @@
     <string name="and">and</string>
     <string name="welcome">Welcome</string>
     <string name="my_orders">My Orders</string>
-    <string name="full_name_pattern">%1$s %2$s</string>
     <string name="clear">Clear</string>
 
 </resources>

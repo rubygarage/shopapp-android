@@ -1,15 +1,16 @@
 package com.shopify.interactor.checkout
 
 import com.domain.entity.Address
-import com.domain.interactor.base.CompletableUseCase
+import com.domain.interactor.base.SingleUseCase
+import com.shopify.entity.Checkout
 import com.shopify.repository.CheckoutRepository
-import io.reactivex.Completable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class SetShippingAddressUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
-        CompletableUseCase<SetShippingAddressUseCase.Params>() {
+        SingleUseCase<Checkout, SetShippingAddressUseCase.Params>() {
 
-    override fun buildUseCaseCompletable(params: Params): Completable {
+    override fun buildUseCaseSingle(params: Params): Single<Checkout> {
         return checkoutRepository.setShippingAddress(params.checkoutId, params.address)
     }
 

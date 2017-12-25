@@ -18,4 +18,8 @@ object AddressAdapter {
                 phone = adaptee.phone
         )
     }
+
+    fun adapt(adaptee: Storefront.MailingAddressConnection?): List<Address> {
+        return adaptee?.edges?.map { AddressAdapter.adapt(it.node) } ?: listOf()
+    }
 }

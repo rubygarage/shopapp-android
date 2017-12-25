@@ -5,7 +5,7 @@ import com.shopify.entity.Checkout
 
 object CheckoutAdapter {
 
-    fun adapt(adaptee: Storefront.Checkout, currency: String): Checkout {
+    fun adapt(adaptee: Storefront.Checkout): Checkout {
         return Checkout(
                 adaptee.id.toString(),
                 adaptee.webUrl,
@@ -13,7 +13,7 @@ object CheckoutAdapter {
                 adaptee.subtotalPrice,
                 adaptee.totalPrice,
                 adaptee.totalTax,
-                currency,
+                adaptee.currencyCode.name,
                 adaptee.shippingAddress?.let { AddressAdapter.adapt(it) }
         )
     }

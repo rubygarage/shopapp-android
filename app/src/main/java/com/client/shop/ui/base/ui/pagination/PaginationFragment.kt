@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.client.shop.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.adapter.BaseRecyclerAdapter

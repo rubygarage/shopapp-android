@@ -1,4 +1,4 @@
-package com.client.shop.const
+package com.ui.const
 
 object Constant {
 
