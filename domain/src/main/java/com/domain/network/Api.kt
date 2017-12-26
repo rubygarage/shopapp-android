@@ -38,5 +38,9 @@ interface Api {
 
     fun createCustomerAddress(address: Address, callback: ApiCallback<String>)
 
+    fun editCustomerAddress(addressId: String, address: Address, callback: ApiCallback<Unit>)
+
+    fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>)
+
     fun getArticle(id: String, callback: ApiCallback<Article>)
 }

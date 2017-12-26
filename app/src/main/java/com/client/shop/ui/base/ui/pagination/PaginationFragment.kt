@@ -8,14 +8,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.recycler.EndlessRecyclerViewScrollListener
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.BaseRecyclerAdapter
-import com.ui.base.recycler.divider.GridSpaceDecoration
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import com.ui.base.lce.BaseFragment
+import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.ui.base.recycler.divider.GridSpaceDecoration
+import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 
 abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresenter<List<M>, V>> :
         BaseFragment<List<M>, V, P>(),

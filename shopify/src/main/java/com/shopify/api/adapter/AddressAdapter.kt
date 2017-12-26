@@ -7,6 +7,7 @@ object AddressAdapter {
 
     fun adapt(adaptee: Storefront.MailingAddress): Address {
         return Address(
+                id = adaptee.id.toString(),
                 address = adaptee.address1,
                 secondAddress = adaptee.address2,
                 city = adaptee.city,

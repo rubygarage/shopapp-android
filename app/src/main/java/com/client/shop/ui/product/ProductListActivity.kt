@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.product.adapter.ProductAdapter
@@ -16,7 +15,7 @@ import com.client.shop.ui.product.contract.ProductListView
 import com.client.shop.ui.product.di.ProductModule
 import com.domain.entity.Product
 import com.domain.entity.SortType
-import kotlinx.android.synthetic.main.activity_pagination.*
+import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
 class ProductListActivity :
@@ -72,7 +71,7 @@ class ProductListActivity :
 
     override fun setupRecyclerView() {
         super.setupRecyclerView()
-        recyclerView.setBackgroundResource(R.color.white)
+        recycler.setBackgroundResource(R.color.white)
     }
 
     //LCE

@@ -10,7 +10,7 @@ abstract class UseCase {
 
     protected fun checkIsAttachedToLifecycle() {
         if (!isAttachedToLifecycle) {
-            throw RuntimeException("You must attach ${this.javaClass.name} to the lifecycle.")
+            throw RuntimeException("You have to attach ${this.javaClass.name} to the lifecycle.")
         }
     }
 

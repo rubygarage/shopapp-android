@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.ui.base.recycler.OnItemClickListener
 
 abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
-                                      protected val onItemClickListener: OnItemClickListener) :
+                                      protected val onItemClickListener: OnItemClickListener? = null) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var withHeader = false
@@ -67,7 +67,11 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
 
     protected open fun getFooterView(context: Context): View? = null
 
-    class DefaultViewHolder(itemView: View, onItemClickListener: OnItemClickListener, withHeader: Boolean) :
+    protected open fun setOnClickListenerForEachItem() {
+
+    }
+
+    class DefaultViewHolder(itemView: View, onItemClickListener: OnItemClickListener?, withHeader: Boolean) :
             RecyclerView.ViewHolder(itemView) {
 
         init {
@@ -75,7 +79,7 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
                 val headerOffset = if (withHeader) 1 else 0
                 val position = adapterPosition - headerOffset
                 if (position >= 0) {
-                    onItemClickListener.onItemClicked(position)
+                    onItemClickListener?.onItemClicked(position)
                 }
             }
         }

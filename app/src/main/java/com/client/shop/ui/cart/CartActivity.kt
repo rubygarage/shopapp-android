@@ -9,7 +9,6 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.recycler.SwipeToDeleteCallback
-import com.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
@@ -23,6 +22,7 @@ import com.domain.router.ExternalRouter
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceEmptyView
 import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 

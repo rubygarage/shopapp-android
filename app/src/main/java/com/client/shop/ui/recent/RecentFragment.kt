@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.details.DetailsActivity
 import com.client.shop.ui.product.ProductListActivity
 import com.client.shop.ui.product.adapter.ProductAdapter
@@ -19,6 +18,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.ui.base.lce.BaseFragment
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
+import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
