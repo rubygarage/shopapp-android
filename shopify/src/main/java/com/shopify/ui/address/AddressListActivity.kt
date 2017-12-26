@@ -47,6 +47,7 @@ class AddressListActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTitle(getString(R.string.shipping_address))
 
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
         address = address ?: intent.getParcelableExtra(ADDRESS)
