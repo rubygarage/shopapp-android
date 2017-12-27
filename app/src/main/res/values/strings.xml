@@ -46,7 +46,7 @@
     <string name="submit_button">Submit</string>
     <string name="cancel_button">Cancel</string>
     <string name="check_inbox_message">Please check your inbox</string>
-    <string name="logout_success_message">You have logged out successfully</string>
+    <string name="logout_success_message">You have been logged out successfully</string>
     <string name="shop">Shop</string>
     <string name="account_sign_in_message">Sign In to shop and view orders</string>
     <string name="policy_text">By creating your account, you accept our</string>

@@ -27,8 +27,8 @@ class ForgotPasswordActivity :
     }
 
     @Inject lateinit var forgotPasswordPresenter: ForgotPasswordPresenter
+    @Inject lateinit var fieldValidator: FieldValidator
     private lateinit var emailTextWatcher: TextWatcher
-    private val validator = FieldValidator()
 
     //ANDROID
 
@@ -38,7 +38,7 @@ class ForgotPasswordActivity :
 
         emailTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                submitButton.isEnabled = validator.isEmailValid(s.toString())
+                submitButton.isEnabled = fieldValidator.isEmailValid(s.toString())
             }
         }
         submitButton.setOnClickListener(this)

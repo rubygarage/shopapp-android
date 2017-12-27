@@ -21,6 +21,7 @@ interface AddressView : BaseLceView<Address?> {
 }
 
 class AddressPresenter(
+        private val fieldValidator: FieldValidator,
         private val getCheckoutUseCase: GetCheckoutUseCase,
         private val setShippingAddressUseCase: SetShippingAddressUseCase,
         private val sessionCheckUseCase: SessionCheckUseCase,
@@ -35,7 +36,6 @@ class AddressPresenter(
                 editCustomerAddressUseCase
         ) {
 
-    private val fieldValidator = FieldValidator()
     private var isLoggedIn = false
 
     fun checkIsLoggedIn() {
