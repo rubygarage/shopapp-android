@@ -480,6 +480,76 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
     }
 
+    override fun editCustomerAddress(addressId: String, address: Address, callback: ApiCallback<Unit>) {
+
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+            val mutation = Storefront.mutation {
+
+                val mailingAddressInput = Storefront.MailingAddressInput()
+                        .setAddress1(address.address)
+                        .setAddress2(address.secondAddress)
+                        .setCity(address.city)
+                        .setProvince(address.state)
+                        .setCountry(address.country)
+                        .setFirstName(address.firstName)
+                        .setLastName(address.lastName)
+                        .setPhone(address.phone)
+                        .setZip(address.zip)
+
+                it.customerAddressUpdate(session.accessToken, ID(addressId), mailingAddressInput, {
+                    it.customerAddress { it.firstName() }
+                    it.userErrors { getDefaultUserErrors(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutation).enqueue(object : MutationCallWrapper<Unit>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Unit? {
+                    return data?.customerAddressUpdate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            return Unit
+                        }
+                        return null
+                    }
+                }
+            })
+        }
+    }
+
+    override fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>) {
+
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+            val mutation = Storefront.mutation {
+                it.customerAddressDelete(ID(addressId), session.accessToken, {
+                    it.deletedCustomerAddressId()
+                    it.userErrors { getDefaultUserErrors(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutation).enqueue(object : MutationCallWrapper<Unit>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Unit? {
+                    return data?.customerAddressDelete?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            return Unit
+                        }
+                        return null
+                    }
+                }
+            })
+        }
+    }
+
     override fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>) {
         val session = getSession()
         if (session == null) {

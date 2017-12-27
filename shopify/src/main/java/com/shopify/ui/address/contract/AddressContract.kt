@@ -2,6 +2,7 @@ package com.shopify.ui.address.contract
 
 import com.domain.entity.Address
 import com.domain.interactor.account.CreateCustomerAddressUseCase
+import com.domain.interactor.account.EditCustomerAddressUseCase
 import com.domain.interactor.account.SessionCheckUseCase
 import com.domain.validator.FieldValidator
 import com.shopify.api.R
@@ -23,13 +24,15 @@ class AddressPresenter(
         private val getCheckoutUseCase: GetCheckoutUseCase,
         private val setShippingAddressUseCase: SetShippingAddressUseCase,
         private val sessionCheckUseCase: SessionCheckUseCase,
-        private val createCustomerAddressUseCase: CreateCustomerAddressUseCase
+        private val createCustomerAddressUseCase: CreateCustomerAddressUseCase,
+        private val editCustomerAddressUseCase: EditCustomerAddressUseCase
 ) :
         BaseLcePresenter<Address?, AddressView>(
                 getCheckoutUseCase,
                 setShippingAddressUseCase,
                 sessionCheckUseCase,
-                createCustomerAddressUseCase
+                createCustomerAddressUseCase,
+                editCustomerAddressUseCase
         ) {
 
     private val fieldValidator = FieldValidator()
@@ -54,38 +57,73 @@ class AddressPresenter(
         )
     }
 
-    fun submitAddress(checkoutId: String, address: Address, isDefault: Boolean) {
+    fun submitAddress(checkoutId: String?, address: Address, isDefault: Boolean) {
         if (fieldValidator.isAddressValid(address)) {
-            setShippingAddressUseCase.execute(
-                    {
-                        if (isLoggedIn) {
-                            createAddress(address, isDefault)
-                        } else {
-                            view?.addressChanged()
-                        }
-                    },
-                    {
-                        resolveError(it)
-                        view?.submitAddressError()
-                    },
-                    SetShippingAddressUseCase.Params(checkoutId, address)
-            )
+            if (checkoutId != null) {
+                setShippingAddressUseCase.execute(
+                        {
+                            if (isLoggedIn) {
+                                createCustomerAddress(address, isDefault)
+                            } else {
+                                view?.addressChanged()
+                            }
+                        },
+                        {
+                            resolveError(it)
+                            view?.submitAddressError()
+                        },
+                        SetShippingAddressUseCase.Params(checkoutId, address)
+                )
+            } else {
+                createCustomerAddress(address, isDefault)
+            }
         } else {
             view?.submitAddressError()
             view?.showMessage(R.string.invalid_address)
         }
     }
 
-    private fun createAddress(address: Address, isDefault: Boolean) {
+    fun editAddress(checkoutId: String?, addressId: String, address: Address, isDefault: Boolean) {
+        if (fieldValidator.isAddressValid(address)) {
+            if (checkoutId != null) {
+                setShippingAddressUseCase.execute(
+                        {
+                            editCustomerAddress(addressId, address, isDefault)
+                        },
+                        {
+                            resolveError(it)
+                            view?.submitAddressError()
+                        },
+                        SetShippingAddressUseCase.Params(checkoutId, address)
+                )
+            } else {
+                editCustomerAddress(addressId, address, isDefault)
+            }
+        } else {
+            view?.submitAddressError()
+            view?.showMessage(R.string.invalid_address)
+        }
+    }
+
+    private fun createCustomerAddress(address: Address, isDefault: Boolean) {
         createCustomerAddressUseCase.execute(
-                {
-                    view?.addressChanged()
-                },
+                { view?.addressChanged() },
                 {
                     it.printStackTrace()
                     view?.addressChanged()
                 },
                 CreateCustomerAddressUseCase.Params(address, isDefault)
+        )
+    }
+
+    private fun editCustomerAddress(addressId: String, address: Address, isDefault: Boolean) {
+        editCustomerAddressUseCase.execute(
+                { view?.addressChanged() },
+                {
+                    it.printStackTrace()
+                    view?.addressChanged()
+                },
+                EditCustomerAddressUseCase.Params(addressId, address, isDefault)
         )
     }
 }

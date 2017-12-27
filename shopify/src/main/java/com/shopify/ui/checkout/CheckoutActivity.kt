@@ -15,6 +15,7 @@ import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.ui.address.AddressActivity
+import com.shopify.ui.address.AddressListActivity
 import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
@@ -53,8 +54,10 @@ class CheckoutActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RequestCode.ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
-            loadData()
+        if (requestCode == RequestCode.ADD_ADDRESS || requestCode == RequestCode.EDIT_ADDRESS) {
+            if (resultCode == Activity.RESULT_OK) {
+                loadData()
+            }
         }
     }
 
@@ -85,11 +88,18 @@ class CheckoutActivity :
     private fun setupListeners() {
         seeAll.setOnClickListener { router.openCartScreen(this) }
         shippingAddressView.setClickListeners(
-                View.OnClickListener { },
                 View.OnClickListener {
                     checkout?.let {
                         startActivityForResult(
-                                AddressActivity.getStartIntent(this, it.checkoutId), RequestCode.ADD_ADDRESS)
+                                AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
+                                RequestCode.EDIT_ADDRESS)
+                    }
+                },
+                View.OnClickListener {
+                    checkout?.let {
+                        startActivityForResult(
+                                AddressActivity.getStartIntent(this, it.checkoutId),
+                                RequestCode.ADD_ADDRESS)
                     }
                 }
         )

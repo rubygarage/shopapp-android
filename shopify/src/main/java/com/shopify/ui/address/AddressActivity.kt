@@ -13,6 +13,7 @@ import com.shopify.ui.address.contract.AddressPresenter
 import com.shopify.ui.address.contract.AddressView
 import com.shopify.ui.address.di.AddressModule
 import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
 import kotlinx.android.synthetic.main.activity_address.*
@@ -25,17 +26,31 @@ class AddressActivity :
     companion object {
 
         private const val CHECKOUT_ID = "checkout_id"
+        private const val ADDRESS = "address"
+        private const val EDIT_MODE = "edit_mode"
+
+        fun getStartIntent(context: Context) = Intent(context, AddressActivity::class.java)
 
         fun getStartIntent(context: Context, checkoutId: String): Intent {
             val intent = Intent(context, AddressActivity::class.java)
             intent.putExtra(CHECKOUT_ID, checkoutId)
             return intent
         }
+
+        fun getStartIntent(context: Context, checkoutId: String?, address: Address): Intent {
+            val intent = Intent(context, AddressActivity::class.java)
+            intent.putExtra(CHECKOUT_ID, checkoutId)
+            intent.putExtra(ADDRESS, address)
+            intent.putExtra(EDIT_MODE, true)
+            return intent
+        }
     }
 
     @Inject
     lateinit var addressPresenter: AddressPresenter
-    private lateinit var checkoutId: String
+    private var isEditMode = false
+    private var checkoutId: String? = null
+    private var address: Address? = null
     private lateinit var fieldTextWatcher: TextWatcher
 
     //ANDROID
@@ -45,18 +60,36 @@ class AddressActivity :
         setTitle(getString(R.string.add_new_address))
 
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
+        address = intent.getParcelableExtra(ADDRESS)
+        isEditMode = intent.getBooleanExtra(EDIT_MODE, false)
 
         fieldTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 checkInputFields()
             }
         }
+
         submitButton.setOnClickListener {
             progressBar.visibility = View.VISIBLE
             submitButton.visibility = View.INVISIBLE
-            presenter.submitAddress(checkoutId, getAddress(), defaultShippingAddress.isChecked)
+            if (isEditMode) {
+                address?.let {
+                    presenter.editAddress(checkoutId, it.id, getAddress(), defaultShippingAddress.isChecked)
+                }
+            } else {
+                presenter.submitAddress(checkoutId, getAddress(), defaultShippingAddress.isChecked)
+            }
         }
-        loadData()
+
+        if (isEditMode) {
+            defaultShippingAddress.visibility = View.VISIBLE
+            submitButton.setText(R.string.edit)
+            fillFields(address)
+            checkInputFields()
+        } else {
+            submitButton.setText(R.string.submit)
+            loadData()
+        }
     }
 
     override fun onResume() {
@@ -103,27 +136,19 @@ class AddressActivity :
     }
 
     private fun getAddress() = Address(
-            addressInput.getTrimmedString(),
-            secondAddressInput.getTrimmedString(),
-            cityInput.getTrimmedString(),
-            countryInput.getTrimmedString(),
-            stateInput.getTrimmedString(),
-            firstNameInput.getTrimmedString(),
-            lastNameInput.getTrimmedString(),
-            postalCodeInput.getTrimmedString(),
-            phoneInput.getTrimmedString()
+            address = addressInput.getTrimmedString(),
+            secondAddress = secondAddressInput.getTrimmedString(),
+            city = cityInput.getTrimmedString(),
+            country = countryInput.getTrimmedString(),
+            state = stateInput.getTrimmedString(),
+            firstName = firstNameInput.getTrimmedString(),
+            lastName = lastNameInput.getTrimmedString(),
+            zip = postalCodeInput.getTrimmedString(),
+            phone = phoneInput.getTrimmedString()
     )
 
-    //LCE
-
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.checkIsLoggedIn()
-    }
-
-    override fun showContent(data: Address?) {
-        super.showContent(data)
-        data?.let {
+    private fun fillFields(address: Address?) {
+        address?.let {
             firstNameInput.setText(it.firstName)
             lastNameInput.setText(it.lastName)
             addressInput.setText(it.address)
@@ -136,9 +161,26 @@ class AddressActivity :
         }
     }
 
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        presenter.checkIsLoggedIn()
+    }
+
+    override fun showContent(data: Address?) {
+        super.showContent(data)
+        fillFields(data)
+    }
+
     override fun sessionChecked(isLoggedIn: Boolean) {
         defaultShippingAddress.visibility = if (isLoggedIn) View.VISIBLE else View.GONE
-        presenter.getAddressFromCheckout(checkoutId)
+        val checkoutId = checkoutId
+        if (checkoutId != null) {
+            presenter.getAddressFromCheckout(checkoutId)
+        } else {
+            changeState(LceLayout.LceState.ContentState)
+        }
     }
 
     override fun addressChanged() {

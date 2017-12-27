@@ -41,6 +41,14 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
         return Single.create { api.createCustomerAddress(address, RxCallbackSingle<String>(it)) }
     }
 
+    override fun editCustomerAddress(addressId: String, address: Address): Completable {
+        return Completable.create { api.editCustomerAddress(addressId, address, RxCallbackCompletable(it)) }
+    }
+
+    override fun deleteCustomerAddress(addressId: String): Completable {
+        return Completable.create { api.deleteCustomerAddress(addressId, RxCallbackCompletable(it)) }
+    }
+
     override fun setDefaultShippingAddress(addressId: String): Completable {
         return Completable.create { api.setDefaultShippingAddress(addressId, RxCallbackCompletable(it)) }
     }

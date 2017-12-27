@@ -1,9 +1,9 @@
 package com.shopify.ui.address.di
 
-import com.domain.interactor.account.CreateCustomerAddressUseCase
-import com.domain.interactor.account.SessionCheckUseCase
+import com.domain.interactor.account.*
 import com.shopify.interactor.checkout.GetCheckoutUseCase
 import com.shopify.interactor.checkout.SetShippingAddressUseCase
+import com.shopify.ui.address.contract.AddressListPresenter
 import com.shopify.ui.address.contract.AddressPresenter
 import dagger.Module
 import dagger.Provides
@@ -16,7 +16,17 @@ class AddressModule {
             getCheckoutUseCase: GetCheckoutUseCase,
             setShippingAddressUseCase: SetShippingAddressUseCase,
             sessionCheckUseCase: SessionCheckUseCase,
-            createCustomerAddressUseCase: CreateCustomerAddressUseCase
+            createCustomerAddressUseCase: CreateCustomerAddressUseCase,
+            editCustomerAddressUseCase: EditCustomerAddressUseCase
     ): AddressPresenter = AddressPresenter(getCheckoutUseCase, setShippingAddressUseCase,
-            sessionCheckUseCase, createCustomerAddressUseCase)
+            sessionCheckUseCase, createCustomerAddressUseCase, editCustomerAddressUseCase)
+
+
+    @Provides
+    fun provideAddressListPresenter(
+            getCustomerUseCase: GetCustomerUseCase,
+            deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
+            setShippingAddressUseCase: SetShippingAddressUseCase
+    ): AddressListPresenter
+            = AddressListPresenter(getCustomerUseCase, deleteCustomerAddressUseCase, setShippingAddressUseCase)
 }

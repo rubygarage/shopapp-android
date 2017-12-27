@@ -3,4 +3,5 @@
     <dimen name="checkout_cart_item_width">110dp</dimen>
     <dimen name="checkout_cart_item_height">100dp</dimen>
     <dimen name="checkout_cart_item_divider">3dp</dimen>
+    <dimen name="address_item_divider">4dp</dimen>
 </resources>

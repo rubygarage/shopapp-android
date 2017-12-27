@@ -15,6 +15,7 @@
 
     <color name="textColorPrimary">#FF000000</color>
     <color name="textColorSecondary">#FF8B8B8B</color>
+    <color name="textColorPrimaryTransparent">#55000000</color>
 
     <color name="selectedColor">#EEEEEE</color>
 
