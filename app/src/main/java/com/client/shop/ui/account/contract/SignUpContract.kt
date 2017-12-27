@@ -17,19 +17,20 @@ interface SignUpView : BaseLceView<Unit> {
     fun onFailure()
 }
 
-class SignUpPresenter @Inject constructor(private val signUpUseCase: SignUpUseCase) :
+class SignUpPresenter @Inject constructor(
+        private val fieldValidator: FieldValidator,
+        private val signUpUseCase: SignUpUseCase
+) :
         BaseLcePresenter<Unit, SignUpView>(signUpUseCase) {
-
-    private val validator = FieldValidator()
 
     fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String) {
 
         var isError = false
-        if (!validator.isEmailValid(email)) {
+        if (!fieldValidator.isEmailValid(email)) {
             isError = true
             view?.showEmailError()
         }
-        if (!validator.isPasswordValid(password)) {
+        if (!fieldValidator.isPasswordValid(password)) {
             isError = true
             view?.showPasswordError()
         }

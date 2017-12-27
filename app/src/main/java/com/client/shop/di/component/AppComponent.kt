@@ -2,6 +2,7 @@ package com.client.shop.di.component
 
 import com.client.shop.di.module.RepositoryModule
 import com.client.shop.di.module.RouterModule
+import com.client.shop.di.module.ValidatorModule
 import com.client.shop.ui.account.di.AuthComponent
 import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.blog.di.BlogComponent
@@ -24,7 +25,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RouterModule::class, RepositoryModule::class])
+@Component(modules = [RouterModule::class, RepositoryModule::class, ValidatorModule::class])
 interface AppComponent {
 
     fun attachBlogComponent(module: BlogModule): BlogComponent

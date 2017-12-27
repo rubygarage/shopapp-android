@@ -65,6 +65,10 @@
             android:name=".ui.cart.CartActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.account.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

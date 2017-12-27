@@ -41,11 +41,12 @@
     <string name="register_success_message">You have been successfully registered and logged in</string>
     <string name="login_success_message">You have been successfully logged in</string>
     <string name="forgot_label">Forgot?</string>
+    <string name="forgot_password">Forgot Password</string>
     <string name="reset_password_title">Reset your password</string>
     <string name="submit_button">Submit</string>
     <string name="cancel_button">Cancel</string>
     <string name="check_inbox_message">Please check your inbox</string>
-    <string name="logout_success_message">You are logged out</string>
+    <string name="logout_success_message">You have been logged out successfully</string>
     <string name="shop">Shop</string>
     <string name="account_sign_in_message">Sign In to shop and view orders</string>
     <string name="policy_text">By creating your account, you accept our</string>
@@ -53,5 +54,12 @@
     <string name="welcome">Welcome</string>
     <string name="my_orders">My Orders</string>
     <string name="clear">Clear</string>
+    <string name="reset_your_password_title">Reset Your Password</string>
+    <string name="reset_your_password_description">Enter your address below and follow the instructions in the email will send you shortly</string>
+    <string name="reset_link_has_been_sent_to">Reset link has been sent to</string>
+    <string name="reset_link_description">To reset your password just click the link in the email we sent you!</string>
+    <string name="do_not_receive_it">Don\'t receive it?</string>
+    <string name="do_not_forget_to_check">Don\'t forget to check your mail or click the link below and we\'ll send you a new link</string>
+    <string name="resend_reset_link">Resend reset link</string>
 
 </resources>
