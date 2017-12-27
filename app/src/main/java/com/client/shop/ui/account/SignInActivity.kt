@@ -80,11 +80,8 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
     }
 
     private fun setupButtonListeners() {
-        loginButton.setOnClickListener {
-            loadData(true)
-        }
-        forgotPassword.setOnClickListener {
-        }
+        loginButton.setOnClickListener { loadData(true) }
+        forgotPassword.setOnClickListener { startActivity(ForgotPasswordActivity.getStartIntent(this)) }
     }
 
     private fun checkInputFields(inputLayout: TextInputLayout) {

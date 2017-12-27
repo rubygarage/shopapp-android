@@ -1,6 +1,7 @@
 package com.client.shop.ui.account.di
 
 import com.client.shop.ui.account.AccountFragment
+import com.client.shop.ui.account.ForgotPasswordActivity
 import com.client.shop.ui.account.SignInActivity
 import com.client.shop.ui.account.SignUpActivity
 import dagger.Subcomponent
@@ -13,4 +14,6 @@ interface AuthComponent {
     fun inject(fragment: SignUpActivity)
 
     fun inject(fragment: SignInActivity)
+
+    fun inject(fragment: ForgotPasswordActivity)
 }
