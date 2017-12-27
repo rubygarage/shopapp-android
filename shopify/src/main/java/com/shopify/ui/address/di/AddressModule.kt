@@ -1,9 +1,7 @@
 package com.shopify.ui.address.di
 
-import com.domain.interactor.account.CreateCustomerAddressUseCase
-import com.domain.interactor.account.SessionCheckUseCase
-import com.domain.validator.FieldValidator
 import com.domain.interactor.account.*
+import com.domain.validator.FieldValidator
 import com.shopify.interactor.checkout.GetCheckoutUseCase
 import com.shopify.interactor.checkout.SetShippingAddressUseCase
 import com.shopify.ui.address.contract.AddressListPresenter
@@ -27,7 +25,8 @@ class AddressModule {
             getCheckoutUseCase,
             setShippingAddressUseCase,
             sessionCheckUseCase,
-            createCustomerAddressUseCase
+            createCustomerAddressUseCase,
+            editCustomerAddressUseCase
     )
 
     @Provides
