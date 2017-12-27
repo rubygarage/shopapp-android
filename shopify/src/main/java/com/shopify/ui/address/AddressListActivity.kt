@@ -63,9 +63,11 @@ class AddressListActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == RequestCode.EDIT_ADDRESS || requestCode == RequestCode.ADD_ADDRESS) {
-            setResult(Activity.RESULT_OK)
-            loadData()
+        if (requestCode == RequestCode.ADD_ADDRESS || requestCode == RequestCode.EDIT_ADDRESS) {
+            if (resultCode == Activity.RESULT_OK) {
+                setResult(Activity.RESULT_OK)
+                loadData()
+            }
         }
     }
 

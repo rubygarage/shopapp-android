@@ -54,9 +54,10 @@ class CheckoutActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode ==
-                RequestCode.ADD_ADDRESS || requestCode == RequestCode.EDIT_ADDRESS) {
-            loadData()
+        if (requestCode == RequestCode.ADD_ADDRESS || requestCode == RequestCode.EDIT_ADDRESS) {
+            if (resultCode == Activity.RESULT_OK) {
+                loadData()
+            }
         }
     }
 
