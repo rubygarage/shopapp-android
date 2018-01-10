@@ -8,14 +8,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.shopify.ui.payment.card.CardPaymentActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.cooltechworks.creditcarddesign.CardEditActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.shopify.ui.payment.android.AndroidPaymentActivity"
             android:screenOrientation="portrait" />
 
@@ -29,6 +21,10 @@
 
         <activity
             android:name="com.shopify.ui.address.AddressListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.shopify.ui.payment.card.CardActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

@@ -10,7 +10,6 @@ import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.ui.payment.android.AndroidPaymentActivity
-import com.shopify.ui.payment.card.CardPaymentActivity
 import com.shopify.ui.shipping.contract.ShippingPresenter
 import com.shopify.ui.shipping.contract.ShippingView
 import com.shopify.ui.shipping.di.ShippingModule
@@ -105,7 +104,7 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
         changeState(LceLayout.LceState.ContentState)
         when (payment) {
             CARD_PAYMENT -> {
-                startActivity(CardPaymentActivity.getStartIntent(this, checkout, billingAddress))
+
             }
             ANDROID_PAYMENT -> {
                 startActivity(AndroidPaymentActivity.getStartIntent(this, checkout))

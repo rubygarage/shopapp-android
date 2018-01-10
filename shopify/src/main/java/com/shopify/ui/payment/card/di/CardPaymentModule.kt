@@ -1,7 +1,7 @@
 package com.shopify.ui.payment.card.di
 
-import com.shopify.ui.payment.card.contract.CardPaymentPresenter
-import com.shopify.ui.payment.card.contract.CardPaymentUseCase
+import com.shopify.interactor.checkout.CheckCreditCardUseCase
+import com.shopify.ui.payment.card.contract.CardPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -9,6 +9,6 @@ import dagger.Provides
 class CardPaymentModule {
 
     @Provides
-    fun provideCardPaymentPresenter(cardPaymentUseCase: CardPaymentUseCase): CardPaymentPresenter =
-            CardPaymentPresenter(cardPaymentUseCase)
+    fun provideCardPresenter(checkCreditCardUseCase: CheckCreditCardUseCase): CardPresenter =
+            CardPresenter(checkCreditCardUseCase)
 }

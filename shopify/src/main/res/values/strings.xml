@@ -26,6 +26,13 @@
     <string name="shipping_empty_fields_error">Please fill required fields on the shipping screen</string>
     <string name="address_empty_fields_error">Please fill all required fields</string>
     <string name="empty_shipping_rates_message">There are no suitable deliveries</string>
+    <string name="credit_card">Credit Card</string>
     <string name="add_new_address">Add new address</string>
+    <string name="card_holder_name">Card holder name</string>
+    <string name="card_number">Card number</string>
+    <string name="expiration_date">Expiration date</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="cvv">CVV</string>
 
 </resources>
