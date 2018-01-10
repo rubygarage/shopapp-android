@@ -116,10 +116,6 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         )
     }
 
-    override fun showContent(data: Pair<Card, String>) {
-        super.showContent(data)
-    }
-
     override fun cardValidationError(error: Int) {
         changeState(LceLayout.LceState.ContentState)
         showMessage(error)
