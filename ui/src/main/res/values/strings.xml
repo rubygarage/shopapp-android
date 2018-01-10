@@ -24,7 +24,8 @@
     <string name="submit">Submit</string>
     <string name="invalid_address">Invalid address</string>
     <string name="edit">Edit</string>
-    <string name="delete">delete</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
     <string name="tel_prefix">Tel: %s</string>
     <string name="full_name_pattern">%1$s %2$s</string>
 

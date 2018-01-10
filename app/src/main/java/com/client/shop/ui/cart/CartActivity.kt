@@ -76,7 +76,7 @@ class CartActivity :
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(decoration)
-        val swipeHandler = object : SwipeToDeleteCallback(this) {
+        val swipeHandler = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 data.getOrNull(viewHolder.adapterPosition)?.let {
                     presenter.removeProduct(it.productVariant.id)
