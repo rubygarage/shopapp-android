@@ -20,7 +20,6 @@ import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
-import com.shopify.ui.payment.card.CardActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
@@ -47,8 +46,6 @@ class CheckoutActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.checkout))
-
-        card.setOnClickListener { startActivity(CardActivity.getStartIntent(this)) }
 
         setupCartRecycler()
         setupListeners()

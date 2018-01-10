@@ -104,7 +104,7 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
         changeState(LceLayout.LceState.ContentState)
         when (payment) {
             CARD_PAYMENT -> {
-                
+
             }
             ANDROID_PAYMENT -> {
                 startActivity(AndroidPaymentActivity.getStartIntent(this, checkout))
