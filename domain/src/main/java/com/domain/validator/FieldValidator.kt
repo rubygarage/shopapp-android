@@ -6,9 +6,14 @@ import com.domain.entity.Address
 
 class FieldValidator {
 
+    companion object {
+        private const val MIN_PASSWORD_LENGTH = 8
+    }
+
     fun isEmailValid(email: String): Boolean = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-    fun isPasswordValid(password: String): Boolean = !TextUtils.isEmpty(password) && password.length >= 8
+    fun isPasswordValid(password: String): Boolean = !TextUtils.isEmpty(password)
+            && password.length >= MIN_PASSWORD_LENGTH
 
     fun isAddressValid(addressObject: Address): Boolean {
         return with(addressObject) {
