@@ -14,6 +14,7 @@ import com.shopify.ui.address.contract.AddressView
 import com.shopify.ui.address.di.AddressModule
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
+import com.ui.const.Extra
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
 import kotlinx.android.synthetic.main.activity_address.*
@@ -183,8 +184,10 @@ class AddressActivity :
         }
     }
 
-    override fun addressChanged() {
-        setResult(Activity.RESULT_OK)
+    override fun addressChanged(address: Address) {
+        val result = Intent()
+        result.putExtra(Extra.ADDRESS, address)
+        setResult(Activity.RESULT_OK, result)
         finish()
     }
 

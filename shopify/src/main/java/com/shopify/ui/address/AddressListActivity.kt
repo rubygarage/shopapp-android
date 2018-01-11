@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.domain.entity.Address
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
@@ -13,8 +14,10 @@ import com.shopify.ui.address.contract.AddressListPresenter
 import com.shopify.ui.address.contract.AddressListView
 import com.shopify.ui.address.di.AddressModule
 import com.shopify.ui.item.AddressItem
+import com.shopify.ui.payment.card.CardActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.divider.SpaceDecoration
+import com.ui.const.Extra
 import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_address_list.*
 import javax.inject.Inject
@@ -22,17 +25,24 @@ import javax.inject.Inject
 class AddressListActivity :
         BaseActivity<List<Address>, AddressListView, AddressListPresenter>(),
         AddressListView,
-        AddressItem.ActionListener {
+        AddressItem.ActionListener,
+        View.OnClickListener {
 
     companion object {
 
         private const val CHECKOUT_ID = "checkout_id"
         private const val ADDRESS = "address"
 
-        fun getStartIntent(context: Context, checkoutId: String, address: Address?): Intent {
+        fun getStartIntent(context: Context, checkoutId: String?, address: Address?): Intent {
             val intent = Intent(context, AddressListActivity::class.java)
             intent.putExtra(CHECKOUT_ID, checkoutId)
             intent.putExtra(ADDRESS, address)
+            return intent
+        }
+
+        fun getStartIntent(context: Context): Intent {
+            val intent = getStartIntent(context, null, null)
+            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
             return intent
         }
     }
@@ -47,15 +57,12 @@ class AddressListActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle(getString(R.string.shipping_address))
 
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
         address = address ?: intent.getParcelableExtra(ADDRESS)
 
-        addNewAddressButton.setOnClickListener {
-            startActivityForResult(
-                    AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS)
-        }
+        val titleRes = if (checkoutId != null) R.string.shipping_address else R.string.billing_address
+        setTitle(getString(titleRes))
 
         setupRecycler()
         loadData()
@@ -63,11 +70,15 @@ class AddressListActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RequestCode.ADD_ADDRESS || requestCode == RequestCode.EDIT_ADDRESS) {
-            if (resultCode == Activity.RESULT_OK) {
-                setResult(Activity.RESULT_OK)
-                loadData()
+        if (requestCode == RequestCode.ADD_ADDRESS && resultCode == Activity.RESULT_OK) {
+            if (checkoutId != null) {
+                addressChanged()
+            } else {
+                val address: Address? = data?.extras?.getParcelable(Extra.ADDRESS)
+                addressSelected(address)
             }
+        } else if (requestCode == RequestCode.EDIT_ADDRESS && resultCode == Activity.RESULT_OK) {
+            addressChanged()
         }
     }
 
@@ -84,12 +95,22 @@ class AddressListActivity :
     //SETUP
 
     private fun setupRecycler() {
-        addressListAdapter = AddressListAdapter(dataList, this)
+        addressListAdapter = AddressListAdapter(dataList, this, this)
         addressListAdapter.defaultAddress = address
         val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressListAdapter
         recyclerView.addItemDecoration(decorator)
+    }
+
+    private fun addressChanged() {
+        setResult(Activity.RESULT_OK)
+        loadData()
+    }
+
+    private fun addressSelected(address: Address?) {
+        address?.let { startActivity(CardActivity.getStartIntent(this, it)) }
+        finish()
     }
 
     //LCE
@@ -109,6 +130,7 @@ class AddressListActivity :
     override fun selectedAddressChanged(address: Address) {
         this.address = address
         addressListAdapter.defaultAddress = address
+        setResult(Activity.RESULT_OK)
         loadData()
     }
 
@@ -128,8 +150,16 @@ class AddressListActivity :
     }
 
     override fun onAddressChecked(address: Address) {
-        checkoutId?.let {
-            presenter.setShippingAddress(it, address)
+        val finalCheckoutId = checkoutId
+        if (finalCheckoutId != null) {
+            presenter.setShippingAddress(finalCheckoutId, address)
+        } else {
+            addressSelected(address)
         }
+    }
+
+    override fun onClick(v: View?) {
+        startActivityForResult(
+                AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS)
     }
 }

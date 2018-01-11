@@ -26,7 +26,7 @@ class AddressListPresenter(
     fun getAddressList() {
         getCustomerUseCase.execute(
                 { view?.showContent(it.addressList) },
-                { it.printStackTrace() },
+                { view?.showContent(emptyList()) },
                 Unit
         )
     }

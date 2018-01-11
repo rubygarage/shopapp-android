@@ -102,7 +102,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="5dp"
-                android:drawableStart="@drawable/ic_payment"
                 android:text="@string/card_payment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardPaymentLabel" />

@@ -1,9 +1,11 @@
 package com.shopify.ui.payment.card
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
+import com.domain.entity.Address
 import com.domain.entity.Card
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
@@ -13,6 +15,7 @@ import com.shopify.ui.payment.card.di.CardPaymentModule
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.base.picker.BaseBottomSheetPicker
+import com.ui.const.Extra
 import com.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
@@ -20,7 +23,13 @@ import javax.inject.Inject
 class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>(), CardView {
 
     companion object {
-        fun getStartIntent(context: Context) = Intent(context, CardActivity::class.java)
+
+        fun getStartIntent(context: Context, address: Address): Intent {
+            val intent = Intent(context, CardActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
+            intent.putExtra(Extra.ADDRESS, address)
+            return intent
+        }
     }
 
     @Inject lateinit var cardPresenter: CardPresenter
@@ -114,6 +123,16 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
                 yearInput.text.toString(),
                 cvvInput.text.toString()
         )
+    }
+
+    override fun showContent(data: Pair<Card, String>) {
+        super.showContent(data)
+        val result = Intent()
+        result.putExtra(Extra.ADDRESS, intent.getParcelableExtra<Address?>(Extra.ADDRESS))
+        result.putExtra(Extra.CARD, data.first)
+        result.putExtra(Extra.CARD_TOKEN, data.second)
+        setResult(Activity.RESULT_OK, result)
+        finish()
     }
 
     override fun cardValidationError(error: Int) {
