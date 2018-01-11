@@ -27,6 +27,10 @@
             android:name="com.shopify.ui.payment.card.CardActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.shopify.ui.payment.PaymentActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />

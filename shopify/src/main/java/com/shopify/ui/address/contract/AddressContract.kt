@@ -15,7 +15,7 @@ interface AddressView : BaseLceView<Address?> {
 
     fun sessionChecked(isLoggedIn: Boolean)
 
-    fun addressChanged()
+    fun addressChanged(address: Address)
 
     fun submitAddressError()
 }
@@ -65,7 +65,7 @@ class AddressPresenter(
                             if (isLoggedIn) {
                                 createCustomerAddress(address, isDefault)
                             } else {
-                                view?.addressChanged()
+                                view?.addressChanged(address)
                             }
                         },
                         {
@@ -107,10 +107,10 @@ class AddressPresenter(
 
     private fun createCustomerAddress(address: Address, isDefault: Boolean) {
         createCustomerAddressUseCase.execute(
-                { view?.addressChanged() },
+                { view?.addressChanged(address) },
                 {
                     it.printStackTrace()
-                    view?.addressChanged()
+                    view?.addressChanged(address)
                 },
                 CreateCustomerAddressUseCase.Params(address, isDefault)
         )
@@ -118,10 +118,10 @@ class AddressPresenter(
 
     private fun editCustomerAddress(addressId: String, address: Address, isDefault: Boolean) {
         editCustomerAddressUseCase.execute(
-                { view?.addressChanged() },
+                { view?.addressChanged(address) },
                 {
                     it.printStackTrace()
-                    view?.addressChanged()
+                    view?.addressChanged(address)
                 },
                 EditCustomerAddressUseCase.Params(addressId, address, isDefault)
         )

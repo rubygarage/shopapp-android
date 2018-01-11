@@ -21,11 +21,12 @@
     <string name="total_tax">Total tax:</string>
     <string name="total_price">Total price:</string>
     <string name="shipping_address">Shipping Address</string>
-    <string name="billing_address">Billing address</string>
+    <string name="billing_address">Billing Address</string>
     <string name="use_same_address">Use the same address for payment and delivery</string>
     <string name="shipping_empty_fields_error">Please fill required fields on the shipping screen</string>
     <string name="address_empty_fields_error">Please fill all required fields</string>
     <string name="empty_shipping_rates_message">There are no suitable deliveries</string>
+    <string name="payment_type">Payment Type</string>
     <string name="credit_card">Credit Card</string>
     <string name="add_new_address">Add new address</string>
     <string name="card_holder_name">Card holder name</string>
