@@ -26,7 +26,7 @@ object ProductAdapter {
                 images = productImages,
                 options = convertProductOptionList(productAdaptee.options),
                 variants = productAdaptee.variants.edges.map {
-                    ProductVariantAdapter.adapt(it.node, productImages.firstOrNull())
+                    ProductVariantAdapter.adapt(it.node)
                 },
                 paginationValue = paginationValue
         )

@@ -16,7 +16,7 @@ import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.ui.address.AddressActivity
 import com.shopify.ui.address.AddressListActivity
-import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
+import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
@@ -82,9 +82,9 @@ class CheckoutActivity :
 
     private fun setupCartRecycler() {
         recyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
-        recyclerView.adapter = CheckoutCartAdapter(cartProductList, this)
+        recyclerView.adapter = ProductVariantAdapter(cartProductList.map { it.productVariant }, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.checkout_cart_item_divider))
+        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
         recyclerView.addItemDecoration(decoration)
     }
 

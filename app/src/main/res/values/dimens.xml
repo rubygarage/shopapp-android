@@ -30,5 +30,8 @@
     <dimen name="search_toolbar_expanded_line_margin_end">16dp</dimen>
     <dimen name="search_toolbar_collapsed_line_margin">60dp</dimen>
     <dimen name="recycler_divider_space">6dp</dimen>
+    <dimen name="order_item_vertical_margin">20dp</dimen>
+    <dimen name="order_item_products_vertical_margin">19dp</dimen>
+    <dimen name="order_item_products_horizontal_margin">6dp</dimen>
 
 </resources>

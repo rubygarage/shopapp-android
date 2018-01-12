@@ -6,15 +6,19 @@ import com.shopify.buy3.Storefront
 
 object ProductVariantAdapter {
 
-    fun adapt(adaptee: Storefront.ProductVariant, productImage: Image?): ProductVariant {
-        val variantImage = ImageAdapter.adapt(adaptee.image)
+    fun adapt(adaptee: Storefront.ProductVariant): ProductVariant {
         return ProductVariant(
                 adaptee.id.toString(),
                 adaptee.title,
                 adaptee.price.toFloat(),
                 adaptee.availableForSale == true,
                 VariantOptionListAdapter.adapt(adaptee.selectedOptions),
-                variantImage ?: productImage
+                ImageAdapter.adapt(adaptee.image),
+                convertImage(adaptee.product).first(),
+                adaptee.product.id.toString()
         )
     }
+
+    private fun convertImage(productAdaptee: Storefront.Product): List<Image> =
+            productAdaptee.images.edges.map { ImageAdapter.adapt(it.node)!! }
 }

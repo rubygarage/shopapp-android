@@ -1,8 +1,8 @@
 package com.data.dao.adapter
 
-import com.domain.entity.ProductVariant
 import com.data.dao.entity.ProductVariantData
 import com.data.dao.entity.ProductVariantDataEntity
+import com.domain.entity.ProductVariant
 
 object ProductVariantAdapter {
 
@@ -13,6 +13,8 @@ object ProductVariantAdapter {
         product.price = adaptee.price
         product.isAvailable = adaptee.isAvailable
         product.image = ImageAdapter.adaptToStore(adaptee.image)
+        product.productId = adaptee.productId
+        product.productImage = ImageAdapter.adaptToStore(adaptee.productImage)
         return product
     }
 
@@ -23,7 +25,9 @@ object ProductVariantAdapter {
                 adaptee.price,
                 adaptee.isAvailable,
                 listOf(),
-                ImageAdapter.adaptFromStore(adaptee.image)
+                ImageAdapter.adaptFromStore(adaptee.image),
+                ImageAdapter.adaptFromStore(adaptee.productImage),
+                adaptee.productId
         )
     }
 }

@@ -12,6 +12,7 @@ import com.client.shop.ShopApplication
 import com.client.shop.ui.account.contract.AccountPresenter
 import com.client.shop.ui.account.contract.AccountView
 import com.client.shop.ui.account.di.AuthModule
+import com.client.shop.ui.order.list.OrderListActivity
 import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Customer
 import com.domain.entity.Policy
@@ -92,9 +93,13 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         createAccount.setOnClickListener {
             startActivityForResult(SignUpActivity.getStartIntent(context, shop?.privacyPolicy, shop?.termsOfService), RequestCode.SIGN_UP)
         }
+        myOrders.setOnClickListener {
+            startActivity(OrderListActivity.getStartIntent(context))
+        }
         logout.setOnClickListener {
             presenter.signOut()
         }
+
     }
 
     private fun setupPolicy(view: View, policy: Policy?) {

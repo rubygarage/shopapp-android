@@ -1,17 +1,18 @@
-package com.shopify.ui.item
+package com.ui.base.item
 
 import android.content.Context
 import android.view.ViewGroup
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.drawee.view.SimpleDraweeView
-import com.shopify.api.R
+import com.ui.R
 
-class CheckoutCartItem(context: Context) : SimpleDraweeView(context) {
+class ProductVariantItem(context: Context) : SimpleDraweeView(context) {
 
     init {
-        val width = resources.getDimensionPixelSize(R.dimen.checkout_cart_item_width)
-        val height = resources.getDimensionPixelSize(R.dimen.checkout_cart_item_height)
+        val width = resources.getDimensionPixelSize(R.dimen.product_variant_item_width)
+        val height = resources.getDimensionPixelSize(R.dimen.product_variant_item_height)
         layoutParams = ViewGroup.LayoutParams(width, height)
+        scaleType = ScaleType.FIT_CENTER
         hierarchy.setPlaceholderImage(R.drawable.ic_product_placeholder, ScalingUtils.ScaleType.FIT_CENTER)
     }
 }

@@ -2,4 +2,8 @@
 <resources>
     <dimen name="bottom_sheet_recycler_height">170dp</dimen>
     <dimen name="bottom_sheet_item_height">34dp</dimen>
+    <dimen name="product_variant_item_width">110dp</dimen>
+    <dimen name="product_variant_item_height">100dp</dimen>
+    <dimen name="product_variant_item_divider">3dp</dimen>
+
 </resources>

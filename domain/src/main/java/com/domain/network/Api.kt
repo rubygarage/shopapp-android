@@ -43,4 +43,6 @@ interface Api {
     fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>)
 
     fun getArticle(id: String, callback: ApiCallback<Article>)
+
+    fun getOrders(perPage: Int, paginationValue: Any? = null, callback: ApiCallback<List<Order>>)
 }
