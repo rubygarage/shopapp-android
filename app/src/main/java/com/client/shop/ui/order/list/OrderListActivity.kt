@@ -36,7 +36,7 @@ class OrderListActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.my_orders))
-        loadData(false)
+        loadData()
     }
 
     //INIT
@@ -79,7 +79,7 @@ class OrderListActivity :
     }
 
     override fun onItemClicked(data: Order, position: Int) {
-        showMessage("onItemClicked: ${position}")
+        TODO("open order details screen")
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {

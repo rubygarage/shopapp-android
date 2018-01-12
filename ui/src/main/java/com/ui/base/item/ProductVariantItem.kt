@@ -12,7 +12,6 @@ class ProductVariantItem(context: Context) : SimpleDraweeView(context) {
         val width = resources.getDimensionPixelSize(R.dimen.product_variant_item_width)
         val height = resources.getDimensionPixelSize(R.dimen.product_variant_item_height)
         layoutParams = ViewGroup.LayoutParams(width, height)
-        scaleType = ScaleType.FIT_CENTER
         hierarchy.setPlaceholderImage(R.drawable.ic_product_placeholder, ScalingUtils.ScaleType.FIT_CENTER)
     }
 }
