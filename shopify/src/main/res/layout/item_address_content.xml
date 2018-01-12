@@ -8,7 +8,8 @@
     <TextView
         android:id="@+id/name"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:textColor="@color/textColorPrimary"
@@ -22,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:lineSpacingExtra="8dp"
         android:textColor="@color/textColorPrimary"
         android:textSize="12sp"

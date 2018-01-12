@@ -9,12 +9,12 @@ import android.view.View
 import com.domain.entity.Address
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
+import com.shopify.constant.Extra
 import com.shopify.ui.address.contract.AddressPresenter
 import com.shopify.ui.address.contract.AddressView
 import com.shopify.ui.address.di.AddressModule
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
-import com.ui.const.Extra
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
 import kotlinx.android.synthetic.main.activity_address.*

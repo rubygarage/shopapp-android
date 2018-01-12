@@ -1,45 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/titleText"
-        style="@style/section_title"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_toolbar"
-        android:text="@string/my_cart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/seeAll"
-        style="@style/see_all_text"
-        android:text="@string/section_see_all"
-        android:visibility="visible"
-        app:layout_constraintBaseline_toBaselineOf="@+id/titleText"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/titleText"
+            style="@style/section_title"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_toolbar"
+            android:text="@string/my_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="132dp"
-        android:background="@color/white"
-        android:clipToPadding="false"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+        <TextView
+            android:id="@+id/seeAll"
+            style="@style/see_all_text"
+            android:text="@string/section_see_all"
+            android:visibility="visible"
+            app:layout_constraintBaseline_toBaselineOf="@+id/titleText"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.shopify.ui.shipping.ShippingAddressView
-        android:id="@+id/shippingAddressView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="132dp"
+            android:background="@color/white"
+            android:clipToPadding="false"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
-</android.support.constraint.ConstraintLayout>
+        <com.shopify.ui.shipping.ShippingAddressView
+            android:id="@+id/shippingAddressView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+        <com.shopify.ui.payment.PaymentView
+            android:id="@+id/paymentView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/shippingAddressView" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

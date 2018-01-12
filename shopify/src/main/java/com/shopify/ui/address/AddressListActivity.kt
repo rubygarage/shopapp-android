@@ -9,6 +9,7 @@ import android.view.View
 import com.domain.entity.Address
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
+import com.shopify.constant.Extra
 import com.shopify.ui.address.adapter.AddressListAdapter
 import com.shopify.ui.address.contract.AddressListPresenter
 import com.shopify.ui.address.contract.AddressListView
@@ -17,7 +18,6 @@ import com.shopify.ui.item.AddressItem
 import com.shopify.ui.payment.card.CardActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.divider.SpaceDecoration
-import com.ui.const.Extra
 import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_address_list.*
 import javax.inject.Inject
@@ -95,7 +95,8 @@ class AddressListActivity :
     //SETUP
 
     private fun setupRecycler() {
-        addressListAdapter = AddressListAdapter(dataList, this, this)
+        addressListAdapter = AddressListAdapter(dataList, checkoutId == null,
+                this, this)
         addressListAdapter.defaultAddress = address
         val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
         recyclerView.layoutManager = LinearLayoutManager(this)

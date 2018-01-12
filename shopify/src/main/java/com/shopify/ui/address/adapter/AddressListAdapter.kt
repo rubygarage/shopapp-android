@@ -8,6 +8,7 @@ import com.shopify.ui.item.AddressItem
 import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class AddressListAdapter(dataList: List<Address>,
+                         private val withoutActions: Boolean,
                          private val actionListener: AddressItem.ActionListener,
                          private val headerOnClickListener: View.OnClickListener
 ) :
@@ -29,7 +30,7 @@ class AddressListAdapter(dataList: List<Address>,
 
     override fun bindData(itemView: View, data: Address, position: Int) {
         if (itemView is AddressItem) {
-            itemView.setAddress(data, defaultAddress)
+            itemView.setAddress(data, defaultAddress, withoutActions)
             itemView.actionListener = actionListener
         }
     }

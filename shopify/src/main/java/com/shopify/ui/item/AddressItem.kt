@@ -26,10 +26,11 @@ class AddressItem(context: Context) : ConstraintLayout(context),
         deleteButton.setOnClickListener { actionListener?.onDeleteButtonClicked(address) }
     }
 
-    fun setAddress(address: Address, defaultAddress: Address?) {
+    fun setAddress(address: Address, defaultAddress: Address?, withoutActions: Boolean) {
         this.address = address
         addressContent.setAddress(address)
         defaultAddressButton.isChecked = address.id == defaultAddress?.id || address == defaultAddress
+        actionGroup.visibility = if (withoutActions) View.GONE else View.VISIBLE
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {

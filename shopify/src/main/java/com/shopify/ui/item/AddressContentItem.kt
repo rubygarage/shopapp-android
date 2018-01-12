@@ -16,13 +16,25 @@ class AddressContentItem @JvmOverloads constructor(
 ) :
         LinearLayoutCompat(context, attrs, defStyleAttr) {
 
+    private val withName: Boolean
+
     init {
         View.inflate(context, R.layout.item_address_content, this)
         orientation = VERTICAL
+
+        val a = context
+                .obtainStyledAttributes(attrs, R.styleable.AddressContentItem, 0, 0)
+        withName = a.getBoolean(R.styleable.AddressContentItem_withName, true)
+        a.recycle()
     }
 
     fun setAddress(address: Address) {
-        name.text = context.getString(R.string.full_name_pattern, address.firstName, address.lastName)
+        name.visibility = if (withName) {
+            name.text = context.getString(R.string.full_name_pattern, address.firstName, address.lastName)
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
         addressText.text = ""
         appendAddress(address.address)
         appendAddress(address.secondAddress)
