@@ -20,6 +20,7 @@ import com.shopify.ui.checkout.adapter.CheckoutCartAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
+import com.shopify.ui.payment.PaymentActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
@@ -58,6 +59,8 @@ class CheckoutActivity :
             if (resultCode == Activity.RESULT_OK) {
                 loadData()
             }
+        } else if (requestCode == RequestCode.PAYMENT && resultCode == Activity.RESULT_OK) {
+            paymentView.setData(data)
         }
     }
 
@@ -88,19 +91,24 @@ class CheckoutActivity :
     private fun setupListeners() {
         seeAll.setOnClickListener { router.openCartScreen(this) }
         shippingAddressView.setClickListeners(
-                View.OnClickListener {
+                editClickListener = View.OnClickListener {
                     checkout?.let {
                         startActivityForResult(
                                 AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
                                 RequestCode.EDIT_ADDRESS)
                     }
                 },
-                View.OnClickListener {
+                addAddressClickListener = View.OnClickListener {
                     checkout?.let {
                         startActivityForResult(
                                 AddressActivity.getStartIntent(this, it.checkoutId),
                                 RequestCode.ADD_ADDRESS)
                     }
+                }
+        )
+        paymentView.setClickListeners(
+                addAddressClickListener = View.OnClickListener {
+                    startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
                 }
         )
     }

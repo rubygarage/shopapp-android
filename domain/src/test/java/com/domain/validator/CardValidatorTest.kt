@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
+@Suppress("FunctionName")
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class CardValidatorTest {

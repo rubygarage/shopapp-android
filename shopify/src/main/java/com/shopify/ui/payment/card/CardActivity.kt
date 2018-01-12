@@ -9,13 +9,14 @@ import com.domain.entity.Address
 import com.domain.entity.Card
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
+import com.shopify.constant.CARD_PAYMENT
+import com.shopify.constant.Extra
 import com.shopify.ui.payment.card.contract.CardPresenter
 import com.shopify.ui.payment.card.contract.CardView
 import com.shopify.ui.payment.card.di.CardPaymentModule
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.base.picker.BaseBottomSheetPicker
-import com.ui.const.Extra
 import com.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
@@ -131,6 +132,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         result.putExtra(Extra.ADDRESS, intent.getParcelableExtra<Address?>(Extra.ADDRESS))
         result.putExtra(Extra.CARD, data.first)
         result.putExtra(Extra.CARD_TOKEN, data.second)
+        result.putExtra(Extra.PAYMENT_TYPE, CARD_PAYMENT)
         setResult(Activity.RESULT_OK, result)
         finish()
     }

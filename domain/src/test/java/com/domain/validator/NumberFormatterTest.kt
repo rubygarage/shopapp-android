@@ -9,6 +9,7 @@ import org.robolectric.annotation.Config
 import java.math.BigDecimal
 import java.util.*
 
+@Suppress("FunctionName")
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class NumberFormatterTest {
