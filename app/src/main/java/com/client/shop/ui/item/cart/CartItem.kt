@@ -9,10 +9,10 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.EditText
 import com.client.shop.R
-import com.ui.ext.hideKeyboard
-import com.ui.custom.SimpleTextWatcher
 import com.domain.entity.CartProduct
 import com.domain.formatter.NumberFormatter
+import com.ui.custom.SimpleTextWatcher
+import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.item_cart.view.*
 
 @SuppressLint("ViewConstructor")
@@ -46,7 +46,9 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
         this.cartProduct = cartProduct
         val product = cartProduct.productVariant
 
-        productImage.setImageURI( if (product.image != null) product.image?.src else product.productImage?.src)
+        var imageURI: String? = product.image?.src ?: product.productImage?.src
+
+        productImage.setImageURI(imageURI)
         titleText.text = product.title
         quantityEditText.setText(cartProduct.quantity.toString())
         quantityEditText.setSelection(quantityEditText.text.length)

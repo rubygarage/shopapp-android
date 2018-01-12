@@ -9,6 +9,7 @@ buildscript {
     ext.constraintLayoutVersion = '1.1.0-beta4'
     ext.mosbyVersion = '3.0.4'
     ext.daggerVersion = '2.11'
+    ext.frescoVersion = '1.7.1'
 
     repositories {
         google()

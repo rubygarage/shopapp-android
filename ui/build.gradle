@@ -30,7 +30,7 @@ dependencies {
     implementation "com.android.support:design:$androidSupportVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
-    api 'com.facebook.fresco:fresco:1.7.1'
+    api "com.facebook.fresco:fresco:$frescoVersion"
 
     implementation "com.hannesdorfmann.mosby3:mvp:$mosbyVersion"
 

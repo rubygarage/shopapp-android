@@ -15,7 +15,6 @@ import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.item_order.view.*
-import java.util.*
 
 @SuppressLint("ViewConstructor")
 class OrderItem(context: Context,
@@ -31,22 +30,13 @@ class OrderItem(context: Context,
     }
 
     fun setOrder(order: Order) {
-        val locale = Locale.getDefault()
-
-        orderNumberTextView.text = String.format(locale,
-                resources.getString(R.string.order_number_pattern),
+        orderNumberTextView.text = resources.getString(R.string.order_number_pattern,
                 order.orderNumber)
-
-        orderDateTextView.text = String.format(locale,
-                resources.getString(R.string.order_date_pattern),
+        orderDateTextView.text = resources.getString(R.string.order_date_pattern,
                 dateFormatter.format(order.processedAt))
-
-        itemsCountTextView.text = String.format(locale,
-                resources.getString(R.string.items_count_pattern),
+        itemsCountTextView.text = resources.getString(R.string.items_count_pattern,
                 order.variants.size)
-
-        totalPriceTextView.text = String.format(locale,
-                resources.getString(R.string.total_price_pattern),
+        totalPriceTextView.text = resources.getString(R.string.total_price_pattern,
                 numberFormatter.formatPrice(order.totalPrice, order.currency))
 
         productVariantsRecyclerView.adapter = ProductVariantAdapter(

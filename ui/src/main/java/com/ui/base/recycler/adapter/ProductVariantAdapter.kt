@@ -16,9 +16,8 @@ class ProductVariantAdapter(
 
     override fun bindData(itemView: View, data: ProductVariant, position: Int) {
         if (itemView is ProductVariantItem) {
-            itemView.setImageURI(
-                    if (data.image != null) data.image?.src else data.productImage?.src
-            )
+            val imageURI: String? = data.image?.src ?: data.productImage?.src
+            itemView.setImageURI(imageURI)
         }
     }
 }
