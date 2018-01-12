@@ -38,6 +38,7 @@
     <string name="year">Year</string>
     <string name="cvv">CVV</string>
     <string name="card_type_placeholder">%1$s (%2$s)</string>
+    <string name="card_unknown_placeholder">(%s)</string>
     <string name="card_exp_placeholder">Exp: %1$s / %2$s</string>
 
 </resources>

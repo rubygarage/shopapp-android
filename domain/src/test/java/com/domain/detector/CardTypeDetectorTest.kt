@@ -75,5 +75,5 @@ class CardTypeDetectorTest {
         Assert.assertNull(cardTypeDetector.detect("5019717010103742", context))
         Assert.assertNull(cardTypeDetector.detect("6331101999990016", context))
     }
-    
+
 }
