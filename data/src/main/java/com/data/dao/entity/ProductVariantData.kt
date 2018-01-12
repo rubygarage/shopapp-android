@@ -4,10 +4,8 @@ import io.requery.*
 
 @Entity
 interface ProductVariantData : Persistable {
-
     @get:Key
     var id: String
-    var productId: String
     var title: String
     var price: Float
     var isAvailable: Boolean
@@ -17,4 +15,5 @@ interface ProductVariantData : Persistable {
     @get:ForeignKey
     @get:OneToOne
     var productImage: ImageData?
+    var productItemId: String
 }

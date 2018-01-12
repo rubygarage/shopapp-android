@@ -46,7 +46,7 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
         this.cartProduct = cartProduct
         val product = cartProduct.productVariant
 
-        productImage.setImageURI(product.image?.src)
+        productImage.setImageURI( if (product.image != null) product.image?.src else product.productImage?.src)
         titleText.text = product.title
         quantityEditText.setText(cartProduct.quantity.toString())
         quantityEditText.setSelection(quantityEditText.text.length)

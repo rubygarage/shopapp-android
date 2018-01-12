@@ -13,7 +13,7 @@ object ProductVariantAdapter {
         product.price = adaptee.price
         product.isAvailable = adaptee.isAvailable
         product.image = ImageAdapter.adaptToStore(adaptee.image)
-        product.productId = adaptee.productId
+        product.productItemId = adaptee.productId
         product.productImage = ImageAdapter.adaptToStore(adaptee.productImage)
         return product
     }
@@ -27,7 +27,7 @@ object ProductVariantAdapter {
                 listOf(),
                 ImageAdapter.adaptFromStore(adaptee.image),
                 ImageAdapter.adaptFromStore(adaptee.productImage),
-                adaptee.productId
+                adaptee.productItemId
         )
     }
 }
