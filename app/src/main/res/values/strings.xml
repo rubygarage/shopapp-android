@@ -62,8 +62,8 @@
     <string name="do_not_forget_to_check">Don\'t forget to check your mail or click the link below and we\'ll send you a new link</string>
     <string name="resend_reset_link">Resend reset link</string>
     <string name="items_count_pattern">Item(s): %d</string>
-    <string name="total_price_pattern">TOTAL: %s</string>
-    <string name="order_number_pattern">ORDER #%d</string>
+    <string name="total_price_pattern">Total: %s</string>
+    <string name="order_number_pattern">Order #%d</string>
     <string name="order_date_pattern">Placed on %s</string>
 
 </resources>
