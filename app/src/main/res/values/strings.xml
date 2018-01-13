@@ -70,5 +70,10 @@
     <string name="description">Description</string>
     <string name="n_a_placeholder">N/A</string>
     <string name="product_unavailable">This product is temporarily unavailable</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="discount">Discount</string>
+    <string name="shipping">Shipping</string>
+    <string name="total">Total</string>
+    <string name="billing_address">Billing Address</string>
 
 </resources>
