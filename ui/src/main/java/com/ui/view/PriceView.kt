@@ -1,4 +1,4 @@
-package com.shopify.ui.payment
+package com.ui.view
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import com.domain.formatter.NumberFormatter
-import com.shopify.api.R
-import com.shopify.entity.Checkout
+import com.ui.R
 import kotlinx.android.synthetic.main.view_price.view.*
+import java.math.BigDecimal
 
 class PriceView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -22,12 +22,11 @@ class PriceView @JvmOverloads constructor(
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
     }
 
-    fun setCheckout(checkout: Checkout) {
-        with(checkout) {
-            priceValue.text = formatter.formatPrice(subtotalPrice, currency)
-            deliveryPriceValue.text = formatter.formatPrice(totalPrice - subtotalPrice, currency)
-            taxValue.text = formatter.formatPrice(taxPrice, currency)
-            totalValue.text = formatter.formatPrice(totalPrice, currency)
-        }
+    fun setData(subtotalPrice: BigDecimal, discountPrice: BigDecimal, shippingPrice: BigDecimal,
+                totalPrice: BigDecimal, currencyCode: String) {
+        subtotalValue.text = formatter.formatPrice(subtotalPrice, currencyCode)
+        discountValue.text = formatter.formatPrice(discountPrice, currencyCode)
+        shippingValue.text = formatter.formatPrice(shippingPrice, currencyCode)
+        totalValue.text = formatter.formatPrice(totalPrice, currencyCode)
     }
 }

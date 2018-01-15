@@ -26,6 +26,7 @@ import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
 import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_checkout.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class CheckoutActivity :
@@ -129,6 +130,8 @@ class CheckoutActivity :
         super.showContent(data)
         checkout = data
         shippingAddressView.setAddress(data.address)
+        priceView.setData(data.subtotalPrice, BigDecimal.ZERO,
+                data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency)
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {

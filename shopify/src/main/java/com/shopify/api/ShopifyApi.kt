@@ -1172,6 +1172,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 .totalTax()
                 .currencyCode()
                 .shippingAddress { getDefaultAddressQuery(it) }
+                .shippingLine { getDefaultShippingRateQuery(it) }
     }
 
     private fun getDefaultAddressQuery(addressQuery: Storefront.MailingAddressQuery): Storefront.MailingAddressQuery {
@@ -1184,6 +1185,12 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 .province()
                 .zip()
                 .phone()
+    }
+
+    private fun getDefaultShippingRateQuery(shippingRateQuery: Storefront.ShippingRateQuery): Storefront.ShippingRateQuery {
+        return shippingRateQuery.handle()
+                .price()
+                .title()
     }
 
     private fun getDefaultCustomerQuery(customerQuery: Storefront.CustomerQuery): Storefront.CustomerQuery {

@@ -4,11 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.shopify.ui.payment.PriceView
-        android:id="@+id/priceView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/payButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"

@@ -11,5 +11,6 @@ data class Checkout(
         val totalPrice: BigDecimal,
         val taxPrice: BigDecimal,
         val currency: String,
-        val address: Address?
+        val address: Address?,
+        val shippingRate: ShippingRate?
 )
