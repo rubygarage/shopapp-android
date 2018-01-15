@@ -139,6 +139,41 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
+//    override fun getOrder(id: String, callback: ApiCallback<Order>) {
+//
+//        val nodeId = ID(id)
+//        val query = Storefront.query { root ->
+//            root.node(nodeId){
+//                it.onOrder{
+//                    it.orderNumber()
+//                            .totalPrice()
+//                            .email()
+//                            .currencyCode()
+//                            .processedAt()
+//                            .lineItems({ it.first(ITEMS_COUNT) }) { lineItemsQuery ->
+//                                lineItemsQuery.edges { productVariantConnectionQuery ->
+//                                    productVariantConnectionQuery.node { node ->
+//                                        node
+//                                                .title()
+//                                                .quantity()
+//                                                .variant { productVariantQuery ->
+//                                                    getDefaultProductVariantQuery(productVariantQuery)
+//                                                }
+//                                    }
+//                                }
+//                            }
+//                }
+//            }
+//        }
+//
+//        val call = graphClient.queryGraph(query)
+//        call.enqueue(object : QueryCallWrapper<Order>(callback) {
+//            override fun adapt(data: Storefront.QueryRoot): Order =
+//                    OrderListAdapter.adapt(data.customer.orders)
+//        })
+//
+//    }
+
     override fun getCategoryList(perPage: Int, paginationValue: Any?, callback: ApiCallback<List<Category>>) {
 
         val query = Storefront.query { rootQuery ->

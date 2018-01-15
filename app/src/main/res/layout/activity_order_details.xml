@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBackgroundDarkTranslucent">
-        
+
         <LinearLayout
             android:id="@+id/headerView"
             android:layout_width="match_parent"
@@ -40,6 +40,15 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/paymentInformationTitle"
+            style="@style/order_title_view"
+            android:layout_marginTop="4dp"
+            android:text="@string/payment_information"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headerView" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
@@ -47,10 +56,10 @@
             android:clipToPadding="false"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
-            android:paddingTop="4dp"
+            android:paddingTop="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headerView" />
+            app:layout_constraintTop_toBottomOf="@+id/paymentInformationTitle" />
 
         <TextView
             android:id="@+id/subtotalTitleTextView"
@@ -143,71 +152,26 @@
             app:layout_constraintEnd_toEndOf="@+id/shippingValueTextView"
             app:layout_constraintTop_toTopOf="@+id/totalTitleTextView" />
 
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/billingAddressTitle"
+            style="@style/order_title_view"
             android:layout_marginTop="8dp"
-            android:background="@color/white"
-            android:orientation="vertical"
+            android:text="@string/payment_information"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalTitleTextView">
+            app:layout_constraintTop_toBottomOf="@+id/totalTitleTextView" />
 
+        <com.shopify.ui.item.AddressContentItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/billingAddressTitle"
+            app:withName="false" />
 
-            <TextView
-                android:id="@+id/billingAddressTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="22dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="22dp"
-                android:text="@string/billing_address"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorBackgroundDarkTranslucent" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                tools:text="Name" />
-
-            <TextView
-                android:id="@+id/addressText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:lineSpacingExtra="8dp"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="12sp"
-                tools:text="Content\ntest" />
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="12sp"
-                tools:text="Phone" />
-        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
+
 </ScrollView>
