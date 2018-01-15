@@ -14,7 +14,8 @@ object CheckoutAdapter {
                 adaptee.totalPrice,
                 adaptee.totalTax,
                 adaptee.currencyCode.name,
-                adaptee.shippingAddress?.let { AddressAdapter.adapt(it) }
+                adaptee.shippingAddress?.let { AddressAdapter.adapt(it) },
+                adaptee.shippingLine?.let { ShippingRateAdapter.adapt(it) }
         )
     }
 }

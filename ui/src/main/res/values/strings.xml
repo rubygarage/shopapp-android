@@ -7,7 +7,6 @@
     <string name="empty_message">It\'s empty in here.</string>
     <string name="try_again">Try Again</string>
     <string name="close">Close</string>
-
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email*</string>
@@ -28,5 +27,9 @@
     <string name="done">Done</string>
     <string name="tel_prefix">Tel: %s</string>
     <string name="full_name_pattern">%1$s %2$s</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="discount">Discount</string>
+    <string name="shipping">Shipping</string>
+    <string name="total_price">Total</string>
 
 </resources>

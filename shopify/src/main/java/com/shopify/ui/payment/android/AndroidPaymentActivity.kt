@@ -50,7 +50,6 @@ class AndroidPaymentActivity :
         }
 
         connectGoogleApiClient()
-        priceView.setCheckout(checkout)
         payButton.setOnClickListener { loadData() }
     }
 

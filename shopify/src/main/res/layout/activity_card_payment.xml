@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.shopify.ui.payment.PriceView
+    <com.ui.view.PriceView
         android:id="@+id/priceView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

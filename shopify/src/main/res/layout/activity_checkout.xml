@@ -56,6 +56,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/shippingAddressView" />
 
+        <com.ui.view.PriceView
+            android:id="@+id/priceView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentView" />
+
     </android.support.constraint.ConstraintLayout>
 
 </ScrollView>

@@ -15,11 +15,6 @@
     <string name="card_number_error">The card number is incorrect</string>
     <string name="payment_canceled">Payment canceled</string>
     <string name="to_shipping_method_label">Continue to shipping method</string>
-    <string name="shipping">Shipping</string>
-    <string name="price_of_products">Price of products:</string>
-    <string name="price_of_delivery">Price of delivery:</string>
-    <string name="total_tax">Total tax:</string>
-    <string name="total_price">Total price:</string>
     <string name="shipping_address">Shipping Address</string>
     <string name="billing_address">Billing Address</string>
     <string name="use_same_address">Use the same address for payment and delivery</string>
