@@ -99,9 +99,9 @@ class AddressListActivity :
                 this, this)
         addressListAdapter.defaultAddress = address
         val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = addressListAdapter
-        recyclerView.addItemDecoration(decorator)
+        productRecyclerView.layoutManager = LinearLayoutManager(this)
+        productRecyclerView.adapter = addressListAdapter
+        productRecyclerView.addItemDecoration(decorator)
     }
 
     private fun addressChanged() {

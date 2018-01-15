@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundDarkTranslucent">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorBackgroundDarkTranslucent">
+        android:layout_height="wrap_content">
 
-        <com.client.shop.ui.view.OrderTitleView
+        <com.ui.view.OrderTitleView
             android:id="@+id/orderTitleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toBottomOf="@+id/orderTitleView" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/productRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -38,110 +38,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/paymentInformationTitle" />
 
-        <TextView
-            android:id="@+id/subtotalTitleTextView"
-            android:layout_width="wrap_content"
+        <com.ui.view.PriceView
+            android:id="@+id/priceView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/subtotal"
-            android:textColor="@color/black"
-            android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
-        <TextView
-            android:id="@+id/discountTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/discount"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@+id/subtotalTitleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/subtotalTitleTextView" />
-
-        <TextView
-            android:id="@+id/shippingTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/shipping"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@+id/discountTitleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/discountTitleTextView" />
-
-        <TextView
-            android:id="@+id/totalTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/total"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/shippingTitleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/shippingTitleTextView" />
-
-        <TextView
-            android:id="@+id/subtotalValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/subtotalTitleTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/subtotalTitleTextView" />
-
-        <TextView
-            android:id="@+id/discountValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/discountTitleTextView"
-            app:layout_constraintEnd_toEndOf="@+id/subtotalValueTextView"
-            app:layout_constraintTop_toTopOf="@+id/discountTitleTextView" />
-
-        <TextView
-            android:id="@+id/shippingValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/shippingTitleTextView"
-            app:layout_constraintEnd_toEndOf="@+id/discountValueTextView"
-            app:layout_constraintTop_toTopOf="@+id/shippingTitleTextView" />
-
-        <TextView
-            android:id="@+id/totalValueTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/totalTitleTextView"
-            app:layout_constraintEnd_toEndOf="@+id/shippingValueTextView"
-            app:layout_constraintTop_toTopOf="@+id/totalTitleTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/productRecyclerView" />
 
         <TextView
             android:id="@+id/billingAddressTitle"
             style="@style/order_title_view"
             android:layout_marginTop="8dp"
-            android:text="@string/payment_information"
+            android:text="@string/billing_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalTitleTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/priceView" />
 
         <com.shopify.ui.item.AddressContentItem
+            android:id="@+id/addressContentView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
+            android:layout_marginTop="1dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

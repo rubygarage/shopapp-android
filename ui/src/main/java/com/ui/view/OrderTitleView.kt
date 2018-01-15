@@ -1,22 +1,23 @@
-package com.client.shop.ui.view
+package com.ui.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
 import com.domain.entity.Order
 import com.domain.formatter.DateFormatter
+import com.ui.R
 import kotlinx.android.synthetic.main.view_order_title.view.*
 
-class OrderTitleView(context: Context,
-                     attrs: AttributeSet? = null,
-                     defStyleAttr: Int = 0) :
+class OrderTitleView @JvmOverloads constructor(
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
         LinearLayoutCompat(context, attrs, defStyleAttr) {
 
     init {
-        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         View.inflate(context, R.layout.view_order_title, this)
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+        orientation = VERTICAL
     }
 
     fun setOrder(order: Order, dateFormatter: DateFormatter) {

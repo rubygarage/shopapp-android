@@ -29,8 +29,8 @@ open class BaseBottomSheetPicker : BottomSheetDialogFragment() {
             dismiss()
         }
         adapter = BottomSheetPickerAdapter(dataList)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+        productRecyclerView.layoutManager = LinearLayoutManager(context)
+        productRecyclerView.adapter = adapter
     }
 
     fun setData(dataList: List<String>) {

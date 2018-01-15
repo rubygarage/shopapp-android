@@ -1,5 +1,6 @@
 package com.domain.entity
 
+import java.math.BigDecimal
 import java.util.*
 
 data class Order(
@@ -7,9 +8,9 @@ data class Order(
         val currency: String,
         val email: String,
         val orderNumber: Int,
-        val subtotalPrice: Double?,
-        val totalShippingPrice: Double?,
-        val totalPrice: Double,
+        val subtotalPrice: BigDecimal?,
+        val totalShippingPrice: BigDecimal?,
+        val totalPrice: BigDecimal,
         val processedAt: Date,
         val orderProducts: List<OrderProduct>,
         val address: Address?,

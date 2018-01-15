@@ -11,9 +11,9 @@ object OrderAdapter {
                 currency = orderAdaptee.currencyCode.toString(),
                 email = orderAdaptee.email,
                 orderNumber = orderAdaptee.orderNumber,
-                totalPrice = orderAdaptee.totalPrice.toDouble(),
-                subtotalPrice = orderAdaptee.subtotalPrice.toDouble(),
-                totalShippingPrice = orderAdaptee.totalShippingPrice.toDouble(),
+                totalPrice = orderAdaptee.totalPrice,
+                subtotalPrice = orderAdaptee.subtotalPrice,
+                totalShippingPrice = orderAdaptee.totalShippingPrice,
                 address = orderAdaptee.shippingAddress?.let {
                     AddressAdapter.adapt(it)
                 },

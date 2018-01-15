@@ -7,6 +7,7 @@ import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.product.ProductDetailsActivity
+import com.client.shop.ui.details.OrderDetailsActivity
 import com.client.shop.ui.order.list.adapter.OrderAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
@@ -58,8 +59,8 @@ class OrderListActivity :
     override fun setupRecyclerView() {
         super.setupRecyclerView()
         val spaceDecoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_item_vertical_margin))
-        recyclerView.addItemDecoration(spaceDecoration)
-        recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
+        productRecyclerView.addItemDecoration(spaceDecoration)
+        productRecyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }
 
     //LCE
@@ -79,7 +80,7 @@ class OrderListActivity :
     }
 
     override fun onItemClicked(data: Order, position: Int) {
-        TODO("open order details screen")
+        startActivity(OrderDetailsActivity.getStartIntent(this, data.id))
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {

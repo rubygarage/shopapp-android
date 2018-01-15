@@ -46,10 +46,10 @@ class BlogFragment :
         val layoutManager = LinearLayoutManager(context)
         val divider = DividerItemDecoration(context, layoutManager.orientation)
         divider.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_line))
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        recyclerView.isNestedScrollingEnabled = false
-        recyclerView.addItemDecoration(divider)
+        productRecyclerView.layoutManager = layoutManager
+        productRecyclerView.adapter = adapter
+        productRecyclerView.isNestedScrollingEnabled = false
+        productRecyclerView.addItemDecoration(divider)
     }
 
     private fun changeSeeAllState() {

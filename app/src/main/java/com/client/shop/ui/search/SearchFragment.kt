@@ -53,7 +53,7 @@ class SearchFragment :
 
     override fun setupRecyclerView() {
         super.setupRecyclerView()
-        recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
+        productRecyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }
 
     //LCE

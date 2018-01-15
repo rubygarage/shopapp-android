@@ -28,7 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/productRecyclerView"
             android:layout_width="0dp"
             android:layout_height="132dp"
             android:background="@color/white"
@@ -45,7 +45,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/productRecyclerView" />
 
         <com.shopify.ui.payment.PaymentView
             android:id="@+id/paymentView"

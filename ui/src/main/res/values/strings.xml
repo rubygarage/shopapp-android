@@ -31,5 +31,7 @@
     <string name="discount">Discount</string>
     <string name="shipping">Shipping</string>
     <string name="total_price">Total</string>
+    <string name="order_number_pattern">Order #%d</string>
+    <string name="order_date_pattern">Placed on %s</string>
 
 </resources>

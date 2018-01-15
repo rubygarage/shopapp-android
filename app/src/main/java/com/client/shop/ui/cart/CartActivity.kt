@@ -73,9 +73,9 @@ class CartActivity :
         adapter.setHasStableIds(true)
         adapter.actionListener = this
         val decoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.cart_item_divider))
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(decoration)
+        productRecyclerView.adapter = adapter
+        productRecyclerView.layoutManager = LinearLayoutManager(this)
+        productRecyclerView.addItemDecoration(decoration)
         val swipeHandler = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 data.getOrNull(viewHolder.adapterPosition)?.let {
@@ -84,7 +84,7 @@ class CartActivity :
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(recyclerView)
+        itemTouchHelper.attachToRecyclerView(productRecyclerView)
 
     }
 

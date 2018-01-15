@@ -9,7 +9,7 @@
         android:id="@+id/titleText"
         style="@style/section_title"
         android:text="@string/blog_posts"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/productRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/productRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
