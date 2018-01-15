@@ -3,12 +3,15 @@ package com.domain.entity
 import java.util.*
 
 data class Order(
-        var id: String,
-        var currency: String,
+        val id: String,
+        val currency: String,
         val email: String,
         val orderNumber: Int,
+        val subtotalPrice: Double?,
+        val totalShippingPrice: Double?,
         val totalPrice: Double,
-        var processedAt: Date,
-        var variants: List<ProductVariant>,
-        var paginationValue: String? = null
+        val processedAt: Date,
+        val orderProducts: List<OrderProduct>,
+        val address: Address?,
+        val paginationValue: String? = null
 )

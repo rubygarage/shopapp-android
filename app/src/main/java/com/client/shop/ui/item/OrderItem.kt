@@ -30,17 +30,16 @@ class OrderItem(context: Context,
     }
 
     fun setOrder(order: Order) {
-        orderNumberTextView.text = resources.getString(R.string.order_number_pattern,
-                order.orderNumber)
-        orderDateTextView.text = resources.getString(R.string.order_date_pattern,
-                dateFormatter.format(order.processedAt))
+
+        orderTitleView.setOrder(order, dateFormatter)
+
         itemsCountTextView.text = resources.getString(R.string.items_count_pattern,
-                order.variants.size)
+                order.orderProducts.size)
         totalPriceTextView.text = resources.getString(R.string.total_price_pattern,
                 numberFormatter.formatPrice(order.totalPrice, order.currency))
 
         productVariantsRecyclerView.adapter = ProductVariantAdapter(
-                order.variants,
+                order.orderProducts.map { it.productVariant },
                 object : OnItemClickListener {
                     override fun onItemClicked(position: Int) {
                         onProductVariantClickListener?.onProductVariantClicked(position)

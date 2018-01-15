@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,35 +9,13 @@
         android:layout_height="wrap_content"
         android:background="@color/colorBackgroundDarkTranslucent">
 
-        <LinearLayout
-            android:id="@+id/headerView"
+        <com.client.shop.ui.view.OrderTitleView
+            android:id="@+id/orderTitleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:orientation="vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-
-            <TextView
-                android:id="@+id/orderNumberTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/textColorPrimary"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                tools:text="ORDER #%d" />
-
-            <TextView
-                android:id="@+id/orderDateTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="5dp"
-                android:textSize="13sp"
-                tools:text="Placed on %s" />
-
-        </LinearLayout>
+            android:paddingRight="16dp" />
 
         <TextView
             android:id="@+id/paymentInformationTitle"
@@ -47,7 +24,7 @@
             android:text="@string/payment_information"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headerView" />
+            app:layout_constraintTop_toBottomOf="@+id/orderTitleView" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

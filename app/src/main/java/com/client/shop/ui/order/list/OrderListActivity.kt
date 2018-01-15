@@ -10,7 +10,7 @@ import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.order.list.adapter.OrderAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
-import com.client.shop.ui.order.list.di.OrderModule
+import com.client.shop.ui.order.di.OrderModule
 import com.domain.entity.Order
 import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.ui.base.recycler.divider.SpaceDecoration
@@ -83,7 +83,7 @@ class OrderListActivity :
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {
-        val productId = dataList[orderPosition].variants[productPosition].productId
+        val productId = dataList[orderPosition].orderProducts[productPosition].productVariant.productId
         startActivity(ProductDetailsActivity.getStartIntent(this, productId))
     }
 

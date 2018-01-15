@@ -6,18 +6,22 @@ import com.shopify.buy3.Storefront
 object OrderAdapter {
 
     fun adapt(orderAdaptee: Storefront.Order, paginationValue: String? = null): Order {
-
         return Order(
                 id = orderAdaptee.id.toString(),
                 currency = orderAdaptee.currencyCode.toString(),
                 email = orderAdaptee.email,
                 orderNumber = orderAdaptee.orderNumber,
                 totalPrice = orderAdaptee.totalPrice.toDouble(),
+                subtotalPrice = orderAdaptee.subtotalPrice.toDouble(),
+                totalShippingPrice = orderAdaptee.totalShippingPrice.toDouble(),
+                address = orderAdaptee.shippingAddress?.let {
+                    AddressAdapter.adapt(it)
+                },
                 processedAt = orderAdaptee.processedAt.toDate(),
-                variants = orderAdaptee.lineItems.edges
-                        .map { it.node.variant }
+                orderProducts = orderAdaptee.lineItems.edges
+                        .map { it.node }
                         .filter { it != null }
-                        .map { ProductVariantAdapter.adapt(it) },
+                        .map { OrderProductAdapter.adapt(it) },
                 paginationValue = paginationValue
         )
     }

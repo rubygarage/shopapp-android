@@ -7,4 +7,7 @@ interface OrderRepository {
 
     fun getOrdersList(perPage: Int, paginationValue: Any?): Single<List<Order>>
 
+
+    fun getOrder(orderId: String): Single<Order>
+
 }

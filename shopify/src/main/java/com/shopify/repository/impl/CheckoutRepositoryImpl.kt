@@ -70,4 +70,5 @@ class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
             api.completeCheckoutByAndroid(checkout, payCart, fullWallet, RxCallbackSingle<Boolean>(it))
         }
     }
+
 }
