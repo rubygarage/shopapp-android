@@ -118,19 +118,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                 .edges { productVariantEdgeQuery ->
                                                     productVariantEdgeQuery
                                                             .node { productVariantQuery ->
-                                                                productVariantQuery
-                                                                        .title()
-                                                                        .availableForSale()
-                                                                        .price()
-                                                                        .weight()
-                                                                        .weightUnit()
-                                                                        .selectedOptions({ optionsQuery -> optionsQuery.name().value() })
-                                                                        .image({ imageQuery ->
-                                                                            imageQuery
-                                                                                    .id()
-                                                                                    .src()
-                                                                                    .altText()
-                                                                        })
+                                                                getDefaultProductVariantQuery(productVariantQuery)
                                                             }
                                                 }
                                     }
@@ -238,8 +226,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                                         .variants({ it.first(1) }) { productVariantConnectionQuery ->
                                                                             productVariantConnectionQuery.edges { productVariantEdgeQuery ->
                                                                                 productVariantEdgeQuery.node({
-                                                                                    it.price()
-                                                                                    it.title()
+                                                                                   getDefaultProductVariantQuery(it)
                                                                                 })
                                                                             }
                                                                         }
@@ -1014,6 +1001,51 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         return null
     }
 
+    override fun getOrders(perPage: Int, paginationValue: Any?, callback: ApiCallback<List<Order>>) {
+        val token = getSession()!!.accessToken
+        val query = Storefront.query { root ->
+            root.customer(token) { customer ->
+                customer.orders({ args ->
+                    args.first(perPage)
+                    if (paginationValue != null) {
+                        args.after(paginationValue.toString())
+                    }
+                }
+                ) { connection ->
+                    connection.edges { edge ->
+                        edge.cursor().node { node ->
+                            node
+                                    .orderNumber()
+                                    .totalPrice()
+                                    .email()
+                                    .currencyCode()
+                                    .processedAt()
+                                    .lineItems({ it.first(ITEMS_COUNT) }) { lineItemsQuery ->
+                                        lineItemsQuery.edges { productVariantConnectionQuery ->
+                                            productVariantConnectionQuery.node { node ->
+                                                node
+                                                        .title()
+                                                        .quantity()
+                                                        .variant { productVariantQuery ->
+                                                            getDefaultProductVariantQuery(productVariantQuery)
+                                                        }
+                                            }
+                                        }
+                                    }
+                        }
+                    }
+                }
+            }
+        }
+
+        val call = graphClient.queryGraph(query)
+        call.enqueue(object : QueryCallWrapper<List<Order>>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): List<Order> =
+                    OrderListAdapter.adapt(data.customer.orders)
+        })
+
+    }
+
     private fun queryProducts(perPage: Int, paginationValue: Any?, searchQuery: String?,
                               reverse: Boolean, sortBy: SortType?,
                               callback: ApiCallback<List<Product>>) {
@@ -1053,8 +1085,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                             .variants({ it.first(1) }) { productVariantConnectionQuery ->
                                                 productVariantConnectionQuery.edges { productVariantEdgeQuery ->
                                                     productVariantEdgeQuery.node({
-                                                        it.price()
-                                                        it.title()
+                                                      getDefaultProductVariantQuery(it)
                                                     })
                                                 }
                                             }
@@ -1080,6 +1111,35 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 .createdAt()
                 .updatedAt()
                 .tags()
+    }
+
+    private fun getDefaultProductVariantQuery(productVariantQuery: Storefront.ProductVariantQuery): Storefront.ProductVariantQuery {
+        return productVariantQuery
+                .title()
+                .price()
+                .weight()
+                .weightUnit()
+                .availableForSale()
+                .selectedOptions({ optionsQuery -> optionsQuery.name().value() })
+                .image({ imageQuery ->
+                    imageQuery
+                            .id()
+                            .src()
+                            .altText()
+                })
+                .product({ productQuery ->
+                    productQuery
+                            .images({ it.first(1) }, { imageConnectionQuery ->
+                                imageConnectionQuery.edges({ imageEdgeQuery ->
+                                    imageEdgeQuery.node({ imageQuery ->
+                                        imageQuery
+                                                .id()
+                                                .src()
+                                                .altText()
+                                    })
+                                })
+                            })
+                })
     }
 
     private fun getDefaultArticleQuery(articleQuery: Storefront.ArticleQuery): Storefront.ArticleQuery {

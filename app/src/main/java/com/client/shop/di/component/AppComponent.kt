@@ -13,6 +13,8 @@ import com.client.shop.ui.category.di.CategoryComponent
 import com.client.shop.ui.category.di.CategoryModule
 import com.client.shop.ui.details.di.DetailsComponent
 import com.client.shop.ui.details.di.DetailsModule
+import com.client.shop.ui.order.list.di.OrderComponent
+import com.client.shop.ui.order.list.di.OrderModule
 import com.client.shop.ui.popular.di.PopularComponent
 import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.di.ProductComponent
@@ -45,4 +47,7 @@ interface AppComponent {
     fun attachCartComponent(module: CartModule): CartComponent
 
     fun attachAuthComponent(module: AuthModule): AuthComponent
+
+    fun attachOrderComponent(module: OrderModule): OrderComponent
+
 }

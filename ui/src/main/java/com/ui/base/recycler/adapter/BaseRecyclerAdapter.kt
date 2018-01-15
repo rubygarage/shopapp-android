@@ -24,8 +24,12 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
         return when (viewType) {
             HEADER_TYPE -> HeaderViewHolder(getHeaderView(context))
             FOOTER_TYPE -> FooterViewHolder(getFooterView(context))
-            else -> DefaultViewHolder(getItemView(context, viewType), onItemClickListener, withHeader)
+            else -> getItemHolder(context, viewType)
         }
+    }
+
+    protected open fun getItemHolder(context: Context, viewType: Int): RecyclerView.ViewHolder {
+        return DefaultViewHolder(getItemView(context, viewType), onItemClickListener, withHeader)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

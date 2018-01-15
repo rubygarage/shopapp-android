@@ -8,7 +8,9 @@ data class ProductVariant(var id: String,
                           var price: Float,
                           var isAvailable: Boolean,
                           var selectedOptions: List<VariantOption>,
-                          var image: Image? = null
+                          var image: Image? = null,
+                          var productImage: Image? = null,
+                          var productId: String
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
@@ -17,7 +19,9 @@ data class ProductVariant(var id: String,
             source.readFloat(),
             1 == source.readInt(),
             source.createTypedArrayList(VariantOption.CREATOR),
-            source.readParcelable<Image>(Image::class.java.classLoader)
+            source.readParcelable<Image>(Image::class.java.classLoader),
+            source.readParcelable<Image>(Image::class.java.classLoader),
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -29,6 +33,8 @@ data class ProductVariant(var id: String,
         writeInt((if (isAvailable) 1 else 0))
         writeTypedList(selectedOptions)
         writeParcelable(image, 0)
+        writeParcelable(productImage, 0)
+        writeString(productId)
     }
 
     companion object {

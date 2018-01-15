@@ -1,6 +1,7 @@
 package com.client.shop
 
 import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
 import com.client.shop.di.module.RepositoryModule
@@ -14,7 +15,7 @@ import com.shopify.ShopifyWrapper
 import io.reactivex.plugins.RxJavaPlugins
 
 
-class ShopApplication : Application() {
+class ShopApplication : MultiDexApplication() {
 
     companion object {
         lateinit var appComponent: AppComponent
