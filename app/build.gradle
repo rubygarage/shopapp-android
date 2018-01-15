@@ -90,7 +90,6 @@ dependencies {
     api project(':data')
     implementation project(":ui")
     implementation project(':shopify')
-    implementation project(":ui")
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
