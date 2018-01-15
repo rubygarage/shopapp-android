@@ -69,7 +69,13 @@ class PaymentView @JvmOverloads constructor(
         val card = data.getParcelableExtra<Card>(Extra.CARD)
         cardGroup.visibility = if (card != null) {
             val cardType = cardTypeDetector.detect(card.cardNumber, context)
-            cardData.text = context.getString(R.string.card_type_placeholder, cardType, card.cardNumber.takeLast(LAST_CARD_NUMBERS))
+            if (cardType != null) {
+                cardData.text = context.getString(R.string.card_type_placeholder, cardType,
+                        card.cardNumber.takeLast(LAST_CARD_NUMBERS))
+            } else {
+                cardData.text = context.getString(R.string.card_unknown_placeholder,
+                        card.cardNumber.takeLast(LAST_CARD_NUMBERS))
+            }
             cardExpiredDate.text = context.getString(R.string.card_exp_placeholder, card.expireMonth, card.expireYear.takeLast(LAST_DATE_NUMBERS))
             cardHolder.text = context.getString(R.string.full_name_pattern, card.firstName, card.lastName)
             View.VISIBLE

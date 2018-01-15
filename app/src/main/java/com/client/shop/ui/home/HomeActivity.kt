@@ -7,10 +7,10 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.client.shop.R
-import com.ui.ext.replaceByTag
 import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
 import com.client.shop.ui.search.SearchWithCategoriesFragment
+import com.ui.ext.replaceByTag
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {

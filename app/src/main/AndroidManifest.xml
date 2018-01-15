@@ -73,6 +73,10 @@
             android:name=".ui.order.list.OrderListActivity"
             android:screenOrientation="portrait" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ec1a2d2e6ae5cf3addf0ec8f67c34deb4a00cbea" />
+
     </application>
 
 </manifest>
