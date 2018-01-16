@@ -41,7 +41,7 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
         } else {
             optionsTextView.visibility = View.GONE
         }
-        
+
         totalPrice.text = getTotalPrice(productVariant.price, orderProduct.quantity, currency)
         changeEachPriceVisibility(productVariant.price, orderProduct.quantity, currency)
     }
