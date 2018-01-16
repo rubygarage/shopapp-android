@@ -1,40 +1,43 @@
-package com.client.shop.ui.details
+package com.client.shop.ui.product
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.widget.NestedScrollView
-import android.util.TypedValue
 import android.view.Menu
-import android.view.ViewGroup
-import android.widget.FrameLayout
+import android.view.View
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.view.animation.Animation
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.ui.ext.getScreenSize
 import com.client.shop.ui.cart.CartActivity
 import com.client.shop.ui.container.OptionsContainer
-import com.client.shop.ui.details.contract.DetailsPresenter
-import com.client.shop.ui.details.contract.DetailsView
-import com.client.shop.ui.details.di.DetailsModule
 import com.client.shop.ui.gallery.GalleryFragment
+import com.client.shop.ui.product.contract.DetailsPresenter
+import com.client.shop.ui.product.contract.DetailsView
+import com.client.shop.ui.product.di.ProductDetailsModule
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
 import com.domain.formatter.NumberFormatter
 import com.ui.base.lce.BaseActivity
-import kotlinx.android.synthetic.main.activity_details.*
+import com.ui.custom.SimpleAnimationListener
+import com.ui.ext.collapseAnimation
+import com.ui.ext.expandAnimation
+import kotlinx.android.synthetic.main.activity_product_details.*
 import javax.inject.Inject
 
-class DetailsActivity :
+class ProductDetailsActivity :
         BaseActivity<Product, DetailsView, DetailsPresenter>(),
         DetailsView,
         OptionsContainer.OnVariantSelectListener {
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        private const val MIN_TOUCHABLE_ALPHA = 0.9f
+        private const val EXPAND_DURATION = 400L
+        private const val SCROLL_DURATION = 200L
 
         fun getStartIntent(context: Context, productId: String): Intent {
-            val intent = Intent(context, DetailsActivity::class.java)
+            val intent = Intent(context, ProductDetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
             return intent
         }
@@ -56,15 +59,31 @@ class DetailsActivity :
         productId = intent.getStringExtra(EXTRA_PRODUCT_ID)
         formatter = NumberFormatter()
 
-        val typedValue = TypedValue()
-        resources.getValue(R.dimen.image_aspect_ratio, typedValue, true)
-        val galleryHeight = (getScreenSize().x / typedValue.float).toInt()
-
-        setupScrollView(galleryHeight)
-        setupGallery(galleryHeight)
+        setupGallery()
         setupCartButton()
-
         optionsContainer.variantSelectListener = this
+
+        descriptionLabel.setOnClickListener {
+            val descriptionHeight = description.layoutParams.height
+            if (descriptionHeight == WRAP_CONTENT) {
+                descriptionBottomSpace.visibility = View.GONE
+                description.collapseAnimation(EXPAND_DURATION)
+                descriptionLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_plus, 0)
+            } else {
+                descriptionBottomSpace.visibility = View.VISIBLE
+                description.expandAnimation(EXPAND_DURATION, object : SimpleAnimationListener() {
+                    override fun onAnimationEnd(animation: Animation?) {
+                        scrollView.post {
+                            ObjectAnimator.ofInt(scrollView, "scrollY", descriptionLabel.y.toInt())
+                                    .setDuration(SCROLL_DURATION)
+                                    .start()
+                        }
+                    }
+                })
+                descriptionLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_minus, 0)
+            }
+        }
+
         loadData()
     }
 
@@ -76,10 +95,10 @@ class DetailsActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachDetailsComponent(DetailsModule()).inject(this)
+        ShopApplication.appComponent.attachDetailsComponent(ProductDetailsModule()).inject(this)
     }
 
-    override fun getContentView() = R.layout.activity_details
+    override fun getContentView() = R.layout.activity_product_details
 
     override fun createPresenter(): DetailsPresenter {
         return detailsPresenter
@@ -87,24 +106,7 @@ class DetailsActivity :
 
     //SETUP
 
-    private fun setupScrollView(galleryHeight: Int) {
-        scrollView.setPadding(0, galleryHeight, 0, 0)
-        scrollView.setOnTouchListener { _, event ->
-            if (galleryContainer.alpha > MIN_TOUCHABLE_ALPHA) {
-                galleryContainer.dispatchTouchEvent(event)
-            } else {
-                false
-            }
-
-        }
-        scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener
-        { _, _, scrollY, _, _ -> galleryContainer.alpha = 1 - (scrollY / galleryHeight.toFloat()) })
-    }
-
-    private fun setupGallery(galleryHeight: Int) {
-
-        galleryContainer.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                galleryHeight)
+    private fun setupGallery() {
         galleryFragment = GalleryFragment.newInstance(product, true)
         galleryFragment?.let {
             supportFragmentManager.beginTransaction()
@@ -137,7 +139,7 @@ class DetailsActivity :
         super.showContent(data)
         product = data
         productTitle.text = data.title
-        this.productDescription.text = data.productDescription
+        description.text = data.productDescription
         galleryFragment?.updateProduct(data)
         optionsContainer.setProduct(data)
     }

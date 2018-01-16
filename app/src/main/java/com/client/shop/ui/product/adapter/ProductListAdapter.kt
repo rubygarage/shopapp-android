@@ -8,7 +8,7 @@ import com.client.shop.ui.item.ProductItem
 import com.domain.entity.Product
 import com.domain.formatter.NumberFormatter
 
-class ProductAdapter(
+class ProductListAdapter(
         private val itemWidth: Int,
         private val itemHeight: Int,
         productList: List<Product>,

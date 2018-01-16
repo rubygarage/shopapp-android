@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class ProductModule {
+class ProductListModule {
 
     @Provides
     fun provideProductListPresenter(productListUseCase: ProductListUseCase): ProductListPresenter {

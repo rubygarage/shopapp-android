@@ -8,11 +8,10 @@ import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
-import com.client.shop.ui.details.DetailsActivity
-import com.client.shop.ui.product.adapter.ProductAdapter
+import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
-import com.client.shop.ui.product.di.ProductModule
+import com.client.shop.ui.product.di.ProductListModule
 import com.domain.entity.Product
 import com.domain.entity.SortType
 import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
@@ -55,7 +54,7 @@ class ProductListActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachProductComponent(ProductModule()).inject(this)
+        ShopApplication.appComponent.attachProductComponent(ProductListModule()).inject(this)
     }
 
     override fun createPresenter() = productListPresenter
@@ -64,9 +63,9 @@ class ProductListActivity :
 
     //SETUP
 
-    override fun setupAdapter(): ProductAdapter {
+    override fun setupAdapter(): ProductListAdapter {
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        return ProductAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
+        return ProductListAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
     }
 
     override fun setupRecyclerView() {
@@ -93,6 +92,6 @@ class ProductListActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(this, data.id))
+        startActivity(ProductDetailsActivity.getStartIntent(this, data.id))
     }
 }

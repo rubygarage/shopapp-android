@@ -67,5 +67,6 @@
     <string name="total_price_pattern">Total: %s</string>
     <string name="order_number_pattern">Order #%d</string>
     <string name="order_date_pattern">Placed on %s</string>
+    <string name="description">Description</string>
 
 </resources>

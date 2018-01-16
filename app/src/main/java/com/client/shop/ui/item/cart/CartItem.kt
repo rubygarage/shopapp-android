@@ -45,8 +45,7 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
     fun setCartProduct(cartProduct: CartProduct) {
         this.cartProduct = cartProduct
         val product = cartProduct.productVariant
-
-        var imageURI: String? = product.image?.src ?: product.productImage?.src
+        val imageURI: String? = product.image?.src ?: product.productImage?.src
 
         productImage.setImageURI(imageURI)
         titleText.text = product.title

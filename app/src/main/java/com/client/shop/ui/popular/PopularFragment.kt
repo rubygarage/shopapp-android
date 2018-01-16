@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.details.DetailsActivity
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.ProductListActivity
-import com.client.shop.ui.product.adapter.ProductAdapter
+import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
 import com.domain.entity.Product
@@ -30,7 +30,7 @@ class PopularFragment :
     @Inject lateinit var productListPresenter: ProductListPresenter
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RELEVANT
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: ProductListAdapter
 
     companion object {
         private const val SPAN_COUNT = 2
@@ -63,7 +63,7 @@ class PopularFragment :
     private fun setupRecycler() {
         val layoutManager = GridLayoutManager(context, SPAN_COUNT)
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        adapter = ProductAdapter(MATCH_PARENT, size, productList, this)
+        adapter = ProductListAdapter(MATCH_PARENT, size, productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
@@ -105,7 +105,7 @@ class PopularFragment :
 
     override fun onItemClicked(position: Int) {
         productList.getOrNull(position)?.let {
-            startActivity(DetailsActivity.getStartIntent(context, it.id))
+            startActivity(ProductDetailsActivity.getStartIntent(context, it.id))
         }
     }
 }

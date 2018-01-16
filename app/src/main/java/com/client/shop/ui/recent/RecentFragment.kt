@@ -6,9 +6,9 @@ import android.view.Gravity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.details.DetailsActivity
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.ProductListActivity
-import com.client.shop.ui.product.adapter.ProductAdapter
+import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
 import com.client.shop.ui.recent.di.RecentModule
@@ -30,7 +30,7 @@ class RecentFragment :
     @Inject lateinit var productListPresenter: ProductListPresenter
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RECENT
-    private lateinit var adapter: ProductAdapter
+    private lateinit var adapter: ProductListAdapter
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +58,7 @@ class RecentFragment :
     private fun setupRecycler() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        adapter = ProductAdapter(size, size, productList, this)
+        adapter = ProductListAdapter(size, size, productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
         recyclerView.layoutManager = layoutManager
@@ -94,7 +94,7 @@ class RecentFragment :
 
     override fun onItemClicked(position: Int) {
         productList.getOrNull(position)?.let {
-            startActivity(DetailsActivity.getStartIntent(context, it.id))
+            startActivity(ProductDetailsActivity.getStartIntent(context, it.id))
         }
     }
 }

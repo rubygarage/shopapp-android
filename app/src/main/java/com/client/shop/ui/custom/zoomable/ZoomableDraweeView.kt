@@ -50,7 +50,6 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
     }
     private lateinit var mTapGestureDetector: GestureDetector
     private var mAllowTouchInterceptionWhileZoomed = true
-    var isZoomEnabled = true
 
     constructor(context: Context, hierarchy: GenericDraweeHierarchy) : super(context) {
         setHierarchy(hierarchy)
@@ -260,7 +259,7 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
         if (mTapGestureDetector.onTouchEvent(event)) {
             return true
         }
-        if (isZoomEnabled && mZoomableController.onTouchEvent(event)) {
+        if (mZoomableController.onTouchEvent(event)) {
             if (!mAllowTouchInterceptionWhileZoomed && !mZoomableController.isIdentity()) {
                 parent.requestDisallowInterceptTouchEvent(true)
             }

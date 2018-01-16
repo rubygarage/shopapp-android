@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
-import com.client.shop.ui.details.DetailsActivity
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.order.list.adapter.OrderAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
@@ -84,7 +84,7 @@ class OrderListActivity :
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {
         val productId = dataList[orderPosition].variants[productPosition].productId
-        startActivity(DetailsActivity.getStartIntent(this, productId))
+        startActivity(ProductDetailsActivity.getStartIntent(this, productId))
     }
 
 }

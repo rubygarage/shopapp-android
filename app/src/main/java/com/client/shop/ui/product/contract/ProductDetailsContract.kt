@@ -1,4 +1,4 @@
-package com.client.shop.ui.details.contract
+package com.client.shop.ui.product.contract
 
 import com.client.shop.R
 import com.domain.entity.CartProduct
