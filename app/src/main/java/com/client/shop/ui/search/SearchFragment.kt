@@ -6,8 +6,8 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationFragment
-import com.client.shop.ui.details.DetailsActivity
-import com.client.shop.ui.product.adapter.ProductAdapter
+import com.client.shop.ui.product.ProductDetailsActivity
+import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.search.contract.SearchPresenter
 import com.client.shop.ui.search.contract.SearchView
 import com.client.shop.ui.search.di.SearchModule
@@ -46,9 +46,9 @@ class SearchFragment :
 
     override fun isGrid() = true
 
-    override fun setupAdapter(): ProductAdapter {
+    override fun setupAdapter(): ProductListAdapter {
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        return ProductAdapter(MATCH_PARENT, size, dataList, this)
+        return ProductListAdapter(MATCH_PARENT, size, dataList, this)
     }
 
     override fun setupRecyclerView() {
@@ -86,6 +86,6 @@ class SearchFragment :
     }
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(context, data.id))
+        startActivity(ProductDetailsActivity.getStartIntent(context, data.id))
     }
 }

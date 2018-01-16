@@ -13,7 +13,7 @@ import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
 import com.client.shop.ui.cart.di.CartModule
-import com.client.shop.ui.details.DetailsActivity
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.product.ProductListActivity
 import com.domain.entity.CartProduct
@@ -119,7 +119,7 @@ class CartActivity :
 
     override fun onItemClicked(position: Int) {
         data.getOrNull(position)?.let {
-            startActivity(DetailsActivity.getStartIntent(this, it.productId))
+            startActivity(ProductDetailsActivity.getStartIntent(this, it.productId))
         }
     }
 

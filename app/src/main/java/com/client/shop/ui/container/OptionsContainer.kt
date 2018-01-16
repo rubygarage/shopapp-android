@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
+import com.client.shop.R
 import com.client.shop.ui.item.OptionsItem
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
@@ -15,12 +16,13 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
                                                  defStyleAttr: Int = 0) :
         LinearLayoutCompat(context, attrs, defStyleAttr) {
 
-    init {
-        orientation = VERTICAL
-    }
-
     companion object {
         const val ANIMATION_DURATION = 500L
+    }
+
+    init {
+        orientation = VERTICAL
+        View.inflate(context, R.layout.view_options_container, this)
     }
 
     var variantSelectListener: OnVariantSelectListener? = null

@@ -11,14 +11,14 @@ import com.client.shop.ui.cart.di.CartComponent
 import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.category.di.CategoryComponent
 import com.client.shop.ui.category.di.CategoryModule
-import com.client.shop.ui.details.di.DetailsComponent
-import com.client.shop.ui.details.di.DetailsModule
+import com.client.shop.ui.product.di.ProductDetailsComponent
+import com.client.shop.ui.product.di.ProductDetailsModule
 import com.client.shop.ui.order.list.di.OrderComponent
 import com.client.shop.ui.order.list.di.OrderModule
 import com.client.shop.ui.popular.di.PopularComponent
 import com.client.shop.ui.popular.di.PopularModule
-import com.client.shop.ui.product.di.ProductComponent
-import com.client.shop.ui.product.di.ProductModule
+import com.client.shop.ui.product.di.ProductListComponent
+import com.client.shop.ui.product.di.ProductListModule
 import com.client.shop.ui.recent.di.RecentComponent
 import com.client.shop.ui.recent.di.RecentModule
 import com.client.shop.ui.search.di.SearchComponent
@@ -32,11 +32,11 @@ interface AppComponent {
 
     fun attachBlogComponent(module: BlogModule): BlogComponent
 
-    fun attachDetailsComponent(module: DetailsModule): DetailsComponent
+    fun attachDetailsComponent(module: ProductDetailsModule): ProductDetailsComponent
 
     fun attachSearchComponent(module: SearchModule): SearchComponent
 
-    fun attachProductComponent(module: ProductModule): ProductComponent
+    fun attachProductComponent(module: ProductListModule): ProductListComponent
 
     fun attachRecentComponent(module: RecentModule): RecentComponent
 

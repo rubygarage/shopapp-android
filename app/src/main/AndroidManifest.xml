@@ -26,7 +26,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.client.shop.ui.details.DetailsActivity"
+            android:name="com.client.shop.ui.product.ProductDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity

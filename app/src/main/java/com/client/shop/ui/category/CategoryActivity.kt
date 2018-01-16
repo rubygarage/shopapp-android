@@ -13,9 +13,9 @@ import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
 import com.client.shop.ui.category.di.CategoryModule
-import com.client.shop.ui.details.DetailsActivity
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.modal.SortBottomSheet
-import com.client.shop.ui.product.adapter.ProductAdapter
+import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.domain.entity.Category
 import com.domain.entity.Product
 import com.domain.entity.SortType
@@ -92,9 +92,9 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
 
     //SETUP
 
-    override fun setupAdapter(): ProductAdapter {
+    override fun setupAdapter(): ProductListAdapter {
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        return ProductAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
+        return ProductListAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
     }
 
     //LCE
@@ -116,6 +116,6 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
     //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(DetailsActivity.getStartIntent(this, data.id))
+        startActivity(ProductDetailsActivity.getStartIntent(this, data.id))
     }
 }
