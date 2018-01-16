@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.details.contract.OrderDetailsPresenter
@@ -18,7 +17,6 @@ import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_order_details.*
-import kotlinx.android.synthetic.main.item_cart.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -94,7 +92,8 @@ class OrderDetailsActivity :
         productRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }
-override fun onItemClicked(position: Int) {
+
+    override fun onItemClicked(position: Int) {
         order?.let {
             val productId = it.orderProducts[position].productVariant.productId
             startActivity(DetailsActivity.getStartIntent(this, productId))

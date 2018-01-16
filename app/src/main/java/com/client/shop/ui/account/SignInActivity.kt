@@ -131,7 +131,7 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
             loginButton.visibility = View.VISIBLE
         } else {
             progressBar.show()
-            loginButton.visibility = View.GONE
+            loginButton.visibility = View.INVISIBLE
         }
     }
 }
