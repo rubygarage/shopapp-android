@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -54,7 +54,7 @@
         android:textColor="@color/black"
         android:textSize="13sp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/quantityEditText"
+        app:layout_constraintBottom_toTopOf="@+id/quantityTextView"
         app:layout_constraintEnd_toStartOf="@+id/endVerticalGuideline"
         app:layout_constraintStart_toStartOf="@+id/titleText"
         app:layout_constraintTop_toBottomOf="@+id/titleText" />
@@ -63,29 +63,17 @@
         android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:gravity="start"
-        android:labelFor="@id/quantityEditText"
+        android:labelFor="@id/quantityTextView"
         android:text="@string/quantity_label"
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
-        app:layout_constraintStart_toEndOf="@+id/productImage" />
-
-    <TextView
-        android:id="@+id/quantityEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:gravity="center"
-        android:minWidth="50dp"
-        android:text="@string/default_product_quantity"
-        android:textColor="@color/black"
-        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomHorizontalGuideline"
-        app:layout_constraintEnd_toStartOf="@+id/totalPrice"
+        app:layout_constraintEnd_toEndOf="@+id/eachPrice"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/quantity" />
+        app:layout_constraintStart_toEndOf="@+id/productImage" />
 
     <TextView
         android:id="@+id/eachPrice"
@@ -93,7 +81,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textColorSecondary"
         android:textSize="13sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
+        app:layout_constraintBaseline_toBaselineOf="@+id/quantity"
         app:layout_constraintEnd_toStartOf="@+id/endVerticalGuideline" />
 
     <android.support.constraint.Guideline
@@ -124,4 +112,4 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="16dp" />
 
-</merge>
+</android.support.constraint.ConstraintLayout>

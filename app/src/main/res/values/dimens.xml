@@ -35,5 +35,6 @@
     <dimen name="order_item_vertical_margin">20dp</dimen>
     <dimen name="order_item_products_vertical_margin">19dp</dimen>
     <dimen name="order_item_products_horizontal_margin">6dp</dimen>
+    <dimen name="order_details_product_item_vertical_margin">4dp</dimen>
 
 </resources>

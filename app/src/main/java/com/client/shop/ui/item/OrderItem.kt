@@ -33,8 +33,7 @@ class OrderItem(context: Context,
 
         orderTitleView.setOrder(order, dateFormatter)
 
-        itemsCountTextView.text = resources.getString(R.string.items_count_pattern,
-                order.orderProducts.size)
+        itemsCountValueTextView.text = order.orderProducts.size.toString()
         totalPriceTextView.text = resources.getString(R.string.total_price_pattern,
                 numberFormatter.formatPrice(order.totalPrice, order.currency))
 

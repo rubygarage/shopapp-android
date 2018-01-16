@@ -6,7 +6,7 @@ import android.os.Parcelable
 data class Address(
         val id: String = NO_ID,
         val address: String,
-        val secondAddress: String,
+        val secondAddress: String?,
         val city: String,
         val country: String,
         val state: String?,
@@ -64,7 +64,7 @@ data class Address(
 
     override fun hashCode(): Int {
         var result = address.hashCode()
-        result = 31 * result + secondAddress.hashCode()
+        result = 31 * result + (secondAddress?.hashCode() ?: 0)
         result = 31 * result + city.hashCode()
         result = 31 * result + country.hashCode()
         result = 31 * result + firstName.hashCode()

@@ -7,21 +7,20 @@ import com.client.shop.ui.item.OrderProductItem
 import com.domain.entity.OrderProduct
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
+import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class OrderProductsAdapter(
         productList: List<OrderProduct>,
+        onItemClickListener: OnItemClickListener,
         private val currency: String
 ) :
-        BaseRecyclerAdapter<OrderProduct>(productList, null) {
+        BaseRecyclerAdapter<OrderProduct>(productList, onItemClickListener) {
 
     private val numberFormatter = NumberFormatter()
-    private val dateFormatter = DateFormatter()
 
     override fun getItemView(context: Context, viewType: Int): View {
-        return OrderItem(context,
-                dateFormatter,
-                numberFormatter)
+        return OrderProductItem(context, numberFormatter)
     }
 
     override fun bindData(itemView: View, data: OrderProduct, position: Int) {

@@ -1010,6 +1010,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     if (paginationValue != null) {
                         args.after(paginationValue.toString())
                     }
+                    args.reverse(true)
                 }
                 ) { connection ->
                     connection.edges { edge ->
@@ -1047,8 +1048,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val call = graphClient.queryGraph(query)
         call.enqueue(object : QueryCallWrapper<Order>(callback) {
-            override fun adapt(data: Storefront.QueryRoot): Order =
-                    OrderAdapter.adapt(data.node as Storefront.Order)
+            override fun adapt(data: Storefront.QueryRoot): Order {
+                (data.node as Storefront.Order).lineItems.edges.forEach {
+                    val options = it.node.variant.product.options
+                    if (options.size == 1 && options.first().values.size == 1) {
+                        it.node.variant.selectedOptions = null
+                    }
+                }
+                return OrderAdapter.adapt(data.node as Storefront.Order)
+            }
         })
 
     }

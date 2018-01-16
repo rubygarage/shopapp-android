@@ -77,15 +77,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:gravity="start"
-            android:labelFor="@id/quantityEditText"
+            android:labelFor="@id/quantityTextView"
             android:text="@string/quantity_label"
             android:textColor="@color/textColorPrimary"
             android:textSize="13sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
+            app:layout_constraintBaseline_toBaselineOf="@+id/quantityTextView"
             app:layout_constraintStart_toEndOf="@+id/productImage" />
 
         <EditText
-            android:id="@+id/quantityEditText"
+            android:id="@+id/quantityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColorSecondary"
             android:textSize="13sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
+            app:layout_constraintBaseline_toBaselineOf="@+id/quantityTextView"
             app:layout_constraintEnd_toStartOf="@+id/endVerticalGuideline" />
 
         <android.support.constraint.Guideline

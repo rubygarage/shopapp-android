@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.details.contract.OrderDetailsPresenter
@@ -14,13 +15,18 @@ import com.domain.entity.Order
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
 import com.ui.base.lce.BaseActivity
+import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_order_details.*
+import kotlinx.android.synthetic.main.item_cart.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
 class OrderDetailsActivity :
         BaseActivity<Order, OrderDetailsView, OrderDetailsPresenter>(),
-        OrderDetailsView {
+        OrderDetailsView, OnItemClickListener {
+
+    private var order: Order? = null
 
     companion object {
         private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
@@ -42,6 +48,7 @@ class OrderDetailsActivity :
         super.onCreate(savedInstanceState)
         orderId = intent.getStringExtra(EXTRA_ORDER_ID)
         formatter = NumberFormatter()
+        setTitle(getString(R.string.order_details))
         loadData()
     }
 
@@ -66,7 +73,7 @@ class OrderDetailsActivity :
 
     override fun showContent(data: Order) {
         super.showContent(data)
-
+        this.order = data
         orderTitleView.setOrder(data, DateFormatter())
         priceView.setData(
                 data.subtotalPrice ?: BigDecimal.ZERO,
@@ -78,8 +85,19 @@ class OrderDetailsActivity :
             addressContentView.setAddress(it)
         }
 
-        productRecyclerView.adapter = OrderProductsAdapter(data.orderProducts, data.currency)
+        val spaceDecoration = SpaceDecoration(
+                topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin)
+        )
+
+        productRecyclerView.addItemDecoration(spaceDecoration)
+        productRecyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
         productRecyclerView.layoutManager = LinearLayoutManager(this)
 
+    }
+override fun onItemClicked(position: Int) {
+        order?.let {
+            val productId = it.orderProducts[position].productVariant.productId
+            startActivity(DetailsActivity.getStartIntent(this, productId))
+        }
     }
 }
