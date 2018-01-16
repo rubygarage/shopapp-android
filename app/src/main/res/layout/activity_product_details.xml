@@ -48,7 +48,7 @@
                 android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:lines="1"
-                android:textColor="@color/textColorPrimary"
+                android:textColor="@drawable/selector_text"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
                 app:layout_constraintStart_toEndOf="@+id/quantity"
                 app:layout_constraintTop_toBottomOf="@+id/productTitle" />
 
-            <com.client.shop.ui.container.OptionsContainer
+            <com.client.shop.ui.product.view.OptionsGroupContainer
                 android:id="@+id/optionsContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -163,9 +163,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="@color/colorAccent"
+        android:background="@drawable/selector_accent_button"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text="@string/add_to_cart"
-        android:textColor="@color/white"
+        android:textColor="@drawable/selector_accent_button_text"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

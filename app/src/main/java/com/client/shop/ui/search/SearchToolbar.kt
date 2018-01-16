@@ -14,9 +14,9 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.inputmethod.EditorInfo
 import com.client.shop.R
+import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.hideKeyboard
 import com.ui.ext.showKeyboard
-import com.ui.custom.SimpleTextWatcher
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor

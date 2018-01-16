@@ -11,11 +11,11 @@ import android.view.animation.Animation
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.cart.CartActivity
-import com.client.shop.ui.container.OptionsContainer
 import com.client.shop.ui.gallery.GalleryFragment
 import com.client.shop.ui.product.contract.DetailsPresenter
 import com.client.shop.ui.product.contract.DetailsView
 import com.client.shop.ui.product.di.ProductDetailsModule
+import com.client.shop.ui.product.view.OptionsGroupContainer
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
 import com.domain.formatter.NumberFormatter
@@ -29,7 +29,7 @@ import javax.inject.Inject
 class ProductDetailsActivity :
         BaseActivity<Product, DetailsView, DetailsPresenter>(),
         DetailsView,
-        OptionsContainer.OnVariantSelectListener {
+        OptionsGroupContainer.OnVariantSelectListener {
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
@@ -154,11 +154,15 @@ class ProductDetailsActivity :
     override fun onVariantSelected(productVariant: ProductVariant?) {
         if (productVariant != null && productVariant.isAvailable) {
             priceValue.text = product?.let { formatter.formatPrice(productVariant.price, it.currency) }
+            priceValue.isEnabled = true
             cartButton.isEnabled = true
+            cartButton.setText(R.string.add_to_cart)
             selectedProductVariant = productVariant
         } else {
-            priceValue.text = ""
+            priceValue.setText(R.string.n_a_placeholder)
+            priceValue.isEnabled = false
             cartButton.isEnabled = false
+            cartButton.setText(R.string.product_unavailable)
             selectedProductVariant = null
         }
     }
