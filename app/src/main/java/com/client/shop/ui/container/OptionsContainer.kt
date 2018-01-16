@@ -20,12 +20,12 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
         const val ANIMATION_DURATION = 500L
     }
 
+    var variantSelectListener: OnVariantSelectListener? = null
+
     init {
         orientation = VERTICAL
         View.inflate(context, R.layout.view_options_container, this)
     }
-
-    var variantSelectListener: OnVariantSelectListener? = null
 
     fun setProduct(product: Product) {
 
