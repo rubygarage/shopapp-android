@@ -19,8 +19,7 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
     init {
         layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         View.inflate(context, R.layout.item_order_product, this)
-        layoutTransition = LayoutTransition()
-        setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+        setBackgroundResource(R.color.white)
     }
 
     fun setOrderProduct(orderProduct: OrderProduct, currency: String) {
@@ -55,7 +54,6 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
             eachPrice.visibility = View.GONE
         }
     }
-
 
     private fun getTotalPrice(price: Float, quantity: Int, currency: String): String {
         return formatter.formatPrice(price * quantity, currency)
