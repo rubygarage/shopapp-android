@@ -114,6 +114,7 @@ class CartActivity :
 
     override fun emptyButtonClicked() {
         startActivity(HomeActivity.getStartIntent(this, true))
+        overridePendingTransition(com.ui.R.anim.fade_in, com.ui.R.anim.slide_out)
     }
 
     override fun onItemClicked(position: Int) {
