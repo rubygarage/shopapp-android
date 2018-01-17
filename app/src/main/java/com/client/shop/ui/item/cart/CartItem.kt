@@ -31,15 +31,15 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        quantityTextView.addTextChangedListener(this)
-        quantityTextView.onFocusChangeListener = this
+        quantityEditText.addTextChangedListener(this)
+        quantityEditText.onFocusChangeListener = this
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        quantityTextView.removeTextChangedListener(this)
-        quantityTextView.onFocusChangeListener = null
-        quantityTextView.hideKeyboard()
+        quantityEditText.removeTextChangedListener(this)
+        quantityEditText.onFocusChangeListener = null
+        quantityEditText.hideKeyboard()
     }
 
     fun setCartProduct(cartProduct: CartProduct) {
@@ -49,8 +49,8 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
 
         productImage.setImageURI(imageURI)
         titleText.text = product.title
-        quantityTextView.setText(cartProduct.quantity.toString())
-        quantityTextView.setSelection(quantityTextView.text.length)
+        quantityEditText.setText(cartProduct.quantity.toString())
+        quantityEditText.setSelection(quantityEditText.text.length)
         totalPrice.text = getTotalPrice(product.price, cartProduct.quantity)
         changeEachPriceVisibility(product.price, cartProduct.quantity)
     }

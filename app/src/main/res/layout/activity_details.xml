@@ -113,14 +113,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:gravity="start"
-                        android:labelFor="@id/quantityTextView"
+                        android:labelFor="@id/quantityEditText"
                         android:text="@string/quantity_label"
                         android:textSize="18sp"
-                        app:layout_constraintBaseline_toBaselineOf="@+id/quantityTextView"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <EditText
-                        android:id="@+id/quantityTextView"
+                        android:id="@+id/quantityEditText"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -146,7 +146,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/quantityTextView" />
+                        app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
 
                 </android.support.constraint.ConstraintLayout>
 
