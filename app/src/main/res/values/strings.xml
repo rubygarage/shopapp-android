@@ -32,7 +32,7 @@
     <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
     <string name="password">Password*</string>
-    <string name="create_password">Create Password*</string>
+    <string name="create_password">Create Password</string>
     <string name="empty_fields_error_message">Please fill required fields</string>
     <string name="invalid_email_error_message">Please enter correct email address</string>
     <string name="invalid_password_error_message">Please enter correct password</string>
@@ -63,12 +63,22 @@
     <string name="do_not_receive_it">Don\'t receive it?</string>
     <string name="do_not_forget_to_check">Don\'t forget to check your mail or click the link below and we\'ll send you a new link</string>
     <string name="resend_reset_link">Resend reset link</string>
-    <string name="items_count_pattern">Item(s): %d</string>
+    <string name="items_count">"Item(s):&#032;</string>
     <string name="total_price_pattern">Total: %s</string>
     <string name="order_number_pattern">Order #%d</string>
     <string name="order_date_pattern">Placed on %s</string>
     <string name="description">Description</string>
     <string name="n_a_placeholder">N/A</string>
     <string name="product_unavailable">This product is temporarily unavailable</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="discount">Discount</string>
+    <string name="shipping">Shipping</string>
+    <string name="total">Total</string>
+    <string name="billing_address">Billing Address</string>
+    <string name="payment_information">Payment Information</string>
+    <string name="selected_options_pattern">%s: %s</string>
+    <string name="order_details">Order Details</string>
+    <string name="quantity_label_pattern">QTY: %d</string>
+
 
 </resources>

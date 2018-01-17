@@ -8,6 +8,7 @@
     <string name="try_again">Try Again</string>
     <string name="close">Close</string>
     <string name="first_name">First Name</string>
+    <string name="name">Name</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email*</string>
     <string name="address">Address</string>
@@ -31,5 +32,7 @@
     <string name="discount">Discount</string>
     <string name="shipping">Shipping</string>
     <string name="total_price">Total</string>
+    <string name="order_number_pattern">Order #%d</string>
+    <string name="order_date_pattern">Placed on %s</string>
 
 </resources>

@@ -14,10 +14,6 @@ class NumberFormatter {
         return formatPriceValue(value, currencyCode)
     }
 
-    fun formatPrice(value: Double, currencyCode: String): String {
-        return formatPriceValue(value, currencyCode)
-    }
-
     private fun formatPriceValue(value: Any, currencyCode: String): String {
         val formatter = DecimalFormat.getCurrencyInstance()
         formatter.currency = Currency.getInstance(currencyCode)

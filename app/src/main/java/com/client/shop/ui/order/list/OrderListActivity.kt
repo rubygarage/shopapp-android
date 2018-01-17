@@ -7,14 +7,15 @@ import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.product.ProductDetailsActivity
+import com.client.shop.ui.details.OrderDetailsActivity
 import com.client.shop.ui.order.list.adapter.OrderAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
-import com.client.shop.ui.order.list.di.OrderModule
+import com.client.shop.ui.order.di.OrderModule
 import com.domain.entity.Order
 import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.ui.base.recycler.divider.SpaceDecoration
-import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.activity_order_list.*
 import javax.inject.Inject
 
 class OrderListActivity :
@@ -79,11 +80,11 @@ class OrderListActivity :
     }
 
     override fun onItemClicked(data: Order, position: Int) {
-        TODO("open order details screen")
+        startActivity(OrderDetailsActivity.getStartIntent(this, data.id))
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {
-        val productId = dataList[orderPosition].variants[productPosition].productId
+        val productId = dataList[orderPosition].orderProducts[productPosition].productVariant.productId
         startActivity(ProductDetailsActivity.getStartIntent(this, productId))
     }
 

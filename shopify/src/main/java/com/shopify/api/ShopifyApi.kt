@@ -226,7 +226,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                                         .variants({ it.first(1) }) { productVariantConnectionQuery ->
                                                                             productVariantConnectionQuery.edges { productVariantEdgeQuery ->
                                                                                 productVariantEdgeQuery.node({
-                                                                                   getDefaultProductVariantQuery(it)
+                                                                                    getDefaultProductVariantQuery(it)
                                                                                 })
                                                                             }
                                                                         }
@@ -1010,28 +1010,12 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     if (paginationValue != null) {
                         args.after(paginationValue.toString())
                     }
+                    args.reverse(true)
                 }
                 ) { connection ->
                     connection.edges { edge ->
                         edge.cursor().node { node ->
-                            node
-                                    .orderNumber()
-                                    .totalPrice()
-                                    .email()
-                                    .currencyCode()
-                                    .processedAt()
-                                    .lineItems({ it.first(ITEMS_COUNT) }) { lineItemsQuery ->
-                                        lineItemsQuery.edges { productVariantConnectionQuery ->
-                                            productVariantConnectionQuery.node { node ->
-                                                node
-                                                        .title()
-                                                        .quantity()
-                                                        .variant { productVariantQuery ->
-                                                            getDefaultProductVariantQuery(productVariantQuery)
-                                                        }
-                                            }
-                                        }
-                                    }
+                            getDefaultOrderQuery(node)
                         }
                     }
                 }
@@ -1044,6 +1028,58 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     OrderListAdapter.adapt(data.customer.orders)
         })
 
+    }
+
+    override fun getOrder(orderId: String, callback: ApiCallback<Order>) {
+
+        val nodeId = ID(orderId)
+        val query = Storefront.query { root ->
+            root.node(nodeId) {
+                it.onOrder {
+                    getDefaultOrderQuery(it)
+                            .subtotalPrice()
+                            .totalShippingPrice()
+                            .shippingAddress {
+                                getDefaultAddressQuery(it)
+                            }
+                }
+            }
+        }
+
+        val call = graphClient.queryGraph(query)
+        call.enqueue(object : QueryCallWrapper<Order>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): Order {
+                (data.node as Storefront.Order).lineItems.edges.forEach {
+                    val options = it.node.variant.product.options
+                    if (options.size == 1 && options.first().values.size == 1) {
+                        it.node.variant.selectedOptions = null
+                    }
+                }
+                return OrderAdapter.adapt(data.node as Storefront.Order)
+            }
+        })
+
+    }
+
+    private fun getDefaultOrderQuery(orderQuery: Storefront.OrderQuery): Storefront.OrderQuery {
+        return orderQuery
+                .orderNumber()
+                .totalPrice()
+                .email()
+                .currencyCode()
+                .processedAt()
+                .lineItems({ it.first(ITEMS_COUNT) }) { lineItemsQuery ->
+                    lineItemsQuery.edges { productVariantConnectionQuery ->
+                        productVariantConnectionQuery.node { node ->
+                            node
+                                    .title()
+                                    .quantity()
+                                    .variant { productVariantQuery ->
+                                        getDefaultProductVariantQuery(productVariantQuery)
+                                    }
+                        }
+                    }
+                }
     }
 
     private fun queryProducts(perPage: Int, paginationValue: Any?, searchQuery: String?,
@@ -1085,7 +1121,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                             .variants({ it.first(1) }) { productVariantConnectionQuery ->
                                                 productVariantConnectionQuery.edges { productVariantEdgeQuery ->
                                                     productVariantEdgeQuery.node({
-                                                      getDefaultProductVariantQuery(it)
+                                                        getDefaultProductVariantQuery(it)
                                                     })
                                                 }
                                             }
@@ -1139,6 +1175,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                     })
                                 })
                             })
+                            .options({ optionsQuery -> optionsQuery.name().values() })
                 })
     }
 

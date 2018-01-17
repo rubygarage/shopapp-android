@@ -6,44 +6,22 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/orderNumberTextView"
-        android:layout_width="0dp"
+    <com.ui.view.OrderTitleView
+        android:id="@+id/orderTitleView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:textAllCaps="true"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/order_number_pattern" />
-
-    <TextView
-        android:id="@+id/orderDateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderNumberTextView"
-        tools:text="@string/order_date_pattern" />
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" />
 
     <View
         android:id="@+id/topRecyclerDividerView"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
         android:background="@color/colorBackgroundLight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderDateTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/orderTitleView" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/productVariantsRecyclerView"
@@ -63,16 +41,30 @@
         app:layout_constraintTop_toBottomOf="@+id/productVariantsRecyclerView" />
 
     <TextView
-        android:id="@+id/itemsCountTextView"
+        android:id="@+id/itemsCountTitleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:text="@string/items_count"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottomRecyclerDividerView" />
+
+    <TextView
+        android:id="@+id/itemsCountValueTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemsCountTitleTextView"
         app:layout_constraintTop_toBottomOf="@+id/bottomRecyclerDividerView"
-        tools:text="@string/items_count_pattern" />
+        tools:text="4" />
 
     <TextView
         android:id="@+id/totalPriceTextView"
@@ -80,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:gravity="end"
         android:textAllCaps="true"
@@ -88,7 +80,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/itemsCountTextView"
+        app:layout_constraintStart_toEndOf="@+id/itemsCountValueTextView"
         app:layout_constraintTop_toBottomOf="@+id/bottomRecyclerDividerView"
         tools:text="@string/total_price_pattern" />
 

@@ -19,7 +19,7 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.ui.base.lce.BaseFragment
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.divider.GridSpaceDecoration
-import kotlinx.android.synthetic.main.fragment_recent.*
+import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 
 class PopularFragment :
