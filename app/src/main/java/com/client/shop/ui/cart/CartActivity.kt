@@ -14,10 +14,9 @@ import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
 import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.product.ProductDetailsActivity
+import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.item.cart.CartItem
-import com.client.shop.ui.product.ProductListActivity
 import com.domain.entity.CartProduct
-import com.domain.entity.SortType
 import com.domain.router.ExternalRouter
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceEmptyView
@@ -114,7 +113,7 @@ class CartActivity :
     //CALLBACK
 
     override fun emptyButtonClicked() {
-        startActivity(ProductListActivity.getStartIntent(this, getString(R.string.latest_arrivals), SortType.RECENT))
+        startActivity(HomeActivity.getStartIntent(this, false))   
     }
 
     override fun onItemClicked(position: Int) {
