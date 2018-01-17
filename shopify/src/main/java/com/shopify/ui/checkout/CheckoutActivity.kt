@@ -82,11 +82,11 @@ class CheckoutActivity :
     //SETUP
 
     private fun setupCartRecycler() {
-        productRecyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
-        productRecyclerView.adapter = ProductVariantAdapter(cartProductList.map { it.productVariant }, this)
-        GravitySnapHelper(Gravity.START).attachToRecyclerView(productRecyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
+        recyclerView.adapter = ProductVariantAdapter(cartProductList.map { it.productVariant }, this)
+        GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
-        productRecyclerView.addItemDecoration(decoration)
+        recyclerView.addItemDecoration(decoration)
     }
 
     private fun setupListeners() {
@@ -137,7 +137,7 @@ class CheckoutActivity :
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {
         this.cartProductList.clear()
         this.cartProductList.addAll(cartProductList)
-        productRecyclerView.adapter.notifyDataSetChanged()
+        recyclerView.adapter.notifyDataSetChanged()
     }
 
     //CALLBACK

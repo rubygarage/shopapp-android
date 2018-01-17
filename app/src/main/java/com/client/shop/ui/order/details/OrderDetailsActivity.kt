@@ -88,9 +88,9 @@ class OrderDetailsActivity :
                 topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin)
         )
 
-        productRecyclerView.addItemDecoration(spaceDecoration)
-        productRecyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
-        productRecyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.addItemDecoration(spaceDecoration)
+        recyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
     }
 

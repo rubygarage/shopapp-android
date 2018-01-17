@@ -9,6 +9,6 @@ interface OrderComponent {
 
     fun inject(orderListActivity: OrderListActivity)
 
-    fun inject(orderListActivity: OrderDetailsActivity)
+    fun inject(orderDetailsActivity: OrderDetailsActivity)
 
 }

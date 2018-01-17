@@ -30,7 +30,7 @@
             app:layout_constraintTop_toBottomOf="@+id/orderTitleView" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/productRecyclerView"
+            android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/productRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
         <TextView
             android:id="@+id/billingAddressTitle"

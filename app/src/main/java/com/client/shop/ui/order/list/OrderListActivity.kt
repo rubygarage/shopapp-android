@@ -15,7 +15,7 @@ import com.client.shop.ui.order.di.OrderModule
 import com.domain.entity.Order
 import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.ui.base.recycler.divider.SpaceDecoration
-import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.activity_order_list.*
 import javax.inject.Inject
 
 class OrderListActivity :
@@ -59,8 +59,8 @@ class OrderListActivity :
     override fun setupRecyclerView() {
         super.setupRecyclerView()
         val spaceDecoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_item_vertical_margin))
-        productRecyclerView.addItemDecoration(spaceDecoration)
-        productRecyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
+        recyclerView.addItemDecoration(spaceDecoration)
+        recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }
 
     //LCE
