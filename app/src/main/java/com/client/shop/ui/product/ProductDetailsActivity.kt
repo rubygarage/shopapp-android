@@ -122,7 +122,7 @@ class ProductDetailsActivity :
             } else {
                 selectedProductVariant?.let {
                     presenter.addProductToCart(it, productId,
-                            product?.currency ?: "", quantityTextView.text.toString())
+                            product?.currency ?: "", quantityEditText.text.toString())
                 }
             }
         }

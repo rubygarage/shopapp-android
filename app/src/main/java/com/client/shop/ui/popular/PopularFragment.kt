@@ -64,12 +64,12 @@ class PopularFragment :
         val layoutManager = GridLayoutManager(context, SPAN_COUNT)
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
         adapter = ProductListAdapter(MATCH_PARENT, size, productList, this)
-        GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-        recyclerView.isNestedScrollingEnabled = false
-        recyclerView.addItemDecoration(GridSpaceDecoration(
+        GravitySnapHelper(Gravity.START).attachToRecyclerView(productRecyclerView)
+        productRecyclerView.layoutManager = layoutManager
+        productRecyclerView.adapter = adapter
+        productRecyclerView.setHasFixedSize(true)
+        productRecyclerView.isNestedScrollingEnabled = false
+        productRecyclerView.addItemDecoration(GridSpaceDecoration(
                 resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
     }
 

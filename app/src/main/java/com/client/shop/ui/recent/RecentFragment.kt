@@ -59,12 +59,12 @@ class RecentFragment :
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
         adapter = ProductListAdapter(size, size, productList, this)
-        GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
+        GravitySnapHelper(Gravity.START).attachToRecyclerView(productRecyclerView)
         val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-        recyclerView.addItemDecoration(decoration)
+        productRecyclerView.layoutManager = layoutManager
+        productRecyclerView.adapter = adapter
+        productRecyclerView.setHasFixedSize(true)
+        productRecyclerView.addItemDecoration(decoration)
     }
 
     private fun changeSeeAllState() {

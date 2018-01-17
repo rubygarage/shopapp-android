@@ -10,6 +10,7 @@ import com.client.shop.ui.details.contract.OrderDetailsPresenter
 import com.client.shop.ui.details.contract.OrderDetailsView
 import com.client.shop.ui.order.details.adapter.OrderProductsAdapter
 import com.client.shop.ui.order.di.OrderModule
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.domain.entity.Order
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
@@ -96,7 +97,7 @@ class OrderDetailsActivity :
     override fun onItemClicked(position: Int) {
         order?.let {
             val productId = it.orderProducts[position].productVariant.productId
-            startActivity(DetailsActivity.getStartIntent(this, productId))
+            startActivity(ProductDetailsActivity.getStartIntent(this, productId))
         }
     }
 }
