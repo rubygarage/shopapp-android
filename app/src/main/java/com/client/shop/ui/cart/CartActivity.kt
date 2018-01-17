@@ -113,7 +113,7 @@ class CartActivity :
     //CALLBACK
 
     override fun emptyButtonClicked() {
-        startActivity(HomeActivity.getStartIntent(this, false))   
+        startActivity(HomeActivity.getStartIntent(this, true))
     }
 
     override fun onItemClicked(position: Int) {
