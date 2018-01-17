@@ -68,5 +68,7 @@
     <string name="order_number_pattern">Order #%d</string>
     <string name="order_date_pattern">Placed on %s</string>
     <string name="description">Description</string>
+    <string name="n_a_placeholder">N/A</string>
+    <string name="product_unavailable">This product is temporarily unavailable</string>
 
 </resources>

@@ -1,19 +1,20 @@
-package com.client.shop.ui.container
+package com.client.shop.ui.product.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
 import com.client.shop.R
-import com.client.shop.ui.item.OptionsItem
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
 import com.domain.entity.VariantOption
 
 
-class OptionsContainer @JvmOverloads constructor(context: Context,
-                                                 attrs: AttributeSet? = null,
-                                                 defStyleAttr: Int = 0) :
+class OptionsGroupContainer @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+) :
         LinearLayoutCompat(context, attrs, defStyleAttr) {
 
     companion object {
@@ -24,7 +25,7 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
 
     init {
         orientation = VERTICAL
-        View.inflate(context, R.layout.view_options_container, this)
+        View.inflate(context, R.layout.container_options_group, this)
     }
 
     fun setProduct(product: Product) {
@@ -39,9 +40,9 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
         }
 
         for (productOption in product.options) {
-            val optionItem = OptionsItem(context)
+            val optionItem = OptionsContainer(context)
             optionItem.setProductOption(productOption)
-            optionItem.onSelectOptionListener = object : OptionsItem.OnSelectOptionListener {
+            optionItem.onSelectOptionListener = object : OptionsContainer.OnSelectOptionListener {
                 override fun onOptionsSelected() {
                     getSelectedVariant(product)
                 }
@@ -55,9 +56,9 @@ class OptionsContainer @JvmOverloads constructor(context: Context,
 
         val selectedVariantOptions = mutableListOf<VariantOption>()
         (0 until childCount)
-                .map { getChildAt(it) as? OptionsItem }
+                .map { getChildAt(it) as? OptionsContainer }
                 .map {
-                    it?.selectedVariantOptions?.let {
+                    it?.getSelectedVariantOption()?.let {
                         selectedVariantOptions.add(it)
                     }
                 }

@@ -18,9 +18,11 @@
     <dimen name="blog_title_height">30dp</dimen>
 
     <dimen name="variant_border_width">1dp</dimen>
-    <dimen name="variant_border_radius">3dp</dimen>
-    <dimen name="variant_padding">6dp</dimen>
-    <dimen name="variant_margin">8dp</dimen>
+    <dimen name="variant_border_radius">18dp</dimen>
+    <dimen name="variant_padding_vertical">8dp</dimen>
+    <dimen name="variant_padding_horizontal">12dp</dimen>
+    <dimen name="variant_margin">10dp</dimen>
+    <dimen name="variant_text_size">13sp</dimen>
 
     <dimen name="search_swipe_refresh_progress_end_target">100dp</dimen>
     <dimen name="cart_item_divider">4dp</dimen>
