@@ -55,7 +55,7 @@ abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresen
     protected open fun setupRecyclerView() {
 
         adapter = setupAdapter()
-        recycler = findViewById(R.id.productRecyclerView)
+        recycler = findViewById(R.id.recyclerView)
 
         val layoutManager: RecyclerView.LayoutManager
         if (isGrid()) {

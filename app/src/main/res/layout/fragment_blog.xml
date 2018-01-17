@@ -9,7 +9,7 @@
         android:id="@+id/titleText"
         style="@style/section_title"
         android:text="@string/blog_posts"
-        app:layout_constraintBottom_toTopOf="@+id/productRecyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

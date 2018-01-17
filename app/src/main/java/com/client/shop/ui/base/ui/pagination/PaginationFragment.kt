@@ -65,7 +65,7 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
     protected open fun setupRecyclerView() {
 
         adapter = setupAdapter()
-        recycler = view?.findViewById(R.id.productRecyclerView)
+        recycler = view?.findViewById(R.id.recyclerView)
 
         recycler?.let {
             val layoutManager: RecyclerView.LayoutManager

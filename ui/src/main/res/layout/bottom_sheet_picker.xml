@@ -25,7 +25,7 @@
         android:background="@color/colorBackgroundDark" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/productRecyclerView"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_sheet_recycler_height" />
 
