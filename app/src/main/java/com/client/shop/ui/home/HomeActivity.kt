@@ -21,7 +21,13 @@ class HomeActivity : AppCompatActivity() {
         private const val SEARCH = 1
         private const val ACCOUNT = 2
 
-        fun getStartIntent(context: Context) = Intent(context, HomeActivity::class.java)
+        fun getStartIntent(context: Context, isNewTask: Boolean = false): Intent {
+            val intent = Intent(context, HomeActivity::class.java)
+            if (isNewTask) {
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+            return intent
+        }
     }
 
     //ANDROID
