@@ -1,13 +1,13 @@
 package com.data.dao
 
 import android.content.Context
-import com.domain.database.Dao
-import com.domain.entity.CartProduct
-import com.domain.entity.Error
 import com.data.dao.adapter.CartProductAdapter
 import com.data.dao.entity.CartProductData
 import com.data.dao.entity.CartProductDataEntity
 import com.data.dao.entity.Models
+import com.domain.database.Dao
+import com.domain.entity.CartProduct
+import com.domain.entity.Error
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -22,29 +22,29 @@ class DaoImpl(context: Context) : Dao {
     private val store: KotlinReactiveEntityStore<Persistable>
 
     init {
-        val source = DatabaseSource(context, Models.DEFAULT, 1)
+        val source = DatabaseSource(context, Models.DEFAULT, 2)
         source.setTableCreationMode(TableCreationMode.DROP_CREATE)
         store = KotlinReactiveEntityStore(KotlinEntityDataStore(source.configuration))
     }
 
     override fun getCartDataList(): Observable<List<CartProduct>> {
         return store.select(CartProductDataEntity::class)
-                .get()
-                .observableResult()
-                .map { it -> it.asIterable() }
-                .map {
-                    val list: MutableList<CartProduct> = mutableListOf()
-                    it.iterator().forEach { list.add(CartProductAdapter.adaptFromStore(it)) }
-                    list
-                }
+            .get()
+            .observableResult()
+            .map { it -> it.asIterable() }
+            .map {
+                val list: MutableList<CartProduct> = mutableListOf()
+                it.iterator().forEach { list.add(CartProductAdapter.adaptFromStore(it)) }
+                list
+            }
     }
 
     override fun addCartProduct(cartProduct: CartProduct): Single<CartProduct> {
         val productVariant = cartProduct.productVariant
         var storeItem: CartProductData? = store.select(CartProductDataEntity::class)
-                .where(CartProductDataEntity.ID.eq(productVariant.id))
-                .get()
-                .singleOrNull()
+            .where(CartProductDataEntity.ID.eq(productVariant.id))
+            .get()
+            .singleOrNull()
         if (storeItem != null) {
             storeItem.quantity = storeItem.quantity + cartProduct.quantity
         } else {
@@ -55,18 +55,21 @@ class DaoImpl(context: Context) : Dao {
 
     override fun deleteProductFromCart(productVariantId: String): Completable {
         val storeItem: CartProductData? = store.select(CartProductDataEntity::class)
-                .where(CartProductDataEntity.ID.eq(productVariantId))
-                .get()
-                .singleOrNull()
+            .where(CartProductDataEntity.ID.eq(productVariantId))
+            .get()
+            .singleOrNull()
 
         return storeItem?.let { store.delete(storeItem) } ?: Completable.complete()
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct> {
+    override fun changeCartProductQuantity(
+        productVariantId: String,
+        newQuantity: Int
+    ): Single<CartProduct> {
         val storeItem: CartProductData? = store.select(CartProductDataEntity::class)
-                .where(CartProductDataEntity.ID.eq(productVariantId))
-                .get()
-                .singleOrNull()
+            .where(CartProductDataEntity.ID.eq(productVariantId))
+            .get()
+            .singleOrNull()
 
         return storeItem?.let {
             it.quantity = newQuantity

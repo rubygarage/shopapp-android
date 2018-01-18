@@ -122,8 +122,11 @@ class ProductDetailsActivity :
                 startActivity(CartActivity.getStartIntent(this))
             } else {
                 selectedProductVariant?.let {
-                    presenter.addProductToCart(it, productId,
-                            product?.currency ?: "", quantityEditText.text.toString())
+                    val variant = it
+                    product?.let {
+                        presenter.addProductToCart(variant, it.title,
+                                it.currency, quantityEditText.text.toString())
+                    }
                 }
             }
         }

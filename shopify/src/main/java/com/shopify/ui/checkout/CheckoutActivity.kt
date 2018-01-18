@@ -16,13 +16,13 @@ import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.ui.address.AddressActivity
 import com.shopify.ui.address.AddressListActivity
-import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
 import com.shopify.ui.payment.PaymentActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.ui.base.recycler.divider.SpaceDecoration
 import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_checkout.*
@@ -30,16 +30,18 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class CheckoutActivity :
-        BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
-        CheckoutView,
-        OnItemClickListener {
+    BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
+    CheckoutView,
+    OnItemClickListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CheckoutActivity::class.java)
     }
 
-    @Inject lateinit var checkoutPresenter: CheckoutPresenter
-    @Inject lateinit var router: AppRouter
+    @Inject
+    lateinit var checkoutPresenter: CheckoutPresenter
+    @Inject
+    lateinit var router: AppRouter
     private var checkout: Checkout? = null
     private val cartProductList = mutableListOf<CartProduct>()
 
@@ -69,8 +71,8 @@ class CheckoutActivity :
 
     override fun inject() {
         ShopifyWrapper.component
-                .attachCheckoutComponent(CheckoutModule())
-                .inject(this)
+            .attachCheckoutComponent(CheckoutModule())
+            .inject(this)
     }
 
     override fun getContentView() = R.layout.activity_checkout
@@ -83,34 +85,38 @@ class CheckoutActivity :
 
     private fun setupCartRecycler() {
         recyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
-        recyclerView.adapter = ProductVariantAdapter(cartProductList.map { it.productVariant }, this)
+        recyclerView.adapter =
+                ProductVariantAdapter(cartProductList.map { it.productVariant }, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
+        val decoration =
+            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
         recyclerView.addItemDecoration(decoration)
     }
 
     private fun setupListeners() {
         seeAll.setOnClickListener { router.openCartScreen(this) }
         shippingAddressView.setClickListeners(
-                editClickListener = View.OnClickListener {
-                    checkout?.let {
-                        startActivityForResult(
-                                AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
-                                RequestCode.EDIT_ADDRESS)
-                    }
-                },
-                addAddressClickListener = View.OnClickListener {
-                    checkout?.let {
-                        startActivityForResult(
-                                AddressActivity.getStartIntent(this, it.checkoutId),
-                                RequestCode.ADD_ADDRESS)
-                    }
+            editClickListener = View.OnClickListener {
+                checkout?.let {
+                    startActivityForResult(
+                        AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
+                        RequestCode.EDIT_ADDRESS
+                    )
                 }
+            },
+            addAddressClickListener = View.OnClickListener {
+                checkout?.let {
+                    startActivityForResult(
+                        AddressActivity.getStartIntent(this, it.checkoutId),
+                        RequestCode.ADD_ADDRESS
+                    )
+                }
+            }
         )
         paymentView.setClickListeners(
-                addAddressClickListener = View.OnClickListener {
-                    startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
-                }
+            addAddressClickListener = View.OnClickListener {
+                startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
+            }
         )
     }
 
@@ -130,8 +136,10 @@ class CheckoutActivity :
         super.showContent(data)
         checkout = data
         shippingAddressView.setAddress(data.address)
-        priceView.setData(data.subtotalPrice, BigDecimal.ZERO,
-                data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency)
+        priceView.setData(
+            data.subtotalPrice, BigDecimal.ZERO,
+            data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency
+        )
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {
@@ -144,7 +152,7 @@ class CheckoutActivity :
 
     override fun onItemClicked(position: Int) {
         cartProductList.getOrNull(position)?.let {
-            router.openProductDetailsScreen(this, it.productId)
+            router.openProductDetailsScreen(this, it.productVariant.productId)
         }
     }
 }
