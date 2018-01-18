@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.view.Gravity
 import android.view.View
 import com.domain.entity.CartProduct
+import com.domain.entity.ProductVariant
 import com.domain.router.AppRouter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopify.ShopifyWrapper
@@ -41,7 +42,7 @@ class CheckoutActivity :
     @Inject lateinit var checkoutPresenter: CheckoutPresenter
     @Inject lateinit var router: AppRouter
     private var checkout: Checkout? = null
-    private val cartProductList = mutableListOf<CartProduct>()
+    private val cartProductList = mutableListOf<ProductVariant>()
 
     //ANDROID
 
@@ -83,7 +84,7 @@ class CheckoutActivity :
 
     private fun setupCartRecycler() {
         recyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
-        recyclerView.adapter = ProductVariantAdapter(cartProductList.map { it.productVariant }, this)
+        recyclerView.adapter = ProductVariantAdapter(cartProductList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
         recyclerView.addItemDecoration(decoration)
@@ -136,7 +137,7 @@ class CheckoutActivity :
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {
         this.cartProductList.clear()
-        this.cartProductList.addAll(cartProductList)
+        this.cartProductList.addAll(cartProductList.map { it.productVariant })
         recyclerView.adapter.notifyDataSetChanged()
     }
 
