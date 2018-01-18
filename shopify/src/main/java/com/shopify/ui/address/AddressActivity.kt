@@ -58,11 +58,13 @@ class AddressActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle(getString(R.string.add_new_address))
 
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
         address = intent.getParcelableExtra(ADDRESS)
         isEditMode = intent.getBooleanExtra(EDIT_MODE, false)
+
+        val titleRes = if (isEditMode) R.string.edit_address else R.string.add_new_address
+        setTitle(getString(titleRes))
 
         fieldTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
@@ -75,7 +77,12 @@ class AddressActivity :
             submitButton.visibility = View.INVISIBLE
             if (isEditMode) {
                 address?.let {
-                    presenter.editAddress(checkoutId, it.id, getAddress(), defaultShippingAddress.isChecked)
+                    presenter.editAddress(
+                        checkoutId,
+                        it.id,
+                        getAddress(),
+                        defaultShippingAddress.isChecked
+                    )
                 }
             } else {
                 presenter.submitAddress(checkoutId, getAddress(), defaultShippingAddress.isChecked)
@@ -89,8 +96,8 @@ class AddressActivity :
             checkInputFields()
         } else {
             submitButton.setText(R.string.submit)
-            loadData()
         }
+        loadData()
     }
 
     override fun onResume() {

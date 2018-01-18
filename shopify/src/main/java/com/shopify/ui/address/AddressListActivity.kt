@@ -33,7 +33,11 @@ class AddressListActivity :
         private const val CHECKOUT_ID = "checkout_id"
         private const val ADDRESS = "address"
 
-        fun getStartIntent(context: Context, checkoutId: String?, address: Address?): Intent {
+        fun getStartIntent(
+            context: Context,
+            checkoutId: String?,
+            address: Address?
+        ): Intent {
             val intent = Intent(context, AddressListActivity::class.java)
             intent.putExtra(CHECKOUT_ID, checkoutId)
             intent.putExtra(ADDRESS, address)
@@ -62,7 +66,8 @@ class AddressListActivity :
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
         address = address ?: intent.getParcelableExtra(ADDRESS)
 
-        val titleRes = if (checkoutId != null) R.string.shipping_address else R.string.billing_address
+        val titleRes =
+            if (checkoutId != null) R.string.shipping_address else R.string.billing_address
         setTitle(getString(titleRes))
 
         setupRecycler()
@@ -96,10 +101,12 @@ class AddressListActivity :
     //SETUP
 
     private fun setupRecycler() {
-        addressListAdapter = AddressListAdapter(dataList, checkoutId == null,
-            this, this)
+        addressListAdapter = AddressListAdapter(
+            dataList, checkoutId == null, this, this
+        )
         addressListAdapter.defaultAddress = address
-        val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
+        val decorator =
+            SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressListAdapter
         recyclerView.addItemDecoration(decorator)
@@ -140,7 +147,10 @@ class AddressListActivity :
 
     override fun onEditButtonClicked(address: Address) {
         val checkoutId = if (this.address == address) this.checkoutId else null
-        startActivityForResult(AddressActivity.getStartIntent(this, checkoutId, address), RequestCode.EDIT_ADDRESS)
+        startActivityForResult(
+            AddressActivity.getStartIntent(this, checkoutId, address),
+            RequestCode.EDIT_ADDRESS
+        )
     }
 
     override fun onDeleteButtonClicked(address: Address) {
@@ -162,6 +172,7 @@ class AddressListActivity :
 
     override fun onClick(v: View?) {
         startActivityForResult(
-            AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS)
+            AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS
+        )
     }
 }
