@@ -12,13 +12,14 @@ class ProductListUseCase @Inject constructor(private val productRepository: Prod
 
     override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
         return with(params) {
-            productRepository.getProductList(perPage, paginationValue, sortType)
+            productRepository.getProductList(perPage, paginationValue, sortType, keyPhrase)
         }
     }
 
     data class Params(
             val sortType: SortType,
             val perPage: Int,
-            val paginationValue: String?
+            val paginationValue: String?,
+            val keyPhrase: String?
     )
 }

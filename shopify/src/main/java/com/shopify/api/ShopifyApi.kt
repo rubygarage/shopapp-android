@@ -47,6 +47,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         private const val RETRY_HANDLER_DELAY = 500L
         private const val RETRY_HANDLER_MAX_COUNT = 5
         private const val UNAUTHORIZED_ERROR = "Unauthorized"
+        private const val PRODUCT_TYPE_KEY = "product_type:"
     }
 
     private fun saveSession(accessData: AccessData) {
@@ -82,14 +83,18 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
-                                callback: ApiCallback<List<Product>>) {
+                                keyPhrase: String?, callback: ApiCallback<List<Product>>) {
         val reverse = sortBy == SortType.RECENT
-        queryProducts(perPage, paginationValue, null, reverse, sortBy, callback)
+        var phrase = keyPhrase
+        if (sortBy == SortType.TYPE && keyPhrase != null) {
+            phrase = "$PRODUCT_TYPE_KEY'$keyPhrase'"
+        }
+        queryProducts(perPage, paginationValue, phrase, reverse, sortBy, callback)
     }
 
     override fun searchProductList(perPage: Int, paginationValue: Any?,
                                    searchQuery: String, callback: ApiCallback<List<Product>>) {
-        queryProducts(perPage, paginationValue, searchQuery, false, SortType.RELEVANT, callback)
+        queryProducts(perPage, paginationValue, searchQuery, false, SortType.NAME, callback)
     }
 
     override fun getProduct(id: String, callback: ApiCallback<Product>) {
@@ -963,6 +968,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 SortType.NAME -> Storefront.ProductSortKeys.TITLE
                 SortType.RECENT -> Storefront.ProductSortKeys.CREATED_AT
                 SortType.RELEVANT -> Storefront.ProductSortKeys.RELEVANCE
+                SortType.TYPE -> Storefront.ProductSortKeys.PRODUCT_TYPE
             }
         }
         return null
@@ -974,6 +980,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 SortType.NAME -> Storefront.CollectionSortKeys.TITLE
                 SortType.RECENT -> Storefront.CollectionSortKeys.UPDATED_AT
                 SortType.RELEVANT -> Storefront.CollectionSortKeys.RELEVANCE
+                else -> null
             }
         }
         return null
@@ -985,6 +992,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 SortType.NAME -> Storefront.ProductCollectionSortKeys.TITLE
                 SortType.RECENT -> Storefront.ProductCollectionSortKeys.CREATED
                 SortType.RELEVANT -> Storefront.ProductCollectionSortKeys.RELEVANCE
+                else -> null
             }
         }
         return null
@@ -996,6 +1004,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 SortType.NAME -> Storefront.ArticleSortKeys.TITLE
                 SortType.RECENT -> Storefront.ArticleSortKeys.UPDATED_AT
                 SortType.RELEVANT -> Storefront.ArticleSortKeys.RELEVANCE
+                else -> null
             }
         }
         return null

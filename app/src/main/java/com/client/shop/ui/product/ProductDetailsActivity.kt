@@ -18,6 +18,7 @@ import com.client.shop.ui.product.di.ProductDetailsModule
 import com.client.shop.ui.product.view.OptionsGroupContainer
 import com.domain.entity.Product
 import com.domain.entity.ProductVariant
+import com.domain.entity.SortType
 import com.domain.formatter.NumberFormatter
 import com.ui.base.lce.BaseActivity
 import com.ui.custom.SimpleAnimationListener
@@ -142,6 +143,9 @@ class ProductDetailsActivity :
         description.text = data.productDescription
         galleryFragment?.updateProduct(data)
         optionsContainer.setProduct(data)
+
+        val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type)
+        supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment).commit()
     }
 
     override fun productAddedToCart() {

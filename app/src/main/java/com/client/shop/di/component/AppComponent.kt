@@ -19,8 +19,8 @@ import com.client.shop.ui.popular.di.PopularComponent
 import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.di.ProductListComponent
 import com.client.shop.ui.product.di.ProductListModule
-import com.client.shop.ui.recent.di.RecentComponent
-import com.client.shop.ui.recent.di.RecentModule
+import com.client.shop.ui.product.di.ProductHorizontalComponent
+import com.client.shop.ui.product.di.ProductHorizontalModule
 import com.client.shop.ui.search.di.SearchComponent
 import com.client.shop.ui.search.di.SearchModule
 import dagger.Component
@@ -38,7 +38,7 @@ interface AppComponent {
 
     fun attachProductComponent(module: ProductListModule): ProductListComponent
 
-    fun attachRecentComponent(module: RecentModule): RecentComponent
+    fun attachRecentComponent(module: ProductHorizontalModule): ProductHorizontalComponent
 
     fun attachPopularComponent(module: PopularModule): PopularComponent
 

@@ -12,12 +12,12 @@ interface ProductListView : BaseLceView<List<Product>>
 class ProductListPresenter @Inject constructor(private val recentUseCase: ProductListUseCase) :
         BaseLcePresenter<List<Product>, ProductListView>(recentUseCase) {
 
-    fun loadProductList(sortType: SortType, perPage: Int, paginationValue: String? = null) {
-
+    fun loadProductList(sortType: SortType, perPage: Int, paginationValue: String? = null,
+                        keyPhrase: String? = null) {
         recentUseCase.execute(
                 { view?.showContent(it) },
                 { it.printStackTrace() },
-                ProductListUseCase.Params(sortType, perPage, paginationValue)
+                ProductListUseCase.Params(sortType, perPage, paginationValue, keyPhrase)
         )
     }
 }

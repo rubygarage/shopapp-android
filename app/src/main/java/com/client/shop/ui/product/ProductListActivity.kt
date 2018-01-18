@@ -21,21 +21,25 @@ class ProductListActivity :
         PaginationActivity<Product, ProductListView, ProductListPresenter>(),
         ProductListView {
 
-    @Inject lateinit var productListPresenter: ProductListPresenter
-    private lateinit var sortType: SortType
-
     companion object {
 
         private const val TITLE = "title"
-        private const val SORT_TYPE = "SORT_TYPE"
+        private const val SORT_TYPE = "sort_type"
+        private const val KEY_PHRASE = "key_phrase"
 
-        fun getStartIntent(context: Context, title: String, sortType: SortType = SortType.NAME): Intent {
+        fun getStartIntent(context: Context, title: String, sortType: SortType = SortType.NAME,
+                           keyPhrase: String? = null): Intent {
             val intent = Intent(context, ProductListActivity::class.java)
             intent.putExtra(TITLE, title)
             intent.putExtra(SORT_TYPE, sortType)
+            intent.putExtra(KEY_PHRASE, keyPhrase)
             return intent
         }
     }
+
+    @Inject lateinit var productListPresenter: ProductListPresenter
+    private var keyPhrase: String? = null
+    private lateinit var sortType: SortType
 
     //ANDROID
 
@@ -43,6 +47,7 @@ class ProductListActivity :
         super.onCreate(savedInstanceState)
         sortType = intent.getSerializableExtra(SORT_TYPE) as SortType
         setTitle(intent.getStringExtra(TITLE))
+        keyPhrase = intent.getStringExtra(KEY_PHRASE)
         loadData()
     }
 
@@ -77,7 +82,7 @@ class ProductListActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, paginationValue)
+        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, paginationValue, keyPhrase)
     }
 
     override fun showContent(data: List<Product>) {
