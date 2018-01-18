@@ -15,13 +15,16 @@ class ProductRepositoryImpl(private val api: Api) : ProductRepository {
         }
     }
 
-    override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?): Single<List<Product>> {
+    override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
+                                keyPhrase: String?): Single<List<Product>> {
         return Single.create<List<Product>> { emitter ->
-            api.getProductList(perPage, paginationValue, sortBy, RxCallbackSingle<List<Product>>(emitter))
+            api.getProductList(perPage, paginationValue, sortBy,
+                    keyPhrase, RxCallbackSingle<List<Product>>(emitter))
         }
     }
 
-    override fun searchProductListByQuery(searchQuery: String, perPage: Int, paginationValue: String?): Single<List<Product>> {
+    override fun searchProductListByQuery(searchQuery: String, perPage: Int,
+                                          paginationValue: String?): Single<List<Product>> {
         return Single.create<List<Product>> { emitter ->
             api.searchProductList(perPage, paginationValue, searchQuery,
                     RxCallbackSingle<List<Product>>(emitter))

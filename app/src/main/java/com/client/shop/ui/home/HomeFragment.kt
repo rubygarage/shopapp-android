@@ -5,10 +5,11 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
-import com.ui.ext.replaceOnce
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.popular.PopularFragment
-import com.client.shop.ui.recent.RecentFragment
+import com.client.shop.ui.product.ProductHorizontalFragment
+import com.domain.entity.SortType
+import com.ui.ext.replaceOnce
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -25,9 +26,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        childFragmentManager.replaceOnce(R.id.recentContainer, RecentFragment::javaClass.name, { RecentFragment() }).commit()
-        childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name, {   PopularFragment() }).commit()
-        childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name, { BlogFragment() }).commit()
+        childFragmentManager.replaceOnce(R.id.recentContainer, ProductHorizontalFragment::javaClass.name,
+                { ProductHorizontalFragment.newInstance(SortType.RECENT) }).commit()
+        childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name,
+                { PopularFragment() }).commit()
+        childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name,
+                { BlogFragment() }).commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

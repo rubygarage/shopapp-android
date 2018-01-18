@@ -8,7 +8,6 @@
     <TextView
         android:id="@+id/titleText"
         style="@style/section_title"
-        android:text="@string/latest_arrivals"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
