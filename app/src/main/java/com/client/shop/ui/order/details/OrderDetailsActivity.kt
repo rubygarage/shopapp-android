@@ -92,13 +92,10 @@ class OrderDetailsActivity :
         recyclerView.addItemDecoration(spaceDecoration)
         recyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
     }
 
     override fun onItemClicked(position: Int) {
-        order?.let {
-            val productId = it.orderProducts[position].productVariant.productId
-            startActivity(ProductDetailsActivity.getStartIntent(this, productId))
-        }
+        val productVariant = order?.orderProducts?.getOrNull(position)?.productVariant
+        productVariant?.let { startActivity(ProductDetailsActivity.getStartIntent(this, it)) }
     }
 }

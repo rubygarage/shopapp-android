@@ -30,7 +30,6 @@ class OrderListActivity :
         fun getStartIntent(context: Context): Intent {
             return Intent(context, OrderListActivity::class.java)
         }
-
     }
 
     //ANDROID
@@ -85,8 +84,12 @@ class OrderListActivity :
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {
-        val productId = dataList[orderPosition].orderProducts[productPosition].productVariant.productId
-        startActivity(ProductDetailsActivity.getStartIntent(this, productId))
+        val productVariant = dataList.getOrNull(orderPosition)
+            ?.orderProducts
+            ?.getOrNull(productPosition)
+            ?.productVariant
+        productVariant?.let {
+            startActivity(ProductDetailsActivity.getStartIntent(this, it))
+        }
     }
-
 }

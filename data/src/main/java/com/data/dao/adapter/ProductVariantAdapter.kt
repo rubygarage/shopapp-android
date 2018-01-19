@@ -12,6 +12,7 @@ object ProductVariantAdapter {
         product.title = adaptee.title
         product.price = adaptee.price
         product.isAvailable = adaptee.isAvailable
+        product.selectedOptions = adaptee.selectedOptions.map { VariantOptionAdapter.adaptToStore(it) }
         product.image = ImageAdapter.adaptToStore(adaptee.image)
         product.productItemId = adaptee.productId
         product.productImage = ImageAdapter.adaptToStore(adaptee.productImage)
@@ -24,7 +25,7 @@ object ProductVariantAdapter {
             adaptee.title,
             adaptee.price,
             adaptee.isAvailable,
-            listOf(),
+            adaptee.selectedOptions.map { VariantOptionAdapter.adaptFromStore(it) },
             ImageAdapter.adaptFromStore(adaptee.image),
             ImageAdapter.adaptFromStore(adaptee.productImage),
             adaptee.productItemId

@@ -9,6 +9,8 @@ interface ProductVariantData : Persistable {
     var title: String
     var price: Float
     var isAvailable: Boolean
+    @get:OneToMany(mappedBy = "productVariant", cascade = [CascadeAction.DELETE, CascadeAction.SAVE])
+    var selectedOptions: List<VariantOptionData>
     @get:ForeignKey
     @get:OneToOne
     var image: ImageData?
