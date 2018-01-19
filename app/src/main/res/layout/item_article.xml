@@ -7,6 +7,7 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
+        style="@style/ImageView"
         android:layout_width="120dp"
         android:layout_height="84dp"
         android:layout_marginBottom="16dp"

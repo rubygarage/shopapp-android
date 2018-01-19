@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/signInButton"
-        style="@style/primary_button"
+        style="@style/PrimaryButton"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="15dp"
@@ -97,7 +97,7 @@
 
     <TextView
         android:id="@+id/myOrders"
-        style="@style/policy_style"
+        style="@style/PolicyView"
         android:layout_marginTop="24dp"
         android:text="@string/my_orders"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +116,7 @@
 
     <TextView
         android:id="@+id/privacyPolicy"
-        style="@style/policy_style"
+        style="@style/PolicyView"
         android:layout_marginTop="15dp"
         android:text="@string/privacy_policy"
         android:visibility="gone"
@@ -129,7 +129,7 @@
 
     <TextView
         android:id="@+id/refundPolicy"
-        style="@style/policy_style"
+        style="@style/PolicyView"
         android:layout_marginTop="4dp"
         android:text="@string/refund_policy"
         android:visibility="gone"
@@ -139,7 +139,7 @@
 
     <TextView
         android:id="@+id/termsOfService"
-        style="@style/policy_style"
+        style="@style/PolicyView"
         android:layout_marginTop="4dp"
         android:text="@string/terms_of_service"
         android:visibility="gone"

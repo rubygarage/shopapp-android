@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/titleText"
-        style="@style/section_title"
+        style="@style/SectionTitle"
         android:text="@string/popular"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/seeAll"
-        style="@style/see_all_text"
+        style="@style/SeeAllText"
         android:text="@string/section_see_all"
         app:layout_constraintBaseline_toBaselineOf="@+id/titleText"
         app:layout_constraintEnd_toEndOf="parent" />
