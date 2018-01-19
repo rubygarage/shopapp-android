@@ -16,6 +16,7 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image"
+            style="@style/image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

@@ -40,13 +40,13 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/productImage"
+            style="@style/image_view"
             android:layout_width="110dp"
             android:layout_height="100dp"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/bottomHorizontalGuideline"
             app:layout_constraintStart_toStartOf="@+id/startVerticalGuideline"
-            app:layout_constraintTop_toTopOf="@+id/topHorizontalGuideline"
-            app:placeholderImage="@drawable/ic_product_placeholder" />
+            app:layout_constraintTop_toTopOf="@+id/topHorizontalGuideline" />
 
         <TextView
             android:id="@+id/totalPrice"
