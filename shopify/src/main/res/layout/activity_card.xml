@@ -13,7 +13,7 @@
 
         <com.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/holderNameInputLayout"
-            style="@style/text_input_layout"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
@@ -28,7 +28,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/holderNameInput"
-                style="@style/text_input_edit_text"
+                style="@style/TextInputEditText"
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
                 android:lines="1" />
@@ -36,7 +36,7 @@
 
         <com.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/cardNumberInputLayout"
-            style="@style/text_input_layout"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
@@ -51,7 +51,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/cardNumberInput"
-                style="@style/text_input_edit_text"
+                style="@style/TextInputEditText"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1" />
@@ -74,7 +74,7 @@
 
         <com.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/monthInputLayout"
-            style="@style/text_input_layout"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
@@ -90,7 +90,7 @@
 
             <com.ui.custom.UnMutableTextInputEditText
                 android:id="@+id/monthInput"
-                style="@style/text_input_edit_text"
+                style="@style/TextInputEditText"
                 android:drawableEnd="@drawable/ic_small_arrow_down"
                 android:imeOptions="actionNext"
                 android:inputType="number"
@@ -100,7 +100,7 @@
 
         <com.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/yearInputLayout"
-            style="@style/text_input_layout"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
@@ -115,7 +115,7 @@
 
             <com.ui.custom.UnMutableTextInputEditText
                 android:id="@+id/yearInput"
-                style="@style/text_input_edit_text"
+                style="@style/TextInputEditText"
                 android:drawableEnd="@drawable/ic_small_arrow_down"
                 android:imeOptions="actionNext"
                 android:inputType="number"
@@ -125,7 +125,7 @@
 
         <com.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/cvvInputLayout"
-            style="@style/text_input_layout"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
@@ -140,7 +140,7 @@
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/cvvInput"
-                style="@style/text_input_edit_text"
+                style="@style/TextInputEditText"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:lines="1" />
@@ -148,7 +148,7 @@
 
         <Button
             android:id="@+id/submitButton"
-            style="@style/primary_button"
+            style="@style/PrimaryButton"
             android:layout_marginEnd="45dp"
             android:layout_marginStart="45dp"
             android:layout_marginTop="48dp"

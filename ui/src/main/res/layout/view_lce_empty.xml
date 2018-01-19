@@ -38,7 +38,7 @@
 
     <Button
         android:id="@+id/emptyButton"
-        style="@style/primary_button"
+        style="@style/PrimaryButton"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="20dp"

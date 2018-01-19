@@ -9,7 +9,7 @@
         <item name="colorAccent">@android:color/white</item>
     </style>
 
-    <style name="policy_style">
+    <style name="PolicyView">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">24dp</item>
@@ -23,7 +23,7 @@
         <item name="android:textSize">13sp</item>
     </style>
 
-    <style name="order_title_view">
+    <style name="OrderTitleView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:textColor">@color/textColorPrimary</item>
@@ -35,7 +35,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="image_view">
+    <style name="ImageView">
         <item name="placeholderImageScaleType">centerInside</item>
         <item name="placeholderImage">@drawable/ic_placeholder</item>
     </style>

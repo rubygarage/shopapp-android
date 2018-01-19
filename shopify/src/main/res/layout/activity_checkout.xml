@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/titleText"
-            style="@style/section_title"
+            style="@style/SectionTitle"
             android:layout_marginTop="20dp"
             android:background="@drawable/background_toolbar"
             android:text="@string/my_cart"
@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/seeAll"
-            style="@style/see_all_text"
+            style="@style/SeeAllText"
             android:text="@string/section_see_all"
             android:visibility="visible"
             app:layout_constraintBaseline_toBaselineOf="@+id/titleText"
