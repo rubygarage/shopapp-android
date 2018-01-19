@@ -32,6 +32,11 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         quantityEditText.addTextChangedListener(this)
+        quantityEditText.setOnEditorActionListener { v, _, _ ->
+            v.clearFocus()
+            v.hideKeyboard()
+            true
+        }
         quantityEditText.onFocusChangeListener = this
     }
 
