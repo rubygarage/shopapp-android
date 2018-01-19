@@ -23,10 +23,10 @@ import kotlinx.android.synthetic.main.activity_address_list.*
 import javax.inject.Inject
 
 class AddressListActivity :
-        BaseActivity<List<Address>, AddressListView, AddressListPresenter>(),
-        AddressListView,
-        AddressItem.ActionListener,
-        View.OnClickListener {
+    BaseActivity<List<Address>, AddressListView, AddressListPresenter>(),
+    AddressListView,
+    AddressItem.ActionListener,
+    View.OnClickListener {
 
     companion object {
 
@@ -47,7 +47,8 @@ class AddressListActivity :
         }
     }
 
-    @Inject lateinit var addressListPresenter: AddressListPresenter
+    @Inject
+    lateinit var addressListPresenter: AddressListPresenter
     private lateinit var addressListAdapter: AddressListAdapter
     private val dataList: MutableList<Address> = mutableListOf()
     private var checkoutId: String? = null
@@ -96,7 +97,7 @@ class AddressListActivity :
 
     private fun setupRecycler() {
         addressListAdapter = AddressListAdapter(dataList, checkoutId == null,
-                this, this)
+            this, this)
         addressListAdapter.defaultAddress = address
         val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -161,6 +162,6 @@ class AddressListActivity :
 
     override fun onClick(v: View?) {
         startActivityForResult(
-                AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS)
+            AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS)
     }
 }

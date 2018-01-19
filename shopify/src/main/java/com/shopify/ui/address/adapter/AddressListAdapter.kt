@@ -12,7 +12,7 @@ class AddressListAdapter(dataList: List<Address>,
                          private val actionListener: AddressItem.ActionListener,
                          private val headerOnClickListener: View.OnClickListener
 ) :
-        BaseRecyclerAdapter<Address>(dataList) {
+    BaseRecyclerAdapter<Address>(dataList) {
 
     var defaultAddress: Address? = null
 

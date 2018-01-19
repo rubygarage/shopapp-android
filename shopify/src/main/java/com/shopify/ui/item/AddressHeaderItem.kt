@@ -10,7 +10,7 @@ import com.shopify.api.R
 import kotlinx.android.synthetic.main.item_address_header.view.*
 
 class AddressHeaderItem @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     var headerClickListener: OnClickListener? = null

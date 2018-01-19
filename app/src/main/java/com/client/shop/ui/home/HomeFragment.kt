@@ -14,8 +14,8 @@ import com.ui.ext.replaceOnce
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment :
-        Fragment(),
-        SwipeRefreshLayout.OnRefreshListener {
+    Fragment(),
+    SwipeRefreshLayout.OnRefreshListener {
 
     private var productHorizontalFragment: ProductHorizontalFragment? = null
     private var popularFragment: PopularFragment? = null
@@ -36,23 +36,23 @@ class HomeFragment :
         refreshLayout.setOnRefreshListener(this)
 
         childFragmentManager.replaceOnce(R.id.recentContainer, ProductHorizontalFragment::javaClass.name,
-                {
-                    val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
-                    productHorizontalFragment = fragment
-                    fragment
-                }).commit()
+            {
+                val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
+                productHorizontalFragment = fragment
+                fragment
+            }).commit()
         childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name,
-                {
-                    val fragment = PopularFragment()
-                    popularFragment = fragment
-                    fragment
-                }).commit()
+            {
+                val fragment = PopularFragment()
+                popularFragment = fragment
+                fragment
+            }).commit()
         childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name,
-                {
-                    val fragment = BlogFragment()
-                    blogFragment = fragment
-                    fragment
-                }).commit()
+            {
+                val fragment = BlogFragment()
+                blogFragment = fragment
+                fragment
+            }).commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -7,10 +7,10 @@ import com.ui.base.item.ProductVariantItem
 import com.ui.base.recycler.OnItemClickListener
 
 class ProductVariantAdapter(
-        dataList: List<ProductVariant>,
-        onItemClickListener: OnItemClickListener
+    dataList: List<ProductVariant>,
+    onItemClickListener: OnItemClickListener
 ) :
-        BaseRecyclerAdapter<ProductVariant>(dataList, onItemClickListener) {
+    BaseRecyclerAdapter<ProductVariant>(dataList, onItemClickListener) {
 
     override fun getItemView(context: Context, viewType: Int) = ProductVariantItem(context)
 

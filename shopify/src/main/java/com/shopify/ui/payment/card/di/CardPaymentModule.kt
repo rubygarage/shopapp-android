@@ -10,5 +10,5 @@ class CardPaymentModule {
 
     @Provides
     fun provideCardPresenter(checkCreditCardUseCase: CheckCreditCardUseCase): CardPresenter =
-            CardPresenter(checkCreditCardUseCase)
+        CardPresenter(checkCreditCardUseCase)
 }

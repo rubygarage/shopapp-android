@@ -14,10 +14,11 @@ import com.domain.entity.Category
 import javax.inject.Inject
 
 class CategoryListFragment :
-        PaginationFragment<Category, CategoryListView, CategoryListPresenter>(),
-        CategoryListView {
+    PaginationFragment<Category, CategoryListView, CategoryListPresenter>(),
+    CategoryListView {
 
-    @Inject lateinit var categoryListPresenter: CategoryListPresenter
+    @Inject
+    lateinit var categoryListPresenter: CategoryListPresenter
 
     //ANDROID
 

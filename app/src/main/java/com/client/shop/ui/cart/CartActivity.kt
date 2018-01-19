@@ -13,9 +13,9 @@ import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
 import com.client.shop.ui.cart.di.CartModule
-import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.item.cart.CartItem
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.domain.entity.CartProduct
 import com.domain.router.ExternalRouter
 import com.ui.base.lce.BaseActivity
@@ -26,13 +26,15 @@ import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 
 class CartActivity :
-        BaseActivity<List<CartProduct>, CartView, CartPresenter>(),
-        CartView,
-        OnItemClickListener,
-        CartItem.ActionListener {
+    BaseActivity<List<CartProduct>, CartView, CartPresenter>(),
+    CartView,
+    OnItemClickListener,
+    CartItem.ActionListener {
 
-    @Inject lateinit var cartPresenter: CartPresenter
-    @Inject lateinit var router: ExternalRouter
+    @Inject
+    lateinit var cartPresenter: CartPresenter
+    @Inject
+    lateinit var router: ExternalRouter
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
 

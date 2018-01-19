@@ -14,12 +14,12 @@ import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.container_options.view.*
 
 class OptionsContainer @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) :
-        LinearLayoutCompat(context, attrs, defStyleAttr),
-        OnItemClickListener {
+    LinearLayoutCompat(context, attrs, defStyleAttr),
+    OnItemClickListener {
 
     private var selectedVariantOptions: VariantOption? = null
     private var adapter: OptionsAdapter? = null
@@ -37,8 +37,8 @@ class OptionsContainer @JvmOverloads constructor(
         val defaultVariant = VariantOption(productOption.name, productOption.values.first())
         adapter = OptionsAdapter(defaultVariant, productOption.values, this)
         val decorator = SpaceDecoration(
-                leftSpace = resources.getDimensionPixelSize(R.dimen.variant_margin),
-                skipFirst = true
+            leftSpace = resources.getDimensionPixelSize(R.dimen.variant_margin),
+            skipFirst = true
         )
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter

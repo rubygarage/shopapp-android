@@ -19,9 +19,9 @@ class AuthModule {
 
     @Provides
     fun provideSignInPresenter(
-            formValidator: FieldValidator,
-            signInUseCase: SignInUseCase,
-            forgotPasswordUseCase: ForgotPasswordUseCase
+        formValidator: FieldValidator,
+        signInUseCase: SignInUseCase,
+        forgotPasswordUseCase: ForgotPasswordUseCase
     ): SignInPresenter {
         return SignInPresenter(formValidator, signInUseCase, forgotPasswordUseCase)
     }

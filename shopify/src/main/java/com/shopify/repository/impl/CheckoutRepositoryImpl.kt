@@ -1,6 +1,5 @@
 package com.shopify.repository.impl
 
-import com.data.rx.RxCallbackCompletable
 import com.data.rx.RxCallbackSingle
 import com.domain.entity.Address
 import com.domain.entity.Card
@@ -11,7 +10,6 @@ import com.shopify.buy3.pay.PayCart
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.repository.CheckoutRepository
-import io.reactivex.Completable
 import io.reactivex.Single
 
 class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {

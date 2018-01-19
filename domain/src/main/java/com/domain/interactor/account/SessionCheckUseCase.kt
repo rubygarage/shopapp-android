@@ -6,7 +6,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SessionCheckUseCase @Inject constructor(private val authRepository: AuthRepository) :
-        SingleUseCase<Boolean, Unit>() {
+    SingleUseCase<Boolean, Unit>() {
 
     override fun buildUseCaseSingle(params: Unit): Single<Boolean> {
         return authRepository.isLoggedIn()

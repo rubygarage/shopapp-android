@@ -38,4 +38,5 @@ class RepositoryModule(private val api: Api, private val dao: Dao) {
     @Provides
     @Singleton
     fun provideOrderRepository(): OrderRepository = OrderRepositoryImpl(api)
+
 }

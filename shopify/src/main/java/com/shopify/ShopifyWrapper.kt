@@ -26,8 +26,8 @@ class ShopifyWrapper(context: Context, dao: Dao, appRouter: AppRouter) : ShopWra
 
     init {
         component = DaggerShopComponent.builder()
-                .shopifyModule(ShopifyModule(api, dao))
-                .routerModule(RouterModule(appRouter))
-                .build()
+            .shopifyModule(ShopifyModule(api, dao))
+            .routerModule(RouterModule(appRouter))
+            .build()
     }
 }

@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.popular.di.PopularModule
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.ProductListActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
@@ -23,11 +23,12 @@ import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 
 class PopularFragment :
-        BaseFragment<List<Product>, ProductListView, ProductListPresenter>(),
-        ProductListView,
-        OnItemClickListener {
+    BaseFragment<List<Product>, ProductListView, ProductListPresenter>(),
+    ProductListView,
+    OnItemClickListener {
 
-    @Inject lateinit var productListPresenter: ProductListPresenter
+    @Inject
+    lateinit var productListPresenter: ProductListPresenter
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RELEVANT
     private lateinit var adapter: ProductListAdapter
@@ -41,7 +42,7 @@ class PopularFragment :
         super.onViewCreated(view, savedInstanceState)
         seeAll.setOnClickListener {
             startActivity(ProductListActivity.getStartIntent(context,
-                    getString(R.string.popular), sortType))
+                getString(R.string.popular), sortType))
         }
         changeSeeAllState()
         setupRecycler()
@@ -70,7 +71,7 @@ class PopularFragment :
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.addItemDecoration(GridSpaceDecoration(
-                resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
+            resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
     }
 
     private fun changeSeeAllState() {

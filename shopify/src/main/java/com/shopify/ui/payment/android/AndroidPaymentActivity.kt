@@ -19,11 +19,12 @@ import javax.inject.Inject
 
 
 class AndroidPaymentActivity :
-        BaseActivity<Boolean, AndroidPaymentView, AndroidPaymentPresenter>(),
-        AndroidPaymentView,
-        GoogleApiClient.ConnectionCallbacks {
+    BaseActivity<Boolean, AndroidPaymentView, AndroidPaymentPresenter>(),
+    AndroidPaymentView,
+    GoogleApiClient.ConnectionCallbacks {
 
-    @Inject lateinit var androidPaymentPresenter: AndroidPaymentPresenter
+    @Inject
+    lateinit var androidPaymentPresenter: AndroidPaymentPresenter
     private lateinit var checkout: Checkout
     private lateinit var googleApiClient: GoogleApiClient
     private var environment: Int = WalletConstants.ENVIRONMENT_TEST
@@ -80,12 +81,12 @@ class AndroidPaymentActivity :
     private fun connectGoogleApiClient() {
 
         googleApiClient = GoogleApiClient.Builder(this)
-                .addApi<Wallet.WalletOptions>(Wallet.API, Wallet.WalletOptions.Builder()
-                        .setEnvironment(environment)
-                        .setTheme(WalletConstants.THEME_DARK)
-                        .build())
-                .addConnectionCallbacks(this)
-                .build()
+            .addApi<Wallet.WalletOptions>(Wallet.API, Wallet.WalletOptions.Builder()
+                .setEnvironment(environment)
+                .setTheme(WalletConstants.THEME_DARK)
+                .build())
+            .addConnectionCallbacks(this)
+            .build()
         googleApiClient.connect()
     }
 

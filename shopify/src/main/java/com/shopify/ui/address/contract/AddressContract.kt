@@ -21,39 +21,39 @@ interface AddressView : BaseLceView<Address?> {
 }
 
 class AddressPresenter(
-        private val fieldValidator: FieldValidator,
-        private val getCheckoutUseCase: GetCheckoutUseCase,
-        private val setShippingAddressUseCase: SetShippingAddressUseCase,
-        private val sessionCheckUseCase: SessionCheckUseCase,
-        private val createCustomerAddressUseCase: CreateCustomerAddressUseCase,
-        private val editCustomerAddressUseCase: EditCustomerAddressUseCase
+    private val fieldValidator: FieldValidator,
+    private val getCheckoutUseCase: GetCheckoutUseCase,
+    private val setShippingAddressUseCase: SetShippingAddressUseCase,
+    private val sessionCheckUseCase: SessionCheckUseCase,
+    private val createCustomerAddressUseCase: CreateCustomerAddressUseCase,
+    private val editCustomerAddressUseCase: EditCustomerAddressUseCase
 ) :
-        BaseLcePresenter<Address?, AddressView>(
-                getCheckoutUseCase,
-                setShippingAddressUseCase,
-                sessionCheckUseCase,
-                createCustomerAddressUseCase,
-                editCustomerAddressUseCase
-        ) {
+    BaseLcePresenter<Address?, AddressView>(
+        getCheckoutUseCase,
+        setShippingAddressUseCase,
+        sessionCheckUseCase,
+        createCustomerAddressUseCase,
+        editCustomerAddressUseCase
+    ) {
 
     private var isLoggedIn = false
 
     fun checkIsLoggedIn() {
         sessionCheckUseCase.execute(
-                {
-                    isLoggedIn = it
-                    view?.sessionChecked(it)
-                },
-                { view?.sessionChecked(false) },
-                Unit
+            {
+                isLoggedIn = it
+                view?.sessionChecked(it)
+            },
+            { view?.sessionChecked(false) },
+            Unit
         )
     }
 
     fun getAddressFromCheckout(checkoutId: String) {
         getCheckoutUseCase.execute(
-                { view?.showContent(it.address) },
-                { resolveError(it) },
-                checkoutId
+            { view?.showContent(it.address) },
+            { resolveError(it) },
+            checkoutId
         )
     }
 
@@ -61,18 +61,18 @@ class AddressPresenter(
         if (fieldValidator.isAddressValid(address)) {
             if (checkoutId != null) {
                 setShippingAddressUseCase.execute(
-                        {
-                            if (isLoggedIn) {
-                                createCustomerAddress(address, isDefault)
-                            } else {
-                                view?.addressChanged(address)
-                            }
-                        },
-                        {
-                            resolveError(it)
-                            view?.submitAddressError()
-                        },
-                        SetShippingAddressUseCase.Params(checkoutId, address)
+                    {
+                        if (isLoggedIn) {
+                            createCustomerAddress(address, isDefault)
+                        } else {
+                            view?.addressChanged(address)
+                        }
+                    },
+                    {
+                        resolveError(it)
+                        view?.submitAddressError()
+                    },
+                    SetShippingAddressUseCase.Params(checkoutId, address)
                 )
             } else {
                 createCustomerAddress(address, isDefault)
@@ -87,14 +87,14 @@ class AddressPresenter(
         if (fieldValidator.isAddressValid(address)) {
             if (checkoutId != null) {
                 setShippingAddressUseCase.execute(
-                        {
-                            editCustomerAddress(addressId, address, isDefault)
-                        },
-                        {
-                            resolveError(it)
-                            view?.submitAddressError()
-                        },
-                        SetShippingAddressUseCase.Params(checkoutId, address)
+                    {
+                        editCustomerAddress(addressId, address, isDefault)
+                    },
+                    {
+                        resolveError(it)
+                        view?.submitAddressError()
+                    },
+                    SetShippingAddressUseCase.Params(checkoutId, address)
                 )
             } else {
                 editCustomerAddress(addressId, address, isDefault)
@@ -107,23 +107,23 @@ class AddressPresenter(
 
     private fun createCustomerAddress(address: Address, isDefault: Boolean) {
         createCustomerAddressUseCase.execute(
-                { view?.addressChanged(address) },
-                {
-                    it.printStackTrace()
-                    view?.addressChanged(address)
-                },
-                CreateCustomerAddressUseCase.Params(address, isDefault)
+            { view?.addressChanged(address) },
+            {
+                it.printStackTrace()
+                view?.addressChanged(address)
+            },
+            CreateCustomerAddressUseCase.Params(address, isDefault)
         )
     }
 
     private fun editCustomerAddress(addressId: String, address: Address, isDefault: Boolean) {
         editCustomerAddressUseCase.execute(
-                { view?.addressChanged(address) },
-                {
-                    it.printStackTrace()
-                    view?.addressChanged(address)
-                },
-                EditCustomerAddressUseCase.Params(addressId, address, isDefault)
+            { view?.addressChanged(address) },
+            {
+                it.printStackTrace()
+                view?.addressChanged(address)
+            },
+            EditCustomerAddressUseCase.Params(addressId, address, isDefault)
         )
     }
 }

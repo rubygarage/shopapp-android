@@ -24,10 +24,10 @@ interface AndroidPaymentView : BaseLceView<Boolean> {
 }
 
 class AndroidPaymentPresenter constructor(
-        private val androidPayCartUseCase: AndroidPayCartUseCase,
-        private val androidPaymentCompleteUseCase: AndroidPaymentCompleteUseCase
+    private val androidPayCartUseCase: AndroidPayCartUseCase,
+    private val androidPaymentCompleteUseCase: AndroidPaymentCompleteUseCase
 ) :
-        BaseLcePresenter<Boolean, AndroidPaymentView>(androidPayCartUseCase, androidPaymentCompleteUseCase) {
+    BaseLcePresenter<Boolean, AndroidPaymentView>(androidPayCartUseCase, androidPaymentCompleteUseCase) {
 
     private var googleApiClient: GoogleApiClient? = null
     private var payCart: PayCart? = null
@@ -37,12 +37,12 @@ class AndroidPaymentPresenter constructor(
         this.googleApiClient = googleApiClient
         this.checkout = checkout
         androidPayCartUseCase.execute(
-                {
-                    this.payCart = it
-                    confirmCheckout(googleApiClient, it)
-                },
-                { resolveError(it) },
-                checkout
+            {
+                this.payCart = it
+                confirmCheckout(googleApiClient, it)
+            },
+            { resolveError(it) },
+            checkout
         )
     }
 
@@ -56,9 +56,9 @@ class AndroidPaymentPresenter constructor(
 
         if (checkoutIdValue != null && payCartValue != null) {
             androidPaymentCompleteUseCase.execute(
-                    { view?.showContent(it) },
-                    { resolveError(it) },
-                    AndroidPaymentCompleteUseCase.Params(checkoutIdValue, payCartValue, fullWallet)
+                { view?.showContent(it) },
+                { resolveError(it) },
+                AndroidPaymentCompleteUseCase.Params(checkoutIdValue, payCartValue, fullWallet)
             )
         }
     }
@@ -92,22 +92,22 @@ class AndroidPaymentPresenter constructor(
 }
 
 class AndroidPayCartUseCase @Inject constructor(
-        private val cartRepository: CartRepository,
-        private val checkoutRepository: CheckoutRepository
+    private val cartRepository: CartRepository,
+    private val checkoutRepository: CheckoutRepository
 ) :
-        SingleUseCase<PayCart, Checkout>() {
+    SingleUseCase<PayCart, Checkout>() {
 
     override fun buildUseCaseSingle(params: Checkout): Single<PayCart> {
         return cartRepository.getCartProductList()
-                .first(listOf())
-                .flatMap { checkoutRepository.createPayCart(params, it) }
+            .first(listOf())
+            .flatMap { checkoutRepository.createPayCart(params, it) }
     }
 }
 
 class AndroidPaymentCompleteUseCase @Inject constructor(
-        private val checkoutRepository: CheckoutRepository
+    private val checkoutRepository: CheckoutRepository
 ) :
-        SingleUseCase<Boolean, AndroidPaymentCompleteUseCase.Params>() {
+    SingleUseCase<Boolean, AndroidPaymentCompleteUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<Boolean> {
         return with(params) {
@@ -116,8 +116,8 @@ class AndroidPaymentCompleteUseCase @Inject constructor(
     }
 
     class Params(
-            val checkout: Checkout,
-            val payCart: PayCart,
-            val fullWallet: FullWallet
+        val checkout: Checkout,
+        val payCart: PayCart,
+        val fullWallet: FullWallet
     )
 }

@@ -11,11 +11,11 @@ import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 
 class LceLayout @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr),
-        LceView {
+    LceView {
 
     var tryAgainButtonClickListener: OnClickListener? = null
         set(value) {

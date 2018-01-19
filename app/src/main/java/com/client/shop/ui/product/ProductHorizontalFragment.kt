@@ -21,9 +21,9 @@ import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
 class ProductHorizontalFragment :
-        BaseFragment<List<Product>, ProductListView, ProductListPresenter>(),
-        ProductListView,
-        OnItemClickListener {
+    BaseFragment<List<Product>, ProductListView, ProductListPresenter>(),
+    ProductListView,
+    OnItemClickListener {
 
     companion object {
 
@@ -40,7 +40,8 @@ class ProductHorizontalFragment :
         }
     }
 
-    @Inject lateinit var productListPresenter: ProductListPresenter
+    @Inject
+    lateinit var productListPresenter: ProductListPresenter
     private val productList = mutableListOf<Product>()
     private var sortType = SortType.RECENT
     private var keyPhrase: String? = null

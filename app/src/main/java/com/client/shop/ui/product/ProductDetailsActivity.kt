@@ -28,9 +28,9 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 import javax.inject.Inject
 
 class ProductDetailsActivity :
-        BaseActivity<Product, DetailsView, DetailsPresenter>(),
-        DetailsView,
-        OptionsGroupContainer.OnVariantSelectListener {
+    BaseActivity<Product, DetailsView, DetailsPresenter>(),
+    DetailsView,
+    OptionsGroupContainer.OnVariantSelectListener {
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
@@ -44,7 +44,8 @@ class ProductDetailsActivity :
         }
     }
 
-    @Inject lateinit var detailsPresenter: DetailsPresenter
+    @Inject
+    lateinit var detailsPresenter: DetailsPresenter
     private lateinit var productId: String
     private lateinit var formatter: NumberFormatter
     private var galleryFragment: GalleryFragment? = null
@@ -76,8 +77,8 @@ class ProductDetailsActivity :
                     override fun onAnimationEnd(animation: Animation?) {
                         scrollView.post {
                             ObjectAnimator.ofInt(scrollView, "scrollY", descriptionLabel.y.toInt())
-                                    .setDuration(SCROLL_DURATION)
-                                    .start()
+                                .setDuration(SCROLL_DURATION)
+                                .start()
                         }
                     }
                 })
@@ -111,8 +112,8 @@ class ProductDetailsActivity :
         galleryFragment = GalleryFragment.newInstance(product, true)
         galleryFragment?.let {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.galleryContainer, it)
-                    .commit()
+                .replace(R.id.galleryContainer, it)
+                .commit()
         }
     }
 
@@ -123,7 +124,7 @@ class ProductDetailsActivity :
             } else {
                 selectedProductVariant?.let {
                     presenter.addProductToCart(it, productId,
-                            product?.currency ?: "", quantityEditText.text.toString())
+                        product?.currency ?: "", quantityEditText.text.toString())
                 }
             }
         }

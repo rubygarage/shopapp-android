@@ -10,10 +10,10 @@ open class BasePresenter<V : MvpView>(vararg useCases: UseCase) : MvpBasePresent
 
     init {
         useCaseList.addAll(
-                useCases.map {
-                    it.attachToLifecycle()
-                    it
-                }
+            useCases.map {
+                it.attachToLifecycle()
+                it
+            }
         )
     }
 

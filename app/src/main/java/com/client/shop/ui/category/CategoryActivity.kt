@@ -9,22 +9,23 @@ import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
-import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
 import com.client.shop.ui.category.di.CategoryModule
-import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.modal.SortBottomSheet
+import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.domain.entity.Category
 import com.domain.entity.Product
 import com.domain.entity.SortType
+import com.ui.base.recycler.divider.BackgroundItemDecoration
 import javax.inject.Inject
 
 class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPresenter>(),
-        CategoryView {
+    CategoryView {
 
-    @Inject lateinit var categoryPresenter: CategoryPresenter
+    @Inject
+    lateinit var categoryPresenter: CategoryPresenter
     private lateinit var category: Category
     private var sortType: SortType = SortType.NAME
 

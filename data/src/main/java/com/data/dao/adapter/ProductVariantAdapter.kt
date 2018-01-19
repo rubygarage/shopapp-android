@@ -20,14 +20,14 @@ object ProductVariantAdapter {
 
     fun adaptFromStore(adaptee: ProductVariantData): ProductVariant {
         return ProductVariant(
-                adaptee.id,
-                adaptee.title,
-                adaptee.price,
-                adaptee.isAvailable,
-                listOf(),
-                ImageAdapter.adaptFromStore(adaptee.image),
-                ImageAdapter.adaptFromStore(adaptee.productImage),
-                adaptee.productItemId
+            adaptee.id,
+            adaptee.title,
+            adaptee.price,
+            adaptee.isAvailable,
+            listOf(),
+            ImageAdapter.adaptFromStore(adaptee.image),
+            ImageAdapter.adaptFromStore(adaptee.productImage),
+            adaptee.productItemId
         )
     }
 }

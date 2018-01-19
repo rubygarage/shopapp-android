@@ -11,11 +11,11 @@ data class Author(var firstName: String,
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString()
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString()
     )
 
     override fun describeContents() = 0

@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class CartQuantityUseCase @Inject constructor(private val cartRepository: CartRepository) :
-        SingleUseCase<CartProduct, CartQuantityUseCase.Params>() {
+    SingleUseCase<CartProduct, CartQuantityUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<CartProduct> {
         return with(params) {
@@ -16,7 +16,7 @@ class CartQuantityUseCase @Inject constructor(private val cartRepository: CartRe
     }
 
     data class Params(
-            val productVariantId: String,
-            val newQuantity: Int
+        val productVariantId: String,
+        val newQuantity: Int
     )
 }

@@ -146,8 +146,8 @@ class TransformGestureDetector(private val mDetector: MultiPointerGestureDetecto
 
     private fun calcAverage(arr: FloatArray, len: Int): Float {
         val sum = (0 until len)
-                .map { arr[it] }
-                .sum()
+            .map { arr[it] }
+            .sum()
         return if (len > 0) sum / len else 0f
     }
 

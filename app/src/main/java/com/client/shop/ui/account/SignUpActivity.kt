@@ -28,9 +28,10 @@ import javax.inject.Inject
 
 
 class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
-        SignUpView {
+    SignUpView {
 
-    @Inject lateinit var signUpPresenter: SignUpPresenter
+    @Inject
+    lateinit var signUpPresenter: SignUpPresenter
     private lateinit var emailTextWatcher: TextWatcher
     private lateinit var passwordTextWatcher: TextWatcher
 
@@ -109,13 +110,13 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
 
             val space = Character.SPACE_SEPARATOR.toChar().toString()
             policyText.text = TextUtils.concat(
-                    getString(R.string.policy_text),
-                    space,
-                    privacyPolicySpan,
-                    System.lineSeparator(),
-                    getString(R.string.and),
-                    space,
-                    termsOfServiceSpan
+                getString(R.string.policy_text),
+                space,
+                privacyPolicySpan,
+                System.lineSeparator(),
+                getString(R.string.and),
+                space,
+                termsOfServiceSpan
             )
             policyText.movementMethod = LinkMovementMethod.getInstance()
             policyText.highlightColor = Color.TRANSPARENT
@@ -147,11 +148,11 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
         presenter.signUp(
-                firstNameInput.getTrimmedString(),
-                lastNameInput.getTrimmedString(),
-                emailInput.getTrimmedString(),
-                passwordInput.getTrimmedString(),
-                phoneInput.getTrimmedString()
+            firstNameInput.getTrimmedString(),
+            lastNameInput.getTrimmedString(),
+            emailInput.getTrimmedString(),
+            passwordInput.getTrimmedString(),
+            phoneInput.getTrimmedString()
         )
     }
 

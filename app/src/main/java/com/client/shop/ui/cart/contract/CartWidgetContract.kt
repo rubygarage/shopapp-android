@@ -11,16 +11,16 @@ interface CartWidgetView : MvpView {
 }
 
 class CartWidgetPresenter @Inject constructor(private val cartItemsUseCase: CartItemsUseCase) :
-        BasePresenter<CartWidgetView>(cartItemsUseCase) {
+    BasePresenter<CartWidgetView>(cartItemsUseCase) {
 
     override fun attachView(view: CartWidgetView?) {
         super.attachView(view)
 
         cartItemsUseCase.execute(
-                { view?.changeBadgeCount(it.size) },
-                { it.printStackTrace() },
-                { },
-                Unit
+            { view?.changeBadgeCount(it.size) },
+            { it.printStackTrace() },
+            { },
+            Unit
         )
     }
 

@@ -8,7 +8,7 @@ import com.ui.R
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 
 class BaseToolbar @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Toolbar(context, attrs, defStyleAttr) {
 
     init {

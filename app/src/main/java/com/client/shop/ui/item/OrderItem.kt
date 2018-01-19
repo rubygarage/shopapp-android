@@ -35,15 +35,15 @@ class OrderItem(context: Context,
 
         itemsCountValueTextView.text = order.orderProducts.size.toString()
         totalPriceTextView.text = resources.getString(R.string.total_price_pattern,
-                numberFormatter.formatPrice(order.totalPrice, order.currency))
+            numberFormatter.formatPrice(order.totalPrice, order.currency))
 
         productVariantsRecyclerView.adapter = ProductVariantAdapter(
-                order.orderProducts.map { it.productVariant },
-                object : OnItemClickListener {
-                    override fun onItemClicked(position: Int) {
-                        onProductVariantClickListener?.onProductVariantClicked(position)
-                    }
-                })
+            order.orderProducts.map { it.productVariant },
+            object : OnItemClickListener {
+                override fun onItemClicked(position: Int) {
+                    onProductVariantClickListener?.onProductVariantClicked(position)
+                }
+            })
     }
 
     fun setOnProductVariantClickListener(onProductVariantClickListener: OnProductVariantClickListener) {
@@ -53,11 +53,11 @@ class OrderItem(context: Context,
     private fun setupVariantRecyclerView() {
         GravitySnapHelper(Gravity.START).attachToRecyclerView(productVariantsRecyclerView)
         val decoration = SpaceDecoration(
-                topSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_vertical_margin),
-                bottomSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_vertical_margin),
-                leftSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_horizontal_margin),
-                rightSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_horizontal_margin),
-                skipFirst = false)
+            topSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_vertical_margin),
+            bottomSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_vertical_margin),
+            leftSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_horizontal_margin),
+            rightSpace = resources.getDimensionPixelSize(R.dimen.order_item_products_horizontal_margin),
+            skipFirst = false)
         productVariantsRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         productVariantsRecyclerView.addItemDecoration(decoration)
     }

@@ -21,8 +21,8 @@ import kotlinx.android.synthetic.main.activity_address.*
 import javax.inject.Inject
 
 class AddressActivity :
-        BaseActivity<Address?, AddressView, AddressPresenter>(),
-        AddressView {
+    BaseActivity<Address?, AddressView, AddressPresenter>(),
+    AddressView {
 
     companion object {
 
@@ -137,15 +137,15 @@ class AddressActivity :
     }
 
     private fun getAddress() = Address(
-            address = addressInput.getTrimmedString(),
-            secondAddress = secondAddressInput.getTrimmedString(),
-            city = cityInput.getTrimmedString(),
-            country = countryInput.getTrimmedString(),
-            state = stateInput.getTrimmedString(),
-            firstName = firstNameInput.getTrimmedString(),
-            lastName = lastNameInput.getTrimmedString(),
-            zip = postalCodeInput.getTrimmedString(),
-            phone = phoneInput.getTrimmedString()
+        address = addressInput.getTrimmedString(),
+        secondAddress = secondAddressInput.getTrimmedString(),
+        city = cityInput.getTrimmedString(),
+        country = countryInput.getTrimmedString(),
+        state = stateInput.getTrimmedString(),
+        firstName = firstNameInput.getTrimmedString(),
+        lastName = lastNameInput.getTrimmedString(),
+        zip = postalCodeInput.getTrimmedString(),
+        phone = phoneInput.getTrimmedString()
     )
 
     private fun fillFields(address: Address?) {

@@ -11,8 +11,8 @@ abstract class CompletableUseCase<in Params> : UseCase() {
     fun execute(onComplete: (() -> Unit), onError: ((t: Throwable) -> Unit), params: Params) {
         checkIsAttachedToLifecycle()
         disposable = buildUseCaseCompletable(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onComplete, onError)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(onComplete, onError)
     }
 }

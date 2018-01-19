@@ -52,9 +52,9 @@ class ImageFragment : Fragment() {
 
             imageClickListener?.let { view.setOnClickListener(it) }
             val controller = Fresco.newDraweeControllerBuilder()
-                    .setUri(image?.src)
-                    .setCallerContext("ImageFragment")
-                    .build()
+                .setUri(image?.src)
+                .setCallerContext("ImageFragment")
+                .build()
             view.controller = controller
         } else if (view is SimpleDraweeView) {
             view.setImageURI(image?.src)

@@ -1,17 +1,17 @@
 package com.data.dao.adapter
 
-import com.domain.entity.CartProduct
 import com.data.dao.entity.CartProductData
 import com.data.dao.entity.CartProductDataEntity
+import com.domain.entity.CartProduct
 
 object CartProductAdapter {
 
     fun adaptFromStore(adaptee: CartProductData): CartProduct {
         return CartProduct(
-                ProductVariantAdapter.adaptFromStore(adaptee.productVariant),
-                adaptee.productId,
-                adaptee.currency,
-                adaptee.quantity
+            ProductVariantAdapter.adaptFromStore(adaptee.productVariant),
+            adaptee.productId,
+            adaptee.currency,
+            adaptee.quantity
         )
     }
 

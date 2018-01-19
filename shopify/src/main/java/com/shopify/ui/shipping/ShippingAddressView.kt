@@ -10,11 +10,11 @@ import com.shopify.api.R
 import kotlinx.android.synthetic.main.view_shipping_address.view.*
 
 class ShippingAddressView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) :
-        ConstraintLayout(context, attrs, defStyleAttr) {
+    ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
         View.inflate(context, R.layout.view_shipping_address, this)

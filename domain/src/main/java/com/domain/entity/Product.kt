@@ -23,22 +23,22 @@ data class Product(var id: String,
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readFloat(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readSerializable() as Date,
-            source.readSerializable() as Date,
-            source.createStringArrayList(),
-            source.createTypedArrayList(Image.CREATOR),
-            source.createTypedArrayList(ProductOption.CREATOR),
-            source.createTypedArrayList(ProductVariant.CREATOR),
-            source.readString()
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readFloat(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readSerializable() as Date,
+        source.readSerializable() as Date,
+        source.createStringArrayList(),
+        source.createTypedArrayList(Image.CREATOR),
+        source.createTypedArrayList(ProductOption.CREATOR),
+        source.createTypedArrayList(ProductVariant.CREATOR),
+        source.readString()
     )
 
     override fun describeContents() = 0

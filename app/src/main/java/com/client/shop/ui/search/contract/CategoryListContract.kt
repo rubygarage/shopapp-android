@@ -9,16 +9,16 @@ import javax.inject.Inject
 interface CategoryListView : BaseLceView<List<Category>>
 
 class CategoryListPresenter @Inject constructor(
-        private val categoryListUseCase: CategoryListUseCase
+    private val categoryListUseCase: CategoryListUseCase
 ) :
-        BaseLcePresenter<List<Category>, CategoryListView>(categoryListUseCase) {
+    BaseLcePresenter<List<Category>, CategoryListView>(categoryListUseCase) {
 
     fun getCategoryList(perPage: Int, paginationValue: String?) {
 
         categoryListUseCase.execute(
-                { view?.showContent(it) },
-                { it.printStackTrace() },
-                CategoryListUseCase.Params(perPage, paginationValue)
+            { view?.showContent(it) },
+            { it.printStackTrace() },
+            CategoryListUseCase.Params(perPage, paginationValue)
         )
     }
 }

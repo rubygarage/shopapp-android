@@ -2,7 +2,7 @@ package com.ui.custom
 
 import android.view.animation.Animation
 
-open class SimpleAnimationListener: Animation.AnimationListener {
+open class SimpleAnimationListener : Animation.AnimationListener {
 
     override fun onAnimationRepeat(animation: Animation?) {
     }

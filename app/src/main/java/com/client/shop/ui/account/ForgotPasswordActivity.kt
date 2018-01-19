@@ -18,16 +18,18 @@ import kotlinx.android.synthetic.main.activity_forgot_password.*
 import javax.inject.Inject
 
 class ForgotPasswordActivity :
-        BaseActivity<Unit, ForgotPasswordView, ForgotPasswordPresenter>(),
-        ForgotPasswordView,
-        View.OnClickListener {
+    BaseActivity<Unit, ForgotPasswordView, ForgotPasswordPresenter>(),
+    ForgotPasswordView,
+    View.OnClickListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, ForgotPasswordActivity::class.java)
     }
 
-    @Inject lateinit var forgotPasswordPresenter: ForgotPasswordPresenter
-    @Inject lateinit var fieldValidator: FieldValidator
+    @Inject
+    lateinit var forgotPasswordPresenter: ForgotPasswordPresenter
+    @Inject
+    lateinit var fieldValidator: FieldValidator
     private lateinit var emailTextWatcher: TextWatcher
 
     //ANDROID

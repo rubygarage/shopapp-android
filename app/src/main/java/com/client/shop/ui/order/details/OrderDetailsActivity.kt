@@ -22,8 +22,8 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class OrderDetailsActivity :
-        BaseActivity<Order, OrderDetailsView, OrderDetailsPresenter>(),
-        OrderDetailsView, OnItemClickListener {
+    BaseActivity<Order, OrderDetailsView, OrderDetailsPresenter>(),
+    OrderDetailsView, OnItemClickListener {
 
     private var order: Order? = null
 
@@ -37,7 +37,8 @@ class OrderDetailsActivity :
         }
     }
 
-    @Inject lateinit var detailsPresenter: OrderDetailsPresenter
+    @Inject
+    lateinit var detailsPresenter: OrderDetailsPresenter
     private lateinit var orderId: String
     private lateinit var formatter: NumberFormatter
 
@@ -75,17 +76,17 @@ class OrderDetailsActivity :
         this.order = data
         orderTitleView.setOrder(data, DateFormatter())
         priceView.setData(
-                data.subtotalPrice ?: BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                data.totalShippingPrice ?: BigDecimal.ZERO,
-                data.totalPrice,
-                data.currency)
+            data.subtotalPrice ?: BigDecimal.ZERO,
+            BigDecimal.ZERO,
+            data.totalShippingPrice ?: BigDecimal.ZERO,
+            data.totalPrice,
+            data.currency)
         data.address?.let {
             addressContentView.setAddress(it)
         }
 
         val spaceDecoration = SpaceDecoration(
-                topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin)
+            topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin)
         )
 
         recyclerView.addItemDecoration(spaceDecoration)
