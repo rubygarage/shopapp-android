@@ -10,11 +10,11 @@ import com.shopify.api.R
 import kotlinx.android.synthetic.main.item_address_content.view.*
 
 class AddressContentItem @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) :
-        LinearLayoutCompat(context, attrs, defStyleAttr) {
+    LinearLayoutCompat(context, attrs, defStyleAttr) {
 
     private val withName: Boolean
 
@@ -23,7 +23,7 @@ class AddressContentItem @JvmOverloads constructor(
         orientation = VERTICAL
 
         val a = context
-                .obtainStyledAttributes(attrs, R.styleable.AddressContentItem, 0, 0)
+            .obtainStyledAttributes(attrs, R.styleable.AddressContentItem, 0, 0)
         withName = a.getBoolean(R.styleable.AddressContentItem_withName, true)
         a.recycle()
     }

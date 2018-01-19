@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ShopInfoUseCase @Inject constructor(
-        private val shopRepository: ShopRepository
+    private val shopRepository: ShopRepository
 ) : SingleUseCase<Shop, Unit>() {
 
     override fun buildUseCaseSingle(params: Unit): Single<Shop> {

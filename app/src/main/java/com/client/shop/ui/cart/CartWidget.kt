@@ -15,13 +15,14 @@ import javax.inject.Inject
 
 
 class CartWidget @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-        MvpFrameLayout<CartWidgetView, CartWidgetPresenter>(context, attrs, defStyleAttr),
-        CartWidgetView,
-        View.OnClickListener {
+    MvpFrameLayout<CartWidgetView, CartWidgetPresenter>(context, attrs, defStyleAttr),
+    CartWidgetView,
+    View.OnClickListener {
 
-    @Inject lateinit var cartWidgetPresenter: CartWidgetPresenter
+    @Inject
+    lateinit var cartWidgetPresenter: CartWidgetPresenter
 
     init {
         ShopApplication.appComponent.attachCartComponent(CartModule()).inject(this)

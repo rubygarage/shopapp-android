@@ -8,7 +8,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ProductListUseCase @Inject constructor(private val productRepository: ProductRepository) :
-        SingleUseCase<List<Product>, ProductListUseCase.Params>() {
+    SingleUseCase<List<Product>, ProductListUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
         return with(params) {
@@ -17,9 +17,9 @@ class ProductListUseCase @Inject constructor(private val productRepository: Prod
     }
 
     data class Params(
-            val sortType: SortType,
-            val perPage: Int,
-            val paginationValue: String?,
-            val keyPhrase: String?
+        val sortType: SortType,
+        val perPage: Int,
+        val paginationValue: String?,
+        val keyPhrase: String?
     )
 }

@@ -7,11 +7,11 @@ import android.widget.FrameLayout
 import com.ui.R
 
 class LceContentView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr),
-        LceView {
+    LceView {
 
     init {
         View.inflate(context, R.layout.view_lce_content, this)

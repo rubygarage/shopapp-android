@@ -13,7 +13,7 @@ class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {
                              sortBy: SortType?): Single<Category> {
         return Single.create<Category> { emitter ->
             api.getCategoryDetails(categoryId, productPerPage, productPaginationValue,
-                    sortBy, RxCallbackSingle<Category>(emitter))
+                sortBy, RxCallbackSingle<Category>(emitter))
         }
     }
 

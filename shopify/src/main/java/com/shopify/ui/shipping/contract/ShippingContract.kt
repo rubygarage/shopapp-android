@@ -16,58 +16,58 @@ interface ShippingView : BaseLceView<List<ShippingRate>> {
 }
 
 class ShippingPresenter(
-        private val getShippingRatesUseCase: GetShippingRatesUseCase,
-        private val selectShippingRateUseCase: SelectShippingRateUseCase
+    private val getShippingRatesUseCase: GetShippingRatesUseCase,
+    private val selectShippingRateUseCase: SelectShippingRateUseCase
 ) :
-        BaseLcePresenter<List<ShippingRate>, ShippingView>(
-                getShippingRatesUseCase,
-                selectShippingRateUseCase
-        ) {
+    BaseLcePresenter<List<ShippingRate>, ShippingView>(
+        getShippingRatesUseCase,
+        selectShippingRateUseCase
+    ) {
 
     fun getShippingRates(checkoutId: String, email: String, address: Address) {
 
         getShippingRatesUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                GetShippingRatesUseCase.Params(checkoutId, email, address)
+            { view?.showContent(it) },
+            { resolveError(it) },
+            GetShippingRatesUseCase.Params(checkoutId, email, address)
         )
     }
 
     fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate) {
 
         selectShippingRateUseCase.execute(
-                { view?.shippingRateSelected(it) },
-                { resolveError(it) },
-                SelectShippingRateUseCase.Params(checkoutId, shippingRate)
+            { view?.shippingRateSelected(it) },
+            { resolveError(it) },
+            SelectShippingRateUseCase.Params(checkoutId, shippingRate)
         )
     }
 }
 
 class GetShippingRatesUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
-        SingleUseCase<List<ShippingRate>, GetShippingRatesUseCase.Params>() {
+    SingleUseCase<List<ShippingRate>, GetShippingRatesUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<ShippingRate>> =
-            with(params) {
-                checkoutRepository.getShippingRates(checkoutId, email, address)
-            }
+        with(params) {
+            checkoutRepository.getShippingRates(checkoutId, email, address)
+        }
 
     class Params(
-            val checkoutId: String,
-            val email: String,
-            val address: Address
+        val checkoutId: String,
+        val email: String,
+        val address: Address
     )
 }
 
 class SelectShippingRateUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
-        SingleUseCase<Checkout, SelectShippingRateUseCase.Params>() {
+    SingleUseCase<Checkout, SelectShippingRateUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<Checkout> =
-            with(params) {
-                checkoutRepository.selectShippingRate(checkoutId, shippingRate)
-            }
+        with(params) {
+            checkoutRepository.selectShippingRate(checkoutId, shippingRate)
+        }
 
     class Params(
-            val checkoutId: String,
-            val shippingRate: ShippingRate
+        val checkoutId: String,
+        val shippingRate: ShippingRate
     )
 }

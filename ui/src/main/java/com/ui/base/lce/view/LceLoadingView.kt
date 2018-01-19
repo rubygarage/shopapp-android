@@ -7,11 +7,11 @@ import android.widget.FrameLayout
 import com.ui.R
 
 class LceLoadingView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr),
-        LceView {
+    LceView {
 
     companion object {
         private const val MIN_SHOW_TIME = 500L

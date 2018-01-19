@@ -12,8 +12,8 @@ abstract class ObservableUseCase<T, in Params> : UseCase() {
                 onComplete: (() -> Unit), params: Params) {
         checkIsAttachedToLifecycle()
         disposable = buildUseCaseObservable(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(onSuccess, onError, onComplete)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(onSuccess, onError, onComplete)
     }
 }

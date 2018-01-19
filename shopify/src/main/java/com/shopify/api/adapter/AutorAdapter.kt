@@ -7,10 +7,10 @@ object AutorAdapter {
 
     fun adapt(adaptee: Storefront.ArticleAuthor): Author {
         return Author(
-                adaptee.firstName,
-                adaptee.lastName,
-                adaptee.name,
-                adaptee.email,
-                adaptee.bio)
+            adaptee.firstName,
+            adaptee.lastName,
+            adaptee.name,
+            adaptee.email,
+            adaptee.bio)
     }
 }

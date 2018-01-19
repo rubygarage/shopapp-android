@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class CartItemsUseCase @Inject constructor(private val cartRepository: CartRepository) :
-        ObservableUseCase<List<CartProduct>, Unit>() {
+    ObservableUseCase<List<CartProduct>, Unit>() {
 
     override fun buildUseCaseObservable(params: Unit): Observable<List<CartProduct>> {
         return cartRepository.getCartProductList()

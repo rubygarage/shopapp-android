@@ -11,16 +11,11 @@ import com.client.shop.ui.cart.di.CartComponent
 import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.category.di.CategoryComponent
 import com.client.shop.ui.category.di.CategoryModule
-import com.client.shop.ui.product.di.ProductDetailsComponent
-import com.client.shop.ui.product.di.ProductDetailsModule
 import com.client.shop.ui.order.di.OrderComponent
 import com.client.shop.ui.order.di.OrderModule
 import com.client.shop.ui.popular.di.PopularComponent
 import com.client.shop.ui.popular.di.PopularModule
-import com.client.shop.ui.product.di.ProductListComponent
-import com.client.shop.ui.product.di.ProductListModule
-import com.client.shop.ui.product.di.ProductHorizontalComponent
-import com.client.shop.ui.product.di.ProductHorizontalModule
+import com.client.shop.ui.product.di.*
 import com.client.shop.ui.search.di.SearchComponent
 import com.client.shop.ui.search.di.SearchModule
 import dagger.Component

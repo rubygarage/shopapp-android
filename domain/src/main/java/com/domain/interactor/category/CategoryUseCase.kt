@@ -8,7 +8,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class CategoryUseCase @Inject constructor(private val categoryRepository: CategoryRepository) :
-        SingleUseCase<Category, CategoryUseCase.Params>() {
+    SingleUseCase<Category, CategoryUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<Category> {
         return with(params) {
@@ -17,9 +17,9 @@ class CategoryUseCase @Inject constructor(private val categoryRepository: Catego
     }
 
     data class Params(
-            val perPage: Int,
-            val paginationValue: String?,
-            val categoryId: String,
-            val sortType: SortType
+        val perPage: Int,
+        val paginationValue: String?,
+        val categoryId: String,
+        val sortType: SortType
     )
 }

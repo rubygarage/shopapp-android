@@ -1,10 +1,8 @@
 package com.client.shop.ui.item
 
-import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
@@ -34,9 +32,9 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
         if (productVariant.selectedOptions.isNotEmpty()) {
             optionsTextView.visibility = View.VISIBLE
             optionsTextView.text = productVariant.selectedOptions
-                    .joinToString(separator = System.lineSeparator()) {
-                        resources.getString(R.string.selected_options_pattern, it.name, it.value)
-                    }
+                .joinToString(separator = System.lineSeparator()) {
+                    resources.getString(R.string.selected_options_pattern, it.name, it.value)
+                }
         } else {
             optionsTextView.visibility = View.GONE
         }
@@ -48,7 +46,7 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
     private fun changeEachPriceVisibility(price: Float, quantity: Int, currency: String) {
         if (quantity > 1) {
             eachPrice.text = context.getString(R.string.each_price_pattern,
-                    formatter.formatPrice(price, currency))
+                formatter.formatPrice(price, currency))
             eachPrice.visibility = View.VISIBLE
         } else {
             eachPrice.visibility = View.GONE

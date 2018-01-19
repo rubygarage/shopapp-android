@@ -15,8 +15,8 @@ import com.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.activity_lce.*
 
 abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
-        MvpActivity<V, P>(),
-        BaseLceView<M> {
+    MvpActivity<V, P>(),
+    BaseLceView<M> {
 
     //ANDROID
 

@@ -18,70 +18,70 @@ interface CheckoutView : BaseLceView<Checkout> {
 }
 
 class CheckoutPresenter @Inject constructor(
-        private val cartItemsUseCase: CartItemsUseCase,
-        private val createCheckoutUseCase: CreateCheckoutUseCase,
-        private val getCheckoutUseCase: GetCheckoutUseCase,
-        private val getCustomerUseCase: GetCustomerUseCase,
-        private val setShippingAddressUseCase: SetShippingAddressUseCase
+    private val cartItemsUseCase: CartItemsUseCase,
+    private val createCheckoutUseCase: CreateCheckoutUseCase,
+    private val getCheckoutUseCase: GetCheckoutUseCase,
+    private val getCustomerUseCase: GetCustomerUseCase,
+    private val setShippingAddressUseCase: SetShippingAddressUseCase
 ) :
-        BaseLcePresenter<Checkout, CheckoutView>(cartItemsUseCase, createCheckoutUseCase, getCheckoutUseCase, getCustomerUseCase, setShippingAddressUseCase) {
+    BaseLcePresenter<Checkout, CheckoutView>(cartItemsUseCase, createCheckoutUseCase, getCheckoutUseCase, getCustomerUseCase, setShippingAddressUseCase) {
 
     fun getCartProductList() {
         cartItemsUseCase.execute(
-                {
-                    view?.cartProductListReceived(it)
-                    createCheckout(it)
-                },
-                { resolveError(it) },
-                {},
-                Unit
+            {
+                view?.cartProductListReceived(it)
+                createCheckout(it)
+            },
+            { resolveError(it) },
+            {},
+            Unit
         )
     }
 
     private fun createCheckout(cartProductList: List<CartProduct>) {
         createCheckoutUseCase.execute(
-                { getCustomer(it) },
-                { resolveError(it) },
-                cartProductList
+            { getCustomer(it) },
+            { resolveError(it) },
+            cartProductList
         )
     }
 
     private fun getCustomer(checkout: Checkout) {
         getCustomerUseCase.execute(
-                {
-                    val defaultAddress = it.defaultAddress
-                    if (defaultAddress != null) {
-                        setShippingAddress(checkout, defaultAddress)
-                    } else {
-                        view?.showContent(checkout)
-                    }
-                },
-                {
-                    it.printStackTrace()
+            {
+                val defaultAddress = it.defaultAddress
+                if (defaultAddress != null) {
+                    setShippingAddress(checkout, defaultAddress)
+                } else {
                     view?.showContent(checkout)
-                },
-                Unit
+                }
+            },
+            {
+                it.printStackTrace()
+                view?.showContent(checkout)
+            },
+            Unit
         )
     }
 
     private fun setShippingAddress(checkout: Checkout, address: Address) {
         setShippingAddressUseCase.execute(
-                {
-                    view?.showContent(it)
-                },
-                {
-                    it.printStackTrace()
-                    view?.showContent(checkout)
-                },
-                SetShippingAddressUseCase.Params(checkout.checkoutId, address)
+            {
+                view?.showContent(it)
+            },
+            {
+                it.printStackTrace()
+                view?.showContent(checkout)
+            },
+            SetShippingAddressUseCase.Params(checkout.checkoutId, address)
         )
     }
 
     fun getCheckout(checkoutId: String) {
         getCheckoutUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                checkoutId
+            { view?.showContent(it) },
+            { resolveError(it) },
+            checkoutId
         )
     }
 

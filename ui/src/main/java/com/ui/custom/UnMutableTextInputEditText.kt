@@ -8,7 +8,7 @@ import android.view.MotionEvent
 import android.view.SoundEffectConstants
 
 class UnMutableTextInputEditText(context: Context?, attrs: AttributeSet?) :
-        TextInputEditText(context, attrs) {
+    TextInputEditText(context, attrs) {
 
     init {
         isEnabled = false

@@ -17,13 +17,13 @@ import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.ui.address.AddressActivity
 import com.shopify.ui.address.AddressListActivity
-import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
 import com.shopify.ui.payment.PaymentActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.ui.base.recycler.divider.SpaceDecoration
 import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_checkout.*
@@ -31,16 +31,18 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class CheckoutActivity :
-        BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
-        CheckoutView,
-        OnItemClickListener {
+    BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
+    CheckoutView,
+    OnItemClickListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CheckoutActivity::class.java)
     }
 
-    @Inject lateinit var checkoutPresenter: CheckoutPresenter
-    @Inject lateinit var router: AppRouter
+    @Inject
+    lateinit var checkoutPresenter: CheckoutPresenter
+    @Inject
+    lateinit var router: AppRouter
     private var checkout: Checkout? = null
     private val cartProductList = mutableListOf<ProductVariant>()
 
@@ -70,8 +72,8 @@ class CheckoutActivity :
 
     override fun inject() {
         ShopifyWrapper.component
-                .attachCheckoutComponent(CheckoutModule())
-                .inject(this)
+            .attachCheckoutComponent(CheckoutModule())
+            .inject(this)
     }
 
     override fun getContentView() = R.layout.activity_checkout
@@ -93,25 +95,25 @@ class CheckoutActivity :
     private fun setupListeners() {
         seeAll.setOnClickListener { router.openCartScreen(this) }
         shippingAddressView.setClickListeners(
-                editClickListener = View.OnClickListener {
-                    checkout?.let {
-                        startActivityForResult(
-                                AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
-                                RequestCode.EDIT_ADDRESS)
-                    }
-                },
-                addAddressClickListener = View.OnClickListener {
-                    checkout?.let {
-                        startActivityForResult(
-                                AddressActivity.getStartIntent(this, it.checkoutId),
-                                RequestCode.ADD_ADDRESS)
-                    }
+            editClickListener = View.OnClickListener {
+                checkout?.let {
+                    startActivityForResult(
+                        AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
+                        RequestCode.EDIT_ADDRESS)
                 }
+            },
+            addAddressClickListener = View.OnClickListener {
+                checkout?.let {
+                    startActivityForResult(
+                        AddressActivity.getStartIntent(this, it.checkoutId),
+                        RequestCode.ADD_ADDRESS)
+                }
+            }
         )
         paymentView.setClickListeners(
-                addAddressClickListener = View.OnClickListener {
-                    startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
-                }
+            addAddressClickListener = View.OnClickListener {
+                startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
+            }
         )
     }
 
@@ -132,7 +134,7 @@ class CheckoutActivity :
         checkout = data
         shippingAddressView.setAddress(data.address)
         priceView.setData(data.subtotalPrice, BigDecimal.ZERO,
-                data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency)
+            data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency)
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {

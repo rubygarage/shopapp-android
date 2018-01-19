@@ -25,7 +25,8 @@ import javax.inject.Inject
 
 class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), AccountView {
 
-    @Inject lateinit var accountPresenter: AccountPresenter
+    @Inject
+    lateinit var accountPresenter: AccountPresenter
     private var shop: Shop? = null
     private var customer: Customer? = null
 

@@ -14,14 +14,14 @@ data class ProductVariant(var id: String,
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readFloat(),
-            1 == source.readInt(),
-            source.createTypedArrayList(VariantOption.CREATOR),
-            source.readParcelable<Image>(Image::class.java.classLoader),
-            source.readParcelable<Image>(Image::class.java.classLoader),
-            source.readString()
+        source.readString(),
+        source.readString(),
+        source.readFloat(),
+        1 == source.readInt(),
+        source.createTypedArrayList(VariantOption.CREATOR),
+        source.readParcelable<Image>(Image::class.java.classLoader),
+        source.readParcelable<Image>(Image::class.java.classLoader),
+        source.readString()
     )
 
     override fun describeContents() = 0

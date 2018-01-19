@@ -7,16 +7,16 @@ object ArticleAdapter {
 
     fun adapt(adaptee: Storefront.Article, paginationValue: String? = null): Article {
         return Article(
-                adaptee.id.toString(),
-                adaptee.title,
-                adaptee.content,
-                ImageAdapter.adapt(adaptee.image),
-                AutorAdapter.adapt(adaptee.author),
-                adaptee.tags,
-                adaptee.blog.id.toString(),
-                adaptee.blog.title,
-                adaptee.publishedAt.toDate(),
-                adaptee.url,
-                paginationValue)
+            adaptee.id.toString(),
+            adaptee.title,
+            adaptee.content,
+            ImageAdapter.adapt(adaptee.image),
+            AutorAdapter.adapt(adaptee.author),
+            adaptee.tags,
+            adaptee.blog.id.toString(),
+            adaptee.blog.title,
+            adaptee.publishedAt.toDate(),
+            adaptee.url,
+            paginationValue)
     }
 }

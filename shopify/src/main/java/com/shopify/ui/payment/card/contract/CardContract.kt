@@ -15,7 +15,7 @@ interface CardView : BaseLceView<Pair<Card, String>> {
 }
 
 class CardPresenter @Inject constructor(private val checkCreditCardUseCase: CheckCreditCardUseCase) :
-        BaseLcePresenter<Pair<Card, String>, CardView>(checkCreditCardUseCase) {
+    BaseLcePresenter<Pair<Card, String>, CardView>(checkCreditCardUseCase) {
 
     private val cardValidator: CardValidator = CardValidator()
 
@@ -24,12 +24,12 @@ class CardPresenter @Inject constructor(private val checkCreditCardUseCase: Chec
         val cardHolderNamePair = cardValidator.splitHolderName(holderName)
         if (cardHolderNamePair != null) {
             val card = Card(
-                    cardHolderNamePair.first,
-                    cardHolderNamePair.second,
-                    cardNumber,
-                    cardMonth,
-                    cardYear,
-                    cardCvv
+                cardHolderNamePair.first,
+                cardHolderNamePair.second,
+                cardNumber,
+                cardMonth,
+                cardYear,
+                cardCvv
             )
             when (cardValidator.isCardValid(card)) {
                 CardValidator.CardValidationResult.VALID -> getToken(card)
@@ -45,9 +45,9 @@ class CardPresenter @Inject constructor(private val checkCreditCardUseCase: Chec
 
     private fun getToken(card: Card) {
         checkCreditCardUseCase.execute(
-                { view?.showContent(Pair(card, it)) },
-                { resolveError(it) },
-                card
+            { view?.showContent(Pair(card, it)) },
+            { resolveError(it) },
+            card
         )
     }
 }

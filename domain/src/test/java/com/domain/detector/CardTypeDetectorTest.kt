@@ -21,53 +21,53 @@ class CardTypeDetectorTest {
     @Test
     fun cardTypeDetector_Visa_ReturnsString() {
         Assert.assertEquals(context.getString(R.string.visa),
-                cardTypeDetector.detect("4242424242424242", context))
+            cardTypeDetector.detect("4242424242424242", context))
         Assert.assertEquals(context.getString(R.string.visa),
-                cardTypeDetector.detect("4111111111111111", context))
+            cardTypeDetector.detect("4111111111111111", context))
     }
 
     @Test
     fun cardTypeDetector_MasterCard_ReturnsString() {
         Assert.assertEquals(context.getString(R.string.mastercard),
-                cardTypeDetector.detect("5105105105105100", context))
+            cardTypeDetector.detect("5105105105105100", context))
         Assert.assertEquals(context.getString(R.string.mastercard),
-                cardTypeDetector.detect("5200828282828210", context))
+            cardTypeDetector.detect("5200828282828210", context))
         Assert.assertEquals(context.getString(R.string.mastercard),
-                cardTypeDetector.detect("5555555555554444", context))
+            cardTypeDetector.detect("5555555555554444", context))
     }
 
     @Test
     fun cardTypeDetector_AmericanExpress_ReturnsString() {
         Assert.assertEquals(context.getString(R.string.american_express),
-                cardTypeDetector.detect("371449635398431", context))
+            cardTypeDetector.detect("371449635398431", context))
         Assert.assertEquals(context.getString(R.string.american_express),
-                cardTypeDetector.detect("378282246310005", context))
+            cardTypeDetector.detect("378282246310005", context))
         Assert.assertEquals(context.getString(R.string.american_express),
-                cardTypeDetector.detect("378734493671000", context))
+            cardTypeDetector.detect("378734493671000", context))
     }
 
     @Test
     fun cardTypeDetector_Discover_ReturnsString() {
         Assert.assertEquals(context.getString(R.string.discover),
-                cardTypeDetector.detect("6011111111111117", context))
+            cardTypeDetector.detect("6011111111111117", context))
         Assert.assertEquals(context.getString(R.string.discover),
-                cardTypeDetector.detect("6011000990139424", context))
+            cardTypeDetector.detect("6011000990139424", context))
     }
 
     @Test
     fun cardTypeDetector_DinersClub_ReturnsString() {
         Assert.assertEquals(context.getString(R.string.diners_club),
-                cardTypeDetector.detect("30569309025904", context))
+            cardTypeDetector.detect("30569309025904", context))
         Assert.assertEquals(context.getString(R.string.diners_club),
-                cardTypeDetector.detect("38520000023237", context))
+            cardTypeDetector.detect("38520000023237", context))
     }
 
     @Test
     fun cardTypeDetector_JCB_ReturnsString() {
         Assert.assertEquals(context.getString(R.string.jcb),
-                cardTypeDetector.detect("3530111333300000", context))
+            cardTypeDetector.detect("3530111333300000", context))
         Assert.assertEquals(context.getString(R.string.jcb),
-                cardTypeDetector.detect("3566002020360505", context))
+            cardTypeDetector.detect("3566002020360505", context))
     }
 
     @Test

@@ -6,5 +6,5 @@ import com.shopify.buy3.Storefront
 object ArticleListAdapter {
 
     fun adapt(edges: List<Storefront.ArticleEdge>): List<Article> =
-            edges.map { ArticleAdapter.adapt(it.node, it.cursor) }
+        edges.map { ArticleAdapter.adapt(it.node, it.cursor) }
 }

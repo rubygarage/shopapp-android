@@ -12,23 +12,23 @@ object ProductAdapter {
     fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product, paginationValue: String? = null): Product {
         val productImages = convertImage(productAdaptee)
         return Product(
-                id = productAdaptee.id.toString(),
-                title = productAdaptee.title,
-                productDescription = productAdaptee.description,
-                additionalDescription = productAdaptee.descriptionHtml,
-                vendor = productAdaptee.vendor,
-                currency = shopAdaptee.paymentSettings.currencyCode.toString(),
-                type = productAdaptee.productType,
-                tags = productAdaptee.tags,
-                createdAt = productAdaptee.createdAt.toDate(),
-                updatedAt = productAdaptee.updatedAt.toDate(),
-                price = convertPrice(productAdaptee),
-                images = productImages,
-                options = convertProductOptionList(productAdaptee.options),
-                variants = productAdaptee.variants.edges.map {
-                    ProductVariantAdapter.adapt(it.node)
-                },
-                paginationValue = paginationValue
+            id = productAdaptee.id.toString(),
+            title = productAdaptee.title,
+            productDescription = productAdaptee.description,
+            additionalDescription = productAdaptee.descriptionHtml,
+            vendor = productAdaptee.vendor,
+            currency = shopAdaptee.paymentSettings.currencyCode.toString(),
+            type = productAdaptee.productType,
+            tags = productAdaptee.tags,
+            createdAt = productAdaptee.createdAt.toDate(),
+            updatedAt = productAdaptee.updatedAt.toDate(),
+            price = convertPrice(productAdaptee),
+            images = productImages,
+            options = convertProductOptionList(productAdaptee.options),
+            variants = productAdaptee.variants.edges.map {
+                ProductVariantAdapter.adapt(it.node)
+            },
+            paginationValue = paginationValue
         )
     }
 
@@ -42,7 +42,7 @@ object ProductAdapter {
     }
 
     private fun convertImage(productAdaptee: Storefront.Product): List<Image> =
-            productAdaptee.images.edges.map { ImageAdapter.adapt(it.node)!! }
+        productAdaptee.images.edges.map { ImageAdapter.adapt(it.node)!! }
 
     private fun convertProductOptionList(options: List<Storefront.ProductOption>?): List<ProductOption> {
         return if (options != null) {

@@ -12,5 +12,5 @@ class ShippingModule {
     @Provides
     fun provideShippingPresenter(getShippingRatesUseCase: GetShippingRatesUseCase,
                                  selectShippingRateUseCase: SelectShippingRateUseCase): ShippingPresenter =
-            ShippingPresenter(getShippingRatesUseCase, selectShippingRateUseCase)
+        ShippingPresenter(getShippingRatesUseCase, selectShippingRateUseCase)
 }

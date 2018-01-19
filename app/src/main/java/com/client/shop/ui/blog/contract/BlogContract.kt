@@ -9,14 +9,14 @@ import javax.inject.Inject
 interface BlogView : BaseLceView<List<Article>>
 
 class BlogPresenter @Inject constructor(private val articleListUseCase: ArticleListUseCase) :
-        BaseLcePresenter<List<Article>, BlogView>(articleListUseCase) {
+    BaseLcePresenter<List<Article>, BlogView>(articleListUseCase) {
 
     fun loadArticles(perPage: Int, paginationValue: String? = null) {
 
         articleListUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                ArticleListUseCase.Params(perPage, paginationValue)
+            { view?.showContent(it) },
+            { resolveError(it) },
+            ArticleListUseCase.Params(perPage, paginationValue)
         )
     }
 }

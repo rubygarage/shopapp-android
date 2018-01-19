@@ -247,11 +247,11 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * @return whether or not the transform has been corrected due to limitation
      */
     protected fun calculateZoomToPointTransform(
-            outTransform: Matrix,
-            scale: Float,
-            imagePoint: PointF,
-            viewPoint: PointF,
-            @LimitFlag limitFlags: Int): Boolean {
+        outTransform: Matrix,
+        scale: Float,
+        imagePoint: PointF,
+        viewPoint: PointF,
+        @LimitFlag limitFlags: Int): Boolean {
         val viewAbsolute = mTempValues
         viewAbsolute[0] = imagePoint.x
         viewAbsolute[1] = imagePoint.y
@@ -307,8 +307,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * @return whether or not the transform has been corrected due to limitation
      */
     private fun calculateGestureTransform(
-            outTransform: Matrix,
-            @LimitFlag limitTypes: Int): Boolean {
+        outTransform: Matrix,
+        @LimitFlag limitTypes: Int): Boolean {
         val detector = this.detector
         var transformCorrected = false
         outTransform.set(mPreviousTransform)
@@ -344,10 +344,10 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * @return whether limiting has been applied or not
      */
     private fun limitScale(
-            transform: Matrix,
-            pivotX: Float,
-            pivotY: Float,
-            @LimitFlag limitTypes: Int): Boolean {
+        transform: Matrix,
+        pivotX: Float,
+        pivotY: Float,
+        @LimitFlag limitTypes: Int): Boolean {
         if (!shouldLimit(limitTypes, LIMIT_SCALE)) {
             return false
         }
@@ -401,11 +401,11 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * - there is no empty space on left/right if the image is bigger than the limit
      */
     private fun getOffset(
-            imageStart: Float,
-            imageEnd: Float,
-            limitStart: Float,
-            limitEnd: Float,
-            limitCenter: Float): Float {
+        imageStart: Float,
+        imageEnd: Float,
+        limitStart: Float,
+        limitEnd: Float,
+        limitCenter: Float): Float {
         val imageWidth = imageEnd - imageStart
         val limitWidth = limitEnd - limitStart
         val limitInnerWidth = Math.min(limitCenter - limitStart, limitEnd - limitCenter) * 2
@@ -500,7 +500,7 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
     }
 
     @IntDef(flag = true, value = [LIMIT_NONE.toLong(), LIMIT_TRANSLATION_X.toLong(),
-            LIMIT_TRANSLATION_Y.toLong(), LIMIT_SCALE.toLong(), LIMIT_ALL.toLong()])
+        LIMIT_TRANSLATION_Y.toLong(), LIMIT_SCALE.toLong(), LIMIT_ALL.toLong()])
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
     annotation class LimitFlag
 

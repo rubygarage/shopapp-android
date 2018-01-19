@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 
 class BottomSheetPickerAdapter(val dataList: List<String>) :
-        RecyclerView.Adapter<BottomSheetPickerAdapter.ItemViewHolder>(),
-        View.OnClickListener {
+    RecyclerView.Adapter<BottomSheetPickerAdapter.ItemViewHolder>(),
+    View.OnClickListener {
 
     var selectedItemData: String? = null
 

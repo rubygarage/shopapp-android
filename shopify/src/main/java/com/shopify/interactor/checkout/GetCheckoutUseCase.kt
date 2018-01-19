@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetCheckoutUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
-        SingleUseCase<Checkout, String>() {
+    SingleUseCase<Checkout, String>() {
 
     override fun buildUseCaseSingle(params: String): Single<Checkout> {
         return checkoutRepository.getCheckout(params)

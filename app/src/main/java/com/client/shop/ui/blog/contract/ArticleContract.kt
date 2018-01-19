@@ -9,13 +9,13 @@ import javax.inject.Inject
 interface ArticleView : BaseLceView<Article>
 
 class ArticlePresenter @Inject constructor(private val articleUseCase: ArticleUseCase) :
-        BaseLcePresenter<Article, ArticleView>(articleUseCase) {
+    BaseLcePresenter<Article, ArticleView>(articleUseCase) {
 
     fun loadArticles(id: String) {
         articleUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                id
+            { view?.showContent(it) },
+            { resolveError(it) },
+            id
         )
     }
 }

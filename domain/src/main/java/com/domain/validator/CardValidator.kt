@@ -6,10 +6,10 @@ import java.util.*
 class CardValidator {
 
     fun splitHolderName(holderName: String): Pair<String, String>? =
-            split(holderName, "\\s".toRegex())
+        split(holderName, "\\s".toRegex())
 
     fun splitExpireDate(expireDate: String): Pair<String, String>? =
-            split(expireDate, "/".toRegex())
+        split(expireDate, "/".toRegex())
 
     fun isCardValid(card: Card): CardValidationResult {
 
@@ -44,7 +44,8 @@ class CardValidator {
 
         val incorrectMonth = expireMonth.toIntOrNull() ?: -1
         val selectedMonth = incorrectMonth - 1
-        val selectedYear = currentYear.toString().substring(0, 2).plus(expireYear).toIntOrNull() ?: -1
+        val selectedYear = currentYear.toString().substring(0, 2).plus(expireYear).toIntOrNull()
+                ?: -1
 
         return when {
             selectedMonth > Calendar.DECEMBER -> false

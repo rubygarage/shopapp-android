@@ -10,7 +10,7 @@ import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
 
 class CartTotalPriceView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val formatter: NumberFormatter
@@ -25,8 +25,8 @@ class CartTotalPriceView @JvmOverloads constructor(
 
         val currency = data.getOrNull(0)?.currency ?: ""
         val totalPrice: Float = data
-                .map { it.quantity * it.productVariant.price }
-                .sum()
+            .map { it.quantity * it.productVariant.price }
+            .sum()
 
         orderTotalLabel.text = context.resources.getQuantityString(R.plurals.order_total_plurals, data.size, data.size)
         orderTotalValue.text = formatter.formatPrice(totalPrice, currency)

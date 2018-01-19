@@ -19,7 +19,7 @@ class ProductRepositoryImpl(private val api: Api) : ProductRepository {
                                 keyPhrase: String?): Single<List<Product>> {
         return Single.create<List<Product>> { emitter ->
             api.getProductList(perPage, paginationValue, sortBy,
-                    keyPhrase, RxCallbackSingle<List<Product>>(emitter))
+                keyPhrase, RxCallbackSingle<List<Product>>(emitter))
         }
     }
 
@@ -27,7 +27,7 @@ class ProductRepositoryImpl(private val api: Api) : ProductRepository {
                                           paginationValue: String?): Single<List<Product>> {
         return Single.create<List<Product>> { emitter ->
             api.searchProductList(perPage, paginationValue, searchQuery,
-                    RxCallbackSingle<List<Product>>(emitter))
+                RxCallbackSingle<List<Product>>(emitter))
         }
     }
 }

@@ -15,14 +15,14 @@ data class Category(var id: String,
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readParcelable<Image>(Image::class.java.classLoader),
-            source.readSerializable() as Date,
-            source.createTypedArrayList(Product.CREATOR),
-            source.readString()
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readParcelable<Image>(Image::class.java.classLoader),
+        source.readSerializable() as Date,
+        source.createTypedArrayList(Product.CREATOR),
+        source.readString()
     )
 
     override fun describeContents() = 0

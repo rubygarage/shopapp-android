@@ -10,7 +10,7 @@ import javax.inject.Inject
 interface SearchView : BaseLceView<List<Product>>
 
 class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) :
-        BaseLcePresenter<List<Product>, SearchView>(searchUseCase) {
+    BaseLcePresenter<List<Product>, SearchView>(searchUseCase) {
 
     fun search(perPage: Int, paginationValue: String?, query: String) {
 
@@ -19,9 +19,9 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
             return
         }
         searchUseCase.execute(
-                { view?.showContent(it) },
-                { it.printStackTrace() },
-                SearchUseCase.Params(perPage, paginationValue, query)
+            { view?.showContent(it) },
+            { it.printStackTrace() },
+            SearchUseCase.Params(perPage, paginationValue, query)
         )
     }
 }

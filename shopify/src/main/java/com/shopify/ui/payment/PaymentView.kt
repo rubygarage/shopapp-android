@@ -14,7 +14,7 @@ import com.shopify.constant.*
 import kotlinx.android.synthetic.main.view_payment.view.*
 
 class PaymentView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     companion object {
@@ -71,10 +71,10 @@ class PaymentView @JvmOverloads constructor(
             val cardType = cardTypeDetector.detect(card.cardNumber, context)
             if (cardType != null) {
                 cardData.text = context.getString(R.string.card_type_placeholder, cardType,
-                        card.cardNumber.takeLast(LAST_CARD_NUMBERS))
+                    card.cardNumber.takeLast(LAST_CARD_NUMBERS))
             } else {
                 cardData.text = context.getString(R.string.card_unknown_placeholder,
-                        card.cardNumber.takeLast(LAST_CARD_NUMBERS))
+                    card.cardNumber.takeLast(LAST_CARD_NUMBERS))
             }
             cardExpiredDate.text = context.getString(R.string.card_exp_placeholder, card.expireMonth, card.expireYear.takeLast(LAST_DATE_NUMBERS))
             cardHolder.text = context.getString(R.string.full_name_pattern, card.firstName, card.lastName)

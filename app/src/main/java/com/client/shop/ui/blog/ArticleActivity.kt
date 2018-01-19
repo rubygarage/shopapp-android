@@ -8,21 +8,22 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.ui.ext.shareText
 import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
 import com.ui.base.lce.BaseActivity
+import com.ui.ext.shareText
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 
 class ArticleActivity :
-        BaseActivity<Article, ArticleView, ArticlePresenter>(),
-        ArticleView {
+    BaseActivity<Article, ArticleView, ArticlePresenter>(),
+    ArticleView {
 
-    @Inject lateinit var articlePresenter: ArticlePresenter
+    @Inject
+    lateinit var articlePresenter: ArticlePresenter
 
     private var shareUrl: String? = null
     private var shareMenuItem: MenuItem? = null

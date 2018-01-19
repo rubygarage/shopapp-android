@@ -17,10 +17,11 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
 
 class SearchFragment :
-        PaginationFragment<Product, SearchView, SearchPresenter>(),
-        SearchView {
+    PaginationFragment<Product, SearchView, SearchPresenter>(),
+    SearchView {
 
-    @Inject lateinit var searchPresenter: SearchPresenter
+    @Inject
+    lateinit var searchPresenter: SearchPresenter
 
     private var lastQuery: String? = null
     private var currentQuery: String? = null

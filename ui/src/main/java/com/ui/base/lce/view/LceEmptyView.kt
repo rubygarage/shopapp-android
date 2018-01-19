@@ -11,11 +11,11 @@ import com.ui.R
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 
 class LceEmptyView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr),
-        LceView {
+    LceView {
 
     init {
         layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)

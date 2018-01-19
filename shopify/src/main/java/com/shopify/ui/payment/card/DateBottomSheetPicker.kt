@@ -25,7 +25,7 @@ class DateBottomSheetPicker : BaseBottomSheetPicker() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dateType = arguments.getString(DATE_TYPE, "")
-        when(dateType) {
+        when (dateType) {
             DATE_TYPE_MONTH -> setData(getAvailableMonths())
             DATE_TYPE_YEAR -> setData(getAvailableYears())
         }

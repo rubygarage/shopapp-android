@@ -7,12 +7,12 @@ object CustomerAdapter {
 
     fun adapt(adaptee: Storefront.Customer): Customer {
         return Customer(
-                adaptee.id.toString(),
-                adaptee.email,
-                adaptee.firstName,
-                adaptee.lastName,
-                AddressAdapter.adapt(adaptee.addresses),
-                adaptee.defaultAddress?.let { AddressAdapter.adapt(it) }
+            adaptee.id.toString(),
+            adaptee.email,
+            adaptee.firstName,
+            adaptee.lastName,
+            AddressAdapter.adapt(adaptee.addresses),
+            adaptee.defaultAddress?.let { AddressAdapter.adapt(it) }
         )
     }
 }

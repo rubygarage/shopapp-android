@@ -11,8 +11,8 @@ class AndroidPaymentModule {
 
     @Provides
     fun provideAndroidPaymentPresenter(
-            androidPayCartUseCase: AndroidPayCartUseCase,
-            androidPaymentCompleteUseCase: AndroidPaymentCompleteUseCase
+        androidPayCartUseCase: AndroidPayCartUseCase,
+        androidPaymentCompleteUseCase: AndroidPaymentCompleteUseCase
     ): AndroidPaymentPresenter =
-            AndroidPaymentPresenter(androidPayCartUseCase, androidPaymentCompleteUseCase)
+        AndroidPaymentPresenter(androidPayCartUseCase, androidPaymentCompleteUseCase)
 }

@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class CheckCreditCardUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
-        SingleUseCase<String, Card>() {
+    SingleUseCase<String, Card>() {
 
     override fun buildUseCaseSingle(params: Card): Single<String> {
         return checkoutRepository.payByCard(params)

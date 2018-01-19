@@ -13,7 +13,7 @@ class BlogRepositoryImpl(private val api: Api) : BlogRepository {
                                 reverse: Boolean): Single<List<Article>> {
         return Single.create<List<Article>> { emitter ->
             api.getArticleList(perPage, paginationValue, sortBy, reverse,
-                    RxCallbackSingle<List<Article>>(emitter))
+                RxCallbackSingle<List<Article>>(emitter))
         }
     }
 

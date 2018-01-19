@@ -1,6 +1,5 @@
 package com.client.shop
 
-import android.app.Application
 import android.support.multidex.MultiDexApplication
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
@@ -32,9 +31,9 @@ class ShopApplication : MultiDexApplication() {
         val shopWrapper = ShopifyWrapper(this, dao, appRouter)
 
         appComponent = DaggerAppComponent.builder()
-                .routerModule(RouterModule(shopWrapper))
-                .repositoryModule(RepositoryModule(shopWrapper.api, dao))
-                .build()
+            .routerModule(RouterModule(shopWrapper))
+            .repositoryModule(RepositoryModule(shopWrapper.api, dao))
+            .build()
 
         setupFresco()
         setupFabric()
@@ -48,15 +47,15 @@ class ShopApplication : MultiDexApplication() {
     private fun setupFabric() {
         // Set up Crashlytics, disabled for debug builds
         val crashlyticsKit = Crashlytics.Builder()
-                .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-                .build()
+            .core(CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+            .build()
         Fabric.with(this, crashlyticsKit)
     }
 
     private fun setupFresco() {
         val config = ImagePipelineConfig.newBuilder(this)
-                .setDownsampleEnabled(true)
-                .build()
+            .setDownsampleEnabled(true)
+            .build()
         Fresco.initialize(this, config)
     }
 }

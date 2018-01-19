@@ -11,11 +11,11 @@ data class Shop(var name: String,
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readParcelable<Policy>(Policy::class.java.classLoader),
-            source.readParcelable<Policy>(Policy::class.java.classLoader),
-            source.readParcelable<Policy>(Policy::class.java.classLoader)
+        source.readString(),
+        source.readString(),
+        source.readParcelable<Policy>(Policy::class.java.classLoader),
+        source.readParcelable<Policy>(Policy::class.java.classLoader),
+        source.readParcelable<Policy>(Policy::class.java.classLoader)
     )
 
     override fun describeContents() = 0

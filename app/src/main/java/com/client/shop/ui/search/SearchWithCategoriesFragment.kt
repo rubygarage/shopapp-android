@@ -40,9 +40,9 @@ class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarList
             ContentType.Categories -> categoriesFragment
         }
         childFragmentManager.beginTransaction()
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                .replace(R.id.container, fragment)
-                .commit()
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .replace(R.id.container, fragment)
+            .commit()
     }
 
     /**

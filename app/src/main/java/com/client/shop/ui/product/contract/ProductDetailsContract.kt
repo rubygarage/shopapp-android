@@ -16,16 +16,16 @@ interface DetailsView : BaseLceView<Product> {
 }
 
 class DetailsPresenter @Inject constructor(
-        private val detailsProductUseCase: DetailsProductUseCase,
-        private val cartUseCase: DetailsCartUseCase
+    private val detailsProductUseCase: DetailsProductUseCase,
+    private val cartUseCase: DetailsCartUseCase
 ) : BaseLcePresenter<Product, DetailsView>(detailsProductUseCase, cartUseCase) {
 
     fun loadProductDetails(productId: String) {
 
         detailsProductUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                productId
+            { view?.showContent(it) },
+            { resolveError(it) },
+            productId
         )
     }
 
@@ -37,9 +37,9 @@ class DetailsPresenter @Inject constructor(
         } else {
             val cartProduct = CartProduct(productVariant, productId, currency, quantity)
             cartUseCase.execute(
-                    { view?.productAddedToCart() },
-                    { resolveError(it) },
-                    cartProduct
+                { view?.productAddedToCart() },
+                { resolveError(it) },
+                cartProduct
             )
         }
     }
