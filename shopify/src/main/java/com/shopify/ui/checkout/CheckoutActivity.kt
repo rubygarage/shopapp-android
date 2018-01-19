@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
 import android.view.Gravity
 import android.view.View
 import com.domain.entity.CartProduct
+import com.domain.entity.Customer
 import com.domain.entity.ProductVariant
 import com.domain.router.AppRouter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
@@ -43,8 +44,9 @@ class CheckoutActivity :
     lateinit var checkoutPresenter: CheckoutPresenter
     @Inject
     lateinit var router: AppRouter
-    private var checkout: Checkout? = null
     private val cartProductList = mutableListOf<ProductVariant>()
+    private var checkout: Checkout? = null
+    private var customer: Customer? = null
 
     //ANDROID
 
@@ -88,7 +90,8 @@ class CheckoutActivity :
         recyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
         recyclerView.adapter = ProductVariantAdapter(cartProductList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
+        val decoration =
+            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
         recyclerView.addItemDecoration(decoration)
     }
 
@@ -97,16 +100,30 @@ class CheckoutActivity :
         shippingAddressView.setClickListeners(
             editClickListener = View.OnClickListener {
                 checkout?.let {
-                    startActivityForResult(
-                        AddressListActivity.getStartIntent(this, it.checkoutId, it.address),
-                        RequestCode.EDIT_ADDRESS)
+                    val address = it.address
+                    if (customer != null) {
+                        startActivityForResult(
+                            AddressListActivity.getStartIntent(
+                                this,
+                                it.checkoutId,
+                                address
+                            ),
+                            RequestCode.EDIT_ADDRESS
+                        )
+                    } else if (address != null) {
+                        startActivityForResult(
+                            AddressActivity.getStartIntent(this, it.checkoutId, address),
+                            RequestCode.EDIT_ADDRESS
+                        )
+                    }
                 }
             },
             addAddressClickListener = View.OnClickListener {
                 checkout?.let {
                     startActivityForResult(
                         AddressActivity.getStartIntent(this, it.checkoutId),
-                        RequestCode.ADD_ADDRESS)
+                        RequestCode.ADD_ADDRESS
+                    )
                 }
             }
         )
@@ -133,8 +150,14 @@ class CheckoutActivity :
         super.showContent(data)
         checkout = data
         shippingAddressView.setAddress(data.address)
-        priceView.setData(data.subtotalPrice, BigDecimal.ZERO,
-            data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency)
+        priceView.setData(
+            data.subtotalPrice, BigDecimal.ZERO,
+            data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency
+        )
+    }
+
+    override fun customerReceived(customer: Customer?) {
+        this.customer = customer
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {

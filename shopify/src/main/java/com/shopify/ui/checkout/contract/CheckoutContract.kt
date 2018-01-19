@@ -2,6 +2,7 @@ package com.shopify.ui.checkout.contract
 
 import com.domain.entity.Address
 import com.domain.entity.CartProduct
+import com.domain.entity.Customer
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.cart.CartItemsUseCase
 import com.shopify.entity.Checkout
@@ -14,6 +15,8 @@ import javax.inject.Inject
 
 interface CheckoutView : BaseLceView<Checkout> {
 
+    fun customerReceived(customer: Customer?)
+
     fun cartProductListReceived(cartProductList: List<CartProduct>)
 }
 
@@ -24,7 +27,13 @@ class CheckoutPresenter @Inject constructor(
     private val getCustomerUseCase: GetCustomerUseCase,
     private val setShippingAddressUseCase: SetShippingAddressUseCase
 ) :
-    BaseLcePresenter<Checkout, CheckoutView>(cartItemsUseCase, createCheckoutUseCase, getCheckoutUseCase, getCustomerUseCase, setShippingAddressUseCase) {
+    BaseLcePresenter<Checkout, CheckoutView>(
+        cartItemsUseCase,
+        createCheckoutUseCase,
+        getCheckoutUseCase,
+        getCustomerUseCase,
+        setShippingAddressUseCase
+    ) {
 
     fun getCartProductList() {
         cartItemsUseCase.execute(
@@ -49,6 +58,7 @@ class CheckoutPresenter @Inject constructor(
     private fun getCustomer(checkout: Checkout) {
         getCustomerUseCase.execute(
             {
+                view?.customerReceived(it)
                 val defaultAddress = it.defaultAddress
                 if (defaultAddress != null) {
                     setShippingAddress(checkout, defaultAddress)
@@ -59,6 +69,7 @@ class CheckoutPresenter @Inject constructor(
             {
                 it.printStackTrace()
                 view?.showContent(checkout)
+                view?.customerReceived(null)
             },
             Unit
         )

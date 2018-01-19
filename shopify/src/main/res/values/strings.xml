@@ -24,7 +24,8 @@
     <string name="payment_type">Payment Type</string>
     <string name="payment">Payment</string>
     <string name="credit_card">Credit Card</string>
-    <string name="add_new_address">Add new address</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="edit_address">Edit Address</string>
     <string name="add_payment_type">Add payment type</string>
     <string name="card_holder_name">Card holder name</string>
     <string name="card_number">Card number</string>

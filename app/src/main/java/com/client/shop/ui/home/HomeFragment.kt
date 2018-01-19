@@ -26,7 +26,11 @@ class HomeFragment :
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater?,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater?.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -35,7 +39,8 @@ class HomeFragment :
 
         refreshLayout.setOnRefreshListener(this)
 
-        childFragmentManager.replaceOnce(R.id.recentContainer, ProductHorizontalFragment::javaClass.name,
+        childFragmentManager.replaceOnce(R.id.recentContainer,
+            ProductHorizontalFragment::javaClass.name,
             {
                 val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
                 productHorizontalFragment = fragment
