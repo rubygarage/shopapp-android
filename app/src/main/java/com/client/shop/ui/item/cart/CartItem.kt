@@ -53,7 +53,8 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
         val imageURI: String? = product.image?.src ?: product.productImage?.src
 
         productImage.setImageURI(imageURI)
-        titleText.text = product.title
+        titleText.text =
+                resources.getString(R.string.cart_product_title, cartProduct.title, product.title)
         quantityEditText.setText(cartProduct.quantity.toString())
         quantityEditText.setSelection(quantityEditText.text.length)
         totalPrice.text = getTotalPrice(product.price, cartProduct.quantity)

@@ -9,7 +9,7 @@ object CartProductAdapter {
     fun adaptFromStore(adaptee: CartProductData): CartProduct {
         return CartProduct(
             ProductVariantAdapter.adaptFromStore(adaptee.productVariant),
-            adaptee.productId,
+            adaptee.title,
             adaptee.currency,
             adaptee.quantity
         )
@@ -19,7 +19,7 @@ object CartProductAdapter {
         val cartItem = CartProductDataEntity()
         cartItem.id = adaptee.productVariant.id
         cartItem.productVariant = ProductVariantAdapter.adaptToStore(adaptee.productVariant)
-        cartItem.productId = adaptee.productId
+        cartItem.title = adaptee.title
         cartItem.currency = adaptee.currency
         cartItem.quantity = adaptee.quantity
         return cartItem

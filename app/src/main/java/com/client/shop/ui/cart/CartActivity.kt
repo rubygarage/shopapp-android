@@ -73,7 +73,8 @@ class CartActivity :
         adapter = CartAdapter(data, this)
         adapter.setHasStableIds(true)
         adapter.actionListener = this
-        val decoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.cart_item_divider))
+        val decoration =
+            SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.cart_item_divider))
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(decoration)
@@ -121,7 +122,7 @@ class CartActivity :
 
     override fun onItemClicked(position: Int) {
         data.getOrNull(position)?.let {
-            startActivity(ProductDetailsActivity.getStartIntent(this, it.productId))
+            startActivity(ProductDetailsActivity.getStartIntent(this, it.productVariant.productId))
         }
     }
 

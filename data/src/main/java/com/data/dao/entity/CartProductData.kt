@@ -10,7 +10,7 @@ interface CartProductData : Persistable {
     @get:ForeignKey
     @get:OneToOne
     var productVariant: ProductVariantData
-    var productId: String
+    var title: String
     var currency: String
     var quantity: Int
 }

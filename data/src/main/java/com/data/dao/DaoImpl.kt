@@ -62,7 +62,10 @@ class DaoImpl(context: Context) : Dao {
         return storeItem?.let { store.delete(storeItem) } ?: Completable.complete()
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct> {
+    override fun changeCartProductQuantity(
+        productVariantId: String,
+        newQuantity: Int
+    ): Single<CartProduct> {
         val storeItem: CartProductData? = store.select(CartProductDataEntity::class)
             .where(CartProductDataEntity.ID.eq(productVariantId))
             .get()

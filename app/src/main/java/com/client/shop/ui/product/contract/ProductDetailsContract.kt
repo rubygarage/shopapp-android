@@ -29,13 +29,18 @@ class DetailsPresenter @Inject constructor(
         )
     }
 
-    fun addProductToCart(productVariant: ProductVariant, productId: String, currency: String, quantityStr: String) {
+    fun addProductToCart(
+        productVariant: ProductVariant,
+        productTitle: String,
+        currency: String,
+        quantityStr: String
+    ) {
 
         val quantity = quantityStr.toIntOrNull() ?: 0
         if (quantity <= 0) {
             view?.showMessage(R.string.quantity_warning_message)
         } else {
-            val cartProduct = CartProduct(productVariant, productId, currency, quantity)
+            val cartProduct = CartProduct(productVariant, productTitle, currency, quantity)
             cartUseCase.execute(
                 { view?.productAddedToCart() },
                 { resolveError(it) },

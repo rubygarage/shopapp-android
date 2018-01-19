@@ -80,6 +80,6 @@
     <string name="selected_options_pattern">%s: %s</string>
     <string name="order_details">Order Details</string>
     <string name="quantity_label_pattern">QTY: %d</string>
-
+    <string name="cart_product_title">%s %s</string>
 
 </resources>
