@@ -122,7 +122,7 @@ class CartActivity :
 
     override fun onItemClicked(position: Int) {
         data.getOrNull(position)?.let {
-            startActivity(ProductDetailsActivity.getStartIntent(this, it.productVariant.productId))
+            startActivity(ProductDetailsActivity.getStartIntent(this, it.productVariant))
         }
     }
 

@@ -34,12 +34,26 @@ class ProductDetailsActivity :
 
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
+        private const val EXTRA_PRODUCT_VARIANT = "extra_product_variant"
         private const val EXPAND_DURATION = 400L
         private const val SCROLL_DURATION = 200L
 
-        fun getStartIntent(context: Context, productId: String): Intent {
+        fun getStartIntent(
+            context: Context,
+            productId: String
+        ): Intent {
             val intent = Intent(context, ProductDetailsActivity::class.java)
             intent.putExtra(EXTRA_PRODUCT_ID, productId)
+            return intent
+        }
+
+        fun getStartIntent(
+            context: Context,
+            productVariant: ProductVariant
+        ): Intent {
+            val intent = Intent(context, ProductDetailsActivity::class.java)
+            intent.putExtra(EXTRA_PRODUCT_ID, productVariant.productId)
+            intent.putExtra(EXTRA_PRODUCT_VARIANT, productVariant)
             return intent
         }
     }
@@ -126,7 +140,7 @@ class ProductDetailsActivity :
                     val variant = it
                     product?.let {
                         presenter.addProductToCart(variant, it.title,
-                                it.currency, quantityEditText.text.toString())
+                            it.currency, quantityEditText.text.toString())
                     }
                 }
             }
@@ -146,7 +160,7 @@ class ProductDetailsActivity :
         productTitle.text = data.title
         description.text = data.productDescription
         galleryFragment?.updateProduct(data)
-        optionsContainer.setProduct(data)
+        optionsContainer.setProduct(data, intent.getParcelableExtra(EXTRA_PRODUCT_VARIANT))
 
         val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type)
         supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment).commit()

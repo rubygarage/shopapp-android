@@ -31,10 +31,11 @@ class OptionsContainer @JvmOverloads constructor(
         View.inflate(context, R.layout.container_options, this)
     }
 
-    fun setProductOption(productOption: ProductOption) {
+    fun setProductOption(productOption: ProductOption, preselectedOption: VariantOption?) {
         this.productOption = productOption
         titleText.text = productOption.name
-        val defaultVariant = VariantOption(productOption.name, productOption.values.first())
+        val defaultVariant = preselectedOption
+                ?: VariantOption(productOption.name, productOption.values.first())
         adapter = OptionsAdapter(defaultVariant, productOption.values, this)
         val decorator = SpaceDecoration(
             leftSpace = resources.getDimensionPixelSize(R.dimen.variant_margin),

@@ -28,7 +28,7 @@ class OptionsGroupContainer @JvmOverloads constructor(
         View.inflate(context, R.layout.container_options_group, this)
     }
 
-    fun setProduct(product: Product) {
+    fun setProduct(product: Product, preselectedVariant: ProductVariant?) {
 
         visibility = if (product.options.isEmpty() ||
             (product.options.size == 1 && product.options.first().values.size == 1)) {
@@ -41,7 +41,8 @@ class OptionsGroupContainer @JvmOverloads constructor(
 
         for (productOption in product.options) {
             val optionItem = OptionsContainer(context)
-            optionItem.setProductOption(productOption)
+            val preselectedOption = preselectedVariant?.selectedOptions?.find { it.name == productOption.name }
+            optionItem.setProductOption(productOption, preselectedOption)
             optionItem.onSelectOptionListener = object : OptionsContainer.OnSelectOptionListener {
                 override fun onOptionsSelected() {
                     getSelectedVariant(product)

@@ -170,7 +170,7 @@ class CheckoutActivity :
 
     override fun onItemClicked(position: Int) {
         cartProductList.getOrNull(position)?.let {
-            router.openProductDetailsScreen(this, it.productId)
+            router.openProductDetailsScreen(this, it)
         }
     }
 }
