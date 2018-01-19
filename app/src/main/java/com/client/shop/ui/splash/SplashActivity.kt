@@ -19,12 +19,12 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         background.animate()
-                .alpha(1f)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        startActivity(HomeActivity.getStartIntent(this@SplashActivity))
-                    }
-                })
-                .duration = BACKGROUND_ANIMATION_DURATION
+            .alpha(1f)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    startActivity(HomeActivity.getStartIntent(this@SplashActivity))
+                }
+            })
+            .duration = BACKGROUND_ANIMATION_DURATION
     }
 }

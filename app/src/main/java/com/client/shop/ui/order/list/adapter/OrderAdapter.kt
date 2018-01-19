@@ -11,18 +11,18 @@ import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class OrderAdapter(
-        productList: List<Order>,
-        private val onOrderItemClickListener: OnOrderItemClickListener
+    productList: List<Order>,
+    private val onOrderItemClickListener: OnOrderItemClickListener
 ) :
-        BaseRecyclerAdapter<Order>(productList, null) {
+    BaseRecyclerAdapter<Order>(productList, null) {
 
     private val numberFormatter = NumberFormatter()
     private val dateFormatter = DateFormatter()
 
     override fun getItemView(context: Context, viewType: Int): View {
         return OrderItem(context,
-                dateFormatter,
-                numberFormatter)
+            dateFormatter,
+            numberFormatter)
     }
 
     override fun getItemHolder(context: Context, viewType: Int): RecyclerView.ViewHolder {
@@ -36,7 +36,7 @@ class OrderAdapter(
     }
 
     class OrderViewHolder(orderView: OrderItem, onOrderItemClickListener: OnOrderItemClickListener?) :
-            RecyclerView.ViewHolder(orderView) {
+        RecyclerView.ViewHolder(orderView) {
 
         init {
             orderView.setOnClickListener {

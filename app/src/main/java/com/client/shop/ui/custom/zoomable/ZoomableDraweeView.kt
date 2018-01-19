@@ -33,9 +33,9 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
     private lateinit var mZoomableController: ZoomableController
     private val mControllerListener = object : BaseControllerListener<Any>() {
         override fun onFinalImageSet(
-                id: String?,
-                imageInfo: Any?,
-                animatable: Animatable?) {
+            id: String?,
+            imageInfo: Any?,
+            animatable: Animatable?) {
             this@ZoomableDraweeView.onFinalImageSet()
         }
 
@@ -75,7 +75,7 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
     protected fun inflateHierarchy(context: Context, attrs: AttributeSet?) {
         val resources = context.resources
         val builder = GenericDraweeHierarchyBuilder(resources)
-                .setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER)
+            .setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER)
         GenericDraweeHierarchyInflater.updateBuilder(builder, context, attrs)
         aspectRatio = builder.desiredAspectRatio
         hierarchy = builder.build()
@@ -161,7 +161,7 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
      * @param allowTouchInterceptionWhileZoomed true if the parent needs to intercept touches
      */
     fun setAllowTouchInterceptionWhileZoomed(
-            allowTouchInterceptionWhileZoomed: Boolean) {
+        allowTouchInterceptionWhileZoomed: Boolean) {
         mAllowTouchInterceptionWhileZoomed = allowTouchInterceptionWhileZoomed
     }
 
@@ -203,16 +203,16 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
      * @param hugeImageController controller to be used after the client starts zooming-in
      */
     private fun setControllers(
-            controller: DraweeController?,
-            hugeImageController: DraweeController?) {
+        controller: DraweeController?,
+        hugeImageController: DraweeController?) {
         setControllersInternal(null, null)
         mZoomableController.setEnabled(false)
         setControllersInternal(controller, hugeImageController)
     }
 
     private fun setControllersInternal(
-            controller: DraweeController?,
-            hugeImageController: DraweeController?) {
+        controller: DraweeController?,
+        hugeImageController: DraweeController?) {
         removeControllerListener(getController())
         addControllerListener(controller)
         mHugeImageController = hugeImageController
@@ -244,8 +244,8 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
                 val callerContext = controller.callerContext
                 if (callerContext != null) {
                     throw RuntimeException(
-                            String.format("Exception in onDraw, callerContext=%s", callerContext.toString()),
-                            e)
+                        String.format("Exception in onDraw, callerContext=%s", callerContext.toString()),
+                        e)
                 }
             }
             throw e

@@ -9,15 +9,15 @@ import javax.inject.Inject
 interface OrderDetailsView : BaseLceView<Order>
 
 class OrderDetailsPresenter @Inject constructor(
-        private val orderDetailsUseCase: OrderDetailsUseCase
+    private val orderDetailsUseCase: OrderDetailsUseCase
 ) : BaseLcePresenter<Order, OrderDetailsView>(orderDetailsUseCase) {
 
     fun loadOrderDetails(orderId: String) {
 
         orderDetailsUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                orderId
+            { view?.showContent(it) },
+            { resolveError(it) },
+            orderId
         )
     }
 

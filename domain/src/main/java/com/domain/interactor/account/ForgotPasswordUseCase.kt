@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class ForgotPasswordUseCase @Inject constructor(private val authRepository: AuthRepository) :
-        CompletableUseCase<String>() {
+    CompletableUseCase<String>() {
 
     override fun buildUseCaseCompletable(params: String): Completable {
         return authRepository.forgotPassword(params)

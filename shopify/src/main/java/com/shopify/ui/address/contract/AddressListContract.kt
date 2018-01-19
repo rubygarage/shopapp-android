@@ -13,37 +13,37 @@ interface AddressListView : BaseLceView<List<Address>> {
 }
 
 class AddressListPresenter(
-        private val getCustomerUseCase: GetCustomerUseCase,
-        private val deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
-        private val setShippingAddressUseCase: SetShippingAddressUseCase
+    private val getCustomerUseCase: GetCustomerUseCase,
+    private val deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
+    private val setShippingAddressUseCase: SetShippingAddressUseCase
 ) :
-        BaseLcePresenter<List<Address>, AddressListView>(
-                getCustomerUseCase,
-                deleteCustomerAddressUseCase,
-                setShippingAddressUseCase
-        ) {
+    BaseLcePresenter<List<Address>, AddressListView>(
+        getCustomerUseCase,
+        deleteCustomerAddressUseCase,
+        setShippingAddressUseCase
+    ) {
 
     fun getAddressList() {
         getCustomerUseCase.execute(
-                { view?.showContent(it.addressList) },
-                { view?.showContent(emptyList()) },
-                Unit
+            { view?.showContent(it.addressList) },
+            { view?.showContent(emptyList()) },
+            Unit
         )
     }
 
     fun deleteAddress(addressId: String) {
         deleteCustomerAddressUseCase.execute(
-                {},
-                { it.printStackTrace() },
-                addressId
+            {},
+            { it.printStackTrace() },
+            addressId
         )
     }
 
     fun setShippingAddress(checkoutId: String, address: Address) {
         setShippingAddressUseCase.execute(
-                { view?.selectedAddressChanged(address) },
-                { resolveError(it) },
-                SetShippingAddressUseCase.Params(checkoutId, address)
+            { view?.selectedAddressChanged(address) },
+            { resolveError(it) },
+            SetShippingAddressUseCase.Params(checkoutId, address)
         )
     }
 }

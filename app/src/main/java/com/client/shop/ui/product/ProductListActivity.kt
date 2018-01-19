@@ -18,8 +18,8 @@ import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
 class ProductListActivity :
-        PaginationActivity<Product, ProductListView, ProductListPresenter>(),
-        ProductListView {
+    PaginationActivity<Product, ProductListView, ProductListPresenter>(),
+    ProductListView {
 
     companion object {
 
@@ -37,7 +37,8 @@ class ProductListActivity :
         }
     }
 
-    @Inject lateinit var productListPresenter: ProductListPresenter
+    @Inject
+    lateinit var productListPresenter: ProductListPresenter
     private var keyPhrase: String? = null
     private lateinit var sortType: SortType
 

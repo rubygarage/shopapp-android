@@ -11,11 +11,11 @@ import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class OptionsAdapter(
-        defaultVariantOption: VariantOption,
-        dataList: List<String>,
-        onItemClickListener: OnItemClickListener
+    defaultVariantOption: VariantOption,
+    dataList: List<String>,
+    onItemClickListener: OnItemClickListener
 ) :
-        BaseRecyclerAdapter<String>(dataList, onItemClickListener) {
+    BaseRecyclerAdapter<String>(dataList, onItemClickListener) {
 
     var selectedVariantOptions: VariantOption? = defaultVariantOption
     private val selectedBackgroundRes: Int = R.drawable.background_selected_variant
@@ -26,7 +26,7 @@ class OptionsAdapter(
     override fun getItemView(context: Context, viewType: Int): View {
         val itemView = TextView(context)
         itemView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                context.resources.getDimension(R.dimen.variant_text_size))
+            context.resources.getDimension(R.dimen.variant_text_size))
         return itemView
     }
 

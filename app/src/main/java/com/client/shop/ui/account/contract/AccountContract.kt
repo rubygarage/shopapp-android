@@ -20,43 +20,43 @@ interface AccountView : BaseLceView<Boolean> {
 }
 
 class AccountPresenter @Inject constructor(
-        private val sessionCheckUseCase: SessionCheckUseCase,
-        private val signOutUseCase: SignOutUseCase,
-        private val shopInfoUseCase: ShopInfoUseCase,
-        private val getCustomerUseCase: GetCustomerUseCase
+    private val sessionCheckUseCase: SessionCheckUseCase,
+    private val signOutUseCase: SignOutUseCase,
+    private val shopInfoUseCase: ShopInfoUseCase,
+    private val getCustomerUseCase: GetCustomerUseCase
 ) :
-        BaseLcePresenter<Boolean, AccountView>(sessionCheckUseCase, signOutUseCase,
-                shopInfoUseCase, getCustomerUseCase) {
+    BaseLcePresenter<Boolean, AccountView>(sessionCheckUseCase, signOutUseCase,
+        shopInfoUseCase, getCustomerUseCase) {
 
     fun isAuthorized() {
         sessionCheckUseCase.execute(
-                { view?.showContent(it) },
-                { resolveError(it) },
-                Unit
+            { view?.showContent(it) },
+            { resolveError(it) },
+            Unit
         )
     }
 
     fun getShopInfo() {
         shopInfoUseCase.execute(
-                { view?.shopReceived(it) },
-                { resolveError(it) },
-                Unit
+            { view?.shopReceived(it) },
+            { resolveError(it) },
+            Unit
         )
     }
 
     fun getCustomer() {
         getCustomerUseCase.execute(
-                { view?.customerReceived(it) },
-                {},
-                Unit
+            { view?.customerReceived(it) },
+            {},
+            Unit
         )
     }
 
     fun signOut() {
         signOutUseCase.execute(
-                { view?.signedOut() },
-                { resolveError(it) },
-                Unit
+            { view?.signedOut() },
+            { resolveError(it) },
+            Unit
         )
     }
 }

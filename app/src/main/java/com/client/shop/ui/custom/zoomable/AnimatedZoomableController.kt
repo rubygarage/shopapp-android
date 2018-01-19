@@ -35,9 +35,9 @@ constructor(transformGestureDetector: TransformGestureDetector) : AbstractAnimat
 
     @SuppressLint("NewApi")
     override fun setTransformAnimated(
-            newTransform: Matrix,
-            durationMs: Long,
-            onAnimationComplete: Runnable?) {
+        newTransform: Matrix,
+        durationMs: Long,
+        onAnimationComplete: Runnable?) {
         stopAnimation()
         Preconditions.checkArgument(durationMs > 0)
         Preconditions.checkState(!isAnimating)

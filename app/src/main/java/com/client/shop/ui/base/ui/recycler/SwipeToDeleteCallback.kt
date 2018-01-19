@@ -26,7 +26,7 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
         val foregroundView: View? = viewHolder?.itemView?.findViewById(R.id.foregroundView)
         foregroundView?.let {
             ItemTouchHelper.Callback.getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
-                    actionState, isCurrentlyActive)
+                actionState, isCurrentlyActive)
         }
     }
 
@@ -43,7 +43,7 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
         val foregroundView: View? = viewHolder?.itemView?.findViewById(R.id.foregroundView)
         foregroundView?.let {
             ItemTouchHelper.Callback.getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
-                    actionState, isCurrentlyActive)
+                actionState, isCurrentlyActive)
         }
     }
 }

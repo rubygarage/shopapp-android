@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class SignInUseCase @Inject constructor(private val authRepository: AuthRepository) :
-        CompletableUseCase<SignInUseCase.Params>() {
+    CompletableUseCase<SignInUseCase.Params>() {
 
     override fun buildUseCaseCompletable(params: Params): Completable {
         return with(params) {
@@ -15,7 +15,7 @@ class SignInUseCase @Inject constructor(private val authRepository: AuthReposito
     }
 
     data class Params(
-            val email: String,
-            val password: String
+        val email: String,
+        val password: String
     )
 }

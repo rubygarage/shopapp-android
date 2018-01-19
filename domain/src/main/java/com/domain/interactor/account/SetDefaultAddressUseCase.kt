@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class SetDefaultAddressUseCase @Inject constructor(private val authRepository: AuthRepository) :
-        CompletableUseCase<String>() {
+    CompletableUseCase<String>() {
 
     override fun buildUseCaseCompletable(params: String): Completable {
         return authRepository.setDefaultShippingAddress(params)

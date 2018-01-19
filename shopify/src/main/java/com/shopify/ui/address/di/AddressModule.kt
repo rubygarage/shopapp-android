@@ -14,26 +14,26 @@ class AddressModule {
 
     @Provides
     fun provideAddressPresenter(
-            formValidator: FieldValidator,
-            getCheckoutUseCase: GetCheckoutUseCase,
-            setShippingAddressUseCase: SetShippingAddressUseCase,
-            sessionCheckUseCase: SessionCheckUseCase,
-            createCustomerAddressUseCase: CreateCustomerAddressUseCase,
-            editCustomerAddressUseCase: EditCustomerAddressUseCase
+        formValidator: FieldValidator,
+        getCheckoutUseCase: GetCheckoutUseCase,
+        setShippingAddressUseCase: SetShippingAddressUseCase,
+        sessionCheckUseCase: SessionCheckUseCase,
+        createCustomerAddressUseCase: CreateCustomerAddressUseCase,
+        editCustomerAddressUseCase: EditCustomerAddressUseCase
     ): AddressPresenter = AddressPresenter(
-            formValidator,
-            getCheckoutUseCase,
-            setShippingAddressUseCase,
-            sessionCheckUseCase,
-            createCustomerAddressUseCase,
-            editCustomerAddressUseCase
+        formValidator,
+        getCheckoutUseCase,
+        setShippingAddressUseCase,
+        sessionCheckUseCase,
+        createCustomerAddressUseCase,
+        editCustomerAddressUseCase
     )
 
     @Provides
     fun provideAddressListPresenter(
-            getCustomerUseCase: GetCustomerUseCase,
-            deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
-            setShippingAddressUseCase: SetShippingAddressUseCase
-    ): AddressListPresenter
-            = AddressListPresenter(getCustomerUseCase, deleteCustomerAddressUseCase, setShippingAddressUseCase)
+        getCustomerUseCase: GetCustomerUseCase,
+        deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
+        setShippingAddressUseCase: SetShippingAddressUseCase
+    ): AddressListPresenter =
+        AddressListPresenter(getCustomerUseCase, deleteCustomerAddressUseCase, setShippingAddressUseCase)
 }

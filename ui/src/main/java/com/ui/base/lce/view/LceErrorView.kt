@@ -9,11 +9,11 @@ import com.ui.R
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 
 class LceErrorView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr),
-        LceView {
+    LceView {
 
     init {
         layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)

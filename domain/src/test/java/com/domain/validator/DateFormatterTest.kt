@@ -32,12 +32,12 @@ class DateFormatterTest {
     private fun getDateList(): List<Date> {
         val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
         return listOf(
-                simpleDateFormat.parse("17/12/2017"),
-                simpleDateFormat.parse("17/07/2017"),
-                simpleDateFormat.parse("13/11/2017"),
-                simpleDateFormat.parse("01/01/2018"),
-                simpleDateFormat.parse("17/10/2017"),
-                simpleDateFormat.parse("18/12/2017"),
-                simpleDateFormat.parse("19/12/2017"))
+            simpleDateFormat.parse("17/12/2017"),
+            simpleDateFormat.parse("17/07/2017"),
+            simpleDateFormat.parse("13/11/2017"),
+            simpleDateFormat.parse("01/01/2018"),
+            simpleDateFormat.parse("17/10/2017"),
+            simpleDateFormat.parse("18/12/2017"),
+            simpleDateFormat.parse("19/12/2017"))
     }
 }

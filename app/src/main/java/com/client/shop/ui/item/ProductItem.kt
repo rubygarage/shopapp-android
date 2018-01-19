@@ -11,10 +11,10 @@ import kotlinx.android.synthetic.main.item_recent.view.*
 
 @SuppressLint("ViewConstructor")
 class ProductItem(
-        context: Context,
-        viewWidth: Int,
-        viewHeight: Int,
-        private val formatter: NumberFormatter
+    context: Context,
+    viewWidth: Int,
+    viewHeight: Int,
+    private val formatter: NumberFormatter
 ) : ConstraintLayout(context) {
 
     init {

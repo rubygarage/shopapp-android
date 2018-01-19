@@ -1,8 +1,8 @@
 package com.data.dao.adapter
 
-import com.domain.entity.Image
 import com.data.dao.entity.ImageData
 import com.data.dao.entity.ImageDataEntity
+import com.domain.entity.Image
 
 object ImageAdapter {
 
@@ -21,9 +21,9 @@ object ImageAdapter {
     fun adaptFromStore(adaptee: ImageData?): Image? {
         return if (adaptee != null) {
             Image(
-                    adaptee.id,
-                    adaptee.src,
-                    adaptee.alt
+                adaptee.id,
+                adaptee.src,
+                adaptee.alt
             )
         } else {
             null

@@ -11,11 +11,11 @@ import com.domain.entity.VariantOption
 
 
 class OptionsGroupContainer @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) :
-        LinearLayoutCompat(context, attrs, defStyleAttr) {
+    LinearLayoutCompat(context, attrs, defStyleAttr) {
 
     companion object {
         const val ANIMATION_DURATION = 500L
@@ -31,7 +31,7 @@ class OptionsGroupContainer @JvmOverloads constructor(
     fun setProduct(product: Product) {
 
         visibility = if (product.options.isEmpty() ||
-                (product.options.size == 1 && product.options.first().values.size == 1)) {
+            (product.options.size == 1 && product.options.first().values.size == 1)) {
             View.GONE
         } else {
             alpha = 0f
@@ -56,12 +56,12 @@ class OptionsGroupContainer @JvmOverloads constructor(
 
         val selectedVariantOptions = mutableListOf<VariantOption>()
         (0 until childCount)
-                .map { getChildAt(it) as? OptionsContainer }
-                .map {
-                    it?.getSelectedVariantOption()?.let {
-                        selectedVariantOptions.add(it)
-                    }
+            .map { getChildAt(it) as? OptionsContainer }
+            .map {
+                it?.getSelectedVariantOption()?.let {
+                    selectedVariantOptions.add(it)
                 }
+            }
         val selectedVariant: ProductVariant? = product.variants.firstOrNull {
             it.selectedOptions.containsAll(selectedVariantOptions)
         }

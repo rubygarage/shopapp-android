@@ -17,16 +17,16 @@ data class Article(var id: String,
                    var paginationValue: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readParcelable<Image>(Image::class.java.classLoader),
-            source.readParcelable<Author>(Author::class.java.classLoader),
-            source.createStringArrayList(),
-            source.readString(),
-            source.readString(),
-            source.readSerializable() as Date,
-            source.readString()
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readParcelable<Image>(Image::class.java.classLoader),
+        source.readParcelable<Author>(Author::class.java.classLoader),
+        source.createStringArrayList(),
+        source.readString(),
+        source.readString(),
+        source.readSerializable() as Date,
+        source.readString()
     )
 
     override fun describeContents() = 0

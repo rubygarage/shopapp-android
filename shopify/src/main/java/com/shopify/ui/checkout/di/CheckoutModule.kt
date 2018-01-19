@@ -14,16 +14,16 @@ class CheckoutModule {
 
     @Provides
     fun provideCheckoutPresenter(
-            cartItemsUseCase: CartItemsUseCase,
-            createCheckoutUseCase: CreateCheckoutUseCase,
-            getCheckoutUseCase: GetCheckoutUseCase,
-            getCustomerUseCase: GetCustomerUseCase,
-            setShippingAddressUseCase: SetShippingAddressUseCase
+        cartItemsUseCase: CartItemsUseCase,
+        createCheckoutUseCase: CreateCheckoutUseCase,
+        getCheckoutUseCase: GetCheckoutUseCase,
+        getCustomerUseCase: GetCustomerUseCase,
+        setShippingAddressUseCase: SetShippingAddressUseCase
     ): CheckoutPresenter = CheckoutPresenter(
-            cartItemsUseCase,
-            createCheckoutUseCase,
-            getCheckoutUseCase,
-            getCustomerUseCase,
-            setShippingAddressUseCase
+        cartItemsUseCase,
+        createCheckoutUseCase,
+        getCheckoutUseCase,
+        getCustomerUseCase,
+        setShippingAddressUseCase
     )
 }

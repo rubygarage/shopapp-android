@@ -15,8 +15,8 @@ import com.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.fragment_lce.*
 
 abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
-        MvpFragment<V, P>(),
-        BaseLceView<M> {
+    MvpFragment<V, P>(),
+    BaseLceView<M> {
 
     //ANDROID
 

@@ -8,7 +8,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SetShippingAddressUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :
-        SingleUseCase<Checkout, SetShippingAddressUseCase.Params>() {
+    SingleUseCase<Checkout, SetShippingAddressUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<Checkout> {
         return checkoutRepository.setShippingAddress(params.checkoutId, params.address)

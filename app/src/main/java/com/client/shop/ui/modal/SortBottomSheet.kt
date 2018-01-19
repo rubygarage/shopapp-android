@@ -28,14 +28,14 @@ class SortBottomSheet(context: Context, listener: OnSortTypeSelectListener) : Bo
         context.theme.resolveAttribute(android.R.attr.selectableItemBackground, outValue, true)
 
         (1 until containerLayout.childCount)
-                .map { containerLayout.getChildAt(it) }
-                .forEach {
-                    if (it is TextView && it.text == selectedSortType.value) {
-                        it.setBackgroundResource(R.color.selectedColor)
-                    } else if (it is TextView) {
-                        it.setBackgroundResource(outValue.resourceId)
-                    }
+            .map { containerLayout.getChildAt(it) }
+            .forEach {
+                if (it is TextView && it.text == selectedSortType.value) {
+                    it.setBackgroundResource(R.color.selectedColor)
+                } else if (it is TextView) {
+                    it.setBackgroundResource(outValue.resourceId)
                 }
+            }
         super.show()
     }
 

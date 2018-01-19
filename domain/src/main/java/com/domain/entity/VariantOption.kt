@@ -6,8 +6,8 @@ import android.os.Parcelable
 data class VariantOption(var name: String, var value: String) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString()
+        source.readString(),
+        source.readString()
     )
 
     override fun describeContents() = 0

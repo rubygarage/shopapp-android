@@ -4,14 +4,14 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class ProductOption(var id: String,
-                    var name: String,
-                    var values: List<String>
+                         var name: String,
+                         var values: List<String>
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.createStringArrayList()
+        source.readString(),
+        source.readString(),
+        source.createStringArrayList()
     )
 
     override fun describeContents() = 0

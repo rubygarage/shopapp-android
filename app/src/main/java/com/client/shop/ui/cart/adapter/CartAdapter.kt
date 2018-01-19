@@ -2,14 +2,14 @@ package com.client.shop.ui.cart.adapter
 
 import android.content.Context
 import android.view.View
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.item.cart.CartItem
 import com.domain.entity.CartProduct
 import com.domain.formatter.NumberFormatter
+import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class CartAdapter(dataList: List<CartProduct>, onItemClickListener: OnItemClickListener) :
-        BaseRecyclerAdapter<CartProduct>(dataList, onItemClickListener) {
+    BaseRecyclerAdapter<CartProduct>(dataList, onItemClickListener) {
 
     var actionListener: CartItem.ActionListener? = null
     private val formatter = NumberFormatter()

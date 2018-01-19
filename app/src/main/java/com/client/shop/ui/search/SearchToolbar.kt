@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
 
 
 class SearchToolbar @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), View.OnClickListener {
 
     var searchToolbarListener: SearchToolbarListener? = null
@@ -82,11 +82,11 @@ class SearchToolbar @JvmOverloads constructor(
         searchInput.addTextChangedListener(inputTextWatcher)
         searchProcessor.let {
             searchDisposable = it
-                    .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ query ->
-                        searchToolbarListener?.onQueryChanged(query)
-                    }, { error -> error.printStackTrace() })
+                .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ query ->
+                    searchToolbarListener?.onQueryChanged(query)
+                }, { error -> error.printStackTrace() })
         }
     }
 

@@ -4,29 +4,29 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Address(
-        val id: String = NO_ID,
-        val address: String,
-        val secondAddress: String?,
-        val city: String,
-        val country: String,
-        val state: String?,
-        val firstName: String,
-        val lastName: String,
-        val zip: String,
-        val phone: String?
+    val id: String = NO_ID,
+    val address: String,
+    val secondAddress: String?,
+    val city: String,
+    val country: String,
+    val state: String?,
+    val firstName: String,
+    val lastName: String,
+    val zip: String,
+    val phone: String?
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString()
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString()
     )
 
     override fun describeContents() = 0

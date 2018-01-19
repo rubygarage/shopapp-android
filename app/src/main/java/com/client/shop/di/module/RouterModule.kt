@@ -14,4 +14,5 @@ class RouterModule(private val shopWrapper: ShopWrapper) {
     fun provideRouter(): ExternalRouter {
         return shopWrapper.router
     }
+
 }

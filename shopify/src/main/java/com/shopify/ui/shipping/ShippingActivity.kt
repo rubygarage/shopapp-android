@@ -19,10 +19,11 @@ import kotlinx.android.synthetic.main.activity_shipping.*
 import javax.inject.Inject
 
 class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, ShippingPresenter>(),
-        ShippingView,
-        ShippingBottomSheet.OnShippingRateSelectListener {
+    ShippingView,
+    ShippingBottomSheet.OnShippingRateSelectListener {
 
-    @Inject lateinit var shippingPresenter: ShippingPresenter
+    @Inject
+    lateinit var shippingPresenter: ShippingPresenter
     private lateinit var checkout: Checkout
     private lateinit var payment: String
     private lateinit var email: String
@@ -36,10 +37,10 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
         private const val PAYMENT = "payment"
 
         fun getStartIntentWithCard(context: Context, checkout: Checkout): Intent =
-                getStartIntent(context, CARD_PAYMENT, checkout)
+            getStartIntent(context, CARD_PAYMENT, checkout)
 
         fun getStartIntentWithAndroid(context: Context, checkout: Checkout): Intent =
-                getStartIntent(context, ANDROID_PAYMENT, checkout)
+            getStartIntent(context, ANDROID_PAYMENT, checkout)
 
         private fun getStartIntent(context: Context, payment: String, checkout: Checkout): Intent {
             val intent = Intent(context, ShippingActivity::class.java)

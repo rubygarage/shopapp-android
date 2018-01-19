@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class OrderDetailsUseCase @Inject constructor(private val orderRepository: OrderRepository) :
-        SingleUseCase<Order, String>() {
+    SingleUseCase<Order, String>() {
 
     override fun buildUseCaseSingle(params: String): Single<Order> {
         return orderRepository.getOrder(params)

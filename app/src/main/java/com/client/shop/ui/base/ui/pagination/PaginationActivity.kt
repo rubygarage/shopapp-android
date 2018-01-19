@@ -17,9 +17,9 @@ import com.ui.base.recycler.divider.GridSpaceDecoration
 import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 
 abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresenter<List<M>, V>> :
-        BaseActivity<List<M>, V, P>(),
-        OnItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener {
+    BaseActivity<List<M>, V, P>(),
+    OnItemClickListener,
+    SwipeRefreshLayout.OnRefreshListener {
 
     protected var paginationValue: String? = null
     protected val dataList = mutableListOf<M>()

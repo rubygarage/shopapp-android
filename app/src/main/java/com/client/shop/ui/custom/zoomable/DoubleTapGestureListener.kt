@@ -57,19 +57,19 @@ class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) : Ge
                     val minScale = zc.minScaleFactor
                     if (zc.getScaleFactor() < (maxScale + minScale) / 2) {
                         zc.zoomToPoint(
-                                maxScale,
-                                ip,
-                                vp,
-                                DefaultZoomableController.LIMIT_ALL,
-                                DURATION_MS.toLong(),
-                                null)
+                            maxScale,
+                            ip,
+                            vp,
+                            DefaultZoomableController.LIMIT_ALL,
+                            DURATION_MS.toLong(),
+                            null)
                     } else {
                         zc.zoomToPoint(
-                                minScale,
-                                ip,
-                                vp,
-                                DefaultZoomableController.LIMIT_ALL,
-                                DURATION_MS.toLong(), null)
+                            minScale,
+                            ip,
+                            vp,
+                            DefaultZoomableController.LIMIT_ALL,
+                            DURATION_MS.toLong(), null)
                     }
                 }
                 mDoubleTapScroll = false
@@ -80,8 +80,8 @@ class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) : Ge
 
     private fun shouldStartDoubleTapScroll(viewPoint: PointF): Boolean {
         val dist = Math.hypot(
-                (viewPoint.x - mDoubleTapViewPoint.x).toDouble(),
-                (viewPoint.y - mDoubleTapViewPoint.y).toDouble())
+            (viewPoint.x - mDoubleTapViewPoint.x).toDouble(),
+            (viewPoint.y - mDoubleTapViewPoint.y).toDouble())
         return dist > DOUBLE_TAP_SCROLL_THRESHOLD
     }
 

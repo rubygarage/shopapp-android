@@ -19,9 +19,10 @@ import kotlinx.android.synthetic.main.activity_sign_in.*
 import javax.inject.Inject
 
 class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
-        SignInView {
+    SignInView {
 
-    @Inject lateinit var signInPresenter: SignInPresenter
+    @Inject
+    lateinit var signInPresenter: SignInPresenter
     private lateinit var emailTextWatcher: TextWatcher
     private lateinit var passwordTextWatcher: TextWatcher
 

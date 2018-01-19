@@ -12,7 +12,7 @@ import com.shopify.api.R
 import kotlinx.android.synthetic.main.item_address.view.*
 
 class AddressItem(context: Context) : ConstraintLayout(context),
-        CompoundButton.OnCheckedChangeListener {
+    CompoundButton.OnCheckedChangeListener {
 
     var actionListener: ActionListener? = null
     private lateinit var address: Address

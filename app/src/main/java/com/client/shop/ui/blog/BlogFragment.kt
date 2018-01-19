@@ -2,7 +2,6 @@ package com.client.shop.ui.blog
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.client.shop.R
@@ -15,15 +14,17 @@ import com.domain.entity.Article
 import com.ui.base.lce.BaseFragment
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.ui.custom.DividerItemDecorator
 import kotlinx.android.synthetic.main.fragment_blog.*
 import javax.inject.Inject
 
 class BlogFragment :
-        BaseFragment<List<Article>, BlogView, BlogPresenter>(),
-        BlogView,
-        OnItemClickListener {
+    BaseFragment<List<Article>, BlogView, BlogPresenter>(),
+    BlogView,
+    OnItemClickListener {
 
-    @Inject lateinit var blogPresenter: BlogPresenter
+    @Inject
+    lateinit var blogPresenter: BlogPresenter
     private var articleList = mutableListOf<Article>()
     private lateinit var adapter: BlogAdapter
 
@@ -44,8 +45,8 @@ class BlogFragment :
     private fun setupRecycler() {
         adapter = BlogAdapter(articleList, this)
         val layoutManager = LinearLayoutManager(context)
-        val divider = DividerItemDecoration(context, layoutManager.orientation)
-        divider.setDrawable(ContextCompat.getDrawable(context, R.drawable.divider_line))
+        val divider =
+            DividerItemDecorator(ContextCompat.getDrawable(context, R.drawable.divider_line))
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false

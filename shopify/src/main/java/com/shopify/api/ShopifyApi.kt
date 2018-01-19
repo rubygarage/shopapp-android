@@ -31,9 +31,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val graphClient: GraphClient = GraphClient.builder(context)
-            .shopDomain(baseUrl)
-            .accessToken(accessToken)
-            .build()
+        .shopDomain(baseUrl)
+        .accessToken(accessToken)
+        .build()
 
     init {
         JodaTimeAndroid.init(context)
@@ -52,10 +52,10 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     private fun saveSession(accessData: AccessData) {
         preferences.edit()
-                .putString(EMAIL, accessData.email)
-                .putString(ACCESS_TOKEN, accessData.accessToken)
-                .putLong(EXPIRES_DATE, accessData.expiresAt)
-                .apply()
+            .putString(EMAIL, accessData.email)
+            .putString(ACCESS_TOKEN, accessData.accessToken)
+            .putLong(EXPIRES_DATE, accessData.expiresAt)
+            .apply()
     }
 
     private fun getSession(): AccessData? {
@@ -65,9 +65,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val isExpired = expiresDate <= System.currentTimeMillis()
         return if (email != null && accessToken != null && !isExpired) {
             AccessData(
-                    email,
-                    accessToken,
-                    expiresDate
+                email,
+                accessToken,
+                expiresDate
             )
         } else {
             null
@@ -76,10 +76,10 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     private fun removeSession() {
         preferences.edit()
-                .remove(EMAIL)
-                .remove(ACCESS_TOKEN)
-                .remove(EXPIRES_DATE)
-                .apply()
+            .remove(EMAIL)
+            .remove(ACCESS_TOKEN)
+            .remove(EXPIRES_DATE)
+            .apply()
     }
 
     override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
@@ -102,38 +102,38 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val nodeId = ID(id)
         val query = Storefront.query { queryBuilder ->
             queryBuilder
-                    .shop { shopQueryBuilder -> shopQueryBuilder.paymentSettings({ it.currencyCode() }) }
-                    .node(nodeId) { nodeQuery ->
-                        nodeQuery.id()
-                        nodeQuery.onProduct { productQuery ->
-                            getDefaultProductQuery(productQuery)
-                                    .descriptionHtml()
-                                    .images({ it.first(ITEMS_COUNT) }, { imageConnectionQuery ->
-                                        imageConnectionQuery.edges({ imageEdgeQuery ->
-                                            imageEdgeQuery.node({ imageQuery ->
-                                                imageQuery
-                                                        .id()
-                                                        .src()
-                                                        .altText()
-                                            })
-                                        })
+                .shop { shopQueryBuilder -> shopQueryBuilder.paymentSettings({ it.currencyCode() }) }
+                .node(nodeId) { nodeQuery ->
+                    nodeQuery.id()
+                    nodeQuery.onProduct { productQuery ->
+                        getDefaultProductQuery(productQuery)
+                            .descriptionHtml()
+                            .images({ it.first(ITEMS_COUNT) }, { imageConnectionQuery ->
+                                imageConnectionQuery.edges({ imageEdgeQuery ->
+                                    imageEdgeQuery.node({ imageQuery ->
+                                        imageQuery
+                                            .id()
+                                            .src()
+                                            .altText()
                                     })
-                                    .variants({ it.first(ITEMS_COUNT) }) { productVariantConnectionQuery ->
-                                        productVariantConnectionQuery
-                                                .edges { productVariantEdgeQuery ->
-                                                    productVariantEdgeQuery
-                                                            .node { productVariantQuery ->
-                                                                getDefaultProductVariantQuery(productVariantQuery)
-                                                            }
-                                                }
+                                })
+                            })
+                            .variants({ it.first(ITEMS_COUNT) }) { productVariantConnectionQuery ->
+                                productVariantConnectionQuery
+                                    .edges { productVariantEdgeQuery ->
+                                        productVariantEdgeQuery
+                                            .node { productVariantQuery ->
+                                                getDefaultProductVariantQuery(productVariantQuery)
+                                            }
                                     }
-                                    .options({ args -> args.first(ITEMS_COUNT) }, { optionsQuery ->
-                                        optionsQuery
-                                                .name()
-                                                .values()
-                                    })
-                        }
+                            }
+                            .options({ args -> args.first(ITEMS_COUNT) }, { optionsQuery ->
+                                optionsQuery
+                                    .name()
+                                    .values()
+                            })
                     }
+                }
         }
 
         val call = graphClient.queryGraph(query)
@@ -156,16 +156,16 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }) {
                     it.edges {
                         it.cursor()
-                                .node {
-                                    it.title()
-                                            .description()
-                                            .updatedAt()
-                                            .image({
-                                                it.id()
-                                                        .src()
-                                                        .altText()
-                                            })
-                                }
+                            .node {
+                                it.title()
+                                    .description()
+                                    .updatedAt()
+                                    .image({
+                                        it.id()
+                                            .src()
+                                            .altText()
+                                    })
+                            }
                     }
                 }
             }
@@ -187,59 +187,59 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val nodeId = ID(id)
         val query = Storefront.query { rootQuery ->
             rootQuery
-                    .shop { shopQuery -> shopQuery.paymentSettings({ it.currencyCode() }) }
-                    .node(nodeId) { nodeQuery ->
-                        nodeQuery
-                                .id()
-                                .onCollection { builder ->
-                                    builder.title()
-                                            .description()
-                                            .descriptionHtml()
-                                            .updatedAt()
-                                            .image({ imageQuery ->
-                                                imageQuery
-                                                        .id()
-                                                        .src()
-                                                        .altText()
-                                            })
-                                            .products({ args ->
-                                                args.first(ITEMS_COUNT)
-                                                if (paginationValue != null) {
-                                                    args.after(paginationValue.toString())
-                                                }
-                                                val key = getProductCollectionSortKey(sortBy)
-                                                if (key != null) {
-                                                    args.sortKey(key)
-                                                }
-                                                args.reverse(reverse)
-                                            }, { productConnectionQuery ->
-                                                productConnectionQuery.edges({ productEdgeQuery ->
-                                                    productEdgeQuery
-                                                            .cursor()
-                                                            .node({ productQuery ->
-                                                                getDefaultProductQuery(productQuery)
-                                                                        .images({ it.first(1) }, { imageConnectionQuery ->
-                                                                            imageConnectionQuery.edges({ imageEdgeQuery ->
-                                                                                imageEdgeQuery.node({ imageQuery ->
-                                                                                    imageQuery
-                                                                                            .id()
-                                                                                            .src()
-                                                                                            .altText()
-                                                                                })
-                                                                            })
-                                                                        })
-                                                                        .variants({ it.first(1) }) { productVariantConnectionQuery ->
-                                                                            productVariantConnectionQuery.edges { productVariantEdgeQuery ->
-                                                                                productVariantEdgeQuery.node({
-                                                                                    getDefaultProductVariantQuery(it)
-                                                                                })
-                                                                            }
-                                                                        }
+                .shop { shopQuery -> shopQuery.paymentSettings({ it.currencyCode() }) }
+                .node(nodeId) { nodeQuery ->
+                    nodeQuery
+                        .id()
+                        .onCollection { builder ->
+                            builder.title()
+                                .description()
+                                .descriptionHtml()
+                                .updatedAt()
+                                .image({ imageQuery ->
+                                    imageQuery
+                                        .id()
+                                        .src()
+                                        .altText()
+                                })
+                                .products({ args ->
+                                    args.first(ITEMS_COUNT)
+                                    if (paginationValue != null) {
+                                        args.after(paginationValue.toString())
+                                    }
+                                    val key = getProductCollectionSortKey(sortBy)
+                                    if (key != null) {
+                                        args.sortKey(key)
+                                    }
+                                    args.reverse(reverse)
+                                }, { productConnectionQuery ->
+                                    productConnectionQuery.edges({ productEdgeQuery ->
+                                        productEdgeQuery
+                                            .cursor()
+                                            .node({ productQuery ->
+                                                getDefaultProductQuery(productQuery)
+                                                    .images({ it.first(1) }, { imageConnectionQuery ->
+                                                        imageConnectionQuery.edges({ imageEdgeQuery ->
+                                                            imageEdgeQuery.node({ imageQuery ->
+                                                                imageQuery
+                                                                    .id()
+                                                                    .src()
+                                                                    .altText()
                                                             })
-                                                })
+                                                        })
+                                                    })
+                                                    .variants({ it.first(1) }) { productVariantConnectionQuery ->
+                                                        productVariantConnectionQuery.edges { productVariantEdgeQuery ->
+                                                            productVariantEdgeQuery.node({
+                                                                getDefaultProductVariantQuery(it)
+                                                            })
+                                                        }
+                                                    }
                                             })
-                                }
-                    }
+                                    })
+                                })
+                        }
+                }
         }
 
         val call = graphClient.queryGraph(query)
@@ -255,11 +255,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val query = Storefront.query { rootQuery ->
             rootQuery.shop { shopQuery ->
                 shopQuery
-                        .name()
-                        .description()
-                        .privacyPolicy { shopPolicyQuery -> shopPolicyQuery.title().body().url() }
-                        .refundPolicy { refundPolicyQuery -> refundPolicyQuery.title().body().url() }
-                        .termsOfService { termsOfServiceQuery -> termsOfServiceQuery.title().body().url() }
+                    .name()
+                    .description()
+                    .privacyPolicy { shopPolicyQuery -> shopPolicyQuery.title().body().url() }
+                    .refundPolicy { refundPolicyQuery -> refundPolicyQuery.title().body().url() }
+                    .termsOfService { termsOfServiceQuery -> termsOfServiceQuery.title().body().url() }
             }
         }
 
@@ -326,8 +326,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                         password: String, phone: String, callback: ApiCallback<Unit>) {
 
         val customerCreateInput = Storefront.CustomerCreateInput(email, password)
-                .setFirstName(firstName)
-                .setLastName(lastName)
+            .setFirstName(firstName)
+            .setLastName(lastName)
 
         if (phone.isNotBlank()) {
             customerCreateInput.phone = phone
@@ -335,7 +335,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         val customerQuery = Storefront.CustomerCreatePayloadQueryDefinition {
             it.customer { getDefaultCustomerQuery(it) }
-                    .userErrors { getDefaultUserErrors(it) }
+                .userErrors { getDefaultUserErrors(it) }
         }
 
         val mutationQuery = Storefront.mutation { query -> query.customerCreate(customerCreateInput, customerQuery) }
@@ -439,15 +439,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
         } else {
             val mailingAddressInput = Storefront.MailingAddressInput()
-                    .setAddress1(address.address)
-                    .setAddress2(address.secondAddress)
-                    .setCity(address.city)
-                    .setProvince(address.state)
-                    .setCountry(address.country)
-                    .setFirstName(address.firstName)
-                    .setLastName(address.lastName)
-                    .setPhone(address.phone)
-                    .setZip(address.zip)
+                .setAddress1(address.address)
+                .setAddress2(address.secondAddress)
+                .setCity(address.city)
+                .setProvince(address.state)
+                .setCountry(address.country)
+                .setFirstName(address.firstName)
+                .setLastName(address.lastName)
+                .setPhone(address.phone)
+                .setZip(address.zip)
 
             val mutation = Storefront.mutation {
                 it.customerAddressCreate(session.accessToken, mailingAddressInput, {
@@ -481,15 +481,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             val mutation = Storefront.mutation {
 
                 val mailingAddressInput = Storefront.MailingAddressInput()
-                        .setAddress1(address.address)
-                        .setAddress2(address.secondAddress)
-                        .setCity(address.city)
-                        .setProvince(address.state)
-                        .setCountry(address.country)
-                        .setFirstName(address.firstName)
-                        .setLastName(address.lastName)
-                        .setPhone(address.phone)
-                        .setZip(address.zip)
+                    .setAddress1(address.address)
+                    .setAddress2(address.secondAddress)
+                    .setCity(address.city)
+                    .setProvince(address.state)
+                    .setCountry(address.country)
+                    .setFirstName(address.firstName)
+                    .setLastName(address.lastName)
+                    .setPhone(address.phone)
+                    .setZip(address.zip)
 
                 it.customerAddressUpdate(session.accessToken, ID(addressId), mailingAddressInput, {
                     it.customerAddress { it.firstName() }
@@ -575,7 +575,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val accessTokenInput = Storefront.CustomerAccessTokenCreateInput(email, password)
         val accessTokenQuery = Storefront.CustomerAccessTokenCreatePayloadQueryDefinition { queryDefinition ->
             queryDefinition.customerAccessToken { accessTokenQuery -> accessTokenQuery.accessToken().expiresAt() }
-                    .userErrors { getDefaultUserErrors(it) }
+                .userErrors { getDefaultUserErrors(it) }
         }
 
         val mutationQuery = Storefront.mutation { query -> query.customerAccessTokenCreate(accessTokenInput, accessTokenQuery) }
@@ -595,15 +595,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Checkout>) {
 
         val input = Storefront.CheckoutCreateInput().setLineItems(
-                cartProductList.map {
-                    Storefront.CheckoutLineItemInput(it.quantity, ID(it.productVariant.id))
-                }
+            cartProductList.map {
+                Storefront.CheckoutLineItemInput(it.quantity, ID(it.productVariant.id))
+            }
         )
 
         val mutateQuery = Storefront.mutation {
             it.checkoutCreate(input) {
                 it.checkout { getDefaultCheckoutQuery(it) }
-                        .userErrors { getDefaultUserErrors(it) }
+                    .userErrors { getDefaultUserErrors(it) }
             }
         }
 
@@ -627,7 +627,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             it.shop {
                 it.paymentSettings {
                     it.currencyCode()
-                            .countryCode()
+                        .countryCode()
                 }
             }
         }
@@ -663,15 +663,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     fun setShippingAddress(checkoutId: String, address: Address, callback: ApiCallback<Checkout>) {
 
         val mailingAddressInput = Storefront.MailingAddressInput()
-                .setAddress1(address.address)
-                .setAddress2(address.secondAddress)
-                .setCity(address.city)
-                .setProvince(address.state)
-                .setCountry(address.country)
-                .setFirstName(address.firstName)
-                .setLastName(address.lastName)
-                .setPhone(address.phone)
-                .setZip(address.zip)
+            .setAddress1(address.address)
+            .setAddress2(address.secondAddress)
+            .setCity(address.city)
+            .setProvince(address.state)
+            .setCountry(address.country)
+            .setFirstName(address.firstName)
+            .setLastName(address.lastName)
+            .setPhone(address.phone)
+            .setZip(address.zip)
 
         val checkoutQuery = Storefront.mutation {
             it.checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), {
@@ -698,25 +698,25 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     fun getShippingRates(checkoutId: String, email: String, address: Address, callback: ApiCallback<List<ShippingRate>>) {
 
         val mailingAddressInput = Storefront.MailingAddressInput()
-                .setAddress1(address.address)
-                .setCity(address.city)
-                .setCountry(address.country)
-                .setFirstName(address.firstName)
-                .setLastName(address.lastName)
-                .setPhone(address.phone)
-                .setZip(address.zip)
+            .setAddress1(address.address)
+            .setCity(address.city)
+            .setCountry(address.country)
+            .setFirstName(address.firstName)
+            .setLastName(address.lastName)
+            .setPhone(address.phone)
+            .setZip(address.zip)
 
         val checkoutQuery = Storefront.mutation {
             it.checkoutEmailUpdate(ID(checkoutId), email, { it.checkout { } })
-                    .checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), { it.checkout { } })
+                .checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), { it.checkout { } })
         }
 
         val retryHandler = RetryHandler.delay(RETRY_HANDLER_DELAY, TimeUnit.MILLISECONDS)
-                .maxCount(RETRY_HANDLER_MAX_COUNT)
-                .whenResponse<Storefront.QueryRoot> {
-                    val checkout = (it.data()?.node as? Storefront.Checkout)
-                    checkout?.availableShippingRates?.let { !it.ready } ?: true
-                }.build()
+            .maxCount(RETRY_HANDLER_MAX_COUNT)
+            .whenResponse<Storefront.QueryRoot> {
+                val checkout = (it.data()?.node as? Storefront.Checkout)
+                checkout?.availableShippingRates?.let { !it.ready } ?: true
+            }.build()
 
         val checkoutCallback = object : GraphCall.Callback<Storefront.Mutation> {
             override fun onFailure(error: GraphError) {
@@ -729,11 +729,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                         it.onCheckout {
                             it.availableShippingRates {
                                 it.ready()
-                                        .shippingRates {
-                                            it.title()
-                                                    .price()
-                                                    .handle()
-                                        }
+                                    .shippingRates {
+                                        it.title()
+                                            .price()
+                                            .handle()
+                                    }
                             }
                         }
                     })
@@ -762,14 +762,14 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val checkoutQuery = Storefront.mutation {
             it.checkoutShippingLineUpdate(ID(checkoutId), shippingRate.handle, {
                 it.userErrors { getDefaultUserErrors(it) }
-                        .checkout {
-                            it
-                                    .webUrl()
-                                    .requiresShipping()
-                                    .subtotalPrice()
-                                    .totalPrice()
-                                    .totalTax()
-                        }
+                    .checkout {
+                        it
+                            .webUrl()
+                            .requiresShipping()
+                            .subtotalPrice()
+                            .totalPrice()
+                            .totalTax()
+                    }
             })
         }
 
@@ -794,13 +794,13 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             override fun onResult(result: String) {
                 val cardClient = CardClient()
                 val creditCard = CreditCard.builder()
-                        .firstName(card.firstName)
-                        .lastName(card.lastName)
-                        .number(card.cardNumber)
-                        .expireMonth(card.expireMonth)
-                        .expireYear(card.expireYear)
-                        .verificationCode(card.verificationCode)
-                        .build()
+                    .firstName(card.firstName)
+                    .lastName(card.lastName)
+                    .number(card.cardNumber)
+                    .expireMonth(card.expireMonth)
+                    .expireYear(card.expireYear)
+                    .verificationCode(card.verificationCode)
+                    .build()
                 cardClient.vault(creditCard, result).enqueue(object : CreditCardVaultCall.Callback {
 
                     override fun onResponse(token: String) {
@@ -826,7 +826,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val call = graphClient.queryGraph(query)
         call.enqueue(object : QueryCallWrapper<String>(vaultCallback) {
             override fun adapt(data: Storefront.QueryRoot): String =
-                    data.shop?.paymentSettings?.cardVaultUrl ?: ""
+                data.shop?.paymentSettings?.cardVaultUrl ?: ""
         })
     }
 
@@ -838,22 +838,22 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val billingAddress = Storefront.MailingAddressInput()
 
         billingAddress.setAddress1(address.address)
-                .setCity(address.city)
-                .setCountry(address.country)
-                .setFirstName(address.firstName)
-                .setLastName(address.lastName)
-                .setPhone(address.phone).zip = address.zip
+            .setCity(address.city)
+            .setCountry(address.country)
+            .setFirstName(address.firstName)
+            .setLastName(address.lastName)
+            .setPhone(address.phone).zip = address.zip
 
         val creditCardPaymentInput = Storefront.CreditCardPaymentInput(amount, idempotencyKey,
-                billingAddress, creditCardVaultToken)
+            billingAddress, creditCardVaultToken)
 
         val mutationQuery = Storefront.mutation {
             it.checkoutCompleteWithCreditCard(ID(checkout.checkoutId), creditCardPaymentInput) {
                 it.payment {
                     it.ready().errorMessage()
                 }.checkout {
-                    it.ready()
-                }.userErrors { getDefaultUserErrors(it) }
+                        it.ready()
+                    }.userErrors { getDefaultUserErrors(it) }
             }
         }
 
@@ -882,18 +882,18 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 val countryCode = response.data()?.shop?.paymentSettings?.countryCode?.name ?: ""
 
                 val payCartBuilder = PayCart.builder()
-                        .merchantName(ShopifyWrapper.BASE_URL)
-                        .currencyCode(currency)
-                        .shippingAddressRequired(checkout.requiresShipping)
-                        .countryCode(countryCode)
-                        .subtotal(checkout.subtotalPrice)
-                        .totalPrice(checkout.totalPrice)
-                        .taxPrice(checkout.taxPrice)
+                    .merchantName(ShopifyWrapper.BASE_URL)
+                    .currencyCode(currency)
+                    .shippingAddressRequired(checkout.requiresShipping)
+                    .countryCode(countryCode)
+                    .subtotal(checkout.subtotalPrice)
+                    .totalPrice(checkout.totalPrice)
+                    .taxPrice(checkout.taxPrice)
 
                 for (cartProduct in cartProductList) {
                     val productVariant = cartProduct.productVariant
                     payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity,
-                            BigDecimal.valueOf(productVariant.price.toDouble()))
+                        BigDecimal.valueOf(productVariant.price.toDouble()))
                 }
 
                 callback.onResult(payCartBuilder.build())
@@ -908,7 +908,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             it.shop {
                 it.paymentSettings {
                     it.currencyCode()
-                            .countryCode()
+                        .countryCode()
                 }
             }
         }
@@ -923,25 +923,25 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val idempotencyKey: String = UUID.randomUUID().toString()
 
         val mailingAddressInput = Storefront.MailingAddressInput()
-                .setAddress1(billingAddress.address1)
-                .setAddress2(billingAddress.address2)
-                .setCity(billingAddress.city)
-                .setCountry(billingAddress.country)
-                .setFirstName(billingAddress.firstName)
-                .setLastName(billingAddress.lastName)
-                .setPhone(billingAddress.phone)
-                .setProvince(billingAddress.province)
-                .setZip(billingAddress.zip)
+            .setAddress1(billingAddress.address1)
+            .setAddress2(billingAddress.address2)
+            .setCity(billingAddress.city)
+            .setCountry(billingAddress.country)
+            .setFirstName(billingAddress.firstName)
+            .setLastName(billingAddress.lastName)
+            .setPhone(billingAddress.phone)
+            .setProvince(billingAddress.province)
+            .setZip(billingAddress.zip)
 
         val input = Storefront.TokenizedPaymentInput(payCart.totalPrice, idempotencyKey,
-                mailingAddressInput, paymentToken.token, "android_pay")
-                .setIdentifier(paymentToken.publicKeyHash).setAmount(checkout.totalPrice)
+            mailingAddressInput, paymentToken.token, "android_pay")
+            .setIdentifier(paymentToken.publicKeyHash).setAmount(checkout.totalPrice)
 
         val query = Storefront.mutation {
             it.checkoutCompleteWithTokenizedPayment(ID(checkout.checkoutId), input, {
                 it.payment({ it.ready().errorMessage() })
-                        .checkout({ it.ready() })
-                        .userErrors({ getDefaultUserErrors(it) })
+                    .checkout({ it.ready() })
+                    .userErrors({ getDefaultUserErrors(it) })
             })
         }
 
@@ -1034,7 +1034,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val call = graphClient.queryGraph(query)
         call.enqueue(object : QueryCallWrapper<List<Order>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Order> =
-                    OrderListAdapter.adapt(data.customer.orders)
+                OrderListAdapter.adapt(data.customer.orders)
         })
 
     }
@@ -1046,11 +1046,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             root.node(nodeId) {
                 it.onOrder {
                     getDefaultOrderQuery(it)
-                            .subtotalPrice()
-                            .totalShippingPrice()
-                            .shippingAddress {
-                                getDefaultAddressQuery(it)
-                            }
+                        .subtotalPrice()
+                        .totalShippingPrice()
+                        .shippingAddress {
+                            getDefaultAddressQuery(it)
+                        }
                 }
             }
         }
@@ -1072,23 +1072,23 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     private fun getDefaultOrderQuery(orderQuery: Storefront.OrderQuery): Storefront.OrderQuery {
         return orderQuery
-                .orderNumber()
-                .totalPrice()
-                .email()
-                .currencyCode()
-                .processedAt()
-                .lineItems({ it.first(ITEMS_COUNT) }) { lineItemsQuery ->
-                    lineItemsQuery.edges { productVariantConnectionQuery ->
-                        productVariantConnectionQuery.node { node ->
-                            node
-                                    .title()
-                                    .quantity()
-                                    .variant { productVariantQuery ->
-                                        getDefaultProductVariantQuery(productVariantQuery)
-                                    }
-                        }
+            .orderNumber()
+            .totalPrice()
+            .email()
+            .currencyCode()
+            .processedAt()
+            .lineItems({ it.first(ITEMS_COUNT) }) { lineItemsQuery ->
+                lineItemsQuery.edges { productVariantConnectionQuery ->
+                    productVariantConnectionQuery.node { node ->
+                        node
+                            .title()
+                            .quantity()
+                            .variant { productVariantQuery ->
+                                getDefaultProductVariantQuery(productVariantQuery)
+                            }
                     }
                 }
+            }
     }
 
     private fun queryProducts(perPage: Int, paginationValue: Any?, searchQuery: String?,
@@ -1098,165 +1098,165 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val query = Storefront.query { rootQuery ->
             rootQuery.shop { shopQuery ->
                 shopQuery
-                        .paymentSettings({ it.currencyCode() })
-                        .products({ args ->
-                            args.first(perPage)
-                            if (paginationValue != null) {
-                                args.after(paginationValue.toString())
-                            }
-                            val key = getProductSortKey(sortBy)
-                            if (key != null) {
-                                args.sortKey(key)
-                            }
-                            args.reverse(reverse)
-                            if (searchQuery != null) {
-                                args.query(searchQuery)
-                            }
+                    .paymentSettings({ it.currencyCode() })
+                    .products({ args ->
+                        args.first(perPage)
+                        if (paginationValue != null) {
+                            args.after(paginationValue.toString())
                         }
-                        ) { productConnectionQuery ->
-                            productConnectionQuery.edges { productEdgeQuery ->
-                                productEdgeQuery.cursor().node { productQuery ->
-                                    getDefaultProductQuery(productQuery)
-                                            .images({ it.first(1) }, { imageConnectionQuery ->
-                                                imageConnectionQuery.edges({ imageEdgeQuery ->
-                                                    imageEdgeQuery.node({ imageQuery ->
-                                                        imageQuery
-                                                                .id()
-                                                                .src()
-                                                                .altText()
-                                                    })
-                                                })
+                        val key = getProductSortKey(sortBy)
+                        if (key != null) {
+                            args.sortKey(key)
+                        }
+                        args.reverse(reverse)
+                        if (searchQuery != null) {
+                            args.query(searchQuery)
+                        }
+                    }
+                    ) { productConnectionQuery ->
+                        productConnectionQuery.edges { productEdgeQuery ->
+                            productEdgeQuery.cursor().node { productQuery ->
+                                getDefaultProductQuery(productQuery)
+                                    .images({ it.first(1) }, { imageConnectionQuery ->
+                                        imageConnectionQuery.edges({ imageEdgeQuery ->
+                                            imageEdgeQuery.node({ imageQuery ->
+                                                imageQuery
+                                                    .id()
+                                                    .src()
+                                                    .altText()
                                             })
-                                            .variants({ it.first(1) }) { productVariantConnectionQuery ->
-                                                productVariantConnectionQuery.edges { productVariantEdgeQuery ->
-                                                    productVariantEdgeQuery.node({
-                                                        getDefaultProductVariantQuery(it)
-                                                    })
-                                                }
-                                            }
-                                }
+                                        })
+                                    })
+                                    .variants({ it.first(1) }) { productVariantConnectionQuery ->
+                                        productVariantConnectionQuery.edges { productVariantEdgeQuery ->
+                                            productVariantEdgeQuery.node({
+                                                getDefaultProductVariantQuery(it)
+                                            })
+                                        }
+                                    }
                             }
                         }
+                    }
             }
         }
 
         val call = graphClient.queryGraph(query)
         call.enqueue(object : QueryCallWrapper<List<Product>>(callback) {
             override fun adapt(data: Storefront.QueryRoot): List<Product> =
-                    ProductListAdapter.adapt(data.shop, data.shop.products)
+                ProductListAdapter.adapt(data.shop, data.shop.products)
         })
     }
 
     private fun getDefaultProductQuery(productQuery: Storefront.ProductQuery): Storefront.ProductQuery {
         return productQuery.title()
-                .description()
-                .descriptionHtml()
-                .vendor()
-                .productType()
-                .createdAt()
-                .updatedAt()
-                .tags()
+            .description()
+            .descriptionHtml()
+            .vendor()
+            .productType()
+            .createdAt()
+            .updatedAt()
+            .tags()
     }
 
     private fun getDefaultProductVariantQuery(productVariantQuery: Storefront.ProductVariantQuery): Storefront.ProductVariantQuery {
         return productVariantQuery
-                .title()
-                .price()
-                .weight()
-                .weightUnit()
-                .availableForSale()
-                .selectedOptions({ optionsQuery -> optionsQuery.name().value() })
-                .image({ imageQuery ->
-                    imageQuery
-                            .id()
-                            .src()
-                            .altText()
-                })
-                .product({ productQuery ->
-                    productQuery
-                            .images({ it.first(1) }, { imageConnectionQuery ->
-                                imageConnectionQuery.edges({ imageEdgeQuery ->
-                                    imageEdgeQuery.node({ imageQuery ->
-                                        imageQuery
-                                                .id()
-                                                .src()
-                                                .altText()
-                                    })
-                                })
+            .title()
+            .price()
+            .weight()
+            .weightUnit()
+            .availableForSale()
+            .selectedOptions({ optionsQuery -> optionsQuery.name().value() })
+            .image({ imageQuery ->
+                imageQuery
+                    .id()
+                    .src()
+                    .altText()
+            })
+            .product({ productQuery ->
+                productQuery
+                    .images({ it.first(1) }, { imageConnectionQuery ->
+                        imageConnectionQuery.edges({ imageEdgeQuery ->
+                            imageEdgeQuery.node({ imageQuery ->
+                                imageQuery
+                                    .id()
+                                    .src()
+                                    .altText()
                             })
-                            .options({ optionsQuery -> optionsQuery.name().values() })
-                })
+                        })
+                    })
+                    .options({ optionsQuery -> optionsQuery.name().values() })
+            })
     }
 
     private fun getDefaultArticleQuery(articleQuery: Storefront.ArticleQuery): Storefront.ArticleQuery {
         return articleQuery.title()
-                .content()
-                .tags()
-                .publishedAt()
-                .url()
-                .image({
-                    it.id()
-                            .src()
-                            .altText()
-                })
-                .author {
-                    it.firstName()
-                            .lastName()
-                            .name()
-                            .email()
-                            .bio()
-                }
-                .blog({ it.title() })
+            .content()
+            .tags()
+            .publishedAt()
+            .url()
+            .image({
+                it.id()
+                    .src()
+                    .altText()
+            })
+            .author {
+                it.firstName()
+                    .lastName()
+                    .name()
+                    .email()
+                    .bio()
+            }
+            .blog({ it.title() })
     }
 
     private fun getDefaultCheckoutQuery(checkoutQuery: Storefront.CheckoutQuery): Storefront.CheckoutQuery {
         return checkoutQuery.webUrl()
-                .email()
-                .requiresShipping()
-                .totalPrice()
-                .subtotalPrice()
-                .totalTax()
-                .currencyCode()
-                .shippingAddress { getDefaultAddressQuery(it) }
-                .shippingLine { getDefaultShippingRateQuery(it) }
+            .email()
+            .requiresShipping()
+            .totalPrice()
+            .subtotalPrice()
+            .totalTax()
+            .currencyCode()
+            .shippingAddress { getDefaultAddressQuery(it) }
+            .shippingLine { getDefaultShippingRateQuery(it) }
     }
 
     private fun getDefaultAddressQuery(addressQuery: Storefront.MailingAddressQuery): Storefront.MailingAddressQuery {
         return addressQuery.country()
-                .firstName()
-                .lastName()
-                .address1()
-                .address2()
-                .city()
-                .province()
-                .zip()
-                .phone()
+            .firstName()
+            .lastName()
+            .address1()
+            .address2()
+            .city()
+            .province()
+            .zip()
+            .phone()
     }
 
     private fun getDefaultShippingRateQuery(shippingRateQuery: Storefront.ShippingRateQuery): Storefront.ShippingRateQuery {
         return shippingRateQuery.handle()
-                .price()
-                .title()
+            .price()
+            .title()
     }
 
     private fun getDefaultCustomerQuery(customerQuery: Storefront.CustomerQuery): Storefront.CustomerQuery {
         return customerQuery.id()
-                .defaultAddress { getDefaultAddressQuery(it) }
-                .addresses({ it.first(ITEMS_COUNT) }, {
-                    it.edges {
-                        it.cursor().node {
-                            getDefaultAddressQuery(it)
-                        }
+            .defaultAddress { getDefaultAddressQuery(it) }
+            .addresses({ it.first(ITEMS_COUNT) }, {
+                it.edges {
+                    it.cursor().node {
+                        getDefaultAddressQuery(it)
                     }
-                })
-                .firstName()
-                .lastName()
-                .email()
+                }
+            })
+            .firstName()
+            .lastName()
+            .email()
     }
 
     private fun getDefaultUserErrors(userErrorQuery: Storefront.UserErrorQuery): Storefront.UserErrorQuery {
         return userErrorQuery
-                .field()
-                .message()
+            .field()
+            .message()
     }
 }

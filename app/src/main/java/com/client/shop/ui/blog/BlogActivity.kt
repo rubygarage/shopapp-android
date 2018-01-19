@@ -18,10 +18,11 @@ import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
 class BlogActivity :
-        PaginationActivity<Article, BlogView, BlogPresenter>(),
-        BlogView {
+    PaginationActivity<Article, BlogView, BlogPresenter>(),
+    BlogView {
 
-    @Inject lateinit var blogPresenter: BlogPresenter
+    @Inject
+    lateinit var blogPresenter: BlogPresenter
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)

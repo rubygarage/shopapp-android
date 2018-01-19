@@ -56,9 +56,9 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
      * @param viewPoint  2D point in view's absolute coordinate system
      */
     override fun zoomToPoint(
-            scale: Float,
-            imagePoint: PointF,
-            viewPoint: PointF) {
+        scale: Float,
+        imagePoint: PointF,
+        viewPoint: PointF) {
         zoomToPoint(scale, imagePoint, viewPoint, DefaultZoomableController.LIMIT_ALL, 0, null)
     }
 
@@ -79,18 +79,18 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
      * @param onAnimationComplete code to run when the animation completes. Ignored if durationMs=0
      */
     fun zoomToPoint(
-            scale: Float,
-            imagePoint: PointF,
-            viewPoint: PointF,
-            @LimitFlag limitFlags: Int,
-            durationMs: Long,
-            onAnimationComplete: Runnable?) {
+        scale: Float,
+        imagePoint: PointF,
+        viewPoint: PointF,
+        @LimitFlag limitFlags: Int,
+        durationMs: Long,
+        onAnimationComplete: Runnable?) {
         calculateZoomToPointTransform(
-                mNewTransform,
-                scale,
-                imagePoint,
-                viewPoint,
-                limitFlags)
+            mNewTransform,
+            scale,
+            imagePoint,
+            viewPoint,
+            limitFlags)
         setTransform(mNewTransform, durationMs, onAnimationComplete)
     }
 
@@ -107,9 +107,9 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
      * @param onAnimationComplete code to run when the animation completes. Ignored if durationMs=0
      */
     private fun setTransform(
-            newTransform: Matrix,
-            durationMs: Long,
-            onAnimationComplete: Runnable?) {
+        newTransform: Matrix,
+        durationMs: Long,
+        onAnimationComplete: Runnable?) {
         if (durationMs <= 0) {
             setTransformImmediate(newTransform)
         } else {
@@ -144,9 +144,9 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
     }
 
     abstract fun setTransformAnimated(
-            newTransform: Matrix,
-            durationMs: Long,
-            onAnimationComplete: Runnable?)
+        newTransform: Matrix,
+        durationMs: Long,
+        onAnimationComplete: Runnable?)
 
     protected abstract fun stopAnimation()
 }

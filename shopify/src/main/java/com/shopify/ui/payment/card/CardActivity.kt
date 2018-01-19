@@ -33,7 +33,8 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         }
     }
 
-    @Inject lateinit var cardPresenter: CardPresenter
+    @Inject
+    lateinit var cardPresenter: CardPresenter
     private lateinit var fieldTextWatcher: TextWatcher
     private lateinit var monthPicker: DateBottomSheetPicker
     private lateinit var yearPicker: DateBottomSheetPicker
@@ -118,11 +119,11 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
         presenter.processCardData(
-                holderNameInput.text.toString(),
-                cardNumberInput.text.toString(),
-                monthInput.text.toString(),
-                yearInput.text.toString(),
-                cvvInput.text.toString()
+            holderNameInput.text.toString(),
+            cardNumberInput.text.toString(),
+            monthInput.text.toString(),
+            yearInput.text.toString(),
+            cvvInput.text.toString()
         )
     }
 

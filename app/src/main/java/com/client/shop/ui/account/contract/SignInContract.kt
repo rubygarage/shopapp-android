@@ -20,11 +20,11 @@ interface SignInView : BaseLceView<Unit> {
 }
 
 class SignInPresenter @Inject constructor(
-        private val fieldValidator: FieldValidator,
-        private val signInUseCase: SignInUseCase,
-        private val forgotPasswordUseCase: ForgotPasswordUseCase
+    private val fieldValidator: FieldValidator,
+    private val signInUseCase: SignInUseCase,
+    private val forgotPasswordUseCase: ForgotPasswordUseCase
 ) :
-        BaseLcePresenter<Unit, SignInView>(signInUseCase, forgotPasswordUseCase) {
+    BaseLcePresenter<Unit, SignInView>(signInUseCase, forgotPasswordUseCase) {
 
     fun logIn(email: String, password: String) {
 
@@ -40,12 +40,12 @@ class SignInPresenter @Inject constructor(
         if (!isError) {
             view?.onCheckPassed()
             signInUseCase.execute(
-                    { view?.showContent(Unit) },
-                    {
-                        view?.onFailure()
-                        resolveError(it)
-                    },
-                    SignInUseCase.Params(email, password))
+                { view?.showContent(Unit) },
+                {
+                    view?.onFailure()
+                    resolveError(it)
+                },
+                SignInUseCase.Params(email, password))
         }
     }
 
@@ -55,9 +55,9 @@ class SignInPresenter @Inject constructor(
             view?.showMessage(R.string.invalid_email_error_message)
         } else {
             forgotPasswordUseCase.execute(
-                    { view?.showMessage(R.string.check_inbox_message) },
-                    { resolveError(it) },
-                    email
+                { view?.showMessage(R.string.check_inbox_message) },
+                { resolveError(it) },
+                email
             )
         }
     }

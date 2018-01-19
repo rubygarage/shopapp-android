@@ -16,8 +16,7 @@ import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.item_cart.view.*
 
 @SuppressLint("ViewConstructor")
-class CartItem constructor(context: Context, private val formatter: NumberFormatter) :
-    ConstraintLayout(context),
+class CartItem constructor(context: Context, private val formatter: NumberFormatter) : ConstraintLayout(context),
     SimpleTextWatcher,
     View.OnFocusChangeListener {
 
@@ -63,10 +62,8 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
 
     private fun changeEachPriceVisibility(price: Float, quantity: Int) {
         if (quantity > 1) {
-            eachPrice.text = context.getString(
-                R.string.each_price_pattern,
-                formatter.formatPrice(price, cartProduct.currency)
-            )
+            eachPrice.text = context.getString(R.string.each_price_pattern,
+                formatter.formatPrice(price, cartProduct.currency))
             eachPrice.visibility = View.VISIBLE
         } else {
             eachPrice.visibility = View.GONE
