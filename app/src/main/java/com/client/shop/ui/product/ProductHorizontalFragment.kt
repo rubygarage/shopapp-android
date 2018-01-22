@@ -47,11 +47,11 @@ class ProductHorizontalFragment :
     private var keyPhrase: String? = null
     private lateinit var adapter: ProductListAdapter
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sortType = arguments.getSerializable(SORT_TYPE) as SortType
-        keyPhrase = arguments.getString(KEY_PHRASE)
+        sortType = arguments?.getSerializable(SORT_TYPE) as SortType
+        keyPhrase = arguments?.getString(KEY_PHRASE)
         val title = when (sortType) {
             SortType.RECENT -> getString(R.string.latest_arrivals)
             SortType.TYPE -> getString(R.string.related_items)
@@ -59,7 +59,9 @@ class ProductHorizontalFragment :
         }
         titleText.text = title
         seeAll.setOnClickListener {
-            startActivity(ProductListActivity.getStartIntent(context, title, sortType, keyPhrase))
+            context?.let {
+                startActivity(ProductListActivity.getStartIntent(it, title, sortType, keyPhrase))
+            }
         }
         changeSeeAllState()
         setupRecycler()
@@ -117,7 +119,10 @@ class ProductHorizontalFragment :
 
     override fun onItemClicked(position: Int) {
         productList.getOrNull(position)?.let {
-            startActivity(ProductDetailsActivity.getStartIntent(context, it.id))
+            val productId = it.id
+            context?.let {
+                startActivity(ProductDetailsActivity.getStartIntent(it, productId))
+            }
         }
     }
 }

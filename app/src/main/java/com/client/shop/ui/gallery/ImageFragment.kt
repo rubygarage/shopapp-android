@@ -35,14 +35,16 @@ class ImageFragment : Fragment() {
     private var thumbnailMode = false
     private var image: Image? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        thumbnailMode = arguments.getBoolean(IS_THUMBNAIL_MODE, false)
-        image = arguments.getParcelable(IMAGE)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        arguments?.let {
+            thumbnailMode = it.getBoolean(IS_THUMBNAIL_MODE, false)
+            image = it.getParcelable(IMAGE)
+        }
         val layout = if (thumbnailMode) R.layout.fragment_image else R.layout.fragment_zoomable_image
-        return inflater?.inflate(layout, container, false)
+        return inflater.inflate(layout, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (view is ZoomableDraweeView) {
@@ -53,7 +55,7 @@ class ImageFragment : Fragment() {
             imageClickListener?.let { view.setOnClickListener(it) }
             val controller = Fresco.newDraweeControllerBuilder()
                 .setUri(image?.src)
-                .setCallerContext("ImageFragment")
+                .setCallerContext(ImageFragment::class.java)
                 .build()
             view.controller = controller
         } else if (view is SimpleDraweeView) {

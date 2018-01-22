@@ -51,7 +51,9 @@ class BlogActivity :
     override fun setupRecyclerView() {
         super.setupRecyclerView()
         val divider = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-        divider.setDrawable(ContextCompat.getDrawable(this, R.drawable.divider_line))
+        ContextCompat.getDrawable(this, R.drawable.divider_line)?.let {
+            divider.setDrawable(it)
+        }
         recycler.addItemDecoration(divider)
         recycler.setBackgroundResource(R.color.white)
     }

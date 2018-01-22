@@ -38,11 +38,12 @@ class PopularFragment :
         private const val MAX_ITEMS = 4
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         seeAll.setOnClickListener {
-            startActivity(ProductListActivity.getStartIntent(context,
-                getString(R.string.popular), sortType))
+            context?.let {
+                startActivity(ProductListActivity.getStartIntent(it, getString(R.string.popular), sortType))
+            }
         }
         changeSeeAllState()
         setupRecycler()
@@ -106,7 +107,10 @@ class PopularFragment :
 
     override fun onItemClicked(position: Int) {
         productList.getOrNull(position)?.let {
-            startActivity(ProductDetailsActivity.getStartIntent(context, it.id))
+            val productId = it.id
+            context?.let {
+                startActivity(ProductDetailsActivity.getStartIntent(it, productId))
+            }
         }
     }
 }

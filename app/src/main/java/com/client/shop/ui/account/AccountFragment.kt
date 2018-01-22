@@ -37,7 +37,7 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         setHasOptionsMenu(true)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupButtons()
@@ -89,13 +89,21 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
 
     private fun setupButtons() {
         signInButton.setOnClickListener {
-            startActivityForResult(SignInActivity.getStartIntent(context), RequestCode.SIGN_IN)
+            context?.let {
+                startActivityForResult(SignInActivity.getStartIntent(it), RequestCode.SIGN_IN)
+            }
         }
         createAccount.setOnClickListener {
-            startActivityForResult(SignUpActivity.getStartIntent(context, shop?.privacyPolicy, shop?.termsOfService), RequestCode.SIGN_UP)
+            context?.let {
+                startActivityForResult(SignUpActivity.getStartIntent(it, shop?.privacyPolicy,
+                    shop?.termsOfService), RequestCode.SIGN_UP)
+            }
+
         }
         myOrders.setOnClickListener {
-            startActivity(OrderListActivity.getStartIntent(context))
+            context?.let {
+                startActivity(OrderListActivity.getStartIntent(it))
+            }
         }
         logout.setOnClickListener {
             presenter.signOut()
@@ -105,7 +113,10 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
 
     private fun setupPolicy(view: View, policy: Policy?) {
         if (policy != null) {
-            view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(context, policy)) }
+            context?.let {
+                val context = it
+                view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(context, policy)) }
+            }
             view.visibility = View.VISIBLE
         } else {
             view.visibility = View.GONE
