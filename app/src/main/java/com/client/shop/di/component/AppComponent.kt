@@ -16,6 +16,8 @@ import com.client.shop.ui.order.di.OrderModule
 import com.client.shop.ui.popular.di.PopularComponent
 import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.di.*
+import com.client.shop.ui.profile.di.ProfileComponent
+import com.client.shop.ui.profile.di.ProfileModule
 import com.client.shop.ui.search.di.SearchComponent
 import com.client.shop.ui.search.di.SearchModule
 import dagger.Component
@@ -44,5 +46,7 @@ interface AppComponent {
     fun attachAuthComponent(module: AuthModule): AuthComponent
 
     fun attachOrderComponent(module: OrderModule): OrderComponent
+
+    fun attachProfileModule(profileModule: ProfileModule): ProfileComponent
 
 }

@@ -14,6 +14,7 @@ import com.client.shop.ui.account.contract.AccountView
 import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.order.list.OrderListActivity
 import com.client.shop.ui.policy.PolicyActivity
+import com.client.shop.ui.profile.PersonalInfoActivity
 import com.domain.entity.Customer
 import com.domain.entity.Policy
 import com.domain.entity.Shop
@@ -97,9 +98,13 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         myOrders.setOnClickListener {
             startActivity(OrderListActivity.getStartIntent(context))
         }
+        personalInfo.setOnClickListener {
+            startActivity(PersonalInfoActivity.getStartIntent(context))
+        }
         logout.setOnClickListener {
             presenter.signOut()
         }
+
 
     }
 

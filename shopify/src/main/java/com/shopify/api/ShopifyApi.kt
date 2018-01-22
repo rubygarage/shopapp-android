@@ -1252,6 +1252,42 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             .firstName()
             .lastName()
             .email()
+            .phone()
+    }
+
+    override fun editCustomerInfo(firstName: String, lastName: String, email: String, phone: String, callback: ApiCallback<Customer>) {
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+
+            val customerInput = Storefront.CustomerUpdateInput()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setPhone(phone)
+                .setEmail(email)
+
+            val mutateQuery = Storefront.mutation {
+                it.customerUpdate(session.accessToken, customerInput, {
+                    it.customer { getDefaultCustomerQuery(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Customer>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Customer? {
+                    return data?.customerUpdate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            return CustomerAdapter.adapt(it.customer)
+                        }
+                        return null
+                    }
+                }
+            })
+        }
+
     }
 
     private fun getDefaultUserErrors(userErrorQuery: Storefront.UserErrorQuery): Storefront.UserErrorQuery {

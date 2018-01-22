@@ -81,5 +81,7 @@
     <string name="order_details">Order Details</string>
     <string name="quantity_label_pattern">QTY: %d</string>
     <string name="cart_product_title">%s %s</string>
+    <string name="save_changes">Save changes</string>
+    <string name="change_password">Change password</string>
 
 </resources>
