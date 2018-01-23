@@ -25,11 +25,11 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(getRootView(), container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(getRootView(), container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         lceLayout.setupContentLayout(getContentView())
         lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }

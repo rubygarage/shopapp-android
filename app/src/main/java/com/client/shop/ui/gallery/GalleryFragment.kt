@@ -33,16 +33,19 @@ class GalleryFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_gallery, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_gallery, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        product = arguments.getParcelable(PRODUCT)
-        isThumbnailMode = arguments.getBoolean(IS_THUMBNAIL_MODE)
-        val selectedPosition = arguments.getInt(SELECTED_POSITION)
+        var selectedPosition = 0
+        arguments?.let {
+            product = it.getParcelable(PRODUCT)
+            isThumbnailMode = it.getBoolean(IS_THUMBNAIL_MODE)
+            selectedPosition = it.getInt(SELECTED_POSITION)
+        }
 
         setupAdapter()
         pager.adapter = adapter
@@ -52,11 +55,13 @@ class GalleryFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        adapter = GalleryPagerAdapter(fragmentManager)
+        adapter = GalleryPagerAdapter(childFragmentManager)
         adapter.registerDataSetObserver(indicator.dataSetObserver)
         adapter.imageClickListener = if (isThumbnailMode) {
             View.OnClickListener {
-                startActivity(GalleryActivity.getStartIntent(context, product, pager.currentItem))
+                context?.let {
+                    startActivity(GalleryActivity.getStartIntent(it, product, pager.currentItem))
+                }
             }
         } else {
             imageClickListener

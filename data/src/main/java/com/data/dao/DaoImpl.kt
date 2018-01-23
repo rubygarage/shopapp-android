@@ -22,7 +22,7 @@ class DaoImpl(context: Context) : Dao {
     private val store: KotlinReactiveEntityStore<Persistable>
 
     init {
-        val source = DatabaseSource(context, Models.DEFAULT, 1)
+        val source = DatabaseSource(context, Models.DEFAULT, 4)
         source.setTableCreationMode(TableCreationMode.DROP_CREATE)
         store = KotlinReactiveEntityStore(KotlinEntityDataStore(source.configuration))
     }

@@ -28,7 +28,7 @@ class SearchFragment :
 
     //ANDROID
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataList.clear()
     }
@@ -87,6 +87,6 @@ class SearchFragment :
     }
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(ProductDetailsActivity.getStartIntent(context, data.id))
+        context?.let { startActivity(ProductDetailsActivity.getStartIntent(it, data.id)) }
     }
 }

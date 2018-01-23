@@ -14,7 +14,7 @@ object ProductVariantAdapter {
             adaptee.availableForSale == true,
             VariantOptionListAdapter.adapt(adaptee.selectedOptions),
             ImageAdapter.adapt(adaptee.image),
-            convertImage(adaptee.product).first(),
+            convertImage(adaptee.product).firstOrNull(),
             adaptee.product.id.toString()
         )
     }

@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 
-class WrapContentViewPager(context: Context?, attrs: AttributeSet?) : ViewPager(context, attrs) {
+class WrapContentViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs) {
 
     private var mCurrentPagePosition = 0
 

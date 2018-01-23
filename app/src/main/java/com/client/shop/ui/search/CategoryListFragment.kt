@@ -22,7 +22,7 @@ class CategoryListFragment :
 
     //ANDROID
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadData(true)
     }
@@ -60,6 +60,8 @@ class CategoryListFragment :
     //CALLBACK
 
     override fun onItemClicked(data: Category, position: Int) {
-        startActivity(CategoryActivity.getStartIntent(context, data))
+        context?.let {
+            startActivity(CategoryActivity.getStartIntent(it, data))
+        }
     }
 }

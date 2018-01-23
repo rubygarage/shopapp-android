@@ -15,11 +15,11 @@ open class BaseBottomSheetPicker : BottomSheetDialogFragment() {
     private lateinit var adapter: BottomSheetPickerAdapter
     var onDoneButtonClickedListener: OnDoneButtonClickedListener? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.bottom_sheet_picker, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.bottom_sheet_picker, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         done.setOnClickListener {
             val selectedData = adapter.selectedItemData

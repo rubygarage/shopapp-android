@@ -34,7 +34,7 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
 
     //ANDROID
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
@@ -44,7 +44,7 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
             if (item.itemId == android.R.id.home) {
-                activity.onBackPressed()
+                activity?.onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,7 +1,6 @@
 package com.client.shop.ui.blog
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.client.shop.R
@@ -28,9 +27,11 @@ class BlogFragment :
     private var articleList = mutableListOf<Article>()
     private lateinit var adapter: BlogAdapter
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        seeAll.setOnClickListener { startActivity(BlogActivity.getStartIntent(context)) }
+        seeAll.setOnClickListener {
+            context?.let { startActivity(BlogActivity.getStartIntent(it)) }
+        }
         changeSeeAllState()
         setupRecycler()
         loadData(true)
@@ -46,7 +47,7 @@ class BlogFragment :
         adapter = BlogAdapter(articleList, this)
         val layoutManager = LinearLayoutManager(context)
         val divider =
-            DividerItemDecorator(ContextCompat.getDrawable(context, R.drawable.divider_line))
+            DividerItemDecorator(context, R.drawable.divider_line)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false
@@ -86,7 +87,10 @@ class BlogFragment :
 
     override fun onItemClicked(position: Int) {
         articleList.getOrNull(position)?.let {
-            startActivity(ArticleActivity.getStartIntent(context, it.id))
+            val articleId = it.id
+            context?.let {
+                startActivity(ArticleActivity.getStartIntent(it, articleId))
+            }
         }
     }
 
