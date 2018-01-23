@@ -83,7 +83,7 @@
     <string name="cart_product_title">%s %s</string>
     <string name="save_changes">Save changes</string>
     <string name="change_password">Change password</string>
-    <string name="newest_sort_title">Newest first</string>
+    <string name="newest_sort_title">The Newest first</string>
     <string name="price_high_to_low_sort_title">Price High to Low</string>
     <string name="price_low_to_high_sort_title">Price Low to High</string>
 
