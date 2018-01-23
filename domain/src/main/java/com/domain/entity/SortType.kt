@@ -1,8 +1,10 @@
 package com.domain.entity
 
-enum class SortType(val value: String) {
-    NAME("Name"),
-    RECENT("Most Recent"),
-    RELEVANT("Most Relevant"),
-    TYPE("Type");
+enum class SortType {
+    NAME(),
+    RECENT(),
+    RELEVANT(),
+    TYPE(),
+    PRICE_HIGH_TO_LOW(),
+    PRICE_LOW_TO_HIGH();
 }

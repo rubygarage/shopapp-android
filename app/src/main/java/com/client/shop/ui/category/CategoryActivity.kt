@@ -3,6 +3,7 @@ package com.client.shop.ui.category
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
@@ -12,34 +13,28 @@ import com.client.shop.ui.base.ui.pagination.PaginationActivity
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
 import com.client.shop.ui.category.di.CategoryModule
-import com.client.shop.ui.modal.SortBottomSheet
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.domain.entity.Category
 import com.domain.entity.Product
 import com.domain.entity.SortType
-import com.ui.base.recycler.divider.BackgroundItemDecoration
+import kotlinx.android.synthetic.main.activity_category.*
 import javax.inject.Inject
 
-class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPresenter>(),
-    CategoryView {
+
+class CategoryActivity :
+    PaginationActivity<Product, CategoryView, CategoryPresenter>(),
+    CategoryView,
+    CategorySortPopupFacade.OnSortTypeChangeListener {
 
     @Inject
     lateinit var categoryPresenter: CategoryPresenter
     private lateinit var category: Category
     private var sortType: SortType = SortType.NAME
-
-    private val sortBottomSheet: SortBottomSheet by lazy {
-        SortBottomSheet(this, object : SortBottomSheet.OnSortTypeSelectListener {
-
-            override fun onSortTypeSelected(selectedSortType: SortType) {
-                if (sortType != selectedSortType) {
-                    sortType = selectedSortType
-                    onRefresh()
-                }
-            }
-        })
-    }
+    private var positiveScrollOffset = 0
+    private var negativeScrollOffset = 0
+    private var isCollapsed = false
+    private var categorySortPopupFacade: CategorySortPopupFacade? = null
 
     companion object {
 
@@ -59,6 +54,8 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
         super.onCreate(savedInstanceState)
         category = intent.getParcelableExtra(EXTRA_CATEGORY)
         setTitle(category.title)
+        categorySortPopupFacade = CategorySortPopupFacade(this, this)
+        sortLayout.setOnClickListener { categorySortPopupFacade?.showSortPopup(it, sortType) }
         loadData()
     }
 
@@ -69,7 +66,6 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         return if (item?.itemId == R.id.sort) {
-            sortBottomSheet.show(sortType)
             true
         } else {
             super.onOptionsItemSelected(item)
@@ -88,8 +84,31 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
 
     override fun setupRecyclerView() {
         super.setupRecyclerView()
-        recycler.addItemDecoration(BackgroundItemDecoration(R.color.white))
+        val scrollOffset = resources.getDimensionPixelSize(R.dimen.sort_view_height)
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (dy > 0) {
+                    positiveScrollOffset += dy
+                    negativeScrollOffset = 0
+                } else {
+                    negativeScrollOffset += dy
+                    positiveScrollOffset = 0
+                }
+
+                if (positiveScrollOffset >= scrollOffset && !isCollapsed) {
+                    sortLayout.animate().translationY(-sortLayout.height.toFloat())
+                    isCollapsed = !isCollapsed
+                } else if (Math.abs(negativeScrollOffset) >= scrollOffset && isCollapsed) {
+                    sortLayout.animate().translationY(0f)
+                    isCollapsed = !isCollapsed
+                }
+            }
+        })
     }
+
+    override fun getContentView() = R.layout.activity_category
 
     //SETUP
 
@@ -118,5 +137,10 @@ class CategoryActivity : PaginationActivity<Product, CategoryView, CategoryPrese
 
     override fun onItemClicked(data: Product, position: Int) {
         startActivity(ProductDetailsActivity.getStartIntent(this, data.id))
+    }
+
+    override fun onSortTypeChanged(sortType: SortType) {
+        this.sortType = sortType
+        onRefresh()
     }
 }
