@@ -48,13 +48,11 @@ class CategorySortPopupFacade(
         val highToLowView: TextView = parent.findViewById(R.id.highToLowSort)
         val lowToHighView: TextView = parent.findViewById(R.id.lowToHighSort)
 
+        @Suppress("NON_EXHAUSTIVE_WHEN")
         when (sortType) {
             SortType.RECENT -> setChildChecked(newestView)
             SortType.PRICE_HIGH_TO_LOW -> setChildChecked(highToLowView)
             SortType.PRICE_LOW_TO_HIGH -> setChildChecked(lowToHighView)
-            else -> {
-                //DO NOTHING
-            }
         }
 
         newestView.setOnClickListener(this)

@@ -82,6 +82,15 @@ class CategoryActivity :
 
     override fun isGrid() = true
 
+    override fun getContentView() = R.layout.activity_category
+
+    //SETUP
+
+    override fun setupAdapter(): ProductListAdapter {
+        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        return ProductListAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
+    }
+
     override fun setupRecyclerView() {
         super.setupRecyclerView()
         val scrollOffset = resources.getDimensionPixelSize(R.dimen.sort_view_height)
@@ -98,23 +107,17 @@ class CategoryActivity :
                 }
 
                 if (positiveScrollOffset >= scrollOffset && !isCollapsed) {
-                    sortLayout.animate().translationY(-sortLayout.height.toFloat())
-                    isCollapsed = !isCollapsed
+                    changeSortLayoutState(-sortLayout.height.toFloat())
                 } else if (Math.abs(negativeScrollOffset) >= scrollOffset && isCollapsed) {
-                    sortLayout.animate().translationY(0f)
-                    isCollapsed = !isCollapsed
+                    changeSortLayoutState(0f)
                 }
             }
         })
     }
 
-    override fun getContentView() = R.layout.activity_category
-
-    //SETUP
-
-    override fun setupAdapter(): ProductListAdapter {
-        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        return ProductListAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
+    private fun changeSortLayoutState(destination: Float) {
+        sortLayout.animate().translationY(destination)
+        isCollapsed = !isCollapsed
     }
 
     //LCE
