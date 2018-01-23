@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
+import android.view.inputmethod.EditorInfo
 import com.domain.entity.Address
 import com.domain.entity.Card
 import com.shopify.ShopifyWrapper
@@ -18,6 +19,7 @@ import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.base.picker.BaseBottomSheetPicker
 import com.ui.custom.SimpleTextWatcher
+import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
 
@@ -101,9 +103,23 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
                 checkInputFields()
             }
         }
-        monthInput.setOnClickListener { monthPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_MONTH) }
+        monthInput.setOnClickListener { showMonthPicker() }
         yearInput.setOnClickListener { yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR) }
         submitButton.setOnClickListener { loadData() }
+        cardNumberInput.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                v.hideKeyboard()
+                v.clearFocus()
+                showMonthPicker()
+                true
+            } else {
+                false
+            }
+        }
+    }
+
+    private fun showMonthPicker() {
+        monthPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_MONTH)
     }
 
     private fun checkInputFields() {
