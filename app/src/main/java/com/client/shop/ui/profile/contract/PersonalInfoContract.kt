@@ -3,7 +3,6 @@ package com.client.shop.ui.profile.contract
 import com.domain.entity.Customer
 import com.domain.interactor.account.EditCustomerUseCase
 import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.account.SignUpUseCase
 import com.domain.validator.FieldValidator
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
@@ -12,9 +11,9 @@ import javax.inject.Inject
 interface PersonalInfoView : BaseLceView<Customer> {
     fun showEmailError()
 
-    fun onCheckPassed()
+    fun showUpdateProgress()
 
-    fun onFailure()
+    fun hideUpdateProgress()
 }
 
 class PersonalInfoPresenter @Inject constructor(
@@ -39,10 +38,16 @@ class PersonalInfoPresenter @Inject constructor(
         }
 
         if (!isError) {
-            view?.onCheckPassed()
+            view?.showUpdateProgress()
             editCustomerUseCase.execute(
-                { /*view?.showContent(it) */},
-                { resolveError(it) },
+                {
+                    view?.showContent(it)
+                    view?.hideUpdateProgress()
+                },
+                {
+                    view?.hideUpdateProgress()
+                    resolveError(it)
+                },
                 EditCustomerUseCase.Params(name, lastName, email, phone)
             )
         }

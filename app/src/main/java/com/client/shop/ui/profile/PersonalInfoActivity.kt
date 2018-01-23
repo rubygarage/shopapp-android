@@ -13,6 +13,7 @@ import com.client.shop.ui.profile.di.ProfileModule
 import com.domain.entity.Customer
 import com.ui.base.lce.BaseActivity
 import com.ui.custom.SimpleTextWatcher
+import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import javax.inject.Inject
 
@@ -39,7 +40,16 @@ class PersonalInfoActivity :
         setTitle(getString(R.string.order_details))
         setupInputListeners()
         setupButtonListeners()
+        setupActionListeners()
         loadData()
+    }
+
+    private fun setupActionListeners() {
+        phoneInput.setOnEditorActionListener { v, _, _ ->
+            v.clearFocus()
+            v.hideKeyboard()
+            true
+        }
     }
 
     override fun onResume() {
@@ -83,6 +93,7 @@ class PersonalInfoActivity :
 
     private fun setupButtonListeners() {
         saveButton.setOnClickListener {
+            clearFormFocus()
             presenter.editCustomer(
                 firstNameInput.text.toString(),
                 lastNameInput.text.toString(),
@@ -90,6 +101,11 @@ class PersonalInfoActivity :
                 phoneInput.text.toString()
             )
         }
+    }
+
+    private fun clearFormFocus() {
+        containerConstraintLayout.requestFocus()
+        containerConstraintLayout.hideKeyboard()
     }
 
     private fun addTextChangeListeners() {
@@ -142,12 +158,12 @@ class PersonalInfoActivity :
         emailInputLayout.error = getString(R.string.invalid_email_error_message)
     }
 
-    override fun onCheckPassed() {
+    override fun showUpdateProgress() {
         progressBar.show()
         saveButton.visibility = View.INVISIBLE
     }
 
-    override fun onFailure() {
+    override fun hideUpdateProgress() {
         progressBar.hide()
         saveButton.visibility = View.VISIBLE
     }

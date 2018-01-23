@@ -34,5 +34,5 @@
     <string name="total_price">Total</string>
     <string name="order_number_pattern">Order #%d</string>
     <string name="order_date_pattern">Placed on %s</string>
-
+    <string name="email_optionally">Email</string>
 </resources>

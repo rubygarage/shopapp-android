@@ -1270,6 +1270,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             val mutateQuery = Storefront.mutation {
                 it.customerUpdate(session.accessToken, customerInput, {
                     it.customer { getDefaultCustomerQuery(it) }
+                        .userErrors { getDefaultUserErrors(it) }
                 })
             }
 
