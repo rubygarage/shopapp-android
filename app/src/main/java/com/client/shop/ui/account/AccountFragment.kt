@@ -107,7 +107,9 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
             }
         }
         personalInfo.setOnClickListener {
-            startActivity(PersonalInfoActivity.getStartIntent(context))
+            context?.let {
+                startActivity(PersonalInfoActivity.getStartIntent(it))
+            }
         }
         logout.setOnClickListener {
             presenter.signOut()
