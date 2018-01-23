@@ -107,12 +107,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/avatarView" />
 
+
+    <TextView
+        android:id="@+id/personalInfo"
+        style="@style/PolicyView"
+        android:layout_marginTop="4dp"
+        android:text="Personal info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myOrders" />
+
     <android.support.constraint.Group
         android:id="@+id/authGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:constraint_referenced_ids="welcomeLabel,name,myOrders,avatarView,logout" />
+        app:constraint_referenced_ids="welcomeLabel,name,myOrders,avatarView,logout,personalInfo" />
 
     <TextView
         android:id="@+id/privacyPolicy"
@@ -168,6 +181,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="myOrders,space" />
+        app:constraint_referenced_ids="myOrders,space, personalInfo" />
 
 </android.support.constraint.ConstraintLayout>

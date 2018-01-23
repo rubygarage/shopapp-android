@@ -47,4 +47,6 @@ interface Api {
     fun getOrders(perPage: Int, paginationValue: Any? = null, callback: ApiCallback<List<Order>>)
 
     fun getOrder(orderId: String, callback: ApiCallback<Order>)
+
+    fun editCustomerInfo(firstName: String, lastName: String, email: String, phone: String, callback: ApiCallback<Customer>)
 }

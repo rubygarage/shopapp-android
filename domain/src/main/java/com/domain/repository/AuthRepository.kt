@@ -26,4 +26,6 @@ interface AuthRepository {
     fun deleteCustomerAddress(addressId: String): Completable
 
     fun setDefaultShippingAddress(addressId: String): Completable
+
+    fun editCustomer(firstName: String, lastName: String, email: String, phone: String): Single<Customer>
 }

@@ -11,6 +11,7 @@ object CustomerAdapter {
             adaptee.email,
             adaptee.firstName,
             adaptee.lastName,
+            adaptee.phone,
             AddressAdapter.adapt(adaptee.addresses),
             adaptee.defaultAddress?.let { AddressAdapter.adapt(it) }
         )
