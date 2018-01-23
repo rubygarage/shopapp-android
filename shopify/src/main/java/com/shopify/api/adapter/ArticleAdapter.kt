@@ -11,7 +11,7 @@ object ArticleAdapter {
             adaptee.title,
             adaptee.content,
             ImageAdapter.adapt(adaptee.image),
-            AutorAdapter.adapt(adaptee.author),
+            AuthorAdapter.adapt(adaptee.author),
             adaptee.tags,
             adaptee.blog.id.toString(),
             adaptee.blog.title,
