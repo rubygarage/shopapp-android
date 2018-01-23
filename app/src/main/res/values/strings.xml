@@ -33,7 +33,7 @@
     <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
     <string name="password">Password*</string>
-    <string name="create_password">Create Password</string>
+    <string name="create_password">Create Password*</string>
     <string name="empty_fields_error_message">Please fill required fields</string>
     <string name="invalid_email_error_message">Please enter correct email address</string>
     <string name="invalid_password_error_message">Please enter correct password</string>
