@@ -72,7 +72,9 @@ class GalleryFragment : Fragment() {
         adapter.product = product
         adapter.isThumbnailMode = isThumbnailMode
         adapter.notifyDataSetChanged()
-        indicator.visibility = if (product?.images?.size ?: 0 <= 1) View.INVISIBLE else View.VISIBLE
+        val size = product?.images?.size ?: 0
+        noImagePlaceholder.visibility = if (size > 0) View.GONE else View.VISIBLE
+        indicator.visibility = if (size <= 1) View.INVISIBLE else View.VISIBLE
     }
 
     fun updateProduct(product: Product) {

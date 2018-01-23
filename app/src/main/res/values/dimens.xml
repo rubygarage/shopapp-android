@@ -37,4 +37,6 @@
     <dimen name="order_item_products_horizontal_margin">6dp</dimen>
     <dimen name="order_details_product_item_vertical_margin">4dp</dimen>
 
+    <dimen name="sort_view_height">60dp</dimen>
+
 </resources>
