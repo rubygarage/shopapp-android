@@ -81,5 +81,8 @@
     <string name="order_details">Order Details</string>
     <string name="quantity_label_pattern">QTY: %d</string>
     <string name="cart_product_title">%s %s</string>
+    <string name="newest_sort_title">Newest first</string>
+    <string name="price_high_to_low_sort_title">Price High to Low</string>
+    <string name="price_low_to_high_sort_title">Price Low to High</string>
 
 </resources>

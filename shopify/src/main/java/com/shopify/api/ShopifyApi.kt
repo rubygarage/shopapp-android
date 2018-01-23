@@ -40,7 +40,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     companion object {
-        private val ITEMS_COUNT = 250
+        private const val ITEMS_COUNT = 250
         private const val EMAIL = "email"
         private const val ACCESS_TOKEN = "access_token"
         private const val EXPIRES_DATE = "expires_date"
@@ -182,7 +182,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     override fun getCategoryDetails(id: String, perPage: Int, paginationValue: Any?, sortBy: SortType?,
                                     callback: ApiCallback<Category>) {
 
-        val reverse = sortBy == SortType.RECENT
+        val reverse = sortBy == SortType.RECENT || sortBy == SortType.PRICE_HIGH_TO_LOW
 
         val nodeId = ID(id)
         val query = Storefront.query { rootQuery ->
@@ -969,6 +969,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 SortType.RECENT -> Storefront.ProductSortKeys.CREATED_AT
                 SortType.RELEVANT -> Storefront.ProductSortKeys.RELEVANCE
                 SortType.TYPE -> Storefront.ProductSortKeys.PRODUCT_TYPE
+                else -> null
             }
         }
         return null
@@ -992,6 +993,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 SortType.NAME -> Storefront.ProductCollectionSortKeys.TITLE
                 SortType.RECENT -> Storefront.ProductCollectionSortKeys.CREATED
                 SortType.RELEVANT -> Storefront.ProductCollectionSortKeys.RELEVANCE
+                SortType.PRICE_HIGH_TO_LOW,
+                SortType.PRICE_LOW_TO_HIGH -> Storefront.ProductCollectionSortKeys.PRICE
                 else -> null
             }
         }
