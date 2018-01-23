@@ -25,8 +25,6 @@ class ProductItem(
     fun setProduct(product: Product) {
         titleTextView.text = product.title
         price.text = formatter.formatPrice(product.price, product.currency)
-        if (product.images.isNotEmpty()) {
-            image.setImageURI(product.images[0].src)
-        }
+        image.setImageURI(product.images.firstOrNull()?.src)
     }
 }
