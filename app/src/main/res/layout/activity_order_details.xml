@@ -50,7 +50,7 @@
             android:id="@+id/billingAddressTitle"
             style="@style/OrderTitleView"
             android:layout_marginTop="8dp"
-            android:text="@string/billing_address"
+            android:text="@string/shipping_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/priceView" />

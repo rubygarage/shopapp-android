@@ -108,6 +108,11 @@ class ProductDetailsActivity :
         return true
     }
 
+    override fun onStop() {
+        super.onStop()
+        quantityEditText.clearFocus()
+    }
+
     //INITIAL
 
     override fun inject() {

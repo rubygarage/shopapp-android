@@ -3,7 +3,7 @@ package com.shopify.api.adapter
 import com.domain.entity.Author
 import com.shopify.buy3.Storefront
 
-object AutorAdapter {
+object AuthorAdapter {
 
     fun adapt(adaptee: Storefront.ArticleAuthor): Author {
         return Author(
