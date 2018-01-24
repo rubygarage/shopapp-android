@@ -40,7 +40,7 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/productImage"
-            style="@style/ImageView"
+            style="@style/SimpleDraweeView"
             android:layout_width="110dp"
             android:layout_height="100dp"
             android:scaleType="fitCenter"

@@ -1,7 +1,5 @@
 package com.shopify.ui.shipping.di
 
-import com.shopify.ui.shipping.contract.GetShippingRatesUseCase
-import com.shopify.ui.shipping.contract.SelectShippingRateUseCase
 import com.shopify.ui.shipping.contract.ShippingPresenter
 import dagger.Module
 import dagger.Provides
@@ -10,7 +8,5 @@ import dagger.Provides
 class ShippingModule {
 
     @Provides
-    fun provideShippingPresenter(getShippingRatesUseCase: GetShippingRatesUseCase,
-                                 selectShippingRateUseCase: SelectShippingRateUseCase): ShippingPresenter =
-        ShippingPresenter(getShippingRatesUseCase, selectShippingRateUseCase)
+    fun provideShippingPresenter(): ShippingPresenter = ShippingPresenter()
 }

@@ -7,16 +7,9 @@
 
     <TextView
         android:id="@+id/title"
+        style="@style/TitleView"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@drawable/background_toolbar"
-        android:gravity="center_vertical"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
         android:text="@string/payment"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="13sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -32,7 +32,7 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/image"
-                style="@style/ImageView"
+                style="@style/SimpleDraweeView"
                 android:layout_width="220dp"
                 android:layout_height="176dp"
                 android:layout_marginEnd="8dp"

@@ -32,7 +32,7 @@
             android:id="@+id/sortLayout"
             android:layout_width="0dp"
             android:layout_height="@dimen/sort_view_height"
-            android:background="@drawable/background_toolbar"
+            android:background="@drawable/background_white_with_bottom_divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

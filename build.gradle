@@ -11,7 +11,7 @@ buildscript {
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
 
         //DEPENDENCIES
-        kotlinVersion = '1.2.20'
+        kotlinVersion = '1.2.21'
         androidSupportVersion = '27.0.2'
         rxVersion = '2.1.6'
         rxAndroidVersion = '2.0.1'

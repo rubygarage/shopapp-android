@@ -17,7 +17,7 @@ interface CheckoutRepository {
 
     fun setShippingAddress(checkoutId: String, address: Address): Single<Checkout>
 
-    fun getShippingRates(checkoutId: String, email: String, address: Address): Single<List<ShippingRate>>
+    fun getShippingRates(checkoutId: String): Single<List<ShippingRate>>
 
     fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout>
 
