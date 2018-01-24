@@ -4,6 +4,7 @@ import com.domain.entity.Image
 import com.domain.entity.Product
 import com.domain.entity.ProductOption
 import com.shopify.buy3.Storefront
+import com.ui.const.Constant.DEFAULT_STRING
 
 object ProductAdapter {
 
@@ -11,8 +12,8 @@ object ProductAdapter {
 
     fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product, paginationValue: String? = null): Product {
         val productImages = convertImage(productAdaptee)
-        if (productAdaptee.options.size == 1) {
-            productAdaptee.variants.edges.forEach { it.node.title = "" }
+        if (productAdaptee.options.size == 1 && productAdaptee.options.first().values.size == 1) {
+            productAdaptee.variants.edges.forEach { it.node.title = DEFAULT_STRING }
         }
         return Product(
             id = productAdaptee.id.toString(),
