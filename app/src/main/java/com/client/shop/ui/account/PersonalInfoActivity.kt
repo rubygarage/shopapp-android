@@ -1,4 +1,4 @@
-package com.client.shop.ui.profile
+package com.client.shop.ui.account
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,9 @@ import android.text.TextWatcher
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.profile.contract.PersonalInfoPresenter
-import com.client.shop.ui.profile.contract.PersonalInfoView
-import com.client.shop.ui.profile.di.ProfileModule
+import com.client.shop.ui.account.contract.PersonalInfoPresenter
+import com.client.shop.ui.account.contract.PersonalInfoView
+import com.client.shop.ui.account.di.AuthModule
 import com.domain.entity.Customer
 import com.ui.base.lce.BaseActivity
 import com.ui.custom.SimpleTextWatcher
@@ -39,7 +39,7 @@ class PersonalInfoActivity :
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.order_details))
         setupInputListeners()
-        setupButtonListeners()
+        setupClickListeners()
         setupActionListeners()
         loadData()
     }
@@ -91,7 +91,7 @@ class PersonalInfoActivity :
 
     }
 
-    private fun setupButtonListeners() {
+    private fun setupClickListeners() {
         saveButton.setOnClickListener {
             clearFormFocus()
             presenter.editCustomer(
@@ -100,6 +100,10 @@ class PersonalInfoActivity :
                 emailInput.text.toString(),
                 phoneInput.text.toString()
             )
+        }
+
+        changePassword.setOnClickListener {
+            startActivity(ChangePasswordActivity.getStartIntent(this))
         }
     }
 
@@ -129,7 +133,7 @@ class PersonalInfoActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachProfileModule(ProfileModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
     }
 
     override fun getContentView() = R.layout.activity_personal_info

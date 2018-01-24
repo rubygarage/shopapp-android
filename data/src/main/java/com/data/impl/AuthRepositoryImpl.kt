@@ -58,4 +58,8 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
             api.editCustomerInfo(firstName, lastName, email, phone, RxCallbackSingle<Customer>(it))
         }
     }
+
+    override fun changePassword(password: String): Completable {
+        return Completable.create { api.changePassword(password, RxCallbackCompletable(it)) }
+    }
 }

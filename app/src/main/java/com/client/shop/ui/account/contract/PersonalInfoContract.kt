@@ -1,4 +1,4 @@
-package com.client.shop.ui.profile.contract
+package com.client.shop.ui.account.contract
 
 import com.domain.entity.Customer
 import com.domain.interactor.account.EditCustomerUseCase

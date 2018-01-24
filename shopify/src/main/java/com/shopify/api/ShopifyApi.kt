@@ -1073,6 +1073,85 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     }
 
+    override fun editCustomerInfo(firstName: String, lastName: String, email: String, phone: String, callback: ApiCallback<Customer>) {
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+
+            val customerInput = Storefront.CustomerUpdateInput()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setPhone(phone)
+                .setEmail(email)
+
+            val mutateQuery = Storefront.mutation {
+                it.customerUpdate(session.accessToken, customerInput, {
+                    it.customer { getDefaultCustomerQuery(it) }
+                        .userErrors { getDefaultUserErrors(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Customer>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Customer? {
+                    return data?.customerUpdate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            return CustomerAdapter.adapt(it.customer)
+                        }
+                        return null
+                    }
+                }
+            })
+        }
+
+    }
+
+    override fun changePassword(password: String, callback: ApiCallback<Unit>) {
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+
+            val customerInput = Storefront.CustomerUpdateInput()
+                .setPassword(password)
+
+            val mutateQuery = Storefront.mutation {
+                it.customerUpdate(session.accessToken, customerInput, {
+                    it.customer { getDefaultCustomerQuery(it) }
+                    it.userErrors { getDefaultUserErrors(it) }
+                })
+            }
+
+            graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Unit>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Unit? {
+                    return data?.customerUpdate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else {
+                            val tokenResponse = requestToken(it.customer.email, password)
+                            if (tokenResponse != null) {
+                                tokenResponse.first?.let {
+                                    callback.onResult(Unit)
+                                }
+                                tokenResponse.second?.let {
+                                    callback.onFailure(it)
+                                }
+                            } else {
+                                callback.onFailure(Error.Content())
+                            }
+                        }
+                        return Unit
+                    }
+                }
+            })
+
+        }
+    }
+
     private fun getDefaultOrderQuery(orderQuery: Storefront.OrderQuery): Storefront.OrderQuery {
         return orderQuery
             .orderNumber()
@@ -1256,42 +1335,6 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             .lastName()
             .email()
             .phone()
-    }
-
-    override fun editCustomerInfo(firstName: String, lastName: String, email: String, phone: String, callback: ApiCallback<Customer>) {
-        val session = getSession()
-        if (session == null) {
-            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
-        } else {
-
-            val customerInput = Storefront.CustomerUpdateInput()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setPhone(phone)
-                .setEmail(email)
-
-            val mutateQuery = Storefront.mutation {
-                it.customerUpdate(session.accessToken, customerInput, {
-                    it.customer { getDefaultCustomerQuery(it) }
-                        .userErrors { getDefaultUserErrors(it) }
-                })
-            }
-
-            graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Customer>(callback) {
-                override fun adapt(data: Storefront.Mutation?): Customer? {
-                    return data?.customerUpdate?.let {
-                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
-                        if (userError != null) {
-                            callback.onFailure(userError)
-                        } else {
-                            return CustomerAdapter.adapt(it.customer)
-                        }
-                        return null
-                    }
-                }
-            })
-        }
-
     }
 
     private fun getDefaultUserErrors(userErrorQuery: Storefront.UserErrorQuery): Storefront.UserErrorQuery {

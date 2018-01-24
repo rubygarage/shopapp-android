@@ -78,7 +78,11 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.profile.PersonalInfoActivity"
+            android:name=".ui.account.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.ChangePasswordActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
