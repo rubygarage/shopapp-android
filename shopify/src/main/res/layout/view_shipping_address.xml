@@ -8,15 +8,8 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="@drawable/background_toolbar"
-        android:gravity="center_vertical"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp"
         android:text="@string/shipping_address"
-        android:textColor="@color/textColorPrimary"
-        android:textSize="13sp"
-        android:textStyle="bold"
+        style="@style/TitleView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

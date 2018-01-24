@@ -695,21 +695,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    fun getShippingRates(checkoutId: String, email: String, address: Address, callback: ApiCallback<List<ShippingRate>>) {
-
-        val mailingAddressInput = Storefront.MailingAddressInput()
-            .setAddress1(address.address)
-            .setCity(address.city)
-            .setCountry(address.country)
-            .setFirstName(address.firstName)
-            .setLastName(address.lastName)
-            .setPhone(address.phone)
-            .setZip(address.zip)
-
-        val checkoutQuery = Storefront.mutation {
-            it.checkoutEmailUpdate(ID(checkoutId), email, { it.checkout { } })
-                .checkoutShippingAddressUpdate(mailingAddressInput, ID(checkoutId), { it.checkout { } })
-        }
+    fun getShippingRates(checkoutId: String, callback: ApiCallback<List<ShippingRate>>) {
 
         val retryHandler = RetryHandler.delay(RETRY_HANDLER_DELAY, TimeUnit.MILLISECONDS)
             .maxCount(RETRY_HANDLER_MAX_COUNT)
@@ -718,43 +704,34 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 checkout?.availableShippingRates?.let { !it.ready } ?: true
             }.build()
 
-        val checkoutCallback = object : GraphCall.Callback<Storefront.Mutation> {
+        val query = Storefront.query {
+            it.node(ID(checkoutId), {
+                it.onCheckout {
+                    it.availableShippingRates {
+                        it.ready()
+                            .shippingRates {
+                                it.title()
+                                    .price()
+                                    .handle()
+                            }
+                    }
+                }
+            })
+        }
+
+        graphClient.queryGraph(query).enqueue(object : GraphCall.Callback<Storefront.QueryRoot> {
+
+            override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
+                val checkout = (response.data()?.node as? Storefront.Checkout)
+                callback.onResult(checkout?.availableShippingRates?.shippingRates?.let {
+                    it.map { ShippingRateAdapter.adapt(it) }
+                } ?: emptyList())
+            }
+
             override fun onFailure(error: GraphError) {
                 callback.onFailure(ErrorAdapter.adapt(error))
             }
-
-            override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
-                val query = Storefront.query {
-                    it.node(ID(checkoutId), {
-                        it.onCheckout {
-                            it.availableShippingRates {
-                                it.ready()
-                                    .shippingRates {
-                                        it.title()
-                                            .price()
-                                            .handle()
-                                    }
-                            }
-                        }
-                    })
-                }
-
-                graphClient.queryGraph(query).enqueue(object : GraphCall.Callback<Storefront.QueryRoot> {
-
-                    override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
-                        val checkout = (response.data()?.node as? Storefront.Checkout)
-                        callback.onResult(checkout?.availableShippingRates?.shippingRates?.let {
-                            it.map { ShippingRateAdapter.adapt(it) }
-                        } ?: emptyList())
-                    }
-
-                    override fun onFailure(error: GraphError) {
-                        callback.onFailure(ErrorAdapter.adapt(error))
-                    }
-                }, null, retryHandler)
-            }
-        }
-        graphClient.mutateGraph(checkoutQuery).enqueue(checkoutCallback)
+        }, null, retryHandler)
     }
 
     fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate, callback: ApiCallback<Checkout>) {
@@ -763,12 +740,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             it.checkoutShippingLineUpdate(ID(checkoutId), shippingRate.handle, {
                 it.userErrors { getDefaultUserErrors(it) }
                     .checkout {
-                        it
-                            .webUrl()
-                            .requiresShipping()
-                            .subtotalPrice()
-                            .totalPrice()
-                            .totalTax()
+                        getDefaultCheckoutQuery(it)
                     }
             })
         }

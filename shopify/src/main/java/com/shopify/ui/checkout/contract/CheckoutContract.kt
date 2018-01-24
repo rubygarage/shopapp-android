@@ -6,9 +6,8 @@ import com.domain.entity.Customer
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.cart.CartItemsUseCase
 import com.shopify.entity.Checkout
-import com.shopify.interactor.checkout.CreateCheckoutUseCase
-import com.shopify.interactor.checkout.GetCheckoutUseCase
-import com.shopify.interactor.checkout.SetShippingAddressUseCase
+import com.shopify.entity.ShippingRate
+import com.shopify.interactor.checkout.*
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
@@ -18,6 +17,8 @@ interface CheckoutView : BaseLceView<Checkout> {
     fun customerReceived(customer: Customer?)
 
     fun cartProductListReceived(cartProductList: List<CartProduct>)
+
+    fun shippingRatesReceived(shippingRates: List<ShippingRate>)
 }
 
 class CheckoutPresenter @Inject constructor(
@@ -25,14 +26,18 @@ class CheckoutPresenter @Inject constructor(
     private val createCheckoutUseCase: CreateCheckoutUseCase,
     private val getCheckoutUseCase: GetCheckoutUseCase,
     private val getCustomerUseCase: GetCustomerUseCase,
-    private val setShippingAddressUseCase: SetShippingAddressUseCase
+    private val setShippingAddressUseCase: SetShippingAddressUseCase,
+    private val getShippingRatesUseCase: GetShippingRatesUseCase,
+    private val setShippingRateUseCase: SetShippingRateUseCase
 ) :
     BaseLcePresenter<Checkout, CheckoutView>(
         cartItemsUseCase,
         createCheckoutUseCase,
         getCheckoutUseCase,
         getCustomerUseCase,
-        setShippingAddressUseCase
+        setShippingAddressUseCase,
+        getShippingRatesUseCase,
+        setShippingRateUseCase
     ) {
 
     fun getCartProductList() {
@@ -96,4 +101,19 @@ class CheckoutPresenter @Inject constructor(
         )
     }
 
+    fun getShippingRates(checkoutId: String) {
+        getShippingRatesUseCase.execute(
+            { view?.shippingRatesReceived(it) },
+            { it.printStackTrace() },
+            checkoutId
+        )
+    }
+
+    fun setShippingRates(checkout: Checkout, shippingRate: ShippingRate) {
+        setShippingRateUseCase.execute(
+            { view?.showContent(it) },
+            { view?.showContent(checkout) },
+            SetShippingRateUseCase.Params(checkout.checkoutId, shippingRate)
+        )
+    }
 }

@@ -35,9 +35,4 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="ImageView">
-        <item name="placeholderImageScaleType">centerInside</item>
-        <item name="placeholderImage">@drawable/ic_placeholder</item>
-    </style>
-
 </resources>

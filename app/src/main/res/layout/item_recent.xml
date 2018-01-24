@@ -7,7 +7,7 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
-        style="@style/ImageView"
+        style="@style/SimpleDraweeView"
         android:layout_width="0dp"
         android:layout_height="@dimen/recent_item_image_height"
         app:actualImageScaleType="fitCenter"

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.shopify.api.R
 import com.shopify.ui.address.AddressListActivity
-import kotlinx.android.synthetic.main.activity_payment_new.*
+import kotlinx.android.synthetic.main.activity_payment.*
 
 class PaymentActivity : AppCompatActivity() {
 
@@ -17,7 +17,7 @@ class PaymentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_payment_new)
+        setContentView(R.layout.activity_payment)
         toolbar.setTitle(getString(R.string.payment_type))
         setSupportActionBar(toolbar)
         supportActionBar?.let {

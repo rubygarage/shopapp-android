@@ -4,28 +4,22 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.LinearLayoutManager.HORIZONTAL
-import android.view.Gravity
 import android.view.View
 import com.domain.entity.CartProduct
 import com.domain.entity.Customer
-import com.domain.entity.ProductVariant
-import com.domain.router.AppRouter
-import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.entity.Checkout
+import com.shopify.entity.ShippingRate
 import com.shopify.ui.address.AddressActivity
 import com.shopify.ui.address.AddressListActivity
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
+import com.shopify.ui.checkout.view.ShippingOptionsView
 import com.shopify.ui.payment.PaymentActivity
 import com.ui.base.lce.BaseActivity
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.ProductVariantAdapter
-import com.ui.base.recycler.divider.SpaceDecoration
+import com.ui.base.lce.view.LceLayout
 import com.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_checkout.*
 import java.math.BigDecimal
@@ -34,7 +28,7 @@ import javax.inject.Inject
 class CheckoutActivity :
     BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
     CheckoutView,
-    OnItemClickListener {
+    ShippingOptionsView.OnOptionSelectedListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CheckoutActivity::class.java)
@@ -42,9 +36,6 @@ class CheckoutActivity :
 
     @Inject
     lateinit var checkoutPresenter: CheckoutPresenter
-    @Inject
-    lateinit var router: AppRouter
-    private val cartProductList = mutableListOf<ProductVariant>()
     private var checkout: Checkout? = null
     private var customer: Customer? = null
 
@@ -54,7 +45,6 @@ class CheckoutActivity :
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.checkout))
 
-        setupCartRecycler()
         setupListeners()
         loadData()
     }
@@ -86,17 +76,7 @@ class CheckoutActivity :
 
     //SETUP
 
-    private fun setupCartRecycler() {
-        recyclerView.layoutManager = LinearLayoutManager(this, HORIZONTAL, false)
-        recyclerView.adapter = ProductVariantAdapter(cartProductList, this)
-        GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        val decoration =
-            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
-        recyclerView.addItemDecoration(decoration)
-    }
-
     private fun setupListeners() {
-        seeAll.setOnClickListener { router.openCartScreen(this) }
         shippingAddressView.setClickListeners(
             editClickListener = View.OnClickListener {
                 checkout?.let {
@@ -132,6 +112,7 @@ class CheckoutActivity :
                 startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
             }
         )
+        shippingOptionsView.onOptionSelectedListener = this
     }
 
     //LCE
@@ -154,6 +135,11 @@ class CheckoutActivity :
             data.subtotalPrice, BigDecimal.ZERO,
             data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency
         )
+        if (data.address != null) {
+            presenter.getShippingRates(data.checkoutId)
+        } else {
+            shippingOptionsView.unSelectAddress()
+        }
     }
 
     override fun customerReceived(customer: Customer?) {
@@ -161,16 +147,20 @@ class CheckoutActivity :
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {
-        this.cartProductList.clear()
-        this.cartProductList.addAll(cartProductList.map { it.productVariant })
-        recyclerView.adapter.notifyDataSetChanged()
+        myCartView.setData(cartProductList)
+    }
+
+    override fun shippingRatesReceived(shippingRates: List<ShippingRate>) {
+        checkout?.let {
+            shippingOptionsView.setData(it, shippingRates)
+        }
     }
 
     //CALLBACK
 
-    override fun onItemClicked(position: Int) {
-        cartProductList.getOrNull(position)?.let {
-            router.openProductDetailsScreen(this, it)
-        }
+    override fun onOptionSelected(shippingRate: ShippingRate) {
+        shippingOptionsView.selectShippingRate(shippingRate)
+        changeState(LceLayout.LceState.LoadingState)
+        checkout?.let { presenter.setShippingRates(it, shippingRate) }
     }
 }

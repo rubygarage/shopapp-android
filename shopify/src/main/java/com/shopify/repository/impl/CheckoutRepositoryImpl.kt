@@ -32,9 +32,9 @@ class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
         }
     }
 
-    override fun getShippingRates(checkoutId: String, email: String, address: Address): Single<List<ShippingRate>> {
+    override fun getShippingRates(checkoutId: String): Single<List<ShippingRate>> {
         return Single.create<List<ShippingRate>> {
-            api.getShippingRates(checkoutId, email, address, RxCallbackSingle<List<ShippingRate>>(it))
+            api.getShippingRates(checkoutId, RxCallbackSingle<List<ShippingRate>>(it))
         }
     }
 

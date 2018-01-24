@@ -9,7 +9,6 @@ import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.ui.product.ProductListActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
@@ -40,12 +39,6 @@ class PopularFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        seeAll.setOnClickListener {
-            context?.let {
-                startActivity(ProductListActivity.getStartIntent(it, getString(R.string.popular), sortType))
-            }
-        }
-        changeSeeAllState()
         setupRecycler()
         loadData(true)
     }
@@ -75,14 +68,6 @@ class PopularFragment :
             resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
     }
 
-    private fun changeSeeAllState() {
-        if (productList.size == MAX_ITEMS) {
-            seeAll.visibility = View.VISIBLE
-        } else {
-            seeAll.visibility = View.GONE
-        }
-    }
-
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -100,7 +85,6 @@ class PopularFragment :
             productList.addAll(data)
         }
         adapter.notifyDataSetChanged()
-        changeSeeAllState()
     }
 
     //CALLBACK
