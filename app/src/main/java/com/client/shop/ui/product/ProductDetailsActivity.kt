@@ -8,9 +8,9 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.Animation
+import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.cart.CartActivity
 import com.client.shop.ui.gallery.GalleryFragment
 import com.client.shop.ui.product.contract.DetailsPresenter
 import com.client.shop.ui.product.contract.DetailsView
@@ -65,7 +65,6 @@ class ProductDetailsActivity :
     private var galleryFragment: GalleryFragment? = null
     private var product: Product? = null
     private var selectedProductVariant: ProductVariant? = null
-    private var isAddedToCart = false
 
     //ANDROID
 
@@ -138,15 +137,11 @@ class ProductDetailsActivity :
 
     private fun setupCartButton() {
         cartButton.setOnClickListener {
-            if (isAddedToCart) {
-                startActivity(CartActivity.getStartIntent(this))
-            } else {
-                selectedProductVariant?.let {
-                    val variant = it
-                    product?.let {
-                        presenter.addProductToCart(variant, it.title,
-                            it.currency, quantityEditText.text.toString())
-                    }
+            selectedProductVariant?.let {
+                val variant = it
+                product?.let {
+                    presenter.addProductToCart(variant, it.title,
+                        it.currency, quantityEditText.text.toString())
                 }
             }
         }
@@ -172,23 +167,20 @@ class ProductDetailsActivity :
     }
 
     override fun productAddedToCart() {
-        cartButton.text = getString(R.string.added_to_cart)
-        isAddedToCart = true
+        Toast.makeText(this, R.string.product_added, Toast.LENGTH_SHORT).show()
     }
 
     //CALLBACK
 
     override fun onVariantSelected(productVariant: ProductVariant?) {
-        if (productVariant != null && productVariant.isAvailable) {
-            priceValue.text = product?.let { formatter.formatPrice(productVariant.price, it.currency) }
-            priceValue.isEnabled = true
-            cartButton.isEnabled = true
-            cartButton.setText(R.string.add_to_cart)
+        val isEnabled = productVariant != null && productVariant.isAvailable
+        priceValue.isEnabled = isEnabled
+        cartButton.isEnabled = isEnabled
+        if (isEnabled) {
+            priceValue.text = product?.let { formatter.formatPrice(productVariant!!.price, it.currency) }
             selectedProductVariant = productVariant
         } else {
             priceValue.setText(R.string.n_a_placeholder)
-            priceValue.isEnabled = false
-            cartButton.isEnabled = false
             cartButton.setText(R.string.product_unavailable)
             selectedProductVariant = null
         }
