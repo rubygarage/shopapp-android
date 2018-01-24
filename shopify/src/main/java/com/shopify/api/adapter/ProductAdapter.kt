@@ -11,6 +11,9 @@ object ProductAdapter {
 
     fun adapt(shopAdaptee: Storefront.Shop, productAdaptee: Storefront.Product, paginationValue: String? = null): Product {
         val productImages = convertImage(productAdaptee)
+        if (productAdaptee.options.size == 1) {
+            productAdaptee.variants.edges.forEach { it.node.title = "" }
+        }
         return Product(
             id = productAdaptee.id.toString(),
             title = productAdaptee.title,

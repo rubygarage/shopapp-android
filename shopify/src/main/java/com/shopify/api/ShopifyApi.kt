@@ -127,11 +127,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                             }
                                     }
                             }
-                            .options({ args -> args.first(ITEMS_COUNT) }, { optionsQuery ->
-                                optionsQuery
-                                    .name()
-                                    .values()
-                            })
+
                     }
                 }
         }
@@ -1159,6 +1155,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             .createdAt()
             .updatedAt()
             .tags()
+            .options({ args -> args.first(ITEMS_COUNT) }, { optionsQuery ->
+                optionsQuery
+                    .name()
+                    .values()
+            })
     }
 
     private fun getDefaultProductVariantQuery(productVariantQuery: Storefront.ProductVariantQuery): Storefront.ProductVariantQuery {
