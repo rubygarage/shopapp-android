@@ -1,10 +1,12 @@
 package com.client.shop.ui.account
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.account.contract.PersonalInfoPresenter
@@ -147,6 +149,12 @@ class PersonalInfoActivity :
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
         presenter.getCustomer()
+    }
+
+    override fun onCustomerChanged(customer: Customer) {
+        Toast.makeText(this, R.string.customer_changed, Toast.LENGTH_SHORT).show()
+        setResult(Activity.RESULT_OK)
+        showContent(customer)
     }
 
     override fun showContent(data: Customer) {

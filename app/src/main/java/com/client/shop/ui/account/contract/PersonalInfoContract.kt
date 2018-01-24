@@ -14,6 +14,8 @@ interface PersonalInfoView : BaseLceView<Customer> {
     fun showUpdateProgress()
 
     fun hideUpdateProgress()
+
+    fun onCustomerChanged(customer: Customer)
 }
 
 class PersonalInfoPresenter @Inject constructor(
@@ -41,7 +43,7 @@ class PersonalInfoPresenter @Inject constructor(
             view?.showUpdateProgress()
             editCustomerUseCase.execute(
                 {
-                    view?.showContent(it)
+                    view?.onCustomerChanged(it)
                     view?.hideUpdateProgress()
                 },
                 {

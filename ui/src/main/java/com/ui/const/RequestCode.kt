@@ -7,4 +7,5 @@ object RequestCode {
     const val ADD_ADDRESS = 102
     const val EDIT_ADDRESS = 103
     const val PAYMENT = 104
+    const val PERSONAL_INFO = 105
 }

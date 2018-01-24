@@ -30,6 +30,7 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     private var shop: Shop? = null
     private var customer: Customer? = null
 
+
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +69,12 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if ((requestCode == RequestCode.SIGN_IN || requestCode == RequestCode.SIGN_UP) && resultCode == Activity.RESULT_OK) {
+        val isResultOk = resultCode == Activity.RESULT_OK
+        val isSignIn = requestCode == RequestCode.SIGN_IN
+        val isSignUp = requestCode == RequestCode.SIGN_UP
+        val isPersonalInfo = requestCode == RequestCode.PERSONAL_INFO
+
+        if ((isSignIn || isSignUp || isPersonalInfo) && isResultOk) {
             loadData()
         }
     }
@@ -107,7 +113,7 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         }
         personalInfo.setOnClickListener {
             context?.let {
-                startActivity(PersonalInfoActivity.getStartIntent(it))
+                startActivityForResult(PersonalInfoActivity.getStartIntent(it), RequestCode.PERSONAL_INFO)
             }
         }
         logout.setOnClickListener {
@@ -178,4 +184,6 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         showMessage(R.string.logout_success_message)
         loadData()
     }
+
+
 }

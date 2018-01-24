@@ -92,5 +92,6 @@
     <string name="set_new_password">Set New Password</string>
     <string name="update">Update</string>
     <string name="password_match_error_message">Passwords not match</string>
+    <string name="customer_changed">Profile changed</string>
 
 </resources>

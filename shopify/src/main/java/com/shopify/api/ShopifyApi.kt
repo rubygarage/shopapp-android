@@ -1085,12 +1085,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 .setPhone(phone)
                 .setEmail(email)
 
-            val mutateQuery = Storefront.mutation {
-                it.customerUpdate(session.accessToken, customerInput, {
-                    it.customer { getDefaultCustomerQuery(it) }
-                        .userErrors { getDefaultUserErrors(it) }
-                })
-            }
+            val mutateQuery = getDefaultCustomerUpdateMutationQuery(session.accessToken, customerInput)
 
             graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Customer>(callback) {
                 override fun adapt(data: Storefront.Mutation?): Customer? {
@@ -1118,12 +1113,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             val customerInput = Storefront.CustomerUpdateInput()
                 .setPassword(password)
 
-            val mutateQuery = Storefront.mutation {
-                it.customerUpdate(session.accessToken, customerInput, {
-                    it.customer { getDefaultCustomerQuery(it) }
-                    it.userErrors { getDefaultUserErrors(it) }
-                })
-            }
+            val mutateQuery = getDefaultCustomerUpdateMutationQuery(session.accessToken, customerInput)
 
             graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Unit>(callback) {
                 override fun adapt(data: Storefront.Mutation?): Unit? {
@@ -1149,6 +1139,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 }
             })
 
+        }
+    }
+
+    private fun getDefaultCustomerUpdateMutationQuery(token: String, customerInput: Storefront.CustomerUpdateInput?): Storefront.MutationQuery? {
+        return Storefront.mutation {
+            it.customerUpdate(token, customerInput, {
+                it.customer { getDefaultCustomerQuery(it) }
+                it.userErrors { getDefaultUserErrors(it) }
+            })
         }
     }
 
