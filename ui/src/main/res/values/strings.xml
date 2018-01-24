@@ -22,6 +22,7 @@
     <string name="section_see_all">See All</string>
     <string name="default_shipping_address">Default shipping address</string>
     <string name="submit">Submit</string>
+    <string name="pay_with_this_card">Pay with this card</string>
     <string name="invalid_address">Invalid address</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
