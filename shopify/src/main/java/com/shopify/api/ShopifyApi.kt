@@ -12,6 +12,7 @@ import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QueryCallWrapper
 import com.shopify.api.entity.AccessData
+import com.shopify.api.ext.isSingleOptions
 import com.shopify.buy3.*
 import com.shopify.buy3.pay.PayAddress
 import com.shopify.buy3.pay.PayCart
@@ -20,7 +21,6 @@ import com.shopify.buy3.pay.PaymentToken
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.graphql.support.ID
-import com.shopify.util.OptionsUtils
 import net.danlew.android.joda.JodaTimeAndroid
 import java.io.IOException
 import java.math.BigDecimal
@@ -1059,7 +1059,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         call.enqueue(object : QueryCallWrapper<Order>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Order {
                 (data.node as Storefront.Order).lineItems.edges.forEach {
-                    if (OptionsUtils.isSingleOption(it.node.variant.product.options)) {
+                    if (it.node.variant.product.isSingleOptions()) {
                         it.node.variant.selectedOptions = null
                     }
                 }
