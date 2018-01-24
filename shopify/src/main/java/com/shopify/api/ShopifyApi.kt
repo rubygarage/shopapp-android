@@ -20,6 +20,7 @@ import com.shopify.buy3.pay.PaymentToken
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.graphql.support.ID
+import com.shopify.util.OptionsUtils
 import net.danlew.android.joda.JodaTimeAndroid
 import java.io.IOException
 import java.math.BigDecimal
@@ -1058,8 +1059,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         call.enqueue(object : QueryCallWrapper<Order>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Order {
                 (data.node as Storefront.Order).lineItems.edges.forEach {
-                    val options = it.node.variant.product.options
-                    if (options.size == 1 && options.first().values.size == 1) {
+                    if (OptionsUtils.isSingleOption(it.node.variant.product.options)) {
                         it.node.variant.selectedOptions = null
                     }
                 }
