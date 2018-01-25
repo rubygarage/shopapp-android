@@ -12,6 +12,7 @@ import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QueryCallWrapper
 import com.shopify.api.entity.AccessData
+import com.shopify.api.ext.isSingleOptions
 import com.shopify.buy3.*
 import com.shopify.buy3.pay.PayAddress
 import com.shopify.buy3.pay.PayCart
@@ -127,11 +128,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                             }
                                     }
                             }
-                            .options({ args -> args.first(ITEMS_COUNT) }, { optionsQuery ->
-                                optionsQuery
-                                    .name()
-                                    .values()
-                            })
+
                     }
                 }
         }
@@ -1034,8 +1031,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         call.enqueue(object : QueryCallWrapper<Order>(callback) {
             override fun adapt(data: Storefront.QueryRoot): Order {
                 (data.node as Storefront.Order).lineItems.edges.forEach {
-                    val options = it.node.variant.product.options
-                    if (options.size == 1 && options.first().values.size == 1) {
+                    if (it.node.variant.product.isSingleOptions()) {
                         it.node.variant.selectedOptions = null
                     }
                 }
@@ -1209,6 +1205,11 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             .createdAt()
             .updatedAt()
             .tags()
+            .options({ args -> args.first(ITEMS_COUNT) }, { optionsQuery ->
+                optionsQuery
+                    .name()
+                    .values()
+            })
     }
 
     private fun getDefaultProductVariantQuery(productVariantQuery: Storefront.ProductVariantQuery): Storefront.ProductVariantQuery {
