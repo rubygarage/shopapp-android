@@ -142,12 +142,12 @@ class ProductDetailsActivity :
 
         descriptionLabel.setOnClickListener {
             TransitionManager.beginDelayedTransition(mainContainer, transition)
-            val constraintSet = ConstraintSet()
-            constraintSet.clone(dataContainer)
             val isExpanded = description.height != 0
             val icon = if (isExpanded) R.drawable.ic_plus else R.drawable.ic_minus
             descriptionLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
             val height = if (isExpanded) 0 else WRAP_CONTENT
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(dataContainer)
             constraintSet.constrainHeight(description.id, height)
             constraintSet.applyTo(dataContainer)
         }
