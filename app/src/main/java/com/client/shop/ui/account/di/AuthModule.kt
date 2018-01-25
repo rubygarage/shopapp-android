@@ -1,9 +1,6 @@
 package com.client.shop.ui.account.di
 
-import com.client.shop.ui.account.contract.AccountPresenter
-import com.client.shop.ui.account.contract.ForgotPasswordPresenter
-import com.client.shop.ui.account.contract.SignInPresenter
-import com.client.shop.ui.account.contract.SignUpPresenter
+import com.client.shop.ui.account.contract.*
 import com.domain.interactor.account.*
 import com.domain.validator.FieldValidator
 import dagger.Module
@@ -35,5 +32,17 @@ class AuthModule {
     @Provides
     fun provideForgotPasswordPresenter(forgotPasswordUseCase: ForgotPasswordUseCase): ForgotPasswordPresenter {
         return ForgotPasswordPresenter(forgotPasswordUseCase)
+    }
+
+    @Provides
+    fun providePersonalInfoPresenter(validator: FieldValidator,
+                                     customerUseCase: GetCustomerUseCase,
+                                     editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
+        return PersonalInfoPresenter(validator, customerUseCase, editCustomerUseCase)
+    }
+
+    @Provides
+    fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
+        return ChangePasswordPresenter(validator, changePasswordUseCase)
     }
 }

@@ -1,4 +1,4 @@
-package com.client.shop.ui.profile.contract
+package com.client.shop.ui.account.contract
 
 import com.domain.entity.Customer
 import com.domain.interactor.account.EditCustomerUseCase
@@ -14,6 +14,8 @@ interface PersonalInfoView : BaseLceView<Customer> {
     fun showUpdateProgress()
 
     fun hideUpdateProgress()
+
+    fun onCustomerChanged(customer: Customer)
 }
 
 class PersonalInfoPresenter @Inject constructor(
@@ -41,7 +43,7 @@ class PersonalInfoPresenter @Inject constructor(
             view?.showUpdateProgress()
             editCustomerUseCase.execute(
                 {
-                    view?.showContent(it)
+                    view?.onCustomerChanged(it)
                     view?.hideUpdateProgress()
                 },
                 {

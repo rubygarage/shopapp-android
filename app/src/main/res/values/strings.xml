@@ -87,5 +87,11 @@
     <string name="price_high_to_low_sort_title">Price High to Low</string>
     <string name="price_low_to_high_sort_title">Price Low to High</string>
     <string name="product_added">Product added to cart</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="set_new_password">Set New Password</string>
+    <string name="update">Update</string>
+    <string name="password_match_error_message">Passwords not match</string>
+    <string name="customer_changed">Profile changed</string>
 
 </resources>
