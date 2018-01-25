@@ -4,10 +4,12 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.constraint.ConstraintSet
+import android.support.transition.ChangeBounds
+import android.support.transition.Transition
+import android.support.transition.TransitionManager
 import android.view.Menu
-import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.view.animation.Animation
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
@@ -21,9 +23,7 @@ import com.domain.entity.ProductVariant
 import com.domain.entity.SortType
 import com.domain.formatter.NumberFormatter
 import com.ui.base.lce.BaseActivity
-import com.ui.custom.SimpleAnimationListener
-import com.ui.ext.collapseAnimation
-import com.ui.ext.expandAnimation
+import com.ui.custom.SimpleTransitionListener
 import kotlinx.android.synthetic.main.activity_product_details.*
 import javax.inject.Inject
 
@@ -35,8 +35,7 @@ class ProductDetailsActivity :
     companion object {
         private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
         private const val EXTRA_PRODUCT_VARIANT = "extra_product_variant"
-        private const val EXPAND_DURATION = 400L
-        private const val SCROLL_DURATION = 200L
+        private const val SCROLL_DURATION = 400L
 
         fun getStartIntent(
             context: Context,
@@ -76,28 +75,8 @@ class ProductDetailsActivity :
 
         setupGallery()
         setupCartButton()
+        setupDescription()
         optionsContainer.variantSelectListener = this
-
-        descriptionLabel.setOnClickListener {
-            val descriptionHeight = description.layoutParams.height
-            if (descriptionHeight == WRAP_CONTENT) {
-                descriptionBottomSpace.visibility = View.GONE
-                description.collapseAnimation(EXPAND_DURATION)
-                descriptionLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_plus, 0)
-            } else {
-                descriptionBottomSpace.visibility = View.VISIBLE
-                description.expandAnimation(EXPAND_DURATION, object : SimpleAnimationListener() {
-                    override fun onAnimationEnd(animation: Animation?) {
-                        scrollView.post {
-                            ObjectAnimator.ofInt(scrollView, "scrollY", descriptionLabel.y.toInt())
-                                .setDuration(SCROLL_DURATION)
-                                .start()
-                        }
-                    }
-                })
-                descriptionLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_minus, 0)
-            }
-        }
 
         loadData()
     }
@@ -144,6 +123,33 @@ class ProductDetailsActivity :
                         it.currency, quantityEditText.text.toString())
                 }
             }
+        }
+    }
+
+    private fun setupDescription() {
+        val transition = ChangeBounds()
+        transition.addListener(object : SimpleTransitionListener() {
+            override fun onTransitionEnd(transition: Transition) {
+                if (description.height != 0) {
+                    scrollView.post {
+                        ObjectAnimator.ofInt(scrollView, "scrollY", descriptionLabel.y.toInt())
+                            .setDuration(SCROLL_DURATION)
+                            .start()
+                    }
+                }
+            }
+        })
+
+        descriptionLabel.setOnClickListener {
+            TransitionManager.beginDelayedTransition(mainContainer, transition)
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(dataContainer)
+            val isExpanded = description.height != 0
+            val icon = if (isExpanded) R.drawable.ic_plus else R.drawable.ic_minus
+            descriptionLabel.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0)
+            val height = if (isExpanded) 0 else WRAP_CONTENT
+            constraintSet.constrainHeight(description.id, height)
+            constraintSet.applyTo(dataContainer)
         }
     }
 
