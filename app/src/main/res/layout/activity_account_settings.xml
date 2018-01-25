@@ -8,10 +8,10 @@
         android:id="@+id/acceptPromotionSwitch"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/vertical_space"
         android:background="@color/white"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:paddingLeft="@dimen/horizontal_space"
+        android:paddingRight="@dimen/horizontal_space"
         android:text="@string/accept_promotion_emails"
         android:theme="@style/SwitchCompat"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,6 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:switchPadding="16dp" />
+        app:switchPadding="8dp" />
 
 </android.support.constraint.ConstraintLayout>
