@@ -21,6 +21,9 @@ class AccountSettingsActivity :
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, AccountSettingsActivity::class.java)
+
+        private const val CHANGE_DEBOUNCE = 500L
+
     }
 
     @Inject
@@ -49,7 +52,7 @@ class AccountSettingsActivity :
     private fun setupChangeListener() {
         acceptPromotionSwitch
             .checkedChanges()
-            .debounce(500, TimeUnit.MILLISECONDS)
+            .debounce(CHANGE_DEBOUNCE, TimeUnit.MILLISECONDS)
             .subscribeOn(AndroidSchedulers.mainThread())
             .subscribe { presenter.updateSettings(it) }
     }
