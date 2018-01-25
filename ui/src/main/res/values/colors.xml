@@ -24,9 +24,4 @@
     <color name="transparent">#00000000</color>
     <color name="blackTranslucent">#80000000</color>
 
-    <color name="thumbActive">#FF000000</color>
-    <color name="thumbNormal">#bdbdbd</color>
-    <color name="trackActive">#4c000000</color>
-    <color name="trackNormal">#26000000</color>
-
 </resources>

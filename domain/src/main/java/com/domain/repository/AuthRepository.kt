@@ -30,4 +30,6 @@ interface AuthRepository {
     fun editCustomer(firstName: String, lastName: String, email: String, phone: String): Single<Customer>
     
     fun changePassword(password: String): Completable
+
+    fun updateAccountSettings(isAcceptMarketing: Boolean): Completable
 }

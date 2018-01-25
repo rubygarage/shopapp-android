@@ -45,4 +45,10 @@ class AuthModule {
     fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
         return ChangePasswordPresenter(validator, changePasswordUseCase)
     }
+
+    @Provides
+    fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
+                                        updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
+        return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
+    }
 }

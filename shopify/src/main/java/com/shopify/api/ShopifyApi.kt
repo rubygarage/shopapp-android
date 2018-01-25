@@ -1110,6 +1110,32 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         }
     }
 
+    override fun updateCustomerSettings(isAcceptMarketing: Boolean, callback: ApiCallback<Unit>) {
+        val session = getSession()
+        if (session == null) {
+            callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))
+        } else {
+
+            val customerInput = Storefront.CustomerUpdateInput()
+                .setAcceptsMarketing(isAcceptMarketing)
+
+            val mutateQuery = getDefaultCustomerUpdateMutationQuery(session.accessToken, customerInput)
+
+            graphClient.mutateGraph(mutateQuery).enqueue(object : MutationCallWrapper<Unit>(callback) {
+                override fun adapt(data: Storefront.Mutation?): Unit? {
+                    return data?.customerUpdate?.let {
+                        val userError = ErrorAdapter.adaptUserError(it.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        }
+                        return Unit
+                    }
+                }
+            })
+
+        }
+    }
+
     private fun getDefaultCustomerUpdateMutationQuery(token: String, customerInput: Storefront.CustomerUpdateInput?): Storefront.MutationQuery? {
         return Storefront.mutation {
             it.customerUpdate(token, customerInput, {
@@ -1307,6 +1333,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             .lastName()
             .email()
             .phone()
+            .acceptsMarketing()
     }
 
     private fun getDefaultUserErrors(userErrorQuery: Storefront.UserErrorQuery): Storefront.UserErrorQuery {
