@@ -1,20 +1,18 @@
 package com.client.shop.util
 
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.TextView
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
-import io.reactivex.disposables.Disposables
 
 class TextChangeObservable constructor(val view: TextView,
-                                       private val withInitValue: Boolean) : Observable<String>() {
+                                       private val withInitValue: Boolean = false) : Observable<String>() {
 
     override fun subscribeActual(observer: Observer<in String>?) {
         observer?.let {
-            if (!checkMainThread(it)) {
+            if (!RxUtil.checkMainThread(it)) {
                 return
             }
             val listener = Listener(view, it, withInitValue)
@@ -45,16 +43,6 @@ class TextChangeObservable constructor(val view: TextView,
         override fun onDispose() {
             view.removeTextChangedListener(this)
         }
-    }
-
-    private fun checkMainThread(observer: Observer<*>): Boolean {
-        if (Looper.myLooper() != Looper.getMainLooper()) {
-            observer.onSubscribe(Disposables.empty())
-            observer.onError(IllegalStateException(
-                "Expected to be called on the main thread but was " + Thread.currentThread().name))
-            return false
-        }
-        return true
     }
 
 }
