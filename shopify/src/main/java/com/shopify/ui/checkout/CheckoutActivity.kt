@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import com.domain.entity.CartProduct
 import com.domain.entity.Customer
+import com.domain.router.AppRouter
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.entity.Checkout
@@ -36,8 +37,11 @@ class CheckoutActivity :
 
     @Inject
     lateinit var checkoutPresenter: CheckoutPresenter
+    @Inject
+    lateinit var router: AppRouter
     private var checkout: Checkout? = null
     private var customer: Customer? = null
+
 
     //ANDROID
 

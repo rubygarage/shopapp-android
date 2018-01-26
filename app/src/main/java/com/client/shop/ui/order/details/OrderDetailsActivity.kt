@@ -1,4 +1,4 @@
-package com.client.shop.ui.details
+package com.client.shop.ui.order.details
 
 import android.content.Context
 import android.content.Intent
@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.details.contract.OrderDetailsPresenter
-import com.client.shop.ui.details.contract.OrderDetailsView
 import com.client.shop.ui.order.details.adapter.OrderProductsAdapter
+import com.client.shop.ui.order.details.contract.OrderDetailsPresenter
+import com.client.shop.ui.order.details.contract.OrderDetailsView
 import com.client.shop.ui.order.di.OrderModule
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.domain.entity.Order

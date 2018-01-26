@@ -75,7 +75,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.details.OrderDetailsActivity"
+            android:name=".ui.order.details.OrderDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -88,6 +88,10 @@
 
         <activity
             android:name=".ui.account.AccountSettingsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.order.success.OrderSuccessActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
