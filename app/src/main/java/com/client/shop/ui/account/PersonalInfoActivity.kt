@@ -32,7 +32,6 @@ class PersonalInfoActivity :
 
     @Inject
     lateinit var personalInfoPresenter: PersonalInfoPresenter
-    private lateinit var emailTextWatcher: TextWatcher
     private lateinit var fieldTextWatcher: TextWatcher
     private var customer: Customer? = null
 
@@ -68,14 +67,6 @@ class PersonalInfoActivity :
     //SETUP
 
     private fun setupInputListeners() {
-        emailTextWatcher = object : SimpleTextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                checkInputFields()
-                if (emailInputLayout.isErrorEnabled) {
-                    emailInputLayout.isErrorEnabled = false
-                }
-            }
-        }
         fieldTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 checkInputFields()
@@ -85,12 +76,11 @@ class PersonalInfoActivity :
     }
 
     private fun checkInputFields() {
-        val isEmailChanged = emailInput.text.isNotBlank() && emailInput.text.toString() != customer?.email
         val isNameChanged = firstNameInput.text.toString() != customer?.firstName ?: ""
         val isLastNameChanged = lastNameInput.text.toString() != customer?.lastName ?: ""
         val isPhoneChanged = phoneInput.text.toString() != customer?.phone ?: ""
 
-        saveButton.isEnabled = isEmailChanged || isNameChanged || isLastNameChanged || isPhoneChanged
+        saveButton.isEnabled = isNameChanged || isLastNameChanged || isPhoneChanged
 
     }
 
@@ -115,9 +105,6 @@ class PersonalInfoActivity :
     }
 
     private fun addTextChangeListeners() {
-        if (this::emailTextWatcher.isInitialized) {
-            emailInput.addTextChangedListener(emailTextWatcher)
-        }
         if (this::fieldTextWatcher.isInitialized) {
             firstNameInput.addTextChangedListener(fieldTextWatcher)
             lastNameInput.addTextChangedListener(fieldTextWatcher)
@@ -126,7 +113,6 @@ class PersonalInfoActivity :
     }
 
     private fun removeTextChangeListeners() {
-        emailInput.removeTextChangedListener(emailTextWatcher)
         firstNameInput.removeTextChangedListener(fieldTextWatcher)
         lastNameInput.removeTextChangedListener(fieldTextWatcher)
         phoneInput.removeTextChangedListener(fieldTextWatcher)
@@ -167,10 +153,6 @@ class PersonalInfoActivity :
 
     override fun setupCustomerEmail(email: String) {
         emailInput.setTextWhenDisable(email)
-    }
-
-    override fun showEmailError() {
-        emailInputLayout.error = getString(R.string.invalid_email_error_message)
     }
 
     override fun showUpdateProgress() {

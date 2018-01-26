@@ -8,8 +8,6 @@ import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface PersonalInfoView : BaseLceView<Customer> {
-    fun showEmailError()
-
     fun showUpdateProgress()
 
     fun hideUpdateProgress()
