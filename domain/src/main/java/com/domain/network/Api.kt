@@ -51,4 +51,6 @@ interface Api {
     fun editCustomerInfo(firstName: String, lastName: String, email: String, phone: String, callback: ApiCallback<Customer>)
     
     fun changePassword(password: String, callback: ApiCallback<Unit>)
+
+    fun updateCustomerSettings(isAcceptMarketing: Boolean,  callback: ApiCallback<Unit>)
 }

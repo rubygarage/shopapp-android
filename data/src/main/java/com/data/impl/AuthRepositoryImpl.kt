@@ -62,4 +62,8 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
     override fun changePassword(password: String): Completable {
         return Completable.create { api.changePassword(password, RxCallbackCompletable(it)) }
     }
+
+    override fun updateAccountSettings(isAcceptMarketing: Boolean): Completable {
+        return Completable.create { api.updateCustomerSettings(isAcceptMarketing, RxCallbackCompletable(it)) }
+    }
 }

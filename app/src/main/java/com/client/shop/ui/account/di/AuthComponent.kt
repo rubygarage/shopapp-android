@@ -17,4 +17,6 @@ interface AuthComponent {
     fun inject(activity: PersonalInfoActivity)
 
     fun inject(activity: ChangePasswordActivity)
+
+    fun inject(activity: AccountSettingsActivity)
 }

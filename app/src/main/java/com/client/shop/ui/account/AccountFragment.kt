@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
@@ -65,6 +66,13 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_account, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        context?.let {
+            startActivity(AccountSettingsActivity.getStartIntent(it))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

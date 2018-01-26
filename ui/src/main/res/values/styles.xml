@@ -119,4 +119,8 @@
         <item name="android:button">@drawable/selector_radio_button</item>
     </style>
 
+    <style name="SwitchCompat">
+        <item name="colorControlActivated">@color/black</item>
+    </style>
+
 </resources>

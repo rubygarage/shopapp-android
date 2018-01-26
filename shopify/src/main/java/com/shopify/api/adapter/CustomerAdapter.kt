@@ -13,6 +13,7 @@ object CustomerAdapter {
             adaptee.firstName ?: DEFAULT_STRING,
             adaptee.lastName ?: DEFAULT_STRING,
             adaptee.phone ?: DEFAULT_STRING,
+            adaptee.acceptsMarketing,
             AddressAdapter.adapt(adaptee.addresses),
             adaptee.defaultAddress?.let { AddressAdapter.adapt(it) }
         )
