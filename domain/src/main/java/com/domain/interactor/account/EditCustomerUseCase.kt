@@ -11,14 +11,13 @@ class EditCustomerUseCase @Inject constructor(private val authRepository: AuthRe
 
     override fun buildUseCaseSingle(params: Params): Single<Customer> {
         return with(params) {
-            authRepository.editCustomer(firstName, lastName, email, phone)
+            authRepository.editCustomer(firstName, lastName, phone)
         }
     }
 
     data class Params(
         val firstName: String,
         val lastName: String,
-        val email: String,
         val phone: String
     )
 }

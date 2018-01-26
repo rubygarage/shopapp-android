@@ -16,6 +16,7 @@ import com.domain.entity.Customer
 import com.ui.base.lce.BaseActivity
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.hideKeyboard
+import com.ui.ext.setTextWhenDisable
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import javax.inject.Inject
 
@@ -39,7 +40,7 @@ class PersonalInfoActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle(getString(R.string.order_details))
+        setTitle(getString(R.string.personal_info))
         setupInputListeners()
         setupClickListeners()
         setupActionListeners()
@@ -99,7 +100,6 @@ class PersonalInfoActivity :
             presenter.editCustomer(
                 firstNameInput.text.toString(),
                 lastNameInput.text.toString(),
-                emailInput.text.toString(),
                 phoneInput.text.toString()
             )
         }
@@ -162,8 +162,11 @@ class PersonalInfoActivity :
         customer = data
         firstNameInput.setText(data.firstName)
         lastNameInput.setText(data.lastName)
-        emailInput.setText(data.email)
         phoneInput.setText(data.phone)
+    }
+
+    override fun setupCustomerEmail(email: String) {
+        emailInput.setTextWhenDisable(email)
     }
 
     override fun showEmailError() {
