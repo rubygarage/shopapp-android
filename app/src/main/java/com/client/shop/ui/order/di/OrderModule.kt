@@ -1,6 +1,6 @@
 package com.client.shop.ui.order.di
 
-import com.client.shop.ui.details.contract.OrderDetailsPresenter
+import com.client.shop.ui.order.details.contract.OrderDetailsPresenter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.domain.interactor.order.OrderDetailsUseCase
 import com.domain.interactor.order.OrderListUseCase

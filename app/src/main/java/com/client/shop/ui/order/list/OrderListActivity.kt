@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
-import com.client.shop.ui.details.OrderDetailsActivity
+import com.client.shop.ui.order.details.OrderDetailsActivity
 import com.client.shop.ui.order.di.OrderModule
 import com.client.shop.ui.order.list.adapter.OrderAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter

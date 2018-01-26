@@ -1,4 +1,4 @@
-package com.client.shop.ui.details.contract
+package com.client.shop.ui.order.details.contract
 
 import com.domain.entity.Order
 import com.domain.interactor.order.OrderDetailsUseCase

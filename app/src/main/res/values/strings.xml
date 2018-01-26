@@ -50,7 +50,6 @@
     <string name="cancel_button">Cancel</string>
     <string name="check_inbox_message">Please check your inbox</string>
     <string name="logout_success_message">You have been logged out successfully</string>
-    <string name="shop">Shop</string>
     <string name="account_sign_in_message">Sign In to shop and view orders</string>
     <string name="policy_text">By creating your account, you accept our</string>
     <string name="and">and</string>
@@ -94,5 +93,9 @@
     <string name="password_match_error_message">Passwords not match</string>
     <string name="customer_changed">Profile changed</string>
     <string name="accept_promotion_emails">Accept promotion emails</string>
+    <string name="thanks_for_shopping_with_us">Thanks for shopping with us!</string>
+    <string name="view_order_details">View order details</string>
+    <string name="your_order_number">Your order number is </string>
+    <string name="continue_shopping">Continue shopping</string>
 
 </resources>

@@ -13,6 +13,8 @@ android {
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -60,7 +62,7 @@ dependencies {
     implementation project(':domain')
     implementation project(':data')
 
-    implementation 'com.shopify.mobilebuysdk:buy3:3.1.1'
+    implementation 'com.shopify.mobilebuysdk:buy3:3.1.2'
     implementation 'com.shopify.mobilebuysdk:buy3-pay-support:1.0.2'
 
     testImplementation 'junit:junit:4.12'
