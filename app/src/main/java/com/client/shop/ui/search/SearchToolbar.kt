@@ -8,16 +8,14 @@ import android.support.constraint.ConstraintSet.END
 import android.support.constraint.ConstraintSet.START
 import android.support.transition.*
 import android.support.v4.content.ContextCompat
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.inputmethod.EditorInfo
 import com.client.shop.R
-import com.ui.custom.SimpleTextWatcher
+import com.client.shop.ext.textChanges
 import com.ui.ext.hideKeyboard
 import com.ui.ext.showKeyboard
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
 import kotlinx.android.synthetic.main.toolbar_search.view.*
@@ -34,31 +32,18 @@ class SearchToolbar @JvmOverloads constructor(
     private val expandedLineMarginEnd: Int
     private val collapsedLineMargin: Int
     private val transitionSet: Transition
-    private val inputTextWatcher: TextWatcher
     private var searchDisposable: Disposable? = null
     private val searchProcessor: PublishProcessor<String>
 
     init {
         View.inflate(context, R.layout.toolbar_search, this)
-
         transitionSet = TransitionSet()
         transitionSet.addTransition(ChangeBounds())
         transitionSet.addTransition(Fade())
-
         expandedLineMarginStart = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start)
         expandedLineMarginEnd = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end)
         collapsedLineMargin = resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin)
-
         searchProcessor = PublishProcessor.create<String>()
-        inputTextWatcher = object : SimpleTextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                val query = s.toString()
-                TransitionManager.beginDelayedTransition(this@SearchToolbar)
-                clear.visibility = if (query.isNotEmpty() && isExpanded) View.VISIBLE else View.GONE
-                searchProcessor.onNext(query)
-            }
-        }
-
         searchIcon.setOnClickListener(this)
         searchInput.setOnClickListener(this)
         clickableArea.setOnClickListener(this)
@@ -66,7 +51,7 @@ class SearchToolbar @JvmOverloads constructor(
         clear.setOnClickListener(this)
         searchInput.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                searchProcessor.onNext(searchInput.text.toString())
+                searchToolbarListener?.onQueryChanged(searchInput.text.toString())
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
@@ -79,20 +64,22 @@ class SearchToolbar @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        searchInput.addTextChangedListener(inputTextWatcher)
-        searchProcessor.let {
-            searchDisposable = it
-                .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ query ->
-                    searchToolbarListener?.onQueryChanged(query)
-                }, { error -> error.printStackTrace() })
-        }
+        searchDisposable = searchInput
+            .textChanges()
+            .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
+            .subscribe(
+                {
+                    TransitionManager.beginDelayedTransition(this@SearchToolbar)
+                    clear.visibility = if (it.isNotEmpty() && isExpanded) View.VISIBLE else View.GONE
+                    searchToolbarListener?.onQueryChanged(it)
+                },
+                { error -> error.printStackTrace() }
+            )
+
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        searchInput.removeTextChangedListener(inputTextWatcher)
         searchDisposable?.let {
             if (!it.isDisposed) {
                 it.dispose()

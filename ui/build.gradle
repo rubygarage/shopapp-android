@@ -35,6 +35,8 @@ dependencies {
     implementation "com.android.support:design:$androidSupportVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
+    api 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
+
     api "com.facebook.fresco:fresco:$frescoVersion"
 
     implementation "com.hannesdorfmann.mosby3:mvp:$mosbyVersion"
