@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.client.shop.R
 import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
 import com.client.shop.ui.search.SearchWithCategoriesFragment
+import com.ui.ext.registerKeyboardVisibilityListener
 import com.ui.ext.replaceByTag
 import kotlinx.android.synthetic.main.activity_home.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 
 class HomeActivity : AppCompatActivity() {
 
@@ -30,6 +34,8 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    var unregistrar: Unregistrar? = null
+
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +43,18 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         setupNavigation()
         switchFragment(HOME)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
+            bottomTabNavigation.visibility = if (it) View.GONE else View.VISIBLE
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregistrar?.let { it.unregister() }
     }
 
     override fun onBackPressed() {
