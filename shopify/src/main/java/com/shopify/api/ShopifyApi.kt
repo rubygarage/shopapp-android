@@ -1273,6 +1273,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     private fun getDefaultArticleQuery(articleQuery: Storefront.ArticleQuery): Storefront.ArticleQuery {
         return articleQuery.title()
             .content()
+            .contentHtml()
             .tags()
             .publishedAt()
             .url()

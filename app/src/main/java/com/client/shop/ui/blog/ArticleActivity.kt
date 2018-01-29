@@ -3,6 +3,7 @@ package com.client.shop.ui.blog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -16,6 +17,7 @@ import com.ui.base.lce.BaseActivity
 import com.ui.ext.shareText
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
+import android.text.Spannable
 
 
 class ArticleActivity :
@@ -82,7 +84,17 @@ class ArticleActivity :
         shareMenuItem?.isVisible = true
         shareUrl = data.url
         articleTitle.text = data.title
-        content.text = data.content
+        val getter = PicassoImageGetter(content, this)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            content.text = Html.fromHtml(
+                data.contentHTML,
+                Html.FROM_HTML_MODE_LEGACY,
+                getter,
+                null
+            ) as Spannable
+        } else {
+            content.text = Html.fromHtml(data.contentHTML, getter, null) as Spannable
+        }
         author.text = data.author.fullName
         val src = data.image?.src
         image.setImageURI(src)
@@ -93,4 +105,5 @@ class ArticleActivity :
         super.loadData(pullToRefresh)
         presenter.loadArticles(intent.getStringExtra(EXTRA_ARTICLE_ID))
     }
+
 }
