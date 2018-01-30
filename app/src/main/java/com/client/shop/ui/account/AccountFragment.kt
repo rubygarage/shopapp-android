@@ -30,7 +30,7 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     lateinit var accountPresenter: AccountPresenter
     private var shop: Shop? = null
     private var customer: Customer? = null
-
+    private var settingsMenuItem: MenuItem? = null
 
     //ANDROID
 
@@ -66,6 +66,7 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_account, menu)
+        settingsMenuItem = menu.findItem(R.id.settings)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -127,8 +128,6 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         logout.setOnClickListener {
             presenter.signOut()
         }
-
-
     }
 
     private fun setupPolicy(view: View, policy: Policy?) {
@@ -161,8 +160,10 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     override fun showContent(data: Boolean) {
         super.showContent(data)
         if (data) {
+            settingsMenuItem?.isVisible = true
             presenter.getCustomer()
         } else {
+            settingsMenuItem?.isVisible = false
             unauthGroup.visibility = View.VISIBLE
             authGroup.visibility = View.GONE
         }
