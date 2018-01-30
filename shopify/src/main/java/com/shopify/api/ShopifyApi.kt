@@ -1050,7 +1050,10 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             val customerInput = Storefront.CustomerUpdateInput()
                 .setFirstName(firstName)
                 .setLastName(lastName)
-                .setPhone(phone)
+
+            if (phone.isNotBlank()) {
+                customerInput.phone = phone
+            }
 
             val mutateQuery = getDefaultCustomerUpdateMutationQuery(session.accessToken, customerInput)
 
