@@ -7,7 +7,10 @@ import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SearchView : BaseLceView<List<Product>>
+interface SearchView : BaseLceView<List<Product>> {
+
+    fun hideProgress()
+}
 
 class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) :
     BaseLcePresenter<List<Product>, SearchView>(searchUseCase) {
@@ -20,7 +23,10 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
         }
         searchUseCase.execute(
             { view?.showContent(it) },
-            { it.printStackTrace() },
+            {
+                it.printStackTrace()
+                view?.hideProgress()
+            },
             SearchUseCase.Params(perPage, paginationValue, query)
         )
     }
