@@ -15,7 +15,6 @@
     <string name="card_number_error">The card number is incorrect</string>
     <string name="payment_canceled">Payment canceled</string>
     <string name="to_shipping_method_label">Continue to shipping method</string>
-    <string name="shipping_address">Shipping Address</string>
     <string name="billing_address">Billing Address</string>
     <string name="use_same_address">Use the same address for payment and delivery</string>
     <string name="shipping_empty_fields_error">Please fill required fields on the shipping screen</string>
@@ -24,8 +23,6 @@
     <string name="payment_type">Payment Type</string>
     <string name="payment">Payment</string>
     <string name="credit_card">Credit/Debit Card</string>
-    <string name="add_new_address">Add New Address</string>
-    <string name="edit_address">Edit Address</string>
     <string name="add_payment_type">Add payment type</string>
     <string name="card_holder_name">Card holder name</string>
     <string name="card_number">Card number</string>

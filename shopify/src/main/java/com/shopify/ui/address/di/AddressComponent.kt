@@ -1,13 +1,16 @@
 package com.shopify.ui.address.di
 
-import com.shopify.ui.address.AddressActivity
-import com.shopify.ui.address.AddressListActivity
+import com.shopify.ui.address.CheckoutAddressActivity
+import com.shopify.ui.address.CheckoutAddressListActivity
+import com.shopify.ui.address.CheckoutUnAuthAddressActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [AddressModule::class])
 interface AddressComponent {
 
-    fun inject(activity: AddressActivity)
+    fun inject(activity: CheckoutAddressListActivity)
 
-    fun inject(activity: AddressListActivity)
+    fun inject(activity: CheckoutAddressActivity)
+
+    fun inject(activity: CheckoutUnAuthAddressActivity)
 }

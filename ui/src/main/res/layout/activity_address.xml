@@ -168,7 +168,6 @@
                 android:id="@+id/postalCodeInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/zip"
-                android:inputType="number"
                 android:minEms="5" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
@@ -192,19 +191,6 @@
                 android:maxLines="1" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
-        <CheckBox
-            android:id="@+id/defaultShippingAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/default_shipping_address"
-            android:textColor="@color/textColorSecondary"
-            android:textSize="13sp"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phoneInputContainer" />
-
         <Button
             android:id="@+id/submitButton"
             style="@style/PrimaryButton"
@@ -216,7 +202,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/defaultShippingAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/phoneInputContainer" />
 
         <ProgressBar
             android:id="@+id/progressBar"

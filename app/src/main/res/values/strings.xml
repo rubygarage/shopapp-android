@@ -13,6 +13,7 @@
     <string name="refund_policy">Refund Policy</string>
     <string name="terms_of_service">Terms Of Service</string>
     <string name="my_account">My Account</string>
+    <string name="personal_info">Personal Info</string>
     <string name="search">Search</string>
     <string name="price_label">Price:</string>
     <string name="quantity_label">QTY:</string>

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.shopify.api.R
-import com.shopify.ui.address.AddressListActivity
 import kotlinx.android.synthetic.main.activity_payment.*
 
 class PaymentActivity : AppCompatActivity() {
@@ -27,7 +26,7 @@ class PaymentActivity : AppCompatActivity() {
         }
 
         creditCardPay.setOnClickListener {
-            startActivity(AddressListActivity.getStartIntent(this))
+            //startActivity(BaseAddressListActivity.getStartIntent(this))
             finish()
         }
     }

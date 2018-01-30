@@ -55,7 +55,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/priceView" />
 
-        <com.shopify.ui.item.AddressContentItem
+        <com.ui.item.AddressContentItem
             android:id="@+id/addressContentView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

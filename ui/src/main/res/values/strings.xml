@@ -26,6 +26,7 @@
     <string name="invalid_address">Invalid address</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="set_as_default">Set as default</string>
     <string name="done">Done</string>
     <string name="tel_prefix">Tel: %s</string>
     <string name="full_name_pattern">%1$s %2$s</string>
@@ -37,4 +38,8 @@
     <string name="order_date_pattern">Placed on %s</string>
     <string name="email_optionally">Email</string>
     <string name="shop">Shop</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="edit_address">Edit Address</string>
+    <string name="shipping_address">Shipping Address</string>
+
 </resources>

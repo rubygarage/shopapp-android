@@ -41,6 +41,8 @@ dependencies {
 
     implementation "com.hannesdorfmann.mosby3:mvp:$mosbyVersion"
 
+    implementation 'javax.inject:javax.inject:1'
+
     implementation project(':data')
 
     testImplementation 'junit:junit:4.12'

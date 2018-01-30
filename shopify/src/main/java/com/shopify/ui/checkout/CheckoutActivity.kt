@@ -12,8 +12,8 @@ import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
-import com.shopify.ui.address.AddressActivity
-import com.shopify.ui.address.AddressListActivity
+import com.shopify.ui.address.CheckoutAddressListActivity
+import com.shopify.ui.address.CheckoutUnAuthAddressActivity
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
@@ -87,25 +87,28 @@ class CheckoutActivity :
                     val address = it.address
                     if (customer != null) {
                         startActivityForResult(
-                            AddressListActivity.getStartIntent(
+                            CheckoutAddressListActivity.getStartIntent(
                                 this,
                                 it.checkoutId,
+                                true,
                                 address
                             ),
                             RequestCode.EDIT_ADDRESS
                         )
                     } else if (address != null) {
-                        startActivityForResult(
-                            AddressActivity.getStartIntent(this, it.checkoutId, address),
-                            RequestCode.EDIT_ADDRESS
-                        )
+                        checkout?.let {
+                            startActivityForResult(
+                                CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, address, true),
+                                RequestCode.EDIT_ADDRESS
+                            )
+                        }
                     }
                 }
             },
             addAddressClickListener = View.OnClickListener {
                 checkout?.let {
                     startActivityForResult(
-                        AddressActivity.getStartIntent(this, it.checkoutId),
+                        CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
                         RequestCode.ADD_ADDRESS
                     )
                 }

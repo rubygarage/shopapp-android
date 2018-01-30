@@ -1,27 +1,19 @@
 package com.domain.interactor.account
 
 import com.domain.entity.Address
-import com.domain.interactor.base.CompletableUseCase
+import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.AuthRepository
-import io.reactivex.Completable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class CreateCustomerAddressUseCase @Inject constructor(private val authRepository: AuthRepository) :
-    CompletableUseCase<CreateCustomerAddressUseCase.Params>() {
+    SingleUseCase<String, CreateCustomerAddressUseCase.Params>() {
 
-    override fun buildUseCaseCompletable(params: Params): Completable {
+    override fun buildUseCaseSingle(params: Params): Single<String> {
         return authRepository.createCustomerAddress(params.address)
-            .flatMapCompletable {
-                return@flatMapCompletable if (params.isDefault) {
-                    authRepository.setDefaultShippingAddress(it)
-                } else {
-                    Completable.complete()
-                }
-            }
     }
 
     class Params(
-        val address: Address,
-        val isDefault: Boolean
+        val address: Address
     )
 }

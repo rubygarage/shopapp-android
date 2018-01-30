@@ -2,10 +2,11 @@ package com.shopify.ui.address.di
 
 import com.domain.interactor.account.*
 import com.domain.validator.FieldValidator
-import com.shopify.interactor.checkout.GetCheckoutUseCase
 import com.shopify.interactor.checkout.SetShippingAddressUseCase
-import com.shopify.ui.address.contract.AddressListPresenter
-import com.shopify.ui.address.contract.AddressPresenter
+import com.shopify.ui.address.contract.CheckoutAddressListPresenter
+import com.shopify.ui.address.contract.CheckoutUnAuthAddressPresenter
+import com.ui.module.address.contract.AddressPresenter
+import com.ui.module.address.contract.AddressView
 import dagger.Module
 import dagger.Provides
 
@@ -13,27 +14,43 @@ import dagger.Provides
 class AddressModule {
 
     @Provides
-    fun provideAddressPresenter(
+    fun provideCheckoutUnAuthAddressPresenter(
         formValidator: FieldValidator,
-        getCheckoutUseCase: GetCheckoutUseCase,
         setShippingAddressUseCase: SetShippingAddressUseCase,
-        sessionCheckUseCase: SessionCheckUseCase,
         createCustomerAddressUseCase: CreateCustomerAddressUseCase,
         editCustomerAddressUseCase: EditCustomerAddressUseCase
-    ): AddressPresenter = AddressPresenter(
+    ): CheckoutUnAuthAddressPresenter = CheckoutUnAuthAddressPresenter(
         formValidator,
-        getCheckoutUseCase,
         setShippingAddressUseCase,
-        sessionCheckUseCase,
         createCustomerAddressUseCase,
         editCustomerAddressUseCase
     )
 
     @Provides
-    fun provideAddressListPresenter(
+    fun provideCheckoutAddressListPresenter(
         getCustomerUseCase: GetCustomerUseCase,
         deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
+        setDefaultAddressUseCase: SetDefaultAddressUseCase,
         setShippingAddressUseCase: SetShippingAddressUseCase
-    ): AddressListPresenter =
-        AddressListPresenter(getCustomerUseCase, deleteCustomerAddressUseCase, setShippingAddressUseCase)
+    ): CheckoutAddressListPresenter {
+        return CheckoutAddressListPresenter(
+            getCustomerUseCase,
+            deleteCustomerAddressUseCase,
+            setDefaultAddressUseCase,
+            setShippingAddressUseCase
+        )
+    }
+
+    @Provides
+    fun provideAddressPresenter(
+        formValidator: FieldValidator,
+        createCustomerAddressUseCase: CreateCustomerAddressUseCase,
+        editCustomerAddressUseCase: EditCustomerAddressUseCase
+    ): AddressPresenter<AddressView> =
+        AddressPresenter(
+            formValidator,
+            createCustomerAddressUseCase,
+            editCustomerAddressUseCase
+        )
+
 }
