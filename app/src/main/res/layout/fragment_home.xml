@@ -62,12 +62,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/popularContainer"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <Button
-                    android:id="@+id/stub"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="stub"/>
-
                 <android.support.constraint.Guideline
                     android:id="@+id/bottomGuideline"
                     android:layout_width="wrap_content"

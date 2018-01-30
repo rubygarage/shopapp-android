@@ -1,13 +1,11 @@
 package com.client.shop.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
-import com.client.shop.ui.address.AddressListActivity
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.popular.PopularFragment
 import com.client.shop.ui.product.ProductHorizontalFragment
@@ -40,8 +38,6 @@ class HomeFragment :
         super.onViewCreated(view, savedInstanceState)
 
         refreshLayout.setOnRefreshListener(this)
-
-        stub.setOnClickListener { startActivity(Intent(view.context, AddressListActivity::class.java)) }
 
         childFragmentManager.replaceOnce(R.id.recentContainer,
             ProductHorizontalFragment::javaClass.name,
