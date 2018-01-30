@@ -53,9 +53,9 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
         return Completable.create { api.setDefaultShippingAddress(addressId, RxCallbackCompletable(it)) }
     }
 
-    override fun editCustomer(firstName: String, lastName: String, email: String, phone: String): Single<Customer> {
+    override fun editCustomer(firstName: String, lastName: String, phone: String): Single<Customer> {
         return Single.create {
-            api.editCustomerInfo(firstName, lastName, email, phone, RxCallbackSingle<Customer>(it))
+            api.editCustomerInfo(firstName, lastName, phone, RxCallbackSingle<Customer>(it))
         }
     }
 

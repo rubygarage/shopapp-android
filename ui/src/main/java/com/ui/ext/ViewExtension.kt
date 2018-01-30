@@ -29,3 +29,9 @@ fun View.showKeyboard() {
 fun EditText.getTrimmedString(): String {
     return text.trim().toString()
 }
+
+fun EditText.setTextWhenDisable(src: String) {
+    isEnabled = true
+    setText(src)
+    isEnabled = false
+}

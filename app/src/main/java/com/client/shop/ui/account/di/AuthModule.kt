@@ -35,10 +35,9 @@ class AuthModule {
     }
 
     @Provides
-    fun providePersonalInfoPresenter(validator: FieldValidator,
-                                     customerUseCase: GetCustomerUseCase,
+    fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
                                      editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
-        return PersonalInfoPresenter(validator, customerUseCase, editCustomerUseCase)
+        return PersonalInfoPresenter(customerUseCase, editCustomerUseCase)
     }
 
     @Provides

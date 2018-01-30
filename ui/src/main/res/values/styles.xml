@@ -96,6 +96,10 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="BlackTextTextInputEditText" parent="@style/TextInputEditText">
+        <item name="android:textColor">@color/black_enabled_text</item>
+    </style>
+
     <style name="SimpleDraweeView">
         <item name="placeholderImageScaleType">centerInside</item>
         <item name="placeholderImage">@drawable/ic_placeholder</item>
