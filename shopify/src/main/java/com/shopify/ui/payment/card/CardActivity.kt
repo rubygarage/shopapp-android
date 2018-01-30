@@ -103,8 +103,14 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
                 checkInputFields()
             }
         }
-        monthInput.setOnClickListener { showMonthPicker() }
-        yearInput.setOnClickListener { yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR) }
+        monthInput.setOnClickListener {
+            it.hideKeyboard()
+            showMonthPicker()
+        }
+        yearInput.setOnClickListener {
+            it.hideKeyboard()
+            yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR)
+        }
         submitButton.setOnClickListener { loadData() }
         cardNumberInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {

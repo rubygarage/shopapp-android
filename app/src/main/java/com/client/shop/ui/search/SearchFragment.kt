@@ -78,6 +78,10 @@ class SearchFragment :
         }
     }
 
+    override fun hideProgress() {
+        swipeRefreshLayout?.isRefreshing = false
+    }
+
     fun queryChanged(query: String) {
         if (query != currentQuery) {
             paginationValue = null

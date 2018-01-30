@@ -2,6 +2,7 @@ package com.shopify.api.adapter
 
 import com.domain.entity.Address
 import com.shopify.buy3.Storefront
+import com.ui.const.Constant
 
 object AddressAdapter {
 
@@ -15,7 +16,7 @@ object AddressAdapter {
             country = adaptee.country,
             firstName = adaptee.firstName,
             lastName = adaptee.lastName,
-            zip = adaptee.zip,
+            zip = adaptee.zip ?: Constant.DEFAULT_STRING,
             phone = adaptee.phone
         )
     }

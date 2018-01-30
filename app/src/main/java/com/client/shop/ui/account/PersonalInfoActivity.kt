@@ -72,7 +72,6 @@ class PersonalInfoActivity :
                 checkInputFields()
             }
         }
-
     }
 
     private fun checkInputFields() {

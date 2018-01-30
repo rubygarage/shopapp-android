@@ -33,7 +33,7 @@ class AccountSettingsActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTitle(getString(R.string.set_new_password))
+        setTitle(getString(R.string.settings))
         loadData()
     }
 

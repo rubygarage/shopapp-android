@@ -16,6 +16,7 @@ import com.client.shop.R
 import com.client.shop.ext.textChanges
 import com.ui.ext.hideKeyboard
 import com.ui.ext.showKeyboard
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.processors.PublishProcessor
 import kotlinx.android.synthetic.main.toolbar_search.view.*
@@ -67,6 +68,7 @@ class SearchToolbar @JvmOverloads constructor(
         searchDisposable = searchInput
             .textChanges()
             .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     TransitionManager.beginDelayedTransition(this@SearchToolbar)
@@ -89,12 +91,13 @@ class SearchToolbar @JvmOverloads constructor(
 
     private fun collapseToolbar() {
         searchInput.layoutParams.width = WRAP_CONTENT
-        searchInput.text.clear()
+        searchInput.setText("")
         searchInput.isFocusableInTouchMode = false
         searchInput.clearFocus()
         searchInput.hideKeyboard()
         searchInput.setHintTextColor(ContextCompat.getColor(context, R.color.textColorPrimary))
         searchIcon.setImageResource(R.drawable.ic_searchbar)
+        clear.visibility = View.GONE
         cartWidget.visibility = View.VISIBLE
 
         changeBottomLine(R.color.colorBackgroundDark, collapsedLineMargin, collapsedLineMargin)
@@ -137,7 +140,7 @@ class SearchToolbar @JvmOverloads constructor(
     override fun onClick(view: View) {
         when (view) {
             searchIcon -> changeToolbarState()
-            clear -> searchInput.text.clear()
+            clear -> searchInput.setText("")
             clickableArea -> {
                 if (isExpanded) {
                     changeToolbarState()
