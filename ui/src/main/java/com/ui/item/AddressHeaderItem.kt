@@ -1,4 +1,4 @@
-package com.shopify.ui.item
+package com.ui.item
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
-import com.shopify.api.R
+import com.ui.R
 import kotlinx.android.synthetic.main.item_address_header.view.*
 
 class AddressHeaderItem @JvmOverloads constructor(

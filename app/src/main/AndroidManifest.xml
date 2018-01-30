@@ -94,6 +94,14 @@
             android:name=".ui.order.success.OrderSuccessActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".ui.address.AddressListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.address.AddressActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ec1a2d2e6ae5cf3addf0ec8f67c34deb4a00cbea" />

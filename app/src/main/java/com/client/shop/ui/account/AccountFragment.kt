@@ -104,26 +104,18 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
 
     private fun setupButtons() {
         signInButton.setOnClickListener {
-            context?.let {
-                startActivityForResult(SignInActivity.getStartIntent(it), RequestCode.SIGN_IN)
-            }
+            startActivityForResult(SignInActivity.getStartIntent(it.context), RequestCode.SIGN_IN)
         }
         createAccount.setOnClickListener {
-            context?.let {
-                startActivityForResult(SignUpActivity.getStartIntent(it, shop?.privacyPolicy,
-                    shop?.termsOfService), RequestCode.SIGN_UP)
-            }
+            startActivityForResult(SignUpActivity.getStartIntent(it.context, shop?.privacyPolicy,
+                shop?.termsOfService), RequestCode.SIGN_UP)
 
         }
         myOrders.setOnClickListener {
-            context?.let {
-                startActivity(OrderListActivity.getStartIntent(it))
-            }
+            startActivity(OrderListActivity.getStartIntent(it.context))
         }
         personalInfo.setOnClickListener {
-            context?.let {
-                startActivityForResult(PersonalInfoActivity.getStartIntent(it), RequestCode.PERSONAL_INFO)
-            }
+            startActivityForResult(PersonalInfoActivity.getStartIntent(it.context), RequestCode.PERSONAL_INFO)
         }
         logout.setOnClickListener {
             presenter.signOut()
@@ -190,9 +182,9 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
     }
 
     override fun signedOut() {
+        customer = null
         showMessage(R.string.logout_success_message)
         loadData()
     }
-
 
 }

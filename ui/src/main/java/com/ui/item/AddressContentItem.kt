@@ -1,4 +1,4 @@
-package com.shopify.ui.item
+package com.ui.item
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import com.domain.entity.Address
-import com.shopify.api.R
+import com.ui.R
 import kotlinx.android.synthetic.main.item_address_content.view.*
 
 class AddressContentItem @JvmOverloads constructor(

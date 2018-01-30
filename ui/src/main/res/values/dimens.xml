@@ -6,6 +6,8 @@
     <dimen name="product_variant_item_height">100dp</dimen>
     <dimen name="product_variant_item_divider">3dp</dimen>
 
+    <dimen name="address_item_divider">4dp</dimen>
+
     <dimen name="horizontal_space">16dp</dimen>
     <dimen name="vertical_space">20dp</dimen>
 

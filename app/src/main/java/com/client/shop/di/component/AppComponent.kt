@@ -5,6 +5,8 @@ import com.client.shop.di.module.RouterModule
 import com.client.shop.di.module.ValidatorModule
 import com.client.shop.ui.account.di.AuthComponent
 import com.client.shop.ui.account.di.AuthModule
+import com.client.shop.ui.address.di.AddressComponent
+import com.client.shop.ui.address.di.AddressModule
 import com.client.shop.ui.blog.di.BlogComponent
 import com.client.shop.ui.blog.di.BlogModule
 import com.client.shop.ui.cart.di.CartComponent
@@ -44,5 +46,7 @@ interface AppComponent {
     fun attachAuthComponent(module: AuthModule): AuthComponent
 
     fun attachOrderComponent(module: OrderModule): OrderComponent
+
+    fun attachAddressComponent(module: AddressModule): AddressComponent
 
 }

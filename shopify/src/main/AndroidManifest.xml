@@ -16,11 +16,15 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.shopify.ui.address.AddressActivity"
+            android:name="com.shopify.ui.address.CheckoutAddressListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.shopify.ui.address.AddressListActivity"
+            android:name="com.shopify.ui.address.CheckoutAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.shopify.ui.address.CheckoutUnAuthAddressActivity"
             android:screenOrientation="portrait" />
 
         <activity

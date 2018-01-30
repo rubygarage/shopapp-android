@@ -25,6 +25,10 @@ android {
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+
+        versionCode 3
+        versionName "1.2"
+
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }

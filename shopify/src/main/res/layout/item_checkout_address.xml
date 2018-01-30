@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.shopify.ui.item.AddressContentItem
+    <com.ui.item.AddressContentItem
         android:id="@+id/addressContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/defaultAddressButton"
+        app:layout_constraintEnd_toStartOf="@+id/selectedAddressRadioButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/addressContent" />
 
     <RadioButton
-        android:id="@+id/defaultAddressButton"
+        android:id="@+id/selectedAddressRadioButton"
         style="@style/RadioButton"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/horizontalDivider" />
 
     <View
-        android:id="@+id/verticalDivider"
+        android:id="@+id/editVerticalDivider"
         android:layout_width="1dp"
         android:layout_height="20dp"
         android:background="@color/colorBackgroundDarkTranslucent"
@@ -65,7 +65,27 @@
         android:text="@string/delete"
         android:textColor="@drawable/selector_secondary_borderless_button_text"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/verticalDivider"
+        app:layout_constraintStart_toEndOf="@+id/editVerticalDivider"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalDivider" />
+
+    <View
+        android:id="@+id/deleteVerticalDivider"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:background="@color/colorBackgroundDarkTranslucent"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteButton"
+        app:layout_constraintStart_toEndOf="@+id/deleteButton"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalDivider" />
+
+    <Button
+        android:id="@+id/defaultButton"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/set_as_default"
+        android:textColor="@drawable/selector_secondary_borderless_button_text"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/deleteButton"
         app:layout_constraintTop_toBottomOf="@+id/horizontalDivider" />
 
     <android.support.constraint.Group

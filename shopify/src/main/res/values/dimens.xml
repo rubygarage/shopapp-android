@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="address_item_divider">4dp</dimen>
     <dimen name="shipping_options_item_height">54dp</dimen>
 </resources>

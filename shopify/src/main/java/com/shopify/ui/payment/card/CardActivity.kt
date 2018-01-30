@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
-import com.domain.entity.Address
 import com.domain.entity.Card
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
@@ -27,10 +26,9 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
 
     companion object {
 
-        fun getStartIntent(context: Context, address: Address): Intent {
+        fun getStartIntent(context: Context): Intent {
             val intent = Intent(context, CardActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
-            intent.putExtra(Extra.ADDRESS, address)
             return intent
         }
     }
@@ -152,7 +150,6 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     override fun showContent(data: Pair<Card, String>) {
         super.showContent(data)
         val result = Intent()
-        result.putExtra(Extra.ADDRESS, intent.getParcelableExtra<Address?>(Extra.ADDRESS))
         result.putExtra(Extra.CARD, data.first)
         result.putExtra(Extra.CARD_TOKEN, data.second)
         result.putExtra(Extra.PAYMENT_TYPE, CARD_PAYMENT)

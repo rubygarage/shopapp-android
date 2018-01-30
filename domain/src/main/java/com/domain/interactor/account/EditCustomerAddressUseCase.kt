@@ -10,14 +10,8 @@ class EditCustomerAddressUseCase @Inject constructor(private val authRepository:
     CompletableUseCase<EditCustomerAddressUseCase.Params>() {
 
     override fun buildUseCaseCompletable(params: Params): Completable {
-        return authRepository.editCustomerAddress(params.addressId, params.address).andThen(
-            if (params.isDefault) {
-                authRepository.setDefaultShippingAddress(params.addressId)
-            } else {
-                Completable.complete()
-            }
-        )
+        return authRepository.editCustomerAddress(params.addressId, params.address)
     }
 
-    class Params(val addressId: String, val address: Address, val isDefault: Boolean)
+    class Params(val addressId: String, val address: Address)
 }
