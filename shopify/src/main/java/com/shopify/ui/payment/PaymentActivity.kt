@@ -1,24 +1,33 @@
 package com.shopify.ui.payment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.CompoundButton
 import com.shopify.api.R
-import com.shopify.ui.address.CheckoutAddressListActivity
-import com.shopify.ui.payment.card.CardActivity
+import com.shopify.constant.*
 import kotlinx.android.synthetic.main.activity_payment.*
 
-class PaymentActivity : AppCompatActivity() {
+class PaymentActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
 
     companion object {
-        fun getStartIntent(context: Context) = Intent(context, PaymentActivity::class.java)
+
+        private const val PAYMENT_TYPE = "payment_type"
+
+        fun getStartIntent(context: Context, @PaymentType paymentType: String?): Intent {
+            val intent = Intent(context, PaymentActivity::class.java)
+            intent.putExtra(PAYMENT_TYPE, paymentType)
+            return intent
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
+
         toolbar.setTitle(getString(R.string.payment_type))
         setSupportActionBar(toolbar)
         supportActionBar?.let {
@@ -27,17 +36,37 @@ class PaymentActivity : AppCompatActivity() {
             it.setHomeAsUpIndicator(com.ui.R.drawable.ic_arrow_left)
         }
 
-        creditCardPay.setOnClickListener {
-            startActivity(CardActivity.getStartIntent(this))
-            finish()
+        val paymentType: String? = intent.getStringExtra(PAYMENT_TYPE)
+        when (paymentType) {
+            CARD_PAYMENT -> cardPayRadioButton.isChecked = true
+            ANDROID_PAYMENT -> androidPayRadioButton.isChecked = true
+            WEB_PAYMENT -> webPayRadioButton.isChecked = true
         }
+
+        cardPayRadioButton.setOnCheckedChangeListener(this)
+        androidPayRadioButton.setOnCheckedChangeListener(this)
+        webPayRadioButton.setOnCheckedChangeListener(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val itemId = item?.itemId
-        if (itemId == android.R.id.home) {
+        return if (item?.itemId == android.R.id.home) {
             onBackPressed()
+            true
+        } else {
+            false
         }
-        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+        val paymentType: String? = when (buttonView) {
+            cardPayRadioButton -> CARD_PAYMENT
+            androidPayRadioButton -> ANDROID_PAYMENT
+            webPayRadioButton -> WEB_PAYMENT
+            else -> null
+        }
+        val resultData = Intent()
+        resultData.putExtra(Extra.PAYMENT_TYPE, paymentType)
+        setResult(Activity.RESULT_OK, resultData)
+        finish()
     }
 }

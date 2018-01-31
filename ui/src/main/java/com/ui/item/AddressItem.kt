@@ -31,7 +31,7 @@ open class AddressItem(context: Context) : ConstraintLayout(context) {
     open fun setAddress(address: Address, defaultAddress: Address?) {
         this.address = address
         addressContent.setAddress(address)
-        val isDefault = address.id == defaultAddress?.id
+        val isDefault = address.id == defaultAddress?.id || address == defaultAddress
         deleteButton.isEnabled = !isDefault
         defaultButton.isEnabled = !isDefault
     }

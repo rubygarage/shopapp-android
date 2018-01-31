@@ -15,7 +15,7 @@ buildscript {
         androidSupportVersion = '27.0.2'
         rxVersion = '2.1.6'
         rxAndroidVersion = '2.0.1'
-        constraintLayoutVersion = '1.1.0-beta4'
+        constraintLayoutVersion = '1.1.0-beta3'
         mosbyVersion = '3.0.4'
         daggerVersion = '2.11'
         frescoVersion = '1.7.1'

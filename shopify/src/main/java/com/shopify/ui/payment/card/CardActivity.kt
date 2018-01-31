@@ -9,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import com.domain.entity.Card
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
-import com.shopify.constant.CARD_PAYMENT
 import com.shopify.constant.Extra
 import com.shopify.ui.payment.card.contract.CardPresenter
 import com.shopify.ui.payment.card.contract.CardView
@@ -26,9 +25,11 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
 
     companion object {
 
-        fun getStartIntent(context: Context): Intent {
+        private const val CARD = "card"
+
+        fun getStartIntent(context: Context, card: Card?): Intent {
             val intent = Intent(context, CardActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT
+            intent.putExtra(CARD, card)
             return intent
         }
     }
@@ -38,6 +39,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     private lateinit var fieldTextWatcher: TextWatcher
     private lateinit var monthPicker: DateBottomSheetPicker
     private lateinit var yearPicker: DateBottomSheetPicker
+    private var card: Card? = null
 
     //ANDROID
 
@@ -46,6 +48,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         setTitle(getString(R.string.credit_card))
         setupPickers()
         setupListeners()
+        card = intent.getParcelableExtra(CARD)
     }
 
     override fun onResume() {
@@ -56,6 +59,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
             monthInput.addTextChangedListener(fieldTextWatcher)
             yearInput.addTextChangedListener(fieldTextWatcher)
             cvvInput.addTextChangedListener(fieldTextWatcher)
+            fillCardData()
         }
     }
 
@@ -134,6 +138,18 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
                 cvvInput.text.isNotBlank()
     }
 
+    private fun fillCardData() {
+        if (holderNameInput.text.isBlank()) {
+            card?.let {
+                holderNameInput.setText(getString(R.string.full_name_pattern, it.firstName, it.lastName))
+                cardNumberInput.setText(it.cardNumber)
+                monthInput.setText(it.expireMonth)
+                yearInput.setText(it.expireYear)
+                cvvInput.setText(it.verificationCode)
+            }
+        }
+    }
+
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -152,9 +168,16 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         val result = Intent()
         result.putExtra(Extra.CARD, data.first)
         result.putExtra(Extra.CARD_TOKEN, data.second)
-        result.putExtra(Extra.PAYMENT_TYPE, CARD_PAYMENT)
         setResult(Activity.RESULT_OK, result)
         finish()
+    }
+
+    override fun cardPassValidation(card: Card) {
+        if (card == this.card) {
+            onBackPressed()
+        } else {
+            presenter.getToken(card)
+        }
     }
 
     override fun cardValidationError(error: Int) {

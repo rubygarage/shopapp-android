@@ -92,6 +92,7 @@ class OrderDetailsActivity :
         recyclerView.addItemDecoration(spaceDecoration)
         recyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.isNestedScrollingEnabled = false
     }
 
     override fun onItemClicked(position: Int) {

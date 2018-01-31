@@ -25,7 +25,7 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
 
         fun getStartIntent(
             context: Context,
-            checkoutId: String,
+            checkoutId: String? = null,
             address: Address? = null,
             isShipping: Boolean = false
         ): Intent {
@@ -39,7 +39,7 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
 
     @Inject
     lateinit var fieldValidator: FieldValidator
-    private lateinit var checkoutId: String
+    private var checkoutId: String? = null
     private var isShippingAddress = false
 
     //ANDROID
@@ -61,10 +61,12 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
     override fun submitAddress() {
         val address = getAddress()
         if (isShippingAddress) {
-            if (isEditMode) {
-                presenter.editShippingAddress(checkoutId, address)
-            } else {
-                presenter.submitShippingAddress(checkoutId, address)
+            checkoutId?.let {
+                if (isEditMode) {
+                    presenter.editShippingAddress(it, address)
+                } else {
+                    presenter.submitShippingAddress(it, address)
+                }
             }
         } else {
             if (fieldValidator.isAddressValid(address)) {

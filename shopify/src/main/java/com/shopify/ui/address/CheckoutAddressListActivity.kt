@@ -30,9 +30,9 @@ class CheckoutAddressListActivity :
 
         fun getStartIntent(
             context: Context,
-            checkoutId: String,
+            checkoutId: String? = null,
             isShipping: Boolean,
-            selectedAddress: Address?
+            selectedAddress: Address? = null
         ): Intent {
             val intent = Intent(context, CheckoutAddressListActivity::class.java)
             intent.putExtra(CHECKOUT_ID, checkoutId)
@@ -42,7 +42,7 @@ class CheckoutAddressListActivity :
         }
     }
 
-    private lateinit var checkoutId: String
+    private var checkoutId: String? = null
     private var isShipping = true
     private var selectedAddress: Address? = null
 
@@ -58,8 +58,8 @@ class CheckoutAddressListActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val isAddAddressRequest = requestCode == RequestCode.ADD_ADDRESS
-        val isEditAddressRequest = requestCode == RequestCode.EDIT_ADDRESS
+        val isAddAddressRequest = requestCode == RequestCode.ADD_SHIPPING_ADDRESS
+        val isEditAddressRequest = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
         val isResultOk = resultCode == Activity.RESULT_OK
 
         if (isAddAddressRequest && isResultOk) {
@@ -106,7 +106,7 @@ class CheckoutAddressListActivity :
         val isSelectedAddress = address == selectedAddress
         startActivityForResult(
             CheckoutAddressActivity.getStartIntent(this, address, isSelectedAddress),
-            RequestCode.EDIT_ADDRESS
+            RequestCode.EDIT_SHIPPING_ADDRESS
         )
     }
 
@@ -119,12 +119,12 @@ class CheckoutAddressListActivity :
     }
 
     override fun onAddressSelected(address: Address) {
-        changeState(LceLayout.LceState.LoadingState)
         selectedAddress = address
         addressListAdapter.selectedAddress = selectedAddress
         addressListAdapter.notifyDataSetChanged()
         if (isShipping) {
-            presenter.setShippingAddress(checkoutId, address)
+            changeState(LceLayout.LceState.LoadingState)
+            checkoutId?.let { presenter.setShippingAddress(it, address) }
         } else {
             selectedAddressChanged(address)
         }
@@ -132,7 +132,7 @@ class CheckoutAddressListActivity :
 
     override fun onClick(v: View?) {
         startActivityForResult(
-            CheckoutAddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS
+            CheckoutAddressActivity.getStartIntent(this), RequestCode.ADD_SHIPPING_ADDRESS
         )
     }
 }

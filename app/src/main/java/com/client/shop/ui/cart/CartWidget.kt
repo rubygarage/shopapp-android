@@ -42,7 +42,7 @@ class CartWidget @JvmOverloads constructor(
             badge.visibility = View.VISIBLE
             badge.text = count.toString()
         } else {
-            badge.visibility = View.GONE
+            badge.visibility = View.INVISIBLE
         }
     }
 

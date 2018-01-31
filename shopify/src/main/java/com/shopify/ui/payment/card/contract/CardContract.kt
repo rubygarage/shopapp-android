@@ -11,6 +11,8 @@ import javax.inject.Inject
 
 interface CardView : BaseLceView<Pair<Card, String>> {
 
+    fun cardPassValidation(card: Card)
+
     fun cardValidationError(@StringRes error: Int)
 }
 
@@ -32,7 +34,7 @@ class CardPresenter @Inject constructor(private val checkCreditCardUseCase: Chec
                 cardCvv
             )
             when (cardValidator.isCardValid(card)) {
-                CardValidator.CardValidationResult.VALID -> getToken(card)
+                CardValidator.CardValidationResult.VALID -> view?.cardPassValidation(card)
                 CardValidator.CardValidationResult.INVALID_NAME -> view?.cardValidationError(R.string.card_name_error)
                 CardValidator.CardValidationResult.INVALID_DATE -> view?.cardValidationError(R.string.card_date_error)
                 CardValidator.CardValidationResult.INVALID_CVV -> view?.cardValidationError(R.string.card_cvv_error)
@@ -43,7 +45,7 @@ class CardPresenter @Inject constructor(private val checkCreditCardUseCase: Chec
         }
     }
 
-    private fun getToken(card: Card) {
+    fun getToken(card: Card) {
         checkCreditCardUseCase.execute(
             { view?.showContent(Pair(card, it)) },
             { resolveError(it) },
