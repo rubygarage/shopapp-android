@@ -7,6 +7,7 @@ import java.util.*
 data class Article(var id: String,
                    var title: String,
                    var content: String,
+                   var contentHTML: String,
                    var image: Image?,
                    var author: Author,
                    var tags: List<String>,
@@ -17,6 +18,7 @@ data class Article(var id: String,
                    var paginationValue: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
+        source.readString(),
         source.readString(),
         source.readString(),
         source.readString(),
@@ -35,6 +37,7 @@ data class Article(var id: String,
         writeString(id)
         writeString(title)
         writeString(content)
+        writeString(contentHTML)
         writeParcelable(image, 0)
         writeParcelable(author, 0)
         writeStringList(tags)

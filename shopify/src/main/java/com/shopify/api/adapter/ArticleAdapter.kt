@@ -10,6 +10,7 @@ object ArticleAdapter {
             adaptee.id.toString(),
             adaptee.title,
             adaptee.content,
+            adaptee.contentHtml,
             ImageAdapter.adapt(adaptee.image),
             AuthorAdapter.adapt(adaptee.author),
             adaptee.tags,
