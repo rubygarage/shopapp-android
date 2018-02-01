@@ -13,6 +13,7 @@ import com.client.shop.ShopApplication
 import com.client.shop.ui.account.contract.AccountPresenter
 import com.client.shop.ui.account.contract.AccountView
 import com.client.shop.ui.account.di.AuthModule
+import com.client.shop.ui.address.AddressListActivity
 import com.client.shop.ui.order.list.OrderListActivity
 import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Customer
@@ -116,6 +117,9 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         }
         personalInfo.setOnClickListener {
             startActivityForResult(PersonalInfoActivity.getStartIntent(it.context), RequestCode.PERSONAL_INFO)
+        }
+        shippingAddress.setOnClickListener {
+            startActivity(AddressListActivity.getStartIntent(it.context))
         }
         logout.setOnClickListener {
             presenter.signOut()
