@@ -24,7 +24,12 @@ class ProductItem(
 
     fun setProduct(product: Product) {
         titleTextView.text = product.title
-        price.text = formatter.formatPrice(product.price, product.currency)
+        if (product.hasAlternativePrice) {
+            price.text = resources.getString(R.string.range_price,
+                formatter.formatPrice(product.price, product.currency))
+        } else {
+            price.text = formatter.formatPrice(product.price, product.currency)
+        }
         image.setImageURI(product.images.firstOrNull()?.src)
     }
 }
