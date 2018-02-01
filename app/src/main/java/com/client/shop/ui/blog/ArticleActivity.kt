@@ -1,23 +1,27 @@
 package com.client.shop.ui.blog
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Bundle
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.WebSettings
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.fitHtmlFrames
+import com.client.shop.ext.fitHtmlImages
 import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
+import com.shopify.ShopifyWrapper
 import com.ui.base.lce.BaseActivity
 import com.ui.ext.shareText
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
-import android.text.Spannable
 
 
 class ArticleActivity :
@@ -46,6 +50,7 @@ class ArticleActivity :
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadData(false)
+        setupWebView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -67,6 +72,17 @@ class ArticleActivity :
         return super.onOptionsItemSelected(item)
     }
 
+    //SETUP
+
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setupWebView() {
+        with(content.settings) {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING
+        }
+    }
+
     //INIT
 
     override fun inject() {
@@ -84,17 +100,14 @@ class ArticleActivity :
         shareMenuItem?.isVisible = true
         shareUrl = data.url
         articleTitle.text = data.title
-        val getter = PicassoImageGetter(content, this)
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            content.text = Html.fromHtml(
-                data.contentHTML,
-                Html.FROM_HTML_MODE_LEGACY,
-                getter,
-                null
-            ) as Spannable
-        } else {
-            content.text = Html.fromHtml(data.contentHTML, getter, null) as Spannable
+
+        content.post {
+            val width = (content.width / Resources.getSystem().displayMetrics.density).toInt()
+            var html = content.fitHtmlImages(data.contentHTML)
+            html = content.fitHtmlFrames(html, (width / 1.5).toInt())
+            content.loadDataWithBaseURL(ShopifyWrapper.BASE_URL, html, "text/html", "UTF-8", null)
         }
+
         author.text = data.author.fullName
         val src = data.image?.src
         image.setImageURI(src)

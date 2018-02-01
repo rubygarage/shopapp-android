@@ -84,6 +84,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'
 
+    implementation 'org.jsoup:jsoup:1.10.1'
+
     implementation "io.reactivex.rxjava2:rxjava:$rxVersion"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
 
