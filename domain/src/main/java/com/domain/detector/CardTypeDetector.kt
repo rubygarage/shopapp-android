@@ -1,6 +1,5 @@
 package com.domain.detector
 
-import android.content.Context
 import com.domain.R
 
 class CardTypeDetector {
@@ -12,18 +11,25 @@ class CardTypeDetector {
         private val DINERS_CLUB_PATTERN = "3(?:0[0-5]\\d|095|6\\d{0,2}|[89]\\d{2})\\d{10}$".toRegex()
         private val DISCOVER_PATTERN = "^6(?:011|[45][0-9]{2})[0-9]{12}$".toRegex()
         private val JCB_PATTERN = "^(?:2131|1800|35\\d{3})\\d{11}$".toRegex()
-        private val CHINA_UNION_PAY_PATTERN = "^62[0-9]{14,17}$".toRegex()
     }
 
-    fun detect(cardNumber: String, context: Context): String? {
+    enum class CardType(val nameRes: Int, val logoRes: Int) {
+        VISA(R.string.visa, R.drawable.ic_visa),
+        MASTER_CARD(R.string.mastercard, R.drawable.ic_master_card),
+        AMERICAN_EXPRESS(R.string.american_express, R.drawable.ic_amex),
+        DINERS_CLUB(R.string.diners_club, 0),
+        DISCOVER(R.string.discover, R.drawable.ic_discover),
+        JCB(R.string.jcb, 0)
+    }
+
+    fun detect(cardNumber: String): CardType? {
         return when {
-            VISA_PATTERN.matches(cardNumber) -> context.getString(R.string.visa)
-            MASTERCARD_PATTERN.matches(cardNumber) -> context.getString(R.string.mastercard)
-            AMERICAN_EXPRESS_PATTERN.matches(cardNumber) -> context.getString(R.string.american_express)
-            DINERS_CLUB_PATTERN.matches(cardNumber) -> context.getString(R.string.diners_club)
-            DISCOVER_PATTERN.matches(cardNumber) -> context.getString(R.string.discover)
-            JCB_PATTERN.matches(cardNumber) -> context.getString(R.string.jcb)
-            CHINA_UNION_PAY_PATTERN.matches(cardNumber) -> context.getString(R.string.china_union_pay)
+            VISA_PATTERN.matches(cardNumber) -> CardType.VISA
+            MASTERCARD_PATTERN.matches(cardNumber) -> CardType.MASTER_CARD
+            AMERICAN_EXPRESS_PATTERN.matches(cardNumber) -> CardType.AMERICAN_EXPRESS
+            DINERS_CLUB_PATTERN.matches(cardNumber) -> CardType.DINERS_CLUB
+            DISCOVER_PATTERN.matches(cardNumber) -> CardType.DISCOVER
+            JCB_PATTERN.matches(cardNumber) -> CardType.JCB
             else -> null
         }
     }

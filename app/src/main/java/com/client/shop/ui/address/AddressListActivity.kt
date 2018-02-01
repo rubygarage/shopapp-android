@@ -30,8 +30,8 @@ class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressL
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val isAddAddressRequest = requestCode == RequestCode.ADD_ADDRESS
-        val isEditAddressRequest = requestCode == RequestCode.EDIT_ADDRESS
+        val isAddAddressRequest = requestCode == RequestCode.ADD_SHIPPING_ADDRESS
+        val isEditAddressRequest = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
         val isResultOk = resultCode == Activity.RESULT_OK
         if ((isAddAddressRequest || isEditAddressRequest) && isResultOk) {
             loadData()
@@ -51,13 +51,13 @@ class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressL
     override fun onEditButtonClicked(address: Address) {
         startActivityForResult(
             AddressActivity.getStartIntent(this, address),
-            RequestCode.EDIT_ADDRESS
+            RequestCode.EDIT_SHIPPING_ADDRESS
         )
     }
 
     override fun onClick(v: View?) {
         startActivityForResult(
-            AddressActivity.getStartIntent(this), RequestCode.ADD_ADDRESS
+            AddressActivity.getStartIntent(this), RequestCode.ADD_SHIPPING_ADDRESS
         )
     }
 }

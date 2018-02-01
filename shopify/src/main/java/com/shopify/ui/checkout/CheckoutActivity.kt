@@ -5,11 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.domain.entity.Address
+import com.domain.entity.Card
 import com.domain.entity.CartProduct
 import com.domain.entity.Customer
 import com.domain.router.AppRouter
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
+import com.shopify.constant.Extra
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.ui.address.CheckoutAddressListActivity
@@ -19,6 +22,7 @@ import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
 import com.shopify.ui.checkout.view.ShippingOptionsView
 import com.shopify.ui.payment.PaymentActivity
+import com.shopify.ui.payment.card.CardActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.const.RequestCode
@@ -42,7 +46,6 @@ class CheckoutActivity :
     private var checkout: Checkout? = null
     private var customer: Customer? = null
 
-
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +58,25 @@ class CheckoutActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RequestCode.ADD_ADDRESS || requestCode == RequestCode.EDIT_ADDRESS) {
-            if (resultCode == Activity.RESULT_OK) {
-                loadData()
-            }
-        } else if (requestCode == RequestCode.PAYMENT && resultCode == Activity.RESULT_OK) {
-            paymentView.setData(data)
+        val isAddShippingAddress = requestCode == RequestCode.ADD_SHIPPING_ADDRESS
+        val isEditShippingAddress = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
+        val isAddBillingAddress = requestCode == RequestCode.ADD_BILLING_ADDRESS
+        val isEditBillingAddress = requestCode == RequestCode.EDIT_BILLING_ADDRESS
+        val isPayment = requestCode == RequestCode.PAYMENT
+        val isCard = requestCode == RequestCode.CARD
+        val isOkResult = resultCode == Activity.RESULT_OK
+        if ((isAddShippingAddress || isEditShippingAddress) && isOkResult) {
+            loadData()
+        } else if (isPayment && isOkResult) {
+            val paymentType = data?.getStringExtra(Extra.PAYMENT_TYPE)
+            paymentView.setPaymentType(paymentType)
+        } else if (isCard && isOkResult) {
+            val card: Card? = data?.getParcelableExtra(Extra.CARD)
+            val cardToken: String? = data?.getStringExtra(Extra.CARD_TOKEN)
+            paymentView.setCardData(card, cardToken)
+        } else if ((isAddBillingAddress || isEditBillingAddress) && isOkResult) {
+            val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
+            paymentView.setAddressData(address)
         }
     }
 
@@ -93,13 +109,13 @@ class CheckoutActivity :
                                 true,
                                 address
                             ),
-                            RequestCode.EDIT_ADDRESS
+                            RequestCode.EDIT_SHIPPING_ADDRESS
                         )
                     } else if (address != null) {
                         checkout?.let {
                             startActivityForResult(
                                 CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, address, true),
-                                RequestCode.EDIT_ADDRESS
+                                RequestCode.EDIT_SHIPPING_ADDRESS
                             )
                         }
                     }
@@ -109,14 +125,36 @@ class CheckoutActivity :
                 checkout?.let {
                     startActivityForResult(
                         CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
-                        RequestCode.ADD_ADDRESS
+                        RequestCode.ADD_SHIPPING_ADDRESS
                     )
                 }
             }
         )
         paymentView.setClickListeners(
+            paymentClickListener = View.OnClickListener {
+                startActivityForResult(PaymentActivity.getStartIntent(this, paymentView.getPaymentType()), RequestCode.PAYMENT)
+            },
+            cardClickListener = View.OnClickListener {
+                startActivityForResult(CardActivity.getStartIntent(this, paymentView.getCardData().first), RequestCode.CARD)
+            },
             addAddressClickListener = View.OnClickListener {
-                startActivityForResult(PaymentActivity.getStartIntent(this), RequestCode.PAYMENT)
+                if (customer != null) {
+                    startActivityForResult(CheckoutAddressListActivity.getStartIntent(
+                        context = this,
+                        isShipping = false,
+                        selectedAddress = paymentView.getAddress()
+                    ),
+                        RequestCode.EDIT_BILLING_ADDRESS
+                    )
+                } else {
+                    startActivityForResult(CheckoutUnAuthAddressActivity.getStartIntent(
+                        context = this,
+                        address = paymentView.getAddress(),
+                        isShipping = false
+                    ),
+                        RequestCode.ADD_BILLING_ADDRESS
+                    )
+                }
             }
         )
         shippingOptionsView.onOptionSelectedListener = this

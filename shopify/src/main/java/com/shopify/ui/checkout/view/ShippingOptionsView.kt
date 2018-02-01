@@ -27,6 +27,7 @@ class ShippingOptionsView @JvmOverloads constructor(
     init {
         View.inflate(context, R.layout.view_shipping_options, this)
         adapter = ShippingOptionsAdapter(mutableListOf())
+        recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
