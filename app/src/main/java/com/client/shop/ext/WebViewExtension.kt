@@ -44,13 +44,7 @@ private fun removeStyleAttr(styleValue: String, styleAttr: String): String {
     var styleValue1 = styleValue
     val startIndex = styleValue1.indexOf(styleAttr)
     if (startIndex >= 0) {
-        var endIndex = styleValue1.indexOf(";", startIndex, true)
-        //if it is last style item
-        if (endIndex == 0) {
-            endIndex = styleValue1.length - 1
-        } else {
-            endIndex++
-        }
+        val endIndex = styleValue1.indexOf(";", startIndex, true) + 1
         styleValue1 = styleValue1.removeRange(startIndex, endIndex)
     }
     return styleValue1
