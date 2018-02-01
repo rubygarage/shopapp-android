@@ -18,7 +18,6 @@ object ArticleAdapter {
             adaptee.blog.title,
             adaptee.publishedAt.toDate(),
             adaptee.url,
-            paginationValue
-        )
+            paginationValue)
     }
 }
