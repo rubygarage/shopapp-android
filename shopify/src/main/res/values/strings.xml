@@ -27,9 +27,9 @@
     <string name="add_card">Add card</string>
     <string name="add_payment_type">Add payment type</string>
     <string name="card_holder_name">Card holder name*</string>
-    <string name="card_number">Card number</string>
+    <string name="card_number">Card number*</string>
     <string name="expiration_date">Expiration date</string>
-    <string name="month">Month</string>
+    <string name="month">Month*</string>
     <string name="year">Year*</string>
     <string name="cvv">CVV*</string>
     <string name="card_type_placeholder">%1$s (%2$s)</string>
