@@ -36,6 +36,7 @@ class ArticleActivity :
 
     companion object {
         private const val EXTRA_ARTICLE_ID = "extra_article_id"
+        private const val FRAME_HEIGHT_MULTIPLIER = 0.66
 
         fun getStartIntent(context: Context, articleId: String): Intent {
             val intent = Intent(context, ArticleActivity::class.java)
@@ -104,7 +105,7 @@ class ArticleActivity :
         content.post {
             val width = (content.width / Resources.getSystem().displayMetrics.density).toInt()
             var html = content.fitHtmlImages(data.contentHTML)
-            html = content.fitHtmlFrames(html, (width / 1.5).toInt())
+            html = content.fitHtmlFrames(html, (width * FRAME_HEIGHT_MULTIPLIER).toInt())
             content.loadDataWithBaseURL(ShopifyWrapper.BASE_URL, html, "text/html", "UTF-8", null)
         }
 
