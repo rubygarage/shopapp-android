@@ -123,10 +123,22 @@ class CheckoutActivity :
             },
             addAddressClickListener = View.OnClickListener {
                 checkout?.let {
-                    startActivityForResult(
-                        CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
-                        RequestCode.ADD_SHIPPING_ADDRESS
-                    )
+                    if (customer != null) {
+                        startActivityForResult(
+                            CheckoutAddressListActivity.getStartIntent(
+                                this,
+                                it.checkoutId,
+                                true,
+                                it.address
+                            ),
+                            RequestCode.EDIT_SHIPPING_ADDRESS
+                        )
+                    } else {
+                        startActivityForResult(
+                            CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
+                            RequestCode.ADD_SHIPPING_ADDRESS
+                        )
+                    }
                 }
             }
         )
