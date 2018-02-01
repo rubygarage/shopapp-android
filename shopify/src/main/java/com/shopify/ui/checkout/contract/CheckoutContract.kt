@@ -1,10 +1,10 @@
 package com.shopify.ui.checkout.contract
 
-import com.domain.entity.Address
-import com.domain.entity.CartProduct
-import com.domain.entity.Customer
+import com.domain.entity.*
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.cart.CartItemsUseCase
+import com.domain.interactor.cart.CartRemoveAllUseCase
+import com.shopify.constant.CARD_PAYMENT
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.interactor.checkout.*
@@ -19,25 +19,35 @@ interface CheckoutView : BaseLceView<Checkout> {
     fun cartProductListReceived(cartProductList: List<CartProduct>)
 
     fun shippingRatesReceived(shippingRates: List<ShippingRate>)
+
+    fun checkoutValidationPassed(isValid: Boolean)
+
+    fun checkoutInProcess()
+
+    fun checkoutCompleted(order: Order)
 }
 
 class CheckoutPresenter @Inject constructor(
     private val cartItemsUseCase: CartItemsUseCase,
+    private val cartRemoveAllUseCase: CartRemoveAllUseCase,
     private val createCheckoutUseCase: CreateCheckoutUseCase,
     private val getCheckoutUseCase: GetCheckoutUseCase,
     private val getCustomerUseCase: GetCustomerUseCase,
     private val setShippingAddressUseCase: SetShippingAddressUseCase,
     private val getShippingRatesUseCase: GetShippingRatesUseCase,
-    private val setShippingRateUseCase: SetShippingRateUseCase
+    private val setShippingRateUseCase: SetShippingRateUseCase,
+    private val completeCheckoutByCardUseCase: CompleteCheckoutByCardUseCase
 ) :
     BaseLcePresenter<Checkout, CheckoutView>(
         cartItemsUseCase,
+        cartRemoveAllUseCase,
         createCheckoutUseCase,
         getCheckoutUseCase,
         getCustomerUseCase,
         setShippingAddressUseCase,
         getShippingRatesUseCase,
-        setShippingRateUseCase
+        setShippingRateUseCase,
+        completeCheckoutByCardUseCase
     ) {
 
     fun getCartProductList() {
@@ -115,5 +125,54 @@ class CheckoutPresenter @Inject constructor(
             { view?.showContent(checkout) },
             SetShippingRateUseCase.Params(checkout.checkoutId, shippingRate)
         )
+    }
+
+    fun verifyCheckoutData(
+        checkout: Checkout?,
+        paymentType: String?,
+        card: Card?,
+        cardToken: String?,
+        billingAddress: Address?
+    ) {
+        if (checkout != null) {
+            if (checkout.address == null) {
+                view?.checkoutValidationPassed(false)
+                return
+            }
+            if (checkout.shippingRate == null) {
+                view?.checkoutValidationPassed(false)
+                return
+            }
+            if (paymentType == null) {
+                view?.checkoutValidationPassed(false)
+                return
+            } else if (paymentType == CARD_PAYMENT
+                && (card == null || cardToken == null || billingAddress == null)) {
+                view?.checkoutValidationPassed(false)
+                return
+            }
+            view?.checkoutValidationPassed(true)
+        } else {
+            view?.checkoutValidationPassed(false)
+        }
+    }
+
+    fun completeCheckoutByCard(
+        checkout: Checkout?,
+        email: String?,
+        billingAddress: Address?,
+        cardToken: String?
+    ) {
+        if (checkout != null && email != null && billingAddress != null && cardToken != null) {
+            view?.checkoutInProcess()
+            completeCheckoutByCardUseCase.execute(
+                {
+                    cartRemoveAllUseCase.execute({}, {}, Unit)
+                    view?.checkoutCompleted(it)
+                },
+                { resolveError(it) },
+                CompleteCheckoutByCardUseCase.Params(checkout, email, billingAddress, cardToken)
+            )
+        }
     }
 }

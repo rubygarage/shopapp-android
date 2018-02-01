@@ -4,6 +4,7 @@ import com.data.rx.RxCallbackSingle
 import com.domain.entity.Address
 import com.domain.entity.Card
 import com.domain.entity.CartProduct
+import com.domain.entity.Order
 import com.google.android.gms.wallet.FullWallet
 import com.shopify.api.ShopifyApi
 import com.shopify.buy3.pay.PayCart
@@ -44,15 +45,15 @@ class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
         }
     }
 
-    override fun payByCard(card: Card): Single<String> {
+    override fun getCardToken(card: Card): Single<String> {
         return Single.create<String> {
-            api.payByCard(card, RxCallbackSingle<String>(it))
+            api.getCardToken(card, RxCallbackSingle<String>(it))
         }
     }
 
-    override fun completeCheckoutByCard(checkout: Checkout, address: Address, creditCardVaultToken: String): Single<Boolean> {
-        return Single.create<Boolean> {
-            api.completeCheckoutByCard(checkout, address, creditCardVaultToken, RxCallbackSingle<Boolean>(it))
+    override fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String): Single<Order> {
+        return Single.create<Order> {
+            api.completeCheckoutByCard(checkout, email, address, creditCardVaultToken, RxCallbackSingle<Order>(it))
         }
     }
 

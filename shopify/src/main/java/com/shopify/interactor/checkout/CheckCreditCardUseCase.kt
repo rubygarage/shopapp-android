@@ -10,6 +10,6 @@ class CheckCreditCardUseCase @Inject constructor(private val checkoutRepository:
     SingleUseCase<String, Card>() {
 
     override fun buildUseCaseSingle(params: Card): Single<String> {
-        return checkoutRepository.payByCard(params)
+        return checkoutRepository.getCardToken(params)
     }
 }
