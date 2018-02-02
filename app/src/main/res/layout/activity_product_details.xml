@@ -4,6 +4,7 @@
     android:id="@+id/mainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
@@ -30,25 +31,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/subBackground"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/galleryContainer" />
-
             <TextView
                 android:id="@+id/priceValue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/horizontal_space"
+                android:layout_marginStart="@dimen/horizontal_space"
+                android:layout_marginTop="@dimen/vertical_space"
                 android:ellipsize="end"
                 android:lines="1"
                 android:textColor="@drawable/selector_text"
@@ -62,8 +53,8 @@
                 android:id="@+id/productTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginEnd="@dimen/horizontal_space"
+                android:layout_marginStart="@dimen/horizontal_space"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/textColorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,7 +65,7 @@
                 android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/horizontal_space"
                 android:gravity="start"
                 android:labelFor="@id/quantityEditText"
                 android:text="@string/quantity_label"
@@ -113,8 +104,8 @@
             <View
                 android:id="@+id/descriptionDivider"
                 android:layout_width="0dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="@dimen/vertical_space"
                 android:background="@color/colorBackgroundDarkTranslucent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,8 +117,8 @@
                 android:layout_height="60dp"
                 android:drawableEnd="@drawable/ic_plus"
                 android:gravity="center_vertical"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp"
+                android:paddingEnd="@dimen/horizontal_space"
+                android:paddingStart="@dimen/horizontal_space"
                 android:text="@string/description"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="13sp"
@@ -139,24 +130,42 @@
                 android:id="@+id/description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:paddingBottom="20dp"
+                android:layout_marginEnd="@dimen/horizontal_space"
+                android:layout_marginStart="@dimen/horizontal_space"
+                android:paddingBottom="@dimen/vertical_space"
                 android:textColor="@color/textColorSecondary"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
+            <View
+                android:id="@+id/relatedTopDivider"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:background="@color/colorBackgroundDarkTranslucent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
             <FrameLayout
                 android:id="@+id/relatedContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/relatedBottomDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description" />
+                app:layout_constraintTop_toBottomOf="@+id/relatedTopDivider" />
+
+            <View
+                android:id="@+id/relatedBottomDivider"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:background="@color/colorBackgroundDarkTranslucent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 

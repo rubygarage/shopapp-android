@@ -103,6 +103,7 @@
     <style name="SimpleDraweeView">
         <item name="placeholderImageScaleType">centerInside</item>
         <item name="placeholderImage">@drawable/ic_placeholder</item>
+        <item name="actualImageScaleType">fitCenter</item>
     </style>
 
     <style name="TitleView">

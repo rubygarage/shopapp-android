@@ -33,7 +33,7 @@ class OptionsContainer @JvmOverloads constructor(
 
     fun setProductOption(productOption: ProductOption, preselectedOption: VariantOption?) {
         this.productOption = productOption
-        titleText.text = productOption.name
+        titleText.text = context.getString(R.string.product_option_title_pattern, productOption.name)
         val defaultVariant = preselectedOption
                 ?: VariantOption(productOption.name, productOption.values.first())
         adapter = OptionsAdapter(defaultVariant, productOption.values, this)
