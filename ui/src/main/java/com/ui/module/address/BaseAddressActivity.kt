@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import com.domain.entity.Address
+import com.domain.entity.Country
 import com.ui.R
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
@@ -61,6 +62,8 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         } else {
             submitButton.setText(R.string.submit)
         }
+
+        presenter.getCountriesList()
     }
 
     override fun onResume() {
@@ -75,6 +78,10 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
             phoneInput.addTextChangedListener(fieldTextWatcher)
             stateInput.addTextChangedListener(fieldTextWatcher)
         }
+    }
+
+    override fun countriesLoaded(countries: List<Country>) {
+        countryInput.setText(countries[0].name)
     }
 
     override fun onPause() {

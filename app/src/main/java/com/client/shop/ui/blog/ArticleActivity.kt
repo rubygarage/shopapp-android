@@ -106,7 +106,7 @@ class ArticleActivity :
             val width = (content.width / Resources.getSystem().displayMetrics.density).toInt()
             var html = content.fitHtmlImages(data.contentHTML)
             html = content.fitHtmlFrames(html, (width * FRAME_HEIGHT_MULTIPLIER).toInt())
-            content.loadDataWithBaseURL(ShopifyWrapper.BASE_URL, html, "text/html", "UTF-8", null)
+            content.loadDataWithBaseURL(ShopifyWrapper.BASE_DOMAIN, html, "text/html", "UTF-8", null)
         }
 
         author.text = data.author.fullName

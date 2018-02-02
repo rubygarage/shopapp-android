@@ -56,6 +56,13 @@ dependencies {
 
     implementation "io.reactivex.rxjava2:rxjava:$rxVersion"
 
+    //RETROFIT
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitRxAdapterVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitConverterVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+
     implementation project(":ui")
     implementation project(':domain')
     implementation project(':data')
