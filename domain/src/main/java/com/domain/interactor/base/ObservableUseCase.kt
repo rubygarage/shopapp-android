@@ -11,10 +11,12 @@ abstract class ObservableUseCase<T, in Params> : UseCase() {
     fun execute(onSuccess: ((t: T) -> Unit), onError: ((t: Throwable) -> Unit),
                 onComplete: (() -> Unit), params: Params) {
         checkIsAttachedToLifecycle()
+        disposeLatest()
         val disposable = buildUseCaseObservable(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError, onComplete)
         disposables.add(disposable)
+        lastDisposable = disposable
     }
 }
