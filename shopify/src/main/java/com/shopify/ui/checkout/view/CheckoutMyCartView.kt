@@ -16,10 +16,10 @@ import com.shopify.ui.checkout.di.CheckoutModule
 import com.ui.base.recycler.OnItemClickListener
 import com.ui.base.recycler.adapter.ProductVariantAdapter
 import com.ui.base.recycler.divider.SpaceDecoration
-import kotlinx.android.synthetic.main.view_my_cart.view.*
+import kotlinx.android.synthetic.main.view_checkout_my_cart.view.*
 import javax.inject.Inject
 
-class MyCartView @JvmOverloads constructor(
+class CheckoutMyCartView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -32,7 +32,7 @@ class MyCartView @JvmOverloads constructor(
 
     init {
         ShopifyWrapper.component.attachCheckoutComponent(CheckoutModule()).inject(this)
-        View.inflate(context, R.layout.view_my_cart, this)
+        View.inflate(context, R.layout.view_checkout_my_cart, this)
         orientation = VERTICAL
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = ProductVariantAdapter(cartProductList, this)

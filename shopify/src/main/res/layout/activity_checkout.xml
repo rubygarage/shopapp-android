@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <requestFocus />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp">
 
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.shopify.ui.checkout.view.MyCartView
+            <com.shopify.ui.checkout.view.CheckoutMyCartView
                 android:id="@+id/myCartView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -25,14 +27,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.shopify.ui.shipping.ShippingAddressView
-                android:id="@+id/shippingAddressView"
+            <com.shopify.ui.checkout.view.CheckoutEmailView
+                android:id="@+id/checkoutEmailView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myCartView" />
+
+            <com.shopify.ui.shipping.ShippingAddressView
+                android:id="@+id/shippingAddressView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkoutEmailView" />
 
             <com.shopify.ui.payment.PaymentView
                 android:id="@+id/paymentView"
@@ -43,7 +54,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shippingAddressView" />
 
-            <com.shopify.ui.checkout.view.ShippingOptionsView
+            <com.shopify.ui.checkout.view.CheckoutShippingOptionsView
                 android:id="@+id/shippingOptionsView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -78,4 +89,4 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
-</LinearLayout>
+</FrameLayout>

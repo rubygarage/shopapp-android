@@ -10,9 +10,9 @@ import com.shopify.api.R
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.ui.checkout.adapter.ShippingOptionsAdapter
-import kotlinx.android.synthetic.main.view_shipping_options.view.*
+import kotlinx.android.synthetic.main.view_checkout_shipping_options.view.*
 
-class ShippingOptionsView @JvmOverloads constructor(
+class CheckoutShippingOptionsView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -25,7 +25,7 @@ class ShippingOptionsView @JvmOverloads constructor(
     private val adapter: ShippingOptionsAdapter
 
     init {
-        View.inflate(context, R.layout.view_shipping_options, this)
+        View.inflate(context, R.layout.view_checkout_shipping_options, this)
         adapter = ShippingOptionsAdapter(mutableListOf())
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(context)

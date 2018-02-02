@@ -5,7 +5,7 @@ import android.view.View
 import com.domain.formatter.NumberFormatter
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
-import com.shopify.ui.checkout.view.ShippingOptionsView
+import com.shopify.ui.checkout.view.CheckoutShippingOptionsView
 import com.shopify.ui.item.ShippingOptionItem
 import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
@@ -14,7 +14,7 @@ class ShippingOptionsAdapter(
 ) : BaseRecyclerAdapter<ShippingRate>(data) {
 
     var shippingRate: ShippingRate? = null
-    var onOptionSelectedListener: ShippingOptionsView.OnOptionSelectedListener? = null
+    var onOptionSelectedListener: CheckoutShippingOptionsView.OnOptionSelectedListener? = null
     private var currencyCode: String? = null
     private val numberFormatter = NumberFormatter()
 
