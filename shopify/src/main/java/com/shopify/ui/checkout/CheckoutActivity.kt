@@ -60,15 +60,15 @@ class CheckoutActivity :
         loadData()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
             placeOrderButton.visibility = if (it) View.INVISIBLE else View.VISIBLE
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         unregistrar?.unregister()
     }
 
@@ -258,7 +258,7 @@ class CheckoutActivity :
     }
 
     override fun checkoutInProcess() {
-        changeState(LceLayout.LceState.LoadingState)
+        changeState(LceLayout.LceState.LoadingState())
     }
 
     override fun checkoutCompleted(order: Order) {
