@@ -225,11 +225,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                                             })
                                                         })
                                                     })
-                                                    .variants({ it.first(1) }) { productVariantConnectionQuery ->
+                                                    .variants({ it.first(ITEMS_COUNT) }) { productVariantConnectionQuery ->
                                                         productVariantConnectionQuery.edges { productVariantEdgeQuery ->
-                                                            productVariantEdgeQuery.node({
-                                                                getDefaultProductVariantQuery(it)
-                                                            })
+                                                            productVariantEdgeQuery.node({ it.price() })
                                                         }
                                                     }
                                             })
@@ -1248,11 +1246,9 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                                             })
                                         })
                                     })
-                                    .variants({ it.first(1) }) { productVariantConnectionQuery ->
+                                    .variants({ it.first(ITEMS_COUNT) }) { productVariantConnectionQuery ->
                                         productVariantConnectionQuery.edges { productVariantEdgeQuery ->
-                                            productVariantEdgeQuery.node({
-                                                getDefaultProductVariantQuery(it)
-                                            })
+                                            productVariantEdgeQuery.node({ it.price() })
                                         }
                                     }
                             }

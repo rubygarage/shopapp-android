@@ -14,11 +14,11 @@ object ProductVariantAdapter {
             adaptee.availableForSale == true,
             VariantOptionListAdapter.adapt(adaptee.selectedOptions),
             ImageAdapter.adapt(adaptee.image),
-            convertImage(adaptee.product).firstOrNull(),
+            convertImage(adaptee.product)?.firstOrNull(),
             adaptee.product.id.toString()
         )
     }
 
-    private fun convertImage(productAdaptee: Storefront.Product): List<Image> =
-        productAdaptee.images.edges.map { ImageAdapter.adapt(it.node)!! }
+    private fun convertImage(productAdaptee: Storefront.Product?): List<Image>? =
+        productAdaptee?.images?.edges?.map { ImageAdapter.adapt(it.node)!! }
 }
