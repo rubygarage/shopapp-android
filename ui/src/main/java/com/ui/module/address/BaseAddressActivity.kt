@@ -70,6 +70,8 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
             addressInput.addTextChangedListener(fieldTextWatcher)
             cityInput.addTextChangedListener(fieldTextWatcher)
             postalCodeInput.addTextChangedListener(fieldTextWatcher)
+            phoneInput.addTextChangedListener(fieldTextWatcher)
+            stateInput.addTextChangedListener(fieldTextWatcher)
         }
     }
 
@@ -81,6 +83,8 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         addressInput.removeTextChangedListener(fieldTextWatcher)
         cityInput.removeTextChangedListener(fieldTextWatcher)
         postalCodeInput.removeTextChangedListener(fieldTextWatcher)
+        phoneInput.removeTextChangedListener(fieldTextWatcher)
+        stateInput.removeTextChangedListener(fieldTextWatcher)
     }
 
     //INIT
@@ -110,7 +114,9 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
                 lastNameInput.text.isNotBlank() &&
                 addressInput.text.isNotBlank() &&
                 cityInput.text.isNotBlank() &&
-                postalCodeInput.text.isNotBlank()
+                postalCodeInput.text.isNotBlank() &&
+                stateInput.text.isNotBlank() &&
+                phoneInput.text.isNotBlank()
     }
 
     protected fun getAddress() = Address(
