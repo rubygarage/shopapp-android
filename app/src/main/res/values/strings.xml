@@ -99,5 +99,6 @@
     <string name="your_order_number">Your order number is </string>
     <string name="continue_shopping">Continue shopping</string>
     <string name="range_price">From %s</string>
+    <string name="product_option_title_pattern">%s:</string>
 
 </resources>

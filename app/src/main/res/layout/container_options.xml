@@ -8,9 +8,9 @@
         android:id="@+id/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/horizontal_space"
+        android:layout_marginStart="@dimen/horizontal_space"
+        android:layout_marginTop="@dimen/vertical_space"
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:clipToPadding="false"
-        android:paddingEnd="16dp"
-        android:paddingStart="16dp" />
+        android:paddingEnd="@dimen/horizontal_space"
+        android:paddingStart="@dimen/horizontal_space" />
 
 </merge>

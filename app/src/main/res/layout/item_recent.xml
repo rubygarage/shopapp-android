@@ -10,7 +10,6 @@
         style="@style/SimpleDraweeView"
         android:layout_width="0dp"
         android:layout_height="@dimen/recent_item_image_height"
-        app:actualImageScaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

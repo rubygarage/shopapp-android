@@ -10,7 +10,6 @@ import com.client.shop.ui.custom.zoomable.DoubleTapGestureListener
 import com.client.shop.ui.custom.zoomable.ZoomableDraweeView
 import com.domain.entity.Image
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.drawee.view.SimpleDraweeView
 
 
@@ -48,7 +47,6 @@ class ImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (view is ZoomableDraweeView) {
-            view.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
             view.setIsLongpressEnabled(false)
             view.setTapListener(DoubleTapGestureListener(view))
 
