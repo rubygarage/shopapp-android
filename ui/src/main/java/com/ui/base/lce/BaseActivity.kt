@@ -67,7 +67,7 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
         }
     }
 
-    open protected fun useModalStyle() = false
+    protected open fun useModalStyle() = false
 
     @Deprecated("Use an overloaded function instead", ReplaceWith("setTitle(title: String)"))
     override fun setTitle(titleId: Int) {
@@ -84,7 +84,7 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     abstract fun inject()
 
     @LayoutRes
-    open protected fun getMainLayout(): Int {
+    protected open fun getMainLayout(): Int {
         return R.layout.activity_lce
     }
 

@@ -40,7 +40,7 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     abstract fun inject()
 
     @LayoutRes
-    open protected fun getRootView() = R.layout.fragment_lce
+    protected open fun getRootView() = R.layout.fragment_lce
 
     @LayoutRes
     abstract fun getContentView(): Int
