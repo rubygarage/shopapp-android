@@ -194,11 +194,11 @@
             android:layout_width="38dp"
             android:layout_height="25dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/ic_visa"
             app:layout_constraintEnd_toStartOf="@+id/amex"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
-            app:srcCompat="@drawable/ic_visa" />
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <ImageView
             android:id="@+id/amex"
@@ -206,11 +206,11 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/ic_amex"
             app:layout_constraintEnd_toStartOf="@+id/masterCard"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/visa"
-            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
-            app:srcCompat="@drawable/ic_amex" />
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <ImageView
             android:id="@+id/masterCard"
@@ -218,11 +218,11 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/ic_master_card"
             app:layout_constraintEnd_toStartOf="@+id/discover"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/amex"
-            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
-            app:srcCompat="@drawable/ic_master_card" />
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <ImageView
             android:id="@+id/discover"
@@ -230,11 +230,11 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/ic_discover"
             app:layout_constraintEnd_toStartOf="@+id/jbc"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/masterCard"
-            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
-            app:srcCompat="@drawable/ic_discover" />
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <ImageView
             android:id="@+id/jbc"
@@ -242,11 +242,11 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/ic_jcb_card"
             app:layout_constraintEnd_toStartOf="@+id/dc"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/discover"
-            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
-            app:srcCompat="@drawable/ic_jcb_card" />
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <ImageView
             android:id="@+id/dc"
@@ -254,11 +254,11 @@
             android:layout_height="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="16dp"
+            android:src="@drawable/ic_dc_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/jbc"
-            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
-            app:srcCompat="@drawable/ic_dc_card" />
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <Space
             android:layout_width="wrap_content"

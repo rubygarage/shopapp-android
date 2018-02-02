@@ -17,13 +17,13 @@
         android:layout_marginStart="14dp"
         android:background="?selectableItemBackgroundBorderless"
         android:padding="4dp"
+        android:src="@drawable/ic_searchbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/searchInput"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_searchbar"
         tools:ignore="ContentDescription" />
 
     <EditText
