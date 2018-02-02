@@ -21,7 +21,7 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
             view?.showContent(listOf())
             return
         }
-        searchUseCase.execute(
+        searchUseCase.executeWithDisposeLatest(
             { view?.showContent(it) },
             {
                 it.printStackTrace()

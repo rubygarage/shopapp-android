@@ -1,12 +1,11 @@
 package com.domain.interactor.base
 
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class UseCase {
 
     private var isAttachedToLifecycle = false
-
-    protected var disposable: Disposable? = null
+    protected var disposables: CompositeDisposable = CompositeDisposable()
 
     protected fun checkIsAttachedToLifecycle() {
         if (!isAttachedToLifecycle) {
@@ -19,10 +18,6 @@ abstract class UseCase {
     }
 
     fun dispose() {
-        disposable?.let {
-            if (!it.isDisposed) {
-                it.dispose()
-            }
-        }
+        disposables.clear()
     }
 }

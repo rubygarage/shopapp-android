@@ -9,7 +9,7 @@ open class BaseLcePresenter<in M, V : BaseLceView<M>>(vararg useCases: UseCase) 
 
     }
 
-    open protected fun resolveError(error: Throwable): Boolean {
+    protected open fun resolveError(error: Throwable): Boolean {
         error.printStackTrace()
         return when (error) {
             is Error.Content -> {
