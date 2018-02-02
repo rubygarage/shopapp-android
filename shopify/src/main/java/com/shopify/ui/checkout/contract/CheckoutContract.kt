@@ -129,6 +129,7 @@ class CheckoutPresenter @Inject constructor(
 
     fun verifyCheckoutData(
         checkout: Checkout?,
+        email: String?,
         paymentType: String?,
         card: Card?,
         cardToken: String?,
@@ -136,6 +137,10 @@ class CheckoutPresenter @Inject constructor(
     ) {
         if (checkout != null) {
             if (checkout.address == null) {
+                view?.checkoutValidationPassed(false)
+                return
+            }
+            if (email == null) {
                 view?.checkoutValidationPassed(false)
                 return
             }
@@ -170,7 +175,10 @@ class CheckoutPresenter @Inject constructor(
                     cartRemoveAllUseCase.execute({}, {}, Unit)
                     view?.checkoutCompleted(it)
                 },
-                { resolveError(it) },
+                {
+                    view?.showContent(checkout) //TODO SHOW ERROR SCREEN
+                    resolveError(it)
+                },
                 CompleteCheckoutByCardUseCase.Params(checkout, email, billingAddress, cardToken)
             )
         }

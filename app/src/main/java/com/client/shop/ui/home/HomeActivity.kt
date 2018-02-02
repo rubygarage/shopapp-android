@@ -34,7 +34,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    var unregistrar: Unregistrar? = null
+    private var unregistrar: Unregistrar? = null
 
     //ANDROID
 
@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        unregistrar?.let { it.unregister() }
+        unregistrar?.unregister()
     }
 
     override fun onBackPressed() {

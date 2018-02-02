@@ -8,13 +8,13 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.domain.formatter.NumberFormatter
 import com.shopify.api.R
 import com.shopify.entity.ShippingRate
-import com.shopify.ui.checkout.view.ShippingOptionsView
+import com.shopify.ui.checkout.view.CheckoutShippingOptionsView
 import kotlinx.android.synthetic.main.item_shipping_option.view.*
 
 @SuppressLint("ViewConstructor")
 class ShippingOptionItem(
     context: Context,
-    private val onOptionSelectedListener: ShippingOptionsView.OnOptionSelectedListener?
+    private val onOptionSelectedListener: CheckoutShippingOptionsView.OnOptionSelectedListener?
 ) : ConstraintLayout(context) {
 
     init {

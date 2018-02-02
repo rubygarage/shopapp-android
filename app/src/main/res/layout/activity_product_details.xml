@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:focusableInTouchMode="true">
 
     <requestFocus />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/dataContainer"
@@ -179,4 +179,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
 
-</LinearLayout>
+</FrameLayout>

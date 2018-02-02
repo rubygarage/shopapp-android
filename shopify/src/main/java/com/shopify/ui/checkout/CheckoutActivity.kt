@@ -18,20 +18,25 @@ import com.shopify.ui.address.CheckoutUnAuthAddressActivity
 import com.shopify.ui.checkout.contract.CheckoutPresenter
 import com.shopify.ui.checkout.contract.CheckoutView
 import com.shopify.ui.checkout.di.CheckoutModule
-import com.shopify.ui.checkout.view.ShippingOptionsView
+import com.shopify.ui.checkout.view.CheckoutEmailView
+import com.shopify.ui.checkout.view.CheckoutShippingOptionsView
 import com.shopify.ui.payment.PaymentActivity
 import com.shopify.ui.payment.card.CardActivity
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.const.RequestCode
+import com.ui.ext.registerKeyboardVisibilityListener
 import kotlinx.android.synthetic.main.activity_checkout.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 import java.math.BigDecimal
 import javax.inject.Inject
 
 class CheckoutActivity :
     BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
     CheckoutView,
-    ShippingOptionsView.OnOptionSelectedListener {
+    CheckoutShippingOptionsView.OnOptionSelectedListener,
+    CheckoutEmailView.EmailChangeListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CheckoutActivity::class.java)
@@ -43,6 +48,7 @@ class CheckoutActivity :
     lateinit var router: AppRouter
     private var checkout: Checkout? = null
     private var customer: Customer? = null
+    private var unregistrar: Unregistrar? = null
 
     //ANDROID
 
@@ -52,6 +58,18 @@ class CheckoutActivity :
 
         setupListeners()
         loadData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
+            placeOrderButton.visibility = if (it) View.INVISIBLE else View.VISIBLE
+        })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregistrar?.unregister()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -173,20 +191,23 @@ class CheckoutActivity :
         placeOrderButton.setOnClickListener {
             when (paymentView.getPaymentType()) {
                 CARD_PAYMENT -> {
-                    val email = customer?.email //TODO ADD EMAIL FOR UNAUTHORIZED USER
+                    val email = checkoutEmailView.getEmail()
                     val billingAddress = paymentView.getAddress()
                     val cardToken = paymentView.getCardData().second
                     presenter.completeCheckoutByCard(checkout, email, billingAddress, cardToken)
                 }
             }
         }
+        checkoutEmailView.emailChangeListener = this
     }
 
     private fun verifyCheckoutData() {
+        val email = checkoutEmailView.getEmail()
         val paymentType = paymentView.getPaymentType()
         val cardData = paymentView.getCardData()
         val shippingData = paymentView.getAddress()
-        presenter.verifyCheckoutData(checkout, paymentType, cardData.first, cardData.second, shippingData)
+        presenter.verifyCheckoutData(checkout, email, paymentType, cardData.first,
+            cardData.second, shippingData)
     }
 
     //LCE
@@ -219,6 +240,7 @@ class CheckoutActivity :
 
     override fun customerReceived(customer: Customer?) {
         this.customer = customer
+        checkoutEmailView.setData(customer)
     }
 
     override fun cartProductListReceived(cartProductList: List<CartProduct>) {
@@ -250,5 +272,9 @@ class CheckoutActivity :
         shippingOptionsView.selectShippingRate(shippingRate)
         changeState(LceLayout.LceState.LoadingState)
         checkout?.let { presenter.setShippingRates(it, shippingRate) }
+    }
+
+    override fun onEmailChanged() {
+        verifyCheckoutData()
     }
 }

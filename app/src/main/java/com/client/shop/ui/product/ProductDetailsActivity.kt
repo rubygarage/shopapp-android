@@ -9,6 +9,7 @@ import android.support.transition.ChangeBounds
 import android.support.transition.Transition
 import android.support.transition.TransitionManager
 import android.view.Menu
+import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Toast
 import com.client.shop.R
@@ -24,7 +25,10 @@ import com.domain.entity.SortType
 import com.domain.formatter.NumberFormatter
 import com.ui.base.lce.BaseActivity
 import com.ui.custom.SimpleTransitionListener
+import com.ui.ext.registerKeyboardVisibilityListener
 import kotlinx.android.synthetic.main.activity_product_details.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 import javax.inject.Inject
 
 class ProductDetailsActivity :
@@ -64,6 +68,7 @@ class ProductDetailsActivity :
     private var galleryFragment: GalleryFragment? = null
     private var product: Product? = null
     private var selectedProductVariant: ProductVariant? = null
+    private var unregistrar: Unregistrar? = null
 
     //ANDROID
 
@@ -86,8 +91,16 @@ class ProductDetailsActivity :
         return true
     }
 
+    override fun onStart() {
+        super.onStart()
+        unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
+            cartButton.visibility = if (it) View.INVISIBLE else View.VISIBLE
+        })
+    }
+
     override fun onStop() {
         super.onStop()
+        unregistrar?.unregister()
         quantityEditText.clearFocus()
     }
 
