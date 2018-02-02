@@ -71,6 +71,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
             cityInput.addTextChangedListener(fieldTextWatcher)
             postalCodeInput.addTextChangedListener(fieldTextWatcher)
             phoneInput.addTextChangedListener(fieldTextWatcher)
+            stateInput.addTextChangedListener(fieldTextWatcher)
         }
     }
 
@@ -83,6 +84,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         cityInput.removeTextChangedListener(fieldTextWatcher)
         postalCodeInput.removeTextChangedListener(fieldTextWatcher)
         phoneInput.removeTextChangedListener(fieldTextWatcher)
+        stateInput.removeTextChangedListener(fieldTextWatcher)
     }
 
     //INIT
@@ -113,6 +115,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
                 addressInput.text.isNotBlank() &&
                 cityInput.text.isNotBlank() &&
                 postalCodeInput.text.isNotBlank() &&
+                stateInput.text.isNotBlank() &&
                 phoneInput.text.isNotBlank()
     }
 
