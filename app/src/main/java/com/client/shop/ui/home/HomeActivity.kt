@@ -11,6 +11,7 @@ import com.client.shop.R
 import com.client.shop.ui.account.AccountFragment
 import com.client.shop.ui.custom.SimpleOnTabSelectedListener
 import com.client.shop.ui.search.SearchWithCategoriesFragment
+import com.ui.ext.hideKeyboard
 import com.ui.ext.registerKeyboardVisibilityListener
 import com.ui.ext.replaceByTag
 import kotlinx.android.synthetic.main.activity_home.*
@@ -45,15 +46,16 @@ class HomeActivity : AppCompatActivity() {
         switchFragment(HOME)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
             bottomTabNavigation.visibility = if (it) View.GONE else View.VISIBLE
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard()
         unregistrar?.unregister()
     }
 

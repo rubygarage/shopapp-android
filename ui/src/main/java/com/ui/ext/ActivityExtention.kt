@@ -6,5 +6,7 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventList
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 
 fun Activity.registerKeyboardVisibilityListener(listener: KeyboardVisibilityEventListener): Unregistrar {
-    return KeyboardVisibilityEvent.registerEventListener(this, listener)
+    val keyboardListener = KeyboardVisibilityEvent.registerEventListener(this, listener)
+    listener.onVisibilityChanged(false)
+    return keyboardListener
 }

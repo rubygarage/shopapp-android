@@ -91,15 +91,15 @@ class ProductDetailsActivity :
         return true
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
             cartButton.visibility = if (it) View.INVISIBLE else View.VISIBLE
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         unregistrar?.unregister()
         quantityEditText.clearFocus()
     }

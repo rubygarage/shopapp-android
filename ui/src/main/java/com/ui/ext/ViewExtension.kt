@@ -26,6 +26,14 @@ fun View.showKeyboard() {
     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 }
 
+fun Activity.hideKeyboard() {
+    val imm = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    val focus = currentFocus
+    focus?.let {
+        imm.hideSoftInputFromWindow(focus.windowToken, 0)
+    }
+}
+
 fun EditText.getTrimmedString(): String {
     return text.trim().toString()
 }

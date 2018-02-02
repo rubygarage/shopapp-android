@@ -60,15 +60,15 @@ class CheckoutActivity :
         loadData()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
             placeOrderButton.visibility = if (it) View.INVISIBLE else View.VISIBLE
         })
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        super.onPause()
         unregistrar?.unregister()
     }
 
