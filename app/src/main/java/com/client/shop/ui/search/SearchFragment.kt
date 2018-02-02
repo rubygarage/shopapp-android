@@ -84,8 +84,10 @@ class SearchFragment :
 
     fun queryChanged(query: String) {
         if (query != currentQuery) {
+            dataList.clear()
             paginationValue = null
             currentQuery = query
+            adapter?.notifyDataSetChanged()
             loadData(true)
         }
     }

@@ -63,7 +63,7 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
 
     abstract fun bindData(itemView: View, data: T, position: Int)
 
-    open protected fun bindFooterData(itemView: View, position: Int) {
+    protected open fun bindFooterData(itemView: View, position: Int) {
 
     }
 

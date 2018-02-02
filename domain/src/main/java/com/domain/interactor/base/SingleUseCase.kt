@@ -10,9 +10,12 @@ abstract class SingleUseCase<T, in Params> : UseCase() {
 
     fun execute(onSuccess: ((t: T) -> Unit), onError: ((t: Throwable) -> Unit), params: Params) {
         checkIsAttachedToLifecycle()
-        disposable = buildUseCaseSingle(params)
+        disposeLatest()
+        val disposable = buildUseCaseSingle(params)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError)
+        disposables.add(disposable)
+        lastDisposable = disposable
     }
 }

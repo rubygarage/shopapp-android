@@ -60,7 +60,7 @@ class SearchToolbar @JvmOverloads constructor(
     }
 
     companion object {
-        private const val SEARCH_DEBOUNCE = 500L
+        private const val SEARCH_DEBOUNCE = 700L
     }
 
     override fun onAttachedToWindow() {
@@ -77,7 +77,6 @@ class SearchToolbar @JvmOverloads constructor(
                 },
                 { error -> error.printStackTrace() }
             )
-
     }
 
     override fun onDetachedFromWindow() {
