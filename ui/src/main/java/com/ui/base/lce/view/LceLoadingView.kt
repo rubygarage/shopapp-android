@@ -14,28 +14,25 @@ class LceLoadingView @JvmOverloads constructor(
     LceView {
 
     companion object {
+        private const val START_TIME = -1L
         private const val MIN_SHOW_TIME = 500L
     }
 
     init {
         View.inflate(context, R.layout.view_lce_loading, this)
-        setBackgroundResource(R.color.colorBackgroundLight)
+        isClickable = true
     }
 
-    private var mStartTime: Long = -1
-
-    private var mPostedHide = false
-
-    private var mPostedShow = false
-
-    private var mDismissed = false
+    private var startTime: Long = START_TIME
+    private var postedHide = false
+    private var postedShow = false
+    private var dismissed = false
 
     private val mDelayedHide = Runnable {
-        mPostedHide = false
-        mStartTime = -1
+        postedHide = false
+        startTime = START_TIME
         visibility = View.GONE
     }
-
 
     public override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -53,20 +50,26 @@ class LceLoadingView @JvmOverloads constructor(
 
     override fun changeState(state: LceLayout.LceState) {
         post {
-            if (state == LceLayout.LceState.LoadingState) {
-                mDismissed = false
-                mPostedShow = false
-                mStartTime = System.currentTimeMillis()
+            if (state is LceLayout.LceState.LoadingState) {
+                dismissed = false
+                postedShow = false
+                startTime = System.currentTimeMillis()
                 visibility = View.VISIBLE
+                val background = if (state.isTranslucent) {
+                    R.color.colorBackgroundLightTranslucent
+                } else {
+                    R.color.colorBackgroundLight
+                }
+                setBackgroundResource(background)
             } else {
-                mDismissed = true
-                val diff = System.currentTimeMillis() - mStartTime
-                if (diff >= MIN_SHOW_TIME || mStartTime == -1L) {
+                dismissed = true
+                val diff = System.currentTimeMillis() - startTime
+                if (diff >= MIN_SHOW_TIME || startTime == START_TIME) {
                     visibility = View.GONE
                 } else {
-                    if (!mPostedHide) {
+                    if (!postedHide) {
                         postDelayed(mDelayedHide, MIN_SHOW_TIME - diff)
-                        mPostedHide = true
+                        postedHide = true
                     }
                 }
             }

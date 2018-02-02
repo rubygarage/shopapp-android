@@ -100,7 +100,7 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     @CallSuper
     open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
-            changeState(LceLayout.LceState.LoadingState)
+            changeState(LceLayout.LceState.LoadingState())
         }
     }
 

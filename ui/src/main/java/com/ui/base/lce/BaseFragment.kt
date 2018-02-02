@@ -50,7 +50,7 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     @CallSuper
     open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
-            lceLayout.changeState(LceLayout.LceState.LoadingState)
+            lceLayout.changeState(LceLayout.LceState.LoadingState())
         }
     }
 

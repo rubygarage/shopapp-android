@@ -270,7 +270,7 @@ class CheckoutActivity :
 
     override fun onOptionSelected(shippingRate: ShippingRate) {
         shippingOptionsView.selectShippingRate(shippingRate)
-        changeState(LceLayout.LceState.LoadingState)
+        changeState(LceLayout.LceState.LoadingState(true))
         checkout?.let { presenter.setShippingRates(it, shippingRate) }
     }
 
