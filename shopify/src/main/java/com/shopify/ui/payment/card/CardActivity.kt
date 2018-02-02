@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
+import com.domain.detector.CardTypeDetector
 import com.domain.entity.Card
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
@@ -16,10 +17,12 @@ import com.shopify.ui.payment.card.di.CardPaymentModule
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.base.picker.BaseBottomSheetPicker
+import com.ui.custom.CreditCardFormatTextWatcher
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
+
 
 class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>(), CardView {
 
@@ -36,10 +39,13 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
 
     @Inject
     lateinit var cardPresenter: CardPresenter
+    private lateinit var cardMaskTextWatcher: TextWatcher
+    private lateinit var cardTextWatcher: TextWatcher
     private lateinit var fieldTextWatcher: TextWatcher
     private lateinit var monthPicker: DateBottomSheetPicker
     private lateinit var yearPicker: DateBottomSheetPicker
     private var card: Card? = null
+    private val cardTypeDetector: CardTypeDetector = CardTypeDetector()
 
     //ANDROID
 
@@ -49,10 +55,18 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         setupPickers()
         setupListeners()
         card = intent.getParcelableExtra(CARD)
+
+        cardMaskTextWatcher = CreditCardFormatTextWatcher(this, resources.getDimension(R.dimen.card_padding))
     }
 
     override fun onResume() {
         super.onResume()
+        if (this::cardMaskTextWatcher.isInitialized) {
+            cardNumberInput.addTextChangedListener(cardMaskTextWatcher)
+        }
+        if (this::cardTextWatcher.isInitialized) {
+            cardNumberInput.addTextChangedListener(cardTextWatcher)
+        }
         if (this::fieldTextWatcher.isInitialized) {
             holderNameInput.addTextChangedListener(fieldTextWatcher)
             cardNumberInput.addTextChangedListener(fieldTextWatcher)
@@ -65,6 +79,8 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
 
     override fun onPause() {
         super.onPause()
+        cardNumberInput.removeTextChangedListener(cardMaskTextWatcher)
+        cardNumberInput.removeTextChangedListener(cardTextWatcher)
         holderNameInput.removeTextChangedListener(fieldTextWatcher)
         cardNumberInput.removeTextChangedListener(fieldTextWatcher)
         monthInput.removeTextChangedListener(fieldTextWatcher)
@@ -100,6 +116,11 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     }
 
     private fun setupListeners() {
+        cardTextWatcher = object : SimpleTextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                cardLogo.setImageResource(cardTypeDetector.detect(s.toString())?.logoRes ?: 0)
+            }
+        }
         fieldTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 checkInputFields()
