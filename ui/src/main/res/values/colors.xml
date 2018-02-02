@@ -12,6 +12,7 @@
     <color name="colorBackgroundDark">#FFE6E6E6</color>
     <color name="colorBackgroundLight">#FFF5F5F5</color>
     <color name="colorBackgroundDarkTranslucent">#80E6E6E6</color>
+    <color name="colorBackgroundLightTranslucent">#D0F5F5F5</color>
 
     <color name="textColorPrimary">#FF000000</color>
     <color name="textColorSecondary">#FF8B8B8B</color>

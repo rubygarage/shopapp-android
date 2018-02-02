@@ -123,7 +123,7 @@ class CheckoutAddressListActivity :
         addressListAdapter.selectedAddress = selectedAddress
         addressListAdapter.notifyDataSetChanged()
         if (isShipping) {
-            changeState(LceLayout.LceState.LoadingState)
+            changeState(LceLayout.LceState.LoadingState(true))
             checkoutId?.let { presenter.setShippingAddress(it, address) }
         } else {
             selectedAddressChanged(address)

@@ -79,7 +79,7 @@ abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListVi
     //CALLBACK
 
     override fun onDefaultButtonClicked(address: Address) {
-        changeState(LceLayout.LceState.LoadingState)
+        changeState(LceLayout.LceState.LoadingState())
         presenter.setDefaultAddress(address)
     }
 

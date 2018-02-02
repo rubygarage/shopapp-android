@@ -25,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="bottom"
+        android:visibility="invisible"
         app:ci_drawable="@drawable/background_circle_selected"
         app:ci_drawable_unselected="@drawable/background_circle_unselected" />
 

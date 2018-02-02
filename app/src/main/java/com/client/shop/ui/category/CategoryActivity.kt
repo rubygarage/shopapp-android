@@ -18,6 +18,7 @@ import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.domain.entity.Category
 import com.domain.entity.Product
 import com.domain.entity.SortType
+import com.ui.const.Constant
 import kotlinx.android.synthetic.main.activity_category.*
 import javax.inject.Inject
 
@@ -38,7 +39,6 @@ class CategoryActivity :
 
     companion object {
 
-        private const val PER_PAGE = 10
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 
         fun getStartIntent(context: Context, category: Category): Intent {
@@ -124,7 +124,7 @@ class CategoryActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(PER_PAGE, paginationValue, category.id, sortType)
+        presenter.loadProductList(Constant.DEFAULT_PER_PAGE_COUNT, paginationValue, category.id, sortType)
     }
 
     override fun showContent(data: List<Product>) {

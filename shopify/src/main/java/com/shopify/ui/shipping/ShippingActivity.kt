@@ -116,7 +116,7 @@ class ShippingActivity : BaseActivity<List<ShippingRate>, ShippingView, Shipping
     //CALLBACK
 
     override fun onShippingRateSelected(shippingRate: ShippingRate) {
-        changeState(LceLayout.LceState.LoadingState)
+        changeState(LceLayout.LceState.LoadingState())
         presenter?.selectShippingRate(checkout.checkoutId, shippingRate)
     }
 }
