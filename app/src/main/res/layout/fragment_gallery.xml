@@ -16,8 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:src="@drawable/ic_placeholder"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_placeholder"
         tools:ignore="ContentDescription" />
 
     <me.relex.circleindicator.CircleIndicator

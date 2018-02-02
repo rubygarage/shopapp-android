@@ -13,8 +13,6 @@ android {
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
-
-        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {

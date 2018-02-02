@@ -19,13 +19,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:src="@drawable/ic_checkout_success"
         app:layout_constraintBottom_toTopOf="@+id/thankMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_checkout_success"
         tools:ignore="ContentDescription" />
 
     <TextView
