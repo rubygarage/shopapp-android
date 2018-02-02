@@ -258,7 +258,7 @@ class CheckoutActivity :
     }
 
     override fun checkoutInProcess() {
-        changeState(LceLayout.LceState.LoadingState)
+        changeState(LceLayout.LceState.LoadingState())
     }
 
     override fun checkoutCompleted(order: Order) {

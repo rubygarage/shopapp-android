@@ -85,7 +85,6 @@ class PaymentView @JvmOverloads constructor(
         cardGroup.visibility = if (card != null) {
             val cardType = cardTypeDetector.detect(card.cardNumber)
             if (cardType != null) {
-                cardLogo.visibility = if (cardType.logoRes != 0) View.VISIBLE else View.GONE
                 cardLogo.setImageResource(cardType.logoRes)
                 cardDataText.text = context.getString(
                     R.string.card_type_placeholder,

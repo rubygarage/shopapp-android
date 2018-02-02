@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:ignore="ContentDescription">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,8 +55,21 @@
                 style="@style/TextInputEditText"
                 android:imeOptions="actionNext"
                 android:inputType="number"
-                android:lines="1" />
+                android:lines="1"
+                android:maxLength="19"
+                android:paddingEnd="35dp"
+                tools:ignore="RtlSymmetry" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
+
+        <ImageView
+            android:id="@+id/cardLogo"
+            android:layout_width="27dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardNumberInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/cardNumberInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/cardNumberInputLayout" />
 
         <TextView
             android:id="@+id/expirationDateLabel"
@@ -143,7 +157,8 @@
                 style="@style/TextInputEditText"
                 android:imeOptions="actionNext"
                 android:inputType="number"
-                android:lines="1" />
+                android:lines="1"
+                android:maxLength="4" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <Button
@@ -158,12 +173,99 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cvvInputLayout" />
 
+        <TextView
+            android:id="@+id/weAcceptLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/we_accept"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/submitButton" />
+
+        <ImageView
+            android:id="@+id/visa"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/amex"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
+            app:srcCompat="@drawable/ic_visa" />
+
+        <ImageView
+            android:id="@+id/amex"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/masterCard"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/visa"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
+            app:srcCompat="@drawable/ic_amex" />
+
+        <ImageView
+            android:id="@+id/masterCard"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/discover"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/amex"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
+            app:srcCompat="@drawable/ic_master_card" />
+
+        <ImageView
+            android:id="@+id/discover"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/jbc"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/masterCard"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
+            app:srcCompat="@drawable/ic_discover" />
+
+        <ImageView
+            android:id="@+id/jbc"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/dc"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/discover"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
+            app:srcCompat="@drawable/ic_jcb_card" />
+
+        <ImageView
+            android:id="@+id/dc"
+            android:layout_width="38dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/jbc"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel"
+            app:srcCompat="@drawable/ic_dc_card" />
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/submitButton" />
+            app:layout_constraintTop_toBottomOf="@+id/dc" />
 
     </android.support.constraint.ConstraintLayout>
 
