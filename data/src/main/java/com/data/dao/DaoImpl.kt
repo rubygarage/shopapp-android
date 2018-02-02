@@ -62,6 +62,10 @@ class DaoImpl(context: Context) : Dao {
         return storeItem?.let { store.delete(storeItem) } ?: Completable.complete()
     }
 
+    override fun deleteAllProductsFromCart(): Completable {
+        return store.delete(CartProductDataEntity::class).get().single().toCompletable()
+    }
+
     override fun changeCartProductQuantity(
         productVariantId: String,
         newQuantity: Int

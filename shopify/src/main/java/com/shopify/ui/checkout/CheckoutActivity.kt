@@ -5,13 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.domain.entity.Address
-import com.domain.entity.Card
-import com.domain.entity.CartProduct
-import com.domain.entity.Customer
+import com.domain.entity.*
 import com.domain.router.AppRouter
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
+import com.shopify.constant.CARD_PAYMENT
 import com.shopify.constant.Extra
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
@@ -78,6 +76,8 @@ class CheckoutActivity :
             val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
             paymentView.setAddressData(address)
         }
+
+        verifyCheckoutData()
     }
 
     //INIT
@@ -123,10 +123,22 @@ class CheckoutActivity :
             },
             addAddressClickListener = View.OnClickListener {
                 checkout?.let {
-                    startActivityForResult(
-                        CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
-                        RequestCode.ADD_SHIPPING_ADDRESS
-                    )
+                    if (customer != null) {
+                        startActivityForResult(
+                            CheckoutAddressListActivity.getStartIntent(
+                                this,
+                                it.checkoutId,
+                                true,
+                                it.address
+                            ),
+                            RequestCode.EDIT_SHIPPING_ADDRESS
+                        )
+                    } else {
+                        startActivityForResult(
+                            CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
+                            RequestCode.ADD_SHIPPING_ADDRESS
+                        )
+                    }
                 }
             }
         )
@@ -158,6 +170,23 @@ class CheckoutActivity :
             }
         )
         shippingOptionsView.onOptionSelectedListener = this
+        placeOrderButton.setOnClickListener {
+            when (paymentView.getPaymentType()) {
+                CARD_PAYMENT -> {
+                    val email = customer?.email //TODO ADD EMAIL FOR UNAUTHORIZED USER
+                    val billingAddress = paymentView.getAddress()
+                    val cardToken = paymentView.getCardData().second
+                    presenter.completeCheckoutByCard(checkout, email, billingAddress, cardToken)
+                }
+            }
+        }
+    }
+
+    private fun verifyCheckoutData() {
+        val paymentType = paymentView.getPaymentType()
+        val cardData = paymentView.getCardData()
+        val shippingData = paymentView.getAddress()
+        presenter.verifyCheckoutData(checkout, paymentType, cardData.first, cardData.second, shippingData)
     }
 
     //LCE
@@ -185,6 +214,7 @@ class CheckoutActivity :
         } else {
             shippingOptionsView.unSelectAddress()
         }
+        verifyCheckoutData()
     }
 
     override fun customerReceived(customer: Customer?) {
@@ -199,6 +229,19 @@ class CheckoutActivity :
         checkout?.let {
             shippingOptionsView.setData(it, shippingRates)
         }
+    }
+
+    override fun checkoutValidationPassed(isValid: Boolean) {
+        placeOrderButton.isEnabled = isValid
+    }
+
+    override fun checkoutInProcess() {
+        changeState(LceLayout.LceState.LoadingState)
+    }
+
+    override fun checkoutCompleted(order: Order) {
+        changeState(LceLayout.LceState.ContentState)
+        router.openOrderSuccessScreen(this, order.id, order.orderNumber)
     }
 
     //CALLBACK

@@ -3,6 +3,7 @@ package com.shopify.repository
 import com.domain.entity.Address
 import com.domain.entity.Card
 import com.domain.entity.CartProduct
+import com.domain.entity.Order
 import com.google.android.gms.wallet.FullWallet
 import com.shopify.buy3.pay.PayCart
 import com.shopify.entity.Checkout
@@ -21,9 +22,9 @@ interface CheckoutRepository {
 
     fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout>
 
-    fun payByCard(card: Card): Single<String>
+    fun getCardToken(card: Card): Single<String>
 
-    fun completeCheckoutByCard(checkout: Checkout, address: Address, creditCardVaultToken: String): Single<Boolean>
+    fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String): Single<Order>
 
     fun createPayCart(checkout: Checkout, cartProductList: List<CartProduct>): Single<PayCart>
 

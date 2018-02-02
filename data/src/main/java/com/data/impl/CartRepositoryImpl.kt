@@ -21,6 +21,10 @@ class CartRepositoryImpl(private val dao: Dao) : CartRepository {
         return dao.deleteProductFromCart(productVariantId)
     }
 
+    override fun deleteAllProductsFromCart(): Completable {
+        return dao.deleteAllProductsFromCart()
+    }
+
     override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct> {
         return dao.changeCartProductQuantity(productVariantId, newQuantity)
     }

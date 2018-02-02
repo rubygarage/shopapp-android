@@ -46,7 +46,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         private const val ACCESS_TOKEN = "access_token"
         private const val EXPIRES_DATE = "expires_date"
         private const val RETRY_HANDLER_DELAY = 500L
-        private const val RETRY_HANDLER_MAX_COUNT = 5
+        private const val RETRY_HANDLER_MAX_COUNT = 10
         private const val UNAUTHORIZED_ERROR = "Unauthorized"
         private const val PRODUCT_TYPE_KEY = "product_type:"
     }
@@ -339,18 +339,23 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         val call = graphClient.mutateGraph(mutationQuery)
         call.enqueue(object : GraphCall.Callback<Storefront.Mutation> {
             override fun onResponse(response: GraphResponse<Storefront.Mutation>) {
-                response.data()?.customerCreate?.let { customerCreate ->
-                    val userError = ErrorAdapter.adaptUserError(customerCreate.userErrors)
-                    if (userError != null) {
-                        callback.onFailure(userError)
-                    } else if (customerCreate.customer != null) {
-                        val tokenResponse = requestToken(email, password)
-                        if (tokenResponse != null) {
-                            tokenResponse.first?.let {
-                                callback.onResult(Unit)
-                            }
-                            tokenResponse.second?.let {
-                                callback.onFailure(it)
+                val error = ErrorAdapter.adaptErrors(response.errors())
+                if (error != null) {
+                    callback.onFailure(error)
+                } else {
+                    response.data()?.customerCreate?.let { customerCreate ->
+                        val userError = ErrorAdapter.adaptUserError(customerCreate.userErrors)
+                        if (userError != null) {
+                            callback.onFailure(userError)
+                        } else if (customerCreate.customer != null) {
+                            val tokenResponse = requestToken(email, password)
+                            if (tokenResponse != null) {
+                                tokenResponse.first?.let {
+                                    callback.onResult(Unit)
+                                }
+                                tokenResponse.second?.let {
+                                    callback.onFailure(it)
+                                }
                             }
                         }
                     }
@@ -699,7 +704,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             .whenResponse<Storefront.QueryRoot> {
                 val checkout = (it.data()?.node as? Storefront.Checkout)
                 checkout?.availableShippingRates?.let { !it.ready } ?: true
-            }.build()
+            }
+            .build()
 
         val query = Storefront.query {
             it.node(ID(checkoutId), {
@@ -757,7 +763,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    fun payByCard(card: Card, callback: ApiCallback<String>) {
+    fun getCardToken(card: Card, callback: ApiCallback<String>) {
 
         val vaultCallback = object : ApiCallback<String> {
             override fun onResult(result: String) {
@@ -799,8 +805,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    fun completeCheckoutByCard(checkout: Checkout, address: Address, creditCardVaultToken: String,
-                               callback: ApiCallback<Boolean>) {
+    fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String,
+                               callback: ApiCallback<Order>) {
 
         val amount = checkout.totalPrice
         val idempotencyKey = UUID.randomUUID().toString()
@@ -808,15 +814,27 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
         billingAddress.setAddress1(address.address)
             .setCity(address.city)
+            .setProvince(address.state)
             .setCountry(address.country)
             .setFirstName(address.firstName)
             .setLastName(address.lastName)
             .setPhone(address.phone).zip = address.zip
 
+        val cardPayCallback = object : ApiCallback<Boolean> {
+            override fun onResult(result: Boolean) {
+                completeCheckout(checkout.checkoutId, callback)
+            }
+
+            override fun onFailure(error: Error) {
+                callback.onFailure(error)
+            }
+        }
+
         val creditCardPaymentInput = Storefront.CreditCardPaymentInput(amount, idempotencyKey,
             billingAddress, creditCardVaultToken)
 
         val mutationQuery = Storefront.mutation {
+            it.checkoutEmailUpdate(ID(checkout.checkoutId), email, { it.checkout { it.totalPrice() } })
             it.checkoutCompleteWithCreditCard(ID(checkout.checkoutId), creditCardPaymentInput) {
                 it.payment {
                     it.ready().errorMessage()
@@ -826,17 +844,15 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             }
         }
 
-        graphClient.mutateGraph(mutationQuery).enqueue(object : MutationCallWrapper<Boolean>(callback) {
+        graphClient.mutateGraph(mutationQuery).enqueue(object : MutationCallWrapper<Boolean>(cardPayCallback) {
             override fun adapt(data: Storefront.Mutation?): Boolean? {
                 return data?.checkoutCompleteWithCreditCard?.let {
                     val userError = ErrorAdapter.adaptUserError(it.userErrors)
                     if (userError != null) {
-                        callback.onFailure(userError)
+                        cardPayCallback.onFailure(userError)
                         null
                     } else {
-                        val checkoutReady = it.checkout?.ready ?: false
-                        val paymentReady = it.payment?.ready ?: false
-                        checkoutReady && paymentReady
+                        if (it.checkout?.ready == true) true else null
                     }
                 }
             }
@@ -930,6 +946,34 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
             }
         })
     }
+
+    private fun completeCheckout(checkoutId: String, callback: ApiCallback<Order>) {
+
+        val query = Storefront.query {
+            it.node(ID(checkoutId), {
+                it.onCheckout({
+                    it.order { getDefaultOrderQuery(it) }
+                })
+            })
+        }
+
+        val retryHandler = RetryHandler.delay(RETRY_HANDLER_DELAY, TimeUnit.MILLISECONDS)
+            .maxCount(RETRY_HANDLER_MAX_COUNT)
+            .whenResponse<Storefront.QueryRoot> {
+                val checkout = (it.data()?.node as? Storefront.Checkout)
+                checkout?.order == null
+            }
+            .build()
+
+        graphClient.queryGraph(query).enqueue(object : QueryCallWrapper<Order>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): Order? {
+                val checkout = data.node as? Storefront.Checkout
+                val order = checkout?.order
+                return order?.let { OrderAdapter.adapt(checkout.order) }
+            }
+        }, null, retryHandler)
+    }
+
 
     private fun getProductSortKey(sortType: SortType?): Storefront.ProductSortKeys? {
         if (sortType != null) {

@@ -38,5 +38,6 @@
     <string name="shipping_options">Shipping options</string>
     <string name="please_add_shipping_address_first">Please, add shipping address first</string>
     <string name="order_can_not_be_processed">Due to technical reasons the order can not be processed</string>
+    <string name="place_order">Place order</string>
 
 </resources>
