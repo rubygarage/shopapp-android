@@ -21,7 +21,7 @@ object ProductAdapter {
                 shopAdaptee,
                 productAdaptee,
                 paginationValue,
-                productAdaptee.variants.edges.map { ProductVariantAdapter.adapt(it.node) }
+                productAdaptee.variants.edges.mapNotNull { ProductVariantAdapter.adapt(it.node) }
             )
         } else {
             adapt(
@@ -68,15 +68,15 @@ object ProductAdapter {
     private fun convertPrice(productAdaptee: Storefront.Product): Pair<Float, Float> {
         val variantsList = productAdaptee.variants.edges
         return if (variantsList.size > 0) {
-            val mappedList = variantsList.map { it.node.price.toFloat() }
-            Pair(mappedList.min()!!, mappedList.max()!!)
+            val mappedList = variantsList.mapNotNull { it.node.price.toFloat() }
+            Pair(mappedList.min() ?: DEFAULT_PRICE, mappedList.max() ?: DEFAULT_PRICE)
         } else {
             Pair(DEFAULT_PRICE, DEFAULT_PRICE)
         }
     }
 
     private fun convertImage(productAdaptee: Storefront.Product): List<Image> =
-        productAdaptee.images.edges.map { ImageAdapter.adapt(it.node)!! }
+        productAdaptee.images.edges.mapNotNull  { ImageAdapter.adapt(it.node)!! }
 
     private fun convertProductOptionList(options: List<Storefront.ProductOption>?): List<ProductOption> {
         return if (options != null) {
