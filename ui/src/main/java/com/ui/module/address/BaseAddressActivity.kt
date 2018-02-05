@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.text.TextWatcher
 import com.domain.entity.Address
 import com.domain.entity.Country
+import com.domain.entity.State
 import com.ui.R
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
+import com.ui.base.picker.BaseBottomSheetPicker
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
 import com.ui.ext.hideKeyboard
@@ -30,7 +32,8 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     protected var isEditMode = false
     private var address: Address? = null
     private lateinit var fieldTextWatcher: TextWatcher
-
+    private lateinit var countryPicker: CountryBottomSheetPicker
+    private lateinit var statePicker: StateBottomSheetPicker
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +67,15 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         }
 
         presenter.getCountriesList()
+        countryInput.setOnClickListener {
+            it.hideKeyboard()
+            countryPicker.show(supportFragmentManager, "")
+        }
+
+        stateInput.setOnClickListener {
+            it.hideKeyboard()
+            statePicker.show(supportFragmentManager, "")
+        }
     }
 
     override fun onResume() {
@@ -81,7 +93,27 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     override fun countriesLoaded(countries: List<Country>) {
-        countryInput.setText(countries[0].name)
+        countryPicker = CountryBottomSheetPicker.newInstance(ArrayList(countries))
+        countryPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
+            override fun onDoneButtonClicked(selectedData: Country) {
+                countryInput.setText(selectedData.name)
+                checkStates(selectedData)
+            }
+        }
+    }
+
+    private fun checkStates(country: Country) {
+        if (country.states != null && !country.states!!.isEmpty()) {
+            stateInputContainer.visibility = View.VISIBLE
+            statePicker = StateBottomSheetPicker.newInstance(ArrayList(country.states!!))
+            statePicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<State> {
+                override fun onDoneButtonClicked(selectedData: State) {
+                    stateInput.setText(selectedData.name)
+                }
+            }
+        } else {
+            stateInputContainer.visibility = View.GONE
+        }
     }
 
     override fun onPause() {
