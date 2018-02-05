@@ -7,10 +7,11 @@ import com.domain.entity.ProductVariant
 import com.shopify.api.ext.isSingleOptions
 import com.shopify.buy3.Storefront
 import com.ui.const.Constant.DEFAULT_STRING
+import java.math.BigDecimal
 
 object ProductAdapter {
 
-    private const val DEFAULT_PRICE = 0f
+    private val DEFAULT_PRICE = BigDecimal.ZERO
 
     fun adapt(shopAdaptee: Storefront.Shop,
               productAdaptee: Storefront.Product,
@@ -65,10 +66,10 @@ object ProductAdapter {
         )
     }
 
-    private fun convertPrice(productAdaptee: Storefront.Product): Pair<Float, Float> {
+    private fun convertPrice(productAdaptee: Storefront.Product): Pair<BigDecimal, BigDecimal> {
         val variantsList = productAdaptee.variants.edges
         return if (variantsList.size > 0) {
-            val mappedList = variantsList.mapNotNull { it.node.price.toFloat() }
+            val mappedList = variantsList.mapNotNull { it.node.price }
             Pair(mappedList.min() ?: DEFAULT_PRICE, mappedList.max() ?: DEFAULT_PRICE)
         } else {
             Pair(DEFAULT_PRICE, DEFAULT_PRICE)
@@ -85,6 +86,5 @@ object ProductAdapter {
             listOf()
         }
     }
-
 
 }

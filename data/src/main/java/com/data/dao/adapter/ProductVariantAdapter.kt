@@ -10,7 +10,7 @@ object ProductVariantAdapter {
         val product = ProductVariantDataEntity()
         product.id = adaptee.id
         product.title = adaptee.title
-        product.price = adaptee.price
+        product.price = adaptee.price.toFloat()
         product.isAvailable = adaptee.isAvailable
         product.selectedOptions = adaptee.selectedOptions.map { VariantOptionAdapter.adaptToStore(it) }
         product.image = ImageAdapter.adaptToStore(adaptee.image)
@@ -23,7 +23,7 @@ object ProductVariantAdapter {
         return ProductVariant(
             adaptee.id,
             adaptee.title,
-            adaptee.price,
+            adaptee.price.toBigDecimal(),
             adaptee.isAvailable,
             adaptee.selectedOptions.map { VariantOptionAdapter.adaptFromStore(it) },
             ImageAdapter.adaptFromStore(adaptee.image),

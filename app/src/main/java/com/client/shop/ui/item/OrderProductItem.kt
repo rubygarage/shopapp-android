@@ -9,6 +9,7 @@ import com.client.shop.R
 import com.domain.entity.OrderProduct
 import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_order_product.view.*
+import java.math.BigDecimal
 
 @SuppressLint("ViewConstructor")
 class OrderProductItem constructor(context: Context, private val formatter: NumberFormatter)
@@ -43,7 +44,7 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
         changeEachPriceVisibility(productVariant.price, orderProduct.quantity, currency)
     }
 
-    private fun changeEachPriceVisibility(price: Float, quantity: Int, currency: String) {
+    private fun changeEachPriceVisibility(price: BigDecimal, quantity: Int, currency: String) {
         if (quantity > 1) {
             eachPrice.text = context.getString(R.string.each_price_pattern,
                 formatter.formatPrice(price, currency))
@@ -53,7 +54,7 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
         }
     }
 
-    private fun getTotalPrice(price: Float, quantity: Int, currency: String): String {
-        return formatter.formatPrice(price * quantity, currency)
+    private fun getTotalPrice(price: BigDecimal, quantity: Int, currency: String): String {
+        return formatter.formatPrice(price * quantity.toBigDecimal(), currency)
     }
 }

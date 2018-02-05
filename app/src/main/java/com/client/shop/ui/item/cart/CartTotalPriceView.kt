@@ -7,7 +7,9 @@ import android.view.View
 import com.client.shop.R
 import com.domain.entity.CartProduct
 import com.domain.formatter.NumberFormatter
+import com.ui.ext.sum
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
+import java.math.BigDecimal
 
 class CartTotalPriceView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -24,8 +26,8 @@ class CartTotalPriceView @JvmOverloads constructor(
     fun setData(data: List<CartProduct>) {
 
         val currency = data.getOrNull(0)?.currency ?: ""
-        val totalPrice: Float = data
-            .map { it.quantity * it.productVariant.price }
+        val totalPrice: BigDecimal = data
+            .map { it.quantity.toBigDecimal() * it.productVariant.price }
             .sum()
 
         orderTotalLabel.text = context.resources.getQuantityString(R.plurals.order_total_plurals, data.size, data.size)

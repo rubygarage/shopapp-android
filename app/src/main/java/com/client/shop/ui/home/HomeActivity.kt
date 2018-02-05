@@ -22,6 +22,8 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
 
+        private const val CURRENT_SCREEN = "current_screen"
+
         private const val HOME = 0
         private const val SEARCH = 1
         private const val ACCOUNT = 2
@@ -36,14 +38,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private var unregistrar: Unregistrar? = null
+    private var currentScreen: Int = HOME
 
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        currentScreen = savedInstanceState?.getInt(CURRENT_SCREEN, HOME) ?: HOME
         setupNavigation()
-        switchFragment(HOME)
+        switchFragment(currentScreen)
     }
 
     override fun onResume() {
@@ -72,9 +77,15 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(CURRENT_SCREEN, currentScreen)
+    }
+
     //SETUP
 
     private fun setupNavigation() {
+        bottomTabNavigation.getTabAt(currentScreen)?.select()
         bottomTabNavigation.addOnTabSelectedListener(object : SimpleOnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 switchFragment(tab.position)
@@ -83,6 +94,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun switchFragment(position: Int) {
+        currentScreen = position
         supportFragmentManager.replaceByTag(R.id.content, position.toString(), {
             when (position) {
                 HOME -> HomeFragment()
