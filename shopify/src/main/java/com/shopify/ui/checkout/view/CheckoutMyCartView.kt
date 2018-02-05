@@ -38,7 +38,7 @@ class CheckoutMyCartView @JvmOverloads constructor(
         recyclerView.adapter = ProductVariantAdapter(cartProductList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         val decoration =
-            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider))
+            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider), skipFirst = true)
         recyclerView.addItemDecoration(decoration)
     }
 
