@@ -11,8 +11,10 @@ import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import com.ui.R
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
+import com.ui.base.lce.view.LceEmptyView
 import com.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.fragment_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
 
 abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
     MvpFragment<V, P>(),
@@ -33,6 +35,7 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
         super.onViewCreated(view, savedInstanceState)
         lceLayout.setupContentLayout(getContentView())
         lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
+        setupEmptyView(emptyView)
     }
 
     //INIT
@@ -44,6 +47,11 @@ abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
 
     @LayoutRes
     abstract fun getContentView(): Int
+
+    //SETUP
+
+    protected open fun setupEmptyView(emptyView: LceEmptyView) {
+    }
 
     //LCE
 

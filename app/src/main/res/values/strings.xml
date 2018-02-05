@@ -30,7 +30,7 @@
     <string name="each_price_pattern">%s each</string>
     <string name="proceed_to_checkout">Proceed to checkout</string>
     <string name="empty_cart_message">Your cart is empty :(</string>
-    <string name="empty_cart_button">Start Shopping</string>
+    <string name="start_shopping">Start Shopping</string>
     <string name="create_new_account">Create new account</string>
     <string name="login">Login</string>
     <string name="password">Password*</string>
@@ -100,5 +100,9 @@
     <string name="continue_shopping">Continue shopping</string>
     <string name="range_price">From %s</string>
     <string name="product_option_title_pattern">%s:</string>
+    <string name="you_have_no_orders_yet">You have no order yet</string>
+    <string name="there_are_no_products_yet">There are no products yet :(</string>
+    <string name="there_are_no_categories_yet">There are no categories yet :(</string>
+    <string name="no_results_found">No results found</string>
 
 </resources>

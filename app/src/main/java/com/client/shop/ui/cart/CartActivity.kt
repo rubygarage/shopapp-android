@@ -49,7 +49,6 @@ class CartActivity :
 
         checkoutButton.setOnClickListener { router.openCheckoutActivity(this) }
         setupRecyclerView()
-        setupEmptyView()
 
         loadData()
         setTitle(getString(R.string.my_cart))
@@ -90,11 +89,10 @@ class CartActivity :
 
     }
 
-    private fun setupEmptyView() {
-        val emptyView = findViewById<LceEmptyView>(R.id.emptyView)
+    override fun setupEmptyView(emptyView: LceEmptyView) {
         emptyView.customiseEmptyImage(R.drawable.ic_cart_empty)
         emptyView.customiseEmptyMessage(R.string.empty_cart_message)
-        emptyView.customiseEmptyButtonText(R.string.empty_cart_button)
+        emptyView.customiseEmptyButtonText(R.string.start_shopping)
         emptyView.customiseEmptyButtonVisibility(true)
     }
 

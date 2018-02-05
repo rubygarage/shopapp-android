@@ -37,8 +37,8 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupRecyclerView()
         setupSwipeRefreshLayout()
+        setupRecyclerView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
