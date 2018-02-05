@@ -10,6 +10,10 @@ import com.domain.router.AppRouter
 
 class AppRouterImpl : AppRouter {
 
+    override fun openHomeScreen(context: Context) {
+        context.startActivity(HomeActivity.getStartIntent(context, true))
+    }
+
     override fun openProductDetailsScreen(context: Context, productVariant: ProductVariant) {
         context.startActivity(ProductDetailsActivity.getStartIntent(context, productVariant))
     }

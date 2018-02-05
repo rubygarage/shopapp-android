@@ -5,6 +5,8 @@ import com.domain.entity.ProductVariant
 
 interface AppRouter {
 
+    fun openHomeScreen(context: Context)
+
     fun openProductDetailsScreen(context: Context, productVariant: ProductVariant)
 
     fun openOrderSuccessScreen(context: Context, orderId: String, orderNumber: Int)

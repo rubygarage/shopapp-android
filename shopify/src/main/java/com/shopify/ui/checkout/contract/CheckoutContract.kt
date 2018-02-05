@@ -25,6 +25,8 @@ interface CheckoutView : BaseLceView<Checkout> {
     fun checkoutInProcess()
 
     fun checkoutCompleted(order: Order)
+
+    fun checkoutError()
 }
 
 class CheckoutPresenter @Inject constructor(
@@ -176,8 +178,7 @@ class CheckoutPresenter @Inject constructor(
                     view?.checkoutCompleted(it)
                 },
                 {
-                    view?.showContent(checkout) //TODO SHOW ERROR SCREEN
-                    resolveError(it)
+                    view?.checkoutError()
                 },
                 CompleteCheckoutByCardUseCase.Params(checkout, email, billingAddress, cardToken)
             )

@@ -41,5 +41,8 @@
     <string name="place_order">Place order</string>
     <string name="customer_email">Customer Email</string>
     <string name="we_accept">We accept</string>
+    <string name="your_purchase_could_not_be_completed">Your purchase couldn\'t be completed</string>
+    <string name="back_to_shop">Back to shop</string>
+    <string name="something_happened">Something happened…</string>
 
 </resources>
