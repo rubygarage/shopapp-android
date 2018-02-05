@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.order.details.OrderDetailsActivity
 import com.client.shop.ui.order.di.OrderModule
 import com.client.shop.ui.order.list.adapter.OrderAdapter
@@ -13,6 +14,7 @@ import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.domain.entity.Order
+import com.ui.base.lce.view.LceEmptyView
 import com.ui.base.recycler.divider.BackgroundItemDecoration
 import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_order_list.*
@@ -63,6 +65,13 @@ class OrderListActivity :
         recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }
 
+    override fun setupEmptyView(emptyView: LceEmptyView) {
+        emptyView.customiseEmptyImage(R.drawable.ic_orders_empty)
+        emptyView.customiseEmptyMessage(R.string.you_have_no_orders_yet)
+        emptyView.customiseEmptyButtonText(R.string.start_shopping)
+        emptyView.customiseEmptyButtonVisibility(true)
+    }
+
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -77,7 +86,12 @@ class OrderListActivity :
         if (data.isNotEmpty()) {
             paginationValue = data.last().paginationValue
         }
+        if (dataList.isEmpty()) {
+            showEmptyState()
+        }
     }
+
+    //CALLBACK
 
     override fun onItemClicked(data: Order, position: Int) {
         startActivity(OrderDetailsActivity.getStartIntent(this, data.id))
@@ -91,5 +105,9 @@ class OrderListActivity :
         productVariant?.let {
             startActivity(ProductDetailsActivity.getStartIntent(this, it))
         }
+    }
+
+    override fun emptyButtonClicked() {
+        startActivity(HomeActivity.getStartIntent(this, true))
     }
 }

@@ -15,11 +15,10 @@ class OrderListPresenter @Inject constructor(private val orderListUseCase: Order
 
         orderListUseCase.execute(
             {
-                if (it.isNotEmpty()) view?.showContent(it) else view?.showEmptyState()
+                view?.showContent(it)
             },
             { resolveError(it) },
             OrderListUseCase.Params(perPage, paginationValue)
         )
-
     }
 }

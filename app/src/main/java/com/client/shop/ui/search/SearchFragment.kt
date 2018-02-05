@@ -12,6 +12,7 @@ import com.client.shop.ui.search.contract.SearchPresenter
 import com.client.shop.ui.search.contract.SearchView
 import com.client.shop.ui.search.di.SearchModule
 import com.domain.entity.Product
+import com.ui.base.lce.view.LceEmptyView
 import com.ui.base.recycler.divider.BackgroundItemDecoration
 import kotlinx.android.synthetic.main.fragment_search.*
 import javax.inject.Inject
@@ -57,6 +58,11 @@ class SearchFragment :
         recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }
 
+    override fun setupEmptyView(emptyView: LceEmptyView) {
+        emptyView.customiseEmptyImage(R.drawable.ic_search_not_found)
+        emptyView.customiseEmptyMessage(R.string.no_results_found)
+    }
+
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -75,6 +81,9 @@ class SearchFragment :
         adapter?.notifyDataSetChanged()
         if (data.isNotEmpty()) {
             paginationValue = data.last().paginationValue
+        }
+        if (dataList.isEmpty() && currentQuery?.isNotBlank() == true) {
+            showEmptyState()
         }
     }
 

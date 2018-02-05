@@ -18,6 +18,7 @@ import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.domain.entity.Category
 import com.domain.entity.Product
 import com.domain.entity.SortType
+import com.ui.base.lce.view.LceEmptyView
 import com.ui.const.Constant
 import kotlinx.android.synthetic.main.activity_category.*
 import javax.inject.Inject
@@ -115,6 +116,11 @@ class CategoryActivity :
         })
     }
 
+    override fun setupEmptyView(emptyView: LceEmptyView) {
+        emptyView.customiseEmptyImage(R.drawable.ic_categories_empty)
+        emptyView.customiseEmptyMessage(R.string.there_are_no_products_yet)
+    }
+
     private fun changeSortLayoutState(destination: Float) {
         sortLayout.animate().translationY(destination)
         isCollapsed = !isCollapsed
@@ -133,6 +139,9 @@ class CategoryActivity :
             paginationValue = data.last().paginationValue
             this.dataList.addAll(data)
             adapter.notifyDataSetChanged()
+        }
+        if (dataList.isEmpty()) {
+            showEmptyState()
         }
     }
 

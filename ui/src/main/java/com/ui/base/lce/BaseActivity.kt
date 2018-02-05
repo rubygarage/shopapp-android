@@ -11,9 +11,11 @@ import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import com.ui.R
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
+import com.ui.base.lce.view.LceEmptyView
 import com.ui.base.lce.view.LceLayout
 import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
 
 abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
     MvpActivity<V, P>(),
@@ -39,6 +41,7 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
         if (useModalStyle()) {
             overridePendingTransition(R.anim.slide_in, R.anim.no_animation)
         }
+        setupEmptyView(emptyView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -92,6 +95,11 @@ abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>
     @LayoutRes
     protected open fun getMainLayout(): Int {
         return R.layout.activity_lce
+    }
+
+    //SETUP
+
+    protected open fun setupEmptyView(emptyView: LceEmptyView) {
     }
 
     @LayoutRes
