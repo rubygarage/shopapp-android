@@ -3,9 +3,10 @@ package com.shopify.ui.payment.card
 import android.os.Bundle
 import android.view.View
 import com.ui.base.picker.BaseBottomSheetPicker
+import com.ui.base.picker.BottomSheetPickerAdapter
 import java.util.*
 
-class DateBottomSheetPicker : BaseBottomSheetPicker() {
+class DateBottomSheetPicker : BaseBottomSheetPicker<String>() {
 
     companion object {
         private const val DATE_TYPE = "DATE_TYPE"
@@ -30,6 +31,12 @@ class DateBottomSheetPicker : BaseBottomSheetPicker() {
             DATE_TYPE_YEAR -> setData(getAvailableYears())
         }
 
+    }
+
+    override fun getPickerAdapter(): BottomSheetPickerAdapter<String> {
+        return object : BottomSheetPickerAdapter<String>() {
+            override fun convertModel(it: String) = it
+        }
     }
 
     private fun getAvailableMonths(): List<String> {

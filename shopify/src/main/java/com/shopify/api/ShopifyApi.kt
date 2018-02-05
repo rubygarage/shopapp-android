@@ -3,12 +3,10 @@ package com.shopify.api
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import android.util.Log
 import com.domain.entity.*
 import com.domain.network.Api
 import com.domain.network.ApiCallback
 import com.google.android.gms.wallet.FullWallet
-import com.google.gson.JsonObject
 import com.shopify.ShopifyWrapper
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
@@ -592,33 +590,21 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
     }
 
     override fun getCountries(callback: ApiCallback<List<Country>>) {
-        
         val countryService = retrofit.create(CountriesService::class.java)
-        countryService.authorize().enqueue(object: Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>?, response: Response<JsonObject>?) {
-                Log.d("", "")
+        countryService.recentDrives().enqueue(object : Callback<ApiCountryResponse> {
+            override fun onResponse(call: Call<ApiCountryResponse>?, response: Response<ApiCountryResponse>?) {
+                if (response != null && response.isSuccessful) {
+                    response.body()?.let { callback.onResult(CountryListAdapter.adapt(it.countries)) }
+                }
             }
 
-            override fun onFailure(call: Call<JsonObject>?, t: Throwable?) {
-                Log.d("", "")
+            override fun onFailure(call: Call<ApiCountryResponse>?, t: Throwable?) {
+                val error = ErrorAdapter.adaptErrors(t)
+                if (error != null) {
+                    callback.onFailure(error)
+                }
             }
-
         })
-
-//        countryService.recentDrives().enqueue(object : Callback<ApiCountryResponse> {
-//            override fun onResponse(call: Call<ApiCountryResponse>?, response: Response<ApiCountryResponse>?) {
-//                if (response != null && response.isSuccessful) {
-//                    response.body()?.let { callback.onResult(listOf()) }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<ApiCountryResponse>?, t: Throwable?) {
-//                val error = ErrorAdapter.adaptErrors(t)
-//                if (error != null) {
-//                    callback.onFailure(error)
-//                }
-//            }
-//        })
     }
 
     private fun requestToken(email: String, password: String): Pair<AccessData?, Error?>? {

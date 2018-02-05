@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import com.ui.R
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 
-open class BaseBottomSheetPicker : BottomSheetDialogFragment() {
+abstract class BaseBottomSheetPicker<T> : BottomSheetDialogFragment() {
 
-    private val dataList: MutableList<String> = mutableListOf()
-    private lateinit var adapter: BottomSheetPickerAdapter
-    var onDoneButtonClickedListener: OnDoneButtonClickedListener? = null
+    lateinit var adapter: BottomSheetPickerAdapter<T>
+    var onDoneButtonClickedListener: OnDoneButtonClickedListener<T>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.bottom_sheet_picker, container, false)
@@ -28,21 +27,23 @@ open class BaseBottomSheetPicker : BottomSheetDialogFragment() {
             }
             dismiss()
         }
-        adapter = BottomSheetPickerAdapter(dataList)
+        adapter = getPickerAdapter()
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
 
-    fun setData(dataList: List<String>) {
-        this.dataList.clear()
-        this.dataList.addAll(dataList)
+    abstract fun getPickerAdapter(): BottomSheetPickerAdapter<T>
+
+    fun setData(dataList: List<T>) {
         if (this::adapter.isInitialized) {
+            adapter.dataList.clear()
+            adapter.dataList.addAll(dataList)
             adapter.notifyDataSetChanged()
         }
     }
 
-    interface OnDoneButtonClickedListener {
+    interface OnDoneButtonClickedListener<in T> {
 
-        fun onDoneButtonClicked(selectedData: String)
+        fun onDoneButtonClicked(selectedData: T)
     }
 }
