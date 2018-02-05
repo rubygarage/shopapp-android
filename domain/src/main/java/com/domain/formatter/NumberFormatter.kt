@@ -6,10 +6,6 @@ import java.util.*
 
 class NumberFormatter {
 
-    fun formatPrice(value: Float, currencyCode: String): String {
-        return formatPriceValue(value, currencyCode)
-    }
-
     fun formatPrice(value: BigDecimal, currencyCode: String): String {
         return formatPriceValue(value, currencyCode)
     }

@@ -2,10 +2,11 @@ package com.domain.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.math.BigDecimal
 
 data class ProductVariant(var id: String,
                           var title: String,
-                          var price: Float,
+                          var price: BigDecimal,
                           var isAvailable: Boolean,
                           var selectedOptions: List<VariantOption>,
                           var image: Image? = null,
@@ -16,7 +17,7 @@ data class ProductVariant(var id: String,
     constructor(source: Parcel) : this(
         source.readString(),
         source.readString(),
-        source.readFloat(),
+        source.readSerializable() as BigDecimal,
         1 == source.readInt(),
         source.createTypedArrayList(VariantOption.CREATOR),
         source.readParcelable<Image>(Image::class.java.classLoader),
@@ -29,7 +30,7 @@ data class ProductVariant(var id: String,
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
         writeString(title)
-        writeFloat(price)
+        writeSerializable(price)
         writeInt((if (isAvailable) 1 else 0))
         writeTypedList(selectedOptions)
         writeParcelable(image, 0)

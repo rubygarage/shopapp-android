@@ -2,6 +2,7 @@ package com.domain.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.math.BigDecimal
 import java.util.*
 
 data class Product(var id: String,
@@ -9,7 +10,7 @@ data class Product(var id: String,
                    var productDescription: String,
                    var additionalDescription: String,
                    var currency: String,
-                   var price: Float,
+                   var price: BigDecimal,
                    var hasAlternativePrice: Boolean,
                    var discount: String? = null,
                    var vendor: String,
@@ -29,7 +30,7 @@ data class Product(var id: String,
         source.readString(),
         source.readString(),
         source.readString(),
-        source.readFloat(),
+        source.readSerializable() as BigDecimal,
         1 == source.readInt(),
         source.readString(),
         source.readString(),
@@ -51,7 +52,7 @@ data class Product(var id: String,
         writeString(productDescription)
         writeString(additionalDescription)
         writeString(currency)
-        writeFloat(price)
+        writeSerializable(price)
         writeInt((if (hasAlternativePrice) 1 else 0))
         writeString(discount)
         writeString(vendor)

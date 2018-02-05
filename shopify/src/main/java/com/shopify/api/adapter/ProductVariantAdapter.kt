@@ -10,7 +10,7 @@ object ProductVariantAdapter {
         return ProductVariant(
             adaptee.id.toString(),
             adaptee.title,
-            adaptee.price.toFloat(),
+            adaptee.price,
             adaptee.availableForSale == true,
             VariantOptionListAdapter.adapt(adaptee.selectedOptions),
             ImageAdapter.adapt(adaptee.image),

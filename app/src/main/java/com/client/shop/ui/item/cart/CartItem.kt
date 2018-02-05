@@ -14,6 +14,7 @@ import com.domain.formatter.NumberFormatter
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.item_cart.view.*
+import java.math.BigDecimal
 
 @SuppressLint("ViewConstructor")
 class CartItem constructor(context: Context, private val formatter: NumberFormatter) : ConstraintLayout(context),
@@ -61,11 +62,11 @@ class CartItem constructor(context: Context, private val formatter: NumberFormat
         changeEachPriceVisibility(product.price, cartProduct.quantity)
     }
 
-    private fun getTotalPrice(price: Float, quantity: Int): String {
-        return formatter.formatPrice(price * quantity, cartProduct.currency)
+    private fun getTotalPrice(price: BigDecimal, quantity: Int): String {
+        return formatter.formatPrice(price * quantity.toBigDecimal(), cartProduct.currency)
     }
 
-    private fun changeEachPriceVisibility(price: Float, quantity: Int) {
+    private fun changeEachPriceVisibility(price: BigDecimal, quantity: Int) {
         if (quantity > 1) {
             eachPrice.text = context.getString(R.string.each_price_pattern,
                 formatter.formatPrice(price, cartProduct.currency))
