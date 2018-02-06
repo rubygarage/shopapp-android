@@ -28,13 +28,19 @@ class ProductHorizontalFragment :
     companion object {
 
         private const val SORT_TYPE = "sort_type"
-        private const val KEY_PHRASE = "key_phrase"
+        private const val KEYWORD = "keyword"
+        private const val EXCLUDE_KEYWORD = "exclude_keyword"
 
-        fun newInstance(sortType: SortType, keyPhrase: String? = null): ProductHorizontalFragment {
+        fun newInstance(
+            sortType: SortType,
+            keyword: String? = null,
+            excludeKeyword: String? = null
+        ): ProductHorizontalFragment {
             val fragment = ProductHorizontalFragment()
             val args = Bundle()
             args.putSerializable(SORT_TYPE, sortType)
-            args.putString(KEY_PHRASE, keyPhrase)
+            args.putString(KEYWORD, keyword)
+            args.putString(EXCLUDE_KEYWORD, excludeKeyword)
             fragment.arguments = args
             return fragment
         }
@@ -44,14 +50,16 @@ class ProductHorizontalFragment :
     lateinit var productListPresenter: ProductListPresenter
     private val productList = mutableListOf<Product>()
     private var sortType = SortType.RECENT
-    private var keyPhrase: String? = null
+    private var keyword: String? = null
+    private var excludeKeyword: String? = null
     private lateinit var adapter: ProductListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         sortType = arguments?.getSerializable(SORT_TYPE) as SortType
-        keyPhrase = arguments?.getString(KEY_PHRASE)
+        keyword = arguments?.getString(KEYWORD)
+        excludeKeyword = arguments?.getString(EXCLUDE_KEYWORD)
         val title = when (sortType) {
             SortType.RECENT -> getString(R.string.latest_arrivals)
             SortType.TYPE -> getString(R.string.related_items)
@@ -60,7 +68,7 @@ class ProductHorizontalFragment :
         titleText.text = title
         seeAll.setOnClickListener {
             context?.let {
-                startActivity(ProductListActivity.getStartIntent(it, title, sortType, keyPhrase))
+                startActivity(ProductListActivity.getStartIntent(it, title, sortType, keyword, excludeKeyword))
             }
         }
         changeSeeAllState()
@@ -104,7 +112,7 @@ class ProductHorizontalFragment :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, null, keyPhrase)
+        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, null, keyword, excludeKeyword)
     }
 
     override fun showContent(data: List<Product>) {

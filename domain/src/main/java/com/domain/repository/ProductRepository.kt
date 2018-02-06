@@ -8,7 +8,8 @@ interface ProductRepository {
 
     fun getProduct(productId: String): Single<Product>
 
-    fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?, keyPhrase: String?): Single<List<Product>>
+    fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
+                       keyword: String?, excludeKeyword: String?): Single<List<Product>>
 
     fun searchProductListByQuery(searchQuery: String, perPage: Int, paginationValue: String?): Single<List<Product>>
 }

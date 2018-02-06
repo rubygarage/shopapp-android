@@ -5,7 +5,7 @@ import com.domain.entity.*
 interface Api {
 
     fun getProductList(perPage: Int, paginationValue: Any? = null, sortBy: SortType? = null,
-                       keyPhrase: String?, callback: ApiCallback<List<Product>>)
+                       keyword: String?, excludeKeyword: String?, callback: ApiCallback<List<Product>>)
 
     fun searchProductList(perPage: Int, paginationValue: Any? = null, searchQuery: String,
                           callback: ApiCallback<List<Product>>)
@@ -49,8 +49,8 @@ interface Api {
     fun getOrder(orderId: String, callback: ApiCallback<Order>)
 
     fun editCustomerInfo(firstName: String, lastName: String, phone: String, callback: ApiCallback<Customer>)
-    
+
     fun changePassword(password: String, callback: ApiCallback<Unit>)
 
-    fun updateCustomerSettings(isAcceptMarketing: Boolean,  callback: ApiCallback<Unit>)
+    fun updateCustomerSettings(isAcceptMarketing: Boolean, callback: ApiCallback<Unit>)
 }

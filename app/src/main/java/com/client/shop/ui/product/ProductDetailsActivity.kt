@@ -181,7 +181,7 @@ class ProductDetailsActivity :
         galleryFragment?.updateProduct(data)
         optionsContainer.setProduct(data, intent.getParcelableExtra(EXTRA_PRODUCT_VARIANT))
 
-        val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type)
+        val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type, data.title)
         supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment).commit()
     }
 
