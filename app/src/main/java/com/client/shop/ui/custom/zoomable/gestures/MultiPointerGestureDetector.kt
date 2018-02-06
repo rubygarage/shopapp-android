@@ -223,7 +223,7 @@ class MultiPointerGestureDetector {
 
     companion object {
 
-        private val MAX_POINTERS = 2
+        private const val MAX_POINTERS = 2
 
         /** Factory method that creates a new instance of MultiPointerGestureDetector  */
         fun newInstance(): MultiPointerGestureDetector {

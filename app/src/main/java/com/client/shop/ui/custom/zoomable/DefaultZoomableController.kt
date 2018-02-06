@@ -511,7 +511,7 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         const val LIMIT_TRANSLATION_Y = 2
         const val LIMIT_SCALE = 4
         const val LIMIT_ALL = LIMIT_TRANSLATION_X or LIMIT_TRANSLATION_Y or LIMIT_SCALE
-        private val EPS = 1e-3f
+        private const val EPS = 1e-3f
         private val IDENTITY_RECT = RectF(0f, 0f, 1f, 1f)
 
         fun newInstance(): DefaultZoomableController {

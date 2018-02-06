@@ -631,27 +631,6 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         })
     }
 
-    private fun getCurrency(callback: ApiCallback<String>) {
-        val query = Storefront.query {
-            it.shop {
-                it.paymentSettings {
-                    it.currencyCode()
-                        .countryCode()
-                }
-            }
-        }
-        val call = graphClient.queryGraph(query)
-        call.enqueue(object : GraphCall.Callback<Storefront.QueryRoot> {
-            override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
-                callback.onResult(response.data()?.shop?.paymentSettings?.currencyCode?.name ?: "")
-            }
-
-            override fun onFailure(error: GraphError) {
-                callback.onFailure(ErrorAdapter.adapt(error))
-            }
-        })
-    }
-
     fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>) {
         val query = Storefront.query({
             it.node(ID(checkoutId), {
