@@ -81,19 +81,6 @@
                 android:lines="1" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
-        <android.support.v4.widget.ContentLoadingProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/saveButton" />
-
         <com.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/phoneInputLayout"
             style="@style/TextInputLayoutStyle"
@@ -128,6 +115,7 @@
             android:text="@string/change_password"
             android:textAllCaps="true"
             android:textColor="@drawable/selector_underline_text"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

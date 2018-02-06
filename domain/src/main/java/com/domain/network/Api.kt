@@ -32,7 +32,7 @@ interface Api {
 
     fun forgotPassword(email: String, callback: ApiCallback<Unit>)
 
-    fun getCustomer(callback: ApiCallback<Customer>)
+    fun getCustomer(callback: ApiCallback<Customer?>)
 
     fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>)
 

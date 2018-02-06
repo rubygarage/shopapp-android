@@ -74,7 +74,7 @@ class CheckoutPresenter @Inject constructor(
         getCustomerUseCase.execute(
             {
                 view?.customerReceived(it)
-                val defaultAddress = it.defaultAddress
+                val defaultAddress = it?.defaultAddress
                 if (defaultAddress != null) {
                     setShippingAddress(checkout, defaultAddress)
                 } else {

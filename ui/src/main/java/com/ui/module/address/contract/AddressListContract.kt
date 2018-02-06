@@ -31,6 +31,11 @@ open class AddressListPresenter<V : AddressListView>(
                 val addressList = sortAddressList(defaultAddress, it.addressList)
                 view?.showContent(Pair(defaultAddress, addressList))
             },
+            {
+                it?.let {
+                    view?.showContent(Pair(it.defaultAddress, it.addressList))
+                }
+            },
             { view?.showContent(Pair(null, emptyList())) },
             Unit
         )

@@ -11,6 +11,7 @@ import com.client.shop.ui.account.contract.ChangePasswordPresenter
 import com.client.shop.ui.account.contract.ChangePasswordView
 import com.client.shop.ui.account.di.AuthModule
 import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_change_password.*
@@ -18,7 +19,8 @@ import javax.inject.Inject
 
 class ChangePasswordActivity :
     BaseActivity<Unit, ChangePasswordView, ChangePasswordPresenter>(),
-    ChangePasswordView {
+    ChangePasswordView,
+    View.OnClickListener {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, ChangePasswordActivity::class.java)
@@ -34,7 +36,7 @@ class ChangePasswordActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.set_new_password))
-        setupButtons()
+        updateButton.setOnClickListener(this)
         setupTextChangeListeners()
     }
 
@@ -91,14 +93,8 @@ class ChangePasswordActivity :
         updateButton.isEnabled = passwordConfirmInput.text.isNotBlank() && passwordInput.text.isNotBlank()
     }
 
-    private fun setupButtons() {
-        updateButton.setOnClickListener {
-            clearFormFocus()
-            presenter.changePassword(passwordInput.text.toString(), passwordConfirmInput.text.toString())
-        }
-    }
-
     //LCE
+
     private fun clearFormFocus() {
         containerConstraintLayout.requestFocus()
         containerConstraintLayout.hideKeyboard()
@@ -109,13 +105,11 @@ class ChangePasswordActivity :
     }
 
     override fun showUpdateProgress() {
-        progressBar.show()
-        updateButton.visibility = View.INVISIBLE
+        changeState(LceLayout.LceState.LoadingState(true))
     }
 
     override fun hideUpdateProgress() {
-        progressBar.hide()
-        updateButton.visibility = View.VISIBLE
+        changeState(LceLayout.LceState.ContentState)
     }
 
     override fun passwordValidError() {
@@ -124,5 +118,12 @@ class ChangePasswordActivity :
 
     override fun passwordsMatchError() {
         passwordConfirmInputLayout.error = getString(R.string.password_match_error_message)
+    }
+
+    //CALLBACK
+
+    override fun onClick(v: View?) {
+        clearFormFocus()
+        presenter.changePassword(passwordInput.text.toString(), passwordConfirmInput.text.toString())
     }
 }

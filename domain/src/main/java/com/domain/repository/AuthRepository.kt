@@ -17,7 +17,7 @@ interface AuthRepository {
 
     fun forgotPassword(email: String): Completable
 
-    fun getCustomer(): Single<Customer>
+    fun getCustomer(): Single<Customer?>
 
     fun createCustomerAddress(address: Address): Single<String>
 

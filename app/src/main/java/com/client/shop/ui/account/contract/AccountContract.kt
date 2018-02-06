@@ -14,7 +14,7 @@ interface AccountView : BaseLceView<Boolean> {
 
     fun shopReceived(shop: Shop)
 
-    fun customerReceived(customer: Customer)
+    fun customerReceived(customer: Customer?)
 
     fun signedOut()
 }
@@ -47,7 +47,7 @@ class AccountPresenter @Inject constructor(
     fun getCustomer() {
         getCustomerUseCase.execute(
             { view?.customerReceived(it) },
-            {},
+            { view?.customerReceived(null) },
             Unit
         )
     }

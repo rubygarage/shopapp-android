@@ -8,9 +8,6 @@ import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface PersonalInfoView : BaseLceView<Customer> {
-    fun showUpdateProgress()
-
-    fun hideUpdateProgress()
 
     fun onCustomerChanged(customer: Customer)
 
@@ -25,8 +22,10 @@ class PersonalInfoPresenter @Inject constructor(
     fun getCustomer() {
         customerUseCase.execute(
             {
-                view?.showContent(it)
-                view?.setupCustomerEmail(it.email)
+                it?.let {
+                    view?.showContent(it)
+                    view?.setupCustomerEmail(it.email)
+                }
             },
             { resolveError(it) },
             Unit
@@ -35,19 +34,15 @@ class PersonalInfoPresenter @Inject constructor(
 
     fun editCustomer(name: String, lastName: String, phone: String) {
 
-        view?.showUpdateProgress()
         editCustomerUseCase.execute(
             {
                 view?.onCustomerChanged(it)
-                view?.hideUpdateProgress()
             },
             {
-                view?.hideUpdateProgress()
                 resolveError(it)
             },
             EditCustomerUseCase.Params(name, lastName, phone)
         )
-
     }
 
 }
