@@ -25,21 +25,24 @@ class ProductListActivity :
 
         private const val TITLE = "title"
         private const val SORT_TYPE = "sort_type"
-        private const val KEY_PHRASE = "key_phrase"
+        private const val KEYWORD = "keyword"
+        private const val EXCLUDE_KEYWORD = "exclude_keyword"
 
         fun getStartIntent(context: Context, title: String, sortType: SortType = SortType.NAME,
-                           keyPhrase: String? = null): Intent {
+                           keyword: String? = null, excludeKeyword: String? = null): Intent {
             val intent = Intent(context, ProductListActivity::class.java)
             intent.putExtra(TITLE, title)
             intent.putExtra(SORT_TYPE, sortType)
-            intent.putExtra(KEY_PHRASE, keyPhrase)
+            intent.putExtra(KEYWORD, keyword)
+            intent.putExtra(EXCLUDE_KEYWORD, excludeKeyword)
             return intent
         }
     }
 
     @Inject
     lateinit var productListPresenter: ProductListPresenter
-    private var keyPhrase: String? = null
+    private var keyword: String? = null
+    private var excludeKeyword: String? = null
     private lateinit var sortType: SortType
 
     //ANDROID
@@ -48,7 +51,8 @@ class ProductListActivity :
         super.onCreate(savedInstanceState)
         sortType = intent.getSerializableExtra(SORT_TYPE) as SortType
         setTitle(intent.getStringExtra(TITLE))
-        keyPhrase = intent.getStringExtra(KEY_PHRASE)
+        keyword = intent.getStringExtra(KEYWORD)
+        excludeKeyword = intent.getStringExtra(EXCLUDE_KEYWORD)
         loadData()
     }
 
@@ -83,7 +87,7 @@ class ProductListActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, paginationValue, keyPhrase)
+        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, paginationValue, keyword, excludeKeyword)
     }
 
     override fun showContent(data: List<Product>) {

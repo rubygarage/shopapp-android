@@ -13,11 +13,11 @@ class ProductListPresenter @Inject constructor(private val recentUseCase: Produc
     BaseLcePresenter<List<Product>, ProductListView>(recentUseCase) {
 
     fun loadProductList(sortType: SortType, perPage: Int, paginationValue: String? = null,
-                        keyPhrase: String? = null) {
+                        keyword: String? = null, excludeKeyword: String? = null) {
         recentUseCase.execute(
             { view?.showContent(it) },
             { it.printStackTrace() },
-            ProductListUseCase.Params(sortType, perPage, paginationValue, keyPhrase)
+            ProductListUseCase.Params(sortType, perPage, paginationValue, keyword, excludeKeyword)
         )
     }
 }
