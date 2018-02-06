@@ -46,8 +46,7 @@ abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListVi
 
     private fun setupRecycler() {
         addressListAdapter = getAdapter()
-        val decorator =
-            SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
+        val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressListAdapter
         recyclerView.addItemDecoration(decorator)
@@ -69,18 +68,11 @@ abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListVi
         addressListAdapter.notifyDataSetChanged()
     }
 
-    override fun defaultAddressChanged(address: Address) {
-        defaultAddress = address
-        addressListAdapter.defaultAddress = address
-        addressListAdapter.notifyDataSetChanged()
-        changeState(LceLayout.LceState.ContentState)
-    }
-
     //CALLBACK
 
     override fun onDefaultButtonClicked(address: Address) {
         changeState(LceLayout.LceState.LoadingState())
-        presenter.setDefaultAddress(address)
+        presenter.setDefaultAddress(address, dataList)
     }
 
     override fun onDeleteButtonClicked(address: Address) {
