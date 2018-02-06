@@ -35,6 +35,14 @@ abstract class BottomSheetPickerAdapter<T> :
         return position.toLong()
     }
 
+    fun setSelected(title: String): Int {
+        val index = dataList.map { convertModel(it) }.indexOf(title)
+        if (index >= 0) {
+            selectedItemData = dataList[index]
+        }
+        return index
+    }
+
     class ItemViewHolder(itemView: View,
                          private val clickListener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
 

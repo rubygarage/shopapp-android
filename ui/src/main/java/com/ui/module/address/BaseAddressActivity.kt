@@ -17,6 +17,7 @@ import com.ui.ext.hideKeyboard
 import com.ui.module.address.contract.AddressPresenter
 import com.ui.module.address.contract.AddressView
 import kotlinx.android.synthetic.main.activity_address.*
+import kotlinx.android.synthetic.main.activity_lce.*
 import javax.inject.Inject
 
 abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
@@ -34,49 +35,17 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     private lateinit var fieldTextWatcher: TextWatcher
     private lateinit var countryPicker: CountryBottomSheetPicker
     private lateinit var statePicker: StateBottomSheetPicker
+
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        address = intent.getParcelableExtra(ADDRESS)
-        isEditMode = address != null
-
-        val titleRes = if (isEditMode) R.string.edit_address else R.string.add_new_address
-        setTitle(getString(titleRes))
-
-        fieldTextWatcher = object : SimpleTextWatcher {
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                checkInputFields()
-            }
-        }
-
-        submitButton.setOnClickListener {
-            changeState(LceLayout.LceState.LoadingState(true))
-            submitButton.requestFocus()
-            submitButton.hideKeyboard()
-            submitAddress()
-        }
-
-        if (isEditMode) {
-            submitButton.setText(R.string.edit)
-            fillFields(address)
-            checkInputFields()
-        } else {
-            submitButton.setText(R.string.submit)
-        }
-
-        presenter.getCountriesList()
-        countryInput.setOnClickListener {
-            it.hideKeyboard()
-            countryPicker.show(supportFragmentManager, "")
-        }
-
-        stateInput.setOnClickListener {
-            it.hideKeyboard()
-            statePicker.show(supportFragmentManager, "")
-        }
+        setupMode()
+        initTextWatcher()
+        setupListeners()
+        loadCountries()
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -89,30 +58,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
             postalCodeInput.addTextChangedListener(fieldTextWatcher)
             phoneInput.addTextChangedListener(fieldTextWatcher)
             stateInput.addTextChangedListener(fieldTextWatcher)
-        }
-    }
-
-    override fun countriesLoaded(countries: List<Country>) {
-        countryPicker = CountryBottomSheetPicker.newInstance(ArrayList(countries))
-        countryPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
-            override fun onDoneButtonClicked(selectedData: Country) {
-                countryInput.setText(selectedData.name)
-                checkStates(selectedData)
-            }
-        }
-    }
-
-    private fun checkStates(country: Country) {
-        if (country.states != null && !country.states!!.isEmpty()) {
-            stateInputContainer.visibility = View.VISIBLE
-            statePicker = StateBottomSheetPicker.newInstance(ArrayList(country.states!!))
-            statePicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<State> {
-                override fun onDoneButtonClicked(selectedData: State) {
-                    stateInput.setText(selectedData.name)
-                }
-            }
-        } else {
-            stateInputContainer.visibility = View.GONE
         }
     }
 
@@ -134,7 +79,54 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
     override fun createPresenter() = addressPresenter
 
+    private fun initTextWatcher() {
+        fieldTextWatcher = object : SimpleTextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                checkInputFields()
+            }
+        }
+    }
+
     //SETUP
+
+    private fun setupMode() {
+        address = intent.getParcelableExtra(ADDRESS)
+        isEditMode = address != null
+
+        val titleRes: Int?
+
+        if (isEditMode) {
+            titleRes = R.string.edit_address
+            submitButton.setText(R.string.edit)
+            stateInputContainer.visibility = View.VISIBLE
+            fillFields(address)
+            checkInputFields()
+        } else {
+            submitButton.setText(R.string.submit)
+            titleRes = R.string.add_new_address
+        }
+
+        setTitle(getString(titleRes))
+    }
+
+    private fun setupListeners() {
+        submitButton.setOnClickListener {
+            changeState(LceLayout.LceState.LoadingState(true))
+            submitButton.requestFocus()
+            submitButton.hideKeyboard()
+            submitAddress()
+        }
+
+        countryInput.setOnClickListener {
+            it.hideKeyboard()
+            countryPicker.show(supportFragmentManager, "", countryInput.text.toString())
+        }
+
+        stateInput.setOnClickListener {
+            it.hideKeyboard()
+            statePicker.show(supportFragmentManager, "", stateInput.text.toString())
+        }
+    }
 
     protected open fun submitAddress() {
         if (isEditMode) {
@@ -150,14 +142,19 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     private fun checkInputFields() {
-        submitButton.isEnabled = countryInput.text.isNotBlank() &&
+        var isEnabled = countryInput.text.isNotBlank() &&
                 firstNameInput.text.isNotBlank() &&
                 lastNameInput.text.isNotBlank() &&
                 addressInput.text.isNotBlank() &&
                 cityInput.text.isNotBlank() &&
                 postalCodeInput.text.isNotBlank() &&
-                stateInput.text.isNotBlank() &&
                 phoneInput.text.isNotBlank()
+
+        if (stateInputContainer.visibility == View.VISIBLE) {
+            isEnabled = isEnabled && stateInput.text.isNotBlank()
+        }
+
+        submitButton.isEnabled = isEnabled
     }
 
     protected fun getAddress() = Address(
@@ -186,7 +183,46 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         }
     }
 
+    private fun setupCountries(countries: List<Country>) {
+        countryPicker = CountryBottomSheetPicker.newInstance()
+        countryPicker.setData(countries)
+        countryPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
+            override fun onDoneButtonClicked(selectedData: Country) {
+                countryInput.setText(selectedData.name)
+                setupStates(selectedData)
+            }
+        }
+    }
+
+    private fun setupStates(country: Country) {
+        if (country.states != null && country.states!!.isEmpty()) {
+            stateInputContainer.visibility = View.GONE
+        } else {
+            stateInputContainer.visibility = View.VISIBLE
+            statePicker = StateBottomSheetPicker.newInstance()
+            statePicker.setData(country.states!!)
+            statePicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<State> {
+                override fun onDoneButtonClicked(selectedData: State) {
+                    stateInput.setText(selectedData.name)
+                }
+            }
+        }
+    }
+
     //LCE
+
+    override fun countriesLoaded(countries: List<Country>) {
+        lceLayout.changeState(LceLayout.LceState.ContentState)
+
+        setupCountries(countries)
+        address?.let {
+            val index = countries.map { it.name }.indexOf(it.country)
+            if (index >= 0) {
+                setupStates(countries[index])
+            }
+        }
+
+    }
 
     override fun showContent(data: Address?) {
         super.showContent(data)
@@ -202,4 +238,10 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     override fun submitAddressError() {
         changeState(LceLayout.LceState.ContentState)
     }
+
+    private fun loadCountries() {
+        lceLayout.changeState(LceLayout.LceState.LoadingState(true))
+        presenter.getCountriesList()
+    }
+
 }

@@ -49,8 +49,10 @@
                 android:id="@+id/firstNameInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/first_name_required"
+                android:imeOptions="actionNext"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:nextFocusForward="@+id/lastNameInput" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
@@ -70,8 +72,10 @@
                 android:id="@+id/lastNameInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/last_name_required"
+                android:imeOptions="actionNext"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:nextFocusForward="@+id/addressInput" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
@@ -90,8 +94,10 @@
                 android:id="@+id/addressInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/address"
+                android:imeOptions="actionNext"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:nextFocusForward="@+id/secondAddressInput" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
@@ -110,8 +116,10 @@
                 android:id="@+id/secondAddressInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/second_address"
+                android:imeOptions="actionNext"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:nextFocusForward="@+id/cityInput" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
@@ -130,8 +138,10 @@
                 android:id="@+id/cityInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/city"
+                android:imeOptions="actionNext"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:nextFocusForward="@+id/postalCodeInput" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
@@ -173,7 +183,11 @@
                 android:id="@+id/postalCodeInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/zip"
-                android:minEms="5" />
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minEms="5"
+                android:nextFocusForward="@+id/phoneInput" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
@@ -192,6 +206,7 @@
                 android:id="@+id/phoneInput"
                 style="@style/TextInputEditText"
                 android:hint="@string/phone_number_required"
+                android:imeOptions="actionDone"
                 android:inputType="phone"
                 android:maxLines="1" />
         </com.ui.custom.UpperCaseHintTextInputLayout>

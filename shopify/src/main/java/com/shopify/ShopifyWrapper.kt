@@ -14,12 +14,12 @@ import com.shopify.router.ShopifyRouter
 class ShopifyWrapper(context: Context, dao: Dao, appRouter: AppRouter) : ShopWrapper {
 
     companion object {
-        const val BASE_DOMAIN = "celawojev.myshopify.com"
-        const val BASE_URL = "https://celawojev.myshopify.com"
+        const val BASE_DOMAIN = "palkomin.myshopify.com"
+        const val BASE_URL = "https://$BASE_DOMAIN"
         const val ANDROID_PAY_PUBLIC_KEY = "BIDbJPP1q4qo8QAgTucnHcsPLewIz2uv5mYjUWM3sHewR4mbh8zq16iOT2j0tURRfY5b32YK7sSGpC2Ncfy7Jkg="
-        const val ACCESS_TOKEN = "fd719b8c3c31ea4ea5f4078e8b9a759f"
-        const val SHOPIFY_API_KEY = "3a46b61f31cb8b9028a507b29a1c15fb"
-        const val PASSWORD = "5c0122b460eb82233253ed581530ceb6"
+        const val ACCESS_TOKEN = "2098ab2fb06659df83ccf0f6df678dc6"
+        const val SHOPIFY_API_KEY = "d64eae31336ae451296daf24f52b0327"
+        const val PASSWORD = "b54086c46fe6825198e4542a96499d51"
 
         lateinit var component: ShopComponent
     }
