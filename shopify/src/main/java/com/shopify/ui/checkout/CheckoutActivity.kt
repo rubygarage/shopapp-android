@@ -192,7 +192,7 @@ class CheckoutActivity :
 
         val placeOrderClickListener = View.OnClickListener {
             placeOrderButton.visibility = View.VISIBLE
-            unsuccessView.visibility = View.GONE
+            failureView.visibility = View.GONE
             when (paymentView.getPaymentType()) {
                 CARD_PAYMENT -> {
                     val email = checkoutEmailView.getEmail()
@@ -204,7 +204,7 @@ class CheckoutActivity :
         }
 
         placeOrderButton.setOnClickListener(placeOrderClickListener)
-        unsuccessView.setListeners(
+        failureView.setListeners(
             tryAgainClickListener = placeOrderClickListener,
             backToShopClickListener = View.OnClickListener { router.openHomeScreen(this) }
         )
@@ -278,7 +278,7 @@ class CheckoutActivity :
     override fun checkoutError() {
         changeState(LceLayout.LceState.ContentState)
         placeOrderButton.visibility = View.GONE
-        unsuccessView.visibility = View.VISIBLE
+        failureView.visibility = View.VISIBLE
     }
 
     //CALLBACK

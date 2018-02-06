@@ -5,9 +5,9 @@ import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
 import com.shopify.api.R
-import kotlinx.android.synthetic.main.view_checkout_unsuccess.view.*
+import kotlinx.android.synthetic.main.view_checkout_failure.view.*
 
-class CheckoutUnsuccessView @JvmOverloads constructor(
+class CheckoutFailureView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -15,7 +15,7 @@ class CheckoutUnsuccessView @JvmOverloads constructor(
     ConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
-        View.inflate(context, R.layout.view_checkout_unsuccess, this)
+        View.inflate(context, R.layout.view_checkout_failure, this)
         setBackgroundResource(R.color.white)
     }
 

@@ -89,8 +89,8 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <com.shopify.ui.checkout.view.CheckoutUnsuccessView
-        android:id="@+id/unsuccessView"
+    <com.shopify.ui.checkout.view.CheckoutFailureView
+        android:id="@+id/failureView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
