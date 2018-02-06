@@ -115,6 +115,7 @@ class CheckoutActivity :
     //SETUP
 
     private fun setupListeners() {
+        checkoutEmailView.emailChangeListener = this
         shippingAddressView.setClickListeners(
             editClickListener = View.OnClickListener {
                 checkout?.let {
@@ -188,7 +189,10 @@ class CheckoutActivity :
             }
         )
         shippingOptionsView.onOptionSelectedListener = this
-        placeOrderButton.setOnClickListener {
+
+        val placeOrderClickListener = View.OnClickListener {
+            placeOrderButton.visibility = View.VISIBLE
+            failureView.visibility = View.GONE
             when (paymentView.getPaymentType()) {
                 CARD_PAYMENT -> {
                     val email = checkoutEmailView.getEmail()
@@ -198,7 +202,12 @@ class CheckoutActivity :
                 }
             }
         }
-        checkoutEmailView.emailChangeListener = this
+
+        placeOrderButton.setOnClickListener(placeOrderClickListener)
+        failureView.setListeners(
+            tryAgainClickListener = placeOrderClickListener,
+            backToShopClickListener = View.OnClickListener { router.openHomeScreen(this) }
+        )
     }
 
     private fun verifyCheckoutData() {
@@ -264,6 +273,12 @@ class CheckoutActivity :
     override fun checkoutCompleted(order: Order) {
         changeState(LceLayout.LceState.ContentState)
         router.openOrderSuccessScreen(this, order.id, order.orderNumber)
+    }
+
+    override fun checkoutError() {
+        changeState(LceLayout.LceState.ContentState)
+        placeOrderButton.visibility = View.GONE
+        failureView.visibility = View.VISIBLE
     }
 
     //CALLBACK
