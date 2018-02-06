@@ -54,9 +54,9 @@
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
         android:text="@string/android_payment"
-
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardPay" />
@@ -68,6 +68,7 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingEnd="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/androidPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/androidPay" />
@@ -86,6 +87,7 @@
         android:text="@string/web_payment"
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/androidPay" />
@@ -97,6 +99,7 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:paddingEnd="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/webPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/webPay" />
