@@ -32,13 +32,8 @@
         <item name="android:textSize">17sp</item>
     </style>
 
-    <style name="HintTextAppearance" parent="TextAppearance.Design.Hint">
-        <item name="android:textColorHint">@color/textColorPrimary</item>
-        <item name="android:textSize">11sp</item>
-    </style>
-
-    <style name="PersonalInfoHintTextAppearance" parent="TextAppearance.Design.Hint">
-        <item name="android:textColorHint">@color/textColorSecondary</item>
+    <style name="HintTextAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/textColorSecondary</item>
         <item name="android:textSize">11sp</item>
     </style>
 
