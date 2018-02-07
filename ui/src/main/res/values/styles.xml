@@ -33,7 +33,7 @@
     </style>
 
     <style name="HintTextAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">11sp</item>
     </style>
 
