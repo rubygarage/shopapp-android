@@ -92,7 +92,7 @@ class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) : Ge
     }
 
     companion object {
-        private val DURATION_MS = 300
-        private val DOUBLE_TAP_SCROLL_THRESHOLD = 20
+        private const val DURATION_MS = 300
+        private const val DOUBLE_TAP_SCROLL_THRESHOLD = 20
     }
 }

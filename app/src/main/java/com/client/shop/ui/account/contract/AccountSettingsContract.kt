@@ -14,7 +14,7 @@ class AccountSettingsPresenter(
 
     fun getCustomer() {
         customerUseCase.execute(
-            { view?.showContent(it.isAcceptsMarketing) },
+            { view?.showContent(it?.isAcceptsMarketing ?: false) },
             { resolveError(it) },
             Unit
         )

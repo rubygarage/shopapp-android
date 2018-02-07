@@ -45,7 +45,7 @@ class ChangePasswordPresenter(
                 },
                 {
                     resolveError(it)
-                    view?.showUpdateProgress()
+                    view?.hideUpdateProgress()
                 },
                 password
             )

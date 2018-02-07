@@ -14,6 +14,7 @@ import com.domain.validator.FieldValidator
 import com.ui.base.lce.BaseActivity
 import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
+import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import javax.inject.Inject
 
@@ -71,11 +72,6 @@ class ForgotPasswordActivity :
 
     //LCE
 
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.resetPassword(emailInput.text.toString())
-    }
-
     override fun showContent(data: Unit) {
         super.showContent(data)
         resetEmail.text = emailInput.text
@@ -90,7 +86,10 @@ class ForgotPasswordActivity :
 
     //CALLBACK
 
-    override fun onClick(v: View?) {
-        loadData()
+    override fun onClick(v: View) {
+        v.requestFocus()
+        v.hideKeyboard()
+        changeState(LceLayout.LceState.LoadingState(true))
+        presenter.resetPassword(emailInput.text.toString())
     }
 }

@@ -25,7 +25,9 @@ import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_lce.*
 import javax.inject.Inject
 
-class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), AccountView {
+class AccountFragment :
+    BaseFragment<Boolean, AccountView, AccountPresenter>(),
+    AccountView {
 
     @Inject
     lateinit var accountPresenter: AccountPresenter
@@ -170,18 +172,21 @@ class AccountFragment : BaseFragment<Boolean, AccountView, AccountPresenter>(), 
         setupShop()
     }
 
-    override fun customerReceived(customer: Customer) {
+    override fun customerReceived(customer: Customer?) {
         this.customer = customer
-        authGroup.visibility = View.VISIBLE
-        unauthGroup.visibility = View.GONE
-
-        if (customer.firstName.isNotBlank() || customer.lastName.isNotBlank()) {
-            val fullName = getString(R.string.full_name_pattern, customer.firstName, customer.lastName).trim()
-            name.text = fullName
-            avatarView.setName(fullName)
+        if (customer != null) {
+            authGroup.visibility = View.VISIBLE
+            unauthGroup.visibility = View.GONE
+            if (customer.firstName.isNotBlank() || customer.lastName.isNotBlank()) {
+                val fullName = getString(R.string.full_name_pattern, customer.firstName, customer.lastName).trim()
+                name.text = fullName
+                avatarView.setName(fullName)
+            } else {
+                name.text = customer.email
+                avatarView.setName(customer.email)
+            }
         } else {
-            name.text = customer.email
-            avatarView.setName(customer.email)
+            loadData()
         }
     }
 

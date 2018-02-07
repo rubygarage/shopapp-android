@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
@@ -14,6 +13,7 @@ import com.client.shop.ui.account.contract.PersonalInfoView
 import com.client.shop.ui.account.di.AuthModule
 import com.domain.entity.Customer
 import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.hideKeyboard
 import com.ui.ext.setTextWhenDisable
@@ -86,13 +86,13 @@ class PersonalInfoActivity :
     private fun setupClickListeners() {
         saveButton.setOnClickListener {
             clearFormFocus()
+            changeState(LceLayout.LceState.LoadingState(true))
             presenter.editCustomer(
                 firstNameInput.text.toString(),
                 lastNameInput.text.toString(),
                 phoneInput.text.toString()
             )
         }
-
         changePassword.setOnClickListener {
             startActivity(ChangePasswordActivity.getStartIntent(this))
         }
@@ -152,15 +152,5 @@ class PersonalInfoActivity :
 
     override fun setupCustomerEmail(email: String) {
         emailInput.setTextWhenDisable(email)
-    }
-
-    override fun showUpdateProgress() {
-        progressBar.show()
-        saveButton.visibility = View.INVISIBLE
-    }
-
-    override fun hideUpdateProgress() {
-        progressBar.hide()
-        saveButton.visibility = View.VISIBLE
     }
 }

@@ -7,9 +7,9 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetCustomerUseCase @Inject constructor(private val authRepository: AuthRepository) :
-    SingleUseCase<Customer, Unit>() {
+    SingleUseCase<Customer?, Unit>() {
 
-    override fun buildUseCaseSingle(params: Unit): Single<Customer> {
+    override fun buildUseCaseSingle(params: Unit): Single<Customer?> {
         return authRepository.getCustomer()
     }
 }

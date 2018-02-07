@@ -21,13 +21,16 @@ import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.policy.PolicyActivity
 import com.domain.entity.Policy
 import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
+import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
 
-class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
+class SignUpActivity :
+    BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     SignUpView {
 
     @Inject
@@ -53,6 +56,7 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
         setupInputListeners()
         setupInfoText()
         createButton.setOnClickListener {
+            clearFormFocus()
             loadData(true)
         }
     }
@@ -143,6 +147,11 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
         }
     }
 
+    private fun clearFormFocus() {
+        createButton.requestFocus()
+        createButton.hideKeyboard()
+    }
+
     //LCE
 
     override fun loadData(pullToRefresh: Boolean) {
@@ -176,12 +185,10 @@ class SignUpActivity : BaseActivity<Unit, SignUpView, SignUpPresenter>(),
     }
 
     override fun onCheckPassed() {
-        progressBar.show()
-        createButton.visibility = View.INVISIBLE
+        changeState(LceLayout.LceState.LoadingState(true))
     }
 
     override fun onFailure() {
-        progressBar.hide()
-        createButton.visibility = View.VISIBLE
+        changeState(LceLayout.LceState.ContentState)
     }
 }

@@ -6,13 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.text.TextWatcher
-import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.account.contract.SignInPresenter
 import com.client.shop.ui.account.contract.SignInView
 import com.client.shop.ui.account.di.AuthModule
 import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -128,11 +128,9 @@ class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
         emailInput.isEnabled = isEnabled
         passwordInput.isEnabled = isEnabled
         if (isEnabled) {
-            progressBar.hide()
-            loginButton.visibility = View.VISIBLE
+            changeState(LceLayout.LceState.ContentState)
         } else {
-            progressBar.show()
-            loginButton.visibility = View.INVISIBLE
+            changeState(LceLayout.LceState.LoadingState(true))
         }
     }
 }

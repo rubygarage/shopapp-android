@@ -27,8 +27,8 @@ open class AddressListPresenter<V : AddressListView>(
     fun getAddressList() {
         getCustomerUseCase.execute(
             {
-                val defaultAddress = it.defaultAddress
-                val addressList = sortAddressList(defaultAddress, it.addressList)
+                val defaultAddress = it?.defaultAddress
+                val addressList = sortAddressList(defaultAddress, it?.addressList)
                 view?.showContent(Pair(defaultAddress, addressList))
             },
             { view?.showContent(Pair(null, emptyList())) },
@@ -55,10 +55,10 @@ open class AddressListPresenter<V : AddressListView>(
         )
     }
 
-    private fun sortAddressList(defaultAddress: Address?, addressList: List<Address>): List<Address> {
-        val mutableAddressList = addressList.toMutableList()
+    private fun sortAddressList(defaultAddress: Address?, addressList: List<Address>?): List<Address> {
+        val mutableAddressList = addressList?.toMutableList() ?: mutableListOf()
         defaultAddress?.let {
-            val defaultIndex = addressList.indexOf(it)
+            val defaultIndex = mutableAddressList.indexOf(it)
             if (defaultIndex >= 0) {
                 mutableAddressList.swap(defaultIndex, 0)
             }

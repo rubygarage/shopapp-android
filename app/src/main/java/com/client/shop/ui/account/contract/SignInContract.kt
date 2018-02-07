@@ -1,7 +1,5 @@
 package com.client.shop.ui.account.contract
 
-import com.client.shop.R
-import com.domain.interactor.account.ForgotPasswordUseCase
 import com.domain.interactor.account.SignInUseCase
 import com.domain.validator.FieldValidator
 import com.ui.base.contract.BaseLcePresenter
@@ -21,10 +19,9 @@ interface SignInView : BaseLceView<Unit> {
 
 class SignInPresenter @Inject constructor(
     private val fieldValidator: FieldValidator,
-    private val signInUseCase: SignInUseCase,
-    private val forgotPasswordUseCase: ForgotPasswordUseCase
+    private val signInUseCase: SignInUseCase
 ) :
-    BaseLcePresenter<Unit, SignInView>(signInUseCase, forgotPasswordUseCase) {
+    BaseLcePresenter<Unit, SignInView>(signInUseCase) {
 
     fun logIn(email: String, password: String) {
 
@@ -46,19 +43,6 @@ class SignInPresenter @Inject constructor(
                     resolveError(it)
                 },
                 SignInUseCase.Params(email, password))
-        }
-    }
-
-    fun forgotPassword(email: String) {
-
-        if (!fieldValidator.isEmailValid(email)) {
-            view?.showMessage(R.string.invalid_email_error_message)
-        } else {
-            forgotPasswordUseCase.execute(
-                { view?.showMessage(R.string.check_inbox_message) },
-                { resolveError(it) },
-                email
-            )
         }
     }
 }

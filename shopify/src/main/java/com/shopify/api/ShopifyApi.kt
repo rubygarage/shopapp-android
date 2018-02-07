@@ -417,7 +417,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         callback.onResult(Unit)
     }
 
-    override fun getCustomer(callback: ApiCallback<Customer>) {
+    override fun getCustomer(callback: ApiCallback<Customer?>) {
 
         val accessData = getSession()
 
@@ -426,8 +426,14 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 it.customer(accessData.accessToken) { getDefaultCustomerQuery(it) }
             }
             graphClient.queryGraph(query).enqueue(object : QueryCallWrapper<Customer>(callback) {
-                override fun adapt(data: Storefront.QueryRoot): Customer {
-                    return CustomerAdapter.adapt(data.customer)
+                override fun adapt(data: Storefront.QueryRoot): Customer? {
+                    val adaptee = data.customer
+                    return if (adaptee != null) {
+                        adaptee.let { CustomerAdapter.adapt(it) }
+                    } else {
+                        removeSession()
+                        null
+                    }
                 }
             })
         } else {
@@ -621,27 +627,6 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     }
                     return null
                 }
-            }
-        })
-    }
-
-    private fun getCurrency(callback: ApiCallback<String>) {
-        val query = Storefront.query {
-            it.shop {
-                it.paymentSettings {
-                    it.currencyCode()
-                        .countryCode()
-                }
-            }
-        }
-        val call = graphClient.queryGraph(query)
-        call.enqueue(object : GraphCall.Callback<Storefront.QueryRoot> {
-            override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
-                callback.onResult(response.data()?.shop?.paymentSettings?.currencyCode?.name ?: "")
-            }
-
-            override fun onFailure(error: GraphError) {
-                callback.onFailure(ErrorAdapter.adapt(error))
             }
         })
     }

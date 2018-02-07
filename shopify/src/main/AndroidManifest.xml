@@ -8,14 +8,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.shopify.ui.payment.android.AndroidPaymentActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.shopify.ui.shipping.ShippingActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.shopify.ui.address.CheckoutAddressListActivity"
             android:screenOrientation="portrait" />
 

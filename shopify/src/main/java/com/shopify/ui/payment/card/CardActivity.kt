@@ -134,7 +134,16 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
             it.hideKeyboard()
             yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR)
         }
-        submitButton.setOnClickListener { loadData() }
+        submitButton.setOnClickListener {
+            changeState(LceLayout.LceState.LoadingState(true))
+            presenter.processCardData(
+                holderNameInput.text.toString(),
+                cardNumberInput.text.toString(),
+                monthInput.text.toString(),
+                yearInput.text.toString(),
+                cvvInput.text.toString()
+            )
+        }
         cardNumberInput.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 v.hideKeyboard()
@@ -172,17 +181,6 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     }
 
     //LCE
-
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.processCardData(
-            holderNameInput.text.toString(),
-            cardNumberInput.text.toString(),
-            monthInput.text.toString(),
-            yearInput.text.toString(),
-            cvvInput.text.toString()
-        )
-    }
 
     override fun showContent(data: Pair<Card, String>) {
         super.showContent(data)

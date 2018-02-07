@@ -4,12 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
-import android.view.View
 import com.domain.entity.Address
 import com.ui.R
 import com.ui.base.lce.BaseActivity
+import com.ui.base.lce.view.LceLayout
 import com.ui.custom.SimpleTextWatcher
 import com.ui.ext.getTrimmedString
+import com.ui.ext.hideKeyboard
 import com.ui.module.address.contract.AddressPresenter
 import com.ui.module.address.contract.AddressView
 import kotlinx.android.synthetic.main.activity_address.*
@@ -47,8 +48,9 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         }
 
         submitButton.setOnClickListener {
-            progressBar.visibility = View.VISIBLE
-            submitButton.visibility = View.INVISIBLE
+            changeState(LceLayout.LceState.LoadingState(true))
+            submitButton.requestFocus()
+            submitButton.hideKeyboard()
             submitAddress()
         }
 
@@ -159,7 +161,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     override fun submitAddressError() {
-        progressBar.visibility = View.GONE
-        submitButton.visibility = View.VISIBLE
+        changeState(LceLayout.LceState.ContentState)
     }
 }

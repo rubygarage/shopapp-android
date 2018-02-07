@@ -33,8 +33,8 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
         }
     }
 
-    override fun getCustomer(): Single<Customer> {
-        return Single.create { api.getCustomer(RxCallbackSingle<Customer>(it)) }
+    override fun getCustomer(): Single<Customer?> {
+        return Single.create { api.getCustomer(RxCallbackSingle(it)) }
     }
 
     override fun createCustomerAddress(address: Address): Single<String> {

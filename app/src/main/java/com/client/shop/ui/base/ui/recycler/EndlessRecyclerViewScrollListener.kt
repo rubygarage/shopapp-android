@@ -77,8 +77,4 @@ abstract class EndlessRecyclerViewScrollListener(
 
 
     abstract fun onLoadMore(page: Int, totalItemsCount: Int)
-
-    fun reset() {
-        loading = false
-    }
 }
