@@ -68,6 +68,14 @@ abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListVi
         addressListAdapter.notifyDataSetChanged()
     }
 
+    protected open fun deleteAddress(address: Address) {
+        val isRemoved = dataList.remove(address)
+        if (isRemoved) {
+            addressListAdapter.notifyDataSetChanged()
+            presenter.deleteAddress(address.id)
+        }
+    }
+
     //CALLBACK
 
     override fun onDefaultButtonClicked(address: Address) {
@@ -76,10 +84,6 @@ abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListVi
     }
 
     override fun onDeleteButtonClicked(address: Address) {
-        val isRemoved = dataList.remove(address)
-        if (isRemoved) {
-            addressListAdapter.notifyDataSetChanged()
-            presenter.deleteAddress(address.id)
-        }
+        deleteAddress(address)
     }
 }

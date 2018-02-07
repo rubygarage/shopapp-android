@@ -16,12 +16,15 @@ class ShippingAddressView @JvmOverloads constructor(
 ) :
     ConstraintLayout(context, attrs, defStyleAttr) {
 
+    private var address: Address? = null
+
     init {
         View.inflate(context, R.layout.view_shipping_address, this)
         setBackgroundColor(Color.WHITE)
     }
 
     fun setAddress(address: Address?) {
+        this.address = address
         if (address != null) {
             addressContent.setAddress(address)
             addressContent.visibility = View.VISIBLE
@@ -33,6 +36,8 @@ class ShippingAddressView @JvmOverloads constructor(
             addressContent.visibility = View.GONE
         }
     }
+
+    fun getAddress() = address
 
     fun setClickListeners(editClickListener: OnClickListener, addAddressClickListener: OnClickListener) {
         editButton.setOnClickListener(editClickListener)

@@ -1,6 +1,7 @@
 package com.shopify.ui.address
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -27,17 +28,23 @@ class CheckoutAddressListActivity :
         private const val CHECKOUT_ID = "checkout_id"
         private const val SELECTED_ADDRESS = "selected_address"
         private const val IS_SHIPPING = "is_shipping"
+        private const val SHIPPING_ADDRESS = "shipping_address"
+        private const val BILLING_ADDRESS = "billing_address"
 
         fun getStartIntent(
             context: Context,
             checkoutId: String? = null,
-            isShipping: Boolean,
-            selectedAddress: Address? = null
+            selectedAddress: Address? = null,
+            isShippingAddress: Boolean,
+            shippingAddress: Address?,
+            billingAddress: Address?
         ): Intent {
             val intent = Intent(context, CheckoutAddressListActivity::class.java)
             intent.putExtra(CHECKOUT_ID, checkoutId)
-            intent.putExtra(IS_SHIPPING, isShipping)
+            intent.putExtra(IS_SHIPPING, isShippingAddress)
             intent.putExtra(SELECTED_ADDRESS, selectedAddress)
+            intent.putExtra(SHIPPING_ADDRESS, shippingAddress)
+            intent.putExtra(BILLING_ADDRESS, billingAddress)
             return intent
         }
     }
@@ -45,6 +52,9 @@ class CheckoutAddressListActivity :
     private var checkoutId: String? = null
     private var isShipping = true
     private var selectedAddress: Address? = null
+    private var shippingAddress: Address? = null
+    private var billingAddress: Address? = null
+    private val resultIntent = Intent()
 
     //ANDROID
 
@@ -52,6 +62,8 @@ class CheckoutAddressListActivity :
         super.onCreate(savedInstanceState)
         checkoutId = intent.getStringExtra(CHECKOUT_ID)
         isShipping = intent.getBooleanExtra(IS_SHIPPING, true)
+        shippingAddress = intent.getParcelableExtra(SHIPPING_ADDRESS)
+        billingAddress = intent.getParcelableExtra(BILLING_ADDRESS)
 
         setTitle(getString(if (isShipping) R.string.shipping_address else R.string.billing_address))
     }
@@ -91,31 +103,73 @@ class CheckoutAddressListActivity :
         return adapter
     }
 
+    //SETUP
+
+    override fun deleteAddress(address: Address) {
+        if (selectedAddress == address) {
+            selectedAddress = defaultAddress
+            selectedAddress?.let { onAddressSelected(it) }
+        }
+        super.deleteAddress(address)
+    }
+
+    private fun doAction(address: Address, isEdit: Boolean, action: () -> Unit) {
+        if (shippingAddress == address || billingAddress == address) {
+            val messageRes: Int
+            val positiveButtonRes: Int
+
+            if (isEdit) {
+                messageRes = R.string.edit_address_message
+                positiveButtonRes = R.string.edit
+            } else {
+                messageRes = R.string.delete_address_message
+                positiveButtonRes = R.string.delete
+            }
+
+            AlertDialog.Builder(this)
+                .setMessage(messageRes)
+                .setNegativeButton(R.string.cancel_button, { dialog, _ ->
+                    dialog.dismiss()
+                })
+                .setPositiveButton(positiveButtonRes, { dialog, _ ->
+                    dialog.dismiss()
+                    val name = if (isShipping) Extra.CLEAR_BILLING else Extra.CLEAR_SHIPPING
+                    resultIntent.putExtra(name, true)
+                    setResult(Activity.RESULT_OK, resultIntent)
+                    action()
+                })
+                .create()
+                .show()
+        } else {
+            action()
+        }
+    }
+
     //LCE
 
     override fun selectedAddressChanged(address: Address) {
         changeState(LceLayout.LceState.ContentState)
-        val resultIntent = Intent()
         resultIntent.putExtra(Extra.ADDRESS, address)
+        resultIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
         setResult(Activity.RESULT_OK, resultIntent)
     }
 
     //CALLBACK
 
     override fun onEditButtonClicked(address: Address) {
-        val isSelectedAddress = address == selectedAddress
-        startActivityForResult(
-            CheckoutAddressActivity.getStartIntent(this, address, isSelectedAddress),
-            RequestCode.EDIT_SHIPPING_ADDRESS
-        )
+        doAction(address, true, {
+            val isSelectedAddress = address == selectedAddress
+            startActivityForResult(
+                CheckoutAddressActivity.getStartIntent(this, address, isSelectedAddress),
+                RequestCode.EDIT_SHIPPING_ADDRESS
+            )
+        })
     }
 
     override fun onDeleteButtonClicked(address: Address) {
-        if (selectedAddress == address) {
-            selectedAddress = defaultAddress
-            selectedAddress?.let { onAddressSelected(it) }
-        }
-        super.onDeleteButtonClicked(address)
+        doAction(address, false, {
+            deleteAddress(address)
+        })
     }
 
     override fun onAddressSelected(address: Address) {

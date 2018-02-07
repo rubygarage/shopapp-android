@@ -131,6 +131,7 @@ class CheckoutPresenter @Inject constructor(
 
     fun verifyCheckoutData(
         checkout: Checkout?,
+        shippingAddress: Address?,
         email: String?,
         paymentType: String?,
         card: Card?,
@@ -138,7 +139,7 @@ class CheckoutPresenter @Inject constructor(
         billingAddress: Address?
     ) {
         if (checkout != null) {
-            if (checkout.address == null) {
+            if (checkout.shippingRate == null) {
                 view?.checkoutValidationPassed(false)
                 return
             }
@@ -146,7 +147,7 @@ class CheckoutPresenter @Inject constructor(
                 view?.checkoutValidationPassed(false)
                 return
             }
-            if (checkout.shippingRate == null) {
+            if (shippingAddress == null) {
                 view?.checkoutValidationPassed(false)
                 return
             }
