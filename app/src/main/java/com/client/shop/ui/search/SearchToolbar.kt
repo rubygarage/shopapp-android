@@ -17,7 +17,7 @@ import com.client.shop.ext.textChanges
 import com.ui.ext.hideKeyboard
 import com.ui.ext.showKeyboard
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.processors.PublishProcessor
 import kotlinx.android.synthetic.main.toolbar_search.view.*
 import java.util.concurrent.TimeUnit
@@ -32,15 +32,17 @@ class SearchToolbar @JvmOverloads constructor(
     private val expandedLineMarginStart: Int
     private val expandedLineMarginEnd: Int
     private val collapsedLineMargin: Int
+    private val fadeTransition: Transition
     private val transitionSet: Transition
-    private var searchDisposable: Disposable? = null
+    private var compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val searchProcessor: PublishProcessor<String>
 
     init {
         View.inflate(context, R.layout.toolbar_search, this)
+        fadeTransition = Fade()
         transitionSet = TransitionSet()
         transitionSet.addTransition(ChangeBounds())
-        transitionSet.addTransition(Fade())
+        transitionSet.addTransition(fadeTransition)
         expandedLineMarginStart = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start)
         expandedLineMarginEnd = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end)
         collapsedLineMargin = resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin)
@@ -65,27 +67,27 @@ class SearchToolbar @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        searchDisposable = searchInput
-            .textChanges()
-            .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
+        val clearButtonDisposable = searchInput.textChanges()
             .subscribe(
                 {
-                    TransitionManager.beginDelayedTransition(this@SearchToolbar)
+                    TransitionManager.beginDelayedTransition(this, fadeTransition)
                     clear.visibility = if (it.isNotEmpty() && isExpanded) View.VISIBLE else View.GONE
-                    searchToolbarListener?.onQueryChanged(it)
                 },
                 { error -> error.printStackTrace() }
             )
+        val searchDisposable = searchInput.textChanges()
+            .debounce(SEARCH_DEBOUNCE, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { searchToolbarListener?.onQueryChanged(it) },
+                { error -> error.printStackTrace() }
+            )
+        compositeDisposable.addAll(clearButtonDisposable, searchDisposable)
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        searchDisposable?.let {
-            if (!it.isDisposed) {
-                it.dispose()
-            }
-        }
+        compositeDisposable.clear()
     }
 
     private fun collapseToolbar() {
