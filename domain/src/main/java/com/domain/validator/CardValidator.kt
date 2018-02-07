@@ -39,18 +39,17 @@ class CardValidator {
     private fun isDateValid(expireMonth: String, expireYear: String): Boolean {
 
         val calendar = Calendar.getInstance()
-        val currentMonth = calendar.get(Calendar.MONTH) + 1
+        val currentMonth = calendar.get(Calendar.MONTH)
         val currentYear = calendar.get(Calendar.YEAR)
 
         val incorrectMonth = expireMonth.toIntOrNull() ?: -1
         val selectedMonth = incorrectMonth - 1
-        val selectedYear = currentYear.toString().substring(0, 2).plus(expireYear).toIntOrNull()
-                ?: -1
+        val selectedYear = expireYear.toIntOrNull() ?: -1
 
         return when {
             selectedMonth > Calendar.DECEMBER -> false
             currentYear > selectedYear -> false
-            else -> !(currentMonth >= selectedMonth && currentYear == selectedYear)
+            else -> !(currentMonth > selectedMonth && currentYear == selectedYear)
         }
     }
 

@@ -29,7 +29,7 @@ class CardValidatorTest {
         Mockito.doReturn("4111111111111111").`when`(card).cardNumber
         Mockito.doReturn("391").`when`(card).verificationCode
         Mockito.doReturn("08").`when`(card).expireMonth
-        Mockito.doReturn("20").`when`(card).expireYear
+        Mockito.doReturn("2020").`when`(card).expireYear
     }
 
     @Test
