@@ -27,6 +27,7 @@ import com.shopify.buy3.pay.PaymentToken
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.graphql.support.ID
+import com.shopify.util.AssetsReader
 import net.danlew.android.joda.JodaTimeAndroid
 import retrofit2.Call
 import retrofit2.Callback
@@ -602,7 +603,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
                 if (response != null && response.isSuccessful) {
                     if (response.body() != null) {
                         val countries = CountryListAdapter.adapt(response.body()?.countries)
-                        if (countries.any { it.name == REST_OF_WORLD}) {
+                        if (countries.any { it.name == REST_OF_WORLD }) {
                             callback.onResult(CountryListAdapter.adapt(getAllCountriesList()))
                         }
                     }
@@ -619,13 +620,8 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
     }
 
     private fun getAllCountriesList(): List<ApiCountry> {
-        val input = context.assets.open(COUNTRIES_FILE_NAME)
-        val byteArray = ByteArray(input.available())
-        input.read(byteArray)
-        input.close()
-        val json = String(byteArray)
         val countriesType = object : TypeToken<List<ApiCountry>>() {}.type
-        return Gson().fromJson(json, countriesType)
+        return Gson().fromJson(AssetsReader.read(ShopifyApi.COUNTRIES_FILE_NAME, context), countriesType)
     }
 
     private fun requestToken(email: String, password: String): Pair<AccessData?, Error?>? {
