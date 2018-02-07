@@ -898,7 +898,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
                 val countryCode = response.data()?.shop?.paymentSettings?.countryCode?.name ?: ""
 
                 val payCartBuilder = PayCart.builder()
-                    .merchantName(ShopifyWrapper.BASE_DOMAIN)
+                    .merchantName(BuildConfig.BASE_DOMAIN)
                     .currencyCode(currency)
                     .shippingAddressRequired(checkout.requiresShipping)
                     .countryCode(countryCode)
@@ -934,7 +934,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
 
     fun completeCheckoutByAndroid(checkout: Checkout, payCart: PayCart, fullWallet: FullWallet, callback: ApiCallback<Boolean>) {
 
-        val paymentToken: PaymentToken = PayHelper.extractPaymentToken(fullWallet, ShopifyWrapper.ANDROID_PAY_PUBLIC_KEY)
+        val paymentToken: PaymentToken = PayHelper.extractPaymentToken(fullWallet, BuildConfig.ANDROID_PAY_PUBLIC_KEY)
         val billingAddress = PayAddress.fromUserAddress(fullWallet.buyerBillingAddress)
         val idempotencyKey: String = UUID.randomUUID().toString()
 

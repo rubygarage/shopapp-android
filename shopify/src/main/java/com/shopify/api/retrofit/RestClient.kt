@@ -1,7 +1,7 @@
 package com.shopify.api.retrofit
 
 import android.util.Base64
-import com.shopify.ShopifyWrapper
+import com.shopify.api.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +15,7 @@ object RestClient {
 
     fun providesRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(ShopifyWrapper.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(providesOkHttp())
             .build()
@@ -33,11 +33,8 @@ object RestClient {
     }
 
     private fun getAuthInterceptor(): Interceptor {
-        val tokenString = "${ShopifyWrapper.SHOPIFY_API_KEY}:${ShopifyWrapper.PASSWORD}"
-        val base64Token = Base64
-            .encodeToString(tokenString.toByteArray(), Base64.DEFAULT)
-            .replace("\n", "")
-            .replace("\r", "")
+        val tokenString = "${BuildConfig.PRIVATE_AUTH_KEY}:${BuildConfig.PRIVATE_AUTH_PASSWORD}"
+        val base64Token = Base64.encodeToString(tokenString.toByteArray(), Base64.NO_WRAP)
         return Interceptor { chain ->
             val builder = chain.request().newBuilder()
             builder.addHeader("Authorization", "Basic $base64Token")
