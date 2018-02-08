@@ -191,9 +191,7 @@
 
         <ImageView
             android:id="@+id/visa"
-            android:layout_width="38dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="16dp"
+            style="@style/AcceptedCardLogo"
             android:src="@drawable/ic_visa"
             app:layout_constraintEnd_toStartOf="@+id/amex"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -202,10 +200,7 @@
 
         <ImageView
             android:id="@+id/amex"
-            android:layout_width="38dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            style="@style/AcceptedCardLogo"
             android:src="@drawable/ic_amex"
             app:layout_constraintEnd_toStartOf="@+id/masterCard"
             app:layout_constraintHorizontal_bias="0.5"
@@ -214,10 +209,7 @@
 
         <ImageView
             android:id="@+id/masterCard"
-            android:layout_width="38dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            style="@style/AcceptedCardLogo"
             android:src="@drawable/ic_master_card"
             app:layout_constraintEnd_toStartOf="@+id/discover"
             app:layout_constraintHorizontal_bias="0.5"
@@ -226,22 +218,16 @@
 
         <ImageView
             android:id="@+id/discover"
-            android:layout_width="38dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            style="@style/AcceptedCardLogo"
             android:src="@drawable/ic_discover"
-            app:layout_constraintEnd_toStartOf="@+id/jbc"
+            app:layout_constraintEnd_toStartOf="@+id/jcb"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/masterCard"
             app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <ImageView
-            android:id="@+id/jbc"
-            android:layout_width="38dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            android:id="@+id/jcb"
+            style="@style/AcceptedCardLogo"
             android:src="@drawable/ic_jcb_card"
             app:layout_constraintEnd_toStartOf="@+id/dc"
             app:layout_constraintHorizontal_bias="0.5"
@@ -250,14 +236,11 @@
 
         <ImageView
             android:id="@+id/dc"
-            android:layout_width="38dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
+            style="@style/AcceptedCardLogo"
             android:src="@drawable/ic_dc_card"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/jbc"
+            app:layout_constraintStart_toEndOf="@+id/jcb"
             app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
 
         <Space

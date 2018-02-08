@@ -5,9 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.domain.detector.CardTypeDetector
 import com.domain.entity.Card
+import com.domain.entity.CardType
 import com.shopify.ShopifyWrapper
 import com.shopify.api.R
 import com.shopify.constant.Extra
@@ -24,7 +26,9 @@ import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
 
 
-class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>(), CardView {
+class CardActivity :
+    BaseActivity<List<CardType>, CardView, CardPresenter>(),
+    CardView {
 
     companion object {
 
@@ -56,7 +60,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         setupListeners()
         card = intent.getParcelableExtra(CARD)
 
-        cardMaskTextWatcher = CreditCardFormatTextWatcher(this, resources.getDimension(R.dimen.card_padding))
+        loadData()
     }
 
     override fun onResume() {
@@ -116,6 +120,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     }
 
     private fun setupListeners() {
+        cardMaskTextWatcher = CreditCardFormatTextWatcher(this, resources.getDimension(R.dimen.card_padding))
         cardTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 cardLogo.setImageResource(cardTypeDetector.detect(s.toString())?.logoRes ?: 0)
@@ -180,10 +185,32 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         }
     }
 
+    private fun showCardLogo(cardType: CardType) {
+        val cardLogo = when (cardType) {
+            CardType.VISA -> visa
+            CardType.MASTER_CARD -> masterCard
+            CardType.AMERICAN_EXPRESS -> amex
+            CardType.DISCOVER -> discover
+            CardType.DINERS_CLUB -> dc
+            CardType.JCB -> jcb
+        }
+        cardLogo.visibility = View.VISIBLE
+    }
+
     //LCE
 
-    override fun showContent(data: Pair<Card, String>) {
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        presenter.getAcceptedCardTypes()
+    }
+
+    override fun showContent(data: List<CardType>) {
         super.showContent(data)
+        data.map { showCardLogo(it) }
+    }
+
+    override fun cardTokenReceived(data: Pair<Card, String>) {
+        changeState(LceLayout.LceState.ContentState)
         val result = Intent()
         result.putExtra(Extra.CARD, data.first)
         result.putExtra(Extra.CARD_TOKEN, data.second)

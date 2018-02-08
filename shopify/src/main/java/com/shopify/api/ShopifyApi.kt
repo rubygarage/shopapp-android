@@ -794,6 +794,19 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
+    fun getAcceptedCardTypes(callback: ApiCallback<List<CardType>>) {
+
+        val query = Storefront.query {
+            it.shop { it.paymentSettings { it.acceptedCardBrands() } }
+        }
+        graphClient.queryGraph(query).enqueue(object : QueryCallWrapper<List<CardType>>(callback) {
+            override fun adapt(data: Storefront.QueryRoot): List<CardType> {
+                val adaptee = data.shop.paymentSettings.acceptedCardBrands
+                return CardAdapter.adapt(adaptee)
+            }
+        })
+    }
+
     fun getCardToken(card: Card, callback: ApiCallback<String>) {
 
         val vaultCallback = object : ApiCallback<String> {
@@ -1004,7 +1017,6 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
             }
         }, null, retryHandler)
     }
-
 
     private fun getProductSortKey(sortType: SortType?): Storefront.ProductSortKeys? {
         if (sortType != null) {
