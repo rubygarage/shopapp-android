@@ -7,4 +7,7 @@ object Extra {
     const val CARD = "card"
     const val CARD_TOKEN = "card_token"
     const val PAYMENT_TYPE = "payment_type"
+    const val IS_ADDRESS_CHANGED = "is_address_changed"
+    const val CLEAR_SHIPPING = "clear_shipping"
+    const val CLEAR_BILLING = "clear_billing"
 }

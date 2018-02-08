@@ -44,5 +44,7 @@
     <string name="add_new_address">Add New Address</string>
     <string name="edit_address">Edit Address</string>
     <string name="shipping_address">Shipping Address</string>
+    <string name="submit_button">Submit</string>
+    <string name="cancel_button">Cancel</string>
 
 </resources>

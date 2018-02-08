@@ -55,7 +55,8 @@ class CheckoutActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTitle(getString(R.string.checkout))
-
+        setupShippingAddressViewListeners()
+        setupPaymentViewListeners()
         setupListeners()
         loadData()
     }
@@ -81,7 +82,12 @@ class CheckoutActivity :
         val isPayment = requestCode == RequestCode.PAYMENT
         val isCard = requestCode == RequestCode.CARD
         val isOkResult = resultCode == Activity.RESULT_OK
-        if ((isAddShippingAddress || isEditShippingAddress) && isOkResult) {
+
+        val isAddressChanged = data?.getBooleanExtra(Extra.IS_ADDRESS_CHANGED, false) ?: false
+        val isClearShippingAddress = data?.getBooleanExtra(Extra.CLEAR_SHIPPING, false) ?: false
+        val isClearBillingAddress = data?.getBooleanExtra(Extra.CLEAR_BILLING, false) ?: false
+
+        if ((isAddShippingAddress || isEditShippingAddress) && isOkResult && isAddressChanged) {
             loadData()
         } else if (isPayment && isOkResult) {
             val paymentType = data?.getStringExtra(Extra.PAYMENT_TYPE)
@@ -90,9 +96,16 @@ class CheckoutActivity :
             val card: Card? = data?.getParcelableExtra(Extra.CARD)
             val cardToken: String? = data?.getStringExtra(Extra.CARD_TOKEN)
             paymentView.setCardData(card, cardToken)
-        } else if ((isAddBillingAddress || isEditBillingAddress) && isOkResult) {
+        } else if ((isAddBillingAddress || isEditBillingAddress) && isOkResult && isAddressChanged) {
             val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
             paymentView.setAddressData(address)
+        }
+
+        if (isClearBillingAddress) {
+            paymentView.setAddressData(null)
+        } else if (isClearShippingAddress) {
+            shippingAddressView.setAddress(null)
+            shippingOptionsView.unSelectAddress()
         }
 
         verifyCheckoutData()
@@ -114,8 +127,7 @@ class CheckoutActivity :
 
     //SETUP
 
-    private fun setupListeners() {
-        checkoutEmailView.emailChangeListener = this
+    private fun setupShippingAddressViewListeners() {
         shippingAddressView.setClickListeners(
             editClickListener = View.OnClickListener {
                 checkout?.let {
@@ -123,17 +135,23 @@ class CheckoutActivity :
                     if (customer != null) {
                         startActivityForResult(
                             CheckoutAddressListActivity.getStartIntent(
-                                this,
-                                it.checkoutId,
-                                true,
-                                address
+                                context = this,
+                                checkoutId = it.checkoutId,
+                                selectedAddress = address,
+                                isShippingAddress = true,
+                                shippingAddress = null,
+                                billingAddress = paymentView.getAddress()
                             ),
                             RequestCode.EDIT_SHIPPING_ADDRESS
                         )
                     } else if (address != null) {
                         checkout?.let {
                             startActivityForResult(
-                                CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, address, true),
+                                CheckoutUnAuthAddressActivity.getStartIntent(
+                                    this,
+                                    it.checkoutId,
+                                    address,
+                                    true),
                                 RequestCode.EDIT_SHIPPING_ADDRESS
                             )
                         }
@@ -145,10 +163,12 @@ class CheckoutActivity :
                     if (customer != null) {
                         startActivityForResult(
                             CheckoutAddressListActivity.getStartIntent(
-                                this,
-                                it.checkoutId,
-                                true,
-                                it.address
+                                context = this,
+                                checkoutId = it.checkoutId,
+                                selectedAddress = shippingAddressView.getAddress(),
+                                isShippingAddress = true,
+                                shippingAddress = null,
+                                billingAddress = paymentView.getAddress()
                             ),
                             RequestCode.EDIT_SHIPPING_ADDRESS
                         )
@@ -161,6 +181,9 @@ class CheckoutActivity :
                 }
             }
         )
+    }
+
+    private fun setupPaymentViewListeners() {
         paymentView.setClickListeners(
             paymentClickListener = View.OnClickListener {
                 startActivityForResult(PaymentActivity.getStartIntent(this, paymentView.getPaymentType()), RequestCode.PAYMENT)
@@ -172,8 +195,10 @@ class CheckoutActivity :
                 if (customer != null) {
                     startActivityForResult(CheckoutAddressListActivity.getStartIntent(
                         context = this,
-                        isShipping = false,
-                        selectedAddress = paymentView.getAddress()
+                        selectedAddress = paymentView.getAddress(),
+                        isShippingAddress = false,
+                        shippingAddress = checkout?.address,
+                        billingAddress = null
                     ),
                         RequestCode.EDIT_BILLING_ADDRESS
                     )
@@ -188,6 +213,10 @@ class CheckoutActivity :
                 }
             }
         )
+    }
+
+    private fun setupListeners() {
+        checkoutEmailView.emailChangeListener = this
         shippingOptionsView.onOptionSelectedListener = this
 
         val placeOrderClickListener = View.OnClickListener {
@@ -211,11 +240,12 @@ class CheckoutActivity :
     }
 
     private fun verifyCheckoutData() {
+        val shippingAddress = shippingAddressView.getAddress()
         val email = checkoutEmailView.getEmail()
         val paymentType = paymentView.getPaymentType()
         val cardData = paymentView.getCardData()
         val shippingData = paymentView.getAddress()
-        presenter.verifyCheckoutData(checkout, email, paymentType, cardData.first,
+        presenter.verifyCheckoutData(checkout, shippingAddress, email, paymentType, cardData.first,
             cardData.second, shippingData)
     }
 
