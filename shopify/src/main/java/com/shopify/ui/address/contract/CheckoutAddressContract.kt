@@ -12,7 +12,7 @@ import com.ui.module.address.contract.AddressView
 
 class CheckoutUnAuthAddressPresenter(
     private val fieldValidator: FieldValidator,
-    private val countriesUseCase: GetCountriesUseCase,
+    countriesUseCase: GetCountriesUseCase,
     private val setShippingAddressUseCase: SetShippingAddressUseCase,
     createCustomerAddressUseCase: CreateCustomerAddressUseCase,
     editCustomerAddressUseCase: EditCustomerAddressUseCase

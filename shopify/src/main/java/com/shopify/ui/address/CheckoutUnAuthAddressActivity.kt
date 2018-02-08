@@ -82,6 +82,7 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
     override fun addressChanged(address: Address) {
         val result = Intent()
         result.putExtra(Extra.ADDRESS, address)
+        result.putExtra(Extra.IS_ADDRESS_CHANGED, true)
         setResult(Activity.RESULT_OK, result)
         finish()
     }
