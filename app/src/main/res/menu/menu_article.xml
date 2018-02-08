@@ -6,6 +6,7 @@
         android:id="@+id/share"
         android:icon="@drawable/ic_share_white"
         android:title="@string/share"
+        android:visible="false"
         app:showAsAction="ifRoom" />
 
 </menu>

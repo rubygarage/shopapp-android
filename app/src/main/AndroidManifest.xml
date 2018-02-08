@@ -3,7 +3,7 @@
     package="com.client.shop">
 
     <application
-        android:name=".MainApplication"
+        android:name=".ShopApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,25 +24,87 @@
         <activity
             android:name=".ui.home.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name="com.client.shop.ui.details.DetailsActivity" />
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ui.search.SearchActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name="com.client.shop.ui.product.ProductDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.SignInActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.SignUpActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.gallery.GalleryActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <activity android:name=".ui.blog.ArticleActivity" />
+        <activity
+            android:name=".ui.blog.ArticleActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.policy.PolicyActivity" />
+        <activity
+            android:name=".ui.policy.PolicyActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.recent.RecentActivity" />
+        <activity
+            android:name=".ui.product.ProductListActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".ui.blog.BlogActivity" />
+        <activity
+            android:name=".ui.category.CategoryActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.blog.BlogActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.cart.CartActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.ForgotPasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.order.list.OrderListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.order.details.OrderDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.PersonalInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.account.AccountSettingsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.order.success.OrderSuccessActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.address.AddressListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.address.AddressActivity"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ec1a2d2e6ae5cf3addf0ec8f67c34deb4a00cbea" />
 
     </application>
 

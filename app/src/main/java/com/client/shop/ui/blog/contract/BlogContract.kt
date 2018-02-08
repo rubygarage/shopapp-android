@@ -1,36 +1,22 @@
 package com.client.shop.ui.blog.contract
 
-import com.client.shop.ui.base.contract.BaseMvpView
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.rx.RxCallback
-import com.shopapicore.ShopApiCore
-import com.shopapicore.entity.Article
-import com.shopapicore.entity.SortType
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.domain.entity.Article
+import com.domain.interactor.blog.ArticleListUseCase
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface BlogView : BaseMvpView {
+interface BlogView : BaseLceView<List<Article>>
 
-    fun articleListLoaded(articleList: List<Article>)
-}
-
-class BlogPresenter @Inject constructor(private val shopApiCore: ShopApiCore) : BasePresenter<BlogView>() {
+class BlogPresenter @Inject constructor(private val articleListUseCase: ArticleListUseCase) :
+    BaseLcePresenter<List<Article>, BlogView>(articleListUseCase) {
 
     fun loadArticles(perPage: Int, paginationValue: String? = null) {
 
-        showProgress()
-
-        val call = Observable.create<List<Article>> { emitter ->
-            shopApiCore.getArticleList(perPage, paginationValue, SortType.RECENT, true, RxCallback<List<Article>>(emitter))
-        }
-
-        disposables.add(call
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (isViewAttached) {
-                        view.articleListLoaded(result)
-                    }
-                }, { _ -> hideProgress() }, { hideProgress() }))
+        articleListUseCase.execute(
+            { view?.showContent(it) },
+            { resolveError(it) },
+            ArticleListUseCase.Params(perPage, paginationValue)
+        )
     }
 }

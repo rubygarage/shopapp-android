@@ -6,12 +6,37 @@
     <dimen name="element_space">8dp</dimen>
     <dimen name="content_space">16dp</dimen>
     <dimen name="recycler_padding">3dp</dimen>
+    <dimen name="avatar_text_size">24sp</dimen>
+
+    <dimen name="error_padding">4dp</dimen>
 
     <dimen name="recent_container_height">200dp</dimen>
     <dimen name="recent_title_height">30dp</dimen>
-    <dimen name="recent_item_size">170dp</dimen>
+    <dimen name="product_item_size">170dp</dimen>
     <dimen name="recent_item_image_height">100dp</dimen>
 
     <dimen name="blog_title_height">30dp</dimen>
+
+    <dimen name="variant_border_width">1dp</dimen>
+    <dimen name="variant_border_radius">18dp</dimen>
+    <dimen name="variant_padding_vertical">6dp</dimen>
+    <dimen name="variant_padding_horizontal">12dp</dimen>
+    <dimen name="variant_margin">10dp</dimen>
+    <dimen name="variant_text_size">13sp</dimen>
+
+    <dimen name="search_swipe_refresh_progress_end_target">100dp</dimen>
+    <dimen name="cart_item_divider">4dp</dimen>
+    <dimen name="cart_total_price_view_height">50dp</dimen>
+
+    <dimen name="search_toolbar_expanded_line_margin_start">50dp</dimen>
+    <dimen name="search_toolbar_expanded_line_margin_end">16dp</dimen>
+    <dimen name="search_toolbar_collapsed_line_margin">60dp</dimen>
+    <dimen name="recycler_divider_space">6dp</dimen>
+    <dimen name="order_item_vertical_margin">20dp</dimen>
+    <dimen name="order_item_products_vertical_margin">19dp</dimen>
+    <dimen name="order_item_products_horizontal_margin">6dp</dimen>
+    <dimen name="order_details_product_item_vertical_margin">4dp</dimen>
+
+    <dimen name="sort_view_height">60dp</dimen>
 
 </resources>

@@ -1,47 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/recent_container_height">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/recent_title_height"
-        android:gravity="center"
-        android:text="@string/last_arrivals"
-        android:textColor="@color/textColorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/titleText"
+        style="@style/SectionTitle"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/recentProgress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+    <TextView
+        android:id="@+id/seeAll"
+        style="@style/SeeAllText"
+        android:text="@string/section_see_all"
+        app:layout_constraintBaseline_toBaselineOf="@+id/titleText"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/recent_item_size"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:paddingLeft="@dimen/recycler_padding"
-        android:paddingRight="@dimen/recycler_padding"
+        android:minHeight="@dimen/product_item_size"
+        android:paddingBottom="16dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
 </android.support.constraint.ConstraintLayout>

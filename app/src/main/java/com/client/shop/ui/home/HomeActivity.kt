@@ -2,116 +2,109 @@ package com.client.shop.ui.home
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
-import com.client.shop.ui.category.CategoryFragment
-import com.client.shop.ui.home.adapter.CategoriesAdapter
-import com.client.shop.ui.policy.PolicyActivity
-import com.shopapicore.entity.Category
-import com.shopapicore.entity.Policy
-import com.shopapicore.entity.Shop
+import com.client.shop.ui.account.AccountFragment
+import com.client.shop.ui.custom.SimpleOnTabSelectedListener
+import com.client.shop.ui.search.SearchWithCategoriesFragment
+import com.ui.ext.hideKeyboard
+import com.ui.ext.registerKeyboardVisibilityListener
+import com.ui.ext.replaceByTag
 import kotlinx.android.synthetic.main.activity_home.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 
-class HomeActivity : AppCompatActivity(), OnItemClickListener<Category> {
-
-    private var drawerToggle: ActionBarDrawerToggle? = null
+class HomeActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val EXTRA_SHOP = "EXTRA_SHOP"
-        private const val EXTRA_CATEGORIES = "EXTRA_CATEGORIES"
+        private const val CURRENT_SCREEN = "current_screen"
 
-        fun getStartIntent(context: Context, shop: Shop, categories: List<Category>): Intent {
+        private const val HOME = 0
+        private const val SEARCH = 1
+        private const val ACCOUNT = 2
+
+        fun getStartIntent(context: Context, isNewTask: Boolean = false): Intent {
             val intent = Intent(context, HomeActivity::class.java)
-            intent.putExtra(EXTRA_SHOP, shop)
-            intent.putParcelableArrayListExtra(EXTRA_CATEGORIES, ArrayList(categories))
+            if (isNewTask) {
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
             return intent
         }
     }
+
+    private var unregistrar: Unregistrar? = null
+    private var currentScreen: Int = HOME
+
+    //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        val shop: Shop = intent.getParcelableExtra(EXTRA_SHOP)
-        val categories: List<Category> = intent.getParcelableArrayListExtra(EXTRA_CATEGORIES)
-
-        setSupportActionBar(toolbar)
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setHomeButtonEnabled(true)
-        }
-        setupDrawerLayout()
-        setupRecyclerView(categories)
-        initShopInfo(shop.privacyPolicy, privacyPolicyLabel)
-        initShopInfo(shop.termsOfService, termsOfServiceLabel)
-
-        homeLabel.setOnClickListener {
-            drawerLayout.closeDrawer(Gravity.START)
-            supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commit()
-        }
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.content, HomeFragment()).commit()
-        }
+        currentScreen = savedInstanceState?.getInt(CURRENT_SCREEN, HOME) ?: HOME
+        setupNavigation()
+        switchFragment(currentScreen)
     }
 
-    private fun setupDrawerLayout() {
-        drawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.open_menu,
-                R.string.close_menu
-        ) {
-            override fun onDrawerClosed(view: View) {
-                super.onDrawerClosed(view)
+    override fun onResume() {
+        super.onResume()
+        unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
+            bottomTabNavigation.visibility = if (it) View.GONE else View.VISIBLE
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard()
+        unregistrar?.unregister()
+    }
+
+    override fun onBackPressed() {
+        if (bottomTabNavigation.selectedTabPosition == SEARCH) {
+            val searchFragment: Fragment? = supportFragmentManager.findFragmentByTag(SEARCH.toString())
+            if (searchFragment is SearchWithCategoriesFragment && searchFragment.onBackPressed()) {
+                selectTab(HOME)
             }
+        } else if (bottomTabNavigation.selectedTabPosition != HOME) {
+            selectTab(HOME)
+        } else {
+            finish()
+        }
+    }
 
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putInt(CURRENT_SCREEN, currentScreen)
+    }
+
+    //SETUP
+
+    private fun setupNavigation() {
+        bottomTabNavigation.getTabAt(currentScreen)?.select()
+        bottomTabNavigation.addOnTabSelectedListener(object : SimpleOnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                switchFragment(tab.position)
             }
-        }
+        })
     }
 
-    private fun setupRecyclerView(categories: List<Category>) {
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = CategoriesAdapter(categories, this)
-    }
-
-    private fun initShopInfo(policy: Policy?, view: View) {
-        if (policy != null) {
-            view.visibility = View.VISIBLE
-            view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(this, policy)) }
-        }
-    }
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        drawerToggle?.syncState()
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration?) {
-        super.onConfigurationChanged(newConfig)
-        drawerToggle?.onConfigurationChanged(newConfig)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            if (drawerToggle?.onOptionsItemSelected(item) == true) {
-                return true
+    private fun switchFragment(position: Int) {
+        currentScreen = position
+        supportFragmentManager.replaceByTag(R.id.content, position.toString(), {
+            when (position) {
+                HOME -> HomeFragment()
+                SEARCH -> SearchWithCategoriesFragment()
+                else -> AccountFragment()
             }
-        }
-        return super.onOptionsItemSelected(item)
+        }).commit()
     }
 
-    override fun onItemClicked(data: Category, position: Int) {
-        drawerLayout.closeDrawer(Gravity.START)
-        supportFragmentManager.beginTransaction().replace(R.id.content, CategoryFragment.newInstance(data)).commit()
+    private fun selectTab(position: Int) {
+        bottomTabNavigation.getTabAt(position)?.select()
     }
 }

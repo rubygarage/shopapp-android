@@ -2,16 +2,13 @@ package com.client.shop.ui.blog.adapter
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
-import com.client.shop.ui.base.ui.recycler.BaseRecyclerAdapter
-import com.client.shop.ui.base.ui.recycler.OnItemClickListener
 import com.client.shop.ui.item.ArticleItem
-import com.client.shop.ui.item.MoreItem
-import com.shopapicore.entity.Article
+import com.domain.entity.Article
+import com.ui.base.recycler.OnItemClickListener
+import com.ui.base.recycler.adapter.BaseRecyclerAdapter
 
-class BlogAdapter(dataList: List<Article>, onItemClickListener: OnItemClickListener<Article>,
-                  private val moreButtonListener: View.OnClickListener? = null) :
-        BaseRecyclerAdapter<Article>(dataList, onItemClickListener) {
+class BlogAdapter(dataList: List<Article>, onItemClickListener: OnItemClickListener) :
+    BaseRecyclerAdapter<Article>(dataList, onItemClickListener) {
 
     override fun getItemView(context: Context, viewType: Int) = ArticleItem(context)
 
@@ -19,13 +16,5 @@ class BlogAdapter(dataList: List<Article>, onItemClickListener: OnItemClickListe
         if (itemView is ArticleItem) {
             itemView.setArticle(data)
         }
-    }
-
-    override fun getFooterView(context: Context): View? {
-        val footer = MoreItem(context, height = ViewGroup.LayoutParams.WRAP_CONTENT)
-        if (moreButtonListener != null) {
-            footer.moreButton.setOnClickListener(moreButtonListener)
-        }
-        return footer
     }
 }

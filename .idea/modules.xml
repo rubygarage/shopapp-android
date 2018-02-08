@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shopapicore/shopapicore.iml" filepath="$PROJECT_DIR$/shopapicore/shopapicore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopclient-android.iml" filepath="$PROJECT_DIR$/shopclient-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shopifyapi/shopifyapi.iml" filepath="$PROJECT_DIR$/shopifyapi/shopifyapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopify/shopify.iml" filepath="$PROJECT_DIR$/shopify/shopify.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
     </modules>
   </component>
 </project>

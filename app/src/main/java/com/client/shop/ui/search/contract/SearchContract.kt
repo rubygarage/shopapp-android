@@ -1,44 +1,33 @@
 package com.client.shop.ui.search.contract
 
 import android.text.TextUtils
-import com.client.shop.ui.base.contract.BaseMvpView
-import com.client.shop.ui.base.contract.BasePresenter
-import com.client.shop.ui.base.rx.RxCallback
-import com.shopapicore.ShopApiCore
-import com.shopapicore.entity.Product
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.domain.entity.Product
+import com.domain.interactor.search.SearchUseCase
+import com.ui.base.contract.BaseLcePresenter
+import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SearchView : BaseMvpView {
+interface SearchView : BaseLceView<List<Product>> {
 
-    fun searchResultsReceived(productList: List<Product>, query: String)
+    fun hideProgress()
 }
 
-class SearchPresenter @Inject constructor(private val shopApiCore: ShopApiCore) : BasePresenter<SearchView>() {
+class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCase) :
+    BaseLcePresenter<List<Product>, SearchView>(searchUseCase) {
 
     fun search(perPage: Int, paginationValue: String?, query: String) {
 
         if (TextUtils.isEmpty(query)) {
-            view.searchResultsReceived(listOf(), query)
+            view?.showContent(listOf())
             return
         }
-
-        showProgress()
-
-        val call = Observable.create<List<Product>> { emitter ->
-            shopApiCore.searchProductList(perPage, paginationValue, query, RxCallback<List<Product>>(emitter))
-        }
-
-        val searchDisposable = call.observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result ->
-                    if (isViewAttached) {
-                        view.searchResultsReceived(result, query)
-                    }
-                }, { error ->
-                    error.printStackTrace()
-                    hideProgress()
-                }, { hideProgress() })
-        disposables.add(searchDisposable)
+        searchUseCase.execute(
+            { view?.showContent(it) },
+            {
+                it.printStackTrace()
+                view?.hideProgress()
+            },
+            SearchUseCase.Params(perPage, paginationValue, query)
+        )
     }
 }

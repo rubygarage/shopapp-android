@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        tools:layout_editor_absoluteY="25dp">
+
+        <com.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/emailInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:animateLayoutChanges="true"
+            android:hint="@string/email"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/emailInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:lines="1" />
+        </com.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/firstNameInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/name"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toStartOf="@+id/lastNameInputLayout"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/firstNameInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1" />
+        </com.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/lastNameInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/last_name"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/firstNameInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/emailInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/lastNameInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:lines="1" />
+        </com.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/phoneInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:hint="@string/phone_number"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstNameInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/phoneInput"
+                style="@style/TextInputEditText"
+                android:inputType="phone" />
+        </com.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/passwordInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:animateLayoutChanges="true"
+            android:hint="@string/create_password"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneInputLayout"
+            app:passwordToggleDrawable="@drawable/selector_password_visibility"
+            app:passwordToggleEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/passwordInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:max="1" />
+        </com.ui.custom.UpperCaseHintTextInputLayout>
+
+        <Button
+            android:id="@+id/createButton"
+            style="@style/PrimaryButton"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="52dp"
+            android:enabled="false"
+            android:text="@string/create_new_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
+
+        <TextView
+            android:id="@+id/policyText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="38dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@color/textColorPrimary"
+            android:textColorLink="@color/textColorPrimary"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/createButton"
+            tools:ignore="SmallSp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="20dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

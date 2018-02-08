@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:constantSize="false" android:dither="false" android:variablePadding="false">
+
+    <item android:drawable="@drawable/ic_radio_btn_selected" android:state_checked="true" />
+    <item android:drawable="@drawable/ic_radio_btn_hold" android:state_checked="false" android:state_pressed="true" />
+    <item android:drawable="@drawable/ic_radio_btn_disabled" android:state_checked="false" />
+
+</selector>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">domain</string>
+
+    <string name="visa">Visa</string>
+    <string name="mastercard">Mastercard</string>
+    <string name="american_express">American Express</string>
+    <string name="diners_club">Diners Club</string>
+    <string name="discover">Discover</string>
+    <string name="jcb">JCB</string>
+    <string name="china_union_pay">China UnionPay</string>
+</resources>

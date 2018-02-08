@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.client.shop.R
-import com.shopapicore.entity.Policy
+import com.domain.entity.Policy
 import kotlinx.android.synthetic.main.activity_policy.*
 
 class PolicyActivity : AppCompatActivity() {
@@ -28,21 +28,24 @@ class PolicyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_policy)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setSupportActionBar(toolbar)
+        policy = intent.getParcelableExtra(EXTRA_POLICY)
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(com.ui.R.drawable.ic_arrow_left)
+        }
 
         policy = intent.getParcelableExtra(EXTRA_POLICY)
-        title = policy.title
+        toolbar.setTitle(policy.title)
         body.text = policy.body
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         item?.let {
-            return when (item.itemId) {
-                android.R.id.home -> {
-                    onBackPressed()
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
+            if (item.itemId == android.R.id.home) {
+                onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)

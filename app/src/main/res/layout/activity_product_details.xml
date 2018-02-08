@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <requestFocus />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="50dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/dataContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/galleryContainer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="w,375:392"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/priceValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="@dimen/horizontal_space"
+                android:layout_marginStart="@dimen/horizontal_space"
+                android:layout_marginTop="@dimen/vertical_space"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@drawable/selector_text"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/galleryContainer" />
+
+            <TextView
+                android:id="@+id/productTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/horizontal_space"
+                android:layout_marginStart="@dimen/horizontal_space"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/textColorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/priceValue" />
+
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_space"
+                android:gravity="start"
+                android:labelFor="@id/quantityEditText"
+                android:text="@string/quantity_label"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="13sp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/quantityEditText"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="50dp"
+                android:text="@string/default_product_quantity"
+                android:textSize="13sp"
+                android:theme="@style/EditText"
+                app:layout_constraintStart_toEndOf="@+id/quantity"
+                app:layout_constraintTop_toBottomOf="@+id/productTitle" />
+
+            <com.client.shop.ui.product.view.OptionsGroupContainer
+                android:id="@+id/optionsContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
+
+            <View
+                android:id="@+id/descriptionDivider"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="@dimen/vertical_space"
+                android:background="@color/colorBackgroundDarkTranslucent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/optionsContainer" />
+
+            <TextView
+                android:id="@+id/descriptionLabel"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:drawableEnd="@drawable/ic_plus"
+                android:gravity="center_vertical"
+                android:paddingEnd="@dimen/horizontal_space"
+                android:paddingStart="@dimen/horizontal_space"
+                android:text="@string/description"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionDivider" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/horizontal_space"
+                android:layout_marginStart="@dimen/horizontal_space"
+                android:paddingBottom="@dimen/vertical_space"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
+
+            <View
+                android:id="@+id/relatedTopDivider"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:background="@color/colorBackgroundDarkTranslucent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/description" />
+
+            <FrameLayout
+                android:id="@+id/relatedContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/relatedBottomDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relatedTopDivider" />
+
+            <View
+                android:id="@+id/relatedBottomDivider"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:background="@color/colorBackgroundDarkTranslucent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/cartButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/selector_accent_button"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="@string/add_to_cart"
+        android:textColor="@drawable/selector_accent_button_text"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quantityEditText" />
+
+</FrameLayout>
