@@ -102,13 +102,13 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
 
     private fun setupPickers() {
         monthPicker = DateBottomSheetPicker.newInstance(DateBottomSheetPicker.DATE_TYPE_MONTH)
-        monthPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener {
+        monthPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<String> {
             override fun onDoneButtonClicked(selectedData: String) {
                 monthInput.setText(selectedData)
             }
         }
         yearPicker = DateBottomSheetPicker.newInstance(DateBottomSheetPicker.DATE_TYPE_YEAR)
-        yearPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener {
+        yearPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<String> {
             override fun onDoneButtonClicked(selectedData: String) {
                 yearInput.setText(selectedData)
             }
@@ -132,7 +132,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
         }
         yearInput.setOnClickListener {
             it.hideKeyboard()
-            yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR)
+            yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR, yearInput.text.toString())
         }
         submitButton.setOnClickListener {
             changeState(LceLayout.LceState.LoadingState(true))
@@ -157,7 +157,7 @@ class CardActivity : BaseActivity<Pair<Card, String>, CardView, CardPresenter>()
     }
 
     private fun showMonthPicker() {
-        monthPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_MONTH)
+        monthPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_MONTH, monthInput.text.toString())
     }
 
     private fun checkInputFields() {

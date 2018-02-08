@@ -53,4 +53,7 @@ interface Api {
     fun changePassword(password: String, callback: ApiCallback<Unit>)
 
     fun updateCustomerSettings(isAcceptMarketing: Boolean, callback: ApiCallback<Unit>)
+
+    fun getCountries(callback: ApiCallback<List<Country>>)
+
 }

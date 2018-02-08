@@ -20,6 +20,13 @@ object ErrorAdapter {
         }
     }
 
+    fun adaptErrors(adaptee: Throwable?): Error? {
+
+        return adaptee?.let {
+            it.message?.let { Error.NonCritical(it) }
+        }
+    }
+
     fun adaptUserError(adaptee: List<Storefront.UserError>?): Error? {
         return if (adaptee != null) {
             adaptee.firstOrNull()?.let { Error.NonCritical(it.message) }

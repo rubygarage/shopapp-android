@@ -1,6 +1,7 @@
 package com.domain.repository
 
 import com.domain.entity.Address
+import com.domain.entity.Country
 import com.domain.entity.Customer
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -28,8 +29,10 @@ interface AuthRepository {
     fun setDefaultShippingAddress(addressId: String): Completable
 
     fun editCustomer(firstName: String, lastName: String, phone: String): Single<Customer>
-    
+
     fun changePassword(password: String): Completable
+
+    fun getCountries(): Single<List<Country>>
 
     fun updateAccountSettings(isAcceptMarketing: Boolean): Completable
 }

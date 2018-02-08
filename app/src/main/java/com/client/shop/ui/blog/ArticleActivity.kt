@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebSettings
+import com.client.shop.BuildConfig
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ext.fitHtmlFrames
@@ -17,7 +18,6 @@ import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
 import com.client.shop.ui.blog.di.BlogModule
 import com.domain.entity.Article
-import com.shopify.ShopifyWrapper
 import com.ui.base.lce.BaseActivity
 import com.ui.ext.shareText
 import kotlinx.android.synthetic.main.activity_article.*
@@ -106,7 +106,7 @@ class ArticleActivity :
             val width = (content.width / Resources.getSystem().displayMetrics.density).toInt()
             var html = content.fitHtmlImages(data.contentHTML)
             html = content.fitHtmlFrames(html, (width * FRAME_HEIGHT_MULTIPLIER).toInt())
-            content.loadDataWithBaseURL(ShopifyWrapper.BASE_URL, html, "text/html", "UTF-8", null)
+            content.loadDataWithBaseURL(BuildConfig.BASE_URL, html, "text/html", "UTF-8", null)
         }
 
         author.text = data.author.fullName

@@ -1,8 +1,10 @@
 package com.ui.module.address.contract
 
 import com.domain.entity.Address
+import com.domain.entity.Country
 import com.domain.interactor.account.CreateCustomerAddressUseCase
 import com.domain.interactor.account.EditCustomerAddressUseCase
+import com.domain.interactor.account.GetCountriesUseCase
 import com.domain.interactor.base.UseCase
 import com.domain.validator.FieldValidator
 import com.ui.R
@@ -14,15 +16,19 @@ interface AddressView : BaseLceView<Address?> {
     fun addressChanged(address: Address)
 
     fun submitAddressError()
+
+    fun countriesLoaded(countries: List<Country>)
 }
 
 open class AddressPresenter<V : AddressView>(
     private val fieldValidator: FieldValidator,
+    private val countriesUseCase: GetCountriesUseCase,
     private val createCustomerAddressUseCase: CreateCustomerAddressUseCase,
     private val editCustomerAddressUseCase: EditCustomerAddressUseCase,
     vararg useCases: UseCase
 ) :
     BaseLcePresenter<Address?, V>(
+        countriesUseCase,
         createCustomerAddressUseCase,
         editCustomerAddressUseCase,
         *useCases
@@ -44,6 +50,14 @@ open class AddressPresenter<V : AddressView>(
             view?.submitAddressError()
             view?.showMessage(R.string.invalid_address)
         }
+    }
+
+    fun getCountriesList() {
+        countriesUseCase.execute(
+            {view.countriesLoaded(it)},
+            {},
+            Unit
+        )
     }
 
     private fun createCustomerAddress(address: Address) {

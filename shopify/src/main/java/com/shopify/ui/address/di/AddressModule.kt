@@ -16,11 +16,13 @@ class AddressModule {
     @Provides
     fun provideCheckoutUnAuthAddressPresenter(
         formValidator: FieldValidator,
+        countriesUseCase: GetCountriesUseCase,
         setShippingAddressUseCase: SetShippingAddressUseCase,
         createCustomerAddressUseCase: CreateCustomerAddressUseCase,
         editCustomerAddressUseCase: EditCustomerAddressUseCase
     ): CheckoutUnAuthAddressPresenter = CheckoutUnAuthAddressPresenter(
         formValidator,
+        countriesUseCase,
         setShippingAddressUseCase,
         createCustomerAddressUseCase,
         editCustomerAddressUseCase
@@ -44,11 +46,13 @@ class AddressModule {
     @Provides
     fun provideAddressPresenter(
         formValidator: FieldValidator,
+        countriesUseCase: GetCountriesUseCase,
         createCustomerAddressUseCase: CreateCustomerAddressUseCase,
         editCustomerAddressUseCase: EditCustomerAddressUseCase
     ): AddressPresenter<AddressView> =
         AddressPresenter(
             formValidator,
+            countriesUseCase,
             createCustomerAddressUseCase,
             editCustomerAddressUseCase
         )

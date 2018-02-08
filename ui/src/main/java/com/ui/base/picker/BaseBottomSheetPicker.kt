@@ -2,18 +2,24 @@ package com.ui.base.picker
 
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ui.R
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 
-open class BaseBottomSheetPicker : BottomSheetDialogFragment() {
+abstract class BaseBottomSheetPicker<T> : BottomSheetDialogFragment() {
 
-    private val dataList: MutableList<String> = mutableListOf()
-    private lateinit var adapter: BottomSheetPickerAdapter
-    var onDoneButtonClickedListener: OnDoneButtonClickedListener? = null
+    protected val adapter: BottomSheetPickerAdapter<T> by lazy {
+        getPickerAdapter()
+    }
+
+    private lateinit var manager: RecyclerView.LayoutManager
+
+    var onDoneButtonClickedListener: OnDoneButtonClickedListener<T>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.bottom_sheet_picker, container, false)
@@ -28,21 +34,27 @@ open class BaseBottomSheetPicker : BottomSheetDialogFragment() {
             }
             dismiss()
         }
-        adapter = BottomSheetPickerAdapter(dataList)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = manager
         recyclerView.adapter = adapter
     }
 
-    fun setData(dataList: List<String>) {
-        this.dataList.clear()
-        this.dataList.addAll(dataList)
-        if (this::adapter.isInitialized) {
-            adapter.notifyDataSetChanged()
-        }
+    abstract fun getPickerAdapter(): BottomSheetPickerAdapter<T>
+
+    fun setData(dataList: List<T>) {
+        adapter.dataList.clear()
+        adapter.dataList.addAll(dataList)
+        adapter.notifyDataSetChanged()
     }
 
-    interface OnDoneButtonClickedListener {
+    fun show(fragmentManager: FragmentManager?, tag: String?, selectedTitle: String) {
+        val index = adapter.setSelected(selectedTitle)
+        manager = LinearLayoutManager(context)
+        manager.scrollToPosition(index)
+        super.show(fragmentManager, tag)
+    }
 
-        fun onDoneButtonClicked(selectedData: String)
+    interface OnDoneButtonClickedListener<in T> {
+
+        fun onDoneButtonClicked(selectedData: T)
     }
 }

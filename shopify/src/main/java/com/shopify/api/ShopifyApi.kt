@@ -7,12 +7,18 @@ import com.domain.entity.*
 import com.domain.network.Api
 import com.domain.network.ApiCallback
 import com.google.android.gms.wallet.FullWallet
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.shopify.ShopifyWrapper
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QueryCallWrapper
 import com.shopify.api.entity.AccessData
+import com.shopify.api.entity.ApiCountry
+import com.shopify.api.entity.ApiCountryResponse
 import com.shopify.api.ext.isSingleOptions
+import com.shopify.api.retrofit.CountriesService
+import com.shopify.api.retrofit.RestClient
 import com.shopify.buy3.*
 import com.shopify.buy3.pay.PayAddress
 import com.shopify.buy3.pay.PayCart
@@ -21,20 +27,27 @@ import com.shopify.buy3.pay.PaymentToken
 import com.shopify.entity.Checkout
 import com.shopify.entity.ShippingRate
 import com.shopify.graphql.support.ID
+import com.shopify.util.AssetsReader
 import net.danlew.android.joda.JodaTimeAndroid
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.io.IOException
 import java.math.BigDecimal
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
+class ShopifyApi(private val context: Context, baseUrl: String, accessToken: String) : Api {
 
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val graphClient: GraphClient = GraphClient.builder(context)
         .shopDomain(baseUrl)
         .accessToken(accessToken)
         .build()
+
+    private val retrofit: Retrofit = RestClient.providesRetrofit()
 
     init {
         JodaTimeAndroid.init(context)
@@ -51,6 +64,8 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
         private const val PRODUCT_TYPE_FILTER_KEY = "product_type:"
         private const val TITLE_FILTER_KEY = "title:"
         private const val AND_LOGICAL_KEY = "AND"
+        private const val REST_OF_WORLD = "Rest of World"
+        private const val COUNTRIES_FILE_NAME = "countries.json"
     }
 
     private fun saveSession(accessData: AccessData) {
@@ -135,6 +150,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                     }
                 }
         }
+
 
         val call = graphClient.queryGraph(query)
         call.enqueue(object : QueryCallWrapper<Product>(callback) {
@@ -572,11 +588,40 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                         } else {
                             return Unit
                         }
-                        return null
+                        return Unit
                     }
                 }
             })
         }
+    }
+
+    override fun getCountries(callback: ApiCallback<List<Country>>) {
+        val countryService = retrofit.create(CountriesService::class.java)
+
+        countryService.recentDrives().enqueue(object : Callback<ApiCountryResponse> {
+            override fun onResponse(call: Call<ApiCountryResponse>?, response: Response<ApiCountryResponse>?) {
+                if (response != null && response.isSuccessful) {
+                    if (response.body() != null) {
+                        val countries = CountryListAdapter.adapt(response.body()?.countries)
+                        if (countries.any { it.name == REST_OF_WORLD }) {
+                            callback.onResult(CountryListAdapter.adapt(getAllCountriesList()))
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ApiCountryResponse>?, t: Throwable?) {
+                val error = ErrorAdapter.adaptErrors(t)
+                if (error != null) {
+                    callback.onFailure(error)
+                }
+            }
+        })
+    }
+
+    private fun getAllCountriesList(): List<ApiCountry> {
+        val countriesType = object : TypeToken<List<ApiCountry>>() {}.type
+        return Gson().fromJson(AssetsReader.read(ShopifyApi.COUNTRIES_FILE_NAME, context), countriesType)
     }
 
     private fun requestToken(email: String, password: String): Pair<AccessData?, Error?>? {
@@ -853,7 +898,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
                 val countryCode = response.data()?.shop?.paymentSettings?.countryCode?.name ?: ""
 
                 val payCartBuilder = PayCart.builder()
-                    .merchantName(ShopifyWrapper.BASE_URL)
+                    .merchantName(BuildConfig.BASE_DOMAIN)
                     .currencyCode(currency)
                     .shippingAddressRequired(checkout.requiresShipping)
                     .countryCode(countryCode)
@@ -889,7 +934,7 @@ class ShopifyApi(context: Context, baseUrl: String, accessToken: String) : Api {
 
     fun completeCheckoutByAndroid(checkout: Checkout, payCart: PayCart, fullWallet: FullWallet, callback: ApiCallback<Boolean>) {
 
-        val paymentToken: PaymentToken = PayHelper.extractPaymentToken(fullWallet, ShopifyWrapper.ANDROID_PAY_PUBLIC_KEY)
+        val paymentToken: PaymentToken = PayHelper.extractPaymentToken(fullWallet, BuildConfig.ANDROID_PAY_PUBLIC_KEY)
         val billingAddress = PayAddress.fromUserAddress(fullWallet.buyerBillingAddress)
         val idempotencyKey: String = UUID.randomUUID().toString()
 

@@ -15,10 +15,12 @@ class AddressModule {
     @Provides
     fun provideAddressPresenter(
         formValidator: FieldValidator,
+        countriesUseCase: GetCountriesUseCase,
         createCustomerAddressUseCase: CreateCustomerAddressUseCase,
         editCustomerAddressUseCase: EditCustomerAddressUseCase
     ): AddressPresenter<AddressView> = AddressPresenter(
         formValidator,
+        countriesUseCase,
         createCustomerAddressUseCase,
         editCustomerAddressUseCase
     )

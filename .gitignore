@@ -49,6 +49,9 @@ projectFilesBackup/.idea
 # Keystore properties
 **/keystore.properties
 
+# Access properties
+**/access.properties
+
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
 
