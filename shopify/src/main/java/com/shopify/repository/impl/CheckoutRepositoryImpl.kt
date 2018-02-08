@@ -1,10 +1,7 @@
 package com.shopify.repository.impl
 
 import com.data.rx.RxCallbackSingle
-import com.domain.entity.Address
-import com.domain.entity.Card
-import com.domain.entity.CartProduct
-import com.domain.entity.Order
+import com.domain.entity.*
 import com.google.android.gms.wallet.FullWallet
 import com.shopify.api.ShopifyApi
 import com.shopify.buy3.pay.PayCart
@@ -42,6 +39,12 @@ class CheckoutRepositoryImpl(private val api: ShopifyApi) : CheckoutRepository {
     override fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout> {
         return Single.create<Checkout> {
             api.selectShippingRate(checkoutId, shippingRate, RxCallbackSingle<Checkout>(it))
+        }
+    }
+
+    override fun getAcceptedCardTypes(): Single<List<CardType>> {
+        return Single.create<List<CardType>> {
+            api.getAcceptedCardTypes(RxCallbackSingle(it))
         }
     }
 

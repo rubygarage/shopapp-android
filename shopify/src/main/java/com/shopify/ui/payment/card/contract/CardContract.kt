@@ -2,24 +2,42 @@ package com.shopify.ui.payment.card.contract
 
 import android.support.annotation.StringRes
 import com.domain.entity.Card
+import com.domain.entity.CardType
 import com.domain.validator.CardValidator
 import com.shopify.api.R
 import com.shopify.interactor.checkout.CheckCreditCardUseCase
+import com.shopify.interactor.checkout.GetAcceptedCardTypesUseCase
 import com.ui.base.contract.BaseLcePresenter
 import com.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface CardView : BaseLceView<Pair<Card, String>> {
+interface CardView : BaseLceView<List<CardType>> {
+
+    fun cardTokenReceived(data: Pair<Card, String>)
 
     fun cardPassValidation(card: Card)
 
     fun cardValidationError(@StringRes error: Int)
 }
 
-class CardPresenter @Inject constructor(private val checkCreditCardUseCase: CheckCreditCardUseCase) :
-    BaseLcePresenter<Pair<Card, String>, CardView>(checkCreditCardUseCase) {
+class CardPresenter @Inject constructor(
+    private val checkCreditCardUseCase: CheckCreditCardUseCase,
+    private val getAcceptedCardTypesUseCase: GetAcceptedCardTypesUseCase
+) :
+    BaseLcePresenter<List<CardType>, CardView>(
+        checkCreditCardUseCase,
+        getAcceptedCardTypesUseCase
+    ) {
 
     private val cardValidator: CardValidator = CardValidator()
+
+    fun getAcceptedCardTypes() {
+        getAcceptedCardTypesUseCase.execute(
+            { view?.showContent(it) },
+            { resolveError(it) },
+            Unit
+        )
+    }
 
     fun processCardData(holderName: String, cardNumber: String, cardMonth: String,
                         cardYear: String, cardCvv: String) {
@@ -47,7 +65,7 @@ class CardPresenter @Inject constructor(private val checkCreditCardUseCase: Chec
 
     fun getToken(card: Card) {
         checkCreditCardUseCase.execute(
-            { view?.showContent(Pair(card, it)) },
+            { view?.cardTokenReceived(Pair(card, it)) },
             { resolveError(it) },
             card
         )
