@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
@@ -31,6 +32,7 @@ class PopularFragment :
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RELEVANT
     private lateinit var adapter: ProductListAdapter
+    var visibilityListener: FragmentVisibilityListener? = null
 
     companion object {
         private const val SPAN_COUNT = 2
@@ -77,14 +79,16 @@ class PopularFragment :
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-
-        productList.clear()
-        if (data.size >= MAX_ITEMS) {
-            productList.addAll(data.subList(0, MAX_ITEMS))
-        } else {
-            productList.addAll(data)
+        visibilityListener?.changeVisibility(data.isNotEmpty())
+        if (data.isNotEmpty()) {
+            productList.clear()
+            if (data.size >= MAX_ITEMS) {
+                productList.addAll(data.subList(0, MAX_ITEMS))
+            } else {
+                productList.addAll(data)
+            }
+            adapter.notifyDataSetChanged()
         }
-        adapter.notifyDataSetChanged()
     }
 
     //CALLBACK
