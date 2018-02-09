@@ -54,8 +54,8 @@ open class AddressPresenter<V : AddressView>(
 
     fun getCountriesList() {
         countriesUseCase.execute(
-            {view.countriesLoaded(it)},
-            {view.showError(true)},
+            { view.countriesLoaded(it) },
+            { resolveError(it) },
             Unit
         )
     }

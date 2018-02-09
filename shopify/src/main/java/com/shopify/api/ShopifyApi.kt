@@ -105,7 +105,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         val reverse = sortBy == SortType.RECENT
         var phrase = keyword
         if (sortBy == SortType.TYPE && keyword != null) {
-            phrase = "-$TITLE_FILTER_KEY'$excludeKeyword' $AND_LOGICAL_KEY $PRODUCT_TYPE_FILTER_KEY'$keyword'"
+            phrase = "-$TITLE_FILTER_KEY\"$excludeKeyword\" $AND_LOGICAL_KEY $PRODUCT_TYPE_FILTER_KEY\"$keyword\""
         }
         queryProducts(perPage, paginationValue, phrase, reverse, sortBy, callback)
     }
@@ -599,21 +599,23 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
 
         countryService.recentDrives().enqueue(object : Callback<ApiCountryResponse> {
             override fun onResponse(call: Call<ApiCountryResponse>?, response: Response<ApiCountryResponse>?) {
-                if (response != null && response.isSuccessful) {
-                    if (response.body() != null) {
+                if (response != null) {
+
+                    if (response.isSuccessful && response.body() != null) {
                         val countries = CountryListAdapter.adapt(response.body()?.countries)
                         if (countries.any { it.name == REST_OF_WORLD }) {
                             callback.onResult(CountryListAdapter.adapt(getAllCountriesList()))
                         }
                     }
+
+                    if (response.errorBody() != null) {
+                        callback.onFailure(Error.Content())
+                    }
                 }
             }
 
             override fun onFailure(call: Call<ApiCountryResponse>?, t: Throwable?) {
-                val error = ErrorAdapter.adaptErrors(t)
-                if (error != null) {
-                    callback.onFailure(error)
-                }
+                callback.onFailure(Error.Content())
             }
         })
     }
