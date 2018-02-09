@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
@@ -53,6 +54,7 @@ class ProductHorizontalFragment :
     private var keyword: String? = null
     private var excludeKeyword: String? = null
     private lateinit var adapter: ProductListAdapter
+    var visibilityListener: FragmentVisibilityListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,10 +119,13 @@ class ProductHorizontalFragment :
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-        productList.clear()
-        productList.addAll(data)
-        adapter.notifyDataSetChanged()
-        changeSeeAllState()
+        visibilityListener?.changeVisibility(data.isNotEmpty())
+        if (data.isNotEmpty()) {
+            productList.clear()
+            productList.addAll(data)
+            adapter.notifyDataSetChanged()
+            changeSeeAllState()
+        }
     }
 
     //CALLBACK
