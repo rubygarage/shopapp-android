@@ -9,7 +9,6 @@ import com.domain.network.ApiCallback
 import com.google.android.gms.wallet.FullWallet
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.shopify.ShopifyWrapper
 import com.shopify.api.adapter.*
 import com.shopify.api.call.MutationCallWrapper
 import com.shopify.api.call.QueryCallWrapper
@@ -106,7 +105,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         val reverse = sortBy == SortType.RECENT
         var phrase = keyword
         if (sortBy == SortType.TYPE && keyword != null) {
-            phrase = "-$TITLE_FILTER_KEY$excludeKeyword $AND_LOGICAL_KEY $PRODUCT_TYPE_FILTER_KEY$keyword"
+            phrase = "-$TITLE_FILTER_KEY'$excludeKeyword' $AND_LOGICAL_KEY $PRODUCT_TYPE_FILTER_KEY'$keyword'"
         }
         queryProducts(perPage, paginationValue, phrase, reverse, sortBy, callback)
     }
