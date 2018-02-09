@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
+import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.popular.PopularFragment
 import com.client.shop.ui.product.ProductHorizontalFragment
@@ -38,24 +39,41 @@ class HomeFragment :
         super.onViewCreated(view, savedInstanceState)
 
         refreshLayout.setOnRefreshListener(this)
-
         childFragmentManager.replaceOnce(R.id.recentContainer,
             ProductHorizontalFragment::javaClass.name,
             {
                 val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
                 productHorizontalFragment = fragment
+                productHorizontalFragment?.visibilityListener = object : FragmentVisibilityListener {
+                    override fun changeVisibility(isVisible: Boolean) {
+                        recentContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+                    }
+
+                }
                 fragment
             }).commit()
         childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name,
             {
                 val fragment = PopularFragment()
                 popularFragment = fragment
+                popularFragment?.visibilityListener = object : FragmentVisibilityListener {
+                    override fun changeVisibility(isVisible: Boolean) {
+                        popularContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+                    }
+
+                }
                 fragment
             }).commit()
+
         childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name,
             {
                 val fragment = BlogFragment()
                 blogFragment = fragment
+                blogFragment?.visibilityListener = object : FragmentVisibilityListener {
+                    override fun changeVisibility(isVisible: Boolean) {
+                        blogContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+                    }
+                }
                 fragment
             }).commit()
     }

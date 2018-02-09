@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
@@ -26,6 +27,7 @@ class BlogFragment :
     lateinit var blogPresenter: BlogPresenter
     private var articleList = mutableListOf<Article>()
     private lateinit var adapter: BlogAdapter
+    var visibilityListener: FragmentVisibilityListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,10 +79,13 @@ class BlogFragment :
 
     override fun showContent(data: List<Article>) {
         super.showContent(data)
-        this.articleList.clear()
-        this.articleList.addAll(data)
-        adapter.notifyDataSetChanged()
-        changeSeeAllState()
+        visibilityListener?.changeVisibility(data.isNotEmpty())
+        if (data.isNotEmpty()) {
+            this.articleList.clear()
+            this.articleList.addAll(data)
+            adapter.notifyDataSetChanged()
+            changeSeeAllState()
+        }
     }
 
     //CALLBACK

@@ -14,6 +14,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.gallery.GalleryFragment
 import com.client.shop.ui.product.contract.DetailsPresenter
 import com.client.shop.ui.product.contract.DetailsView
@@ -182,6 +183,12 @@ class ProductDetailsActivity :
         optionsContainer.setProduct(data, intent.getParcelableExtra(EXTRA_PRODUCT_VARIANT))
 
         val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type, data.title)
+        relatedFragment.visibilityListener = object : FragmentVisibilityListener {
+            override fun changeVisibility(isVisible: Boolean) {
+                relatedContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
+            }
+
+        }
         supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment).commit()
     }
 
