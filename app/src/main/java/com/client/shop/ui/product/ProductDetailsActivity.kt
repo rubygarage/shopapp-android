@@ -187,7 +187,6 @@ class ProductDetailsActivity :
             override fun changeVisibility(isVisible: Boolean) {
                 relatedContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
             }
-
         }
         supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment).commit()
     }

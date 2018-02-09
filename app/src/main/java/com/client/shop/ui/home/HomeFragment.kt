@@ -48,7 +48,6 @@ class HomeFragment :
                     override fun changeVisibility(isVisible: Boolean) {
                         recentContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
                     }
-
                 }
                 fragment
             }).commit()
@@ -60,7 +59,6 @@ class HomeFragment :
                     override fun changeVisibility(isVisible: Boolean) {
                         popularContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
                     }
-
                 }
                 fragment
             }).commit()
