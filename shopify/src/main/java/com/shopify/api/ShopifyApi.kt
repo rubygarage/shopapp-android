@@ -105,7 +105,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         val reverse = sortBy == SortType.RECENT
         var phrase = keyword
         if (sortBy == SortType.TYPE && keyword != null) {
-            phrase = "-$TITLE_FILTER_KEY'$excludeKeyword' $AND_LOGICAL_KEY $PRODUCT_TYPE_FILTER_KEY'$keyword'"
+            phrase = "-$TITLE_FILTER_KEY\"$excludeKeyword\" $AND_LOGICAL_KEY $PRODUCT_TYPE_FILTER_KEY\"$keyword\""
         }
         queryProducts(perPage, paginationValue, phrase, reverse, sortBy, callback)
     }
