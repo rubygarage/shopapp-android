@@ -1,8 +1,8 @@
 package com.domain.repository
 
-import com.domain.entity.Address
-import com.domain.entity.Country
-import com.domain.entity.Customer
+import com.client.shop.getaway.entity.Address
+import com.client.shop.getaway.entity.Country
+import com.client.shop.getaway.entity.Customer
 import io.reactivex.Completable
 import io.reactivex.Single
 

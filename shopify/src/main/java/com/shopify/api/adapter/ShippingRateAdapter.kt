@@ -1,7 +1,7 @@
 package com.shopify.api.adapter
 
 import com.shopify.buy3.Storefront
-import com.shopify.entity.ShippingRate
+import com.client.shop.getaway.entity.ShippingRate
 
 object ShippingRateAdapter {
 

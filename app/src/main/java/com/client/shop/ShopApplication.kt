@@ -4,14 +4,11 @@ import android.support.multidex.MultiDexApplication
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
 import com.client.shop.di.module.RepositoryModule
-import com.client.shop.di.module.RouterModule
-import com.client.shop.router.AppRouterImpl
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.data.dao.DaoImpl
-import com.domain.router.AppRouter
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.shopify.ShopifyWrapper
+import com.shopify.api.ShopifyApi
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 
@@ -25,13 +22,11 @@ class ShopApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        val appRouter: AppRouter = AppRouterImpl()
+        val api = ShopifyApi(this, BuildConfig.BASE_DOMAIN, BuildConfig.ACCESS_TOKEN)
         val dao = DaoImpl(this)
-        val shopWrapper = ShopifyWrapper(this, dao, appRouter)
 
         appComponent = DaggerAppComponent.builder()
-            .routerModule(RouterModule(shopWrapper))
-            .repositoryModule(RepositoryModule(shopWrapper.api, dao))
+            .repositoryModule(RepositoryModule(api, dao))
             .build()
 
         setupFresco()

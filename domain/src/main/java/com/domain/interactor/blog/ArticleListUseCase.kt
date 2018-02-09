@@ -1,7 +1,7 @@
 package com.domain.interactor.blog
 
-import com.domain.entity.Article
-import com.domain.entity.SortType
+import com.client.shop.getaway.entity.Article
+import com.client.shop.getaway.entity.SortType
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.BlogRepository
 import io.reactivex.Single

@@ -1,0 +1,326 @@
+package com.client.shop.ui.checkout
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.support.v4.app.TaskStackBuilder
+import android.view.View
+import com.client.shop.R
+import com.client.shop.ShopApplication
+import com.client.shop.ext.registerKeyboardVisibilityListener
+import com.client.shop.ui.address.checkout.CheckoutAddressListActivity
+import com.client.shop.ui.address.checkout.CheckoutUnAuthAddressActivity
+import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.view.LceLayout
+import com.client.shop.ui.checkout.contract.CheckoutPresenter
+import com.client.shop.ui.checkout.contract.CheckoutView
+import com.client.shop.ui.checkout.di.CheckoutModule
+import com.client.shop.ui.checkout.payment.PaymentActivity
+import com.client.shop.ui.checkout.payment.card.CardActivity
+import com.client.shop.ui.checkout.view.CheckoutEmailView
+import com.client.shop.ui.checkout.view.CheckoutShippingOptionsView
+import com.client.shop.ui.const.PaymentType
+import com.client.shop.ui.const.RequestCode
+import com.client.shop.ui.home.HomeActivity
+import com.client.shop.ui.order.success.OrderSuccessActivity
+import com.client.shop.getaway.entity.*
+import com.shopify.constant.Extra
+import kotlinx.android.synthetic.main.activity_checkout.*
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
+import java.math.BigDecimal
+import javax.inject.Inject
+
+class CheckoutActivity :
+    BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
+    CheckoutView,
+    CheckoutShippingOptionsView.OnOptionSelectedListener,
+    CheckoutEmailView.EmailChangeListener {
+
+    companion object {
+        fun getStartIntent(context: Context) = Intent(context, CheckoutActivity::class.java)
+    }
+
+    @Inject
+    lateinit var checkoutPresenter: CheckoutPresenter
+    private var checkout: Checkout? = null
+    private var customer: Customer? = null
+    private var unregistrar: Unregistrar? = null
+
+    //ANDROID
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setTitle(getString(R.string.checkout))
+        setupShippingAddressViewListeners()
+        setupPaymentViewListeners()
+        setupListeners()
+        loadData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        unregistrar = registerKeyboardVisibilityListener(KeyboardVisibilityEventListener {
+            placeOrderButton.visibility = if (it) View.INVISIBLE else View.VISIBLE
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        unregistrar?.unregister()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val isAddShippingAddress = requestCode == RequestCode.ADD_SHIPPING_ADDRESS
+        val isEditShippingAddress = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
+        val isAddBillingAddress = requestCode == RequestCode.ADD_BILLING_ADDRESS
+        val isEditBillingAddress = requestCode == RequestCode.EDIT_BILLING_ADDRESS
+        val isPayment = requestCode == RequestCode.PAYMENT
+        val isCard = requestCode == RequestCode.CARD
+        val isOkResult = resultCode == Activity.RESULT_OK
+
+        val isAddressChanged = data?.getBooleanExtra(Extra.IS_ADDRESS_CHANGED, false) ?: false
+        val isClearShippingAddress = data?.getBooleanExtra(Extra.CLEAR_SHIPPING, false) ?: false
+        val isClearBillingAddress = data?.getBooleanExtra(Extra.CLEAR_BILLING, false) ?: false
+
+        if ((isAddShippingAddress || isEditShippingAddress) && isOkResult && isAddressChanged) {
+            loadData()
+        } else if (isPayment && isOkResult) {
+            val paymentType: PaymentType? = data?.getSerializableExtra(Extra.PAYMENT_TYPE) as? PaymentType
+            paymentView.setPaymentType(paymentType)
+        } else if (isCard && isOkResult) {
+            val card: Card? = data?.getParcelableExtra(Extra.CARD)
+            val cardToken: String? = data?.getStringExtra(Extra.CARD_TOKEN)
+            paymentView.setCardData(card, cardToken)
+        } else if ((isAddBillingAddress || isEditBillingAddress) && isOkResult && isAddressChanged) {
+            val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
+            paymentView.setAddressData(address)
+        }
+
+        if (isClearBillingAddress) {
+            paymentView.setAddressData(null)
+        } else if (isClearShippingAddress) {
+            shippingAddressView.setAddress(null)
+            shippingOptionsView.unSelectAddress()
+        }
+
+        verifyCheckoutData()
+    }
+
+    //INIT
+
+    override fun inject() {
+        ShopApplication.appComponent.attachCheckoutComponent(CheckoutModule()).inject(this)
+    }
+
+    override fun getContentView() = R.layout.activity_checkout
+
+    override fun createPresenter() = checkoutPresenter
+
+    override fun useModalStyle() = true
+
+    //SETUP
+
+    private fun setupShippingAddressViewListeners() {
+        shippingAddressView.setClickListeners(
+            editClickListener = View.OnClickListener {
+                checkout?.let {
+                    val address = it.address
+                    if (customer != null) {
+                        startActivityForResult(
+                            CheckoutAddressListActivity.getStartIntent(
+                                context = this,
+                                checkoutId = it.checkoutId,
+                                selectedAddress = address,
+                                isShippingAddress = true,
+                                shippingAddress = null,
+                                billingAddress = paymentView.getAddress()
+                            ),
+                            RequestCode.EDIT_SHIPPING_ADDRESS
+                        )
+                    } else if (address != null) {
+                        checkout?.let {
+                            startActivityForResult(
+                                CheckoutUnAuthAddressActivity.getStartIntent(
+                                    this,
+                                    it.checkoutId,
+                                    address,
+                                    true),
+                                RequestCode.EDIT_SHIPPING_ADDRESS
+                            )
+                        }
+                    }
+                }
+            },
+            addAddressClickListener = View.OnClickListener {
+                checkout?.let {
+                    if (customer != null) {
+                        startActivityForResult(
+                            CheckoutAddressListActivity.getStartIntent(
+                                context = this,
+                                checkoutId = it.checkoutId,
+                                selectedAddress = shippingAddressView.getAddress(),
+                                isShippingAddress = true,
+                                shippingAddress = null,
+                                billingAddress = paymentView.getAddress()
+                            ),
+                            RequestCode.EDIT_SHIPPING_ADDRESS
+                        )
+                    } else {
+                        startActivityForResult(
+                            CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
+                            RequestCode.ADD_SHIPPING_ADDRESS
+                        )
+                    }
+                }
+            }
+        )
+    }
+
+    private fun setupPaymentViewListeners() {
+        paymentView.setClickListeners(
+            paymentClickListener = View.OnClickListener {
+                startActivityForResult(PaymentActivity.getStartIntent(this, paymentView.getPaymentType()), RequestCode.PAYMENT)
+            },
+            cardClickListener = View.OnClickListener {
+                startActivityForResult(CardActivity.getStartIntent(this, paymentView.getCardData().first), RequestCode.CARD)
+            },
+            addAddressClickListener = View.OnClickListener {
+                if (customer != null) {
+                    startActivityForResult(CheckoutAddressListActivity.getStartIntent(
+                        context = this,
+                        selectedAddress = paymentView.getAddress(),
+                        isShippingAddress = false,
+                        shippingAddress = checkout?.address,
+                        billingAddress = null
+                    ),
+                        RequestCode.EDIT_BILLING_ADDRESS
+                    )
+                } else {
+                    startActivityForResult(CheckoutUnAuthAddressActivity.getStartIntent(
+                        context = this,
+                        address = paymentView.getAddress(),
+                        isShipping = false
+                    ),
+                        RequestCode.ADD_BILLING_ADDRESS
+                    )
+                }
+            }
+        )
+    }
+
+    private fun setupListeners() {
+        checkoutEmailView.emailChangeListener = this
+        shippingOptionsView.onOptionSelectedListener = this
+
+        val placeOrderClickListener = View.OnClickListener {
+            placeOrderButton.visibility = View.VISIBLE
+            failureView.visibility = View.GONE
+            when (paymentView.getPaymentType()) {
+                PaymentType.CARD_PAYMENT -> {
+                    val email = checkoutEmailView.getEmail()
+                    val billingAddress = paymentView.getAddress()
+                    val cardToken = paymentView.getCardData().second
+                    presenter.completeCheckoutByCard(checkout, email, billingAddress, cardToken)
+                }
+            }
+        }
+
+        placeOrderButton.setOnClickListener(placeOrderClickListener)
+        failureView.setListeners(
+            tryAgainClickListener = placeOrderClickListener,
+            backToShopClickListener = View.OnClickListener {
+                startActivity(HomeActivity.getStartIntent(this, true))
+            }
+        )
+    }
+
+    private fun verifyCheckoutData() {
+        val shippingAddress = shippingAddressView.getAddress()
+        val email = checkoutEmailView.getEmail()
+        val paymentType = paymentView.getPaymentType()
+        val cardData = paymentView.getCardData()
+        val shippingData = paymentView.getAddress()
+        presenter.verifyCheckoutData(checkout, shippingAddress, email, paymentType, cardData.first,
+            cardData.second, shippingData)
+    }
+
+    //LCE
+
+    override fun loadData(pullToRefresh: Boolean) {
+        super.loadData(pullToRefresh)
+        val checkout = this.checkout
+        if (checkout != null) {
+            presenter.getCheckout(checkout.checkoutId)
+        } else {
+            presenter.getCartProductList()
+        }
+    }
+
+    override fun showContent(data: Checkout) {
+        super.showContent(data)
+        checkout = data
+        shippingAddressView.setAddress(data.address)
+        priceView.setData(
+            data.subtotalPrice, BigDecimal.ZERO,
+            data.shippingRate?.price ?: BigDecimal.ZERO, data.totalPrice, data.currency
+        )
+        if (data.address != null) {
+            presenter.getShippingRates(data.checkoutId)
+        } else {
+            shippingOptionsView.unSelectAddress()
+        }
+        verifyCheckoutData()
+    }
+
+    override fun customerReceived(customer: Customer?) {
+        this.customer = customer
+        checkoutEmailView.setData(customer)
+    }
+
+    override fun cartProductListReceived(cartProductList: List<CartProduct>) {
+        myCartView.setData(cartProductList)
+    }
+
+    override fun shippingRatesReceived(shippingRates: List<ShippingRate>) {
+        checkout?.let {
+            shippingOptionsView.setData(it, shippingRates)
+        }
+    }
+
+    override fun checkoutValidationPassed(isValid: Boolean) {
+        placeOrderButton.isEnabled = isValid
+    }
+
+    override fun checkoutInProcess() {
+        changeState(LceLayout.LceState.LoadingState(true))
+    }
+
+    override fun checkoutCompleted(order: Order) {
+        changeState(LceLayout.LceState.ContentState)
+        val taskBuilder = TaskStackBuilder.create(this)
+        taskBuilder.addNextIntent(HomeActivity.getStartIntent(this, true))
+        taskBuilder.addNextIntent(OrderSuccessActivity.getStartIntent(this, order.id, order.orderNumber))
+        taskBuilder.startActivities()
+    }
+
+    override fun checkoutError() {
+        changeState(LceLayout.LceState.ContentState)
+        placeOrderButton.visibility = View.GONE
+        failureView.visibility = View.VISIBLE
+    }
+
+    //CALLBACK
+
+    override fun onOptionSelected(shippingRate: ShippingRate) {
+        shippingOptionsView.selectShippingRate(shippingRate)
+        changeState(LceLayout.LceState.LoadingState(true))
+        checkout?.let { presenter.setShippingRates(it, shippingRate) }
+    }
+
+    override fun onEmailChanged() {
+        verifyCheckoutData()
+    }
+}

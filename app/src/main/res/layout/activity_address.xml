@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/countryInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.client.shop.ui.custom.UnMutableTextInputEditText
+                android:id="@+id/countryInput"
+                style="@style/TextInputEditText"
+                android:drawableEnd="@drawable/ic_small_arrow_down"
+                android:hint="@string/country"
+                android:inputType="textPostalAddress"
+                android:textColor="@color/textColorPrimary" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/firstNameInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toStartOf="@+id/lastNameInputContainer"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/countryInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/firstNameInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/first_name_required"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@+id/lastNameInput" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/lastNameInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/firstNameInputContainer"
+            app:layout_constraintTop_toBottomOf="@+id/countryInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/lastNameInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/last_name_required"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@+id/addressInput" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/addressInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstNameInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addressInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/address"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@+id/secondAddressInput" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/secondAddressInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addressInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/secondAddressInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/second_address"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@+id/cityInput" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/cityInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/secondAddressInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cityInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/city"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:nextFocusForward="@+id/postalCodeInput" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/stateInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cityInputContainer">
+
+            <com.client.shop.ui.custom.UnMutableTextInputEditText
+                android:id="@+id/stateInput"
+                style="@style/TextInputEditText"
+                android:drawableEnd="@drawable/ic_small_arrow_down"
+                android:hint="@string/state"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/textColorPrimary" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/postalCodeInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stateInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/postalCodeInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/zip"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:minEms="5"
+                android:nextFocusForward="@+id/phoneInput" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/phoneInputContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postalCodeInputContainer">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/phoneInput"
+                style="@style/TextInputEditText"
+                android:hint="@string/phone_number_required"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLines="1" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <Button
+            android:id="@+id/submitButton"
+            style="@style/PrimaryButton"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:text="@string/submit"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneInputContainer" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="20dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

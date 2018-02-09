@@ -1,8 +1,8 @@
 package com.shopify.api.adapter
 
-import com.domain.entity.Address
+import com.client.shop.getaway.entity.Address
 import com.shopify.buy3.Storefront
-import com.ui.const.Constant
+import com.shopify.constant.Constant
 
 object AddressAdapter {
 

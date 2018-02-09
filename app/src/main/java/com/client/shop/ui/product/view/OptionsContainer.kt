@@ -7,10 +7,10 @@ import android.util.AttributeSet
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ui.product.adapter.OptionsAdapter
-import com.domain.entity.ProductOption
-import com.domain.entity.VariantOption
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.divider.SpaceDecoration
+import com.client.shop.getaway.entity.ProductOption
+import com.client.shop.getaway.entity.VariantOption
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.container_options.view.*
 
 class OptionsContainer @JvmOverloads constructor(

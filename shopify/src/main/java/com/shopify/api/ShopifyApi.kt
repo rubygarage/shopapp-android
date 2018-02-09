@@ -3,9 +3,9 @@ package com.shopify.api
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.domain.entity.*
-import com.domain.network.Api
-import com.domain.network.ApiCallback
+import com.client.shop.getaway.Api
+import com.client.shop.getaway.ApiCallback
+import com.client.shop.getaway.entity.*
 import com.google.android.gms.wallet.FullWallet
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -23,8 +23,6 @@ import com.shopify.buy3.pay.PayAddress
 import com.shopify.buy3.pay.PayCart
 import com.shopify.buy3.pay.PayHelper
 import com.shopify.buy3.pay.PaymentToken
-import com.shopify.entity.Checkout
-import com.shopify.entity.ShippingRate
 import com.shopify.graphql.support.ID
 import com.shopify.util.AssetsReader
 import net.danlew.android.joda.JodaTimeAndroid
@@ -647,7 +645,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         }
     }
 
-    fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Checkout>) {
+    override fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Checkout>) {
 
         val input = Storefront.CheckoutCreateInput().setLineItems(
             cartProductList.map {
@@ -677,7 +675,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
-    fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>) {
+    override fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>) {
         val query = Storefront.query({
             it.node(ID(checkoutId), {
                 it.onCheckout {
@@ -694,7 +692,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
-    fun setShippingAddress(checkoutId: String, address: Address, callback: ApiCallback<Checkout>) {
+    override fun setShippingAddress(checkoutId: String, address: Address, callback: ApiCallback<Checkout>) {
 
         val mailingAddressInput = Storefront.MailingAddressInput()
             .setAddress1(address.address)
@@ -729,7 +727,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
-    fun getShippingRates(checkoutId: String, callback: ApiCallback<List<ShippingRate>>) {
+    override fun getShippingRates(checkoutId: String, callback: ApiCallback<List<ShippingRate>>) {
 
         val retryHandler = RetryHandler.delay(RETRY_HANDLER_DELAY, TimeUnit.MILLISECONDS)
             .maxCount(RETRY_HANDLER_MAX_COUNT)
@@ -769,7 +767,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         }, null, retryHandler)
     }
 
-    fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate, callback: ApiCallback<Checkout>) {
+    override fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate, callback: ApiCallback<Checkout>) {
 
         val checkoutQuery = Storefront.mutation {
             it.checkoutShippingLineUpdate(ID(checkoutId), shippingRate.handle, {
@@ -795,7 +793,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
-    fun getAcceptedCardTypes(callback: ApiCallback<List<CardType>>) {
+    override fun getAcceptedCardTypes(callback: ApiCallback<List<CardType>>) {
 
         val query = Storefront.query {
             it.shop { it.paymentSettings { it.acceptedCardBrands() } }
@@ -808,7 +806,7 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
-    fun getCardToken(card: Card, callback: ApiCallback<String>) {
+    override fun getCardToken(card: Card, callback: ApiCallback<String>) {
 
         val vaultCallback = object : ApiCallback<String> {
             override fun onResult(result: String) {
@@ -850,8 +848,8 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
         })
     }
 
-    fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String,
-                               callback: ApiCallback<Order>) {
+    override fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String,
+                                        callback: ApiCallback<Order>) {
 
         val amount = checkout.totalPrice
         val idempotencyKey = UUID.randomUUID().toString()

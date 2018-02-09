@@ -31,6 +31,13 @@ android {
         buildConfigField "String", "BASE_URL", accessProperties['baseUrl']
 
         multiDexEnabled true
+
+        buildConfigField "String", "BASE_URL", accessProperties['baseUrl']
+        buildConfigField "String", "BASE_DOMAIN", accessProperties['baseDomain']
+        buildConfigField "String", "ACCESS_TOKEN", accessProperties['shopifyAccessToken']
+        buildConfigField "String", "PRIVATE_AUTH_KEY", accessProperties['shopifyApiPrivateAuthKey']
+        buildConfigField "String", "PRIVATE_AUTH_PASSWORD", accessProperties['shopifyApiPrivateAuthPassword']
+        buildConfigField "String", "ANDROID_PAY_PUBLIC_KEY", accessProperties['androidPayPublicKey']
     }
 
     signingConfigs {
@@ -72,7 +79,7 @@ dependencies {
     implementation "com.android.support:cardview-v7:$androidSupportVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
-    implementation 'com.google.android:flexbox:0.3.1'
+    api 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
     implementation "com.facebook.fresco:fresco:$frescoVersion"
     implementation 'com.github.rubensousa:gravitysnaphelper:1.3'
     implementation 'me.relex:circleindicator:1.2.2@aar'
@@ -92,8 +99,8 @@ dependencies {
         transitive = true
     }
 
-    api project(':data')
-    implementation project(":ui")
+    implementation project(':data')
+    implementation project(':getaway')
     implementation project(':shopify')
 
     testImplementation 'junit:junit:4.12'

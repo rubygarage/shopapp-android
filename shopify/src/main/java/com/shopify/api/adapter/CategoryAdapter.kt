@@ -1,8 +1,8 @@
 package com.shopify.api.adapter
 
-import com.domain.entity.Category
+import com.client.shop.getaway.entity.Category
 import com.shopify.buy3.Storefront
-import com.ui.const.Constant.DEFAULT_STRING
+import com.shopify.constant.Constant.DEFAULT_STRING
 
 object CategoryAdapter {
 

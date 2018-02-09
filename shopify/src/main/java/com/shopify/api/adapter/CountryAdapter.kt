@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.domain.entity.Country
+import com.client.shop.getaway.entity.Country
 import com.shopify.api.entity.ApiCountry
 
 object CountryAdapter {

@@ -1,8 +1,8 @@
 package com.client.shop.di.module
 
+import com.client.shop.getaway.Api
 import com.data.impl.*
 import com.domain.database.Dao
-import com.domain.network.Api
 import com.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -38,5 +38,9 @@ class RepositoryModule(private val api: Api, private val dao: Dao) {
     @Provides
     @Singleton
     fun provideOrderRepository(): OrderRepository = OrderRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideCheckoutRepository(): CheckoutRepository = CheckoutRepositoryImpl(api)
 
 }

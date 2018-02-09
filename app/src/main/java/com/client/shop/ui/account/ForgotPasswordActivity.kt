@@ -7,14 +7,14 @@ import android.text.TextWatcher
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.account.contract.ForgotPasswordPresenter
 import com.client.shop.ui.account.contract.ForgotPasswordView
 import com.client.shop.ui.account.di.AuthModule
+import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.view.LceLayout
+import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.validator.FieldValidator
-import com.ui.base.lce.BaseActivity
-import com.ui.base.lce.view.LceLayout
-import com.ui.custom.SimpleTextWatcher
-import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import javax.inject.Inject
 

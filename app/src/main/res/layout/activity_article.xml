@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.ui.view.SquaredDraweeView
+        <com.client.shop.ui.view.SquaredDraweeView
             android:id="@+id/image"
             style="@style/SimpleDraweeView"
             android:layout_width="match_parent"

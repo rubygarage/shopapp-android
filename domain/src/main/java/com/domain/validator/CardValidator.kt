@@ -1,6 +1,6 @@
 package com.domain.validator
 
-import com.domain.entity.Card
+import com.client.shop.getaway.entity.Card
 import java.util.*
 
 class CardValidator {

@@ -12,12 +12,12 @@ import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
-import com.domain.entity.Product
-import com.domain.entity.SortType
+import com.client.shop.getaway.entity.Product
+import com.client.shop.getaway.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.ui.base.lce.BaseFragment
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.divider.GridSpaceDecoration
+import com.client.shop.ui.base.lce.BaseFragment
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.divider.GridSpaceDecoration
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 

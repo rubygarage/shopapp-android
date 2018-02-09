@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.pagination.PaginationActivity
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.order.details.OrderDetailsActivity
 import com.client.shop.ui.order.di.OrderModule
@@ -13,10 +13,10 @@ import com.client.shop.ui.order.list.adapter.OrderAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.domain.entity.Order
-import com.ui.base.lce.view.LceEmptyView
-import com.ui.base.recycler.divider.BackgroundItemDecoration
-import com.ui.base.recycler.divider.SpaceDecoration
+import com.client.shop.getaway.entity.Order
+import com.client.shop.ui.base.lce.view.LceEmptyView
+import com.client.shop.ui.base.recycler.divider.BackgroundItemDecoration
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_order_list.*
 import javax.inject.Inject
 

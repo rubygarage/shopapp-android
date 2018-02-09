@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.domain.entity.Image
+import com.client.shop.getaway.entity.Image
 import com.shopify.buy3.Storefront
 
 object ImageAdapter {

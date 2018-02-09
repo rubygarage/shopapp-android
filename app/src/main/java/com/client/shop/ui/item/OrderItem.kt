@@ -7,13 +7,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
 import com.client.shop.R
-import com.domain.entity.Order
+import com.client.shop.getaway.entity.Order
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.adapter.ProductVariantAdapter
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.ProductVariantAdapter
-import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.item_order.view.*
 
 @SuppressLint("ViewConstructor")

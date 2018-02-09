@@ -1,12 +1,12 @@
 package com.shopify.api.adapter
 
-import com.domain.entity.Image
-import com.domain.entity.Product
-import com.domain.entity.ProductOption
-import com.domain.entity.ProductVariant
+import com.client.shop.getaway.entity.Image
+import com.client.shop.getaway.entity.Product
+import com.client.shop.getaway.entity.ProductOption
+import com.client.shop.getaway.entity.ProductVariant
 import com.shopify.api.ext.isSingleOptions
 import com.shopify.buy3.Storefront
-import com.ui.const.Constant.DEFAULT_STRING
+import com.shopify.constant.Constant.DEFAULT_STRING
 import java.math.BigDecimal
 
 object ProductAdapter {

@@ -7,14 +7,14 @@ import android.view.Menu
 import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.pagination.PaginationActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
 import com.client.shop.ui.product.di.ProductListModule
-import com.domain.entity.Product
-import com.domain.entity.SortType
-import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.client.shop.getaway.entity.Product
+import com.client.shop.getaway.entity.SortType
+import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
 class ProductListActivity :

@@ -1,6 +1,6 @@
 package com.domain.repository
 
-import com.domain.entity.CartProduct
+import com.client.shop.getaway.entity.CartProduct
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

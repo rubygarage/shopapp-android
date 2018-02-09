@@ -6,8 +6,8 @@ import com.data.dao.entity.CartProductData
 import com.data.dao.entity.CartProductDataEntity
 import com.data.dao.entity.Models
 import com.domain.database.Dao
-import com.domain.entity.CartProduct
-import com.domain.entity.Error
+import com.client.shop.getaway.entity.CartProduct
+import com.client.shop.getaway.entity.Error
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

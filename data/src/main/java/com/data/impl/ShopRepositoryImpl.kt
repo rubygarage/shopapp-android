@@ -1,8 +1,8 @@
 package com.data.impl
 
+import com.client.shop.getaway.Api
+import com.client.shop.getaway.entity.Shop
 import com.data.rx.RxCallbackSingle
-import com.domain.entity.Shop
-import com.domain.network.Api
 import com.domain.repository.ShopRepository
 import io.reactivex.Single
 

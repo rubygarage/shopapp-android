@@ -1,7 +1,7 @@
 package com.shopify.api.adapter
 
 import com.shopify.buy3.Storefront
-import com.shopify.entity.Checkout
+import com.client.shop.getaway.entity.Checkout
 
 object CheckoutAdapter {
 

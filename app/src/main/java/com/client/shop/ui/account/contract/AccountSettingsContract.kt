@@ -2,8 +2,8 @@ package com.client.shop.ui.account.contract
 
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.account.UpdateAccountSettingsUseCase
-import com.ui.base.contract.BaseLcePresenter
-import com.ui.base.contract.BaseLceView
+import com.client.shop.ui.base.contract.BaseLcePresenter
+import com.client.shop.ui.base.contract.BaseLceView
 
 interface AccountSettingsView : BaseLceView<Boolean>
 

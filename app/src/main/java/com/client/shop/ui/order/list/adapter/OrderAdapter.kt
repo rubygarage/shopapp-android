@@ -4,11 +4,11 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.client.shop.ui.item.OrderItem
-import com.domain.entity.Order
+import com.client.shop.getaway.entity.Order
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class OrderAdapter(
     productList: List<Order>,
