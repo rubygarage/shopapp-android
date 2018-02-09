@@ -93,9 +93,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     private fun setupMode() {
         address = intent.getParcelableExtra(ADDRESS)
         isEditMode = address != null
-
         val titleRes: Int?
-
         if (isEditMode) {
             titleRes = R.string.edit_address
             submitButton.setText(R.string.edit)
@@ -111,6 +109,11 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     private fun setupListeners() {
+
+        lceLayout.tryAgainButtonClickListener = View.OnClickListener {
+            loadCountries()
+        }
+
         submitButton.setOnClickListener {
             changeState(LceLayout.LceState.LoadingState(true))
             submitButton.requestFocus()
