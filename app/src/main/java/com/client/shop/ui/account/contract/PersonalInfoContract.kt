@@ -12,6 +12,8 @@ interface PersonalInfoView : BaseLceView<Customer> {
     fun onCustomerChanged(customer: Customer)
 
     fun setupCustomerEmail(email: String)
+
+    fun hideProgress()
 }
 
 class PersonalInfoPresenter @Inject constructor(
@@ -40,6 +42,7 @@ class PersonalInfoPresenter @Inject constructor(
             },
             {
                 resolveError(it)
+                view?.hideProgress()
             },
             EditCustomerUseCase.Params(name, lastName, phone)
         )
