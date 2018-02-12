@@ -153,4 +153,8 @@ class PersonalInfoActivity :
     override fun setupCustomerEmail(email: String) {
         emailInput.setTextWhenDisable(email)
     }
+
+    override fun hideProgress() {
+        changeState(LceLayout.LceState.ContentState)
+    }
 }
