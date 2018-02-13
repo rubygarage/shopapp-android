@@ -40,6 +40,8 @@ class CategoryActivity :
 
     companion object {
 
+        private const val PROGRESS_START_BIAS = 0.2f
+        private const val PROGRESS_END_BIAS = 1.5f
         private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 
         fun getStartIntent(context: Context, category: Category): Intent {
@@ -88,7 +90,7 @@ class CategoryActivity :
     //SETUP
 
     override fun setupAdapter(): ProductListAdapter {
-        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        val size = resources.getDimensionPixelSize(R.dimen.product_grid_item_size)
         return ProductListAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
     }
 
@@ -114,6 +116,15 @@ class CategoryActivity :
                 }
             }
         })
+    }
+
+    override fun setupSwipeRefreshLayout() {
+        super.setupSwipeRefreshLayout()
+        val sortViewHeight = resources.getDimensionPixelSize(R.dimen.sort_view_height)
+        val start = (sortViewHeight * PROGRESS_START_BIAS).toInt()
+        val end = (sortViewHeight * PROGRESS_END_BIAS).toInt()
+        swipeRefreshLayout.setProgressViewOffset(true, start, end)
+        swipeRefreshLayout.setProgressViewEndTarget(true, end - start)
     }
 
     override fun setupEmptyView(emptyView: LceEmptyView) {

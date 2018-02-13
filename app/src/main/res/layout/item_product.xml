@@ -2,14 +2,15 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/product_item_size"
-    android:layout_height="@dimen/product_item_size">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/product_horizontal_item_size">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
         style="@style/SimpleDraweeView"
         android:layout_width="0dp"
-        android:layout_height="@dimen/recent_item_image_height"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h,8:7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,9 +18,10 @@
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:gravity="center"
         android:maxLines="1"
@@ -36,7 +38,8 @@
     <TextView
         android:id="@+id/price"
         android:layout_width="0dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"

@@ -14,7 +14,7 @@ import com.client.shop.ui.search.di.SearchModule
 import com.domain.entity.Product
 import com.ui.base.lce.view.LceEmptyView
 import com.ui.base.recycler.divider.BackgroundItemDecoration
-import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
 import javax.inject.Inject
 
 class SearchFragment :
@@ -40,7 +40,7 @@ class SearchFragment :
         ShopApplication.appComponent.attachSearchComponent(SearchModule()).inject(this)
     }
 
-    override fun getContentView() = R.layout.fragment_search
+    override fun getContentView() = R.layout.fragment_search_with_categories_list
 
     override fun createPresenter() = searchPresenter
 
@@ -49,7 +49,7 @@ class SearchFragment :
     override fun isGrid() = true
 
     override fun setupAdapter(): ProductListAdapter {
-        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        val size = resources.getDimensionPixelSize(R.dimen.product_grid_item_size)
         return ProductListAdapter(MATCH_PARENT, size, dataList, this)
     }
 

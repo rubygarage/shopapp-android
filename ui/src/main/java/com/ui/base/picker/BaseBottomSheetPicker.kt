@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import com.ui.R
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 
+
+
 abstract class BaseBottomSheetPicker<T> : BottomSheetDialogFragment() {
 
     protected val adapter: BottomSheetPickerAdapter<T> by lazy {
@@ -27,6 +29,7 @@ abstract class BaseBottomSheetPicker<T> : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         done.setOnClickListener {
             val selectedData = adapter.selectedItemData
             if (selectedData != null) {

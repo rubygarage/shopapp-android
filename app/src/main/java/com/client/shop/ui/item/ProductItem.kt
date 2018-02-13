@@ -7,7 +7,8 @@ import android.view.View
 import com.client.shop.R
 import com.domain.entity.Product
 import com.domain.formatter.NumberFormatter
-import kotlinx.android.synthetic.main.item_recent.view.*
+import com.ui.ext.setResizedImageUri
+import kotlinx.android.synthetic.main.item_product.view.*
 
 @SuppressLint("ViewConstructor")
 class ProductItem(
@@ -18,7 +19,7 @@ class ProductItem(
 ) : ConstraintLayout(context) {
 
     init {
-        View.inflate(context, R.layout.item_recent, this)
+        View.inflate(context, R.layout.item_product, this)
         layoutParams = LayoutParams(viewWidth, viewHeight)
     }
 
@@ -30,6 +31,6 @@ class ProductItem(
         } else {
             price.text = formatter.formatPrice(product.price, product.currency)
         }
-        image.setImageURI(product.images.firstOrNull()?.src)
+        image.setResizedImageUri(context, product.images.firstOrNull()?.src)
     }
 }
