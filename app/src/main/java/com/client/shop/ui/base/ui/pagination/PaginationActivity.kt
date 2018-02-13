@@ -60,7 +60,7 @@ abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresen
         val layoutManager: RecyclerView.LayoutManager
         if (isGrid()) {
             layoutManager = GridLayoutManager(this, SPAN_COUNT)
-            recycler.addItemDecoration(GridSpaceDecoration(resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
+            recycler.addItemDecoration(GridSpaceDecoration(resources.getDimensionPixelSize(R.dimen.recycler_divider_space), SPAN_COUNT))
         } else {
             layoutManager = LinearLayoutManager(this)
         }

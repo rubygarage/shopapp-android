@@ -66,7 +66,7 @@ class PopularFragment :
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.addItemDecoration(GridSpaceDecoration(
-            resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
+            resources.getDimensionPixelSize(R.dimen.recycler_divider_space), SPAN_COUNT))
     }
 
     //LCE

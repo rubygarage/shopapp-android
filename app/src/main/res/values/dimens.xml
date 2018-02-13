@@ -5,7 +5,6 @@
 
     <dimen name="element_space">8dp</dimen>
     <dimen name="content_space">16dp</dimen>
-    <dimen name="recycler_padding">4dp</dimen>
     <dimen name="avatar_text_size">24sp</dimen>
 
     <dimen name="error_padding">4dp</dimen>
