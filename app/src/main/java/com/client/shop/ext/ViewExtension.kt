@@ -9,11 +9,11 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.client.shop.R
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.common.ResizeOptions
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.ui.R
 
 
 fun Context.getScreenSize(): Point {

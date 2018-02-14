@@ -167,4 +167,13 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="UnderlineText">
+        <item name="android:background">@drawable/selector_underline</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@drawable/selector_underline_text</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

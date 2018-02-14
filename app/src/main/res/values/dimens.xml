@@ -51,5 +51,6 @@
 
     <dimen name="shipping_options_item_height">54dp</dimen>
     <dimen name="card_padding">2dp</dimen>
+    <dimen name="default_image_size">100dp</dimen>
 
 </resources>

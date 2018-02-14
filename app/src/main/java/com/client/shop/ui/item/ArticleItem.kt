@@ -5,8 +5,8 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
+import com.client.shop.ext.setResizedImageUri
 import com.client.shop.getaway.entity.Article
-import com.ui.ext.setResizedImageUri
 import kotlinx.android.synthetic.main.item_article.view.*
 
 class ArticleItem(context: Context) : ConstraintLayout(context) {
