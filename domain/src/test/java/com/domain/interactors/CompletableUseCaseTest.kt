@@ -31,23 +31,54 @@ class CompletableUseCaseTest {
         onGeneric { invoke(any()) } doReturn Unit
     }
 
+    @Test(expected = RuntimeException::class)
+    fun shouldErrorOnIgnoreAttachingToLifecycle() {
+        useCase = object : CompletableUseCase<Any>() {
+            override fun buildUseCaseCompletable(params: Any) = Completable.complete()
+        }
+        useCase.execute(onComplete, onError, "")
+    }
+
     @Test
-    fun completableUseCaseTest_Execute_HappyCase() {
+    fun shouldSaveDisposablesAfterExecute() {
         useCase = object : CompletableUseCase<Any>() {
             override fun buildUseCaseCompletable(params: Any) = Completable.complete()
         }
         useCase.attachToLifecycle()
+
         useCase.execute(onComplete, onError, "")
-        verify(onComplete).invoke()
-        verify(onError, never()).invoke(any())
-        Assert.assertTrue(useCase.isAttachedToLifecycle())
         Assert.assertEquals(1, useCase.disposables.size())
+    }
+
+    @Test
+    fun shouldClearDisposablesOnDispose() {
+        useCase = object : CompletableUseCase<Any>() {
+            override fun buildUseCaseCompletable(params: Any) = Completable.complete()
+        }
+        useCase.attachToLifecycle()
+
+        useCase.execute(onComplete, onError, "")
+        Assert.assertEquals(1, useCase.disposables.size())
+
         useCase.dispose()
         Assert.assertEquals(0, useCase.disposables.size())
     }
 
     @Test
-    fun completableUseCaseTest_Execute_SadCase() {
+    fun shouldInvokeOnCompleteOnSuccess() {
+        useCase = object : CompletableUseCase<Any>() {
+            override fun buildUseCaseCompletable(params: Any) = Completable.complete()
+        }
+        useCase.attachToLifecycle()
+        useCase.execute(onComplete, onError, "")
+
+        verify(onComplete).invoke()
+        verify(onError, never()).invoke(any())
+    }
+
+
+    @Test
+    fun shouldInvokeOnErrorOnFailure() {
         val error = Error.Critical()
         useCase = object : CompletableUseCase<Any>() {
             override fun buildUseCaseCompletable(params: Any) = Completable.error(error)
@@ -56,9 +87,5 @@ class CompletableUseCaseTest {
         useCase.execute(onComplete, onError, "")
         verify(onComplete, never()).invoke()
         verify(onError).invoke(error)
-        Assert.assertTrue(useCase.isAttachedToLifecycle())
-        Assert.assertEquals(1, useCase.disposables.size())
-        useCase.dispose()
-        Assert.assertEquals(0, useCase.disposables.size())
     }
 }

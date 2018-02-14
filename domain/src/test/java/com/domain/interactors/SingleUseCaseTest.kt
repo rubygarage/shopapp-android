@@ -1,7 +1,7 @@
 package com.domain.interactors
 
-import com.domain.RxImmediateSchedulerRule
 import com.client.shop.getaway.entity.Error
+import com.domain.RxImmediateSchedulerRule
 import com.domain.interactor.base.SingleUseCase
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Single
@@ -33,52 +33,71 @@ class SingleUseCaseTest {
         onGeneric { invoke(any()) } doReturn Unit
     }
 
-    @Test
-    fun singleUseCaseTest_Execute_HappyCase() {
+    @Test(expected = RuntimeException::class)
+    fun shouldErrorOnIgnoreAttachingToLifecycle() {
         useCase = object : SingleUseCase<Any, Any>() {
             override fun buildUseCaseSingle(params: Any): Single<Any> {
                 return Single.just(returnedValue)
             }
         }
+        useCase.execute(onComplete, onError, "")
+    }
 
-        with(useCase) {
-            attachToLifecycle()
-            execute(onComplete, onError, "")
+    @Test
+    fun shouldSaveDisposablesAfterExecute() {
+        useCase = object : SingleUseCase<Any, Any>() {
+            override fun buildUseCaseSingle(params: Any): Single<Any> {
+                return Single.just(returnedValue)
+            }
         }
+        useCase.attachToLifecycle()
 
-        verify(onComplete).invoke(returnedValue)
-        verify(onError, never()).invoke(any())
+        useCase.execute(onComplete, onError, "")
+        Assert.assertEquals(1, useCase.disposables.size())
+    }
 
-        Assert.assertTrue(useCase.isAttachedToLifecycle())
+    @Test
+    fun shouldClearDisposablesOnDispose() {
+        useCase = object : SingleUseCase<Any, Any>() {
+            override fun buildUseCaseSingle(params: Any): Single<Any> {
+                return Single.just(returnedValue)
+            }
+        }
+        useCase.attachToLifecycle()
+
+        useCase.execute(onComplete, onError, "")
         Assert.assertEquals(1, useCase.disposables.size())
 
         useCase.dispose()
-
         Assert.assertEquals(0, useCase.disposables.size())
     }
 
     @Test
-    fun singleUseCaseTest_Execute_SadCase() {
+    fun shouldInvokeOnCompleteOnSuccess() {
+        useCase = object : SingleUseCase<Any, Any>() {
+            override fun buildUseCaseSingle(params: Any): Single<Any> {
+                return Single.just(returnedValue)
+            }
+        }
+        useCase.attachToLifecycle()
+        useCase.execute(onComplete, onError, "")
+
+        verify(onComplete).invoke(returnedValue)
+        verify(onError, never()).invoke(any())
+    }
+
+    @Test
+    fun shouldInvokeOnErrorOnFailure() {
         val error = Error.Critical()
         useCase = object : SingleUseCase<Any, Any>() {
             override fun buildUseCaseSingle(params: Any): Single<Any> {
                 return Single.error(error)
             }
         }
-
-        with(useCase) {
-            attachToLifecycle()
-            execute(onComplete, onError, "")
-        }
-
+        useCase.attachToLifecycle()
+        useCase.execute(onComplete, onError, "")
         verify(onComplete, never()).invoke(any())
         verify(onError).invoke(error)
-
-        Assert.assertTrue(useCase.isAttachedToLifecycle())
-        Assert.assertEquals(1, useCase.disposables.size())
-
-        useCase.dispose()
-
-        Assert.assertEquals(0, useCase.disposables.size())
     }
+
 }

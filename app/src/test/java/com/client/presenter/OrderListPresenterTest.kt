@@ -10,8 +10,9 @@ import com.domain.interactor.order.OrderListUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.inOrder
 import io.reactivex.Single
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -50,28 +51,39 @@ class OrderListPresenterTest {
         useCase.mockUseCase()
     }
 
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
+    }
+
     @Test
-    fun orderListPresenterTest_HappyCase() {
+    fun shouldShowContentOnSingleSuccess() {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
         presenter.getOrders(1, null)
-        verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
-        verify(view).showContent(orderList)
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(view).showContent(orderList)
     }
 
     @Test
-    fun orderListPresenterTest_SadCase_NonCriticalError() {
+    fun shouldShowMessageOnUseCaseNonCriticalError() {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
         presenter.getOrders(1, null)
-        verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
-        verify(view).showMessage("ErrorMessage")
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(view).showMessage("ErrorMessage")
     }
 
     @Test
-    fun orderListPresenterTest_SadCase_ContentError() {
+    fun shouldShowErrorOnUseCaseContentError() {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
         presenter.getOrders(1, null)
-        verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
-        verify(view).showError(false)
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(view).showError(false)
     }
 
 }

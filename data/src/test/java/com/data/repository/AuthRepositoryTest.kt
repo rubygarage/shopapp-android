@@ -34,37 +34,40 @@ class AuthRepositoryTest {
 
     private lateinit var repository: AuthRepository
 
+    private lateinit var observer: TestObserver<Unit>
+
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
+        observer = TestObserver()
     }
 
     @Test
-    fun authRepositoryTest_ChangePassword_HappyCase() {
+    fun shouldDelegateCallToApi() {
+        repository.changePassword("").subscribe()
+        verify(api).changePassword(eq(""), any())
+    }
 
+    @Test
+    fun shouldCompleteOnApiComplete() {
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
         })
-
-        val observer: TestObserver<Unit> = TestObserver()
         repository.changePassword("").subscribe(observer)
-        verify(api).changePassword(eq(""), any())
         observer.assertComplete()
     }
 
     @Test
-    fun authRepositoryTest_ChangePassword_SadCase() {
+    fun shouldErrorOnApiError() {
         val error = Error.Content()
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onFailure(error)
         })
 
-        val observer: TestObserver<Unit> = TestObserver()
         repository.changePassword("").subscribe(observer)
-        verify(api).changePassword(eq(""), any())
         observer.assertError(error)
     }
 

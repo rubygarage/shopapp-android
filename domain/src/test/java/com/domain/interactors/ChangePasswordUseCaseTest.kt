@@ -27,7 +27,7 @@ class ChangePasswordUseCaseTest {
     }
 
     @Test
-    fun changePasswordUseCaseTest_buildUseCase() {
+    fun shouldDelegateCallToRepository() {
         useCase.buildUseCaseCompletable("123456789")
         verify(authRepository).changePassword(eq("123456789"))
     }

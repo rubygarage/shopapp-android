@@ -2,13 +2,14 @@ package com.client.presenter
 
 import com.client.RxImmediateSchedulerRule
 import com.client.presenter.ext.mockUseCase
+import com.client.shop.getaway.entity.Error
 import com.client.shop.ui.account.contract.ChangePasswordPresenter
 import com.client.shop.ui.account.contract.ChangePasswordView
-import com.client.shop.getaway.entity.Error
 import com.domain.interactor.account.ChangePasswordUseCase
 import com.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Completable
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -43,57 +44,83 @@ class ChangePasswordPresenterTest {
         useCase.mockUseCase()
     }
 
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
+    }
+
     @Test
-    fun changePasswordTest_HappyCase() {
+    fun shouldShowProgressBeforeUseCaseExecuting() {
         given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         presenter.changePassword("123456789", "123456789")
-        verify(view).showUpdateProgress()
-        verify(useCase).execute(any(), any(), eq("123456789"))
-        verify(view).hideUpdateProgress()
-        verify(view).passwordChanged()
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(view).showUpdateProgress()
+        inOrder.verify(useCase).execute(any(), any(), eq("123456789"))
     }
 
     @Test
-    fun changePasswordTest_SadCase_NonCriticalError() {
+    fun shouldHideProgressOnUseCaseComplete() {
+        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
+        presenter.changePassword("123456789", "123456789")
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq("123456789"))
+        inOrder.verify(view).hideUpdateProgress()
+    }
+
+    @Test
+    fun shouldNotifyAboutPasswordChangeOnUseCaseComplete() {
+        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
+        presenter.changePassword("123456789", "123456789")
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq("123456789"))
+        inOrder.verify(view).passwordChanged()
+    }
+
+    @Test
+    fun shouldHideProgressOnUseCaseError() {
         given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
         presenter.changePassword("123456789", "123456789")
-        verify(view).showUpdateProgress()
-        verify(useCase).execute(any(), any(), eq("123456789"))
-        verify(view).showMessage("ErrorMessage")
-        verify(view).hideUpdateProgress()
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq("123456789"))
+        inOrder.verify(view).hideUpdateProgress()
     }
 
     @Test
-    fun changePasswordTest_SadCase_ContentError() {
+    fun shouldShowMessageOnUseCaseNonCriticalError() {
+        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        presenter.changePassword("123456789", "123456789")
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq("123456789"))
+        inOrder.verify(view).showMessage("ErrorMessage")
+    }
+
+    @Test
+    fun shouldShowErrorOnUseCaseContentError() {
         given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(false)))
         presenter.changePassword("123456789", "123456789")
-        verify(view).showUpdateProgress()
-        verify(useCase).execute(any(), any(), eq("123456789"))
-        verify(view).showError(false)
-        verify(view).hideUpdateProgress()
+
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq("123456789"))
+        inOrder.verify(view).showError(false)
     }
 
     @Test
-    fun changePasswordTest_InvalidPassword_EmptyString() {
-        presenter.changePassword("", "")
-        verify(view).passwordValidError()
-        verify(useCase, never()).execute(any(), any(), eq(""))
-    }
-
-    @Test
-    fun changePasswordTest_InvalidPassword_PasswordsSame() {
+    fun shouldShowErrorOnInvalidPass() {
         presenter.changePassword("pass", "pass")
         verify(view).passwordValidError()
         verify(useCase, never()).execute(any(), any(), eq("pass"))
     }
 
     @Test
-    fun changePasswordTest_InvalidPassword_PasswordsDifferent() {
-        presenter.changePassword("pass", "pass1")
-        verify(view).passwordValidError()
+    fun shouldShowPasswordMatchErrorOnDifferentPass() {
+        presenter.changePassword("12345678", "123456789")
         verify(view).passwordsMatchError()
-        verify(useCase, never()).execute(any(), any(), eq("pass"))
-        verify(useCase, never()).execute(any(), any(), eq("pass1"))
+        verify(useCase, never()).execute(any(), any(), eq("12345678"))
+        verify(useCase, never()).execute(any(), any(), eq("123456789"))
     }
 
 }

@@ -18,9 +18,6 @@ import org.robolectric.annotation.Config
 class BasePresenterTest {
 
     @Mock
-    private lateinit var view: MvpView
-
-    @Mock
     private lateinit var useCase: UseCase
 
     private lateinit var presenter: BasePresenter<MvpView>
@@ -31,9 +28,14 @@ class BasePresenterTest {
     }
 
     @Test
-    fun basePresenterTest() {
+    fun shouldAttachUseCaseToLifecycle() {
         presenter = BasePresenter(useCase)
-        presenter.attachView(view)
+        verify(useCase).attachToLifecycle()
+    }
+
+    @Test
+    fun shouldDisposeUseCaseOnDetachView() {
+        presenter = BasePresenter(useCase)
         verify(useCase).attachToLifecycle()
 
         presenter.detachView(false)
