@@ -11,7 +11,6 @@ import com.crashlytics.android.core.CrashlyticsCore
 import com.data.dao.DaoImpl
 import com.domain.router.AppRouter
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.shopify.ShopifyWrapper
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
@@ -53,9 +52,6 @@ class ShopApplication : MultiDexApplication() {
     }
 
     private fun setupFresco() {
-        val config = ImagePipelineConfig.newBuilder(this)
-            .setDownsampleEnabled(true)
-            .build()
-        Fresco.initialize(this, config)
+        Fresco.initialize(this)
     }
 }

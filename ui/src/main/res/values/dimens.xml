@@ -11,4 +11,6 @@
     <dimen name="horizontal_space">16dp</dimen>
     <dimen name="vertical_space">20dp</dimen>
 
+    <dimen name="default_image_size">100dp</dimen>
+
 </resources>

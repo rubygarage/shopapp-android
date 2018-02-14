@@ -205,7 +205,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/billing_address"
         android:textColor="@color/textColorPrimary"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/editAddressButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -219,8 +219,7 @@
         app:layout_constraintBottom_toTopOf="@+id/addressBottomSpace"
         app:layout_constraintEnd_toStartOf="@+id/editAddressButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/billingAddressLabel"
-        app:withName="false" />
+        app:layout_constraintTop_toBottomOf="@+id/billingAddressLabel" />
 
     <Button
         android:id="@+id/editAddressButton"

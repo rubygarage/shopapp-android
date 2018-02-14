@@ -20,11 +20,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/paymentInformationTitle"
+            android:id="@+id/orderDetailsTitle"
             style="@style/OrderTitleView"
             android:layout_marginBottom="1dp"
             android:layout_marginTop="4dp"
-            android:text="@string/payment_information"
+            android:text="@string/details"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderTitleView" />
@@ -36,7 +36,7 @@
             android:layout_marginTop="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/paymentInformationTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/orderDetailsTitle" />
 
         <com.ui.view.PriceView
             android:id="@+id/priceView"
@@ -66,8 +66,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/billingAddressTitle"
-            app:withName="false" />
+            app:layout_constraintTop_toBottomOf="@+id/billingAddressTitle" />
 
     </android.support.constraint.ConstraintLayout>
 

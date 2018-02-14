@@ -92,7 +92,7 @@ class ProductHorizontalFragment :
 
     private fun setupRecycler() {
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        val size = resources.getDimensionPixelSize(R.dimen.product_horizontal_item_size)
         adapter = ProductListAdapter(size, size, productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))

@@ -74,7 +74,7 @@
     <string name="shipping">Shipping</string>
     <string name="total">Total</string>
     <string name="billing_address">Billing Address</string>
-    <string name="payment_information">Payment Information</string>
+    <string name="details">Details</string>
     <string name="selected_options_pattern">%s: %s</string>
     <string name="order_details">Order Details</string>
     <string name="quantity_label_pattern">QTY: %d</string>
