@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:minHeight="@dimen/product_item_size"
+        android:minHeight="@dimen/product_horizontal_item_size"
         android:paddingBottom="16dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"

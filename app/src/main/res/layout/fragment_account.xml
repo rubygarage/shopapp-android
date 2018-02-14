@@ -39,16 +39,11 @@
 
         <TextView
             android:id="@+id/createAccount"
+            style="@style/UnderlineText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:background="@drawable/selector_underline"
-            android:paddingBottom="3dp"
             android:text="@string/create_new_account"
-            android:textAllCaps="true"
-            android:textColor="@drawable/selector_underline_text"
-            android:textSize="12sp"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/signInButton" />
@@ -175,16 +170,11 @@
 
         <TextView
             android:id="@+id/logout"
+            style="@style/UnderlineText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:background="@drawable/selector_underline"
-            android:paddingBottom="3dp"
             android:text="@string/log_out"
-            android:textAllCaps="true"
-            android:textColor="@drawable/selector_underline_text"
-            android:textSize="12sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/bottomSpace"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

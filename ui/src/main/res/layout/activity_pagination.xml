@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:layoutAnimation="@anim/layout_animation_slide_from_bottom"
-        android:padding="16dp" />
+        android:padding="8dp" />
 
 </android.support.v4.widget.SwipeRefreshLayout>

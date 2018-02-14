@@ -3,10 +3,17 @@ package com.ui.ext
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
+import android.net.Uri
+import android.support.annotation.DimenRes
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.drawee.view.SimpleDraweeView
+import com.facebook.imagepipeline.common.ResizeOptions
+import com.facebook.imagepipeline.request.ImageRequestBuilder
+import com.ui.R
 
 
 fun Context.getScreenSize(): Point {
@@ -42,4 +49,23 @@ fun EditText.setTextWhenDisable(src: String) {
     isEnabled = true
     setText(src)
     isEnabled = false
+}
+
+fun SimpleDraweeView.setResizedImageUri(
+    context: Context,
+    src: String?,
+    @DimenRes widthRes: Int = R.dimen.default_image_size,
+    @DimenRes heightRes: Int = R.dimen.default_image_size
+) {
+    src?.let {
+        val width = context.resources.getDimensionPixelSize(widthRes)
+        val height = context.resources.getDimensionPixelSize(heightRes)
+        val request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(it))
+            .setResizeOptions(ResizeOptions(width, height))
+            .build()
+        controller = Fresco.newDraweeControllerBuilder()
+            .setOldController(controller)
+            .setImageRequest(request)
+            .build()
+    }
 }

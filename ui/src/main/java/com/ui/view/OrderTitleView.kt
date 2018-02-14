@@ -22,7 +22,7 @@ class OrderTitleView @JvmOverloads constructor(
 
     fun setOrder(order: Order, dateFormatter: DateFormatter) {
         orderNumberTextView.text = resources.getString(R.string.order_number_pattern,
-            order.orderNumber)
+            order.orderNumber).toUpperCase()
         orderDateTextView.text = resources.getString(R.string.order_date_pattern,
             dateFormatter.format(order.processedAt))
     }
