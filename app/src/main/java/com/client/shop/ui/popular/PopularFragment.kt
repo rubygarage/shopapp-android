@@ -15,14 +15,14 @@ import com.client.shop.ui.product.contract.ProductListView
 import com.client.shop.getaway.entity.Product
 import com.client.shop.getaway.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.client.shop.ui.base.lce.BaseFragment
+import com.client.shop.ui.base.lce.BaseLceFragment
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.divider.GridSpaceDecoration
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 
 class PopularFragment :
-    BaseFragment<List<Product>, ProductListView, ProductListPresenter>(),
+    BaseLceFragment<List<Product>, ProductListView, ProductListPresenter>(),
     ProductListView,
     OnItemClickListener {
 

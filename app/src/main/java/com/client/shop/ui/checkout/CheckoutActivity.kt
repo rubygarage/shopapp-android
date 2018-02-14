@@ -11,7 +11,7 @@ import com.client.shop.ShopApplication
 import com.client.shop.ext.registerKeyboardVisibilityListener
 import com.client.shop.ui.address.checkout.CheckoutAddressListActivity
 import com.client.shop.ui.address.checkout.CheckoutUnAuthAddressActivity
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.checkout.contract.CheckoutPresenter
 import com.client.shop.ui.checkout.contract.CheckoutView
@@ -33,7 +33,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class CheckoutActivity :
-    BaseActivity<Checkout, CheckoutView, CheckoutPresenter>(),
+    BaseLceActivity<Checkout, CheckoutView, CheckoutPresenter>(),
     CheckoutView,
     CheckoutShippingOptionsView.OnOptionSelectedListener,
     CheckoutEmailView.EmailChangeListener {

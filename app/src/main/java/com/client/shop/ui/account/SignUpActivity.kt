@@ -20,7 +20,7 @@ import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.account.contract.SignUpPresenter
 import com.client.shop.ui.account.contract.SignUpView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.client.shop.ui.policy.PolicyActivity
@@ -30,7 +30,7 @@ import javax.inject.Inject
 
 
 class SignUpActivity :
-    BaseActivity<Unit, SignUpView, SignUpPresenter>(),
+    BaseLceActivity<Unit, SignUpView, SignUpPresenter>(),
     SignUpView {
 
     @Inject

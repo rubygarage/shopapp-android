@@ -12,13 +12,13 @@ import com.client.shop.ext.getTrimmedString
 import com.client.shop.ui.account.contract.SignInPresenter
 import com.client.shop.ui.account.contract.SignInView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import javax.inject.Inject
 
-class SignInActivity : BaseActivity<Unit, SignInView, SignInPresenter>(),
+class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
     SignInView {
 
     @Inject

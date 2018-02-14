@@ -8,14 +8,14 @@ import com.client.shop.getaway.entity.Address
 import com.client.shop.ui.address.base.adapter.AddressListAdapter
 import com.client.shop.ui.address.base.contract.AddressListPresenter
 import com.client.shop.ui.address.base.contract.AddressListView
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_address_list.*
 import javax.inject.Inject
 
 abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListView, P : AddressListPresenter<V>> :
-    BaseActivity<Pair<Address?, List<Address>>, V, P>(),
+    BaseLceActivity<Pair<Address?, List<Address>>, V, P>(),
     AddressListView,
     AddressListAdapter.ActionButtonListener,
     View.OnClickListener {

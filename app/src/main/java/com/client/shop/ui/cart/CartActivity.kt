@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceEmptyView
 import com.client.shop.ui.base.recycler.SwipeToDeleteCallback
 import com.client.shop.ui.cart.adapter.CartAdapter
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 
 class CartActivity :
-    BaseActivity<List<CartProduct>, CartView, CartPresenter>(),
+    BaseLceActivity<List<CartProduct>, CartView, CartPresenter>(),
     CartView,
     OnItemClickListener,
     CartItem.ActionListener {

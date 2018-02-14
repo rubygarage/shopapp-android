@@ -17,7 +17,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 
-abstract class BaseActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
+abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
     MvpActivity<V, P>(),
     BaseLceView<M> {
 

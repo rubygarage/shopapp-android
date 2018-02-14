@@ -24,7 +24,7 @@ import com.client.shop.getaway.entity.Product
 import com.client.shop.getaway.entity.ProductVariant
 import com.client.shop.getaway.entity.SortType
 import com.domain.formatter.NumberFormatter
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.custom.SimpleTransitionListener
 import com.client.shop.ext.registerKeyboardVisibilityListener
 import kotlinx.android.synthetic.main.activity_product_details.*
@@ -33,7 +33,7 @@ import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 import javax.inject.Inject
 
 class ProductDetailsActivity :
-    BaseActivity<Product, DetailsView, DetailsPresenter>(),
+    BaseLceActivity<Product, DetailsView, DetailsPresenter>(),
     DetailsView,
     OptionsGroupContainer.OnVariantSelectListener {
 

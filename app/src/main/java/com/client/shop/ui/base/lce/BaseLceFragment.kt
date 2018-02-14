@@ -16,7 +16,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import kotlinx.android.synthetic.main.fragment_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 
-abstract class BaseFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
+abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
     MvpFragment<V, P>(),
     BaseLceView<M> {
 
