@@ -1,10 +1,10 @@
 package com.data.repository
 
+import com.client.shop.getaway.Api
+import com.client.shop.getaway.ApiCallback
+import com.client.shop.getaway.entity.Error
 import com.data.RxImmediateSchedulerRule
 import com.data.impl.AuthRepositoryImpl
-import com.domain.entity.Error
-import com.domain.network.Api
-import com.domain.network.ApiCallback
 import com.domain.repository.AuthRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq

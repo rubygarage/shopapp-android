@@ -1,7 +1,7 @@
 package com.domain.interactors
 
+import com.client.shop.getaway.entity.Error
 import com.domain.RxImmediateSchedulerRule
-import com.domain.entity.Error
 import com.domain.interactor.base.CompletableUseCase
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Completable

@@ -2,16 +2,15 @@ package com.client.presenter
 
 import com.client.RxImmediateSchedulerRule
 import com.client.presenter.ext.mockUseCase
+import com.client.shop.getaway.entity.Error
+import com.client.shop.getaway.entity.Order
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
-import com.domain.entity.Error
-import com.domain.entity.Order
 import com.domain.interactor.order.OrderListUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
-import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Rule
