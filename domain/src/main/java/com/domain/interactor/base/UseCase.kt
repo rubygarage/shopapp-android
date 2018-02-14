@@ -5,12 +5,12 @@ import io.reactivex.disposables.Disposable
 
 abstract class UseCase {
 
-    private var isAttachedToLifecycle = false
+    private var isAttached = false
     protected var lastDisposable: Disposable? = null
-    protected var disposables: CompositeDisposable = CompositeDisposable()
+    var disposables: CompositeDisposable = CompositeDisposable()
 
-    protected fun checkIsAttachedToLifecycle() {
-        if (!isAttachedToLifecycle) {
+    fun checkIsAttachedToLifecycle() {
+        if (!isAttachedToLifecycle()) {
             throw RuntimeException("You have to attach ${this.javaClass.name} to the lifecycle.")
         }
     }
@@ -24,10 +24,12 @@ abstract class UseCase {
     }
 
     fun attachToLifecycle() {
-        isAttachedToLifecycle = true
+        isAttached = true
     }
 
     fun dispose() {
         disposables.clear()
     }
+
+    fun isAttachedToLifecycle() = isAttached
 }

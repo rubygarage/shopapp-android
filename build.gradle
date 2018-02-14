@@ -23,6 +23,13 @@ buildscript {
         retrofitVersion = '2.3.0'
         retrofitConverterVersion = '2.0.0'
         okhttpVersion = '3.9.0'
+
+        mockitoVersion = '2.8.47'
+        mockitoKotlinVersion = '1.5.0'
+        junitVersion = '4.12'
+        robolectricVersion = '3.5.1'
+        testRunnerVersion = '1.0.1'
+        espressoVersion = '3.0.1'
     }
 
     repositories {
