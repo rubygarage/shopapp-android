@@ -95,11 +95,39 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.AddressListActivity"
+            android:name=".ui.address.account.AddressListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.AddressActivity"
+            android:name=".ui.address.account.AddressActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.base.browser.BrowserActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.checkout.CheckoutActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.address.checkout.CheckoutAddressListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.address.checkout.CheckoutAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.address.checkout.CheckoutUnAuthAddressActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.checkout.payment.card.CardActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ui.checkout.payment.PaymentActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

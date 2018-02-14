@@ -2,8 +2,8 @@ package com.client.shop.ui.account.contract
 
 import com.domain.interactor.account.SignUpUseCase
 import com.domain.validator.FieldValidator
-import com.ui.base.contract.BaseLcePresenter
-import com.ui.base.contract.BaseLceView
+import com.client.shop.ui.base.contract.BaseLcePresenter
+import com.client.shop.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface SignUpView : BaseLceView<Unit> {

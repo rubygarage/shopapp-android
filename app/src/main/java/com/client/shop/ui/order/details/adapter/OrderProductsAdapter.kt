@@ -3,10 +3,10 @@ package com.client.shop.ui.order.details.adapter
 import android.content.Context
 import android.view.View
 import com.client.shop.ui.item.OrderProductItem
-import com.domain.entity.OrderProduct
+import com.client.shop.getaway.entity.OrderProduct
 import com.domain.formatter.NumberFormatter
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class OrderProductsAdapter(
     productList: List<OrderProduct>,

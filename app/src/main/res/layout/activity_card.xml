@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="ContentDescription">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true">
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/holderNameInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="40dp"
+            android:animateLayoutChanges="true"
+            android:hint="@string/card_holder_name"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/holderNameInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                android:lines="1" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/cardNumberInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:animateLayoutChanges="true"
+            android:hint="@string/card_number"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/holderNameInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cardNumberInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1"
+                android:maxLength="19"
+                android:paddingEnd="35dp"
+                tools:ignore="RtlSymmetry" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <ImageView
+            android:id="@+id/cardLogo"
+            android:layout_width="27dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cardNumberInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/cardNumberInputLayout"
+            app:layout_constraintTop_toTopOf="@+id/cardNumberInputLayout" />
+
+        <TextView
+            android:id="@+id/expirationDateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:paddingStart="3dp"
+            android:text="@string/expiration_date"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorPrimaryTransparent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardNumberInputLayout"
+            tools:ignore="RtlSymmetry" />
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/monthInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/month"
+            android:textColorHint="@color/textColorPrimary"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toStartOf="@+id/yearInputLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expirationDateLabel">
+
+            <com.client.shop.ui.custom.UnMutableTextInputEditText
+                android:id="@+id/monthInput"
+                style="@style/TextInputEditText"
+                android:drawableEnd="@drawable/ic_small_arrow_down"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1"
+                android:textColor="@color/textColorPrimary" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/yearInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/year"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/monthInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/expirationDateLabel">
+
+            <com.client.shop.ui.custom.UnMutableTextInputEditText
+                android:id="@+id/yearInput"
+                style="@style/TextInputEditText"
+                android:drawableEnd="@drawable/ic_small_arrow_down"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:lines="1"
+                android:textColor="@color/textColorPrimary" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+            android:id="@+id/cvvInputLayout"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:animateLayoutChanges="true"
+            android:hint="@string/cvv"
+            app:hintTextAppearance="@style/HintTextAppearance"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/monthInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/cvvInput"
+                style="@style/TextInputEditText"
+                android:imeOptions="actionNext"
+                android:inputType="numberPassword"
+                android:lines="1"
+                android:maxLength="4" />
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+
+        <Button
+            android:id="@+id/submitButton"
+            style="@style/PrimaryButton"
+            android:layout_marginEnd="45dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="48dp"
+            android:enabled="false"
+            android:text="@string/pay_with_this_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvvInputLayout" />
+
+        <TextView
+            android:id="@+id/weAcceptLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/we_accept"
+            android:textAllCaps="true"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/submitButton" />
+
+        <ImageView
+            android:id="@+id/visa"
+            style="@style/AcceptedCardLogo"
+            android:src="@drawable/ic_visa"
+            app:layout_constraintEnd_toStartOf="@+id/amex"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
+
+        <ImageView
+            android:id="@+id/amex"
+            style="@style/AcceptedCardLogo"
+            android:src="@drawable/ic_amex"
+            app:layout_constraintEnd_toStartOf="@+id/masterCard"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/visa"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
+
+        <ImageView
+            android:id="@+id/masterCard"
+            style="@style/AcceptedCardLogo"
+            android:src="@drawable/ic_master_card"
+            app:layout_constraintEnd_toStartOf="@+id/discover"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/amex"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
+
+        <ImageView
+            android:id="@+id/discover"
+            style="@style/AcceptedCardLogo"
+            android:src="@drawable/ic_discover"
+            app:layout_constraintEnd_toStartOf="@+id/jcb"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/masterCard"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
+
+        <ImageView
+            android:id="@+id/jcb"
+            style="@style/AcceptedCardLogo"
+            android:src="@drawable/ic_jcb_card"
+            app:layout_constraintEnd_toStartOf="@+id/dc"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/discover"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
+
+        <ImageView
+            android:id="@+id/dc"
+            style="@style/AcceptedCardLogo"
+            android:src="@drawable/ic_dc_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/jcb"
+            app:layout_constraintTop_toBottomOf="@+id/weAcceptLabel" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dc" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

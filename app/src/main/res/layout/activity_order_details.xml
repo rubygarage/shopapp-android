@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.ui.view.OrderTitleView
+        <com.client.shop.ui.view.OrderTitleView
             android:id="@+id/orderTitleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/orderDetailsTitle" />
 
-        <com.ui.view.PriceView
+        <com.client.shop.ui.view.PriceView
             android:id="@+id/priceView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/priceView" />
 
-        <com.ui.item.AddressContentItem
+        <com.client.shop.ui.item.AddressContentItem
             android:id="@+id/addressContentView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

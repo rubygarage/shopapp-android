@@ -47,7 +47,8 @@ dependencies {
     implementation "io.requery:requery-android:$requeryVersion"
     kapt "io.requery:requery-processor:$requeryVersion"
 
-    api project(':domain')
+    implementation project(':getaway')
+    implementation project(':domain')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {

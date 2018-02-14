@@ -6,12 +6,12 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.client.shop.R
+import com.client.shop.ext.replaceOnce
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.popular.PopularFragment
 import com.client.shop.ui.product.ProductHorizontalFragment
-import com.domain.entity.SortType
-import com.ui.ext.replaceOnce
+import com.client.shop.getaway.entity.SortType
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment :
@@ -39,6 +39,7 @@ class HomeFragment :
         super.onViewCreated(view, savedInstanceState)
 
         refreshLayout.setOnRefreshListener(this)
+
         childFragmentManager.replaceOnce(R.id.recentContainer,
             ProductHorizontalFragment::javaClass.name,
             {
@@ -62,7 +63,6 @@ class HomeFragment :
                 }
                 fragment
             }).commit()
-
         childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name,
             {
                 val fragment = BlogFragment()

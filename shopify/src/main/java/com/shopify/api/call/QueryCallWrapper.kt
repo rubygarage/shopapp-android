@@ -1,7 +1,7 @@
 package com.shopify.api.call
 
-import com.domain.entity.Error
-import com.domain.network.ApiCallback
+import com.client.shop.getaway.ApiCallback
+import com.client.shop.getaway.entity.Error
 import com.shopify.api.adapter.ErrorAdapter
 import com.shopify.buy3.GraphCall
 import com.shopify.buy3.GraphError

@@ -1,6 +1,6 @@
 package com.data.dao.entity
 
-import com.domain.entity.ProductVariant
+import com.client.shop.getaway.entity.ProductVariant
 import io.requery.Entity
 import io.requery.Key
 import io.requery.OneToOne

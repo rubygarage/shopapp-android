@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:focusableInTouchMode="true">
 
-    <com.ui.custom.UpperCaseHintTextInputLayout
+    <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
         android:id="@+id/emailInputLayout"
         style="@style/TextInputLayoutStyle"
         android:layout_marginEnd="45dp"
@@ -29,9 +29,9 @@
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:lines="1" />
-    </com.ui.custom.UpperCaseHintTextInputLayout>
+    </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
-    <com.ui.custom.UpperCaseHintTextInputLayout
+    <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
         android:id="@+id/passwordInputLayout"
         style="@style/TextInputLayoutStyle"
         android:layout_marginEnd="45dp"
@@ -54,7 +54,7 @@
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:max="1" />
-    </com.ui.custom.UpperCaseHintTextInputLayout>
+    </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
     <Button
         android:id="@+id/loginButton"

@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.domain.entity.State
+import com.client.shop.getaway.entity.State
 import com.shopify.api.entity.ApiState
 
 object StateListAdapter {

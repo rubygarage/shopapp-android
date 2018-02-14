@@ -1,7 +1,7 @@
 package com.data.impl
 
+import com.client.shop.getaway.entity.CartProduct
 import com.domain.database.Dao
-import com.domain.entity.CartProduct
 import com.domain.repository.CartRepository
 import io.reactivex.Completable
 import io.reactivex.Observable

@@ -2,7 +2,7 @@ package com.client.shop.ui.cart.contract
 
 import com.domain.interactor.cart.CartItemsUseCase
 import com.hannesdorfmann.mosby3.mvp.MvpView
-import com.ui.base.contract.BasePresenter
+import com.client.shop.ui.base.contract.BasePresenter
 import javax.inject.Inject
 
 interface CartWidgetView : MvpView {

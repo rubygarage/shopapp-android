@@ -1,7 +1,7 @@
 package com.domain.repository
 
-import com.domain.entity.Article
-import com.domain.entity.SortType
+import com.client.shop.getaway.entity.Article
+import com.client.shop.getaway.entity.SortType
 import io.reactivex.Single
 
 interface BlogRepository {
