@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
@@ -59,15 +58,15 @@ class PopularFragment :
 
     private fun setupRecycler() {
         val layoutManager = GridLayoutManager(context, SPAN_COUNT)
-        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
-        adapter = ProductListAdapter(MATCH_PARENT, size, productList, this)
+        val size = resources.getDimensionPixelSize(R.dimen.product_horizontal_item_size)
+        adapter = ProductListAdapter(size, size, productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.addItemDecoration(GridSpaceDecoration(
-            resources.getDimensionPixelSize(R.dimen.recycler_padding), SPAN_COUNT))
+            resources.getDimensionPixelSize(R.dimen.recycler_divider_space), SPAN_COUNT))
     }
 
     //LCE

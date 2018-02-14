@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
 import com.domain.entity.Article
+import com.ui.ext.setResizedImageUri
 import kotlinx.android.synthetic.main.item_article.view.*
+
 
 class ArticleItem(context: Context) : ConstraintLayout(context) {
 
@@ -20,7 +22,11 @@ class ArticleItem(context: Context) : ConstraintLayout(context) {
         content.text = article.content
         author.text = article.author.fullName
         val src = article.image?.src
-        image.setImageURI(src)
-        image.visibility = if (src == null) View.GONE else View.VISIBLE
+        image.visibility = if (src == null) {
+            GONE
+        } else {
+            image.setResizedImageUri(context, src)
+            VISIBLE
+        }
     }
 }

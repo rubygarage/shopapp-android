@@ -74,7 +74,7 @@ class ProductListActivity :
     //SETUP
 
     override fun setupAdapter(): ProductListAdapter {
-        val size = resources.getDimensionPixelSize(R.dimen.product_item_size)
+        val size = resources.getDimensionPixelSize(R.dimen.product_grid_item_size)
         return ProductListAdapter(ViewGroup.LayoutParams.MATCH_PARENT, size, dataList, this)
     }
 
