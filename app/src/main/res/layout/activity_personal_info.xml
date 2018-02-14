@@ -29,8 +29,7 @@
                 style="@style/TextInputEditText"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:lines="1"
-                android:text="asdasd" />
+                android:lines="1" />
         </com.ui.custom.UpperCaseHintTextInputLayout>
 
         <com.ui.custom.UpperCaseHintTextInputLayout
