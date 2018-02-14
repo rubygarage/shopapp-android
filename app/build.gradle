@@ -28,8 +28,6 @@ android {
         versionCode 1
         versionName "1"
 
-        buildConfigField "String", "BASE_URL", accessProperties['baseUrl']
-
         multiDexEnabled true
 
         buildConfigField "String", "BASE_URL", accessProperties['baseUrl']

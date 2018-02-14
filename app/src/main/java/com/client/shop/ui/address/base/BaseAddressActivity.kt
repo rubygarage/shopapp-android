@@ -248,8 +248,4 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         lceLayout.changeState(LceLayout.LceState.LoadingState(true))
         presenter.getCountriesList()
     }
-
-    override fun tryAgainButtonClicked() {
-        super.tryAgainButtonClicked()
-    }
 }
