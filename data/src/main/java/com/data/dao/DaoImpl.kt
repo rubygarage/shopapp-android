@@ -1,13 +1,13 @@
 package com.data.dao
 
 import android.content.Context
+import com.client.shop.getaway.entity.CartProduct
+import com.client.shop.getaway.entity.Error
 import com.data.dao.adapter.CartProductAdapter
 import com.data.dao.entity.CartProductData
 import com.data.dao.entity.CartProductDataEntity
 import com.data.dao.entity.Models
 import com.domain.database.Dao
-import com.client.shop.getaway.entity.CartProduct
-import com.client.shop.getaway.entity.Error
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,6 +18,10 @@ import io.requery.sql.KotlinEntityDataStore
 import io.requery.sql.TableCreationMode
 
 class DaoImpl(context: Context) : Dao {
+
+    companion object {
+        private const val MAX_QUANTITY = 999
+    }
 
     private val store: KotlinReactiveEntityStore<Persistable>
 
@@ -46,7 +50,8 @@ class DaoImpl(context: Context) : Dao {
             .get()
             .singleOrNull()
         if (storeItem != null) {
-            storeItem.quantity = storeItem.quantity + cartProduct.quantity
+            val quantity = storeItem.quantity + cartProduct.quantity
+            storeItem.quantity = if (quantity > MAX_QUANTITY) MAX_QUANTITY else quantity
         } else {
             storeItem = CartProductAdapter.adaptToStore(cartProduct)
         }
