@@ -13,7 +13,7 @@ import com.client.shop.ext.setTextWhenDisable
 import com.client.shop.ui.account.contract.PersonalInfoPresenter
 import com.client.shop.ui.account.contract.PersonalInfoView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.client.shop.getaway.entity.Customer
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_personal_info.*
 import javax.inject.Inject
 
 class PersonalInfoActivity :
-    BaseActivity<Customer, PersonalInfoView, PersonalInfoPresenter>(),
+    BaseLceActivity<Customer, PersonalInfoView, PersonalInfoPresenter>(),
     PersonalInfoView {
 
     companion object {

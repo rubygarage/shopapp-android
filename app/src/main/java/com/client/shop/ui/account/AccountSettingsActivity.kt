@@ -9,14 +9,14 @@ import com.client.shop.ext.checkedChanges
 import com.client.shop.ui.account.contract.AccountSettingsPresenter
 import com.client.shop.ui.account.contract.AccountSettingsView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_account_settings.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AccountSettingsActivity :
-    BaseActivity<Boolean, AccountSettingsView, AccountSettingsPresenter>(),
+    BaseLceActivity<Boolean, AccountSettingsView, AccountSettingsPresenter>(),
     AccountSettingsView {
 
     companion object {

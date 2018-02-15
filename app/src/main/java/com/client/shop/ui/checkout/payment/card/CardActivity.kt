@@ -10,7 +10,7 @@ import android.view.inputmethod.EditorInfo
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ext.hideKeyboard
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.checkout.payment.card.contract.CardPresenter
 import com.client.shop.ui.checkout.payment.card.contract.CardView
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 
 class CardActivity :
-    BaseActivity<List<CardType>, CardView, CardPresenter>(),
+    BaseLceActivity<List<CardType>, CardView, CardPresenter>(),
     CardView {
 
     companion object {

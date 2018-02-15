@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.order.details.adapter.OrderProductsAdapter
 import com.client.shop.ui.order.details.contract.OrderDetailsPresenter
 import com.client.shop.ui.order.details.contract.OrderDetailsView
@@ -22,7 +22,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class OrderDetailsActivity :
-    BaseActivity<Order, OrderDetailsView, OrderDetailsPresenter>(),
+    BaseLceActivity<Order, OrderDetailsView, OrderDetailsPresenter>(),
     OrderDetailsView, OnItemClickListener {
 
     private var order: Order? = null

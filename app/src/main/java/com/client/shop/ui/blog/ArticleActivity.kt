@@ -15,7 +15,7 @@ import com.client.shop.ShopApplication
 import com.client.shop.ext.fitHtmlFrames
 import com.client.shop.ext.fitHtmlImages
 import com.client.shop.ext.shareText
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
 import com.client.shop.ui.blog.di.BlogModule
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 
 class ArticleActivity :
-    BaseActivity<Article, ArticleView, ArticlePresenter>(),
+    BaseLceActivity<Article, ArticleView, ArticlePresenter>(),
     ArticleView {
 
     @Inject

@@ -11,7 +11,7 @@ import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.account.contract.ForgotPasswordPresenter
 import com.client.shop.ui.account.contract.ForgotPasswordView
 import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.validator.FieldValidator
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_forgot_password.*
 import javax.inject.Inject
 
 class ForgotPasswordActivity :
-    BaseActivity<Unit, ForgotPasswordView, ForgotPasswordPresenter>(),
+    BaseLceActivity<Unit, ForgotPasswordView, ForgotPasswordPresenter>(),
     ForgotPasswordView,
     View.OnClickListener {
 

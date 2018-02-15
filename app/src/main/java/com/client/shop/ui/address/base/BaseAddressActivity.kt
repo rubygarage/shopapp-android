@@ -13,7 +13,7 @@ import com.client.shop.getaway.entity.Country
 import com.client.shop.getaway.entity.State
 import com.client.shop.ui.address.base.contract.AddressPresenter
 import com.client.shop.ui.address.base.contract.AddressView
-import com.client.shop.ui.base.lce.BaseActivity
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.base.picker.BaseBottomSheetPicker
 import com.client.shop.ui.custom.SimpleTextWatcher
@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.activity_lce.*
 import javax.inject.Inject
 
 abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
-    BaseActivity<Address?, V, P>(),
+    BaseLceActivity<Address?, V, P>(),
     AddressView {
 
     companion object {
