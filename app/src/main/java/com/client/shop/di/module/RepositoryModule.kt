@@ -9,38 +9,38 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-open class RepositoryModule(private val api: Api, private val dao: Dao) {
+class RepositoryModule(private val api: Api, private val dao: Dao) {
 
     @Provides
     @Singleton
-    open fun provideShopRepository(): ShopRepository = ShopRepositoryImpl(api)
+    fun provideShopRepository(): ShopRepository = ShopRepositoryImpl(api)
 
     @Provides
     @Singleton
-    open fun provideBlogRepository(): BlogRepository = BlogRepositoryImpl(api)
+    fun provideBlogRepository(): BlogRepository = BlogRepositoryImpl(api)
 
     @Provides
     @Singleton
-    open fun provideProductRepository(): ProductRepository = ProductRepositoryImpl(api)
+    fun provideProductRepository(): ProductRepository = ProductRepositoryImpl(api)
 
     @Provides
     @Singleton
-    open fun provideCategoryRepository(): CategoryRepository = CategoryRepositoryImpl(api)
+    fun provideCategoryRepository(): CategoryRepository = CategoryRepositoryImpl(api)
 
     @Provides
     @Singleton
-    open fun provideCartRepository(): CartRepository = CartRepositoryImpl(dao)
+    fun provideCartRepository(): CartRepository = CartRepositoryImpl(dao)
 
     @Provides
     @Singleton
-    open fun provideAuthRepository(): AuthRepository = AuthRepositoryImpl(api)
+    fun provideAuthRepository(): AuthRepository = AuthRepositoryImpl(api)
 
     @Provides
     @Singleton
-    open fun provideOrderRepository(): OrderRepository = OrderRepositoryImpl(api)
+    fun provideOrderRepository(): OrderRepository = OrderRepositoryImpl(api)
 
     @Provides
     @Singleton
-    open fun provideCheckoutRepository(): CheckoutRepository = CheckoutRepositoryImpl(api)
+    fun provideCheckoutRepository(): CheckoutRepository = CheckoutRepositoryImpl(api)
 
 }
