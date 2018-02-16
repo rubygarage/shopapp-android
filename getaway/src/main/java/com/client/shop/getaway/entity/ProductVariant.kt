@@ -4,14 +4,15 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.math.BigDecimal
 
-data class ProductVariant(var id: String,
-                          var title: String,
-                          var price: BigDecimal,
-                          var isAvailable: Boolean,
-                          var selectedOptions: List<VariantOption>,
-                          var image: Image? = null,
-                          var productImage: Image? = null,
-                          var productId: String
+data class ProductVariant(
+    var id: String,
+    var title: String,
+    var price: BigDecimal,
+    var isAvailable: Boolean,
+    var selectedOptions: List<VariantOption>,
+    var image: Image? = null,
+    var productImage: Image? = null,
+    var productId: String
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

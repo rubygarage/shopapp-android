@@ -68,6 +68,12 @@ android {
             signingConfig signingConfigs.config
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 kapt {

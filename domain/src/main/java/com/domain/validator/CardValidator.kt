@@ -47,7 +47,7 @@ class CardValidator {
         val selectedYear = expireYear.toIntOrNull() ?: -1
 
         return when {
-            selectedMonth > Calendar.DECEMBER -> false
+            selectedMonth > Calendar.DECEMBER || selectedMonth < 0 -> false
             currentYear > selectedYear -> false
             else -> !(currentMonth > selectedMonth && currentYear == selectedYear)
         }

@@ -172,7 +172,7 @@ class SignUpActivity :
         finish()
     }
 
-    override fun tryAgainButtonClicked() {
+    override fun onTryAgainButtonClicked() {
         loadData(true)
     }
 

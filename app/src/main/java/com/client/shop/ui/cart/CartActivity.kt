@@ -8,20 +8,19 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.getaway.entity.CartProduct
 import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceEmptyView
+import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.SwipeToDeleteCallback
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
-import com.client.shop.ui.cart.di.CartModule
 import com.client.shop.ui.checkout.CheckoutActivity
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.getaway.entity.CartProduct
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 
@@ -111,7 +110,7 @@ class CartActivity :
 
     //CALLBACK
 
-    override fun emptyButtonClicked() {
+    override fun onEmptyButtonClicked() {
         startActivity(HomeActivity.getStartIntent(this, true))
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out)
     }

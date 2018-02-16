@@ -1,7 +1,6 @@
 package com.domain.interactor.account
 
 import com.domain.repository.AuthRepository
-import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
 import org.junit.Test
@@ -27,8 +26,9 @@ class ChangePasswordUseCaseTest {
 
     @Test
     fun shouldDelegateCallToRepository() {
-        useCase.buildUseCaseCompletable("123456789")
-        verify(authRepository).changePassword(eq("123456789"))
+        val newPassword = "123456789"
+        useCase.buildUseCaseCompletable(newPassword)
+        verify(authRepository).changePassword(newPassword)
     }
 
 }

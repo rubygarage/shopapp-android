@@ -13,7 +13,7 @@ class NumberFormatterTest {
     private val CURRENCY = "USD"
 
     @Test
-    fun numberFormatter_FormatBigDecimalPrice_US_Equals() {
+    fun formatBigDecimalPriceWithUsLocale() {
 
         Locale.setDefault(Locale.US)
 
