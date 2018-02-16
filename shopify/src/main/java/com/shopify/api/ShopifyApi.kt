@@ -6,7 +6,6 @@ import android.preference.PreferenceManager
 import com.client.shop.getaway.Api
 import com.client.shop.getaway.ApiCallback
 import com.client.shop.getaway.entity.*
-import com.google.android.gms.wallet.FullWallet
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.shopify.api.adapter.*
@@ -19,10 +18,6 @@ import com.shopify.api.ext.isSingleOptions
 import com.shopify.api.retrofit.CountriesService
 import com.shopify.api.retrofit.RestClient
 import com.shopify.buy3.*
-import com.shopify.buy3.pay.PayAddress
-import com.shopify.buy3.pay.PayCart
-import com.shopify.buy3.pay.PayHelper
-import com.shopify.buy3.pay.PaymentToken
 import com.shopify.graphql.support.ID
 import com.shopify.util.AssetsReader
 import net.danlew.android.joda.JodaTimeAndroid
@@ -31,7 +26,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.io.IOException
-import java.math.BigDecimal
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -896,94 +890,6 @@ class ShopifyApi(private val context: Context, baseUrl: String, accessToken: Str
                         null
                     } else {
                         if (it.checkout?.ready == true) true else null
-                    }
-                }
-            }
-        })
-    }
-
-    fun createAndroidPayCart(checkout: Checkout, cartProductList: List<CartProduct>, callback: ApiCallback<PayCart>) {
-
-        val shopCallback = object : GraphCall.Callback<Storefront.QueryRoot> {
-            override fun onResponse(response: GraphResponse<Storefront.QueryRoot>) {
-                val currency = response.data()?.shop?.paymentSettings?.currencyCode?.name ?: ""
-                val countryCode = response.data()?.shop?.paymentSettings?.countryCode?.name ?: ""
-
-                val payCartBuilder = PayCart.builder()
-                    .merchantName(BuildConfig.BASE_DOMAIN)
-                    .currencyCode(currency)
-                    .shippingAddressRequired(checkout.requiresShipping)
-                    .countryCode(countryCode)
-                    .subtotal(checkout.subtotalPrice)
-                    .totalPrice(checkout.totalPrice)
-                    .taxPrice(checkout.taxPrice)
-
-                for (cartProduct in cartProductList) {
-                    val productVariant = cartProduct.productVariant
-                    payCartBuilder.addLineItem(productVariant.title, cartProduct.quantity,
-                        BigDecimal.valueOf(productVariant.price.toDouble()))
-                }
-
-                callback.onResult(payCartBuilder.build())
-            }
-
-            override fun onFailure(error: GraphError) {
-                callback.onFailure(ErrorAdapter.adapt(error))
-            }
-        }
-
-        val query = Storefront.query {
-            it.shop {
-                it.paymentSettings {
-                    it.currencyCode()
-                        .countryCode()
-                }
-            }
-        }
-        val call = graphClient.queryGraph(query)
-        call.enqueue(shopCallback)
-    }
-
-    fun completeCheckoutByAndroid(checkout: Checkout, payCart: PayCart, fullWallet: FullWallet, callback: ApiCallback<Boolean>) {
-
-        val paymentToken: PaymentToken = PayHelper.extractPaymentToken(fullWallet, BuildConfig.ANDROID_PAY_PUBLIC_KEY)
-        val billingAddress = PayAddress.fromUserAddress(fullWallet.buyerBillingAddress)
-        val idempotencyKey: String = UUID.randomUUID().toString()
-
-        val mailingAddressInput = Storefront.MailingAddressInput()
-            .setAddress1(billingAddress.address1)
-            .setAddress2(billingAddress.address2)
-            .setCity(billingAddress.city)
-            .setCountry(billingAddress.country)
-            .setFirstName(billingAddress.firstName)
-            .setLastName(billingAddress.lastName)
-            .setPhone(billingAddress.phone)
-            .setProvince(billingAddress.province)
-            .setZip(billingAddress.zip)
-
-        val input = Storefront.TokenizedPaymentInput(payCart.totalPrice, idempotencyKey,
-            mailingAddressInput, paymentToken.token, "android_pay")
-            .setIdentifier(paymentToken.publicKeyHash).setAmount(checkout.totalPrice)
-
-        val query = Storefront.mutation {
-            it.checkoutCompleteWithTokenizedPayment(ID(checkout.checkoutId), input, {
-                it.payment({ it.ready().errorMessage() })
-                    .checkout({ it.ready() })
-                    .userErrors({ getDefaultUserErrors(it) })
-            })
-        }
-
-        graphClient.mutateGraph(query).enqueue(object : MutationCallWrapper<Boolean>(callback) {
-            override fun adapt(data: Storefront.Mutation?): Boolean? {
-                return data?.checkoutCompleteWithTokenizedPayment?.let {
-                    val userError = ErrorAdapter.adaptUserError(it.userErrors)
-                    if (userError != null) {
-                        callback.onFailure(userError)
-                        null
-                    } else {
-                        val checkoutReady = it.checkout?.ready ?: false
-                        val paymentReady = it.payment?.ready ?: false
-                        checkoutReady && paymentReady
                     }
                 }
             }

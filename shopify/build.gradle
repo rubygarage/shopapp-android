@@ -65,7 +65,6 @@ dependencies {
     implementation project(':getaway')
 
     implementation 'com.shopify.mobilebuysdk:buy3:3.1.2'
-    implementation 'com.shopify.mobilebuysdk:buy3-pay-support:1.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     testImplementation "junit:junit:$junitVersion"
