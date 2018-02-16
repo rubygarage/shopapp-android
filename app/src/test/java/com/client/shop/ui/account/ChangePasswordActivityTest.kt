@@ -50,7 +50,7 @@ class ChangePasswordActivityTest {
     }
 
     @Test
-    fun shouldShowProgressOn() {
+    fun shouldMoveFocusToRootViewOnUpdateButtonClick() {
         val updateButton = activity.updateButton
         assertNotNull(updateButton)
         updateButton.performClick()
