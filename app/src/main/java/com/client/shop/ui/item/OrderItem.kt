@@ -9,7 +9,7 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.getaway.entity.Order
 import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.adapter.ProductVariantAdapter
+import com.client.shop.ui.product.adapter.ProductVariantAdapter
 import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
@@ -17,9 +17,11 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import kotlinx.android.synthetic.main.item_order.view.*
 
 @SuppressLint("ViewConstructor")
-class OrderItem(context: Context,
-                private val dateFormatter: DateFormatter,
-                private val numberFormatter: NumberFormatter) : ConstraintLayout(context) {
+class OrderItem(
+    context: Context,
+    private val dateFormatter: DateFormatter,
+    private val numberFormatter: NumberFormatter) : ConstraintLayout(context
+) {
 
     private var onProductVariantClickListener: OnProductVariantClickListener? = null
 
