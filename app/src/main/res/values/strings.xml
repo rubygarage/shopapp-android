@@ -48,7 +48,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="reset_password_title">Reset your password</string>
     <string name="check_inbox_message">Please check your inbox</string>
-    <string name="logout_success_message">You have been logged out successfully</string>
+    <string name="logout_success_message">You have been successfully logged out</string>
     <string name="account_sign_in_message">Sign In to shop and view orders</string>
     <string name="policy_text">By creating your account, you accept our</string>
     <string name="and">and</string>
@@ -109,7 +109,6 @@
     <string name="try_again">Try Again</string>
     <string name="close">Close</string>
     <string name="first_name">First Name</string>
-    <string name="name">Name</string>
     <string name="last_name">Last Name</string>
     <string name="email">Email*</string>
     <string name="address">Address*</string>

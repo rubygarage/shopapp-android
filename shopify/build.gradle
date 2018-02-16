@@ -19,7 +19,6 @@ android {
         buildConfigField "String", "ACCESS_TOKEN", accessProperties['shopifyAccessToken']
         buildConfigField "String", "PRIVATE_AUTH_KEY", accessProperties['shopifyApiPrivateAuthKey']
         buildConfigField "String", "PRIVATE_AUTH_PASSWORD", accessProperties['shopifyApiPrivateAuthPassword']
-        buildConfigField "String", "ANDROID_PAY_PUBLIC_KEY", accessProperties['androidPayPublicKey']
 
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
