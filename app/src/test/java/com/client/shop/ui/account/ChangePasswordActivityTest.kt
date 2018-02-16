@@ -8,7 +8,10 @@ import com.client.shop.R
 import com.client.shop.TestShopApplication
 import com.nhaarman.mockito_kotlin.verify
 import kotlinx.android.synthetic.main.activity_change_password.*
+import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.view_base_toolbar.view.*
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -36,8 +39,18 @@ class ChangePasswordActivityTest {
         context = RuntimeEnvironment.application.baseContext
     }
 
+    @After
+    fun tearDown() {
+        activity.finish()
+    }
+
     @Test
-    fun shouldMoveFocusToRootViewOnUpdateButtonClick() {
+    fun shouldSetTitleOnCreate() {
+        assertEquals(context.getString(R.string.set_new_password), activity.toolbar.toolbarTitle.text)
+    }
+
+    @Test
+    fun shouldShowProgressOn() {
         val updateButton = activity.updateButton
         assertNotNull(updateButton)
         updateButton.performClick()

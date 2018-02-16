@@ -16,8 +16,8 @@ class AuthRepositoryImpl(private val api: Api) : AuthRepository {
         return Completable.create { api.signUp(firstName, lastName, email, password, phone, RxCallbackCompletable(it)) }
     }
 
-    override fun signIn(email: String, authToken: String): Completable {
-        return Completable.create { api.signIn(email, authToken, RxCallbackCompletable(it)) }
+    override fun signIn(email: String, password: String): Completable {
+        return Completable.create { api.signIn(email, password, RxCallbackCompletable(it)) }
     }
 
     override fun signOut(): Completable {
