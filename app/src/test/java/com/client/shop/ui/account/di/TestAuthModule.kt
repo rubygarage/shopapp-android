@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-open class TestAuthModule {
+class TestAuthModule {
 
     @Provides
     fun provideSignUpPresenter(formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {

@@ -7,15 +7,15 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-open class AuthModule {
+class AuthModule {
 
     @Provides
-    open fun provideSignUpPresenter(formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
+    fun provideSignUpPresenter(formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
         return SignUpPresenter(formValidator, signUpUseCase)
     }
 
     @Provides
-    open fun provideSignInPresenter(
+    fun provideSignInPresenter(
         formValidator: FieldValidator,
         signInUseCase: SignInUseCase
     ): SignInPresenter {
@@ -23,29 +23,29 @@ open class AuthModule {
     }
 
     @Provides
-    open fun provideAuthPresenter(sessionCheckUseCase: SessionCheckUseCase, signOutUseCase: SignOutUseCase,
+    fun provideAuthPresenter(sessionCheckUseCase: SessionCheckUseCase, signOutUseCase: SignOutUseCase,
                                   shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
         return AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
     }
 
     @Provides
-    open fun provideForgotPasswordPresenter(forgotPasswordUseCase: ForgotPasswordUseCase): ForgotPasswordPresenter {
+    fun provideForgotPasswordPresenter(forgotPasswordUseCase: ForgotPasswordUseCase): ForgotPasswordPresenter {
         return ForgotPasswordPresenter(forgotPasswordUseCase)
     }
 
     @Provides
-    open fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
+    fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
                                           editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
         return PersonalInfoPresenter(customerUseCase, editCustomerUseCase)
     }
 
     @Provides
-    open fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
+    fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
         return ChangePasswordPresenter(validator, changePasswordUseCase)
     }
 
     @Provides
-    open fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
+    fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
                                              updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
         return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
     }
