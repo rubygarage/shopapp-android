@@ -108,7 +108,7 @@ class ProductDetailsActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachDetailsComponent(ProductDetailsModule()).inject(this)
+        ShopApplication.appComponent.attachDetailsComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_product_details

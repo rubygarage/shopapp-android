@@ -25,7 +25,7 @@ class CartWidget @JvmOverloads constructor(
     lateinit var cartWidgetPresenter: CartWidgetPresenter
 
     init {
-        ShopApplication.appComponent.attachCartComponent(CartModule()).inject(this)
+        ShopApplication.appComponent.attachCartComponent().inject(this)
         val tv = TypedValue()
         if (context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
             val actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)

@@ -1,4 +1,4 @@
-package com.domain.interactors
+package com.domain.interactor.base
 
 import com.client.shop.getaway.entity.Error
 import com.domain.RxImmediateSchedulerRule

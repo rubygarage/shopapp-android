@@ -56,7 +56,7 @@ class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_sign_in

@@ -28,7 +28,7 @@ class CheckoutMyCartView @JvmOverloads constructor(
     private val cartProductList = mutableListOf<ProductVariant>()
 
     init {
-        ShopApplication.appComponent.attachCheckoutComponent(CheckoutModule()).inject(this)
+        ShopApplication.appComponent.attachCheckoutComponent().inject(this)
         View.inflate(context, R.layout.view_checkout_my_cart, this)
         orientation = VERTICAL
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

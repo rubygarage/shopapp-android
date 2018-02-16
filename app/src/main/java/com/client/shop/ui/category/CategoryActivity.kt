@@ -78,7 +78,7 @@ class CategoryActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachCategoryComponent(CategoryModule()).inject(this)
+        ShopApplication.appComponent.attachCategoryComponent().inject(this)
     }
 
     override fun createPresenter() = categoryPresenter

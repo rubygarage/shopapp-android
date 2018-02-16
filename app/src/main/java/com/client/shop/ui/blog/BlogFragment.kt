@@ -40,7 +40,7 @@ class BlogFragment :
     }
 
     override fun inject() {
-        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
+        ShopApplication.appComponent.attachBlogComponent().inject(this)
     }
 
     //SETUP

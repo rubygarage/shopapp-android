@@ -1,10 +1,8 @@
-package com.client.presenter
+package com.client.shop.ui.account.contract
 
 import com.client.RxImmediateSchedulerRule
-import com.client.presenter.ext.mockUseCase
+import com.client.shop.ext.mockUseCase
 import com.client.shop.getaway.entity.Error
-import com.client.shop.ui.account.contract.ChangePasswordPresenter
-import com.client.shop.ui.account.contract.ChangePasswordView
 import com.domain.interactor.account.ChangePasswordUseCase
 import com.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.*

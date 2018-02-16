@@ -3,11 +3,12 @@ package com.client.shop.ui.account.di
 import com.client.shop.ui.account.contract.*
 import com.domain.interactor.account.*
 import com.domain.validator.FieldValidator
+import com.nhaarman.mockito_kotlin.mock
 import dagger.Module
 import dagger.Provides
 
 @Module
-class AuthModule {
+class TestAuthModule {
 
     @Provides
     fun provideSignUpPresenter(formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
@@ -41,7 +42,7 @@ class AuthModule {
 
     @Provides
     fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
-        return ChangePasswordPresenter(validator, changePasswordUseCase)
+        return mock()
     }
 
     @Provides

@@ -32,7 +32,7 @@ class CategoryListFragment :
     override fun getContentView() = R.layout.fragment_search_with_categories_list
 
     override fun inject() {
-        ShopApplication.appComponent.attachSearchComponent(SearchModule()).inject(this)
+        ShopApplication.appComponent.attachSearchComponent().inject(this)
     }
 
     override fun createPresenter() = categoryListPresenter

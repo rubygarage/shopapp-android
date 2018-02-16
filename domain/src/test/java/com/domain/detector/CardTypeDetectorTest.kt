@@ -3,14 +3,8 @@ package com.domain.detector
 import com.client.shop.getaway.entity.CardType
 import org.junit.Assert
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
-
 
 @Suppress("FunctionName")
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class CardTypeDetectorTest {
 
     private val cardTypeDetector = CardTypeDetector()

@@ -39,7 +39,7 @@ class BlogActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
+        ShopApplication.appComponent.attachBlogComponent().inject(this)
     }
 
     override fun createPresenter() = blogPresenter

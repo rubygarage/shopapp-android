@@ -3,7 +3,6 @@ package com.client.shop.di.component
 import com.client.shop.di.module.RepositoryModule
 import com.client.shop.di.module.ValidatorModule
 import com.client.shop.ui.account.di.AuthComponent
-import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.address.account.di.AddressComponent
 import com.client.shop.ui.address.account.di.AddressModule
 import com.client.shop.ui.address.checkout.di.CheckoutAddressComponent
@@ -29,35 +28,35 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RepositoryModule::class, ValidatorModule::class ])
+@Component(modules = [RepositoryModule::class, ValidatorModule::class])
 interface AppComponent {
 
-    fun attachBlogComponent(module: BlogModule): BlogComponent
+    fun attachBlogComponent(): BlogComponent
 
-    fun attachDetailsComponent(module: ProductDetailsModule): ProductDetailsComponent
+    fun attachDetailsComponent(): ProductDetailsComponent
 
-    fun attachSearchComponent(module: SearchModule): SearchComponent
+    fun attachSearchComponent(): SearchComponent
 
-    fun attachProductComponent(module: ProductListModule): ProductListComponent
+    fun attachProductComponent(): ProductListComponent
 
-    fun attachRecentComponent(module: ProductHorizontalModule): ProductHorizontalComponent
+    fun attachRecentComponent(): ProductHorizontalComponent
 
-    fun attachPopularComponent(module: PopularModule): PopularComponent
+    fun attachPopularComponent(): PopularComponent
 
-    fun attachCategoryComponent(module: CategoryModule): CategoryComponent
+    fun attachCategoryComponent(): CategoryComponent
 
-    fun attachCartComponent(module: CartModule): CartComponent
+    fun attachCartComponent(): CartComponent
 
-    fun attachAuthComponent(module: AuthModule): AuthComponent
+    fun attachAuthComponent(): AuthComponent
 
-    fun attachOrderComponent(module: OrderModule): OrderComponent
+    fun attachOrderComponent(): OrderComponent
 
-    fun attachAddressComponent(module: AddressModule): AddressComponent
+    fun attachAddressComponent(): AddressComponent
 
-    fun attachCheckoutComponent(module: CheckoutModule): CheckoutComponent
+    fun attachCheckoutComponent(): CheckoutComponent
 
-    fun attachCardPaymentComponent(module: CardPaymentModule): CardPaymentComponent
+    fun attachCardPaymentComponent(): CardPaymentComponent
 
-    fun attachCheckoutAddressComponent(module: CheckoutAddressModule): CheckoutAddressComponent
+    fun attachCheckoutAddressComponent(): CheckoutAddressComponent
 
 }

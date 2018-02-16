@@ -112,7 +112,7 @@ class CheckoutActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachCheckoutComponent(CheckoutModule()).inject(this)
+        ShopApplication.appComponent.attachCheckoutComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_checkout

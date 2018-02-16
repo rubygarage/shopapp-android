@@ -45,7 +45,7 @@ class OrderListActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachOrderComponent(OrderModule()).inject(this)
+        ShopApplication.appComponent.attachOrderComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_order_list

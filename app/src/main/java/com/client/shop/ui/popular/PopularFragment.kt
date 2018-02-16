@@ -47,7 +47,7 @@ class PopularFragment :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachPopularComponent(PopularModule()).inject(this)
+        ShopApplication.appComponent.attachPopularComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_popular

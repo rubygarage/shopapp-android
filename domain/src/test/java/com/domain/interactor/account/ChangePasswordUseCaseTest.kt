@@ -1,6 +1,5 @@
-package com.domain.interactors
+package com.domain.interactor.account
 
-import com.domain.interactor.account.ChangePasswordUseCase
 import com.domain.repository.AuthRepository
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.verify
