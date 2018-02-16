@@ -10,17 +10,16 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.getaway.entity.Customer
+import com.client.shop.getaway.entity.Policy
+import com.client.shop.getaway.entity.Shop
 import com.client.shop.ui.account.contract.AccountPresenter
 import com.client.shop.ui.account.contract.AccountView
-import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.address.account.AddressListActivity
 import com.client.shop.ui.base.lce.BaseLceFragment
 import com.client.shop.ui.const.RequestCode
 import com.client.shop.ui.order.list.OrderListActivity
 import com.client.shop.ui.policy.PolicyActivity
-import com.client.shop.getaway.entity.Customer
-import com.client.shop.getaway.entity.Policy
-import com.client.shop.getaway.entity.Shop
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_lce.*
 import javax.inject.Inject
@@ -94,7 +93,7 @@ class AccountFragment :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun getRootView() = R.layout.fragment_account_lce

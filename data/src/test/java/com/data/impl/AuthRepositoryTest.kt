@@ -1,10 +1,9 @@
-package com.data.repository
+package com.data.impl
 
 import com.client.shop.getaway.Api
 import com.client.shop.getaway.ApiCallback
 import com.client.shop.getaway.entity.Error
 import com.data.RxImmediateSchedulerRule
-import com.data.impl.AuthRepositoryImpl
 import com.domain.repository.AuthRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
@@ -18,11 +17,9 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
 @Suppress("FunctionName")
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class AuthRepositoryTest {
 
     @Rule

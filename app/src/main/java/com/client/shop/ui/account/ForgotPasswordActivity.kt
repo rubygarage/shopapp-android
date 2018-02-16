@@ -63,7 +63,7 @@ class ForgotPasswordActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_forgot_password

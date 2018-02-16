@@ -64,7 +64,7 @@ class ProductListActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachProductComponent(ProductListModule()).inject(this)
+        ShopApplication.appComponent.attachProductComponent().inject(this)
     }
 
     override fun createPresenter() = productListPresenter

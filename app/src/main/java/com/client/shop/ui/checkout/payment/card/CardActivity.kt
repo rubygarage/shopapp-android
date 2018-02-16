@@ -99,7 +99,7 @@ class CardActivity :
     override fun createPresenter() = cardPresenter
 
     override fun inject() {
-        ShopApplication.appComponent.attachCardPaymentComponent(CardPaymentModule()).inject(this)
+        ShopApplication.appComponent.attachCardPaymentComponent().inject(this)
     }
 
     //SETUP

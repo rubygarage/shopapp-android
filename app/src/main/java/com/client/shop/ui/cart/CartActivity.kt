@@ -55,7 +55,7 @@ class CartActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachCartComponent(CartModule()).inject(this)
+        ShopApplication.appComponent.attachCartComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_cart

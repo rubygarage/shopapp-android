@@ -23,6 +23,6 @@ class AddressActivity : BaseAddressActivity<AddressView, AddressPresenter<Addres
     }
 
     override fun inject() {
-        ShopApplication.appComponent.attachAddressComponent(AddressModule()).inject(this)
+        ShopApplication.appComponent.attachAddressComponent().inject(this)
     }
 }

@@ -87,7 +87,7 @@ class ArticleActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
+        ShopApplication.appComponent.attachBlogComponent().inject(this)
     }
 
     override fun getContentView(): Int = R.layout.activity_article

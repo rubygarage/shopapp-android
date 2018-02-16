@@ -41,7 +41,7 @@ class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressL
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAddressComponent(AddressModule()).inject(this)
+        ShopApplication.appComponent.attachAddressComponent().inject(this)
     }
 
     override fun getAdapter() = AddressListAdapter(dataList, this, this)

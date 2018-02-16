@@ -1,4 +1,4 @@
-package com.client.presenter.ext
+package com.client.shop.ext
 
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.interactor.base.SingleUseCase

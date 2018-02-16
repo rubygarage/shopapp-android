@@ -29,7 +29,6 @@ buildscript {
         junitVersion = '4.12'
         robolectricVersion = '3.5.1'
         testRunnerVersion = '1.0.1'
-        espressoVersion = '3.0.1'
     }
 
     repositories {

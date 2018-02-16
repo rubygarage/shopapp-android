@@ -81,7 +81,7 @@ class ProductHorizontalFragment :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachRecentComponent(ProductHorizontalModule()).inject(this)
+        ShopApplication.appComponent.attachRecentComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_recent

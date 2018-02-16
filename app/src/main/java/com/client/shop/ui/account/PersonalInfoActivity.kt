@@ -120,7 +120,7 @@ class PersonalInfoActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_personal_info

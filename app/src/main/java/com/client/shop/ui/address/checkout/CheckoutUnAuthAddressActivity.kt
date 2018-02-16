@@ -53,7 +53,7 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachCheckoutAddressComponent(CheckoutAddressModule()).inject(this)
+        ShopApplication.appComponent.attachCheckoutAddressComponent().inject(this)
     }
 
     //SETUP

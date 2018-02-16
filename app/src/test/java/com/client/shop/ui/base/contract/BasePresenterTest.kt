@@ -1,4 +1,4 @@
-package com.client.presenter
+package com.client.shop.ui.base.contract
 
 import com.client.shop.ui.base.contract.BasePresenter
 import com.domain.interactor.base.UseCase
