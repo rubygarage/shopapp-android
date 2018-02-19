@@ -1,7 +1,7 @@
 package com.client.shop.ui.product.adapter
 
-import com.client.shop.getaway.entity.Image
-import com.client.shop.getaway.entity.ProductVariant
+import com.client.shop.gateway.entity.Image
+import com.client.shop.gateway.entity.ProductVariant
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.item.ProductVariantItem
 import com.nhaarman.mockito_kotlin.doReturn

@@ -2,13 +2,10 @@ package com.client.shop.ui.order.contract
 
 import com.client.RxImmediateSchedulerRule
 import com.client.shop.ext.mockUseCase
-import com.client.shop.getaway.entity.Error
-import com.client.shop.getaway.entity.Order
-import com.client.shop.ui.item.OrderItem
+import com.client.shop.gateway.entity.Error
+import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
-import com.domain.formatter.DateFormatter
-import com.domain.formatter.NumberFormatter
 import com.domain.interactor.order.OrderListUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
@@ -23,7 +20,6 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)

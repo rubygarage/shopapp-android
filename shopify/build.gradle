@@ -62,7 +62,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
 
-    implementation project(':getaway')
+    implementation project(':gateway')
 
     implementation 'com.shopify.mobilebuysdk:buy3:3.1.2'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'

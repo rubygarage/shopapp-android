@@ -1,7 +1,7 @@
 package com.domain.repository
 
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
 import io.reactivex.Single
 
 interface ProductRepository {

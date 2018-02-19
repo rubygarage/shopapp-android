@@ -1,7 +1,7 @@
 package com.data.rx
 
-import com.client.shop.getaway.ApiCallback
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.ApiCallback
+import com.client.shop.gateway.entity.Error
 import io.reactivex.SingleEmitter
 
 class RxCallbackSingle<in T>(private val emitter: SingleEmitter<T>) : ApiCallback<T> {

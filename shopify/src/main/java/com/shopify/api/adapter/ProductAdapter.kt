@@ -1,9 +1,9 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Image
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.ProductOption
-import com.client.shop.getaway.entity.ProductVariant
+import com.client.shop.gateway.entity.Image
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.ProductOption
+import com.client.shop.gateway.entity.ProductVariant
 import com.shopify.api.ext.isSingleOptions
 import com.shopify.buy3.Storefront
 import com.shopify.constant.Constant.DEFAULT_STRING

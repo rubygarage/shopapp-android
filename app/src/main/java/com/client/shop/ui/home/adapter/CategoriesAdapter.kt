@@ -3,7 +3,7 @@ package com.client.shop.ui.home.adapter
 import android.content.Context
 import android.view.View
 import com.client.shop.ui.item.CategoryItem
-import com.client.shop.getaway.entity.Category
+import com.client.shop.gateway.entity.Category
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 

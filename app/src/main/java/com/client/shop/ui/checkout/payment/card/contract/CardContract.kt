@@ -4,8 +4,8 @@ import android.support.annotation.StringRes
 import com.client.shop.R
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.getaway.entity.Card
-import com.client.shop.getaway.entity.CardType
+import com.client.shop.gateway.entity.Card
+import com.client.shop.gateway.entity.CardType
 import com.domain.interactor.checkout.CheckCreditCardUseCase
 import com.domain.interactor.checkout.GetAcceptedCardTypesUseCase
 import com.domain.validator.CardValidator

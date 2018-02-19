@@ -1,8 +1,8 @@
 package com.data.impl
 
-import com.client.shop.getaway.Api
-import com.client.shop.getaway.entity.Category
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.entity.Category
+import com.client.shop.gateway.entity.SortType
 import com.data.rx.RxCallbackSingle
 import com.domain.repository.CategoryRepository
 import io.reactivex.Single

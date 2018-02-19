@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Customer
+import com.client.shop.gateway.entity.Customer
 import com.shopify.buy3.Storefront
 import com.shopify.constant.Constant.DEFAULT_STRING
 

@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Article
+import com.client.shop.gateway.entity.Article
 import com.shopify.buy3.Storefront
 
 object ArticleListAdapter {

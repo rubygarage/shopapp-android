@@ -3,7 +3,7 @@ package com.client.shop.ui.order.list.adapter
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.item.OrderItem

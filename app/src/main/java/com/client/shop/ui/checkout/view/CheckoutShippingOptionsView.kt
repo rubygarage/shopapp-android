@@ -8,8 +8,8 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.client.shop.R
 import com.client.shop.ui.checkout.adapter.ShippingOptionsAdapter
-import com.client.shop.getaway.entity.Checkout
-import com.client.shop.getaway.entity.ShippingRate
+import com.client.shop.gateway.entity.Checkout
+import com.client.shop.gateway.entity.ShippingRate
 import kotlinx.android.synthetic.main.view_checkout_shipping_options.view.*
 
 class CheckoutShippingOptionsView @JvmOverloads constructor(

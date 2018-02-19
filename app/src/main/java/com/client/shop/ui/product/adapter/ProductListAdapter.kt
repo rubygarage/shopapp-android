@@ -3,7 +3,7 @@ package com.client.shop.ui.product.adapter
 import android.content.Context
 import android.view.View
 import com.client.shop.ui.item.ProductItem
-import com.client.shop.getaway.entity.Product
+import com.client.shop.gateway.entity.Product
 import com.domain.formatter.NumberFormatter
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter

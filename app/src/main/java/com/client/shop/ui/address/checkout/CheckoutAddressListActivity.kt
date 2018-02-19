@@ -12,10 +12,9 @@ import com.client.shop.ui.address.base.BaseAddressListActivity
 import com.client.shop.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import com.client.shop.ui.address.checkout.contract.CheckoutAddressListPresenter
 import com.client.shop.ui.address.checkout.contract.CheckoutAddressListView
-import com.client.shop.ui.address.checkout.di.CheckoutAddressModule
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.const.RequestCode
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.shopify.constant.Extra
 
 class CheckoutAddressListActivity :

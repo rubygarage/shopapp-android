@@ -1,6 +1,6 @@
 package com.domain.interactor.order
 
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.OrderRepository
 import io.reactivex.Single

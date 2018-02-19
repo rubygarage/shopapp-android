@@ -1,6 +1,6 @@
 package com.domain.interactor.checkout
 
-import com.client.shop.getaway.entity.CardType
+import com.client.shop.gateway.entity.CardType
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.CheckoutRepository
 import io.reactivex.Single

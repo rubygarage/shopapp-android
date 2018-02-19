@@ -12,7 +12,7 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import com.client.shop.R
 import com.client.shop.ext.getScreenSize
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.SortType
 
 class CategorySortPopupFacade(
     private val context: Context,

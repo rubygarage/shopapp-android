@@ -1,9 +1,9 @@
 package com.data.impl
 
-import com.client.shop.getaway.Api
-import com.client.shop.getaway.ApiCallback
-import com.client.shop.getaway.entity.Error
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.ApiCallback
+import com.client.shop.gateway.entity.Error
+import com.client.shop.gateway.entity.Order
 import com.data.RxImmediateSchedulerRule
 import com.domain.repository.OrderRepository
 import com.nhaarman.mockito_kotlin.any
@@ -20,7 +20,6 @@ import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(MockitoJUnitRunner::class)
 @Config(manifest = Config.NONE)
 class OrderRepositoryTest {

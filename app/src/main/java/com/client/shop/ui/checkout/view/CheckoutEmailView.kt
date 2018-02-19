@@ -11,7 +11,7 @@ import com.client.shop.R
 import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.const.Constant
 import com.client.shop.ui.custom.SimpleTextWatcher
-import com.client.shop.getaway.entity.Customer
+import com.client.shop.gateway.entity.Customer
 import com.domain.validator.FieldValidator
 import kotlinx.android.synthetic.main.view_checkout_email.view.*
 

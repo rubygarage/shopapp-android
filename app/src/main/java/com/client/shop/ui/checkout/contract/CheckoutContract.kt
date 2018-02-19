@@ -3,7 +3,7 @@ package com.client.shop.ui.checkout.contract
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView
 import com.client.shop.ui.const.PaymentType
-import com.client.shop.getaway.entity.*
+import com.client.shop.gateway.entity.*
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.cart.CartItemsUseCase
 import com.domain.interactor.cart.CartRemoveAllUseCase

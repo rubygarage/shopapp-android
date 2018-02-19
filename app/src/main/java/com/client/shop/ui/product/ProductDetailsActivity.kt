@@ -15,9 +15,9 @@ import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ext.registerKeyboardVisibilityListener
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.ProductVariant
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.ProductVariant
+import com.client.shop.gateway.entity.SortType
 import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.custom.SimpleTransitionListener

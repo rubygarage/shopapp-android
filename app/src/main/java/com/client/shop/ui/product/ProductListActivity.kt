@@ -11,9 +11,8 @@ import com.client.shop.ui.base.pagination.PaginationActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
-import com.client.shop.ui.product.di.ProductListModule
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
 import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 

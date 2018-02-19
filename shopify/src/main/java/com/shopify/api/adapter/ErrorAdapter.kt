@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.entity.Error
 import com.shopify.buy3.GraphError
 import com.shopify.buy3.GraphNetworkError
 import com.shopify.buy3.Storefront

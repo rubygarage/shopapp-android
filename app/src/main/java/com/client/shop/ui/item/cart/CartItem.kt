@@ -11,7 +11,7 @@ import android.widget.EditText
 import com.client.shop.R
 import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.custom.SimpleTextWatcher
-import com.client.shop.getaway.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_cart.view.*
 import java.math.BigDecimal

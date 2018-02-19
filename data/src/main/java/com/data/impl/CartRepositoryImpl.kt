@@ -1,6 +1,6 @@
 package com.data.impl
 
-import com.client.shop.getaway.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.database.Dao
 import com.domain.repository.CartRepository
 import io.reactivex.Completable

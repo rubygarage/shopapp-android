@@ -1,6 +1,6 @@
 package com.client
 
-import com.client.shop.getaway.entity.*
+import com.client.shop.gateway.entity.*
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import java.math.BigDecimal

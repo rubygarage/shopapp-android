@@ -1,6 +1,6 @@
 package com.domain.interactor.account
 
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.domain.interactor.base.CompletableUseCase
 import com.domain.repository.AuthRepository
 import io.reactivex.Completable

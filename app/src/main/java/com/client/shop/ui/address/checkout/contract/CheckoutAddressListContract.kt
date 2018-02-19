@@ -2,7 +2,7 @@ package com.client.shop.ui.address.checkout.contract
 
 import com.client.shop.ui.address.base.contract.AddressListPresenter
 import com.client.shop.ui.address.base.contract.AddressListView
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.domain.interactor.account.DeleteCustomerAddressUseCase
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.account.SetDefaultAddressUseCase

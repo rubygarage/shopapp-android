@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import com.client.shop.ui.address.base.adapter.AddressListAdapter
 import com.client.shop.ui.item.CheckoutAddressItem
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 
 class CheckoutAddressListAdapter(
     dataList: List<Address>,

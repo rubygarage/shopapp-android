@@ -2,7 +2,7 @@ package com.client.shop.ui.product.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.getaway.entity.ProductVariant
+import com.client.shop.gateway.entity.ProductVariant
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.client.shop.ui.item.ProductVariantItem

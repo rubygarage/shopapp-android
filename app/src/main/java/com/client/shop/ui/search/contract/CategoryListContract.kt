@@ -1,6 +1,6 @@
 package com.client.shop.ui.search.contract
 
-import com.client.shop.getaway.entity.Category
+import com.client.shop.gateway.entity.Category
 import com.domain.interactor.category.CategoryListUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView

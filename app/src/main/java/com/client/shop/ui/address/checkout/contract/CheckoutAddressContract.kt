@@ -3,7 +3,7 @@ package com.client.shop.ui.address.checkout.contract
 import com.client.shop.R
 import com.client.shop.ui.address.base.contract.AddressPresenter
 import com.client.shop.ui.address.base.contract.AddressView
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.domain.interactor.account.CreateCustomerAddressUseCase
 import com.domain.interactor.account.EditCustomerAddressUseCase
 import com.domain.interactor.account.GetCountriesUseCase

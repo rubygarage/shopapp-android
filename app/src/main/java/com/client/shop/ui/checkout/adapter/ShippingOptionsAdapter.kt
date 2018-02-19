@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import com.client.shop.ui.checkout.view.CheckoutShippingOptionsView
 import com.client.shop.ui.item.ShippingOptionItem
-import com.client.shop.getaway.entity.Checkout
-import com.client.shop.getaway.entity.ShippingRate
+import com.client.shop.gateway.entity.Checkout
+import com.client.shop.gateway.entity.ShippingRate
 import com.domain.formatter.NumberFormatter
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 

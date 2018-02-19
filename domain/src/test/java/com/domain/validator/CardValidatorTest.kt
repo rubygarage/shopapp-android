@@ -1,6 +1,6 @@
 package com.domain.validator
 
-import com.client.shop.getaway.entity.Card
+import com.client.shop.gateway.entity.Card
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

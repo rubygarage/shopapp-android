@@ -6,7 +6,7 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
 import com.client.shop.R
-import com.client.shop.getaway.entity.OrderProduct
+import com.client.shop.gateway.entity.OrderProduct
 import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_order_product.view.*
 import java.math.BigDecimal

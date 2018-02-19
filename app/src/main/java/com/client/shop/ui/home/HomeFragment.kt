@@ -11,7 +11,7 @@ import com.client.shop.ui.base.ui.FragmentVisibilityListener
 import com.client.shop.ui.blog.BlogFragment
 import com.client.shop.ui.popular.PopularFragment
 import com.client.shop.ui.product.ProductHorizontalFragment
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.SortType
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment :

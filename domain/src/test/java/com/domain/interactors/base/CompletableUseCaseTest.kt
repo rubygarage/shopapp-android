@@ -1,6 +1,6 @@
 package com.domain.interactors.base
 
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.entity.Error
 import com.domain.RxImmediateSchedulerRule
 import com.domain.interactor.base.CompletableUseCase
 import com.nhaarman.mockito_kotlin.*

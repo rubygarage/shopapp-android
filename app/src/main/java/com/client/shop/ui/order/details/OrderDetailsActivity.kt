@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.divider.SpaceDecoration

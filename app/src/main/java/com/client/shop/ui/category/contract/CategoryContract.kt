@@ -1,7 +1,7 @@
 package com.client.shop.ui.category.contract
 
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
 import com.domain.interactor.category.CategoryUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView

@@ -7,13 +7,12 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
-import com.client.shop.ui.popular.di.PopularModule
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.SortType
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.client.shop.ui.base.lce.BaseLceFragment
 import com.client.shop.ui.base.recycler.OnItemClickListener

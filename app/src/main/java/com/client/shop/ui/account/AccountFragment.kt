@@ -10,9 +10,9 @@ import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.getaway.entity.Customer
-import com.client.shop.getaway.entity.Policy
-import com.client.shop.getaway.entity.Shop
+import com.client.shop.gateway.entity.Customer
+import com.client.shop.gateway.entity.Policy
+import com.client.shop.gateway.entity.Shop
 import com.client.shop.ui.account.contract.AccountPresenter
 import com.client.shop.ui.account.contract.AccountView
 import com.client.shop.ui.address.account.AddressListActivity

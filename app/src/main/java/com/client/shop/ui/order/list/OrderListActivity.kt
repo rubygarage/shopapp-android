@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.base.lce.view.LceEmptyView
 import com.client.shop.ui.base.pagination.PaginationActivity
 import com.client.shop.ui.base.recycler.divider.BackgroundItemDecoration

@@ -10,7 +10,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(MockitoJUnitRunner::class)
 @Config(manifest = Config.NONE)
 class OrderListUseCaseTest {

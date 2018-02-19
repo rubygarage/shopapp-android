@@ -2,8 +2,8 @@ package com.client.shop.ui.order.list.contract
 
 import com.client.RxImmediateSchedulerRule
 import com.client.ext.mockUseCase
-import com.client.shop.getaway.entity.Error
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Error
+import com.client.shop.gateway.entity.Order
 import com.domain.interactor.order.OrderListUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq

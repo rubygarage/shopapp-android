@@ -1,6 +1,6 @@
 package com.client.shop.ui.order.list.adapter
 
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.item.OrderItem
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock

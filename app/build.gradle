@@ -111,7 +111,7 @@ dependencies {
 
     implementation project(':data')
     implementation project(':domain')
-    implementation project(':getaway')
+    implementation project(':gateway')
     implementation project(':shopify')
 
     testImplementation "com.google.dagger:dagger:$daggerVersion"

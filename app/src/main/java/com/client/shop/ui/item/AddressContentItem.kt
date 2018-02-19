@@ -6,7 +6,7 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
 import com.client.shop.R
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import kotlinx.android.synthetic.main.item_address_content.view.*
 
 class AddressContentItem @JvmOverloads constructor(

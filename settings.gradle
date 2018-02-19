@@ -1,1 +1,1 @@
-include ':app', ':shopify', ':domain', ':data', ':getaway'
+include ':app', ':shopify', ':domain', ':data', ':gateway'

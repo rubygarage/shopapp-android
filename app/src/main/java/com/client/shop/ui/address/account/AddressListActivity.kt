@@ -8,8 +8,7 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ui.address.base.BaseAddressListActivity
-import com.client.shop.ui.address.account.di.AddressModule
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.client.shop.ui.const.RequestCode
 import com.client.shop.ui.address.base.adapter.AddressListAdapter
 import com.client.shop.ui.address.base.contract.AddressListPresenter

@@ -2,7 +2,7 @@ package com.data.dao.adapter
 
 import com.data.dao.entity.ImageData
 import com.data.dao.entity.ImageDataEntity
-import com.client.shop.getaway.entity.Image
+import com.client.shop.gateway.entity.Image
 
 object ImageAdapter {
 

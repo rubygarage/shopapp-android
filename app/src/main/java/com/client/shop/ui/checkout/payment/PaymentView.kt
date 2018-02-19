@@ -10,8 +10,8 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ui.const.PaymentType
 import com.domain.detector.CardTypeDetector
-import com.client.shop.getaway.entity.Address
-import com.client.shop.getaway.entity.Card
+import com.client.shop.gateway.entity.Address
+import com.client.shop.gateway.entity.Card
 import kotlinx.android.synthetic.main.view_payment.view.*
 
 class PaymentView @JvmOverloads constructor(

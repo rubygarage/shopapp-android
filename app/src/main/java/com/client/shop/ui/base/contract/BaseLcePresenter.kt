@@ -1,6 +1,6 @@
 package com.client.shop.ui.base.contract
 
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.entity.Error
 import com.domain.interactor.base.UseCase
 
 open class BaseLcePresenter<in M, V : BaseLceView<M>>(vararg useCases: UseCase) : BasePresenter<V>(*useCases) {
