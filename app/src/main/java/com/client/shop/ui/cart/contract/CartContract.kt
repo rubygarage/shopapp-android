@@ -1,6 +1,6 @@
 package com.client.shop.ui.cart.contract
 
-import com.client.shop.getaway.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.interactor.cart.CartItemsUseCase
 import com.domain.interactor.cart.CartQuantityUseCase
 import com.domain.interactor.cart.CartRemoveUseCase

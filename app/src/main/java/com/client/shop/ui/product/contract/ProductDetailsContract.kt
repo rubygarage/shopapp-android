@@ -1,9 +1,9 @@
 package com.client.shop.ui.product.contract
 
 import com.client.shop.R
-import com.client.shop.getaway.entity.CartProduct
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.ProductVariant
+import com.client.shop.gateway.entity.CartProduct
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.ProductVariant
 import com.domain.interactor.details.DetailsCartUseCase
 import com.domain.interactor.details.DetailsProductUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter

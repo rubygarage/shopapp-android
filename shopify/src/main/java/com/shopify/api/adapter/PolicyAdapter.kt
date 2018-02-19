@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Policy
+import com.client.shop.gateway.entity.Policy
 import com.shopify.buy3.Storefront
 
 object PolicyAdapter {

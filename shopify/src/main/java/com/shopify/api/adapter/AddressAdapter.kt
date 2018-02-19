@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.shopify.buy3.Storefront
 import com.shopify.constant.Constant
 

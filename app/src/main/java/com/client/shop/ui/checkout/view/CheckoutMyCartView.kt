@@ -8,11 +8,10 @@ import android.view.Gravity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.recycler.adapter.ProductVariantAdapter
-import com.client.shop.ui.checkout.di.CheckoutModule
+import com.client.shop.ui.product.adapter.ProductVariantAdapter
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.getaway.entity.CartProduct
-import com.client.shop.getaway.entity.ProductVariant
+import com.client.shop.gateway.entity.CartProduct
+import com.client.shop.gateway.entity.ProductVariant
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.divider.SpaceDecoration

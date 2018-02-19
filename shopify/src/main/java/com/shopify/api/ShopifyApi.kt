@@ -3,9 +3,9 @@ package com.shopify.api
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.client.shop.getaway.Api
-import com.client.shop.getaway.ApiCallback
-import com.client.shop.getaway.entity.*
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.ApiCallback
+import com.client.shop.gateway.entity.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.shopify.api.adapter.*

@@ -2,7 +2,7 @@ package com.client.shop.ui.account.contract
 
 import com.client.RxImmediateSchedulerRule
 import com.client.shop.ext.mockUseCase
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.entity.Error
 import com.domain.interactor.account.ChangePasswordUseCase
 import com.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.*

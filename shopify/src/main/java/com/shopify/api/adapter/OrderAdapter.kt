@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.shopify.buy3.Storefront
 
 object OrderAdapter {

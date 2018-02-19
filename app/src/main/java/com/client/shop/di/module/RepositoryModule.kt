@@ -1,6 +1,6 @@
 package com.client.shop.di.module
 
-import com.client.shop.getaway.Api
+import com.client.shop.gateway.Api
 import com.data.impl.*
 import com.domain.database.Dao
 import com.domain.repository.*

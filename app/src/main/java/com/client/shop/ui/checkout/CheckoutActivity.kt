@@ -15,7 +15,6 @@ import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.checkout.contract.CheckoutPresenter
 import com.client.shop.ui.checkout.contract.CheckoutView
-import com.client.shop.ui.checkout.di.CheckoutModule
 import com.client.shop.ui.checkout.payment.PaymentActivity
 import com.client.shop.ui.checkout.payment.card.CardActivity
 import com.client.shop.ui.checkout.view.CheckoutEmailView
@@ -24,7 +23,7 @@ import com.client.shop.ui.const.PaymentType
 import com.client.shop.ui.const.RequestCode
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.order.success.OrderSuccessActivity
-import com.client.shop.getaway.entity.*
+import com.client.shop.gateway.entity.*
 import com.shopify.constant.Extra
 import kotlinx.android.synthetic.main.activity_checkout.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener

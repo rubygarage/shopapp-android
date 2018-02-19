@@ -6,17 +6,16 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.base.lce.BaseLceActivity
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.order.details.adapter.OrderProductsAdapter
 import com.client.shop.ui.order.details.contract.OrderDetailsPresenter
 import com.client.shop.ui.order.details.contract.OrderDetailsView
-import com.client.shop.ui.order.di.OrderModule
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.getaway.entity.Order
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_order_details.*
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -28,7 +27,7 @@ class OrderDetailsActivity :
     private var order: Order? = null
 
     companion object {
-        private const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
+        const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
 
         fun getStartIntent(context: Context, orderId: String): Intent {
             val intent = Intent(context, OrderDetailsActivity::class.java)

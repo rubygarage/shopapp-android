@@ -1,6 +1,6 @@
 package com.client.shop.ui.order.details.contract
 
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.domain.interactor.order.OrderDetailsUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView

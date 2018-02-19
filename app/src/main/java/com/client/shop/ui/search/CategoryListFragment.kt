@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.getaway.entity.Category
+import com.client.shop.gateway.entity.Category
 import com.client.shop.ui.base.pagination.PaginationFragment
 import com.client.shop.ui.category.CategoryActivity
 import com.client.shop.ui.home.adapter.CategoriesAdapter
 import com.client.shop.ui.search.contract.CategoryListPresenter
 import com.client.shop.ui.search.contract.CategoryListView
-import com.client.shop.ui.search.di.SearchModule
 import javax.inject.Inject
 
 class CategoryListFragment :

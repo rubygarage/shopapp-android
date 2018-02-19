@@ -1,6 +1,6 @@
 package com.domain.validator
 
-import com.client.shop.getaway.entity.Card
+import com.client.shop.gateway.entity.Card
 import java.util.*
 
 class CardValidator {
@@ -47,7 +47,7 @@ class CardValidator {
         val selectedYear = expireYear.toIntOrNull() ?: -1
 
         return when {
-            selectedMonth > Calendar.DECEMBER -> false
+            selectedMonth > Calendar.DECEMBER || selectedMonth < 0 -> false
             currentYear > selectedYear -> false
             else -> !(currentMonth > selectedMonth && currentYear == selectedYear)
         }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import com.client.shop.ui.item.AddressHeaderItem
 import com.client.shop.ui.item.AddressItem
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 open class AddressListAdapter(

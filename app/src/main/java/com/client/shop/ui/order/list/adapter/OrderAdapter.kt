@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.client.shop.ui.item.OrderItem
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.domain.formatter.DateFormatter
 import com.domain.formatter.NumberFormatter
 import com.client.shop.ui.base.recycler.OnItemClickListener

@@ -1,6 +1,6 @@
 package com.domain.interactor.category
 
-import com.client.shop.getaway.entity.Category
+import com.client.shop.gateway.entity.Category
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.CategoryRepository
 import io.reactivex.Single

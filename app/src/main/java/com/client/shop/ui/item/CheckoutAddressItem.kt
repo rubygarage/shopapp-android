@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.CompoundButton
 import com.client.shop.R
 import com.client.shop.ui.address.checkout.adapter.CheckoutAddressListAdapter
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import kotlinx.android.synthetic.main.item_checkout_address.view.*
 
 class CheckoutAddressItem(context: Context) :

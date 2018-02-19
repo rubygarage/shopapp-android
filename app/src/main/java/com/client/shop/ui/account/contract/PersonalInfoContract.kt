@@ -1,6 +1,6 @@
 package com.client.shop.ui.account.contract
 
-import com.client.shop.getaway.entity.Customer
+import com.client.shop.gateway.entity.Customer
 import com.domain.interactor.account.EditCustomerUseCase
 import com.domain.interactor.account.GetCustomerUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter

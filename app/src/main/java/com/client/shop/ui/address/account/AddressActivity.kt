@@ -4,8 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.client.shop.ShopApplication
 import com.client.shop.ui.address.base.BaseAddressActivity
-import com.client.shop.ui.address.account.di.AddressModule
-import com.client.shop.getaway.entity.Address
+import com.client.shop.gateway.entity.Address
 import com.client.shop.ui.address.base.contract.AddressPresenter
 import com.client.shop.ui.address.base.contract.AddressView
 

@@ -1,6 +1,6 @@
 package com.domain.detector
 
-import com.client.shop.getaway.entity.CardType
+import com.client.shop.gateway.entity.CardType
 import org.junit.Assert
 import org.junit.Test
 

@@ -1,7 +1,7 @@
 package com.client.shop.ui.account.contract
 
-import com.client.shop.getaway.entity.Customer
-import com.client.shop.getaway.entity.Shop
+import com.client.shop.gateway.entity.Customer
+import com.client.shop.gateway.entity.Shop
 import com.domain.interactor.account.GetCustomerUseCase
 import com.domain.interactor.account.SessionCheckUseCase
 import com.domain.interactor.account.ShopInfoUseCase

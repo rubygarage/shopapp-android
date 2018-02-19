@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ui.checkout.view.CheckoutShippingOptionsView
-import com.client.shop.getaway.entity.ShippingRate
+import com.client.shop.gateway.entity.ShippingRate
 import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_shipping_option.view.*
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import com.client.shop.R
-import com.client.shop.getaway.entity.Category
+import com.client.shop.gateway.entity.Category
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryItem(context: Context) : ConstraintLayout(context) {

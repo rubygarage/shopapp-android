@@ -18,8 +18,7 @@ import com.client.shop.ext.shareText
 import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
-import com.client.shop.ui.blog.di.BlogModule
-import com.client.shop.getaway.entity.Article
+import com.client.shop.gateway.entity.Article
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 

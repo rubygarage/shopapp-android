@@ -10,7 +10,7 @@ import com.client.shop.ui.cart.di.CartComponent
 import com.client.shop.ui.category.di.CategoryComponent
 import com.client.shop.ui.checkout.di.CheckoutComponent
 import com.client.shop.ui.checkout.payment.card.di.CardPaymentComponent
-import com.client.shop.ui.order.di.OrderComponent
+import com.client.shop.ui.order.list.di.TestOrderComponent
 import com.client.shop.ui.popular.di.PopularComponent
 import com.client.shop.ui.product.di.ProductDetailsComponent
 import com.client.shop.ui.product.di.ProductHorizontalComponent
@@ -41,7 +41,7 @@ interface TestAppComponent : AppComponent {
 
     override fun attachAuthComponent(): TestAuthComponent
 
-    override fun attachOrderComponent(): OrderComponent
+    override fun attachOrderComponent(): TestOrderComponent
 
     override fun attachAddressComponent(): AddressComponent
 

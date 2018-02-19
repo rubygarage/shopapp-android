@@ -3,7 +3,7 @@ package com.client.shop.ui.cart.adapter
 import android.content.Context
 import android.view.View
 import com.client.shop.ui.item.cart.CartItem
-import com.client.shop.getaway.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.formatter.NumberFormatter
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter

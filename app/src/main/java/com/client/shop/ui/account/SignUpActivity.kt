@@ -19,12 +19,11 @@ import com.client.shop.ext.getTrimmedString
 import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.account.contract.SignUpPresenter
 import com.client.shop.ui.account.contract.SignUpView
-import com.client.shop.ui.account.di.AuthModule
 import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.client.shop.ui.policy.PolicyActivity
-import com.client.shop.getaway.entity.Policy
+import com.client.shop.gateway.entity.Policy
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
@@ -172,7 +171,7 @@ class SignUpActivity :
         finish()
     }
 
-    override fun tryAgainButtonClicked() {
+    override fun onTryAgainButtonClicked() {
         loadData(true)
     }
 

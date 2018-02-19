@@ -39,7 +39,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation 'javax.inject:javax.inject:1'
 
-    implementation project(':getaway')
+    implementation project(':gateway')
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"

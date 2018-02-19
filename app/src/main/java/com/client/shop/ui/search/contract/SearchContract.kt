@@ -1,7 +1,7 @@
 package com.client.shop.ui.search.contract
 
 import android.text.TextUtils
-import com.client.shop.getaway.entity.Product
+import com.client.shop.gateway.entity.Product
 import com.domain.interactor.search.SearchUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView

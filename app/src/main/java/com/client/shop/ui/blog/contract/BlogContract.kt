@@ -1,6 +1,6 @@
 package com.client.shop.ui.blog.contract
 
-import com.client.shop.getaway.entity.Article
+import com.client.shop.gateway.entity.Article
 import com.domain.interactor.blog.ArticleListUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView

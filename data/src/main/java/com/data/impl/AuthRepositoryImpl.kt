@@ -1,9 +1,9 @@
 package com.data.impl
 
-import com.client.shop.getaway.Api
-import com.client.shop.getaway.entity.Address
-import com.client.shop.getaway.entity.Country
-import com.client.shop.getaway.entity.Customer
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.entity.Address
+import com.client.shop.gateway.entity.Country
+import com.client.shop.gateway.entity.Customer
 import com.data.rx.RxCallbackCompletable
 import com.data.rx.RxCallbackSingle
 import com.domain.repository.AuthRepository

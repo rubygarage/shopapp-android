@@ -14,19 +14,18 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.registerKeyboardVisibilityListener
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.ProductVariant
+import com.client.shop.gateway.entity.SortType
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
+import com.client.shop.ui.custom.SimpleTransitionListener
 import com.client.shop.ui.gallery.GalleryFragment
 import com.client.shop.ui.product.contract.DetailsPresenter
 import com.client.shop.ui.product.contract.DetailsView
-import com.client.shop.ui.product.di.ProductDetailsModule
 import com.client.shop.ui.product.view.OptionsGroupContainer
-import com.client.shop.getaway.entity.Product
-import com.client.shop.getaway.entity.ProductVariant
-import com.client.shop.getaway.entity.SortType
 import com.domain.formatter.NumberFormatter
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.custom.SimpleTransitionListener
-import com.client.shop.ext.registerKeyboardVisibilityListener
 import kotlinx.android.synthetic.main.activity_product_details.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
@@ -38,8 +37,8 @@ class ProductDetailsActivity :
     OptionsGroupContainer.OnVariantSelectListener {
 
     companion object {
-        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        private const val EXTRA_PRODUCT_VARIANT = "extra_product_variant"
+        const val EXTRA_PRODUCT_ID = "extra_product_id"
+        const val EXTRA_PRODUCT_VARIANT = "extra_product_variant"
         private const val SCROLL_DURATION = 400L
 
         fun getStartIntent(

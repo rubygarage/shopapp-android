@@ -2,7 +2,7 @@ package com.data.dao.adapter
 
 import com.data.dao.entity.ProductVariantData
 import com.data.dao.entity.ProductVariantDataEntity
-import com.client.shop.getaway.entity.ProductVariant
+import com.client.shop.gateway.entity.ProductVariant
 
 object ProductVariantAdapter {
 

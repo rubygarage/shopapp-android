@@ -1,8 +1,7 @@
 package com.domain.interactor.base
 
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.entity.Error
 import com.domain.RxImmediateSchedulerRule
-import com.domain.interactor.base.SingleUseCase
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Single
 import org.junit.Assert
@@ -12,7 +11,6 @@ import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(MockitoJUnitRunner::class)
 @Config(manifest = Config.NONE)
 class SingleUseCaseTest {

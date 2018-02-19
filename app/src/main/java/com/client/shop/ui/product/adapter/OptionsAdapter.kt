@@ -6,7 +6,7 @@ import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
 import com.client.shop.R
-import com.client.shop.getaway.entity.VariantOption
+import com.client.shop.gateway.entity.VariantOption
 import com.client.shop.ui.base.recycler.OnItemClickListener
 import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 

@@ -3,8 +3,8 @@ package com.client.shop.ui.address.base.contract
 import com.client.shop.R
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.getaway.entity.Address
-import com.client.shop.getaway.entity.Country
+import com.client.shop.gateway.entity.Address
+import com.client.shop.gateway.entity.Country
 import com.domain.interactor.account.CreateCustomerAddressUseCase
 import com.domain.interactor.account.EditCustomerAddressUseCase
 import com.domain.interactor.account.GetCountriesUseCase

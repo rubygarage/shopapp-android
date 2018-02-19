@@ -6,7 +6,7 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ext.setResizedImageUri
-import com.client.shop.getaway.entity.Product
+import com.client.shop.gateway.entity.Product
 import com.domain.formatter.NumberFormatter
 import kotlinx.android.synthetic.main.item_product.view.*
 

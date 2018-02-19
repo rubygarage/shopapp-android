@@ -48,7 +48,7 @@ dependencies {
     implementation "io.requery:requery-android:$requeryVersion"
     kapt "io.requery:requery-processor:$requeryVersion"
 
-    implementation project(':getaway')
+    implementation project(':gateway')
     implementation project(':domain')
 
     testImplementation "junit:junit:$junitVersion"

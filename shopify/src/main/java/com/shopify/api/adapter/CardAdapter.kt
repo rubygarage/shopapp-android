@@ -1,6 +1,6 @@
 package com.shopify.api.adapter
 
-import com.client.shop.getaway.entity.CardType
+import com.client.shop.gateway.entity.CardType
 import com.shopify.buy3.Storefront
 
 object CardAdapter {

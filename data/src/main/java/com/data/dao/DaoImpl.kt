@@ -1,8 +1,8 @@
 package com.data.dao
 
 import android.content.Context
-import com.client.shop.getaway.entity.CartProduct
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.entity.CartProduct
+import com.client.shop.gateway.entity.Error
 import com.data.dao.adapter.CartProductAdapter
 import com.data.dao.entity.CartProductData
 import com.data.dao.entity.CartProductDataEntity

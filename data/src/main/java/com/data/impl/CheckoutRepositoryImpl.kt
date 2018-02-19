@@ -1,7 +1,7 @@
 package com.data.impl
 
-import com.client.shop.getaway.Api
-import com.client.shop.getaway.entity.*
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.entity.*
 import com.data.rx.RxCallbackSingle
 import com.domain.repository.CheckoutRepository
 import io.reactivex.Single

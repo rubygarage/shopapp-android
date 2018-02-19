@@ -1,8 +1,8 @@
 package com.data.impl
 
-import com.client.shop.getaway.Api
-import com.client.shop.getaway.ApiCallback
-import com.client.shop.getaway.entity.Error
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.ApiCallback
+import com.client.shop.gateway.entity.Error
 import com.data.RxImmediateSchedulerRule
 import com.domain.repository.AuthRepository
 import com.nhaarman.mockito_kotlin.any

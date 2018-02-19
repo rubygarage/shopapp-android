@@ -5,24 +5,23 @@ import android.content.Intent
 import android.os.Bundle
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.gateway.entity.Order
+import com.client.shop.ui.base.lce.view.LceEmptyView
 import com.client.shop.ui.base.pagination.PaginationActivity
+import com.client.shop.ui.base.recycler.divider.BackgroundItemDecoration
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.order.details.OrderDetailsActivity
-import com.client.shop.ui.order.di.OrderModule
-import com.client.shop.ui.order.list.adapter.OrderAdapter
+import com.client.shop.ui.order.list.adapter.OrderListAdapter
 import com.client.shop.ui.order.list.contract.OrderListPresenter
 import com.client.shop.ui.order.list.contract.OrderListView
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.getaway.entity.Order
-import com.client.shop.ui.base.lce.view.LceEmptyView
-import com.client.shop.ui.base.recycler.divider.BackgroundItemDecoration
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_order_list.*
 import javax.inject.Inject
 
 class OrderListActivity :
     PaginationActivity<Order, OrderListView, OrderListPresenter>(),
-    OrderListView, OrderAdapter.OnOrderItemClickListener {
+    OrderListView, OrderListAdapter.OnOrderItemClickListener {
 
     @Inject
     lateinit var orderListPresenter: OrderListPresenter
@@ -54,8 +53,8 @@ class OrderListActivity :
 
     //SETUP
 
-    override fun setupAdapter(): OrderAdapter {
-        return OrderAdapter(dataList, this)
+    override fun setupAdapter(): OrderListAdapter {
+        return OrderListAdapter(dataList, this)
     }
 
     override fun setupRecyclerView() {
@@ -107,7 +106,7 @@ class OrderListActivity :
         }
     }
 
-    override fun emptyButtonClicked() {
+    override fun onEmptyButtonClicked() {
         startActivity(HomeActivity.getStartIntent(this, true))
     }
 }

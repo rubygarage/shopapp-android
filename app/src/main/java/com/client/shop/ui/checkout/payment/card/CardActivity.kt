@@ -14,12 +14,11 @@ import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.checkout.payment.card.contract.CardPresenter
 import com.client.shop.ui.checkout.payment.card.contract.CardView
-import com.client.shop.ui.checkout.payment.card.di.CardPaymentModule
 import com.client.shop.ui.custom.CreditCardFormatTextWatcher
 import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.detector.CardTypeDetector
-import com.client.shop.getaway.entity.Card
-import com.client.shop.getaway.entity.CardType
+import com.client.shop.gateway.entity.Card
+import com.client.shop.gateway.entity.CardType
 import com.shopify.constant.Extra
 import com.client.shop.ui.base.picker.BaseBottomSheetPicker
 import kotlinx.android.synthetic.main.activity_card.*

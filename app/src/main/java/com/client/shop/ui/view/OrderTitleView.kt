@@ -5,7 +5,7 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
 import com.client.shop.R
-import com.client.shop.getaway.entity.Order
+import com.client.shop.gateway.entity.Order
 import com.domain.formatter.DateFormatter
 import kotlinx.android.synthetic.main.view_order_title.view.*
 

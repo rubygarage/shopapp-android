@@ -41,7 +41,7 @@ class TestAuthModule {
     }
 
     @Provides
-    fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
+    fun provideChangePasswordPresenter(): ChangePasswordPresenter {
         return mock()
     }
 

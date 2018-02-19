@@ -28,8 +28,8 @@ abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
         super.onCreate(savedInstanceState)
         setContentView(getMainLayout())
         lceLayout.setupContentLayout(getContentView())
-        lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
-        lceLayout.emptyButtonClickListener = View.OnClickListener { emptyButtonClicked() }
+        lceLayout.tryAgainButtonClickListener = View.OnClickListener { onTryAgainButtonClicked() }
+        lceLayout.emptyButtonClickListener = View.OnClickListener { onEmptyButtonClicked() }
         toolbar?.let {
             setSupportActionBar(it)
         }
@@ -142,11 +142,11 @@ abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
 
     //CALLBACK
 
-    open fun tryAgainButtonClicked() {
+    open fun onTryAgainButtonClicked() {
         loadData()
     }
 
-    open fun emptyButtonClicked() {
+    open fun onEmptyButtonClicked() {
 
     }
 }
