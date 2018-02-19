@@ -98,5 +98,45 @@ class AuthRepositoryTest {
         observer.assertError(error)
     }
 
+    @Test
+    fun signUpShouldDelegateCallToApi() {
+        repository.signUp(
+            "test",
+            "test",
+            "test@email.com",
+            "123456789",
+            "+38063329670"
+        ).subscribe()
 
+        verify(api).signUp(
+            eq("test"),
+            eq("test"),
+            eq("test@email.com"),
+            eq("123456789"),
+            eq("+38063329670"),
+            any()
+        )
+    }
+
+    @Test
+    fun signUpShouldCompleteOnApiResult() {
+        given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(5)
+            callback.onResult(Unit)
+        })
+        repository.signUp("", "", "", "", "").subscribe(observer)
+        observer.assertComplete()
+    }
+
+    @Test
+    fun signInShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(5)
+            callback.onFailure(error)
+        })
+
+        repository.signUp("", "", "", "", "").subscribe(observer)
+        observer.assertError(error)
+    }
 }

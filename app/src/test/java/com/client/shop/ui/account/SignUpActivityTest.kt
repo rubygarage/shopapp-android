@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.View
 import com.client.shop.R
 import com.client.shop.TestShopApplication
+import com.nhaarman.mockito_kotlin.verify
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -97,6 +98,7 @@ class SignUpActivityTest {
 
     @Test
     fun shouldDisableButtonWhenPasswordIsEmpty() {
+        activity.emailInput.setText("email@test.com")
         activity.passwordInput.setText("")
         val loginButton = activity.createButton
         assertNotNull(loginButton)
@@ -106,9 +108,28 @@ class SignUpActivityTest {
     @Test
     fun shouldDisableButtonWhenConfirmEmailIsEmpty() {
         activity.emailInput.setText("")
+        activity.passwordInput.setText("123456789")
         val loginButton = activity.createButton
         assertNotNull(loginButton)
         assertFalse(loginButton.isEnabled)
     }
 
+    @Test
+    fun shouldPassTrimDataToPresenterOnButtonClick() {
+        activity.emailInput.setText("testEmail@i.com  ")
+        activity.passwordInput.setText("123456789  ")
+        activity.firstNameInput.setText("firstName  ")
+        activity.lastNameInput.setText("lastName  ")
+        activity.phoneInput.setText(" 0633291677  ")
+        val createButton = activity.createButton
+        assertNotNull(createButton)
+        createButton.performClick()
+        verify(activity.presenter).signUp(
+            "firstName",
+            "lastName",
+            "testEmail@i.com",
+            "123456789",
+            "0633291677"
+        )
+    }
 }
