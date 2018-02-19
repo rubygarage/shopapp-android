@@ -17,7 +17,6 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class SignInPresenterTest {
@@ -102,7 +101,7 @@ class SignInPresenterTest {
     }
 
     @Test
-    fun shouldShowPasswordMatchErrorOnDifferentPass() {
+    fun shouldShowEmailErrorOnInvalidEmail() {
         presenter.logIn("12345678", "123456789")
         verify(view).showEmailError()
         verify(useCase, never()).execute(any(), any(), any())

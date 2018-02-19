@@ -70,8 +70,10 @@ class AuthRepositoryTest {
 
     @Test
     fun signInShouldDelegateCallToApi() {
-        repository.signIn("", "").subscribe()
-        verify(api).signIn(eq(""), eq(""), any())
+        val email = "test@test.com"
+        val password = "123456789"
+        repository.signIn(email, password).subscribe()
+        verify(api).signIn(eq(email), eq(password), any())
     }
 
     @Test
