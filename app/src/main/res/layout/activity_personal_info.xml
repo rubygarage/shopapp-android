@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/name"
+            android:hint="@string/first_name"
             app:hintTextAppearance="@style/HintTextAppearance"
             app:layout_constraintEnd_toStartOf="@+id/lastNameInputLayout"
             app:layout_constraintHorizontal_chainStyle="spread"
