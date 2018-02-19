@@ -1,8 +1,6 @@
 package com.client.shop.ui.account.di
 
 import com.client.shop.ui.account.contract.*
-import com.domain.interactor.account.*
-import com.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.mock
 import dagger.Module
 import dagger.Provides
@@ -11,43 +9,23 @@ import dagger.Provides
 class TestAuthModule {
 
     @Provides
-    fun provideSignUpPresenter(formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
-        return SignUpPresenter(formValidator, signUpUseCase)
-    }
+    fun provideSignUpPresenter(): SignUpPresenter = mock()
 
     @Provides
-    fun provideSignInPresenter(
-        formValidator: FieldValidator,
-        signInUseCase: SignInUseCase
-    ): SignInPresenter {
-        return mock()
-    }
+    fun provideSignInPresenter(): SignInPresenter = mock()
 
     @Provides
-    fun provideAuthPresenter(sessionCheckUseCase: SessionCheckUseCase, signOutUseCase: SignOutUseCase,
-                             shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
-        return AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
-    }
+    fun provideAuthPresenter(): AccountPresenter = mock()
 
     @Provides
-    fun provideForgotPasswordPresenter(forgotPasswordUseCase: ForgotPasswordUseCase): ForgotPasswordPresenter {
-        return ForgotPasswordPresenter(forgotPasswordUseCase)
-    }
+    fun provideForgotPasswordPresenter(): ForgotPasswordPresenter = mock()
 
     @Provides
-    fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
-                                     editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
-        return PersonalInfoPresenter(customerUseCase, editCustomerUseCase)
-    }
+    fun providePersonalInfoPresenter(): PersonalInfoPresenter = mock()
 
     @Provides
-    fun provideChangePasswordPresenter(): ChangePasswordPresenter {
-        return mock()
-    }
+    fun provideChangePasswordPresenter(): ChangePasswordPresenter = mock()
 
     @Provides
-    fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
-                                        updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
-        return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
-    }
+    fun provideAccountSettingsPresenter(): AccountSettingsPresenter = mock()
 }
