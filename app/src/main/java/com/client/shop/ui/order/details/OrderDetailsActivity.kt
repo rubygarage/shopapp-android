@@ -84,10 +84,7 @@ class OrderDetailsActivity :
             addressContentView.setAddress(it)
         }
 
-        val spaceDecoration = SpaceDecoration(
-            topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin)
-        )
-
+        val spaceDecoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin))
         recyclerView.addItemDecoration(spaceDecoration)
         recyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
         recyclerView.layoutManager = LinearLayoutManager(this)

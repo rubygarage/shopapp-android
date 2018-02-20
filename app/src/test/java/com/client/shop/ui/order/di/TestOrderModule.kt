@@ -1,4 +1,4 @@
-package com.client.shop.ui.order.list.di
+package com.client.shop.ui.order.di
 
 import com.client.shop.ui.order.details.contract.OrderDetailsPresenter
 import com.client.shop.ui.order.list.contract.OrderListPresenter

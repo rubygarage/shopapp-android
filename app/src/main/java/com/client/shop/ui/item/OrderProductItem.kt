@@ -24,7 +24,6 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
     fun setOrderProduct(orderProduct: OrderProduct, currency: String) {
 
         val productVariant = orderProduct.productVariant
-
         val imageURI: String? = productVariant.image?.src ?: productVariant.productImage?.src
 
         productImage.setImageURI(imageURI)

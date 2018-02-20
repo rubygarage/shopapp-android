@@ -1,6 +1,5 @@
 package com.client.shop.ui.base.contract
 
-import com.client.shop.ui.base.contract.BasePresenter
 import com.domain.interactor.base.UseCase
 import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.nhaarman.mockito_kotlin.verify
@@ -12,7 +11,6 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class BasePresenterTest {

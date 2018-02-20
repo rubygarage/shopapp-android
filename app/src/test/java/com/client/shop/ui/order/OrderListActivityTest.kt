@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -104,5 +105,10 @@ class OrderListActivityTest {
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
         assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @After
+    fun tearDown() {
+        activity.finish()
     }
 }
