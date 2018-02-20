@@ -30,13 +30,10 @@ class AuthRepositoryTest {
 
     private lateinit var repository: AuthRepository
 
-    private lateinit var observer: TestObserver<Unit>
-
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
-        observer = TestObserver()
     }
 
     @Test
@@ -47,6 +44,7 @@ class AuthRepositoryTest {
 
     @Test
     fun changePasswordShouldCompleteOnApiResult() {
+        val observer = TestObserver<Unit>()
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
@@ -57,6 +55,7 @@ class AuthRepositoryTest {
 
     @Test
     fun changePasswordShouldErrorOnApiFailure() {
+        val observer = TestObserver<Unit>()
         val error = Error.Content()
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
@@ -77,6 +76,7 @@ class AuthRepositoryTest {
 
     @Test
     fun signInShouldCompleteOnApiResult() {
+    	val observer = TestObserver<Unit>()
         given(api.signIn(any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(2)
             callback.onResult(Unit)
@@ -88,6 +88,7 @@ class AuthRepositoryTest {
     @Test
     fun signInShouldErrorOnApiFailure() {
         val error = Error.Content()
+        val observer = TestObserver<Unit>()
         given(api.signIn(any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(2)
             callback.onFailure(error)
@@ -151,6 +152,61 @@ class AuthRepositoryTest {
             "+38063329670"
         ).subscribe(observer)
 
+        observer.assertError(error)
+    }
+
+    @Test
+    fun getCustomerShouldCompleteOnApiResult() {
+        val observer = TestObserver<Customer>()
+        given(api.getCustomer(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(0)
+            callback.onResult(Unit)
+        })
+        repository.getCustomer().subscribe(observer)
+        observer.assertComplete()
+    }
+
+    @Test
+    fun getCustomerShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        val observer = TestObserver<Customer>()
+        given(api.getCustomer(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(0)
+            callback.onFailure(error)
+        })
+        repository.getCustomer().subscribe(observer)
+        observer.assertError(error)
+    }
+
+    @Test
+    fun editCustomerShouldDelegateCallToApi() {
+        val name = "name"
+        val lastName = "lastName"
+        val phone = "0633291677"
+        repository.editCustomer(name, lastName, phone).subscribe()
+        verify(api).editCustomerInfo(eq(name), eq(lastName), eq(phone), any())
+    }
+
+    @Test
+    fun editCustomerShouldCompleteOnApiResult() {
+        val observer = TestObserver<Customer>()
+        given(api.editCustomerInfo(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(3)
+            callback.onResult(Unit)
+        })
+        repository.editCustomer("name", "lastName", "123654789").subscribe(observer)
+        observer.assertComplete()
+    }
+
+    @Test
+    fun editCustomerShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        val observer = TestObserver<Customer>()
+        given(api.editCustomerInfo(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(3)
+            callback.onFailure(error)
+        })
+        repository.editCustomer("name", "lastName", "123654789").subscribe(observer)
         observer.assertError(error)
     }
 }
