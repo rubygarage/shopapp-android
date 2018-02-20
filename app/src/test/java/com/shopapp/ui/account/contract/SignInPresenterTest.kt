@@ -1,8 +1,16 @@
 package com.shopapp.ui.account.contract
 
+<<<<<<< HEAD:app/src/test/java/com/shopapp/ui/account/contract/SignInPresenterTest.kt
 import com.shopapp.gateway.entity.Error
 import com.shopapp.domain.interactor.account.SignInUseCase
 import com.shopapp.domain.validator.FieldValidator
+=======
+import com.client.RxImmediateSchedulerRule
+import com.client.shop.ext.mockUseCase
+import com.client.shop.gateway.entity.Error
+import com.domain.interactor.account.SignInUseCase
+import com.domain.validator.FieldValidator
+>>>>>>> finish with forgot password activity:app/src/test/java/com/client/shop/ui/account/contract/SignInPresenterTest.kt
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.ext.mock
 import com.shopapp.util.RxImmediateSchedulerRule

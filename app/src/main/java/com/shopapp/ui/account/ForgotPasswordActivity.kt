@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
+<<<<<<< HEAD:app/src/main/java/com/shopapp/ui/account/ForgotPasswordActivity.kt
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.R
 import com.shopapp.ShopApplication
@@ -14,6 +15,16 @@ import com.shopapp.ui.account.contract.ForgotPasswordView
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.custom.SimpleTextWatcher
+=======
+import com.client.shop.R
+import com.client.shop.ShopApplication
+import com.client.shop.ext.hideKeyboard
+import com.client.shop.ui.account.contract.ForgotPasswordPresenter
+import com.client.shop.ui.account.contract.ForgotPasswordView
+import com.client.shop.ui.base.lce.BaseLceActivity
+import com.client.shop.ui.base.lce.view.LceLayout
+import com.client.shop.ui.custom.SimpleTextWatcher
+>>>>>>> finish with forgot password activity:app/src/main/java/com/client/shop/ui/account/ForgotPasswordActivity.kt
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import javax.inject.Inject
 
@@ -28,8 +39,6 @@ class ForgotPasswordActivity :
 
     @Inject
     lateinit var forgotPasswordPresenter: ForgotPasswordPresenter
-    @Inject
-    lateinit var fieldValidator: FieldValidator
     private lateinit var emailTextWatcher: TextWatcher
 
     //ANDROID
@@ -40,7 +49,10 @@ class ForgotPasswordActivity :
 
         emailTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                submitButton.isEnabled = fieldValidator.isEmailValid(s.toString())
+                submitButton.isEnabled = s.isNotEmpty()
+                if (emailInputLayout.isErrorEnabled) {
+                    emailInputLayout.isErrorEnabled = false
+                }
             }
         }
         submitButton.setOnClickListener(this)
@@ -81,6 +93,11 @@ class ForgotPasswordActivity :
     override fun showMessage(message: String) {
         super.showMessage(message)
         changeState(LceLayout.LceState.ContentState)
+    }
+
+    override fun showEmailValidError() {
+        emailInputLayout.isErrorEnabled = true
+        emailInputLayout.error = getString(R.string.invalid_email_error_message)
     }
 
     //CALLBACK
