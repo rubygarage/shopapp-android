@@ -114,8 +114,12 @@ abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
     @CallSuper
     open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
-            changeState(LceLayout.LceState.LoadingState())
+            showLoading()
         }
+    }
+
+    override fun showLoading(isTranslucent: Boolean) {
+        changeState(LceLayout.LceState.LoadingState(isTranslucent))
     }
 
     @CallSuper

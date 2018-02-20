@@ -7,6 +7,8 @@ interface BaseLceView<in T> : MvpView {
 
     fun showContent(data: T)
 
+    fun showLoading(isTranslucent: Boolean = false)
+
     fun showEmptyState()
 
     fun showError(isNetworkError: Boolean)

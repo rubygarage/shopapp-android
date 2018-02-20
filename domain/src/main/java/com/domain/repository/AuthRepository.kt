@@ -10,7 +10,7 @@ interface AuthRepository {
 
     fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String): Completable
 
-    fun signIn(email: String, authToken: String): Completable
+    fun signIn(email: String, password: String): Completable
 
     fun signOut(): Completable
 

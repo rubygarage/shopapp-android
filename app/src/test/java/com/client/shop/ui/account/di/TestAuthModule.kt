@@ -20,12 +20,12 @@ class TestAuthModule {
         formValidator: FieldValidator,
         signInUseCase: SignInUseCase
     ): SignInPresenter {
-        return SignInPresenter(formValidator, signInUseCase)
+        return mock()
     }
 
     @Provides
     fun provideAuthPresenter(sessionCheckUseCase: SessionCheckUseCase, signOutUseCase: SignOutUseCase,
-                                  shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
+                             shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
         return AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
     }
 
@@ -36,7 +36,7 @@ class TestAuthModule {
 
     @Provides
     fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
-                                          editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
+                                     editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
         return PersonalInfoPresenter(customerUseCase, editCustomerUseCase)
     }
 
@@ -47,7 +47,7 @@ class TestAuthModule {
 
     @Provides
     fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
-                                             updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
+                                        updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
         return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
     }
 }

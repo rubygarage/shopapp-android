@@ -15,4 +15,5 @@ class ProductVariantItem(context: Context) : SimpleDraweeView(context) {
         hierarchy.setPlaceholderImage(R.drawable.ic_placeholder, ScalingUtils.ScaleType.CENTER_INSIDE)
         hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
     }
+
 }

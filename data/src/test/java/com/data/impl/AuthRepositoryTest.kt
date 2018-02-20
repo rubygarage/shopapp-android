@@ -41,13 +41,13 @@ class AuthRepositoryTest {
     }
 
     @Test
-    fun shouldDelegateCallToApi() {
+    fun changePasswordShouldDelegateCallToApi() {
         repository.changePassword("").subscribe()
         verify(api).changePassword(eq(""), any())
     }
 
     @Test
-    fun shouldCompleteOnApiComplete() {
+    fun changePasswordShouldCompleteOnApiResult() {
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
@@ -57,7 +57,7 @@ class AuthRepositoryTest {
     }
 
     @Test
-    fun shouldErrorOnApiError() {
+    fun changePasswordShouldErrorOnApiFailure() {
         val error = Error.Content()
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
@@ -67,5 +67,36 @@ class AuthRepositoryTest {
         repository.changePassword("").subscribe(observer)
         observer.assertError(error)
     }
+
+    @Test
+    fun signInShouldDelegateCallToApi() {
+        val email = "test@test.com"
+        val password = "123456789"
+        repository.signIn(email, password).subscribe()
+        verify(api).signIn(eq(email), eq(password), any())
+    }
+
+    @Test
+    fun signInShouldCompleteOnApiResult() {
+        given(api.signIn(any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(2)
+            callback.onResult(Unit)
+        })
+        repository.signIn("", "").subscribe(observer)
+        observer.assertComplete()
+    }
+
+    @Test
+    fun signInShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.signIn(any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(2)
+            callback.onFailure(error)
+        })
+
+        repository.signIn("", "").subscribe(observer)
+        observer.assertError(error)
+    }
+
 
 }

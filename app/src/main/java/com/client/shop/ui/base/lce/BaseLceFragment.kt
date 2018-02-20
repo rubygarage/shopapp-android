@@ -58,13 +58,17 @@ abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
     @CallSuper
     open fun loadData(pullToRefresh: Boolean = false) {
         if (!pullToRefresh) {
-            lceLayout.changeState(LceLayout.LceState.LoadingState())
+            showLoading()
         }
     }
 
     @CallSuper
     override fun showContent(data: M) {
         lceLayout.changeState(LceLayout.LceState.ContentState)
+    }
+
+    override fun showLoading(isTranslucent: Boolean) {
+        lceLayout.changeState(LceLayout.LceState.LoadingState(isTranslucent))
     }
 
     override fun showEmptyState() {
