@@ -60,20 +60,22 @@ class SignInActivityTest {
 
     @Test
     fun shouldDisableButtonWhenPasswordIsEmpty() {
+        activity.passwordInput.setText("123456789")
         activity.emailInput.setText("email@test.com")
+        assertTrue(activity.loginButton.isEnabled)
+
         activity.passwordInput.setText("")
-        val loginButton = activity.loginButton
-        assertNotNull(loginButton)
-        assertFalse(loginButton.isEnabled)
+        assertFalse(activity.loginButton.isEnabled)
     }
 
     @Test
     fun shouldDisableButtonWhenConfirmEmailIsEmpty() {
-        activity.emailInput.setText("")
         activity.passwordInput.setText("123456789")
-        val loginButton = activity.loginButton
-        assertNotNull(loginButton)
-        assertFalse(loginButton.isEnabled)
+        activity.emailInput.setText("email@test.com")
+        assertTrue(activity.loginButton.isEnabled)
+
+        activity.emailInput.setText("")
+        assertFalse(activity.loginButton.isEnabled)
     }
 
     @Test
