@@ -114,7 +114,6 @@ class ChangePasswordPresenterTest {
         presenter.changePassword("12345678", "123456789")
         verify(view).passwordsMatchError()
         verify(useCase, never()).execute(any(), any(), any())
-        verify(useCase, never()).execute(any(), any(), any())
     }
 
 }
