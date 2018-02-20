@@ -7,8 +7,7 @@ import com.client.shop.gateway.entity.Customer
 import com.nhaarman.mockito_kotlin.*
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -29,13 +28,6 @@ class PersonalInfoActivityTest {
         on { firstName } doReturn "firstName"
         on { lastName } doReturn "lastName"
         on { phone } doReturn "06332916"
-    }
-
-    private val newCustomer: Customer = mock {
-        on { email } doReturn "new_mail@mail.com"
-        on { firstName } doReturn "new_firstName"
-        on { lastName } doReturn "new_lastName"
-        on { phone } doReturn "06332916234"
     }
 
     @Before
@@ -93,7 +85,38 @@ class PersonalInfoActivityTest {
         assertFalse(activity.phoneInput.isFocused)
     }
 
-    //TODO ADD HIDE PROGRESS TEST (Fix inner handler check)
+    @Test
+    fun shouldDisableButtonOnCustomerFieldsNotChange() {
+        activity.showContent(oldCustomer)
+        assertFalse(activity.saveButton.isEnabled)
+        activity.firstNameInput.setText("changedText")
+        assertTrue(activity.saveButton.isEnabled)
+    }
 
+    @Test
+    fun shouldEnableButtonOnCustomerFirstNameChange() {
+        activity.showContent(oldCustomer)
+        assertFalse(activity.saveButton.isEnabled)
+        activity.firstNameInput.setText("changedText")
+        assertTrue(activity.saveButton.isEnabled)
+    }
+
+    @Test
+    fun shouldEnableButtonOnCustomerLastNameChange() {
+        activity.showContent(oldCustomer)
+        assertFalse(activity.saveButton.isEnabled)
+        activity.lastNameInput.setText("changedText")
+        assertTrue(activity.saveButton.isEnabled)
+    }
+
+    @Test
+    fun shouldEnableButtonOnCustomerPhoneChange() {
+        activity.showContent(oldCustomer)
+        assertFalse(activity.saveButton.isEnabled)
+        activity.phoneInput.setText("07")
+        assertTrue(activity.saveButton.isEnabled)
+    }
+
+    //TODO ADD HIDE PROGRESS TEST (Fix inner handler check)
 
 }
