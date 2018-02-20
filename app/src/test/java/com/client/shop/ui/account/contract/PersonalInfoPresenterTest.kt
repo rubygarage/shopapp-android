@@ -1,7 +1,7 @@
 package com.client.shop.ui.account.contract
 
 import com.client.RxImmediateSchedulerRule
-import com.client.shop.ext.mockUseCase
+import com.client.shop.ext.mock
 import com.client.shop.gateway.entity.Customer
 import com.client.shop.gateway.entity.Error
 import com.domain.interactor.account.EditCustomerUseCase
@@ -41,8 +41,8 @@ class PersonalInfoPresenterTest {
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
 
-        editCustomerUseCase.mockUseCase()
-        getCustomerUseCase.mockUseCase()
+        editCustomerUseCase.mock()
+        getCustomerUseCase.mock()
         presenter = PersonalInfoPresenter(getCustomerUseCase, editCustomerUseCase)
         presenter.attachView(view)
     }
