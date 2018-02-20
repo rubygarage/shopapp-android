@@ -32,11 +32,6 @@ class ForgotPasswordActivityTest {
         context = RuntimeEnvironment.application.baseContext
     }
 
-    @After
-    fun tearDown() {
-        activity.finish()
-    }
-
     @Test
     fun shouldSetTitleOnCreate() {
         assertEquals(context.getString(R.string.forgot_password), activity.toolbar.toolbarTitle.text)
@@ -106,5 +101,10 @@ class ForgotPasswordActivityTest {
     fun shouldSetErrorToInputLayoutOnEmailError() {
         activity.showEmailValidError()
         assertEquals(context.getString(R.string.invalid_email_error_message), activity.emailInputLayout.error)
+    }
+
+    @After
+    fun tearDown() {
+        activity.finish()
     }
 }
