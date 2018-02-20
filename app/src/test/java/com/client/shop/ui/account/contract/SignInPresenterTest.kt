@@ -1,8 +1,8 @@
 package com.client.shop.ui.account.contract
 
 import com.client.RxImmediateSchedulerRule
-import com.client.shop.ext.mockUseCase
-import com.client.shop.getaway.entity.Error
+import com.client.shop.ext.mock
+import com.client.shop.gateway.entity.Error
 import com.domain.interactor.account.SignInUseCase
 import com.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.*
@@ -31,14 +31,18 @@ class SignInPresenterTest {
     @Mock
     private lateinit var useCase: SignInUseCase
 
+    @Mock
+    private lateinit var validator: FieldValidator
+
     private lateinit var presenter: SignInPresenter
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = SignInPresenter(FieldValidator(), useCase)
+        presenter = SignInPresenter(validator, useCase)
         presenter.attachView(view)
-        useCase.mockUseCase()
+        useCase.mock()
+        validator.mock()
     }
 
     @After
@@ -95,6 +99,7 @@ class SignInPresenterTest {
 
     @Test
     fun shouldShowErrorOnInvalidPass() {
+        given(validator.isPasswordValid(any())).willReturn(false)
         presenter.logIn("email@test.com", "0")
         verify(view).showPasswordError()
         verify(useCase, never()).execute(any(), any(), any())
@@ -102,6 +107,7 @@ class SignInPresenterTest {
 
     @Test
     fun shouldShowEmailErrorOnInvalidEmail() {
+        given(validator.isEmailValid(any())).willReturn(false)
         presenter.logIn("12345678", "123456789")
         verify(view).showEmailError()
         verify(useCase, never()).execute(any(), any(), any())

@@ -1,7 +1,7 @@
 package com.client.shop.ui.account.contract
 
 import com.client.RxImmediateSchedulerRule
-import com.client.shop.ext.mockUseCase
+import com.client.shop.ext.mock
 import com.client.shop.gateway.entity.Error
 import com.domain.interactor.account.ChangePasswordUseCase
 import com.domain.validator.FieldValidator
@@ -17,7 +17,6 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class ChangePasswordPresenterTest {
@@ -32,14 +31,18 @@ class ChangePasswordPresenterTest {
     @Mock
     private lateinit var useCase: ChangePasswordUseCase
 
+    @Mock
+    private lateinit var validator: FieldValidator
+
     private lateinit var presenter: ChangePasswordPresenter
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = ChangePasswordPresenter(FieldValidator(), useCase)
+        presenter = ChangePasswordPresenter(validator, useCase)
         presenter.attachView(view)
-        useCase.mockUseCase()
+        useCase.mock()
+        validator.mock()
     }
 
     @After
@@ -100,6 +103,7 @@ class ChangePasswordPresenterTest {
 
     @Test
     fun shouldShowErrorOnInvalidPass() {
+        given(validator.isPasswordValid(any())).willReturn(false)
         presenter.changePassword("pass", "pass")
         verify(view).passwordValidError()
         verify(useCase, never()).execute(any(), any(), eq("pass"))

@@ -1,7 +1,7 @@
 package com.client.shop.ui.order.contract
 
 import com.client.RxImmediateSchedulerRule
-import com.client.shop.ext.mockUseCase
+import com.client.shop.ext.mock
 import com.client.shop.gateway.entity.Error
 import com.client.shop.gateway.entity.Order
 import com.client.shop.ui.order.list.contract.OrderListPresenter
@@ -47,7 +47,7 @@ class OrderListPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = OrderListPresenter(useCase)
         presenter.attachView(view)
-        useCase.mockUseCase()
+        useCase.mock()
     }
 
     @After
