@@ -30,12 +30,12 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class ShopifyApi(private val context: Context, baseUrl: String, accessToken: String) : Api {
+class ShopifyApi(private val context: Context) : Api {
 
     private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     private val graphClient: GraphClient = GraphClient.builder(context)
-        .shopDomain(baseUrl)
-        .accessToken(accessToken)
+        .shopDomain(BuildConfig.BASE_DOMAIN)
+        .accessToken(BuildConfig.ACCESS_TOKEN)
         .build()
 
     private val retrofit: Retrofit = RestClient.providesRetrofit()

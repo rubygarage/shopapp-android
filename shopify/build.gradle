@@ -2,36 +2,53 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.github.dcendents.android-maven'
 
-def accessPropertiesFile = rootProject.file("properties/access.properties")
-def accessProperties = new Properties()
-accessProperties.load(new FileInputStream(accessPropertiesFile))
+group = 'com.github.rubygarage'
 
 android {
-    def globalConfiguration = rootProject.extensions.getByName("ext")
 
-    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
-    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+    compileSdkVersion 26
 
     defaultConfig {
-        buildConfigField "String", "BASE_URL", accessProperties['baseUrl']
-        buildConfigField "String", "BASE_DOMAIN", accessProperties['baseDomain']
-        buildConfigField "String", "ACCESS_TOKEN", accessProperties['shopifyAccessToken']
-        buildConfigField "String", "PRIVATE_AUTH_KEY", accessProperties['shopifyApiPrivateAuthKey']
-        buildConfigField "String", "PRIVATE_AUTH_PASSWORD", accessProperties['shopifyApiPrivateAuthPassword']
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
 
-        minSdkVersion globalConfiguration["androidMinSdkVersion"]
-        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
-        testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        all {
+            def defaultString = "\"\""
+            def baseUrl = defaultString
+            def baseDomain = defaultString
+            def accessToken = defaultString
+            def authKey = defaultString
+            def authPassword = defaultString
+            def accessProperties = new Properties()
+            File accessPropertiesFile = rootProject.file('properties/access.properties')
 
+            if (accessPropertiesFile.exists()) {
+                accessProperties.load(new FileInputStream(accessPropertiesFile))
+                baseUrl = accessProperties["baseUrl"]
+                baseDomain = accessProperties["baseDomain"]
+                accessToken = accessProperties["shopifyAccessToken"]
+                authKey = accessProperties["shopifyApiPrivateAuthKey"]
+                authPassword = accessProperties["shopifyApiPrivateAuthPassword"]
+            }
+
+            buildConfigField "String", "BASE_URL", baseUrl
+            buildConfigField "String", "BASE_DOMAIN", baseDomain
+            buildConfigField "String", "ACCESS_TOKEN", accessToken
+            buildConfigField "String", "PRIVATE_AUTH_KEY", authKey
+            buildConfigField "String", "PRIVATE_AUTH_PASSWORD", authPassword
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
         qa {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -47,27 +64,50 @@ buildscript {
     }
 }
 
-kapt {
-    generateStubs = true
+ext {
+    retrofitVersion = '2.3.0'
+    okHttpVersion = '3.9.0'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
-
-    //RETROFIT
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitConverterVersion"
-    implementation "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:1.2.21"
 
     implementation project(':gateway')
 
-    implementation 'com.shopify.mobilebuysdk:buy3:3.1.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
 
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
-    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+    implementation 'com.shopify.mobilebuysdk:buy3:3.1.2'
+
+    testImplementation "org.mockito:mockito-core:2.8.47"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation "com.android.support.test:runner:1.0.1"
+}
+
+// build a jar with source files
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }

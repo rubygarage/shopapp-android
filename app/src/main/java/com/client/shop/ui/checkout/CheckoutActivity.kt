@@ -9,6 +9,8 @@ import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ext.registerKeyboardVisibilityListener
+import com.client.shop.gateway.entity.*
+import com.client.shop.ui.Extra
 import com.client.shop.ui.address.checkout.CheckoutAddressListActivity
 import com.client.shop.ui.address.checkout.CheckoutUnAuthAddressActivity
 import com.client.shop.ui.base.lce.BaseLceActivity
@@ -23,8 +25,6 @@ import com.client.shop.ui.const.PaymentType
 import com.client.shop.ui.const.RequestCode
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.order.success.OrderSuccessActivity
-import com.client.shop.gateway.entity.*
-import com.shopify.constant.Extra
 import kotlinx.android.synthetic.main.activity_checkout.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar

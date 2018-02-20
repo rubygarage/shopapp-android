@@ -9,7 +9,7 @@ import android.view.MenuItem
 import android.widget.CompoundButton
 import com.client.shop.R
 import com.client.shop.ui.const.PaymentType
-import com.shopify.constant.Extra
+import com.client.shop.ui.Extra
 import kotlinx.android.synthetic.main.activity_payment.*
 
 class PaymentActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {

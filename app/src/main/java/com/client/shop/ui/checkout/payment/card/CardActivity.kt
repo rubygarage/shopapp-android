@@ -19,7 +19,7 @@ import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.detector.CardTypeDetector
 import com.client.shop.gateway.entity.Card
 import com.client.shop.gateway.entity.CardType
-import com.shopify.constant.Extra
+import com.client.shop.ui.Extra
 import com.client.shop.ui.base.picker.BaseBottomSheetPicker
 import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
