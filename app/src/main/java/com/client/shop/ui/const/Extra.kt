@@ -1,4 +1,4 @@
-package com.shopify.constant
+package com.client.shop.ui
 
 object Extra {
 

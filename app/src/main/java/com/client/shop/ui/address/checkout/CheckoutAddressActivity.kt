@@ -8,7 +8,7 @@ import com.client.shop.ui.address.base.BaseAddressActivity
 import com.client.shop.ui.address.base.contract.AddressPresenter
 import com.client.shop.ui.address.base.contract.AddressView
 import com.client.shop.gateway.entity.Address
-import com.shopify.constant.Extra
+import com.client.shop.ui.Extra
 
 class CheckoutAddressActivity : BaseAddressActivity<AddressView, AddressPresenter<AddressView>>() {
 

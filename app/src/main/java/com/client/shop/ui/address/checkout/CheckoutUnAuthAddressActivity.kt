@@ -11,7 +11,7 @@ import com.client.shop.ui.address.base.contract.AddressView
 import com.client.shop.ui.address.checkout.contract.CheckoutUnAuthAddressPresenter
 import com.client.shop.gateway.entity.Address
 import com.domain.validator.FieldValidator
-import com.shopify.constant.Extra
+import com.client.shop.ui.Extra
 import javax.inject.Inject
 
 class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutUnAuthAddressPresenter>() {

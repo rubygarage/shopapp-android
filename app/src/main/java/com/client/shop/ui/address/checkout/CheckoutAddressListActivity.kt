@@ -15,7 +15,7 @@ import com.client.shop.ui.address.checkout.contract.CheckoutAddressListView
 import com.client.shop.ui.base.lce.view.LceLayout
 import com.client.shop.ui.const.RequestCode
 import com.client.shop.gateway.entity.Address
-import com.shopify.constant.Extra
+import com.client.shop.ui.Extra
 
 class CheckoutAddressListActivity :
     BaseAddressListActivity<CheckoutAddressListAdapter, CheckoutAddressListView, CheckoutAddressListPresenter>(),

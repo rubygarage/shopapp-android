@@ -4,15 +4,6 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
-
-def keystorePropertiesFile = rootProject.file("app/keystore/keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
-def accessPropertiesFile = rootProject.file("properties/access.properties")
-def accessProperties = new Properties()
-accessProperties.load(new FileInputStream(accessPropertiesFile))
-
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -35,24 +26,20 @@ android {
         versionName "1"
 
         multiDexEnabled true
-
-        buildConfigField "String", "BASE_URL", accessProperties['baseUrl']
-        buildConfigField "String", "BASE_DOMAIN", accessProperties['baseDomain']
-        buildConfigField "String", "ACCESS_TOKEN", accessProperties['shopifyAccessToken']
-        buildConfigField "String", "PRIVATE_AUTH_KEY", accessProperties['shopifyApiPrivateAuthKey']
-        buildConfigField "String", "PRIVATE_AUTH_PASSWORD", accessProperties['shopifyApiPrivateAuthPassword']
-    }
-
-    signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
     }
 
     buildTypes {
+        all {
+            def baseUrl = "\"\""
+            def accessProperties = new Properties()
+            File accessPropertiesFile = rootProject.file('properties/access.properties')
+
+            if (accessPropertiesFile.exists()) {
+                accessProperties.load(new FileInputStream(accessPropertiesFile))
+                baseUrl = accessProperties["baseUrl"]
+            }
+            buildConfigField "String", "BASE_URL", baseUrl
+        }
         debug {
             minifyEnabled false
             versionNameSuffix "-debug"
@@ -64,7 +51,6 @@ android {
         qa {
             minifyEnabled false
             versionNameSuffix "-qa"
-            signingConfig signingConfigs.config
         }
     }
 
@@ -111,7 +97,6 @@ dependencies {
     implementation project(':data')
     implementation project(':domain')
     implementation project(':gateway')
-    implementation project(':shopify')
 
     testImplementation "com.google.dagger:dagger:$daggerVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"

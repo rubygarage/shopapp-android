@@ -20,10 +20,7 @@ buildscript {
         daggerVersion = '2.11'
         frescoVersion = '1.7.1'
 
-        retrofitVersion = '2.3.0'
-        retrofitConverterVersion = '2.0.0'
-        okhttpVersion = '3.9.0'
-
+        //TEST
         mockitoVersion = '2.8.47'
         mockitoKotlinVersion = '1.5.0'
         junitVersion = '4.12'
@@ -40,6 +37,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

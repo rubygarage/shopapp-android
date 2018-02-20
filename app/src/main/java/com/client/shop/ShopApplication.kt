@@ -6,11 +6,12 @@ import android.support.multidex.MultiDex
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
 import com.client.shop.di.module.RepositoryModule
+import com.client.shop.gateway.Api
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.data.dao.DaoImpl
+import com.domain.database.Dao
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.shopify.api.ShopifyApi
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 
@@ -28,7 +29,7 @@ open class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val api = ShopifyApi(this, BuildConfig.BASE_DOMAIN, BuildConfig.ACCESS_TOKEN)
+        val api = null //Initialize your api here.
         val dao = DaoImpl(this)
 
         appComponent = buildAppComponent(api, dao)
@@ -42,10 +43,12 @@ open class ShopApplication : Application() {
         }
     }
 
-    open protected fun buildAppComponent(api: ShopifyApi, dao: DaoImpl): AppComponent {
-        return DaggerAppComponent.builder()
-            .repositoryModule(RepositoryModule(api, dao))
-            .build()
+    open protected fun buildAppComponent(api: Api?, dao: Dao?): AppComponent {
+        val builder = DaggerAppComponent.builder()
+        if (api != null && dao != null) {
+            builder.repositoryModule(RepositoryModule(api, dao))
+        }
+        return builder.build()
     }
 
     private fun setupFabric() {

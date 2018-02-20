@@ -4,7 +4,9 @@ import android.content.Context
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerTestAppComponent
 import com.client.shop.di.module.TestRepositoryModule
+import com.client.shop.gateway.Api
 import com.data.dao.DaoImpl
+import com.domain.database.Dao
 import com.shopify.api.ShopifyApi
 
 class TestShopApplication : ShopApplication() {
@@ -21,8 +23,8 @@ class TestShopApplication : ShopApplication() {
         }
     }
 
-    override fun buildAppComponent(api: ShopifyApi, dao: DaoImpl): AppComponent {
-        module = TestRepositoryModule(api, dao)
+    override fun buildAppComponent(api: Api?, dao: Dao?): AppComponent {
+        module = TestRepositoryModule(api!!, dao!!)
         return DaggerTestAppComponent.builder()
             .testRepositoryModule(module)
             .build()
