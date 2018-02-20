@@ -43,27 +43,6 @@ class OrderProductItemTest {
             MockInstantiator.DEFAULT_CURRENCY
         )
         assertEquals(totalPrice, itemView.totalPrice.text)
-
-        /*
-        val productVariant = orderProduct.productVariant
-        val imageURI: String? = productVariant.image?.src ?: productVariant.productImage?.src
-
-        productImage.setImageURI(imageURI)
-        titleText.text = orderProduct.title
-        quantity.text = resources.getString(R.string.quantity_label_pattern, orderProduct.quantity)
-        if (productVariant.selectedOptions.isNotEmpty()) {
-            optionsTextView.visibility = View.VISIBLE
-            optionsTextView.text = productVariant.selectedOptions
-                .joinToString(separator = System.lineSeparator()) {
-                    resources.getString(R.string.selected_options_pattern, it.name, it.value)
-                }
-        } else {
-            optionsTextView.visibility = View.GONE
-        }
-
-        totalPrice.text = getTotalPrice(productVariant.price, orderProduct.quantity, currency)
-        changeEachPriceVisibility(productVariant.price, orderProduct.quantity, currency)
-        */
     }
 
     @Test
