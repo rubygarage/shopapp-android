@@ -196,23 +196,23 @@ class AccountPresenterTest {
     }
 
     @Test
-    fun shouldShowMessageOnGetCustomerNonCriticalError() {
+    fun shouldReturnNullCustomerOnGetCustomerNonCriticalError() {
         given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)
         inOrder.verify(getCustomerUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showMessage("ErrorMessage")
+        inOrder.verify(view).customerReceived(null)
     }
 
     @Test
-    fun shouldShowErrorOnGetCustomerContentError() {
+    fun shouldReturnNullCustomerOnGetCustomerContentError() {
         given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)
         inOrder.verify(getCustomerUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        inOrder.verify(view).customerReceived(null)
     }
 
     @After
