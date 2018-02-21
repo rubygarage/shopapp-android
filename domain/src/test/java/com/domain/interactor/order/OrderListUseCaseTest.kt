@@ -1,4 +1,4 @@
-package com.domain.interactors
+package com.domain.interactor.order
 
 import com.domain.interactor.order.OrderListUseCase
 import com.domain.repository.OrderRepository
