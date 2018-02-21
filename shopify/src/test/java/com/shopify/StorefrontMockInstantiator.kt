@@ -16,6 +16,7 @@ object StorefrontMockInstantiator {
     const val DEFAULT_SHOP_NAME = "default_shop_name"
     const val DEFAULT_VALUE = "default_value"
     const val DEFAULT_TITLE = "default_title"
+    const val DEFAULT_DESCRIPTION = "default_description"
     const val DEFAULT_BODY = "default_body"
     const val DEFAULT_QUANTITY = 5
     const val DEFAULT_ADDRESS = "default_address"
@@ -132,16 +133,12 @@ object StorefrontMockInstantiator {
     }
 
     fun newShop(): Storefront.Shop = mock {
-        val privacyPolicy = newPolicy()
+        val policy = newPolicy()
         on { name } doReturn DEFAULT_SHOP_NAME
-        on { privacyPolicy } doReturn privacyPolicy
-        on {  } doReturn DEFAULT_ORDER_NUMBER
-        on { totalPrice } doReturn DEFAULT_PRICE
-        on { subtotalPrice } doReturn DEFAULT_PRICE
-        on { totalShippingPrice } doReturn DEFAULT_PRICE
-        on { shippingAddress } doReturn addressMock
-        on { processedAt } doReturn DEFAULT_DATE
-        on { lineItems } doReturn lineItemsMock
+        on { privacyPolicy } doReturn policy
+        on { description } doReturn DEFAULT_DESCRIPTION
+        on { refundPolicy } doReturn policy
+        on { termsOfService } doReturn policy
     }
 
 

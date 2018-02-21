@@ -17,18 +17,12 @@ class ShopAdapterTest {
 
     @Test
     fun shouldAdaptFromShopStorefrontToShop() {
-        val paginationValue = "pagination_value"
-        val result = ShopAdapter.adapt(StorefrontMockInstantiator.newOrder(), paginationValue)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_ID, result.id)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_CURRENCY_CODE.name, result.currency)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_EMAIL, result.email)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_ORDER_NUMBER, result.orderNumber)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_PRICE, result.totalPrice)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_PRICE, result.subtotalPrice)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_PRICE, result.totalShippingPrice)
-        Assert.assertNotNull(result.address)
-        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_DATE.toDate(), result.processedAt)
-        Assert.assertNotNull(result.orderProducts.first())
-        Assert.assertEquals(paginationValue, result.paginationValue)
+        val result = ShopAdapter.adapt(StorefrontMockInstantiator.newShop())
+        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_SHOP_NAME, result.name)
+        Assert.assertEquals(StorefrontMockInstantiator.DEFAULT_DESCRIPTION, result.description)
+        Assert.assertNotNull(result.privacyPolicy)
+        Assert.assertNotNull(result.refundPolicy)
+        Assert.assertNotNull(result.termsOfService)
     }
+
 }
