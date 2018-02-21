@@ -1,6 +1,6 @@
 package com.domain.interactor.cart
 
-import com.domain.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.interactor.base.ObservableUseCase
 import com.domain.repository.CartRepository
 import io.reactivex.Observable

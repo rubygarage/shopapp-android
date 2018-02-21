@@ -7,7 +7,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class FieldValidatorTest {
@@ -15,42 +14,42 @@ class FieldValidatorTest {
     private val fieldValidator = FieldValidator()
 
     @Test
-    fun fieldValidator_CorrectEmail_ReturnsTrue() {
+    fun isEmailValidWithCorrectEmailShouldReturnTrue() {
         assertThat(fieldValidator.isEmailValid("name@email.com"), `is`(true))
     }
 
     @Test
-    fun fieldValidator_EmptyEmail_ReturnsFalse() {
+    fun isEmailValidWithEmptyEmailShouldReturnFalse() {
         assertThat(fieldValidator.isEmailValid(""), `is`(false))
     }
 
     @Test
-    fun fieldValidator_IncorrectEmail_case1_ReturnsFalse() {
+    fun isEmailValidWithEmptyEmailNameShouldReturnFalse() {
         assertThat(fieldValidator.isEmailValid("@email.com"), `is`(false))
     }
 
     @Test
-    fun fieldValidator_IncorrectEmail_case2_ReturnsFalse() {
+    fun isEmailValidWithEmptyEmailSecondLevelDomainShouldReturnFalse() {
         assertThat(fieldValidator.isEmailValid("name@.com"), `is`(false))
     }
 
     @Test
-    fun fieldValidator_IncorrectEmail_case3_ReturnsFalse() {
+    fun isEmailValidWithEmptyEmailFirstLevelDomainShouldReturnFalse() {
         assertThat(fieldValidator.isEmailValid("name@email"), `is`(false))
     }
 
     @Test
-    fun fieldValidator_CorrectPassword_ReturnsTrue() {
+    fun isPasswordValidWithCorrectPasswordShouldReturnTrue() {
         assertThat(fieldValidator.isPasswordValid("password"), `is`(true))
     }
 
     @Test
-    fun fieldValidator_EmptyPassword_ReturnsFalse() {
+    fun isPasswordValidWithEmptyPasswordShouldReturnFalse() {
         assertThat(fieldValidator.isPasswordValid(""), `is`(false))
     }
 
     @Test
-    fun fieldValidator_IncorrectPassword_ReturnsFalse() {
+    fun isPasswordValidWithShortPasswordShouldReturnFalse() {
         assertThat(fieldValidator.isPasswordValid("pass"), `is`(false))
     }
 }

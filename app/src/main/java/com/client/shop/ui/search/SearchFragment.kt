@@ -5,15 +5,14 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.pagination.PaginationFragment
+import com.client.shop.gateway.entity.Product
+import com.client.shop.ui.base.lce.view.LceEmptyView
+import com.client.shop.ui.base.pagination.PaginationFragment
+import com.client.shop.ui.base.recycler.divider.BackgroundItemDecoration
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.search.contract.SearchPresenter
 import com.client.shop.ui.search.contract.SearchView
-import com.client.shop.ui.search.di.SearchModule
-import com.domain.entity.Product
-import com.ui.base.lce.view.LceEmptyView
-import com.ui.base.recycler.divider.BackgroundItemDecoration
 import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
 import javax.inject.Inject
 
@@ -37,7 +36,7 @@ class SearchFragment :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachSearchComponent(SearchModule()).inject(this)
+        ShopApplication.appComponent.attachSearchComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_search_with_categories_list
@@ -78,7 +77,7 @@ class SearchFragment :
         }
         lastQuery = currentQuery
         this.dataList.addAll(data)
-        adapter?.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
         if (data.isNotEmpty()) {
             paginationValue = data.last().paginationValue
         }
@@ -88,7 +87,7 @@ class SearchFragment :
     }
 
     override fun hideProgress() {
-        swipeRefreshLayout?.isRefreshing = false
+        swipeRefreshLayout.isRefreshing = false
     }
 
     fun queryChanged(query: String) {
@@ -96,7 +95,7 @@ class SearchFragment :
             dataList.clear()
             paginationValue = null
             currentQuery = query
-            adapter?.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
             loadData(true)
         }
     }

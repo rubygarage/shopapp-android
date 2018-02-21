@@ -14,32 +14,31 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.registerKeyboardVisibilityListener
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.ProductVariant
+import com.client.shop.gateway.entity.SortType
+import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
+import com.client.shop.ui.custom.SimpleTransitionListener
 import com.client.shop.ui.gallery.GalleryFragment
 import com.client.shop.ui.product.contract.DetailsPresenter
 import com.client.shop.ui.product.contract.DetailsView
-import com.client.shop.ui.product.di.ProductDetailsModule
 import com.client.shop.ui.product.view.OptionsGroupContainer
-import com.domain.entity.Product
-import com.domain.entity.ProductVariant
-import com.domain.entity.SortType
 import com.domain.formatter.NumberFormatter
-import com.ui.base.lce.BaseActivity
-import com.ui.custom.SimpleTransitionListener
-import com.ui.ext.registerKeyboardVisibilityListener
 import kotlinx.android.synthetic.main.activity_product_details.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 import javax.inject.Inject
 
 class ProductDetailsActivity :
-    BaseActivity<Product, DetailsView, DetailsPresenter>(),
+    BaseLceActivity<Product, DetailsView, DetailsPresenter>(),
     DetailsView,
     OptionsGroupContainer.OnVariantSelectListener {
 
     companion object {
-        private const val EXTRA_PRODUCT_ID = "EXTRA_PRODUCT_ID"
-        private const val EXTRA_PRODUCT_VARIANT = "extra_product_variant"
+        const val EXTRA_PRODUCT_ID = "extra_product_id"
+        const val EXTRA_PRODUCT_VARIANT = "extra_product_variant"
         private const val SCROLL_DURATION = 400L
 
         fun getStartIntent(
@@ -108,7 +107,7 @@ class ProductDetailsActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachDetailsComponent(ProductDetailsModule()).inject(this)
+        ShopApplication.appComponent.attachDetailsComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_product_details

@@ -15,22 +15,21 @@ import android.text.style.ClickableSpan
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.getTrimmedString
+import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.account.contract.SignUpPresenter
 import com.client.shop.ui.account.contract.SignUpView
-import com.client.shop.ui.account.di.AuthModule
+import com.client.shop.ui.base.lce.BaseLceActivity
+import com.client.shop.ui.base.lce.view.LceLayout
+import com.client.shop.ui.custom.SimpleTextWatcher
 import com.client.shop.ui.policy.PolicyActivity
-import com.domain.entity.Policy
-import com.ui.base.lce.BaseActivity
-import com.ui.base.lce.view.LceLayout
-import com.ui.custom.SimpleTextWatcher
-import com.ui.ext.getTrimmedString
-import com.ui.ext.hideKeyboard
+import com.client.shop.gateway.entity.Policy
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
 
 class SignUpActivity :
-    BaseActivity<Unit, SignUpView, SignUpPresenter>(),
+    BaseLceActivity<Unit, SignUpView, SignUpPresenter>(),
     SignUpView {
 
     @Inject
@@ -82,7 +81,7 @@ class SignUpActivity :
     override fun createPresenter() = signUpPresenter
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun useModalStyle() = true
@@ -172,7 +171,7 @@ class SignUpActivity :
         finish()
     }
 
-    override fun tryAgainButtonClicked() {
+    override fun onTryAgainButtonClicked() {
         loadData(true)
     }
 

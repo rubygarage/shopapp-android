@@ -3,10 +3,10 @@ package com.client.shop.ui.cart.adapter
 import android.content.Context
 import android.view.View
 import com.client.shop.ui.item.cart.CartItem
-import com.domain.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.formatter.NumberFormatter
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class CartAdapter(dataList: List<CartProduct>, onItemClickListener: OnItemClickListener) :
     BaseRecyclerAdapter<CartProduct>(dataList, onItemClickListener) {

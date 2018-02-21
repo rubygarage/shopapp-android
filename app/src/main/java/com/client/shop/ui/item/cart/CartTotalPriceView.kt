@@ -5,9 +5,9 @@ import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
 import com.client.shop.R
-import com.domain.entity.CartProduct
+import com.client.shop.ext.sum
+import com.client.shop.gateway.entity.CartProduct
 import com.domain.formatter.NumberFormatter
-import com.ui.ext.sum
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
 import java.math.BigDecimal
 

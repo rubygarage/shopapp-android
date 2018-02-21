@@ -7,19 +7,19 @@ import android.text.TextWatcher
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.hideKeyboard
 import com.client.shop.ui.account.contract.ForgotPasswordPresenter
 import com.client.shop.ui.account.contract.ForgotPasswordView
 import com.client.shop.ui.account.di.AuthModule
+import com.client.shop.ui.base.lce.BaseLceActivity
+import com.client.shop.ui.base.lce.view.LceLayout
+import com.client.shop.ui.custom.SimpleTextWatcher
 import com.domain.validator.FieldValidator
-import com.ui.base.lce.BaseActivity
-import com.ui.base.lce.view.LceLayout
-import com.ui.custom.SimpleTextWatcher
-import com.ui.ext.hideKeyboard
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import javax.inject.Inject
 
 class ForgotPasswordActivity :
-    BaseActivity<Unit, ForgotPasswordView, ForgotPasswordPresenter>(),
+    BaseLceActivity<Unit, ForgotPasswordView, ForgotPasswordPresenter>(),
     ForgotPasswordView,
     View.OnClickListener {
 
@@ -63,7 +63,7 @@ class ForgotPasswordActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_forgot_password

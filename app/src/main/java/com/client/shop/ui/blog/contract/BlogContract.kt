@@ -1,9 +1,9 @@
 package com.client.shop.ui.blog.contract
 
-import com.domain.entity.Article
+import com.client.shop.gateway.entity.Article
 import com.domain.interactor.blog.ArticleListUseCase
-import com.ui.base.contract.BaseLcePresenter
-import com.ui.base.contract.BaseLceView
+import com.client.shop.ui.base.contract.BaseLcePresenter
+import com.client.shop.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface BlogView : BaseLceView<List<Article>>

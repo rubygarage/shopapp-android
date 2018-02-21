@@ -1,6 +1,6 @@
 package com.domain.interactor.details
 
-import com.domain.entity.Product
+import com.client.shop.gateway.entity.Product
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.ProductRepository
 import io.reactivex.Single

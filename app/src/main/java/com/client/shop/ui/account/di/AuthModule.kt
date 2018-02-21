@@ -24,7 +24,7 @@ class AuthModule {
 
     @Provides
     fun provideAuthPresenter(sessionCheckUseCase: SessionCheckUseCase, signOutUseCase: SignOutUseCase,
-                             shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
+                                  shopInfoUseCase: ShopInfoUseCase, getCustomerUseCase: GetCustomerUseCase): AccountPresenter {
         return AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
     }
 
@@ -35,7 +35,7 @@ class AuthModule {
 
     @Provides
     fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
-                                     editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
+                                          editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
         return PersonalInfoPresenter(customerUseCase, editCustomerUseCase)
     }
 
@@ -46,7 +46,7 @@ class AuthModule {
 
     @Provides
     fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
-                                        updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
+                                             updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
         return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
     }
 }

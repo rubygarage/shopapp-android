@@ -8,20 +8,19 @@ import android.text.TextWatcher
 import android.widget.Toast
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.ext.hideKeyboard
+import com.client.shop.ext.setTextWhenDisable
 import com.client.shop.ui.account.contract.PersonalInfoPresenter
 import com.client.shop.ui.account.contract.PersonalInfoView
-import com.client.shop.ui.account.di.AuthModule
-import com.domain.entity.Customer
-import com.ui.base.lce.BaseActivity
-import com.ui.base.lce.view.LceLayout
-import com.ui.custom.SimpleTextWatcher
-import com.ui.ext.hideKeyboard
-import com.ui.ext.setTextWhenDisable
+import com.client.shop.ui.base.lce.BaseLceActivity
+import com.client.shop.ui.base.lce.view.LceLayout
+import com.client.shop.ui.custom.SimpleTextWatcher
+import com.client.shop.gateway.entity.Customer
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import javax.inject.Inject
 
 class PersonalInfoActivity :
-    BaseActivity<Customer, PersonalInfoView, PersonalInfoPresenter>(),
+    BaseLceActivity<Customer, PersonalInfoView, PersonalInfoPresenter>(),
     PersonalInfoView {
 
     companion object {
@@ -120,7 +119,7 @@ class PersonalInfoActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent(AuthModule()).inject(this)
+        ShopApplication.appComponent.attachAuthComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_personal_info

@@ -8,33 +8,30 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.recycler.SwipeToDeleteCallback
+import com.client.shop.gateway.entity.CartProduct
+import com.client.shop.ui.base.lce.BaseLceActivity
+import com.client.shop.ui.base.lce.view.LceEmptyView
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.SwipeToDeleteCallback
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.cart.adapter.CartAdapter
 import com.client.shop.ui.cart.contract.CartPresenter
 import com.client.shop.ui.cart.contract.CartView
-import com.client.shop.ui.cart.di.CartModule
+import com.client.shop.ui.checkout.CheckoutActivity
 import com.client.shop.ui.home.HomeActivity
 import com.client.shop.ui.item.cart.CartItem
 import com.client.shop.ui.product.ProductDetailsActivity
-import com.domain.entity.CartProduct
-import com.domain.router.ExternalRouter
-import com.ui.base.lce.BaseActivity
-import com.ui.base.lce.view.LceEmptyView
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 
 class CartActivity :
-    BaseActivity<List<CartProduct>, CartView, CartPresenter>(),
+    BaseLceActivity<List<CartProduct>, CartView, CartPresenter>(),
     CartView,
     OnItemClickListener,
     CartItem.ActionListener {
 
     @Inject
     lateinit var cartPresenter: CartPresenter
-    @Inject
-    lateinit var router: ExternalRouter
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
 
@@ -47,7 +44,7 @@ class CartActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkoutButton.setOnClickListener { router.openCheckoutActivity(this) }
+        checkoutButton.setOnClickListener { startActivity(CheckoutActivity.getStartIntent(this)) }
         setupRecyclerView()
 
         loadData()
@@ -57,7 +54,7 @@ class CartActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachCartComponent(CartModule()).inject(this)
+        ShopApplication.appComponent.attachCartComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_cart
@@ -113,9 +110,9 @@ class CartActivity :
 
     //CALLBACK
 
-    override fun emptyButtonClicked() {
+    override fun onEmptyButtonClicked() {
         startActivity(HomeActivity.getStartIntent(this, true))
-        overridePendingTransition(com.ui.R.anim.fade_in, com.ui.R.anim.slide_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.slide_out)
     }
 
     override fun onItemClicked(position: Int) {

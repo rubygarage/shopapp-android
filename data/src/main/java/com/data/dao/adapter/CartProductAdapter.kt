@@ -2,7 +2,7 @@ package com.data.dao.adapter
 
 import com.data.dao.entity.CartProductData
 import com.data.dao.entity.CartProductDataEntity
-import com.domain.entity.CartProduct
+import com.client.shop.gateway.entity.CartProduct
 
 object CartProductAdapter {
 

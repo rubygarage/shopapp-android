@@ -8,13 +8,12 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.pagination.PaginationActivity
 import com.client.shop.ui.blog.adapter.BlogAdapter
 import com.client.shop.ui.blog.contract.BlogPresenter
 import com.client.shop.ui.blog.contract.BlogView
-import com.client.shop.ui.blog.di.BlogModule
-import com.domain.entity.Article
-import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.client.shop.gateway.entity.Article
+import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
 class BlogActivity :
@@ -39,7 +38,7 @@ class BlogActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachBlogComponent(BlogModule()).inject(this)
+        ShopApplication.appComponent.attachBlogComponent().inject(this)
     }
 
     override fun createPresenter() = blogPresenter

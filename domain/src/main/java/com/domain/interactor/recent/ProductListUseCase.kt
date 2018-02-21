@@ -1,7 +1,7 @@
 package com.domain.interactor.recent
 
-import com.domain.entity.Product
-import com.domain.entity.SortType
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.ProductRepository
 import io.reactivex.Single

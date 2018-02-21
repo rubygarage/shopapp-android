@@ -1,9 +1,9 @@
 package com.data.impl
 
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.entity.Category
+import com.client.shop.gateway.entity.SortType
 import com.data.rx.RxCallbackSingle
-import com.domain.entity.Category
-import com.domain.entity.SortType
-import com.domain.network.Api
 import com.domain.repository.CategoryRepository
 import io.reactivex.Single
 

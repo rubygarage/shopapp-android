@@ -2,7 +2,7 @@ package com.domain.validator
 
 import android.text.TextUtils
 import android.util.Patterns
-import com.domain.entity.Address
+import com.client.shop.gateway.entity.Address
 
 class FieldValidator {
 

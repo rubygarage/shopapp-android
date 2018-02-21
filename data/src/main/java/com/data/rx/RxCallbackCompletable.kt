@@ -1,7 +1,7 @@
 package com.data.rx
 
-import com.domain.entity.Error
-import com.domain.network.ApiCallback
+import com.client.shop.gateway.ApiCallback
+import com.client.shop.gateway.entity.Error
 import io.reactivex.CompletableEmitter
 
 class RxCallbackCompletable(private val emitter: CompletableEmitter) : ApiCallback<Unit> {

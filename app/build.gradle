@@ -4,20 +4,17 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 
-
-def keystorePropertiesFile = rootProject.file("app/keystore/keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
-def accessPropertiesFile = rootProject.file("properties/access.properties")
-def accessProperties = new Properties()
-accessProperties.load(new FileInputStream(accessPropertiesFile))
-
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
     buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 
     defaultConfig {
         applicationId "com.client.shop"
@@ -28,33 +25,12 @@ android {
         versionCode 1
         versionName "1"
 
-        buildConfigField "String", "BASE_URL", accessProperties['baseUrl']
-
         multiDexEnabled true
     }
 
-    signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
-
-    buildTypes {
-        debug {
-            minifyEnabled false
-            versionNameSuffix "-debug"
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        qa {
-            minifyEnabled false
-            versionNameSuffix "-qa"
-            signingConfig signingConfigs.config
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
         }
     }
 }
@@ -72,7 +48,7 @@ dependencies {
     implementation "com.android.support:cardview-v7:$androidSupportVersion"
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
-    implementation 'com.google.android:flexbox:0.3.1'
+    api 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:2.1.0'
     implementation "com.facebook.fresco:fresco:$frescoVersion"
     implementation 'com.github.rubensousa:gravitysnaphelper:1.3'
     implementation 'me.relex:circleindicator:1.2.2@aar'
@@ -92,11 +68,16 @@ dependencies {
         transitive = true
     }
 
-    api project(':data')
-    implementation project(":ui")
-    implementation project(':shopify')
+    implementation project(':data')
+    implementation project(':domain')
+    implementation project(':gateway')
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    testImplementation "com.google.dagger:dagger:$daggerVersion"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    testImplementation "com.android.support:appcompat-v7:$androidSupportVersion"
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
+    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
 }

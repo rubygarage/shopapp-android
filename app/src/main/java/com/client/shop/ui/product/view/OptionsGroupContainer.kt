@@ -5,9 +5,9 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
 import com.client.shop.R
-import com.domain.entity.Product
-import com.domain.entity.ProductVariant
-import com.domain.entity.VariantOption
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.ProductVariant
+import com.client.shop.gateway.entity.VariantOption
 
 
 class OptionsGroupContainer @JvmOverloads constructor(

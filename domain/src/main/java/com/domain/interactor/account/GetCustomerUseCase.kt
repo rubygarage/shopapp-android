@@ -1,6 +1,6 @@
 package com.domain.interactor.account
 
-import com.domain.entity.Customer
+import com.client.shop.gateway.entity.Customer
 import com.domain.interactor.base.SingleUseCase
 import com.domain.repository.AuthRepository
 import io.reactivex.Single

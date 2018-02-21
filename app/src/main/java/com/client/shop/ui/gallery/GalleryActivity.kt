@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
 import com.client.shop.R
-import com.domain.entity.Product
-import com.ui.ext.replaceOnce
+import com.client.shop.gateway.entity.Product
+import com.client.shop.ext.replaceOnce
 import kotlinx.android.synthetic.main.activity_gallery.*
 
 class GalleryActivity : AppCompatActivity() {

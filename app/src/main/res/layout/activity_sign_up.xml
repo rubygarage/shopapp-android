@@ -12,7 +12,7 @@
         android:focusableInTouchMode="true"
         tools:layout_editor_absoluteY="25dp">
 
-        <com.ui.custom.UpperCaseHintTextInputLayout
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/emailInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
@@ -33,16 +33,16 @@
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:lines="1" />
-        </com.ui.custom.UpperCaseHintTextInputLayout>
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.ui.custom.UpperCaseHintTextInputLayout
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/firstNameInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/name"
+            android:hint="@string/first_name"
             app:hintTextAppearance="@style/HintTextAppearance"
             app:layout_constraintEnd_toStartOf="@+id/lastNameInputLayout"
             app:layout_constraintHorizontal_chainStyle="spread"
@@ -55,9 +55,9 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1" />
-        </com.ui.custom.UpperCaseHintTextInputLayout>
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.ui.custom.UpperCaseHintTextInputLayout
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/lastNameInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
@@ -77,9 +77,9 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:lines="1" />
-        </com.ui.custom.UpperCaseHintTextInputLayout>
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.ui.custom.UpperCaseHintTextInputLayout
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/phoneInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
@@ -97,9 +97,9 @@
                 android:id="@+id/phoneInput"
                 style="@style/TextInputEditText"
                 android:inputType="phone" />
-        </com.ui.custom.UpperCaseHintTextInputLayout>
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.ui.custom.UpperCaseHintTextInputLayout
+        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/passwordInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="textPassword"
                 android:max="1" />
-        </com.ui.custom.UpperCaseHintTextInputLayout>
+        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
 
         <Button
             android:id="@+id/createButton"

@@ -6,23 +6,22 @@ import android.view.Gravity
 import android.view.View
 import com.client.shop.R
 import com.client.shop.ShopApplication
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
+import com.client.shop.ui.base.lce.BaseLceFragment
+import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.client.shop.ui.base.recycler.divider.SpaceDecoration
 import com.client.shop.ui.base.ui.FragmentVisibilityListener
+import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.client.shop.ui.product.adapter.ProductListAdapter
 import com.client.shop.ui.product.contract.ProductListPresenter
 import com.client.shop.ui.product.contract.ProductListView
-import com.client.shop.ui.product.di.ProductHorizontalModule
-import com.domain.entity.Product
-import com.domain.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.ui.base.lce.BaseFragment
-import com.ui.base.recycler.OnItemClickListener
-import com.ui.base.recycler.divider.SpaceDecoration
-import com.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
 class ProductHorizontalFragment :
-    BaseFragment<List<Product>, ProductListView, ProductListPresenter>(),
+    BaseLceFragment<List<Product>, ProductListView, ProductListPresenter>(),
     ProductListView,
     OnItemClickListener {
 
@@ -81,7 +80,7 @@ class ProductHorizontalFragment :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachRecentComponent(ProductHorizontalModule()).inject(this)
+        ShopApplication.appComponent.attachRecentComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_recent

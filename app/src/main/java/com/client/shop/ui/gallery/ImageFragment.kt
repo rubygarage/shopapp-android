@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ui.custom.zoomable.DoubleTapGestureListener
 import com.client.shop.ui.custom.zoomable.ZoomableDraweeView
-import com.domain.entity.Image
+import com.client.shop.gateway.entity.Image
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 

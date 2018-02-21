@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.client.shop.R
-import com.domain.entity.Policy
+import com.client.shop.gateway.entity.Policy
 import kotlinx.android.synthetic.main.activity_policy.*
 
 class PolicyActivity : AppCompatActivity() {
@@ -34,7 +34,7 @@ class PolicyActivity : AppCompatActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowTitleEnabled(false)
-            it.setHomeAsUpIndicator(com.ui.R.drawable.ic_arrow_left)
+            it.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         }
 
         policy = intent.getParcelableExtra(EXTRA_POLICY)

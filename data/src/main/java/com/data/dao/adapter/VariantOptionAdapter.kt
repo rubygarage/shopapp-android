@@ -2,7 +2,7 @@ package com.data.dao.adapter
 
 import com.data.dao.entity.VariantOptionData
 import com.data.dao.entity.VariantOptionDataEntity
-import com.domain.entity.VariantOption
+import com.client.shop.gateway.entity.VariantOption
 
 object VariantOptionAdapter {
 

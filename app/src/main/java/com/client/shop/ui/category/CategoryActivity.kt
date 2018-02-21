@@ -9,17 +9,16 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import com.client.shop.R
 import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.pagination.PaginationActivity
+import com.client.shop.ui.base.lce.view.LceEmptyView
+import com.client.shop.ui.base.pagination.PaginationActivity
 import com.client.shop.ui.category.contract.CategoryPresenter
 import com.client.shop.ui.category.contract.CategoryView
-import com.client.shop.ui.category.di.CategoryModule
+import com.client.shop.ui.const.Constant
 import com.client.shop.ui.product.ProductDetailsActivity
 import com.client.shop.ui.product.adapter.ProductListAdapter
-import com.domain.entity.Category
-import com.domain.entity.Product
-import com.domain.entity.SortType
-import com.ui.base.lce.view.LceEmptyView
-import com.ui.const.Constant
+import com.client.shop.gateway.entity.Category
+import com.client.shop.gateway.entity.Product
+import com.client.shop.gateway.entity.SortType
 import kotlinx.android.synthetic.main.activity_category.*
 import javax.inject.Inject
 
@@ -78,7 +77,7 @@ class CategoryActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachCategoryComponent(CategoryModule()).inject(this)
+        ShopApplication.appComponent.attachCategoryComponent().inject(this)
     }
 
     override fun createPresenter() = categoryPresenter

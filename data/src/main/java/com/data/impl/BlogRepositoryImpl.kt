@@ -1,9 +1,9 @@
 package com.data.impl
 
+import com.client.shop.gateway.Api
+import com.client.shop.gateway.entity.Article
+import com.client.shop.gateway.entity.SortType
 import com.data.rx.RxCallbackSingle
-import com.domain.entity.Article
-import com.domain.entity.SortType
-import com.domain.network.Api
 import com.domain.repository.BlogRepository
 import io.reactivex.Single
 
@@ -17,9 +17,9 @@ class BlogRepositoryImpl(private val api: Api) : BlogRepository {
         }
     }
 
-    override fun getArticle(id: String): Single<Article> {
-        return Single.create<Article> { emitter ->
-            api.getArticle(id, RxCallbackSingle<Article>(emitter))
+    override fun getArticle(id: String): Single<Pair<Article, String>> {
+        return Single.create<Pair<Article, String>> { emitter ->
+            api.getArticle(id, RxCallbackSingle<Pair<Article, String>>(emitter))
         }
     }
 }

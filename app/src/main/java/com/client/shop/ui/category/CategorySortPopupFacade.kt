@@ -11,8 +11,8 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.client.shop.R
-import com.domain.entity.SortType
-import com.ui.ext.getScreenSize
+import com.client.shop.ext.getScreenSize
+import com.client.shop.gateway.entity.SortType
 
 class CategorySortPopupFacade(
     private val context: Context,

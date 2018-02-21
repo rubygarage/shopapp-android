@@ -1,8 +1,8 @@
 package com.domain.repository
 
-import com.domain.entity.Address
-import com.domain.entity.Country
-import com.domain.entity.Customer
+import com.client.shop.gateway.entity.Address
+import com.client.shop.gateway.entity.Country
+import com.client.shop.gateway.entity.Customer
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -10,7 +10,7 @@ interface AuthRepository {
 
     fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String): Completable
 
-    fun signIn(email: String, authToken: String): Completable
+    fun signIn(email: String, password: String): Completable
 
     fun signOut(): Completable
 

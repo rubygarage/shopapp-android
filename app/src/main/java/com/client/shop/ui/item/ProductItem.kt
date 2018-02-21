@@ -5,9 +5,9 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import com.client.shop.R
-import com.domain.entity.Product
+import com.client.shop.ext.setResizedImageUri
+import com.client.shop.gateway.entity.Product
 import com.domain.formatter.NumberFormatter
-import com.ui.ext.setResizedImageUri
 import kotlinx.android.synthetic.main.item_product.view.*
 
 @SuppressLint("ViewConstructor")

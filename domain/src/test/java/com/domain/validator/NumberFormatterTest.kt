@@ -3,22 +3,16 @@ package com.domain.validator
 import com.domain.formatter.NumberFormatter
 import junit.framework.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 import java.math.BigDecimal
 import java.util.*
 
-@Suppress("FunctionName")
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class NumberFormatterTest {
 
     private val formatter = NumberFormatter()
     private val CURRENCY = "USD"
 
     @Test
-    fun numberFormatter_FormatBigDecimalPrice_US_Equals() {
+    fun formatBigDecimalPriceWithUsLocale() {
 
         Locale.setDefault(Locale.US)
 

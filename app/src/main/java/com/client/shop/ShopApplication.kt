@@ -1,38 +1,38 @@
 package com.client.shop
 
-import android.support.multidex.MultiDexApplication
+import android.app.Application
+import android.content.Context
+import android.support.multidex.MultiDex
 import com.client.shop.di.component.AppComponent
 import com.client.shop.di.component.DaggerAppComponent
 import com.client.shop.di.module.RepositoryModule
-import com.client.shop.di.module.RouterModule
-import com.client.shop.router.AppRouterImpl
+import com.client.shop.gateway.Api
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
 import com.data.dao.DaoImpl
-import com.domain.router.AppRouter
+import com.domain.database.Dao
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.shopify.ShopifyWrapper
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 
-
-class ShopApplication : MultiDexApplication() {
+open class ShopApplication : Application() {
 
     companion object {
         lateinit var appComponent: AppComponent
     }
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        val appRouter: AppRouter = AppRouterImpl()
+        val api = null //Initialize your api here.
         val dao = DaoImpl(this)
-        val shopWrapper = ShopifyWrapper(this, dao, appRouter)
 
-        appComponent = DaggerAppComponent.builder()
-            .routerModule(RouterModule(shopWrapper))
-            .repositoryModule(RepositoryModule(shopWrapper.api, dao))
-            .build()
+        appComponent = buildAppComponent(api, dao)
 
         setupFresco()
         setupFabric()
@@ -41,6 +41,14 @@ class ShopApplication : MultiDexApplication() {
             e.printStackTrace()
             Crashlytics.logException(e)
         }
+    }
+
+    open protected fun buildAppComponent(api: Api?, dao: Dao?): AppComponent {
+        val builder = DaggerAppComponent.builder()
+        if (api != null && dao != null) {
+            builder.repositoryModule(RepositoryModule(api, dao))
+        }
+        return builder.build()
     }
 
     private fun setupFabric() {
