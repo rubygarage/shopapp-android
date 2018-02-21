@@ -7,8 +7,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ArticleUseCase @Inject constructor(private val blogRepository: BlogRepository) :
-    SingleUseCase<Article, String>() {
+    SingleUseCase<Pair<Article, String>, String>() {
 
-    override fun buildUseCaseSingle(params: String): Single<Article> =
+    override fun buildUseCaseSingle(params: String): Single<Pair<Article, String>> =
         blogRepository.getArticle(params)
 }

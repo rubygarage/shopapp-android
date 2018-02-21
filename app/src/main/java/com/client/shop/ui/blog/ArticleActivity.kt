@@ -9,22 +9,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebSettings
-import com.client.shop.BuildConfig
 import com.client.shop.R
 import com.client.shop.ShopApplication
 import com.client.shop.ext.fitHtmlFrames
 import com.client.shop.ext.fitHtmlImages
 import com.client.shop.ext.shareText
+import com.client.shop.gateway.entity.Article
 import com.client.shop.ui.base.lce.BaseLceActivity
 import com.client.shop.ui.blog.contract.ArticlePresenter
 import com.client.shop.ui.blog.contract.ArticleView
-import com.client.shop.gateway.entity.Article
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
 
 class ArticleActivity :
-    BaseLceActivity<Article, ArticleView, ArticlePresenter>(),
+    BaseLceActivity<Pair<Article, String>, ArticleView, ArticlePresenter>(),
     ArticleView {
 
     @Inject
@@ -95,21 +94,23 @@ class ArticleActivity :
 
     //LCE
 
-    override fun showContent(data: Article) {
+    override fun showContent(data: Pair<Article, String>) {
         super.showContent(data)
+        val article = data.first
+        val baseUrl = data.second
         shareMenuItem?.isVisible = true
-        shareUrl = data.url
-        articleTitle.text = data.title
+        shareUrl = article.url
+        articleTitle.text = article.title
 
         content.post {
             val width = (content.width / Resources.getSystem().displayMetrics.density).toInt()
-            var html = content.fitHtmlImages(data.contentHTML)
+            var html = content.fitHtmlImages(article.contentHTML)
             html = content.fitHtmlFrames(html, (width * FRAME_HEIGHT_MULTIPLIER).toInt())
-            content.loadDataWithBaseURL(BuildConfig.BASE_URL, html, "text/html", "UTF-8", null)
+            content.loadDataWithBaseURL(baseUrl, html, "text/html", "UTF-8", null)
         }
 
-        author.text = data.author.fullName
-        val src = data.image?.src
+        author.text = article.author.fullName
+        val src = article.image?.src
         image.setImageURI(src)
         image.visibility = if (src != null) View.VISIBLE else View.GONE
     }
