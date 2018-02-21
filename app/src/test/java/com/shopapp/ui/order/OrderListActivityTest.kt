@@ -28,7 +28,6 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 
-
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class OrderListActivityTest {

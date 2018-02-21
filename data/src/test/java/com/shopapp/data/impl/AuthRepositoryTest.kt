@@ -120,6 +120,8 @@ class AuthRepositoryTest {
 
     @Test
     fun signUpShouldCompleteOnApiResult() {
+        val observer = TestObserver<Unit>()
+
         given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(5)
             callback.onResult(Unit)
@@ -138,6 +140,7 @@ class AuthRepositoryTest {
 
     @Test
     fun signUpShouldErrorOnApiFailure() {
+        val observer = TestObserver<Unit>()
         val error = Error.Content()
         given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(5)
