@@ -38,8 +38,8 @@ class SignUpActivity :
     private lateinit var passwordTextWatcher: TextWatcher
 
     companion object {
-        private const val PRIVACY_POLICY = "privacy_policy"
-        private const val TERMS_OF_SERVICE = "terms_of_service"
+        const val PRIVACY_POLICY = "privacy_policy"
+        const val TERMS_OF_SERVICE = "terms_of_service"
 
         fun getStartIntent(context: Context, privacyPolicy: Policy?, termsOfService: Policy?): Intent {
             val intent = Intent(context, SignUpActivity::class.java)

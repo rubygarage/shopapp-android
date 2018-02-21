@@ -15,7 +15,7 @@ class PolicyActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val EXTRA_POLICY = "EXTRA_POLICY"
+        const val EXTRA_POLICY = "EXTRA_POLICY"
 
         fun getStartIntent(context: Context, policy: Policy): Intent {
             val intent = Intent(context, PolicyActivity::class.java)
