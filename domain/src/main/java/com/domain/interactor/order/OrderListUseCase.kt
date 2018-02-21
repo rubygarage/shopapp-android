@@ -10,7 +10,7 @@ class OrderListUseCase @Inject constructor(private val orderRepository: OrderRep
     SingleUseCase<List<Order>, OrderListUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: OrderListUseCase.Params): Single<List<Order>> {
-        return orderRepository.getOrdersList(params.perPage, params.paginationValue)
+        return orderRepository.getOrderList(params.perPage, params.paginationValue)
     }
 
     data class Params(

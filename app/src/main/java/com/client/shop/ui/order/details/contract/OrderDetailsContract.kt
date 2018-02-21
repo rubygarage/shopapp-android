@@ -1,9 +1,9 @@
 package com.client.shop.ui.order.details.contract
 
 import com.client.shop.gateway.entity.Order
-import com.domain.interactor.order.OrderDetailsUseCase
 import com.client.shop.ui.base.contract.BaseLcePresenter
 import com.client.shop.ui.base.contract.BaseLceView
+import com.domain.interactor.order.OrderDetailsUseCase
 import javax.inject.Inject
 
 interface OrderDetailsView : BaseLceView<Order>
@@ -20,5 +20,4 @@ class OrderDetailsPresenter @Inject constructor(
             orderId
         )
     }
-
 }

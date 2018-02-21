@@ -74,7 +74,6 @@ class CompletableUseCaseTest {
         verify(onError, never()).invoke(any())
     }
 
-
     @Test
     fun shouldInvokeOnErrorOnFailure() {
         val error = Error.Critical()

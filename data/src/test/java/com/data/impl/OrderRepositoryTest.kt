@@ -27,6 +27,7 @@ class OrderRepositoryTest {
     companion object {
         private const val perPage = 5
         private const val paginationValue = "pagination"
+        private const val orderId = "orderId"
     }
 
     @Rule
@@ -39,41 +40,72 @@ class OrderRepositoryTest {
     @Mock
     private lateinit var orderList: List<Order>
 
-    private lateinit var repository: OrderRepository
+    @Mock
+    private lateinit var order: Order
 
-    private lateinit var observer: TestObserver<List<Order>>
+    private lateinit var repository: OrderRepository
+    private lateinit var orderListObserver: TestObserver<List<Order>>
+    private lateinit var orderObserver: TestObserver<Order>
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = OrderRepositoryImpl(api)
-        observer = TestObserver()
+        orderListObserver = TestObserver()
+        orderObserver = TestObserver()
     }
 
     @Test
-    fun getOrdersShouldDelegateCallToApi() {
-        repository.getOrdersList(perPage, paginationValue).subscribe()
+    fun getOrderListShouldDelegateCallToApi() {
+        repository.getOrderList(perPage, paginationValue).subscribe()
         verify(api).getOrders(eq(perPage), eq(paginationValue), any())
     }
 
     @Test
-    fun getOrdersShouldReturnValueWhenOnResult() {
+    fun getOrderListShouldReturnValueWhenOnResult() {
         given(api.getOrders(eq(perPage), eq(paginationValue), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Order>>>(2)
             callback.onResult(orderList)
         })
-        repository.getOrdersList(perPage, paginationValue).subscribe(observer)
-        observer.assertValue(orderList)
+        repository.getOrderList(perPage, paginationValue).subscribe(orderListObserver)
+        orderListObserver.assertValue(orderList)
     }
 
     @Test
-    fun getOrdersShouldReturnErrorOnFailure() {
+    fun getOrderListShouldReturnErrorOnFailure() {
         val error = Error.Content()
         given(api.getOrders(eq(perPage), eq(paginationValue), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Order>>>(2)
             callback.onFailure(error)
         })
-        repository.getOrdersList(perPage, paginationValue).subscribe(observer)
-        observer.assertError(error)
+        repository.getOrderList(perPage, paginationValue).subscribe(orderListObserver)
+        orderListObserver.assertError(error)
+    }
+
+    @Test
+    fun getOrderShouldDelegateCallToApi() {
+        repository.getOrder(orderId).subscribe()
+        verify(api).getOrder(eq(orderId), any())
+    }
+
+    @Test
+    fun getOrderShouldReturnValueWhenOnResult() {
+        given(api.getOrder(eq(orderId), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Order>>(1)
+            callback.onResult(order)
+        })
+        repository.getOrder(orderId).subscribe(orderObserver)
+        orderObserver.assertValue(order)
+    }
+
+    @Test
+    fun getOrderShouldReturnErrorOnFailure() {
+        val error = Error.Content()
+        given(api.getOrder(eq(orderId), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Order>>(1)
+            callback.onFailure(error)
+        })
+        repository.getOrder(orderId).subscribe(orderObserver)
+        orderObserver.assertError(error)
     }
 }

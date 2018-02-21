@@ -18,7 +18,6 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-@Suppress("FunctionName")
 @RunWith(MockitoJUnitRunner::class)
 class AuthRepositoryTest {
 

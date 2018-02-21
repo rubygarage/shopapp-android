@@ -17,6 +17,16 @@ object MockInstantiator {
     const val DEFAULT_QUANTITY = 5
     const val DEFAULT_SRC = "default_src"
     const val DEFAULT_DESCRIPTION = "default_description"
+    const val DEFAULT_NAME = "default_name"
+    const val DEFAULT_VALUE = "default_value"
+    const val DEFAULT_ADDRESS = "default_address"
+    const val DEFAULT_CITY = "default_city"
+    const val DEFAULT_COUNTRY = "default_country"
+    const val DEFAULT_STATE = "default_state"
+    const val DEFAULT_FIRST_NAME = "default_first_name"
+    const val DEFAULT_LAST_NAME = "default_last_name"
+    const val DEFAULT_ZIP = "default_zip"
+    const val DEFAULT_PHONE = "default_phone"
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
@@ -31,6 +41,7 @@ object MockInstantiator {
     fun newOrder(): Order = mock {
 
         val orderProductListMock = newList(newOrderProduct(), 5)
+        val addressMock = newAddress()
 
         on { id } doReturn DEFAULT_ID
         on { currency } doReturn DEFAULT_CURRENCY
@@ -41,7 +52,7 @@ object MockInstantiator {
         on { totalPrice } doReturn DEFAULT_PRICE
         on { processedAt } doReturn DEFAULT_DATE
         on { orderProducts } doReturn orderProductListMock
-        on { address } doReturn newAddress()
+        on { address } doReturn addressMock
         on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
     }
 
@@ -68,6 +79,11 @@ object MockInstantiator {
         on { productId } doReturn DEFAULT_ID
     }
 
+    fun newVariantOption(): VariantOption = mock {
+        on { name } doReturn DEFAULT_NAME
+        on { value } doReturn DEFAULT_VALUE
+    }
+
     fun newImage(): Image = mock {
         on { id } doReturn DEFAULT_ID
         on { src } doReturn DEFAULT_SRC
@@ -75,6 +91,15 @@ object MockInstantiator {
     }
 
     fun newAddress(): Address = mock {
-        //TODO ADD MOCKED DATA
+        on { id } doReturn DEFAULT_ID
+        on { address } doReturn DEFAULT_ADDRESS
+        on { secondAddress } doReturn DEFAULT_ADDRESS
+        on { city } doReturn DEFAULT_CITY
+        on { country } doReturn DEFAULT_COUNTRY
+        on { state } doReturn DEFAULT_STATE
+        on { firstName } doReturn DEFAULT_FIRST_NAME
+        on { lastName } doReturn DEFAULT_LAST_NAME
+        on { zip } doReturn DEFAULT_ZIP
+        on { phone } doReturn DEFAULT_PHONE
     }
 }

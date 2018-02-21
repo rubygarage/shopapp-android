@@ -4,13 +4,12 @@ import com.client.shop.gateway.entity.CardType
 import org.junit.Assert
 import org.junit.Test
 
-@Suppress("FunctionName")
 class CardTypeDetectorTest {
 
     private val cardTypeDetector = CardTypeDetector()
 
     @Test
-    fun cardTypeDetector_Visa_ReturnsCardType() {
+    fun shouldReturnVisaCardType() {
         Assert.assertEquals(CardType.VISA,
             cardTypeDetector.detect("4242424242424242"))
         Assert.assertEquals(CardType.VISA,
@@ -18,7 +17,7 @@ class CardTypeDetectorTest {
     }
 
     @Test
-    fun cardTypeDetector_MasterCard_ReturnsCardType() {
+    fun shouldReturnMasterCardCardType() {
         Assert.assertEquals(CardType.MASTER_CARD,
             cardTypeDetector.detect("5105105105105100"))
         Assert.assertEquals(CardType.MASTER_CARD,
@@ -28,7 +27,7 @@ class CardTypeDetectorTest {
     }
 
     @Test
-    fun cardTypeDetector_AmericanExpress_ReturnsCardType() {
+    fun shouldReturnAmericanExpressCardType() {
         Assert.assertEquals(CardType.AMERICAN_EXPRESS,
             cardTypeDetector.detect("371449635398431"))
         Assert.assertEquals(CardType.AMERICAN_EXPRESS,
@@ -38,7 +37,7 @@ class CardTypeDetectorTest {
     }
 
     @Test
-    fun cardTypeDetector_Discover_ReturnsCardType() {
+    fun shouldReturnDiscoverCardType() {
         Assert.assertEquals(CardType.DISCOVER,
             cardTypeDetector.detect("6011111111111117"))
         Assert.assertEquals(CardType.DISCOVER,
@@ -46,7 +45,7 @@ class CardTypeDetectorTest {
     }
 
     @Test
-    fun cardTypeDetector_DinersClub_ReturnsCardType() {
+    fun shouldReturnDinersClubCardType() {
         Assert.assertEquals(CardType.DINERS_CLUB,
             cardTypeDetector.detect("30569309025904"))
         Assert.assertEquals(CardType.DINERS_CLUB,
@@ -54,7 +53,7 @@ class CardTypeDetectorTest {
     }
 
     @Test
-    fun cardTypeDetector_JCB_ReturnsCardType() {
+    fun shouldReturnJcbCardType() {
         Assert.assertEquals(CardType.JCB,
             cardTypeDetector.detect("3530111333300000"))
         Assert.assertEquals(CardType.JCB,
@@ -62,7 +61,7 @@ class CardTypeDetectorTest {
     }
 
     @Test
-    fun cardTypeDetector_Unknown_ReturnsNull() {
+    fun shouldReturnNull() {
         Assert.assertNull(cardTypeDetector.detect("5019717010103742"))
         Assert.assertNull(cardTypeDetector.detect("6331101999990016"))
     }
