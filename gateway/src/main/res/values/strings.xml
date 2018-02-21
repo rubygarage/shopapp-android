@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">getaway</string>
-
     <string name="visa">Visa</string>
     <string name="mastercard">Mastercard</string>
     <string name="american_express">American Express</string>
