@@ -17,9 +17,9 @@ class BlogRepositoryImpl(private val api: Api) : BlogRepository {
         }
     }
 
-    override fun getArticle(id: String): Single<Article> {
-        return Single.create<Article> { emitter ->
-            api.getArticle(id, RxCallbackSingle<Article>(emitter))
+    override fun getArticle(id: String): Single<Pair<Article, String>> {
+        return Single.create<Pair<Article, String>> { emitter ->
+            api.getArticle(id, RxCallbackSingle<Pair<Article, String>>(emitter))
         }
     }
 }

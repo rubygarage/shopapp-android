@@ -7,7 +7,6 @@
       <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/shopclient-android.iml" filepath="$PROJECT_DIR$/shopclient-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shopify/shopify.iml" filepath="$PROJECT_DIR$/shopify/shopify.iml" />
     </modules>
   </component>
 </project>

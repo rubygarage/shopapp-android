@@ -28,32 +28,6 @@ android {
         multiDexEnabled true
     }
 
-    buildTypes {
-        all {
-            def baseUrl = "\"\""
-            def accessProperties = new Properties()
-            File accessPropertiesFile = rootProject.file('properties/access.properties')
-
-            if (accessPropertiesFile.exists()) {
-                accessProperties.load(new FileInputStream(accessPropertiesFile))
-                baseUrl = accessProperties["baseUrl"]
-            }
-            buildConfigField "String", "BASE_URL", baseUrl
-        }
-        debug {
-            minifyEnabled false
-            versionNameSuffix "-debug"
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        qa {
-            minifyEnabled false
-            versionNameSuffix "-qa"
-        }
-    }
-
     testOptions {
         unitTests {
             includeAndroidResources = true
