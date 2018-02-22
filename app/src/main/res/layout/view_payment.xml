@@ -211,7 +211,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardTypeDivider" />
 
-    <com.client.shop.ui.item.AddressContentItem
+    <com.shopapp.ui.item.AddressContentItem
         android:id="@+id/billingAddressData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.client.shop.ui.base.BaseToolbar
+    <com.shopapp.ui.base.BaseToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyle"
         android:layout_width="match_parent"

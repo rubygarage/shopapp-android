@@ -36,7 +36,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_end="16dp" />
 
-    <com.client.shop.ui.item.AddressContentItem
+    <com.shopapp.ui.item.AddressContentItem
         android:id="@+id/addressContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

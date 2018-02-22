@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.client.shop.ui.base.BaseToolbar
+    <com.shopapp.ui.base.BaseToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.client.shop.ui.base.lce.view.LceLayout
+    <com.shopapp.ui.base.lce.view.LceLayout
         android:id="@+id/lceLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
