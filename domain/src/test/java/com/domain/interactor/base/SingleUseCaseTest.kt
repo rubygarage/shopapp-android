@@ -1,8 +1,9 @@
 package com.domain.interactor.base
 
-import com.client.shop.gateway.entity.Error
-import com.domain.RxImmediateSchedulerRule
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.domain.RxImmediateSchedulerRule
+import com.shopapp.domain.interactor.base.SingleUseCase
+import com.shopapp.gateway.entity.Error
 import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Rule

@@ -1,10 +1,10 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.content.Context
 import android.view.inputmethod.EditorInfo
-import com.client.shop.TestShopApplication
-import com.client.shop.gateway.entity.Customer
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.TestShopApplication
+import com.shopapp.gateway.entity.Customer
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import org.junit.After
 import org.junit.Assert.*

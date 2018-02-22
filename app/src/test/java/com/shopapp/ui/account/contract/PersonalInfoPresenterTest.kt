@@ -1,12 +1,12 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.client.RxImmediateSchedulerRule
-import com.client.shop.ext.mock
-import com.client.shop.gateway.entity.Customer
-import com.client.shop.gateway.entity.Error
-import com.domain.interactor.account.EditCustomerUseCase
-import com.domain.interactor.account.GetCustomerUseCase
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.domain.interactor.account.EditCustomerUseCase
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.ext.mock
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Error
+import com.shopapp.util.RxImmediateSchedulerRule
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before
@@ -40,7 +40,6 @@ class PersonalInfoPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-
         editCustomerUseCase.mock()
         getCustomerUseCase.mock()
         presenter = PersonalInfoPresenter(getCustomerUseCase, editCustomerUseCase)
@@ -132,7 +131,6 @@ class PersonalInfoPresenterTest {
 
     @Test
     fun shouldShowErrorOnEditCustomerContentError() {
-
         val name = "name"
         val lastName = "lastName"
         val phone = "06333291677"

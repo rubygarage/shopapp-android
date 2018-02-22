@@ -9,6 +9,7 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.data.RxImmediateSchedulerRule
 import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.gateway.entity.Customer
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
