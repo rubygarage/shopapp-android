@@ -9,6 +9,7 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.data.RxImmediateSchedulerRule
 import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.gateway.entity.Customer
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
@@ -30,13 +31,16 @@ class AuthRepositoryTest {
 
     private lateinit var repository: AuthRepository
 
-    private lateinit var observer: TestObserver<Unit>
+    private lateinit var observerCustomer: TestObserver<Customer>
+
+    private lateinit var observerUnit: TestObserver<Unit>
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
-        observer = TestObserver()
+        observerCustomer = TestObserver()
+        observerUnit = TestObserver()
     }
 
     @Test
@@ -51,8 +55,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
         })
-        repository.changePassword("").subscribe(observer)
-        observer.assertComplete()
+        repository.changePassword("").subscribe(observerUnit)
+        observerUnit.assertComplete()
     }
 
     @Test
@@ -63,8 +67,8 @@ class AuthRepositoryTest {
             callback.onFailure(error)
         })
 
-        repository.changePassword("").subscribe(observer)
-        observer.assertError(error)
+        repository.changePassword("").subscribe(observerUnit)
+        observerUnit.assertError(error)
     }
 
     @Test
@@ -81,8 +85,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(2)
             callback.onResult(Unit)
         })
-        repository.signIn("", "").subscribe(observer)
-        observer.assertComplete()
+        repository.signIn("", "").subscribe(observerUnit)
+        observerUnit.assertComplete()
     }
 
     @Test
@@ -93,8 +97,8 @@ class AuthRepositoryTest {
             callback.onFailure(error)
         })
 
-        repository.signIn("", "").subscribe(observer)
-        observer.assertError(error)
+        repository.signIn("", "").subscribe(observerUnit)
+        observerUnit.assertError(error)
     }
 
     @Test
@@ -119,6 +123,7 @@ class AuthRepositoryTest {
 
     @Test
     fun signUpShouldCompleteOnApiResult() {
+
         given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(5)
             callback.onResult(Unit)
@@ -130,9 +135,9 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(observer)
+        ).subscribe(observerUnit)
 
-        observer.assertComplete()
+        observerUnit.assertComplete()
     }
 
     @Test
@@ -149,8 +154,61 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(observer)
+        ).subscribe(observerUnit)
 
+        observerUnit.assertError(error)
+    }
+
+    @Test
+    fun getCustomerShouldCompleteOnApiResult() {
+        val observer = TestObserver<Customer>()
+        given(api.getCustomer(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(0)
+            callback.onResult(Unit)
+        })
+        repository.getCustomer().subscribe(observer)
+        observer.assertComplete()
+    }
+
+    @Test
+    fun getCustomerShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        val observer = TestObserver<Customer>()
+        given(api.getCustomer(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(0)
+            callback.onFailure(error)
+        })
+        repository.getCustomer().subscribe(observer)
         observer.assertError(error)
+    }
+
+    @Test
+    fun editCustomerShouldDelegateCallToApi() {
+        val name = "name"
+        val lastName = "lastName"
+        val phone = "0633291677"
+        repository.editCustomer(name, lastName, phone).subscribe()
+        verify(api).editCustomerInfo(eq(name), eq(lastName), eq(phone), any())
+    }
+
+    @Test
+    fun editCustomerShouldCompleteOnApiResult() {
+        given(api.editCustomerInfo(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(3)
+            callback.onResult(Unit)
+        })
+        repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
+        observerCustomer.assertComplete()
+    }
+
+    @Test
+    fun editCustomerShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.editCustomerInfo(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(3)
+            callback.onFailure(error)
+        })
+        repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
+        observerCustomer.assertError(error)
     }
 }
