@@ -3,10 +3,10 @@ package com.shopapp.ui.account.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.UpdateAccountSettingsUseCase
-import com.shopapp.ext.mock
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.util.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.After
@@ -47,11 +47,6 @@ class AccountSettingsPresenterTest {
         presenter.attachView(view)
         getCustomerUseCase.mock()
         accountSettingsUseCase.mock()
-    }
-
-    @After
-    fun tearDown() {
-        presenter.detachView(false)
     }
 
     @Test
@@ -117,5 +112,10 @@ class AccountSettingsPresenterTest {
         val inOrder = inOrder(view, getCustomerUseCase)
         verify(accountSettingsUseCase).execute(any(), any(), eq(true))
         inOrder.verify(view).showError(false)
+    }
+
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
     }
 }
