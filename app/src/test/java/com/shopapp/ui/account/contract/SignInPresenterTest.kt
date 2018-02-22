@@ -1,11 +1,11 @@
 package com.shopapp.ui.account.contract
 
-import com.shopapp.gateway.entity.Error
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.SignInUseCase
 import com.shopapp.domain.validator.FieldValidator
-import com.nhaarman.mockito_kotlin.*
-import com.shopapp.ext.mock
+import com.shopapp.gateway.entity.Error
 import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.util.ext.mock
 import io.reactivex.Completable
 import org.junit.After
 import org.junit.Before

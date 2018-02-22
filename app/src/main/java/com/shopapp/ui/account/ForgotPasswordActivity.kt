@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
-import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.hideKeyboard
@@ -28,8 +27,6 @@ class ForgotPasswordActivity :
 
     @Inject
     lateinit var forgotPasswordPresenter: ForgotPasswordPresenter
-    @Inject
-    lateinit var fieldValidator: FieldValidator
     private lateinit var emailTextWatcher: TextWatcher
 
     //ANDROID
@@ -40,7 +37,10 @@ class ForgotPasswordActivity :
 
         emailTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                submitButton.isEnabled = fieldValidator.isEmailValid(s.toString())
+                submitButton.isEnabled = s.isNotEmpty()
+                if (emailInputLayout.isErrorEnabled) {
+                    emailInputLayout.isErrorEnabled = false
+                }
             }
         }
         submitButton.setOnClickListener(this)
@@ -81,6 +81,11 @@ class ForgotPasswordActivity :
     override fun showMessage(message: String) {
         super.showMessage(message)
         changeState(LceLayout.LceState.ContentState)
+    }
+
+    override fun showEmailValidError() {
+        emailInputLayout.isErrorEnabled = true
+        emailInputLayout.error = getString(R.string.invalid_email_error_message)
     }
 
     //CALLBACK

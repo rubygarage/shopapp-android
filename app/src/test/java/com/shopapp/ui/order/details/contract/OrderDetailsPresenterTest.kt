@@ -8,7 +8,7 @@ import com.shopapp.domain.interactor.order.OrderDetailsUseCase
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Order
 import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mockUseCase
+import com.shopapp.util.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before
@@ -48,7 +48,7 @@ class OrderDetailsPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = OrderDetailsPresenter(useCase)
         presenter.attachView(view)
-        useCase.mockUseCase()
+        useCase.mock()
     }
 
     @After

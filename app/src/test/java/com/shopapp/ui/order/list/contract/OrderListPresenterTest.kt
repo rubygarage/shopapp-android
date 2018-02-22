@@ -8,7 +8,7 @@ import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
 import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mockUseCase
+import com.shopapp.util.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before
@@ -45,7 +45,7 @@ class OrderListPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = OrderListPresenter(useCase)
         presenter.attachView(view)
-        useCase.mockUseCase()
+        useCase.mock()
     }
 
     @After

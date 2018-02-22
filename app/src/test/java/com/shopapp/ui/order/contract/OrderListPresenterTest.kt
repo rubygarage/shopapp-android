@@ -7,10 +7,10 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
-import com.shopapp.ext.mock
 import com.shopapp.ui.order.list.contract.OrderListPresenter
 import com.shopapp.ui.order.list.contract.OrderListView
 import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.util.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before
