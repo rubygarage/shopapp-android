@@ -37,13 +37,8 @@ class PersonalInfoActivityTest {
         doNothing().`when`(activity.presenter).getCustomer()
     }
 
-    @After
-    fun tearDown() {
-        activity.finish()
-    }
-
     @Test
-    fun shouldShouldLoadCurrentCustomerOnLoadData() {
+    fun shouldGetCustomerOnLoadData() {
         activity.loadData()
         verify(activity.presenter, times(2)).getCustomer()
     }
@@ -73,9 +68,11 @@ class PersonalInfoActivityTest {
     }
 
     @Test
-    fun emailFieldShouldBeDisabled() {
+    fun shouldSetEmailWhenFieldIsDisable() {
+        assertEquals("", activity.emailInput.text.toString())
         assertFalse(activity.emailInput.isEnabled)
-        activity.showContent(oldCustomer)
+        activity.setupCustomerEmail("email@test.com")
+        assertEquals("email@test.com", activity.emailInput.text.toString())
         assertFalse(activity.emailInput.isEnabled)
     }
 
@@ -115,6 +112,11 @@ class PersonalInfoActivityTest {
         assertFalse(activity.saveButton.isEnabled)
         activity.phoneInput.setText("07")
         assertTrue(activity.saveButton.isEnabled)
+    }
+
+    @After
+    fun tearDown() {
+        activity.finish()
     }
 
     //TODO ADD HIDE PROGRESS TEST (Fix inner handler check)

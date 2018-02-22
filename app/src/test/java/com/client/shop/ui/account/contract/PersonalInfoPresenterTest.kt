@@ -123,7 +123,7 @@ class PersonalInfoPresenterTest {
         val phone = "06333291677"
 
         given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
-        presenter.editCustomer("name", "lastName", "06333291677")
+        presenter.editCustomer(name, lastName, phone)
 
         val inOrder = inOrder(view, editCustomerUseCase)
         inOrder.verify(editCustomerUseCase).execute(any(), any(), eq(EditCustomerUseCase.Params(name, lastName, phone)))
