@@ -319,7 +319,6 @@ class AuthRepositoryTest {
         })
         repository.signOut().subscribe(observerUnit)
         observerUnit.assertComplete()
-
     }
 
     @Test
