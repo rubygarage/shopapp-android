@@ -1,4 +1,4 @@
-package com.domain.interactor.account
+package com.shopapp.domain.interactor.account
 
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.domain.interactor.account.EditCustomerUseCase

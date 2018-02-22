@@ -211,4 +211,39 @@ class AuthRepositoryTest {
         repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
         observerCustomer.assertError(error)
     }
+
+
+    @Test
+    fun forgotPasswordShouldDelegateCallToApi() {
+        val email = "test@test.com"
+        repository.forgotPassword(email).subscribe()
+        verify(api).forgotPassword(eq(email), any())
+    }
+
+    @Test
+    fun forgotPasswordShouldCompleteOnApiResult() {
+        val observer: TestObserver<Unit> = TestObserver()
+        val email = "test@test.com"
+        given(api.forgotPassword(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onResult(Unit)
+        })
+
+        repository.forgotPassword(email).subscribe(observer)
+        observer.assertComplete()
+    }
+
+    @Test
+    fun forgotPasswordShouldErrorOnApiFailure() {
+        val observer: TestObserver<Unit> = TestObserver()
+        val email = "test@test.com"
+        val error = Error.Content()
+        given(api.forgotPassword(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onFailure(error)
+        })
+
+        repository.forgotPassword(email).subscribe(observer)
+        observer.assertError(error)
+    }
 }

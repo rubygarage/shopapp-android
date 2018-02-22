@@ -1,4 +1,4 @@
-package com.domain.interactor.account
+package com.shopapp.domain.interactor.account
 
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.domain.interactor.account.ForgotPasswordUseCase
@@ -10,7 +10,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.robolectric.annotation.Config
 
-@Suppress("FunctionName")
 @RunWith(MockitoJUnitRunner::class)
 @Config(manifest = Config.NONE)
 class ForgotPasswordUseCaseTest {
