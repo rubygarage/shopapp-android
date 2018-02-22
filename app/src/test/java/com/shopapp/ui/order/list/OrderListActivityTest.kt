@@ -1,4 +1,4 @@
-package com.shopapp.ui.order
+package com.shopapp.ui.order.list
 
 import android.content.Context
 import android.view.View
@@ -8,7 +8,6 @@ import com.shopapp.TestShopApplication
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.details.OrderDetailsActivity
-import com.shopapp.ui.order.list.OrderListActivity
 import com.shopapp.ui.product.ProductDetailsActivity
 import com.shopapp.util.MockInstantiator
 import junit.framework.Assert.assertEquals
