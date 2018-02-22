@@ -1,10 +1,10 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.content.Context
 import android.view.View
-import com.client.shop.R
-import com.client.shop.TestShopApplication
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.R
+import com.shopapp.TestShopApplication
 import kotlinx.android.synthetic.main.activity_forgot_password.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*

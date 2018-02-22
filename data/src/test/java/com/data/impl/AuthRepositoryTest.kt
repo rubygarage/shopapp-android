@@ -1,14 +1,15 @@
 package com.data.impl
 
-import com.client.shop.gateway.Api
-import com.client.shop.gateway.ApiCallback
-import com.client.shop.gateway.entity.Error
-import com.data.RxImmediateSchedulerRule
-import com.domain.repository.AuthRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.data.RxImmediateSchedulerRule
+import com.shopapp.data.impl.AuthRepositoryImpl
+import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Error
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule

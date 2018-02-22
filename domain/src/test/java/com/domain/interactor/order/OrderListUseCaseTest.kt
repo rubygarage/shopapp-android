@@ -1,8 +1,8 @@
 package com.domain.interactor.order
 
-import com.domain.interactor.order.OrderListUseCase
-import com.domain.repository.OrderRepository
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.domain.interactor.order.OrderListUseCase
+import com.shopapp.domain.repository.OrderRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,6 +30,6 @@ class OrderListUseCaseTest {
         val pagination = "pagination"
         val params = OrderListUseCase.Params(perPage, pagination)
         useCase.buildUseCaseSingle(params)
-        verify(orderRepository).getOrdersList(perPage, pagination)
+        verify(orderRepository).getOrderList(perPage, pagination)
     }
 }
