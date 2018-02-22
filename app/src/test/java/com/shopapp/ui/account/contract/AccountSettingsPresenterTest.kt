@@ -1,12 +1,12 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.client.RxImmediateSchedulerRule
-import com.client.shop.ext.mock
-import com.client.shop.gateway.entity.Customer
-import com.client.shop.gateway.entity.Error
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.account.UpdateAccountSettingsUseCase
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.UpdateAccountSettingsUseCase
+import com.shopapp.ext.mock
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Error
+import com.shopapp.util.RxImmediateSchedulerRule
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.After
