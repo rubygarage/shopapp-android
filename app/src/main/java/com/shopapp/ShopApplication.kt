@@ -3,15 +3,15 @@ package com.shopapp
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import com.shopapp.gateway.Api
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
-import com.shopapp.data.dao.DaoImpl
-import com.shopapp.domain.database.Dao
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.shopapp.data.dao.DaoImpl
 import com.shopapp.di.component.AppComponent
 import com.shopapp.di.component.DaggerAppComponent
 import com.shopapp.di.module.RepositoryModule
+import com.shopapp.domain.database.Dao
+import com.shopapp.gateway.Api
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 
