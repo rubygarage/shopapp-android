@@ -1,4 +1,4 @@
-package com.client.shop.ui.item.cart
+package com.shopapp.ui.item.cart
 
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.EditText
-import com.client.shop.R
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ui.custom.SimpleTextWatcher
-import com.client.shop.gateway.entity.CartProduct
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.R
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.item_cart.view.*
 import java.math.BigDecimal
 

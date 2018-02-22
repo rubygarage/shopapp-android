@@ -1,10 +1,10 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.view.ViewGroup
-import com.client.shop.R
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.drawee.view.SimpleDraweeView
+import com.shopapp.R
 
 class ProductVariantItem(context: Context) : SimpleDraweeView(context) {
 

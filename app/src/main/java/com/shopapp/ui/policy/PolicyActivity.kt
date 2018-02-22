@@ -1,12 +1,12 @@
-package com.client.shop.ui.policy
+package com.shopapp.ui.policy
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.client.shop.R
-import com.client.shop.gateway.entity.Policy
+import com.shopapp.gateway.entity.Policy
+import com.shopapp.R
 import kotlinx.android.synthetic.main.activity_policy.*
 
 class PolicyActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class PolicyActivity : AppCompatActivity() {
 
         fun getStartIntent(context: Context, policy: Policy): Intent {
             val intent = Intent(context, PolicyActivity::class.java)
-            intent.putExtra(PolicyActivity.EXTRA_POLICY, policy)
+            intent.putExtra(EXTRA_POLICY, policy)
             return intent
         }
     }

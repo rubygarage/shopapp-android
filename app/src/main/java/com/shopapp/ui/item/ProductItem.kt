@@ -1,13 +1,13 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ext.setResizedImageUri
-import com.client.shop.gateway.entity.Product
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Product
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.R
+import com.shopapp.ext.setResizedImageUri
 import kotlinx.android.synthetic.main.item_product.view.*
 
 @SuppressLint("ViewConstructor")

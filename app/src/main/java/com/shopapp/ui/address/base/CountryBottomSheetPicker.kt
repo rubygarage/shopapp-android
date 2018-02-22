@@ -1,9 +1,9 @@
-package com.client.shop.ui.address.base
+package com.shopapp.ui.address.base
 
 import android.os.Bundle
-import com.client.shop.gateway.entity.Country
-import com.client.shop.ui.base.picker.BaseBottomSheetPicker
-import com.client.shop.ui.base.picker.BottomSheetPickerAdapter
+import com.shopapp.gateway.entity.Country
+import com.shopapp.ui.base.picker.BaseBottomSheetPicker
+import com.shopapp.ui.base.picker.BottomSheetPickerAdapter
 
 class CountryBottomSheetPicker : BaseBottomSheetPicker<Country>() {
 

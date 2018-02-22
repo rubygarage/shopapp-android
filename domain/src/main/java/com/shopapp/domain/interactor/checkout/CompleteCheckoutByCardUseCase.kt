@@ -1,10 +1,10 @@
-package com.domain.interactor.checkout
+package com.shopapp.domain.interactor.checkout
 
-import com.client.shop.gateway.entity.Address
-import com.client.shop.gateway.entity.Checkout
-import com.client.shop.gateway.entity.Order
-import com.domain.interactor.base.SingleUseCase
-import com.domain.repository.CheckoutRepository
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Checkout
+import com.shopapp.gateway.entity.Order
+import com.shopapp.domain.interactor.base.SingleUseCase
+import com.shopapp.domain.repository.CheckoutRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

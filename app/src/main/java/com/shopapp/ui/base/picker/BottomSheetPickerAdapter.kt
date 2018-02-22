@@ -1,9 +1,9 @@
-package com.client.shop.ui.base.picker
+package com.shopapp.ui.base.picker
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.OnItemClickListener
 
 abstract class BottomSheetPickerAdapter<T> :
     RecyclerView.Adapter<BottomSheetPickerAdapter.ItemViewHolder>(),

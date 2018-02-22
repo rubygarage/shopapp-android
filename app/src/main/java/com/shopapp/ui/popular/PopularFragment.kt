@@ -1,22 +1,22 @@
-package com.client.shop.ui.popular
+package com.shopapp.ui.popular
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.Gravity
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.base.ui.FragmentVisibilityListener
-import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.ui.product.adapter.ProductListAdapter
-import com.client.shop.ui.product.contract.ProductListPresenter
-import com.client.shop.ui.product.contract.ProductListView
-import com.client.shop.gateway.entity.Product
-import com.client.shop.gateway.entity.SortType
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.client.shop.ui.base.lce.BaseLceFragment
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.divider.GridSpaceDecoration
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.lce.BaseLceFragment
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.divider.GridSpaceDecoration
+import com.shopapp.ui.base.ui.FragmentVisibilityListener
+import com.shopapp.ui.product.ProductDetailsActivity
+import com.shopapp.ui.product.adapter.ProductListAdapter
+import com.shopapp.ui.product.contract.ProductListPresenter
+import com.shopapp.ui.product.contract.ProductListView
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 

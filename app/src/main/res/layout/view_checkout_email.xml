@@ -11,7 +11,7 @@
         style="@style/TitleView"
         android:text="@string/customer_email" />
 
-    <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+    <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
         android:id="@+id/emailInputLayout"
         style="@style/TextInputLayoutStyle"
         android:layout_marginBottom="8dp"
@@ -29,6 +29,6 @@
             android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             android:lines="1" />
-    </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+    </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
 </merge>

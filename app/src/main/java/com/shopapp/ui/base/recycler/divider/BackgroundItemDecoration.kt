@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.recycler.divider
+package com.shopapp.ui.base.recycler.divider
 
 import android.graphics.Rect
 import android.support.annotation.DrawableRes

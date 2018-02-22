@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.browser
+package com.shopapp.ui.base.browser
 
 import android.graphics.Bitmap
 import android.support.v4.widget.SwipeRefreshLayout

@@ -1,10 +1,10 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Category
+import com.shopapp.gateway.entity.Category
+import com.shopapp.R
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryItem(context: Context) : ConstraintLayout(context) {

@@ -1,4 +1,4 @@
-package com.client.shop.ext
+package com.shopapp.ext
 
 import android.content.Context
 import android.content.Intent

@@ -1,6 +1,6 @@
-package com.client.shop.gateway
+package com.shopapp.gateway
 
-import com.client.shop.gateway.entity.*
+import com.shopapp.gateway.entity.*
 
 interface Api {
 

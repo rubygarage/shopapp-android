@@ -1,12 +1,12 @@
-package com.client.shop.ui.view
+package com.shopapp.ui.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Order
-import com.domain.formatter.DateFormatter
+import com.shopapp.gateway.entity.Order
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.R
 import kotlinx.android.synthetic.main.view_order_title.view.*
 
 class OrderTitleView @JvmOverloads constructor(

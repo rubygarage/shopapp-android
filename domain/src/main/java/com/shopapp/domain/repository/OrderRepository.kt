@@ -1,6 +1,6 @@
-package com.domain.repository
+package com.shopapp.domain.repository
 
-import com.client.shop.gateway.entity.Order
+import com.shopapp.gateway.entity.Order
 import io.reactivex.Single
 
 interface OrderRepository {

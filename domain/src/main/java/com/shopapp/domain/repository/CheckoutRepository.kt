@@ -1,6 +1,6 @@
-package com.domain.repository
+package com.shopapp.domain.repository
 
-import com.client.shop.gateway.entity.*
+import com.shopapp.gateway.entity.*
 import io.reactivex.Single
 
 interface CheckoutRepository {

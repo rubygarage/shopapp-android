@@ -1,4 +1,4 @@
-package com.client.shop.ui
+package com.shopapp.ui.const
 
 object Extra {
 

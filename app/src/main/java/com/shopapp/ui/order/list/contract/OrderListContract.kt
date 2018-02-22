@@ -1,9 +1,9 @@
-package com.client.shop.ui.order.list.contract
+package com.shopapp.ui.order.list.contract
 
-import com.client.shop.gateway.entity.Order
-import com.domain.interactor.order.OrderListUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.Order
+import com.shopapp.domain.interactor.order.OrderListUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface OrderListView : BaseLceView<List<Order>>

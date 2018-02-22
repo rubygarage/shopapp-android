@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.client.shop.ui.checkout.view.CheckoutMyCartView
+            <com.shopapp.ui.checkout.view.CheckoutMyCartView
                 android:id="@+id/myCartView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.client.shop.ui.checkout.view.CheckoutEmailView
+            <com.shopapp.ui.checkout.view.CheckoutEmailView
                 android:id="@+id/checkoutEmailView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myCartView" />
 
-            <com.client.shop.ui.checkout.shipping.ShippingAddressView
+            <com.shopapp.ui.checkout.shipping.ShippingAddressView
                 android:id="@+id/shippingAddressView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkoutEmailView" />
 
-            <com.client.shop.ui.checkout.payment.PaymentView
+            <com.shopapp.ui.checkout.payment.PaymentView
                 android:id="@+id/paymentView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shippingAddressView" />
 
-            <com.client.shop.ui.checkout.view.CheckoutShippingOptionsView
+            <com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
                 android:id="@+id/shippingOptionsView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/paymentView" />
 
-            <com.client.shop.ui.view.PriceView
+            <com.shopapp.ui.view.PriceView
                 android:id="@+id/priceView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
         android:textSize="14sp"
         android:textStyle="bold" />
 
-    <com.client.shop.ui.checkout.view.CheckoutFailureView
+    <com.shopapp.ui.checkout.view.CheckoutFailureView
         android:id="@+id/failureView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

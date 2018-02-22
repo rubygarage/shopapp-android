@@ -1,13 +1,13 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.client.shop.gateway.entity.Customer
-import com.client.shop.gateway.entity.Shop
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.account.SessionCheckUseCase
-import com.domain.interactor.account.ShopInfoUseCase
-import com.domain.interactor.account.SignOutUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Shop
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.SessionCheckUseCase
+import com.shopapp.domain.interactor.account.ShopInfoUseCase
+import com.shopapp.domain.interactor.account.SignOutUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface AccountView : BaseLceView<Boolean> {

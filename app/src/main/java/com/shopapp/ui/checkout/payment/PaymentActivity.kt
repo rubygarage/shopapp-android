@@ -1,4 +1,4 @@
-package com.client.shop.ui.checkout.payment
+package com.shopapp.ui.checkout.payment
 
 import android.app.Activity
 import android.content.Context
@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.CompoundButton
-import com.client.shop.R
-import com.client.shop.ui.const.PaymentType
-import com.client.shop.ui.Extra
+import com.shopapp.R
+import com.shopapp.ui.const.Extra
+import com.shopapp.ui.const.PaymentType
 import kotlinx.android.synthetic.main.activity_payment.*
 
 class PaymentActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {

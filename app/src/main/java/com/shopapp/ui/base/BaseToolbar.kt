@@ -1,10 +1,10 @@
-package com.client.shop.ui.base
+package com.shopapp.ui.base
 
 import android.content.Context
 import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 
 class BaseToolbar @JvmOverloads constructor(

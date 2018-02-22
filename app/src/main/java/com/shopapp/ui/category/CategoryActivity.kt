@@ -1,4 +1,4 @@
-package com.client.shop.ui.category
+package com.shopapp.ui.category
 
 import android.content.Context
 import android.content.Intent
@@ -7,18 +7,18 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.base.lce.view.LceEmptyView
-import com.client.shop.ui.base.pagination.PaginationActivity
-import com.client.shop.ui.category.contract.CategoryPresenter
-import com.client.shop.ui.category.contract.CategoryView
-import com.client.shop.ui.const.Constant
-import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.ui.product.adapter.ProductListAdapter
-import com.client.shop.gateway.entity.Category
-import com.client.shop.gateway.entity.Product
-import com.client.shop.gateway.entity.SortType
+import com.shopapp.gateway.entity.Category
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.lce.view.LceEmptyView
+import com.shopapp.ui.base.pagination.PaginationActivity
+import com.shopapp.ui.category.contract.CategoryPresenter
+import com.shopapp.ui.category.contract.CategoryView
+import com.shopapp.ui.const.Constant
+import com.shopapp.ui.product.ProductDetailsActivity
+import com.shopapp.ui.product.adapter.ProductListAdapter
 import kotlinx.android.synthetic.main.activity_category.*
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
-package com.domain.validator
+package com.shopapp.domain.validator
 
 import android.text.TextUtils
 import android.util.Patterns
-import com.client.shop.gateway.entity.Address
+import com.shopapp.gateway.entity.Address
 
 class FieldValidator {
 

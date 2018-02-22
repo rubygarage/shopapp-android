@@ -1,11 +1,11 @@
-package com.client.shop.ui.cart.contract
+package com.shopapp.ui.cart.contract
 
-import com.client.shop.gateway.entity.CartProduct
-import com.domain.interactor.cart.CartItemsUseCase
-import com.domain.interactor.cart.CartQuantityUseCase
-import com.domain.interactor.cart.CartRemoveUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.domain.interactor.cart.CartItemsUseCase
+import com.shopapp.domain.interactor.cart.CartQuantityUseCase
+import com.shopapp.domain.interactor.cart.CartRemoveUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface CartView : BaseLceView<List<CartProduct>>

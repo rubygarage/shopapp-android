@@ -1,10 +1,10 @@
-package com.client.shop.ui.base.recycler
+package com.shopapp.ui.base.recycler
 
 import android.graphics.Canvas
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
-import com.client.shop.R
+import com.shopapp.R
 
 
 abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {

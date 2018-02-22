@@ -1,13 +1,13 @@
-package com.client.shop.ui.item.cart
+package com.shopapp.ui.item.cart
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ext.sum
-import com.client.shop.gateway.entity.CartProduct
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.R
+import com.shopapp.ext.sum
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
 import java.math.BigDecimal
 

@@ -1,19 +1,19 @@
-package com.client.shop.ui.product
+package com.shopapp.ui.product
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.ViewGroup
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.base.pagination.PaginationActivity
-import com.client.shop.ui.product.adapter.ProductListAdapter
-import com.client.shop.ui.product.contract.ProductListPresenter
-import com.client.shop.ui.product.contract.ProductListView
-import com.client.shop.gateway.entity.Product
-import com.client.shop.gateway.entity.SortType
-import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.pagination.PaginationActivity
+import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.shopapp.ui.product.adapter.ProductListAdapter
+import com.shopapp.ui.product.contract.ProductListPresenter
+import com.shopapp.ui.product.contract.ProductListView
 import javax.inject.Inject
 
 class ProductListActivity :

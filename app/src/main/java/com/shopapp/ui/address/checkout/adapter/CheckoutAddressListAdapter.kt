@@ -1,10 +1,10 @@
-package com.client.shop.ui.address.checkout.adapter
+package com.shopapp.ui.address.checkout.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.ui.address.base.adapter.AddressListAdapter
-import com.client.shop.ui.item.CheckoutAddressItem
-import com.client.shop.gateway.entity.Address
+import com.shopapp.gateway.entity.Address
+import com.shopapp.ui.item.CheckoutAddressItem
+import com.shopapp.ui.address.base.adapter.AddressListAdapter
 
 class CheckoutAddressListAdapter(
     dataList: List<Address>,

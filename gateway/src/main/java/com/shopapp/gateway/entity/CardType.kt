@@ -1,6 +1,6 @@
-package com.client.shop.gateway.entity
+package com.shopapp.gateway.entity
 
-import com.client.shop.gateway.R
+import com.shopapp.gateway.R
 
 
 enum class CardType(val nameRes: Int, val logoRes: Int) {

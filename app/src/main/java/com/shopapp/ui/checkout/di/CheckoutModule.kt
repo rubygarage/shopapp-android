@@ -1,10 +1,10 @@
-package com.client.shop.ui.checkout.di
+package com.shopapp.ui.checkout.di
 
-import com.client.shop.ui.checkout.contract.CheckoutPresenter
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.cart.CartItemsUseCase
-import com.domain.interactor.cart.CartRemoveAllUseCase
-import com.domain.interactor.checkout.*
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.cart.CartItemsUseCase
+import com.shopapp.domain.interactor.cart.CartRemoveAllUseCase
+import com.shopapp.domain.interactor.checkout.*
+import com.shopapp.ui.checkout.contract.CheckoutPresenter
 import dagger.Module
 import dagger.Provides
 

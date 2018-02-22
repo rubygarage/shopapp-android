@@ -1,8 +1,8 @@
-package com.data.dao.adapter
+package com.shopapp.data.dao.adapter
 
-import com.data.dao.entity.ProductVariantData
-import com.data.dao.entity.ProductVariantDataEntity
-import com.client.shop.gateway.entity.ProductVariant
+import com.shopapp.gateway.entity.ProductVariant
+import com.shopapp.data.dao.entity.ProductVariantData
+import com.shopapp.data.dao.entity.ProductVariantDataEntity
 
 object ProductVariantAdapter {
 

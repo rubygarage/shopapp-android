@@ -1,11 +1,10 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.view.View
-import com.client.MockInstantiator
-import com.client.shop.R
 import com.nhaarman.mockito_kotlin.given
-import com.shopapp.ui.item.AddressContentItem
+import com.shopapp.R
+import com.shopapp.util.MockInstantiator
 import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.item_address_content.view.*
 import org.junit.Before

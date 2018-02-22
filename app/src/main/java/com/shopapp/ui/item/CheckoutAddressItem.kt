@@ -1,10 +1,10 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.widget.CompoundButton
-import com.client.shop.R
-import com.client.shop.ui.address.checkout.adapter.CheckoutAddressListAdapter
-import com.client.shop.gateway.entity.Address
+import com.shopapp.gateway.entity.Address
+import com.shopapp.R
+import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import kotlinx.android.synthetic.main.item_checkout_address.view.*
 
 class CheckoutAddressItem(context: Context) :

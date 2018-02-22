@@ -1,4 +1,4 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.app.Activity
 import android.content.Intent
@@ -8,18 +8,18 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.gateway.entity.Customer
-import com.client.shop.gateway.entity.Policy
-import com.client.shop.gateway.entity.Shop
-import com.client.shop.ui.account.contract.AccountPresenter
-import com.client.shop.ui.account.contract.AccountView
-import com.client.shop.ui.address.account.AddressListActivity
-import com.client.shop.ui.base.lce.BaseLceFragment
-import com.client.shop.ui.const.RequestCode
-import com.client.shop.ui.order.list.OrderListActivity
-import com.client.shop.ui.policy.PolicyActivity
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Policy
+import com.shopapp.gateway.entity.Shop
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.account.contract.AccountPresenter
+import com.shopapp.ui.account.contract.AccountView
+import com.shopapp.ui.address.account.AddressListActivity
+import com.shopapp.ui.base.lce.BaseLceFragment
+import com.shopapp.ui.const.RequestCode
+import com.shopapp.ui.order.list.OrderListActivity
+import com.shopapp.ui.policy.PolicyActivity
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_lce.*
 import javax.inject.Inject

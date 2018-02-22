@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.recycler
+package com.shopapp.ui.base.recycler
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager

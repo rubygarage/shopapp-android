@@ -1,4 +1,4 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.app.Activity
 import android.content.Context
@@ -6,16 +6,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.widget.Toast
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ext.setTextWhenDisable
-import com.client.shop.ui.account.contract.PersonalInfoPresenter
-import com.client.shop.ui.account.contract.PersonalInfoView
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.lce.view.LceLayout
-import com.client.shop.ui.custom.SimpleTextWatcher
-import com.client.shop.gateway.entity.Customer
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ext.setTextWhenDisable
+import com.shopapp.ui.account.contract.PersonalInfoPresenter
+import com.shopapp.ui.account.contract.PersonalInfoView
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_personal_info.*
 import javax.inject.Inject
 

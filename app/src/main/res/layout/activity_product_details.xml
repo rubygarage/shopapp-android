@@ -91,7 +91,7 @@
                 app:layout_constraintStart_toEndOf="@+id/quantity"
                 app:layout_constraintTop_toBottomOf="@+id/productTitle" />
 
-            <com.client.shop.ui.product.view.OptionsGroupContainer
+            <com.shopapp.ui.product.view.OptionsGroupContainer
                 android:id="@+id/optionsContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

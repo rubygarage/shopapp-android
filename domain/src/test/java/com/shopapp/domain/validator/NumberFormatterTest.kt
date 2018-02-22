@@ -1,6 +1,6 @@
-package com.domain.validator
+package com.shopapp.domain.validator
 
-import com.domain.formatter.NumberFormatter
+import com.shopapp.domain.formatter.NumberFormatter
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal

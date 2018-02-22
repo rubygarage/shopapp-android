@@ -1,6 +1,6 @@
-package com.client.shop.ui.category.di
+package com.shopapp.ui.category.di
 
-import com.client.shop.ui.category.CategoryActivity
+import com.shopapp.ui.category.CategoryActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [CategoryModule::class])

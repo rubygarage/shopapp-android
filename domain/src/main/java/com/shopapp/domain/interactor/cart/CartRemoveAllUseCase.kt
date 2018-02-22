@@ -1,7 +1,7 @@
-package com.domain.interactor.cart
+package com.shopapp.domain.interactor.cart
 
-import com.domain.interactor.base.CompletableUseCase
-import com.domain.repository.CartRepository
+import com.shopapp.domain.interactor.base.CompletableUseCase
+import com.shopapp.domain.repository.CartRepository
 import io.reactivex.Completable
 import javax.inject.Inject
 

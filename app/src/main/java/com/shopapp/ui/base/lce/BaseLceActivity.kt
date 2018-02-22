@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.lce
+package com.shopapp.ui.base.lce
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
@@ -7,13 +7,13 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import com.client.shop.R
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.ui.base.lce.view.LceEmptyView
-import com.client.shop.ui.base.lce.view.LceLayout
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
+import com.shopapp.R
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.base.lce.view.LceEmptyView
+import com.shopapp.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 

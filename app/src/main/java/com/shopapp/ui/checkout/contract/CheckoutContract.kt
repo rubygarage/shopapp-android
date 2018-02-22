@@ -1,13 +1,13 @@
-package com.client.shop.ui.checkout.contract
+package com.shopapp.ui.checkout.contract
 
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.ui.const.PaymentType
-import com.client.shop.gateway.entity.*
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.cart.CartItemsUseCase
-import com.domain.interactor.cart.CartRemoveAllUseCase
-import com.domain.interactor.checkout.*
+import com.shopapp.gateway.entity.*
+import com.shopapp.ui.const.PaymentType
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.cart.CartItemsUseCase
+import com.shopapp.domain.interactor.cart.CartRemoveAllUseCase
+import com.shopapp.domain.interactor.checkout.*
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface CheckoutView : BaseLceView<Checkout> {

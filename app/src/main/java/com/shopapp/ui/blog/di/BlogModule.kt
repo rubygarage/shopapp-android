@@ -1,9 +1,9 @@
-package com.client.shop.ui.blog.di
+package com.shopapp.ui.blog.di
 
-import com.client.shop.ui.blog.contract.ArticlePresenter
-import com.client.shop.ui.blog.contract.BlogPresenter
-import com.domain.interactor.blog.ArticleListUseCase
-import com.domain.interactor.blog.ArticleUseCase
+import com.shopapp.domain.interactor.blog.ArticleListUseCase
+import com.shopapp.domain.interactor.blog.ArticleUseCase
+import com.shopapp.ui.blog.contract.ArticlePresenter
+import com.shopapp.ui.blog.contract.BlogPresenter
 import dagger.Module
 import dagger.Provides
 

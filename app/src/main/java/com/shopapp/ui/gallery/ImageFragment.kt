@@ -1,16 +1,16 @@
-package com.client.shop.ui.gallery
+package com.shopapp.ui.gallery
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
-import com.client.shop.ui.custom.zoomable.DoubleTapGestureListener
-import com.client.shop.ui.custom.zoomable.ZoomableDraweeView
-import com.client.shop.gateway.entity.Image
+import com.shopapp.gateway.entity.Image
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
+import com.shopapp.R
+import com.shopapp.ui.custom.zoomable.DoubleTapGestureListener
+import com.shopapp.ui.custom.zoomable.ZoomableDraweeView
 
 
 class ImageFragment : Fragment() {

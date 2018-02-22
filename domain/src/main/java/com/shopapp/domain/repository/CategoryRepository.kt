@@ -1,7 +1,7 @@
-package com.domain.repository
+package com.shopapp.domain.repository
 
-import com.client.shop.gateway.entity.Category
-import com.client.shop.gateway.entity.SortType
+import com.shopapp.gateway.entity.Category
+import com.shopapp.gateway.entity.SortType
 import io.reactivex.Single
 
 interface CategoryRepository {

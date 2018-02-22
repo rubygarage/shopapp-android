@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.browser
+package com.shopapp.ui.base.browser
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.activity_browser.*
 
 class BrowserActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {

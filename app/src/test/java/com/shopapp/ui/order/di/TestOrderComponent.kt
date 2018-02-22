@@ -1,8 +1,7 @@
-package com.client.shop.ui.order.di
+package com.shopapp.ui.order.di
 
 import com.shopapp.ui.order.details.OrderDetailsActivity
 import com.shopapp.ui.order.list.OrderListActivity
-import com.shopapp.ui.order.di.OrderComponent
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TestOrderModule::class])

@@ -1,10 +1,10 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.client.shop.gateway.entity.Customer
-import com.domain.interactor.account.EditCustomerUseCase
-import com.domain.interactor.account.GetCustomerUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.domain.interactor.account.EditCustomerUseCase
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface PersonalInfoView : BaseLceView<Customer> {

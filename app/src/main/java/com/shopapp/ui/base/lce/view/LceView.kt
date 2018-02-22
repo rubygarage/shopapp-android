@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.lce.view
+package com.shopapp.ui.base.lce.view
 
 interface LceView {
 

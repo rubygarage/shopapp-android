@@ -1,13 +1,13 @@
-package com.client.shop.ui.base.pagination
+package com.shopapp.ui.base.pagination
 
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.client.shop.R
-import com.client.shop.ui.base.recycler.EndlessRecyclerViewScrollListener
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
-import com.client.shop.ui.base.recycler.divider.GridSpaceDecoration
+import com.shopapp.R
+import com.shopapp.ui.base.recycler.EndlessRecyclerViewScrollListener
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.ui.base.recycler.divider.GridSpaceDecoration
 
 class PaginationDelegate<M> {
 

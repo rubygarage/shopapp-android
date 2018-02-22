@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.picker
+package com.shopapp.ui.base.picker
 
 import android.content.Context
 import android.support.annotation.ColorRes
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.item_bottom_sheet_picker.view.*
 
 class BottomSheetPickerItem(context: Context) : FrameLayout(context) {

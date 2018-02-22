@@ -1,13 +1,13 @@
-package com.client.shop.ui.product.contract
+package com.shopapp.ui.product.contract
 
-import com.client.shop.R
-import com.client.shop.gateway.entity.CartProduct
-import com.client.shop.gateway.entity.Product
-import com.client.shop.gateway.entity.ProductVariant
-import com.domain.interactor.details.DetailsCartUseCase
-import com.domain.interactor.details.DetailsProductUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.ProductVariant
+import com.shopapp.domain.interactor.details.DetailsCartUseCase
+import com.shopapp.domain.interactor.details.DetailsProductUseCase
+import com.shopapp.R
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface DetailsView : BaseLceView<Product> {

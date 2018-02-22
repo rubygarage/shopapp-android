@@ -1,12 +1,12 @@
-package com.client.shop.ui.product.adapter
+package com.shopapp.ui.product.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.ui.item.ProductItem
-import com.client.shop.gateway.entity.Product
-import com.domain.formatter.NumberFormatter
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.gateway.entity.Product
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.ui.item.ProductItem
 
 class ProductListAdapter(
     private val itemWidth: Int,

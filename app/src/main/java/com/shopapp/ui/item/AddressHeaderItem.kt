@@ -1,4 +1,4 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.item_address_header.view.*
 
 class AddressHeaderItem @JvmOverloads constructor(

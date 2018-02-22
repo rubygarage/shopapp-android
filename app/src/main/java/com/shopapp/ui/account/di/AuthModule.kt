@@ -1,8 +1,8 @@
-package com.client.shop.ui.account.di
+package com.shopapp.ui.account.di
 
-import com.client.shop.ui.account.contract.*
-import com.domain.interactor.account.*
-import com.domain.validator.FieldValidator
+import com.shopapp.domain.interactor.account.*
+import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.ui.account.contract.*
 import dagger.Module
 import dagger.Provides
 

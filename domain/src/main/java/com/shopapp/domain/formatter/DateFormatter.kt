@@ -1,4 +1,4 @@
-package com.domain.formatter
+package com.shopapp.domain.formatter
 
 import java.text.SimpleDateFormat
 import java.util.*

@@ -1,6 +1,6 @@
-package com.domain.interactor.order
+package com.shopapp.domain.interactor.order
 
-import com.domain.repository.OrderRepository
+import com.shopapp.domain.repository.OrderRepository
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Before
 import org.junit.Test

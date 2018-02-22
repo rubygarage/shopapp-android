@@ -1,4 +1,4 @@
-package com.domain.interactor.base
+package com.shopapp.domain.interactor.base
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

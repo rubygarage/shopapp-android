@@ -1,4 +1,4 @@
-package com.client.shop.ui.search
+package com.shopapp.ui.search
 
 import android.content.Context
 import android.support.annotation.ColorRes
@@ -12,10 +12,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.inputmethod.EditorInfo
-import com.client.shop.R
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ext.showKeyboard
-import com.client.shop.ext.textChanges
+import com.shopapp.R
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ext.showKeyboard
+import com.shopapp.ext.textChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.processors.PublishProcessor

@@ -1,4 +1,4 @@
-package com.client.shop.gateway.entity
+package com.shopapp.gateway.entity
 
 data class OrderProduct(
     val title: String,

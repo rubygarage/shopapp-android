@@ -1,4 +1,4 @@
-package com.client.shop.ui.category
+package com.shopapp.ui.category
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,9 +10,9 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
-import com.client.shop.R
-import com.client.shop.ext.getScreenSize
-import com.client.shop.gateway.entity.SortType
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.R
+import com.shopapp.ext.getScreenSize
 
 class CategorySortPopupFacade(
     private val context: Context,

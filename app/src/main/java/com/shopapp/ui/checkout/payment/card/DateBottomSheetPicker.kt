@@ -1,9 +1,9 @@
-package com.client.shop.ui.checkout.payment.card
+package com.shopapp.ui.checkout.payment.card
 
 import android.os.Bundle
 import android.view.View
-import com.client.shop.ui.base.picker.BaseBottomSheetPicker
-import com.client.shop.ui.base.picker.BottomSheetPickerAdapter
+import com.shopapp.ui.base.picker.BaseBottomSheetPicker
+import com.shopapp.ui.base.picker.BottomSheetPickerAdapter
 import java.util.*
 
 class DateBottomSheetPicker : BaseBottomSheetPicker<String>() {

@@ -1,15 +1,14 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ext.checkedChanges
-import com.client.shop.ui.account.contract.AccountSettingsPresenter
-import com.client.shop.ui.account.contract.AccountSettingsView
-import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseLceActivity
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ext.checkedChanges
+import com.shopapp.ui.account.contract.AccountSettingsPresenter
+import com.shopapp.ui.account.contract.AccountSettingsView
+import com.shopapp.ui.base.lce.BaseLceActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_account_settings.*
 import java.util.concurrent.TimeUnit

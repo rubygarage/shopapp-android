@@ -1,14 +1,14 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import com.client.shop.R
-import com.client.shop.ui.checkout.view.CheckoutShippingOptionsView
-import com.client.shop.gateway.entity.ShippingRate
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.ShippingRate
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.R
+import com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
 import kotlinx.android.synthetic.main.item_shipping_option.view.*
 
 @SuppressLint("ViewConstructor")

@@ -1,11 +1,11 @@
-package com.client.shop.ui.splash
+package com.shopapp.ui.splash
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.client.shop.R
-import com.client.shop.ui.home.HomeActivity
+import com.shopapp.R
+import com.shopapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {

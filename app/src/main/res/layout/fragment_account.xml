@@ -63,7 +63,7 @@
             android:visibility="visible"
             app:constraint_referenced_ids="createAccount,signInButton,signInLabel,space" />
 
-        <com.client.shop.ui.custom.AvatarView
+        <com.shopapp.ui.custom.AvatarView
             android:id="@+id/avatarView"
             android:layout_width="60dp"
             android:layout_height="60dp"

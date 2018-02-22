@@ -1,8 +1,8 @@
-package com.domain.interactor.search
+package com.shopapp.domain.interactor.search
 
-import com.client.shop.gateway.entity.Product
-import com.domain.interactor.base.SingleUseCase
-import com.domain.repository.ProductRepository
+import com.shopapp.gateway.entity.Product
+import com.shopapp.domain.interactor.base.SingleUseCase
+import com.shopapp.domain.repository.ProductRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

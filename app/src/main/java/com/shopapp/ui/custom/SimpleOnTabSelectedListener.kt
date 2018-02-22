@@ -1,4 +1,4 @@
-package com.client.shop.ui.custom
+package com.shopapp.ui.custom
 
 import android.support.design.widget.TabLayout
 

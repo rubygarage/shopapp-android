@@ -1,13 +1,12 @@
-package com.client.shop
+package com.shopapp
 
 import android.content.Context
-import com.client.shop.di.component.DaggerTestAppComponent
-import com.client.shop.di.module.TestRepositoryModule
-import com.client.shop.gateway.Api
-import com.domain.database.Dao
+import com.shopapp.gateway.Api
+import com.shopapp.domain.database.Dao
 import com.nhaarman.mockito_kotlin.mock
-import com.shopapp.ShopApplication
 import com.shopapp.di.component.AppComponent
+import com.shopapp.di.component.DaggerTestAppComponent
+import com.shopapp.di.module.TestRepositoryModule
 
 class TestShopApplication : ShopApplication() {
 

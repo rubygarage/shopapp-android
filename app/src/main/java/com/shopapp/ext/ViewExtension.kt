@@ -1,4 +1,4 @@
-package com.client.shop.ext
+package com.shopapp.ext
 
 import android.app.Activity
 import android.content.Context
@@ -9,12 +9,11 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import com.client.shop.R
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.common.ResizeOptions
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-
+import com.shopapp.R
 
 fun Context.getScreenSize(): Point {
     val wm = getSystemService(Context.WINDOW_SERVICE) as WindowManager

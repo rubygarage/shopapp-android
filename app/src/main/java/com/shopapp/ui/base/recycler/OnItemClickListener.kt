@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.recycler
+package com.shopapp.ui.base.recycler
 
 interface OnItemClickListener {
 

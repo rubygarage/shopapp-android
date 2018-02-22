@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true">
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/holderNameInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
@@ -33,9 +33,9 @@
                 android:imeOptions="actionNext"
                 android:inputType="textPersonName"
                 android:lines="1" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/cardNumberInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:maxLength="19"
                 android:paddingEnd="35dp"
                 tools:ignore="RtlSymmetry" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
         <ImageView
             android:id="@+id/cardLogo"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/cardNumberInputLayout"
             tools:ignore="RtlSymmetry" />
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/monthInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
@@ -102,7 +102,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/expirationDateLabel">
 
-            <com.client.shop.ui.custom.UnMutableTextInputEditText
+            <com.shopapp.ui.custom.UnMutableTextInputEditText
                 android:id="@+id/monthInput"
                 style="@style/TextInputEditText"
                 android:drawableEnd="@drawable/ic_small_arrow_down"
@@ -110,9 +110,9 @@
                 android:inputType="number"
                 android:lines="1"
                 android:textColor="@color/textColorPrimary" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/yearInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
@@ -127,7 +127,7 @@
             app:layout_constraintStart_toEndOf="@+id/monthInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/expirationDateLabel">
 
-            <com.client.shop.ui.custom.UnMutableTextInputEditText
+            <com.shopapp.ui.custom.UnMutableTextInputEditText
                 android:id="@+id/yearInput"
                 style="@style/TextInputEditText"
                 android:drawableEnd="@drawable/ic_small_arrow_down"
@@ -135,9 +135,9 @@
                 android:inputType="number"
                 android:lines="1"
                 android:textColor="@color/textColorPrimary" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/cvvInputLayout"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
@@ -159,7 +159,7 @@
                 android:inputType="numberPassword"
                 android:lines="1"
                 android:maxLength="4" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
         <Button
             android:id="@+id/submitButton"

@@ -1,11 +1,11 @@
-package com.client.shop.ui.address.base.adapter
+package com.shopapp.ui.address.base.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.ui.item.AddressHeaderItem
-import com.client.shop.ui.item.AddressItem
-import com.client.shop.gateway.entity.Address
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.gateway.entity.Address
+import com.shopapp.ui.item.AddressHeaderItem
+import com.shopapp.ui.item.AddressItem
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 open class AddressListAdapter(
     dataList: List<Address>,

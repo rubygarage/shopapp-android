@@ -1,12 +1,12 @@
-package com.client.shop.ui.address.account
+package com.shopapp.ui.address.account
 
 import android.content.Context
 import android.content.Intent
-import com.client.shop.ShopApplication
-import com.client.shop.ui.address.base.BaseAddressActivity
-import com.client.shop.gateway.entity.Address
-import com.client.shop.ui.address.base.contract.AddressPresenter
-import com.client.shop.ui.address.base.contract.AddressView
+import com.shopapp.gateway.entity.Address
+import com.shopapp.ui.address.base.contract.AddressPresenter
+import com.shopapp.ui.address.base.contract.AddressView
+import com.shopapp.ShopApplication
+import com.shopapp.ui.address.base.BaseAddressActivity
 
 class AddressActivity : BaseAddressActivity<AddressView, AddressPresenter<AddressView>>() {
 

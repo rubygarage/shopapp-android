@@ -1,4 +1,4 @@
-package com.client.shop.ui.custom
+package com.shopapp.ui.custom
 
 import android.content.Context
 import android.graphics.Canvas
@@ -32,7 +32,7 @@ class CreditCardFormatTextWatcher : TextWatcher {
      * Create a credit card formatter with no max length and a padding of 1 em (depends on text size).
      *
      *
-     * The padding is not automatically updated if the text size or typeface are changed in the textview).
+     * The padding is not automatically updated if the text size or typeface are changed in the textView).
      *
      * @param textView the widget you want to format
      */
@@ -44,7 +44,7 @@ class CreditCardFormatTextWatcher : TextWatcher {
      * Create a credit card formatter with no max length and a padding specified in em (depends on text size).
      *
      *
-     * The padding is not automatically updated if the text size or typeface are changed in the textview).
+     * The padding is not automatically updated if the text size or typeface are changed in the textView).
      *
      * @param textView  the widget you want to format
      * @param paddingEm padding in em unit (character size unit)

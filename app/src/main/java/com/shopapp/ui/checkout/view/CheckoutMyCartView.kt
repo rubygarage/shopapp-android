@@ -1,4 +1,4 @@
-package com.client.shop.ui.checkout.view
+package com.shopapp.ui.checkout.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
@@ -6,15 +6,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.product.adapter.ProductVariantAdapter
-import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.gateway.entity.CartProduct
-import com.client.shop.gateway.entity.ProductVariant
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.gateway.entity.ProductVariant
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.ui.product.ProductDetailsActivity
+import com.shopapp.ui.product.adapter.ProductVariantAdapter
 import kotlinx.android.synthetic.main.view_checkout_my_cart.view.*
 
 class CheckoutMyCartView @JvmOverloads constructor(

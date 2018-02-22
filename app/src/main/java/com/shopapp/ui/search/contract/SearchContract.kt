@@ -1,10 +1,10 @@
-package com.client.shop.ui.search.contract
+package com.shopapp.ui.search.contract
 
 import android.text.TextUtils
-import com.client.shop.gateway.entity.Product
-import com.domain.interactor.search.SearchUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.Product
+import com.shopapp.domain.interactor.search.SearchUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface SearchView : BaseLceView<List<Product>> {

@@ -1,7 +1,7 @@
-package com.client.ext
+package com.shopapp.util.ext
 
-import com.domain.interactor.base.CompletableUseCase
-import com.domain.interactor.base.SingleUseCase
+import com.shopapp.domain.interactor.base.CompletableUseCase
+import com.shopapp.domain.interactor.base.SingleUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
 import io.reactivex.disposables.CompositeDisposable

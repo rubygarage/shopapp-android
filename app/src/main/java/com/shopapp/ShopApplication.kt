@@ -1,17 +1,17 @@
-package com.client.shop
+package com.shopapp
 
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import com.client.shop.di.component.AppComponent
-import com.client.shop.di.component.DaggerAppComponent
-import com.client.shop.di.module.RepositoryModule
-import com.client.shop.gateway.Api
+import com.shopapp.gateway.Api
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.core.CrashlyticsCore
-import com.data.dao.DaoImpl
-import com.domain.database.Dao
+import com.shopapp.data.dao.DaoImpl
+import com.shopapp.domain.database.Dao
 import com.facebook.drawee.backends.pipeline.Fresco
+import com.shopapp.di.component.AppComponent
+import com.shopapp.di.component.DaggerAppComponent
+import com.shopapp.di.module.RepositoryModule
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 
@@ -43,7 +43,7 @@ open class ShopApplication : Application() {
         }
     }
 
-    open protected fun buildAppComponent(api: Api?, dao: Dao?): AppComponent {
+    protected open fun buildAppComponent(api: Api?, dao: Dao?): AppComponent {
         val builder = DaggerAppComponent.builder()
         if (api != null && dao != null) {
             builder.repositoryModule(RepositoryModule(api, dao))

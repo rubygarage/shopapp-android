@@ -1,4 +1,4 @@
-package com.client.shop.ui.blog
+package com.shopapp.ui.blog
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,15 +9,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebSettings
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ext.fitHtmlFrames
-import com.client.shop.ext.fitHtmlImages
-import com.client.shop.ext.shareText
-import com.client.shop.gateway.entity.Article
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.blog.contract.ArticlePresenter
-import com.client.shop.ui.blog.contract.ArticleView
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ext.shareText
+import com.shopapp.gateway.entity.Article
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.blog.contract.ArticlePresenter
+import com.shopapp.ui.blog.contract.ArticleView
+import com.shopapp.util.HtmlUtil
 import kotlinx.android.synthetic.main.activity_article.*
 import javax.inject.Inject
 
@@ -104,8 +103,8 @@ class ArticleActivity :
 
         content.post {
             val width = (content.width / Resources.getSystem().displayMetrics.density).toInt()
-            var html = content.fitHtmlImages(article.contentHTML)
-            html = content.fitHtmlFrames(html, (width * FRAME_HEIGHT_MULTIPLIER).toInt())
+            var html = HtmlUtil.fitHtmlImages(article.contentHTML)
+            html = HtmlUtil.fitHtmlFrames(html, (width * FRAME_HEIGHT_MULTIPLIER).toInt())
             content.loadDataWithBaseURL(baseUrl, html, "text/html", "UTF-8", null)
         }
 

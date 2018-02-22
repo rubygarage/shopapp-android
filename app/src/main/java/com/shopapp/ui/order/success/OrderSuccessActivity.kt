@@ -1,11 +1,11 @@
-package com.client.shop.ui.order.success
+package com.shopapp.ui.order.success
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.client.shop.R
-import com.client.shop.ui.order.details.OrderDetailsActivity
+import com.shopapp.R
+import com.shopapp.ui.order.details.OrderDetailsActivity
 import kotlinx.android.synthetic.main.activity_order_success.*
 
 class OrderSuccessActivity : AppCompatActivity() {

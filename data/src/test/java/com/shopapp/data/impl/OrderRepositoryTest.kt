@@ -1,11 +1,11 @@
-package com.data.impl
+package com.shopapp.data.impl
 
-import com.client.shop.gateway.Api
-import com.client.shop.gateway.ApiCallback
-import com.client.shop.gateway.entity.Error
-import com.client.shop.gateway.entity.Order
-import com.data.RxImmediateSchedulerRule
-import com.domain.repository.OrderRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Error
+import com.shopapp.gateway.entity.Order
+import com.shopapp.data.RxImmediateSchedulerRule
+import com.shopapp.domain.repository.OrderRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given

@@ -1,9 +1,8 @@
-package com.client.shop.ui.base.contract
+package com.shopapp.ui.base.contract
 
-import com.domain.interactor.base.UseCase
+import com.shopapp.domain.interactor.base.UseCase
 import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.ui.base.contract.BasePresenter
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

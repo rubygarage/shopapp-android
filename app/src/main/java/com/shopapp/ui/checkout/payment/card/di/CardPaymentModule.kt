@@ -1,8 +1,8 @@
-package com.client.shop.ui.checkout.payment.card.di
+package com.shopapp.ui.checkout.payment.card.di
 
-import com.client.shop.ui.checkout.payment.card.contract.CardPresenter
-import com.domain.interactor.checkout.CheckCreditCardUseCase
-import com.domain.interactor.checkout.GetAcceptedCardTypesUseCase
+import com.shopapp.domain.interactor.checkout.CheckCreditCardUseCase
+import com.shopapp.domain.interactor.checkout.GetAcceptedCardTypesUseCase
+import com.shopapp.ui.checkout.payment.card.contract.CardPresenter
 import dagger.Module
 import dagger.Provides
 

@@ -1,10 +1,10 @@
-package com.data.impl
+package com.shopapp.data.impl
 
-import com.client.shop.gateway.Api
-import com.client.shop.gateway.entity.Category
-import com.client.shop.gateway.entity.SortType
-import com.data.rx.RxCallbackSingle
-import com.domain.repository.CategoryRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.entity.Category
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.data.rx.RxCallbackSingle
+import com.shopapp.domain.repository.CategoryRepository
 import io.reactivex.Single
 
 class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {

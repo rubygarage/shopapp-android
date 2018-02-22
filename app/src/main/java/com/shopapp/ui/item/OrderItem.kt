@@ -1,4 +1,4 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,14 +6,14 @@ import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Order
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
-import com.client.shop.ui.product.adapter.ProductVariantAdapter
-import com.domain.formatter.DateFormatter
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Order
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.domain.formatter.NumberFormatter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
+import com.shopapp.R
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.ui.product.adapter.ProductVariantAdapter
 import kotlinx.android.synthetic.main.item_order.view.*
 
 @SuppressLint("ViewConstructor")

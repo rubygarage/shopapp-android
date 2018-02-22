@@ -1,4 +1,4 @@
-package com.client.shop.ui.blog
+package com.shopapp.ui.blog
 
 import android.content.Context
 import android.content.Intent
@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.base.pagination.PaginationActivity
-import com.client.shop.ui.blog.adapter.BlogAdapter
-import com.client.shop.ui.blog.contract.BlogPresenter
-import com.client.shop.ui.blog.contract.BlogView
-import com.client.shop.gateway.entity.Article
-import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.shopapp.gateway.entity.Article
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.pagination.PaginationActivity
+import com.shopapp.ui.blog.adapter.BlogAdapter
+import com.shopapp.ui.blog.contract.BlogPresenter
+import com.shopapp.ui.blog.contract.BlogView
+import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
 class BlogActivity :

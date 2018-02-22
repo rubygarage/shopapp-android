@@ -1,16 +1,16 @@
-package com.client.shop.ui.address.base
+package com.shopapp.ui.address.base
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Address
-import com.client.shop.ui.address.base.adapter.AddressListAdapter
-import com.client.shop.ui.address.base.contract.AddressListPresenter
-import com.client.shop.ui.address.base.contract.AddressListView
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.lce.view.LceLayout
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.gateway.entity.Address
+import com.shopapp.R
+import com.shopapp.ui.address.base.adapter.AddressListAdapter
+import com.shopapp.ui.address.base.contract.AddressListPresenter
+import com.shopapp.ui.address.base.contract.AddressListView
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.ui.base.recycler.divider.SpaceDecoration
 import kotlinx.android.synthetic.main.activity_address_list.*
 import javax.inject.Inject
 

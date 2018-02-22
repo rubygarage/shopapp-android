@@ -1,14 +1,14 @@
-package com.client.shop.ui.order.list.adapter
+package com.shopapp.ui.order.list.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.client.shop.gateway.entity.Order
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
-import com.client.shop.ui.item.OrderItem
-import com.domain.formatter.DateFormatter
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Order
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.ui.item.OrderItem
 
 class OrderListAdapter(
     productList: List<Order>,

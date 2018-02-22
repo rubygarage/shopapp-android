@@ -1,6 +1,6 @@
-package com.client.shop.ui.account.di
+package com.shopapp.ui.account.di
 
-import com.client.shop.ui.account.*
+import com.shopapp.ui.account.*
 import dagger.Subcomponent
 
 @Subcomponent(modules = [AuthModule::class])

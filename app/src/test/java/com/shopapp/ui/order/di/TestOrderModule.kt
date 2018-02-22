@@ -1,8 +1,8 @@
-package com.client.shop.ui.order.di
+package com.shopapp.ui.order.di
 
+import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
 import com.shopapp.ui.order.list.contract.OrderListPresenter
-import com.nhaarman.mockito_kotlin.mock
 import dagger.Module
 import dagger.Provides
 

@@ -1,4 +1,4 @@
-package com.client.shop.gateway.entity
+package com.shopapp.gateway.entity
 
 import android.os.Parcel
 import android.os.Parcelable

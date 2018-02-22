@@ -1,10 +1,10 @@
-package com.client.shop.ui.checkout.view
+package com.shopapp.ui.checkout.view
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.view_checkout_failure.view.*
 
 class CheckoutFailureView @JvmOverloads constructor(

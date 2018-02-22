@@ -5,7 +5,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <com.client.shop.ui.item.cart.CartTotalPriceView
+    <com.shopapp.ui.item.cart.CartTotalPriceView
         android:id="@+id/totalPriceView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/cart_total_price_view_height" />

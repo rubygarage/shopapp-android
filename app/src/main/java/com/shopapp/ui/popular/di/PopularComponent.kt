@@ -1,6 +1,6 @@
-package com.client.shop.ui.popular.di
+package com.shopapp.ui.popular.di
 
-import com.client.shop.ui.popular.PopularFragment
+import com.shopapp.ui.popular.PopularFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [PopularModule::class])

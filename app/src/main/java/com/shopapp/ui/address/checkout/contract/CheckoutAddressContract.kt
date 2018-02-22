@@ -1,14 +1,14 @@
-package com.client.shop.ui.address.checkout.contract
+package com.shopapp.ui.address.checkout.contract
 
-import com.client.shop.R
-import com.client.shop.ui.address.base.contract.AddressPresenter
-import com.client.shop.ui.address.base.contract.AddressView
-import com.client.shop.gateway.entity.Address
-import com.domain.interactor.account.CreateCustomerAddressUseCase
-import com.domain.interactor.account.EditCustomerAddressUseCase
-import com.domain.interactor.account.GetCountriesUseCase
-import com.domain.interactor.checkout.SetShippingAddressUseCase
-import com.domain.validator.FieldValidator
+import com.shopapp.gateway.entity.Address
+import com.shopapp.domain.interactor.account.CreateCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.EditCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.GetCountriesUseCase
+import com.shopapp.domain.interactor.checkout.SetShippingAddressUseCase
+import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.R
+import com.shopapp.ui.address.base.contract.AddressPresenter
+import com.shopapp.ui.address.base.contract.AddressView
 
 class CheckoutUnAuthAddressPresenter(
     private val fieldValidator: FieldValidator,

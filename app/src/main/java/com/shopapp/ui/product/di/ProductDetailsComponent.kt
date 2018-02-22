@@ -1,6 +1,6 @@
-package com.client.shop.ui.product.di
+package com.shopapp.ui.product.di
 
-import com.client.shop.ui.product.ProductDetailsActivity
+import com.shopapp.ui.product.ProductDetailsActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [ProductDetailsModule::class])

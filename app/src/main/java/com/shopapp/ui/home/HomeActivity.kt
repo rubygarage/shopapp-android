@@ -1,4 +1,4 @@
-package com.client.shop.ui.home
+package com.shopapp.ui.home
 
 import android.content.Context
 import android.content.Intent
@@ -7,13 +7,13 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ext.registerKeyboardVisibilityListener
-import com.client.shop.ext.replaceByTag
-import com.client.shop.ui.account.AccountFragment
-import com.client.shop.ui.custom.SimpleOnTabSelectedListener
-import com.client.shop.ui.search.SearchWithCategoriesFragment
+import com.shopapp.R
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ext.registerKeyboardVisibilityListener
+import com.shopapp.ext.replaceByTag
+import com.shopapp.ui.account.AccountFragment
+import com.shopapp.ui.custom.SimpleOnTabSelectedListener
+import com.shopapp.ui.search.SearchWithCategoriesFragment
 import kotlinx.android.synthetic.main.activity_home.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar

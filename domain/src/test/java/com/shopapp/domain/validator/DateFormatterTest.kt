@@ -1,6 +1,6 @@
-package com.domain.validator
+package com.shopapp.domain.validator
 
-import com.domain.formatter.DateFormatter
+import com.shopapp.domain.formatter.DateFormatter
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith

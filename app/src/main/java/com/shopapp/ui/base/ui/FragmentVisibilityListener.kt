@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.ui
+package com.shopapp.ui.base.ui
 
 interface FragmentVisibilityListener {
 

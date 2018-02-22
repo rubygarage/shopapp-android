@@ -1,10 +1,9 @@
-package com.client.shop.ui.view
+package com.shopapp.ui.view
 
 import android.content.Context
-import com.client.MockInstantiator
-import com.client.shop.R
-import com.domain.formatter.DateFormatter
-import com.shopapp.ui.view.OrderTitleView
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.R
+import com.shopapp.util.MockInstantiator
 import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.view_order_title.view.*
 import org.junit.Before

@@ -1,4 +1,4 @@
-package com.client.shop.util
+package com.shopapp.util
 
 import android.os.Looper
 import io.reactivex.Observer

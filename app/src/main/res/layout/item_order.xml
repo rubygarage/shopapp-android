@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.client.shop.ui.view.OrderTitleView
+    <com.shopapp.ui.view.OrderTitleView
         android:id="@+id/orderTitleView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

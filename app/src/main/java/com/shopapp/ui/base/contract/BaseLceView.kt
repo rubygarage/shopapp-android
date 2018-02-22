@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.contract
+package com.shopapp.ui.base.contract
 
 import android.support.annotation.StringRes
 import com.hannesdorfmann.mosby3.mvp.MvpView

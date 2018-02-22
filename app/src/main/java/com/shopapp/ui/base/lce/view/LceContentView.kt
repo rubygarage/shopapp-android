@@ -1,10 +1,10 @@
-package com.client.shop.ui.base.lce.view
+package com.shopapp.ui.base.lce.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import com.client.shop.R
+import com.shopapp.R
 
 class LceContentView @JvmOverloads constructor(
     context: Context,

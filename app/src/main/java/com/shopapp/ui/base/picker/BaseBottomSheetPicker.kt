@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.picker
+package com.shopapp.ui.base.picker
 
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 
 abstract class BaseBottomSheetPicker<T> : BottomSheetDialogFragment() {

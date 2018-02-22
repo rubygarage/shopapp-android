@@ -1,8 +1,8 @@
-package com.domain.interactor.details
+package com.shopapp.domain.interactor.details
 
-import com.client.shop.gateway.entity.CartProduct
-import com.domain.interactor.base.SingleUseCase
-import com.domain.repository.CartRepository
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.domain.interactor.base.SingleUseCase
+import com.shopapp.domain.repository.CartRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

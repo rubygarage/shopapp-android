@@ -1,16 +1,16 @@
-package com.client.shop.ui.order
+package com.shopapp.ui.order
 
 import android.content.Context
 import android.view.View
-import com.client.MockInstantiator
-import com.client.shop.R
-import com.client.shop.TestShopApplication
+import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.R
+import com.shopapp.TestShopApplication
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.details.OrderDetailsActivity
 import com.shopapp.ui.order.list.OrderListActivity
 import com.shopapp.ui.product.ProductDetailsActivity
-import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.util.MockInstantiator
 import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_list.*

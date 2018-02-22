@@ -1,18 +1,18 @@
-package com.client.shop.ui.address.account
+package com.shopapp.ui.address.account
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.address.base.BaseAddressListActivity
-import com.client.shop.gateway.entity.Address
-import com.client.shop.ui.const.RequestCode
-import com.client.shop.ui.address.base.adapter.AddressListAdapter
-import com.client.shop.ui.address.base.contract.AddressListPresenter
-import com.client.shop.ui.address.base.contract.AddressListView
+import com.shopapp.gateway.entity.Address
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.address.base.BaseAddressListActivity
+import com.shopapp.ui.address.base.adapter.AddressListAdapter
+import com.shopapp.ui.address.base.contract.AddressListPresenter
+import com.shopapp.ui.address.base.contract.AddressListView
+import com.shopapp.ui.const.RequestCode
 
 class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressListView, AddressListPresenter<AddressListView>>() {
 

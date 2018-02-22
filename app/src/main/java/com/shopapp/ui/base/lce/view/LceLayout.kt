@@ -1,11 +1,11 @@
-package com.client.shop.ui.base.lce.view
+package com.shopapp.ui.base.lce.view
 
 import android.content.Context
 import android.support.annotation.LayoutRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*

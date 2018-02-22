@@ -1,4 +1,4 @@
-package com.client.shop.ui.account.di
+package com.shopapp.ui.account.di
 
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.ui.account.contract.*

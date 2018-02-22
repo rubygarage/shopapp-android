@@ -1,8 +1,8 @@
-package com.data.dao.adapter
+package com.shopapp.data.dao.adapter
 
-import com.data.dao.entity.CartProductData
-import com.data.dao.entity.CartProductDataEntity
-import com.client.shop.gateway.entity.CartProduct
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.data.dao.entity.CartProductData
+import com.shopapp.data.dao.entity.CartProductDataEntity
 
 object CartProductAdapter {
 

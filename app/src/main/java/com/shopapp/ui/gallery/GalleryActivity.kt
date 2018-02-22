@@ -1,4 +1,4 @@
-package com.client.shop.ui.gallery
+package com.shopapp.ui.gallery
 
 import android.content.Context
 import android.content.Intent
@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Product
-import com.client.shop.ext.replaceOnce
+import com.shopapp.gateway.entity.Product
+import com.shopapp.R
+import com.shopapp.ext.replaceOnce
 import kotlinx.android.synthetic.main.activity_gallery.*
 
 class GalleryActivity : AppCompatActivity() {

@@ -1,12 +1,12 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
-import com.client.shop.ext.setResizedImageUri
-import com.client.shop.gateway.entity.Article
+import com.shopapp.gateway.entity.Article
+import com.shopapp.R
+import com.shopapp.ext.setResizedImageUri
 import kotlinx.android.synthetic.main.item_article.view.*
 
 class ArticleItem(context: Context) : ConstraintLayout(context) {

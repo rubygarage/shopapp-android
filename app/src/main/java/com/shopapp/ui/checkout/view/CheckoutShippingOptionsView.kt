@@ -1,4 +1,4 @@
-package com.client.shop.ui.checkout.view
+package com.shopapp.ui.checkout.view
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -6,10 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
-import com.client.shop.R
-import com.client.shop.ui.checkout.adapter.ShippingOptionsAdapter
-import com.client.shop.gateway.entity.Checkout
-import com.client.shop.gateway.entity.ShippingRate
+import com.shopapp.gateway.entity.Checkout
+import com.shopapp.gateway.entity.ShippingRate
+import com.shopapp.R
+import com.shopapp.ui.checkout.adapter.ShippingOptionsAdapter
 import kotlinx.android.synthetic.main.view_checkout_shipping_options.view.*
 
 class CheckoutShippingOptionsView @JvmOverloads constructor(

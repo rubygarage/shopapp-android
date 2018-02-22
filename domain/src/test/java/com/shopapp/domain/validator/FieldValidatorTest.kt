@@ -1,4 +1,4 @@
-package com.domain.validator
+package com.shopapp.domain.validator
 
 import org.hamcrest.core.Is.`is`
 import org.junit.Assert.assertThat

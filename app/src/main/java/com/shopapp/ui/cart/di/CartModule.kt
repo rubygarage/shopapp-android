@@ -1,10 +1,10 @@
-package com.client.shop.ui.cart.di
+package com.shopapp.ui.cart.di
 
-import com.client.shop.ui.cart.contract.CartPresenter
-import com.client.shop.ui.cart.contract.CartWidgetPresenter
-import com.domain.interactor.cart.CartItemsUseCase
-import com.domain.interactor.cart.CartQuantityUseCase
-import com.domain.interactor.cart.CartRemoveUseCase
+import com.shopapp.ui.cart.contract.CartWidgetPresenter
+import com.shopapp.domain.interactor.cart.CartItemsUseCase
+import com.shopapp.domain.interactor.cart.CartQuantityUseCase
+import com.shopapp.domain.interactor.cart.CartRemoveUseCase
+import com.shopapp.ui.cart.contract.CartPresenter
 import dagger.Module
 import dagger.Provides
 

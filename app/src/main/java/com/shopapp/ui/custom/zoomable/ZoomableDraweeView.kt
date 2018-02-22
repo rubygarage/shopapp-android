@@ -1,4 +1,4 @@
-package com.client.shop.ui.custom.zoomable
+package com.shopapp.ui.custom.zoomable
 
 import android.annotation.SuppressLint
 import android.content.Context

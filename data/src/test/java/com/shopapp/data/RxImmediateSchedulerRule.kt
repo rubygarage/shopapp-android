@@ -1,4 +1,4 @@
-package com.data
+package com.shopapp.data
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins

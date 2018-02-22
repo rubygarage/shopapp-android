@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.lce
+package com.shopapp.ui.base.lce
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.client.shop.R
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.ui.base.lce.view.LceEmptyView
-import com.client.shop.ui.base.lce.view.LceLayout
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
+import com.shopapp.R
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.base.lce.view.LceEmptyView
+import com.shopapp.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.fragment_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 

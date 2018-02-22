@@ -1,13 +1,13 @@
-package com.client.shop.ui.address.base.contract
+package com.shopapp.ui.address.base.contract
 
-import com.client.shop.ext.swap
-import com.client.shop.gateway.entity.Address
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.domain.interactor.account.DeleteCustomerAddressUseCase
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.account.SetDefaultAddressUseCase
-import com.domain.interactor.base.UseCase
+import com.shopapp.gateway.entity.Address
+import com.shopapp.domain.interactor.account.DeleteCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.SetDefaultAddressUseCase
+import com.shopapp.domain.interactor.base.UseCase
+import com.shopapp.ext.swap
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 
 interface AddressListView : BaseLceView<Pair<Address?, List<Address>>>
 

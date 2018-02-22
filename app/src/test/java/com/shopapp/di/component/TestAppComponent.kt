@@ -1,8 +1,8 @@
-package com.client.shop.di.component
+package com.shopapp.di.component
 
-import com.client.shop.di.module.TestRepositoryModule
+import com.shopapp.di.module.TestRepositoryModule
 import com.shopapp.di.module.ValidatorModule
-import com.client.shop.ui.account.di.TestAuthComponent
+import com.shopapp.ui.account.di.TestAuthComponent
 import com.shopapp.ui.address.account.di.AddressComponent
 import com.shopapp.ui.address.checkout.di.CheckoutAddressComponent
 import com.shopapp.ui.blog.di.BlogComponent
@@ -10,13 +10,12 @@ import com.shopapp.ui.cart.di.CartComponent
 import com.shopapp.ui.category.di.CategoryComponent
 import com.shopapp.ui.checkout.di.CheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.CardPaymentComponent
-import com.client.shop.ui.order.di.TestOrderComponent
+import com.shopapp.ui.order.di.TestOrderComponent
 import com.shopapp.ui.popular.di.PopularComponent
 import com.shopapp.ui.product.di.ProductDetailsComponent
 import com.shopapp.ui.product.di.ProductHorizontalComponent
 import com.shopapp.ui.product.di.ProductListComponent
 import com.shopapp.ui.search.di.SearchComponent
-import com.shopapp.di.component.AppComponent
 import dagger.Component
 import javax.inject.Singleton
 

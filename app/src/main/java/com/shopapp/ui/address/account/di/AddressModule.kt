@@ -1,11 +1,11 @@
-package com.client.shop.ui.address.account.di
+package com.shopapp.ui.address.account.di
 
-import com.client.shop.ui.address.base.contract.AddressListPresenter
-import com.client.shop.ui.address.base.contract.AddressListView
-import com.client.shop.ui.address.base.contract.AddressPresenter
-import com.client.shop.ui.address.base.contract.AddressView
-import com.domain.interactor.account.*
-import com.domain.validator.FieldValidator
+import com.shopapp.ui.address.base.contract.AddressListPresenter
+import com.shopapp.ui.address.base.contract.AddressListView
+import com.shopapp.ui.address.base.contract.AddressPresenter
+import com.shopapp.ui.address.base.contract.AddressView
+import com.shopapp.domain.interactor.account.*
+import com.shopapp.domain.validator.FieldValidator
 import dagger.Module
 import dagger.Provides
 

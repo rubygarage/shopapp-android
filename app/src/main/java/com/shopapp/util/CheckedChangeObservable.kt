@@ -1,4 +1,4 @@
-package com.client.shop.util
+package com.shopapp.util
 
 import android.widget.CompoundButton
 import io.reactivex.Observable

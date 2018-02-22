@@ -1,13 +1,13 @@
-package com.client.shop.ui.product.view
+package com.shopapp.ui.product.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Product
-import com.client.shop.gateway.entity.ProductVariant
-import com.client.shop.gateway.entity.VariantOption
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.ProductVariant
+import com.shopapp.gateway.entity.VariantOption
+import com.shopapp.R
 
 
 class OptionsGroupContainer @JvmOverloads constructor(

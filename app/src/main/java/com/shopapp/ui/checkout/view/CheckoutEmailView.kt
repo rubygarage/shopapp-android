@@ -1,4 +1,4 @@
-package com.client.shop.ui.checkout.view
+package com.shopapp.ui.checkout.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
@@ -7,12 +7,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import com.client.shop.R
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ui.const.Constant
-import com.client.shop.ui.custom.SimpleTextWatcher
-import com.client.shop.gateway.entity.Customer
-import com.domain.validator.FieldValidator
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.R
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ui.const.Constant
+import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.view_checkout_email.view.*
 
 class CheckoutEmailView @JvmOverloads constructor(

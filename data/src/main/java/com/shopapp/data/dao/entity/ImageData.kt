@@ -1,6 +1,6 @@
-package com.data.dao.entity
+package com.shopapp.data.dao.entity
 
-import com.client.shop.gateway.entity.ProductVariant
+import com.shopapp.gateway.entity.ProductVariant
 import io.requery.Entity
 import io.requery.Key
 import io.requery.OneToOne

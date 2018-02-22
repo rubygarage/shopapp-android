@@ -1,6 +1,6 @@
-package com.client.shop.ext
+package com.shopapp.ext
 
-import com.domain.validator.FieldValidator
+import com.shopapp.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
 

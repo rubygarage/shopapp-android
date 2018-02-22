@@ -1,12 +1,12 @@
-package com.client.shop.ui.order.details.adapter
+package com.shopapp.ui.order.details.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.gateway.entity.OrderProduct
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
-import com.client.shop.ui.item.OrderProductItem
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.OrderProduct
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.ui.item.OrderProductItem
 
 class OrderProductsAdapter(
     productList: List<OrderProduct>,

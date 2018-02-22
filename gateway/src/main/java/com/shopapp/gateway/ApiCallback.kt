@@ -1,6 +1,6 @@
-package com.client.shop.gateway
+package com.shopapp.gateway
 
-import com.client.shop.gateway.entity.Error
+import com.shopapp.gateway.entity.Error
 
 interface ApiCallback<in T> {
 

@@ -1,4 +1,4 @@
-package com.client.shop.ui.cart
+package com.shopapp.ui.cart
 
 import android.content.Context
 import android.content.Intent
@@ -6,21 +6,21 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.gateway.entity.CartProduct
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.lce.view.LceEmptyView
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.SwipeToDeleteCallback
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
-import com.client.shop.ui.cart.adapter.CartAdapter
-import com.client.shop.ui.cart.contract.CartPresenter
-import com.client.shop.ui.cart.contract.CartView
-import com.client.shop.ui.checkout.CheckoutActivity
-import com.client.shop.ui.home.HomeActivity
-import com.client.shop.ui.item.cart.CartItem
-import com.client.shop.ui.product.ProductDetailsActivity
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.lce.view.LceEmptyView
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.SwipeToDeleteCallback
+import com.shopapp.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.ui.cart.adapter.CartAdapter
+import com.shopapp.ui.cart.contract.CartPresenter
+import com.shopapp.ui.cart.contract.CartView
+import com.shopapp.ui.checkout.CheckoutActivity
+import com.shopapp.ui.home.HomeActivity
+import com.shopapp.ui.item.cart.CartItem
+import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.app.Activity
 import android.content.Context
@@ -6,15 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TextInputLayout
 import android.text.TextWatcher
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ext.getTrimmedString
-import com.client.shop.ui.account.contract.SignInPresenter
-import com.client.shop.ui.account.contract.SignInView
-import com.client.shop.ui.account.di.AuthModule
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.lce.view.LceLayout
-import com.client.shop.ui.custom.SimpleTextWatcher
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ext.getTrimmedString
+import com.shopapp.ui.account.contract.SignInPresenter
+import com.shopapp.ui.account.contract.SignInView
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import javax.inject.Inject
 

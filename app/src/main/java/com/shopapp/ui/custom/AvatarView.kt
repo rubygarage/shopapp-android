@@ -1,11 +1,11 @@
-package com.client.shop.ui.custom
+package com.shopapp.ui.custom
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.view.Gravity
-import com.client.shop.R
+import com.shopapp.R
 
 class AvatarView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

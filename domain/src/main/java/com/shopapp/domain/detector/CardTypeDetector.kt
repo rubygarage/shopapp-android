@@ -1,6 +1,6 @@
-package com.domain.detector
+package com.shopapp.domain.detector
 
-import com.client.shop.gateway.entity.CardType
+import com.shopapp.gateway.entity.CardType
 
 class CardTypeDetector {
 

@@ -1,7 +1,7 @@
-package com.client.shop.ui.product.di
+package com.shopapp.ui.product.di
 
-import com.client.shop.ui.product.contract.ProductListPresenter
-import com.domain.interactor.recent.ProductListUseCase
+import com.shopapp.domain.interactor.recent.ProductListUseCase
+import com.shopapp.ui.product.contract.ProductListPresenter
 import dagger.Module
 import dagger.Provides
 

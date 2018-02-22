@@ -1,8 +1,8 @@
-package com.client.shop.di.module
+package com.shopapp.di.module
 
-import com.client.shop.gateway.Api
-import com.domain.database.Dao
-import com.domain.repository.*
+import com.shopapp.gateway.Api
+import com.shopapp.domain.database.Dao
+import com.shopapp.domain.repository.*
 import com.nhaarman.mockito_kotlin.mock
 import dagger.Module
 import dagger.Provides

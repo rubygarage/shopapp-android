@@ -1,11 +1,11 @@
-package com.client.shop.ui.search
+package com.shopapp.ui.search
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.fragment_search_with_categories.*
 
 class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarListener {

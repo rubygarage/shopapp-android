@@ -1,13 +1,13 @@
-package com.client.shop.ui.checkout.adapter
+package com.shopapp.ui.checkout.adapter
 
 import android.content.Context
 import android.view.View
-import com.client.shop.ui.checkout.view.CheckoutShippingOptionsView
-import com.client.shop.ui.item.ShippingOptionItem
-import com.client.shop.gateway.entity.Checkout
-import com.client.shop.gateway.entity.ShippingRate
-import com.domain.formatter.NumberFormatter
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.gateway.entity.Checkout
+import com.shopapp.gateway.entity.ShippingRate
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
+import com.shopapp.ui.item.ShippingOptionItem
 
 class ShippingOptionsAdapter(
     private val data: MutableList<ShippingRate>

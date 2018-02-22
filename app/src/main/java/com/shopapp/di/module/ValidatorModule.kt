@@ -1,6 +1,6 @@
-package com.client.shop.di.module
+package com.shopapp.di.module
 
-import com.domain.validator.FieldValidator
+import com.shopapp.domain.validator.FieldValidator
 import dagger.Module
 import dagger.Provides
 

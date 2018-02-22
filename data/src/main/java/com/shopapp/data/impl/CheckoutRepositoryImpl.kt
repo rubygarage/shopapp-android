@@ -1,9 +1,9 @@
-package com.data.impl
+package com.shopapp.data.impl
 
-import com.client.shop.gateway.Api
-import com.client.shop.gateway.entity.*
-import com.data.rx.RxCallbackSingle
-import com.domain.repository.CheckoutRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.entity.*
+import com.shopapp.data.rx.RxCallbackSingle
+import com.shopapp.domain.repository.CheckoutRepository
 import io.reactivex.Single
 
 class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {

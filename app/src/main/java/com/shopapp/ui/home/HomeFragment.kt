@@ -1,17 +1,17 @@
-package com.client.shop.ui.home
+package com.shopapp.ui.home
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import com.client.shop.R
-import com.client.shop.ext.replaceOnce
-import com.client.shop.ui.base.ui.FragmentVisibilityListener
-import com.client.shop.ui.blog.BlogFragment
-import com.client.shop.ui.popular.PopularFragment
-import com.client.shop.ui.product.ProductHorizontalFragment
-import com.client.shop.gateway.entity.SortType
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.R
+import com.shopapp.ext.replaceOnce
+import com.shopapp.ui.base.ui.FragmentVisibilityListener
+import com.shopapp.ui.blog.BlogFragment
+import com.shopapp.ui.popular.PopularFragment
+import com.shopapp.ui.product.ProductHorizontalFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment :

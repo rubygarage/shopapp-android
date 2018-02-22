@@ -1,4 +1,4 @@
-package com.client.shop.gateway.entity
+package com.shopapp.gateway.entity
 
 import java.math.BigDecimal
 

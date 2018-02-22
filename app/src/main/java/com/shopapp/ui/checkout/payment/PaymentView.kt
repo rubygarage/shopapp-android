@@ -1,4 +1,4 @@
-package com.client.shop.ui.checkout.payment
+package com.shopapp.ui.checkout.payment
 
 import android.content.Context
 import android.graphics.Color
@@ -7,11 +7,11 @@ import android.support.annotation.StringRes
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ui.const.PaymentType
-import com.domain.detector.CardTypeDetector
-import com.client.shop.gateway.entity.Address
-import com.client.shop.gateway.entity.Card
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Card
+import com.shopapp.domain.detector.CardTypeDetector
+import com.shopapp.R
+import com.shopapp.ui.const.PaymentType
 import kotlinx.android.synthetic.main.view_payment.view.*
 
 class PaymentView @JvmOverloads constructor(

@@ -1,16 +1,16 @@
-package com.client.shop.ui.product.view
+package com.shopapp.ui.product.view
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ui.product.adapter.OptionsAdapter
-import com.client.shop.gateway.entity.ProductOption
-import com.client.shop.gateway.entity.VariantOption
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.gateway.entity.ProductOption
+import com.shopapp.gateway.entity.VariantOption
+import com.shopapp.R
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.divider.SpaceDecoration
+import com.shopapp.ui.product.adapter.OptionsAdapter
 import kotlinx.android.synthetic.main.container_options.view.*
 
 class OptionsContainer @JvmOverloads constructor(

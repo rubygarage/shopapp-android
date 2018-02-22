@@ -1,4 +1,4 @@
-package com.client.shop.ui.view
+package com.shopapp.ui.view
 
 import android.content.Context
 import android.util.AttributeSet

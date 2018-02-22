@@ -1,7 +1,7 @@
-package com.client.shop.ui.checkout.di
+package com.shopapp.ui.checkout.di
 
-import com.client.shop.ui.checkout.CheckoutActivity
-import com.client.shop.ui.checkout.view.CheckoutMyCartView
+import com.shopapp.ui.checkout.view.CheckoutMyCartView
+import com.shopapp.ui.checkout.CheckoutActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [CheckoutModule::class])

@@ -1,14 +1,14 @@
-package com.client.shop.ui.checkout.payment.card.contract
+package com.shopapp.ui.checkout.payment.card.contract
 
 import android.support.annotation.StringRes
-import com.client.shop.R
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.gateway.entity.Card
-import com.client.shop.gateway.entity.CardType
-import com.domain.interactor.checkout.CheckCreditCardUseCase
-import com.domain.interactor.checkout.GetAcceptedCardTypesUseCase
-import com.domain.validator.CardValidator
+import com.shopapp.gateway.entity.Card
+import com.shopapp.gateway.entity.CardType
+import com.shopapp.domain.interactor.checkout.CheckCreditCardUseCase
+import com.shopapp.domain.interactor.checkout.GetAcceptedCardTypesUseCase
+import com.shopapp.domain.validator.CardValidator
+import com.shopapp.R
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface CardView : BaseLceView<List<CardType>> {

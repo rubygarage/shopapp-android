@@ -1,9 +1,9 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.account.UpdateAccountSettingsUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.UpdateAccountSettingsUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 
 interface AccountSettingsView : BaseLceView<Boolean>
 

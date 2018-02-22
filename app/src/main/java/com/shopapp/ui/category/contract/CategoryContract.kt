@@ -1,10 +1,10 @@
-package com.client.shop.ui.category.contract
+package com.shopapp.ui.category.contract
 
-import com.client.shop.gateway.entity.Product
-import com.client.shop.gateway.entity.SortType
-import com.domain.interactor.category.CategoryUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.domain.interactor.category.CategoryUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
 interface CategoryView : BaseLceView<List<Product>>

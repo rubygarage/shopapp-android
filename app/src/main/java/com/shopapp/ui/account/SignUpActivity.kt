@@ -1,4 +1,4 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.app.Activity
 import android.content.Context
@@ -13,17 +13,17 @@ import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ext.getTrimmedString
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ui.account.contract.SignUpPresenter
-import com.client.shop.ui.account.contract.SignUpView
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.lce.view.LceLayout
-import com.client.shop.ui.custom.SimpleTextWatcher
-import com.client.shop.ui.policy.PolicyActivity
-import com.client.shop.gateway.entity.Policy
+import com.shopapp.gateway.entity.Policy
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ext.getTrimmedString
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ui.account.contract.SignUpPresenter
+import com.shopapp.ui.account.contract.SignUpView
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.ui.custom.SimpleTextWatcher
+import com.shopapp.ui.policy.PolicyActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 

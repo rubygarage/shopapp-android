@@ -1,4 +1,4 @@
-package com.client.shop.gateway.entity
+package com.shopapp.gateway.entity
 
 sealed class Error : Exception() {
     class Critical : Error()

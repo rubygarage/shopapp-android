@@ -1,13 +1,13 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
-import com.client.shop.gateway.entity.OrderProduct
-import com.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.OrderProduct
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.R
 import kotlinx.android.synthetic.main.item_order_product.view.*
 import java.math.BigDecimal
 

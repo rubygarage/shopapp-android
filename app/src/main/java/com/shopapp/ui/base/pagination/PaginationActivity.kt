@@ -1,16 +1,16 @@
-package com.client.shop.ui.base.pagination
+package com.shopapp.ui.base.pagination
 
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
-import com.client.shop.R
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
-import com.client.shop.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import com.shopapp.R
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 
 abstract class PaginationActivity<M, V : BaseLceView<List<M>>, P : BaseLcePresenter<List<M>, V>> :
     BaseLceActivity<List<M>, V, P>(),

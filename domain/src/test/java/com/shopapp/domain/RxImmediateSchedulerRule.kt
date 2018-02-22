@@ -1,4 +1,4 @@
-package com.domain
+package com.shopapp.domain
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins

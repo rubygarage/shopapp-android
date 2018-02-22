@@ -1,12 +1,12 @@
-package com.client.shop.ui.item
+package com.shopapp.ui.item
 
 import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
-import com.client.shop.R
-import com.client.shop.gateway.entity.Address
+import com.shopapp.gateway.entity.Address
+import com.shopapp.R
 import kotlinx.android.synthetic.main.item_address_content.view.*
 
 class AddressContentItem @JvmOverloads constructor(

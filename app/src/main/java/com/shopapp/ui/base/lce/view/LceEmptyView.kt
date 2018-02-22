@@ -1,4 +1,4 @@
-package com.client.shop.ui.base.lce.view
+package com.shopapp.ui.base.lce.view
 
 import android.content.Context
 import android.support.annotation.DrawableRes
@@ -7,7 +7,7 @@ import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
+import com.shopapp.R
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 
 class LceEmptyView @JvmOverloads constructor(

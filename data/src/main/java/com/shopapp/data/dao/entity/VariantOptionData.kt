@@ -1,4 +1,4 @@
-package com.data.dao.entity
+package com.shopapp.data.dao.entity
 
 import io.requery.Entity
 import io.requery.Generated

@@ -1,8 +1,8 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.domain.interactor.account.ForgotPasswordUseCase
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
+import com.shopapp.domain.interactor.account.ForgotPasswordUseCase
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 
 interface ForgotPasswordView : BaseLceView<Unit>
 

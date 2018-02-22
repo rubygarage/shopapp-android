@@ -1,9 +1,9 @@
-package com.client.shop.ui.search.di
+package com.shopapp.ui.search.di
 
-import com.client.shop.ui.search.contract.CategoryListPresenter
-import com.client.shop.ui.search.contract.SearchPresenter
-import com.domain.interactor.category.CategoryListUseCase
-import com.domain.interactor.search.SearchUseCase
+import com.shopapp.domain.interactor.category.CategoryListUseCase
+import com.shopapp.domain.interactor.search.SearchUseCase
+import com.shopapp.ui.search.contract.CategoryListPresenter
+import com.shopapp.ui.search.contract.SearchPresenter
 import dagger.Module
 import dagger.Provides
 

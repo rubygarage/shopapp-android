@@ -1,14 +1,14 @@
-package com.client.shop.ui.product.adapter
+package com.shopapp.ui.product.adapter
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import com.client.shop.R
-import com.client.shop.gateway.entity.VariantOption
-import com.client.shop.ui.base.recycler.OnItemClickListener
-import com.client.shop.ui.base.recycler.adapter.BaseRecyclerAdapter
+import com.shopapp.gateway.entity.VariantOption
+import com.shopapp.R
+import com.shopapp.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 class OptionsAdapter(
     defaultVariantOption: VariantOption,

@@ -1,17 +1,17 @@
-package com.client.shop.ui.address.checkout
+package com.shopapp.ui.address.checkout
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.address.base.BaseAddressActivity
-import com.client.shop.ui.address.base.contract.AddressView
-import com.client.shop.ui.address.checkout.contract.CheckoutUnAuthAddressPresenter
-import com.client.shop.gateway.entity.Address
-import com.domain.validator.FieldValidator
-import com.client.shop.ui.Extra
+import com.shopapp.gateway.entity.Address
+import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.address.base.BaseAddressActivity
+import com.shopapp.ui.address.base.contract.AddressView
+import com.shopapp.ui.address.checkout.contract.CheckoutUnAuthAddressPresenter
+import com.shopapp.ui.const.Extra
 import javax.inject.Inject
 
 class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutUnAuthAddressPresenter>() {

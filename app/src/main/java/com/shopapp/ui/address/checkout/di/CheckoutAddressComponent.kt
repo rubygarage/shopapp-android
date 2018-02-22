@@ -1,8 +1,8 @@
-package com.client.shop.ui.address.checkout.di
+package com.shopapp.ui.address.checkout.di
 
-import com.client.shop.ui.address.checkout.CheckoutAddressActivity
-import com.client.shop.ui.address.checkout.CheckoutAddressListActivity
-import com.client.shop.ui.address.checkout.CheckoutUnAuthAddressActivity
+import com.shopapp.ui.address.checkout.CheckoutAddressActivity
+import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
+import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [CheckoutAddressModule::class])

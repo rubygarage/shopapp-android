@@ -1,4 +1,4 @@
-package com.client.shop.ui.checkout.payment.card
+package com.shopapp.ui.checkout.payment.card
 
 import android.app.Activity
 import android.content.Context
@@ -7,20 +7,20 @@ import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ext.hideKeyboard
-import com.client.shop.ui.base.lce.BaseLceActivity
-import com.client.shop.ui.base.lce.view.LceLayout
-import com.client.shop.ui.checkout.payment.card.contract.CardPresenter
-import com.client.shop.ui.checkout.payment.card.contract.CardView
-import com.client.shop.ui.custom.CreditCardFormatTextWatcher
-import com.client.shop.ui.custom.SimpleTextWatcher
-import com.domain.detector.CardTypeDetector
-import com.client.shop.gateway.entity.Card
-import com.client.shop.gateway.entity.CardType
-import com.client.shop.ui.Extra
-import com.client.shop.ui.base.picker.BaseBottomSheetPicker
+import com.shopapp.gateway.entity.Card
+import com.shopapp.gateway.entity.CardType
+import com.shopapp.domain.detector.CardTypeDetector
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ext.hideKeyboard
+import com.shopapp.ui.base.lce.BaseLceActivity
+import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.ui.base.picker.BaseBottomSheetPicker
+import com.shopapp.ui.checkout.payment.card.contract.CardPresenter
+import com.shopapp.ui.checkout.payment.card.contract.CardView
+import com.shopapp.ui.const.Extra
+import com.shopapp.ui.custom.CreditCardFormatTextWatcher
+import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_card.*
 import javax.inject.Inject
 

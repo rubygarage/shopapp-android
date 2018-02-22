@@ -1,4 +1,4 @@
-package com.client.shop.ui.view
+package com.shopapp.ui.view
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import com.client.shop.R
-import com.domain.formatter.NumberFormatter
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.R
 import kotlinx.android.synthetic.main.view_price.view.*
 import java.math.BigDecimal
 

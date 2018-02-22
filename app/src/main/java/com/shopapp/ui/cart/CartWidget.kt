@@ -1,15 +1,14 @@
-package com.client.shop.ui.cart
+package com.shopapp.ui.cart
 
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.cart.contract.CartWidgetPresenter
-import com.client.shop.ui.cart.contract.CartWidgetView
-import com.client.shop.ui.cart.di.CartModule
 import com.hannesdorfmann.mosby3.mvp.layout.MvpFrameLayout
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.cart.contract.CartWidgetPresenter
+import com.shopapp.ui.cart.contract.CartWidgetView
 import kotlinx.android.synthetic.main.widget_cart.view.*
 import javax.inject.Inject
 

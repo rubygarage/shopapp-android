@@ -1,15 +1,15 @@
-package com.client.shop.ui.address.base.contract
+package com.shopapp.ui.address.base.contract
 
-import com.client.shop.R
-import com.client.shop.ui.base.contract.BaseLcePresenter
-import com.client.shop.ui.base.contract.BaseLceView
-import com.client.shop.gateway.entity.Address
-import com.client.shop.gateway.entity.Country
-import com.domain.interactor.account.CreateCustomerAddressUseCase
-import com.domain.interactor.account.EditCustomerAddressUseCase
-import com.domain.interactor.account.GetCountriesUseCase
-import com.domain.interactor.base.UseCase
-import com.domain.validator.FieldValidator
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
+import com.shopapp.domain.interactor.account.CreateCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.EditCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.GetCountriesUseCase
+import com.shopapp.domain.interactor.base.UseCase
+import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.R
+import com.shopapp.ui.base.contract.BaseLcePresenter
+import com.shopapp.ui.base.contract.BaseLceView
 
 interface AddressView : BaseLceView<Address?> {
 

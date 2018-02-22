@@ -1,8 +1,8 @@
-package com.data.dao.adapter
+package com.shopapp.data.dao.adapter
 
-import com.data.dao.entity.ImageData
-import com.data.dao.entity.ImageDataEntity
-import com.client.shop.gateway.entity.Image
+import com.shopapp.gateway.entity.Image
+import com.shopapp.data.dao.entity.ImageData
+import com.shopapp.data.dao.entity.ImageDataEntity
 
 object ImageAdapter {
 

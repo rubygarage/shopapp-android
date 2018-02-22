@@ -1,18 +1,18 @@
-package com.client.shop.ui.search
+package com.shopapp.ui.search
 
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.gateway.entity.Product
-import com.client.shop.ui.base.lce.view.LceEmptyView
-import com.client.shop.ui.base.pagination.PaginationFragment
-import com.client.shop.ui.base.recycler.divider.BackgroundItemDecoration
-import com.client.shop.ui.product.ProductDetailsActivity
-import com.client.shop.ui.product.adapter.ProductListAdapter
-import com.client.shop.ui.search.contract.SearchPresenter
-import com.client.shop.ui.search.contract.SearchView
+import com.shopapp.gateway.entity.Product
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.base.lce.view.LceEmptyView
+import com.shopapp.ui.base.pagination.PaginationFragment
+import com.shopapp.ui.base.recycler.divider.BackgroundItemDecoration
+import com.shopapp.ui.product.ProductDetailsActivity
+import com.shopapp.ui.product.adapter.ProductListAdapter
+import com.shopapp.ui.search.contract.SearchPresenter
+import com.shopapp.ui.search.contract.SearchView
 import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
 import javax.inject.Inject
 

@@ -1,8 +1,8 @@
-package com.domain.repository
+package com.shopapp.domain.repository
 
-import com.client.shop.gateway.entity.Address
-import com.client.shop.gateway.entity.Country
-import com.client.shop.gateway.entity.Customer
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
+import com.shopapp.gateway.entity.Customer
 import io.reactivex.Completable
 import io.reactivex.Single
 

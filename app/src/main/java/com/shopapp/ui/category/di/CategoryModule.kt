@@ -1,7 +1,7 @@
-package com.client.shop.ui.category.di
+package com.shopapp.ui.category.di
 
-import com.client.shop.ui.category.contract.CategoryPresenter
-import com.domain.interactor.category.CategoryUseCase
+import com.shopapp.domain.interactor.category.CategoryUseCase
+import com.shopapp.ui.category.contract.CategoryPresenter
 import dagger.Module
 import dagger.Provides
 

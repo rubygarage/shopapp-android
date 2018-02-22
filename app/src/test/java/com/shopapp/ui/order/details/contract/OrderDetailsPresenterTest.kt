@@ -1,16 +1,14 @@
-package com.client.shop.ui.order.details.contract
+package com.shopapp.ui.order.details.contract
 
-import com.client.RxImmediateSchedulerRule
-import com.client.ext.mockUseCase
-import com.client.shop.gateway.entity.Error
-import com.client.shop.gateway.entity.Order
-import com.domain.interactor.order.OrderDetailsUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
-import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
-import com.shopapp.ui.order.details.contract.OrderDetailsView
+import com.shopapp.domain.interactor.order.OrderDetailsUseCase
+import com.shopapp.gateway.entity.Error
+import com.shopapp.gateway.entity.Order
+import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.util.ext.mockUseCase
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before

@@ -1,12 +1,12 @@
-package com.client.shop.ui.gallery
+package com.shopapp.ui.gallery
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.R
-import com.client.shop.gateway.entity.Product
+import com.shopapp.gateway.entity.Product
+import com.shopapp.R
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
 class GalleryFragment : Fragment() {

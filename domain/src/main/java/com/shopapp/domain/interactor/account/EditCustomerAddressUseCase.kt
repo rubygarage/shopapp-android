@@ -1,8 +1,8 @@
-package com.domain.interactor.account
+package com.shopapp.domain.interactor.account
 
-import com.client.shop.gateway.entity.Address
-import com.domain.interactor.base.CompletableUseCase
-import com.domain.repository.AuthRepository
+import com.shopapp.gateway.entity.Address
+import com.shopapp.domain.interactor.base.CompletableUseCase
+import com.shopapp.domain.repository.AuthRepository
 import io.reactivex.Completable
 import javax.inject.Inject
 

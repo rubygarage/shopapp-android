@@ -1,9 +1,9 @@
-package com.domain.interactor.blog
+package com.shopapp.domain.interactor.blog
 
-import com.client.shop.gateway.entity.Article
-import com.client.shop.gateway.entity.SortType
-import com.domain.interactor.base.SingleUseCase
-import com.domain.repository.BlogRepository
+import com.shopapp.gateway.entity.Article
+import com.shopapp.gateway.entity.SortType
+import com.shopapp.domain.interactor.base.SingleUseCase
+import com.shopapp.domain.repository.BlogRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

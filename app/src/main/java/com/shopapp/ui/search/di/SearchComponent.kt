@@ -1,7 +1,7 @@
-package com.client.shop.ui.search.di
+package com.shopapp.ui.search.di
 
-import com.client.shop.ui.search.CategoryListFragment
-import com.client.shop.ui.search.SearchFragment
+import com.shopapp.ui.search.SearchFragment
+import com.shopapp.ui.search.CategoryListFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [SearchModule::class])

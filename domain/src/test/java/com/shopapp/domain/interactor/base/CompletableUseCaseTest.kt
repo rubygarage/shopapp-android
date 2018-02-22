@@ -1,7 +1,7 @@
-package com.domain.interactor.base
+package com.shopapp.domain.interactor.base
 
-import com.client.shop.gateway.entity.Error
-import com.domain.RxImmediateSchedulerRule
+import com.shopapp.gateway.entity.Error
+import com.shopapp.domain.RxImmediateSchedulerRule
 import com.nhaarman.mockito_kotlin.*
 import io.reactivex.Completable
 import org.junit.Assert

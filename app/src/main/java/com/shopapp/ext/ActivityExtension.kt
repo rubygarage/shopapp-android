@@ -1,4 +1,4 @@
-package com.client.shop.ext
+package com.shopapp.ext
 
 import android.app.Activity
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent

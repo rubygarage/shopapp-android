@@ -1,4 +1,4 @@
-package com.client.shop.ui.const
+package com.shopapp.ui.const
 
 
 enum class PaymentType {

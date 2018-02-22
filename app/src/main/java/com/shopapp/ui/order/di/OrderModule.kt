@@ -1,9 +1,9 @@
-package com.client.shop.ui.order.di
+package com.shopapp.ui.order.di
 
-import com.client.shop.ui.order.details.contract.OrderDetailsPresenter
-import com.client.shop.ui.order.list.contract.OrderListPresenter
-import com.domain.interactor.order.OrderDetailsUseCase
-import com.domain.interactor.order.OrderListUseCase
+import com.shopapp.domain.interactor.order.OrderDetailsUseCase
+import com.shopapp.domain.interactor.order.OrderListUseCase
+import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
+import com.shopapp.ui.order.list.contract.OrderListPresenter
 import dagger.Module
 import dagger.Provides
 

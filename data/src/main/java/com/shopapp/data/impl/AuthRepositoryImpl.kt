@@ -1,12 +1,12 @@
-package com.data.impl
+package com.shopapp.data.impl
 
-import com.client.shop.gateway.Api
-import com.client.shop.gateway.entity.Address
-import com.client.shop.gateway.entity.Country
-import com.client.shop.gateway.entity.Customer
-import com.data.rx.RxCallbackCompletable
-import com.data.rx.RxCallbackSingle
-import com.domain.repository.AuthRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.data.rx.RxCallbackCompletable
+import com.shopapp.data.rx.RxCallbackSingle
 import io.reactivex.Completable
 import io.reactivex.Single
 

@@ -1,4 +1,4 @@
-package com.client.shop.ui.address.checkout
+package com.shopapp.ui.address.checkout
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -6,16 +6,16 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.client.shop.R
-import com.client.shop.ShopApplication
-import com.client.shop.ui.address.base.BaseAddressListActivity
-import com.client.shop.ui.address.checkout.adapter.CheckoutAddressListAdapter
-import com.client.shop.ui.address.checkout.contract.CheckoutAddressListPresenter
-import com.client.shop.ui.address.checkout.contract.CheckoutAddressListView
-import com.client.shop.ui.base.lce.view.LceLayout
-import com.client.shop.ui.const.RequestCode
-import com.client.shop.gateway.entity.Address
-import com.client.shop.ui.Extra
+import com.shopapp.gateway.entity.Address
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.ui.address.base.BaseAddressListActivity
+import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
+import com.shopapp.ui.address.checkout.contract.CheckoutAddressListPresenter
+import com.shopapp.ui.address.checkout.contract.CheckoutAddressListView
+import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.ui.const.Extra
+import com.shopapp.ui.const.RequestCode
 
 class CheckoutAddressListActivity :
     BaseAddressListActivity<CheckoutAddressListAdapter, CheckoutAddressListView, CheckoutAddressListPresenter>(),

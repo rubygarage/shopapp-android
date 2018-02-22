@@ -1,4 +1,4 @@
-package com.domain.interactor.base
+package com.shopapp.domain.interactor.base
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

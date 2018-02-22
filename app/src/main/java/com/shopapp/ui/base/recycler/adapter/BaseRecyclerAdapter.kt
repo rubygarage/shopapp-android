@@ -1,10 +1,10 @@
-package com.client.shop.ui.base.recycler.adapter
+package com.shopapp.ui.base.recycler.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import com.client.shop.ui.base.recycler.OnItemClickListener
+import com.shopapp.ui.base.recycler.OnItemClickListener
 
 abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
                                       protected val onItemClickListener: OnItemClickListener? = null) :

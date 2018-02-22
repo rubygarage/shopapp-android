@@ -1,4 +1,4 @@
-package com.client
+package com.shopapp.util
 
 import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.plugins.RxJavaPlugins
