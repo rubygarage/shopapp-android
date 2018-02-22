@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.client.shop">
+    package="com.shopapp">
 
     <application
-        android:name=".ShopApplication"
+        android:name="com.shopapp.ShopApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="com.shopapp.ui.splash.SplashActivity"
             android:noHistory="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -22,112 +22,112 @@
         </activity>
 
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name="com.shopapp.ui.home.HomeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".ui.product.ProductDetailsActivity"
+            android:name="com.shopapp.ui.product.ProductDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.account.SignInActivity"
+            android:name="com.shopapp.ui.account.SignInActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.account.SignUpActivity"
+            android:name="com.shopapp.ui.account.SignUpActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.gallery.GalleryActivity"
+            android:name="com.shopapp.ui.gallery.GalleryActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <activity
-            android:name=".ui.blog.ArticleActivity"
+            android:name="com.shopapp.ui.blog.ArticleActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.policy.PolicyActivity"
+            android:name="com.shopapp.ui.policy.PolicyActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.product.ProductListActivity"
+            android:name="com.shopapp.ui.product.ProductListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.category.CategoryActivity"
+            android:name="com.shopapp.ui.category.CategoryActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.blog.BlogActivity"
+            android:name="com.shopapp.ui.blog.BlogActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.cart.CartActivity"
+            android:name="com.shopapp.ui.cart.CartActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.account.ForgotPasswordActivity"
+            android:name="com.shopapp.ui.account.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.order.list.OrderListActivity"
+            android:name="com.shopapp.ui.order.list.OrderListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.order.details.OrderDetailsActivity"
+            android:name="com.shopapp.ui.order.details.OrderDetailsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.account.PersonalInfoActivity"
+            android:name="com.shopapp.ui.account.PersonalInfoActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.account.ChangePasswordActivity"
+            android:name="com.shopapp.ui.account.ChangePasswordActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.account.AccountSettingsActivity"
+            android:name="com.shopapp.ui.account.AccountSettingsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.order.success.OrderSuccessActivity"
+            android:name="com.shopapp.ui.order.success.OrderSuccessActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.account.AddressListActivity"
+            android:name="com.shopapp.ui.address.account.AddressListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.account.AddressActivity"
+            android:name="com.shopapp.ui.address.account.AddressActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.base.browser.BrowserActivity"
+            android:name="com.shopapp.ui.base.browser.BrowserActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.checkout.CheckoutActivity"
+            android:name="com.shopapp.ui.checkout.CheckoutActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.checkout.CheckoutAddressListActivity"
+            android:name="com.shopapp.ui.address.checkout.CheckoutAddressListActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.checkout.CheckoutAddressActivity"
+            android:name="com.shopapp.ui.address.checkout.CheckoutAddressActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.address.checkout.CheckoutUnAuthAddressActivity"
+            android:name="com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.checkout.payment.card.CardActivity"
+            android:name="com.shopapp.ui.checkout.payment.card.CardActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.checkout.payment.PaymentActivity"
+            android:name="com.shopapp.ui.checkout.payment.PaymentActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

@@ -17,13 +17,13 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.client.shop"
+        applicationId "com.shopapp"
         minSdkVersion globalConfiguration["androidMinSdkVersion"]
         targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
 
         versionCode 1
-        versionName "1"
+        versionName "1.0.0"
 
         multiDexEnabled true
     }

@@ -10,7 +10,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/countryInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -22,16 +22,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.client.shop.ui.custom.UnMutableTextInputEditText
+            <com.shopapp.ui.custom.UnMutableTextInputEditText
                 android:id="@+id/countryInput"
                 style="@style/TextInputEditText"
                 android:drawableEnd="@drawable/ic_small_arrow_down"
                 android:hint="@string/country"
                 android:inputType="textPostalAddress"
                 android:textColor="@color/textColorPrimary" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/firstNameInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -53,9 +53,9 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@+id/lastNameInput" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/lastNameInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -76,9 +76,9 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@+id/addressInput" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/addressInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -98,9 +98,9 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@+id/secondAddressInput" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/secondAddressInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -120,9 +120,9 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@+id/cityInput" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/cityInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -142,9 +142,9 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:nextFocusForward="@+id/postalCodeInput" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/stateInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cityInputContainer">
 
-            <com.client.shop.ui.custom.UnMutableTextInputEditText
+            <com.shopapp.ui.custom.UnMutableTextInputEditText
                 android:id="@+id/stateInput"
                 style="@style/TextInputEditText"
                 android:drawableEnd="@drawable/ic_small_arrow_down"
@@ -165,9 +165,9 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/textColorPrimary" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/postalCodeInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -188,9 +188,9 @@
                 android:maxLines="1"
                 android:minEms="5"
                 android:nextFocusForward="@+id/phoneInput" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
-        <com.client.shop.ui.custom.UpperCaseHintTextInputLayout
+        <com.shopapp.ui.custom.UpperCaseHintTextInputLayout
             android:id="@+id/phoneInputContainer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="phone"
                 android:maxLines="1" />
-        </com.client.shop.ui.custom.UpperCaseHintTextInputLayout>
+        </com.shopapp.ui.custom.UpperCaseHintTextInputLayout>
 
         <Button
             android:id="@+id/submitButton"
