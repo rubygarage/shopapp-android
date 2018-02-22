@@ -224,15 +224,14 @@ class AuthRepositoryTest {
 
     @Test
     fun forgotPasswordShouldCompleteOnApiResult() {
-        val observer: TestObserver<Unit> = TestObserver()
         val email = "test@test.com"
         given(api.forgotPassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
         })
 
-        repository.forgotPassword(email).subscribe(observer)
-        observer.assertComplete()
+        repository.forgotPassword(email).subscribe(observerUnit)
+        observerUnit.assertComplete()
     }
 
     @Test
@@ -277,4 +276,61 @@ class AuthRepositoryTest {
         repository.updateAccountSettings(true).subscribe(observerBoolean)
         observerBoolean.assertError(error)
     }
+    
+    @Test
+    fun isLoggedCheckShouldDelegateCallToApi() {
+        repository.isLoggedIn().subscribe()
+        verify(api).isLoggedIn(any())
+    }
+
+    @Test
+    fun isLoggedCheckCompleteOnApiResult() {
+        given(api.isLoggedIn(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Boolean>>(0)
+            callback.onResult(false)
+        })
+        repository.isLoggedIn().subscribe(observerBoolean)
+        observerBoolean.assertComplete()
+        observerBoolean.assertValue(false)
+    }
+
+    @Test
+    fun isLoggedCheckShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.isLoggedIn(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Boolean>>(0)
+            callback.onFailure(error)
+        })
+        repository.isLoggedIn().subscribe(observerBoolean)
+        observerBoolean.assertError(error)
+    }
+
+    @Test
+    fun signOutShouldDelegateCallToApi() {
+        repository.signOut().subscribe()
+        verify(api).signOut(any())
+    }
+
+    @Test
+    fun signOutCheckCompleteOnApiResult() {
+        given(api.signOut(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(0)
+            callback.onResult(Unit)
+        })
+        repository.signOut().subscribe(observerUnit)
+        observerUnit.assertComplete()
+
+    }
+
+    @Test
+    fun signOutCheckShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.signOut(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(0)
+            callback.onFailure(error)
+        })
+        repository.signOut().subscribe(observerUnit)
+        observerUnit.assertError(error)
+    }
+
 }

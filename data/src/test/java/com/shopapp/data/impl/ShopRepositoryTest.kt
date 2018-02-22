@@ -1,15 +1,15 @@
-package com.data.impl
+package com.shopapp.data.impl
 
-import com.client.shop.gateway.Api
-import com.client.shop.gateway.ApiCallback
-import com.client.shop.gateway.entity.Error
-import com.client.shop.gateway.entity.Shop
-import com.data.RxImmediateSchedulerRule
-import com.domain.repository.ShopRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.data.RxImmediateSchedulerRule
+import com.shopapp.domain.repository.ShopRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Error
+import com.shopapp.gateway.entity.Shop
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
@@ -31,6 +31,8 @@ class ShopRepositoryTest {
 
     private lateinit var repository: ShopRepository
 
+    private lateinit var observerShop: TestObserver<Shop>
+
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
@@ -46,26 +48,24 @@ class ShopRepositoryTest {
     @Test
     fun changePasswordShouldCompleteOnApiResult() {
         val shop: Shop = mock()
-        val observer = TestObserver<Shop>()
         given(api.getShopInfo(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onResult(shop)
         })
-        repository.getShop().subscribe(observer)
-        observer.assertComplete()
-        observer.assertValue(shop)
+        repository.getShop().subscribe(observerShop)
+        observerShop.assertComplete()
+        observerShop.assertValue(shop)
     }
 
     @Test
     fun changePasswordShouldErrorOnApiFailure() {
         val error = Error.Content()
-        val observer = TestObserver<Shop>()
         given(api.getShopInfo(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onFailure(error)
         })
-        repository.getShop().subscribe(observer)
-        observer.assertError(error)
+        repository.getShop().subscribe(observerShop)
+        observerShop.assertError(error)
     }
 
 }

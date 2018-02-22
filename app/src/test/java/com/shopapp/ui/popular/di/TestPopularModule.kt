@@ -1,7 +1,7 @@
-package com.client.shop.ui.popular.di
+package com.shopapp.ui.popular.di
 
-import com.client.shop.ui.product.contract.ProductListPresenter
 import com.nhaarman.mockito_kotlin.mock
+import com.shopapp.ui.product.contract.ProductListPresenter
 import dagger.Module
 import dagger.Provides
 

@@ -1,18 +1,18 @@
-package com.client.shop.ui.account.contract
+package com.shopapp.ui.account.contract
 
-import com.client.RxImmediateSchedulerRule
-import com.client.ext.mockUseCase
-import com.client.shop.gateway.entity.Customer
-import com.client.shop.gateway.entity.Error
-import com.client.shop.gateway.entity.Shop
-import com.domain.interactor.account.GetCustomerUseCase
-import com.domain.interactor.account.SessionCheckUseCase
-import com.domain.interactor.account.ShopInfoUseCase
-import com.domain.interactor.account.SignOutUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.SessionCheckUseCase
+import com.shopapp.domain.interactor.account.ShopInfoUseCase
+import com.shopapp.domain.interactor.account.SignOutUseCase
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Error
+import com.shopapp.gateway.entity.Shop
+import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.util.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.After
@@ -61,10 +61,10 @@ class AccountPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
         presenter.attachView(view)
-        sessionCheckUseCase.mockUseCase()
-        signOutUseCase.mockUseCase()
-        shopInfoUseCase.mockUseCase()
-        getCustomerUseCase.mockUseCase()
+        sessionCheckUseCase.mock()
+        signOutUseCase.mock()
+        shopInfoUseCase.mock()
+        getCustomerUseCase.mock()
     }
 
     //is authorize check

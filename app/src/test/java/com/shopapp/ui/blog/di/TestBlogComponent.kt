@@ -1,8 +1,8 @@
-package com.client.shop.ui.blog.di
+package com.shopapp.ui.blog.di
 
-import com.client.shop.ui.blog.ArticleActivity
-import com.client.shop.ui.blog.BlogActivity
-import com.client.shop.ui.blog.BlogFragment
+import com.shopapp.ui.blog.ArticleActivity
+import com.shopapp.ui.blog.BlogActivity
+import com.shopapp.ui.blog.BlogFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TestBlogModule::class])

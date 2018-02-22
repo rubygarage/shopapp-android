@@ -1,6 +1,6 @@
-package com.client.shop.ui.product.di
+package com.shopapp.ui.product.di
 
-import com.client.shop.ui.product.ProductHorizontalFragment
+import com.shopapp.ui.product.ProductHorizontalFragment
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TestProductHorizontalModule::class])

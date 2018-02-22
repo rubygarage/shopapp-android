@@ -1,18 +1,17 @@
-package com.client.shop.ui.account
+package com.shopapp.ui.account
 
 import android.content.Context
-import android.view.MenuItem
 import android.view.View
-import com.client.shop.R
-import com.client.shop.TestShopApplication
-import com.client.shop.gateway.entity.Customer
-import com.client.shop.gateway.entity.Policy
-import com.client.shop.gateway.entity.Shop
-import com.client.shop.ui.address.account.AddressListActivity
-import com.client.shop.ui.home.HomeActivity
-import com.client.shop.ui.order.list.OrderListActivity
-import com.client.shop.ui.policy.PolicyActivity
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.R
+import com.shopapp.TestShopApplication
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Policy
+import com.shopapp.gateway.entity.Shop
+import com.shopapp.ui.address.account.AddressListActivity
+import com.shopapp.ui.home.HomeActivity
+import com.shopapp.ui.order.list.OrderListActivity
+import com.shopapp.ui.policy.PolicyActivity
 import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -220,7 +219,7 @@ class AccountFragmentTest {
     }
 
     @Test
-    fun shouldLogout() {
+    fun shouldSignOut() {
         fragment.logout.performClick()
         verify(fragment.presenter).signOut()
     }

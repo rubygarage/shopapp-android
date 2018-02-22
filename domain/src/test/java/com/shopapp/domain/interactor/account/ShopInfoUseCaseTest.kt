@@ -1,7 +1,7 @@
-package com.domain.interactor.account
+package com.shopapp.domain.interactor.account
 
-import com.domain.repository.ShopRepository
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.domain.repository.ShopRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

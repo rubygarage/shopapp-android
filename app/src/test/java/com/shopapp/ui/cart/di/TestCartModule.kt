@@ -1,8 +1,8 @@
-package com.client.shop.ui.cart.di
+package com.shopapp.ui.cart.di
 
-import com.client.shop.ui.cart.contract.CartPresenter
-import com.client.shop.ui.cart.contract.CartWidgetPresenter
 import com.nhaarman.mockito_kotlin.mock
+import com.shopapp.ui.cart.contract.CartPresenter
+import com.shopapp.ui.cart.contract.CartWidgetPresenter
 import dagger.Module
 import dagger.Provides
 
