@@ -212,7 +212,6 @@ class AuthRepositoryTest {
         observerCustomer.assertError(error)
     }
 
-
     @Test
     fun forgotPasswordShouldDelegateCallToApi() {
         val email = "test@test.com"
