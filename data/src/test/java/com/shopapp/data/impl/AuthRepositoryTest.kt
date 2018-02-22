@@ -30,10 +30,16 @@ class AuthRepositoryTest {
 
     private lateinit var repository: AuthRepository
 
+    private lateinit var observerCustomer: TestObserver<Customer>
+
+    private lateinit var observerUnit: TestObserver<Unit>
+
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
+        observerCustomer = TestObserver()
+        observerUnit = TestObserver()
     }
 
     @Test
@@ -44,26 +50,24 @@ class AuthRepositoryTest {
 
     @Test
     fun changePasswordShouldCompleteOnApiResult() {
-        val observer = TestObserver<Unit>()
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
         })
-        repository.changePassword("").subscribe(observer)
-        observer.assertComplete()
+        repository.changePassword("").subscribe(observerUnit)
+        observerUnit.assertComplete()
     }
 
     @Test
     fun changePasswordShouldErrorOnApiFailure() {
-        val observer = TestObserver<Unit>()
         val error = Error.Content()
         given(api.changePassword(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onFailure(error)
         })
 
-        repository.changePassword("").subscribe(observer)
-        observer.assertError(error)
+        repository.changePassword("").subscribe(observerUnit)
+        observerUnit.assertError(error)
     }
 
     @Test
@@ -76,26 +80,24 @@ class AuthRepositoryTest {
 
     @Test
     fun signInShouldCompleteOnApiResult() {
-    	val observer = TestObserver<Unit>()
         given(api.signIn(any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(2)
             callback.onResult(Unit)
         })
-        repository.signIn("", "").subscribe(observer)
-        observer.assertComplete()
+        repository.signIn("", "").subscribe(observerUnit)
+        observerUnit.assertComplete()
     }
 
     @Test
     fun signInShouldErrorOnApiFailure() {
         val error = Error.Content()
-        val observer = TestObserver<Unit>()
         given(api.signIn(any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(2)
             callback.onFailure(error)
         })
 
-        repository.signIn("", "").subscribe(observer)
-        observer.assertError(error)
+        repository.signIn("", "").subscribe(observerUnit)
+        observerUnit.assertError(error)
     }
 
     @Test
@@ -120,7 +122,6 @@ class AuthRepositoryTest {
 
     @Test
     fun signUpShouldCompleteOnApiResult() {
-        val observer = TestObserver<Unit>()
 
         given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(5)
@@ -133,14 +134,13 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(observer)
+        ).subscribe(observerUnit)
 
-        observer.assertComplete()
+        observerUnit.assertComplete()
     }
 
     @Test
     fun signUpShouldErrorOnApiFailure() {
-        val observer = TestObserver<Unit>()
         val error = Error.Content()
         given(api.signUp(any(), any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(5)
@@ -153,9 +153,9 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(observer)
+        ).subscribe(observerUnit)
 
-        observer.assertError(error)
+        observerUnit.assertError(error)
     }
 
     @Test
@@ -192,24 +192,22 @@ class AuthRepositoryTest {
 
     @Test
     fun editCustomerShouldCompleteOnApiResult() {
-        val observer = TestObserver<Customer>()
         given(api.editCustomerInfo(any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(3)
             callback.onResult(Unit)
         })
-        repository.editCustomer("name", "lastName", "123654789").subscribe(observer)
-        observer.assertComplete()
+        repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
+        observerCustomer.assertComplete()
     }
 
     @Test
     fun editCustomerShouldErrorOnApiFailure() {
         val error = Error.Content()
-        val observer = TestObserver<Customer>()
         given(api.editCustomerInfo(any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(3)
             callback.onFailure(error)
         })
-        repository.editCustomer("name", "lastName", "123654789").subscribe(observer)
-        observer.assertError(error)
+        repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
+        observerCustomer.assertError(error)
     }
 }
