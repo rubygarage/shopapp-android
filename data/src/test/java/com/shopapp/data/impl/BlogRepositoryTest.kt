@@ -47,6 +47,7 @@ class BlogRepositoryTest {
     private lateinit var articleObserver: TestObserver<Pair<Article, String>>
     private lateinit var articleListObserver: TestObserver<List<Article>>
     private lateinit var repository: BlogRepository
+
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
