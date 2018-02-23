@@ -1,0 +1,15 @@
+language: android
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - build-tools-26.0.2
+    - android-26
+
+notifications:
+  slack:
+    rooms:
+      - shopclientapp:EBh1k4fcosP8EYhbD1R0S2qm#android
+  email: false
+
