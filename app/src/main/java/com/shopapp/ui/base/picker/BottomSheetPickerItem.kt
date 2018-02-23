@@ -23,12 +23,10 @@ class BottomSheetPickerItem(context: Context) : FrameLayout(context) {
     fun bindData(data: String, selectedItemData: String?) {
         this.data = data
         titleView.text = data
-        selectedItemData?.let {
-            if (data == selectedItemData) {
-                setTextStyle(R.drawable.background_selected_picker_item, R.color.textColorPrimary)
-            } else {
-                setTextStyle(R.color.transparent, R.color.textColorSecondary)
-            }
+        if (data == selectedItemData) {
+            setTextStyle(R.drawable.background_selected_picker_item, R.color.textColorPrimary)
+        } else {
+            setTextStyle(R.color.transparent, R.color.textColorSecondary)
         }
     }
 

@@ -10,7 +10,6 @@ import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.details.OrderDetailsActivity
 import com.shopapp.ui.product.ProductDetailsActivity
 import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -18,6 +17,7 @@ import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

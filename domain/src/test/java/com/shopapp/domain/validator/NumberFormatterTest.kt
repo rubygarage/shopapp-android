@@ -1,7 +1,7 @@
 package com.shopapp.domain.validator
 
 import com.shopapp.domain.formatter.NumberFormatter
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal
 import java.util.*
