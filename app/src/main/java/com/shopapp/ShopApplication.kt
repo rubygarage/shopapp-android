@@ -29,13 +29,6 @@ open class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-//        val api = ShopifyApi(
-//            this,
-//            "guned.myshopify.com",
-//            "52cba0bfcddb2ad3158ef5fdd02d6097",
-//            "94d6c7429f787a5a9221f788d335c60c",
-//            "50379a5c87be476210d402b3adcddd6b"
-//        )
         val api = null
         val dao = DaoImpl(this)
 

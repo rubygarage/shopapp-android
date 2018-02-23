@@ -29,8 +29,8 @@ class HtmlUtilTest {
     @Test
     fun shouldAddStyleToAllImages() {
         val testedString = Reader.readFile("testImageHtml")!!
-        val expected = replaceCommandSymbols(Reader.readFile("resultImageHtml")!!)
-        val actual = replaceCommandSymbols(HtmlUtil.fitHtmlImages(testedString))
+        val expected = Reader.readFile("resultImageHtml")!!.replaceCommandSymbols()
+        val actual = HtmlUtil.fitHtmlImages(testedString).replaceCommandSymbols()
         assertEquals(expected, actual)
     }
 
@@ -50,6 +50,4 @@ class HtmlUtilTest {
         assertEquals(expected, actual)
     }
 
-    private fun replaceCommandSymbols(src: String) =
-        src.filter { it != ' ' && it != '\n' && it != '\r' }
 }
