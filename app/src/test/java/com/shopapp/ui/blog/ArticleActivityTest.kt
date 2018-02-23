@@ -10,6 +10,7 @@ import com.shopapp.TestShopApplication
 import com.shopapp.util.MockInstantiator
 import com.shopapp.util.ext.replaceCommandSymbols
 import kotlinx.android.synthetic.main.activity_article.*
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -19,14 +20,13 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
-import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class ArticleActivityTest {
 
-    private lateinit var activityController: ActivityController<ArticleActivity>
+    private lateinit var activity: ArticleActivity
     private lateinit var context: Context
 
     @Before
@@ -34,12 +34,11 @@ class ArticleActivityTest {
         context = RuntimeEnvironment.application.baseContext
         val intent = Intent(context, ArticleActivity::class.java)
         intent.putExtra(ArticleActivity.EXTRA_ARTICLE_ID, MockInstantiator.DEFAULT_ID)
-        activityController = Robolectric.buildActivity(ArticleActivity::class.java, intent)
+        activity = Robolectric.buildActivity(ArticleActivity::class.java, intent).create().get()
     }
 
     @Test
     fun shouldSetupWebViewOnCreate() {
-        val activity = activityController.create().get()
         with(activity.content.settings) {
             assertTrue(javaScriptEnabled)
             assertTrue(domStorageEnabled)
@@ -49,27 +48,23 @@ class ArticleActivityTest {
 
     @Test
     fun shouldGetArticleOnCreate() {
-        val activity = activityController.create().get()
         verify(activity.presenter).loadArticles(MockInstantiator.DEFAULT_ID)
     }
 
     @Test
     fun shouldShowArticleTitleOnShowContent() {
-        val activity = activityController.create().get()
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
         assertEquals(MockInstantiator.DEFAULT_TITLE, activity.articleTitle.text.toString())
     }
 
     @Test
     fun shouldShowArticleAuthorOnShowContent() {
-        val activity = activityController.create().get()
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
         assertEquals(MockInstantiator.DEFAULT_NAME, activity.author.text.toString())
     }
 
     @Test
     fun shouldShowArticleImage() {
-        val activity = activityController.create().get()
         val article = MockInstantiator.newArticle()
         activity.showContent(Pair(article, MockInstantiator.DEFAULT_URL))
         assertEquals(View.VISIBLE, activity.image.visibility)
@@ -77,7 +72,6 @@ class ArticleActivityTest {
 
     @Test
     fun shouldNotShowArticleImage() {
-        val activity = activityController.create().get()
         val article = MockInstantiator.newArticle()
         given(article.image?.src).willReturn(null)
         activity.showContent(Pair(article, MockInstantiator.DEFAULT_URL))
@@ -86,7 +80,6 @@ class ArticleActivityTest {
 
     @Test
     fun shouldShowContentInWebView() {
-        val activity = activityController.create().get()
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
         val webView = shadowOf(activity.content)
         val tmp = shadowOf(activity.mainLooper)
@@ -100,4 +93,8 @@ class ArticleActivityTest {
         assertEquals("UTF-8", webView.lastLoadDataWithBaseURL.encoding)
     }
 
+    @After
+    fun tearDown() {
+        activity.finish()
+    }
 }
