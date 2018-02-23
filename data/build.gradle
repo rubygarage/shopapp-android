@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -40,6 +41,7 @@ dependencies {
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.robolectric:multidex:3.4.2"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
 }
