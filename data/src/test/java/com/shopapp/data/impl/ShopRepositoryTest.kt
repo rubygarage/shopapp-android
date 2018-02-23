@@ -37,6 +37,7 @@ class ShopRepositoryTest {
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = ShopRepositoryImpl(api)
+        observerShop = TestObserver()
     }
 
     @Test

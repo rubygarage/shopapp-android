@@ -268,7 +268,7 @@ class AuthRepositoryTest {
     @Test
     fun updateAccountSettingsShouldErrorOnApiFailure() {
         val error = Error.Content()
-        given(api.forgotPassword(any(), any())).willAnswer({
+        given(api.updateCustomerSettings(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onFailure(error)
         })
@@ -276,7 +276,7 @@ class AuthRepositoryTest {
         repository.updateAccountSettings(true).subscribe(observerBoolean)
         observerBoolean.assertError(error)
     }
-    
+
     @Test
     fun isLoggedCheckShouldDelegateCallToApi() {
         repository.isLoggedIn().subscribe()
