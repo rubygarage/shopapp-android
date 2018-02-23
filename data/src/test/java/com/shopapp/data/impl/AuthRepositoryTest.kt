@@ -1,15 +1,15 @@
 package com.shopapp.data.impl
 
-import com.shopapp.gateway.Api
-import com.shopapp.gateway.ApiCallback
-import com.shopapp.gateway.entity.Error
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.data.RxImmediateSchedulerRule
 import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.ApiCallback
 import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Error
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
@@ -35,12 +35,15 @@ class AuthRepositoryTest {
 
     private lateinit var observerUnit: TestObserver<Unit>
 
+    private lateinit var observerBoolean: TestObserver<Boolean>
+
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
         observerCustomer = TestObserver()
         observerUnit = TestObserver()
+        observerBoolean = TestObserver()
     }
 
     @Test
@@ -212,7 +215,6 @@ class AuthRepositoryTest {
         observerCustomer.assertError(error)
     }
 
-
     @Test
     fun forgotPasswordShouldDelegateCallToApi() {
         val email = "test@test.com"
@@ -245,5 +247,34 @@ class AuthRepositoryTest {
 
         repository.forgotPassword(email).subscribe(observer)
         observer.assertError(error)
+    }
+
+    @Test
+    fun updateAccountSettingsShouldDelegateCallToApi() {
+        repository.updateAccountSettings(true).subscribe()
+        verify(api).updateCustomerSettings(eq(true), any())
+    }
+
+    @Test
+    fun updateAccountSettingsShouldCompleteOnApiResult() {
+        given(api.updateCustomerSettings(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onResult(Unit)
+        })
+
+        repository.updateAccountSettings(true).subscribe(observerBoolean)
+        observerBoolean.assertComplete()
+    }
+
+    @Test
+    fun updateAccountSettingsShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.forgotPassword(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onFailure(error)
+        })
+
+        repository.updateAccountSettings(true).subscribe(observerBoolean)
+        observerBoolean.assertError(error)
     }
 }
