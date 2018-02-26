@@ -29,12 +29,12 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class BlogFragmentTest {
 
-    private lateinit var fragment: BlogFragment
-    private lateinit var context: Context
-
     companion object {
         private const val DECORATOR_COUNT = 1
     }
+
+    private lateinit var fragment: BlogFragment
+    private lateinit var context: Context
 
     @Before
     fun setUp() {
@@ -85,8 +85,8 @@ class BlogFragmentTest {
         val listener: FragmentVisibilityListener = mock()
         fragment.visibilityListener = listener
 
-        val size = 5
-        val articleList = MockInstantiator.newList(MockInstantiator.newArticle(), size)
+        val articlesCount = 5
+        val articleList = MockInstantiator.newList(MockInstantiator.newArticle(), articlesCount)
         fragment.showContent(articleList)
         verify(listener).changeVisibility(true)
 

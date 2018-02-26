@@ -29,5 +29,4 @@ class ArticleListUseCaseTest {
         useCase.buildUseCaseSingle(ArticleListUseCase.Params(1, null))
         verify(blogRepository).getArticleList(1, null, SortType.RECENT, true)
     }
-
 }

@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_order_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -21,7 +22,6 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
-
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -49,23 +49,22 @@ class BlogActivityTest {
 
     @Test
     fun shouldShowContentView() {
-        val size = 5
-        val articleList = MockInstantiator.newList(MockInstantiator.newArticle(), size)
+        val articleCount = 5
+        val articleList = MockInstantiator.newList(MockInstantiator.newArticle(), articleCount)
         activity.showContent(articleList)
         assertEquals(View.GONE, activity.emptyView.visibility)
         assertEquals(false, activity.swipeRefreshLayout.isRefreshing)
-        assertEquals(size, activity.recyclerView.adapter.itemCount)
+        assertEquals(articleCount, activity.recyclerView.adapter.itemCount)
     }
 
     @Test
     fun shouldDoNothingIfDataIsEmpty() {
-        val size = 0
+        val articleCount = 0
         activity.showContent(emptyList())
         assertEquals(View.GONE, activity.emptyView.visibility)
         assertEquals(false, activity.swipeRefreshLayout.isRefreshing)
         assertEquals(View.VISIBLE, activity.contentView.visibility)
-        assertEquals(size, activity.recyclerView.adapter.itemCount)
-
+        assertEquals(articleCount, activity.recyclerView.adapter.itemCount)
     }
 
     @Test
@@ -78,4 +77,8 @@ class BlogActivityTest {
         assertEquals(ArticleActivity::class.java, shadowIntent.intentClass)
     }
 
+    @After
+    fun tearDown() {
+        activity.finish()
+    }
 }

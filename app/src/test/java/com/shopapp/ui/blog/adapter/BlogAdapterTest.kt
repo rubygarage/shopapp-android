@@ -57,5 +57,4 @@ class BlogAdapterTest {
         adapter.bindData(itemView, article, 0)
         verify(itemView).setArticle(article)
     }
-
 }
