@@ -32,8 +32,7 @@ class ArticleActivityTest {
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
-        val intent = Intent(context, ArticleActivity::class.java)
-        intent.putExtra(ArticleActivity.EXTRA_ARTICLE_ID, MockInstantiator.DEFAULT_ID)
+        val intent = ArticleActivity.getStartIntent(context, MockInstantiator.DEFAULT_ID)
         activity = Robolectric.buildActivity(ArticleActivity::class.java, intent).create().get()
     }
 
