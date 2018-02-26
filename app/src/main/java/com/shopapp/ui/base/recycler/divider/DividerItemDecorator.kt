@@ -1,4 +1,4 @@
-package com.shopapp.ui.custom
+package com.shopapp.ui.base.recycler.divider
 
 import android.content.Context
 import android.graphics.Canvas

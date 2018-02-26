@@ -4,8 +4,8 @@ import android.content.Context
 import com.shopapp.domain.formatter.DateFormatter
 import com.shopapp.R
 import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.view_order_title.view.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

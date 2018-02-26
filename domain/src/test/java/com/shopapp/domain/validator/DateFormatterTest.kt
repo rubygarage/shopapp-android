@@ -1,7 +1,7 @@
 package com.shopapp.domain.validator
 
 import com.shopapp.domain.formatter.DateFormatter
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner

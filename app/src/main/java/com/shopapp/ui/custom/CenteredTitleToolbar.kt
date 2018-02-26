@@ -1,4 +1,4 @@
-package com.shopapp.ui.base
+package com.shopapp.ui.custom
 
 import android.content.Context
 import android.support.v7.widget.Toolbar
@@ -7,7 +7,7 @@ import android.view.View
 import com.shopapp.R
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 
-class BaseToolbar @JvmOverloads constructor(
+class CenteredTitleToolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : Toolbar(context, attrs, defStyleAttr) {
 

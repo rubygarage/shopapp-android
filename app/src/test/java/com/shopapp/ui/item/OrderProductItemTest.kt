@@ -7,8 +7,8 @@ import com.shopapp.domain.formatter.NumberFormatter
 import com.nhaarman.mockito_kotlin.given
 import com.shopapp.R
 import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.item_order_product.view.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
