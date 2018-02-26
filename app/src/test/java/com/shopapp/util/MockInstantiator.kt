@@ -27,6 +27,9 @@ object MockInstantiator {
     const val DEFAULT_LAST_NAME = "default_last_name"
     const val DEFAULT_ZIP = "default_zip"
     const val DEFAULT_PHONE = "default_phone"
+    const val DEFAULT_BIO = "default_bio"
+    const val DEFAULT_CONTENT_HTML = "<html><head></head><body>default_content_html</body></html>"
+    const val DEFAULT_URL = "default_url"
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
@@ -101,5 +104,34 @@ object MockInstantiator {
         on { lastName } doReturn DEFAULT_LAST_NAME
         on { zip } doReturn DEFAULT_ZIP
         on { phone } doReturn DEFAULT_PHONE
+    }
+
+    fun newArticle(): Article = mock {
+
+        val imageMock = newImage()
+        val authorMock = newAuthor()
+        val tagsMock: List<String> = mock()
+
+        on { id } doReturn DEFAULT_ID
+        on { title } doReturn DEFAULT_TITLE
+        on { content } doReturn DEFAULT_DESCRIPTION
+        on { contentHTML } doReturn DEFAULT_CONTENT_HTML
+        on { image } doReturn imageMock
+        on { author } doReturn authorMock
+        on { tags } doReturn tagsMock
+        on { blogId } doReturn DEFAULT_ID
+        on { blogTitle } doReturn DEFAULT_TITLE
+        on { publishedAt } doReturn DEFAULT_DATE
+        on { url } doReturn DEFAULT_URL
+        on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
+
+    }
+
+    fun newAuthor(): Author = mock {
+        on { firstName } doReturn DEFAULT_NAME
+        on { lastName } doReturn DEFAULT_NAME
+        on { fullName } doReturn DEFAULT_NAME
+        on { email } doReturn DEFAULT_EMAIL
+        on { bio } doReturn DEFAULT_BIO
     }
 }

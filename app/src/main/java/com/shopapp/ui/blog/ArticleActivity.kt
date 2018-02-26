@@ -32,7 +32,7 @@ class ArticleActivity :
     private var shareMenuItem: MenuItem? = null
 
     companion object {
-        private const val EXTRA_ARTICLE_ID = "extra_article_id"
+        const val EXTRA_ARTICLE_ID = "extra_article_id"
         private const val FRAME_HEIGHT_MULTIPLIER = 0.66
 
         fun getStartIntent(context: Context, articleId: String): Intent {

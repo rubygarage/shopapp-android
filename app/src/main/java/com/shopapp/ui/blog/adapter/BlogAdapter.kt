@@ -10,7 +10,9 @@ import com.shopapp.ui.item.ArticleItem
 class BlogAdapter(dataList: List<Article>, onItemClickListener: OnItemClickListener) :
     BaseRecyclerAdapter<Article>(dataList, onItemClickListener) {
 
-    override fun getItemView(context: Context, viewType: Int) = ArticleItem(context)
+    override fun getItemView(context: Context, viewType: Int): View {
+        return ArticleItem(context)
+    }
 
     override fun bindData(itemView: View, data: Article, position: Int) {
         if (itemView is ArticleItem) {
