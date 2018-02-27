@@ -1,28 +1,28 @@
 package com.shopapp.ui.product.contract
 
+import com.shopapp.R
+import com.shopapp.domain.interactor.cart.CartAddItemUseCase
+import com.shopapp.domain.interactor.product.ProductDetailsUseCase
 import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.ProductVariant
-import com.shopapp.domain.interactor.details.DetailsCartUseCase
-import com.shopapp.domain.interactor.details.DetailsProductUseCase
-import com.shopapp.R
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface DetailsView : BaseLceView<Product> {
+interface ProductDetailsView : BaseLceView<Product> {
 
     fun productAddedToCart()
 }
 
-class DetailsPresenter @Inject constructor(
-    private val detailsProductUseCase: DetailsProductUseCase,
-    private val cartUseCase: DetailsCartUseCase
-) : BaseLcePresenter<Product, DetailsView>(detailsProductUseCase, cartUseCase) {
+class ProductDetailsPresenter @Inject constructor(
+    private val productDetailsUseCase: ProductDetailsUseCase,
+    private val cartAddItemUseCase: CartAddItemUseCase
+) : BaseLcePresenter<Product, ProductDetailsView>(productDetailsUseCase, cartAddItemUseCase) {
 
     fun loadProductDetails(productId: String) {
 
-        detailsProductUseCase.execute(
+        productDetailsUseCase.execute(
             { view?.showContent(it) },
             { resolveError(it) },
             productId
@@ -41,7 +41,7 @@ class DetailsPresenter @Inject constructor(
             view?.showMessage(R.string.quantity_warning_message)
         } else {
             val cartProduct = CartProduct(productVariant, productTitle, currency, quantity)
-            cartUseCase.execute(
+            cartAddItemUseCase.execute(
                 { view?.productAddedToCart() },
                 { resolveError(it) },
                 cartProduct

@@ -4,10 +4,10 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
+import com.shopapp.R
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.gateway.entity.VariantOption
-import com.shopapp.R
 
 
 class OptionsGroupContainer @JvmOverloads constructor(
@@ -41,7 +41,9 @@ class OptionsGroupContainer @JvmOverloads constructor(
 
         for (productOption in product.options) {
             val optionItem = OptionsContainer(context)
-            val preselectedOption = preselectedVariant?.selectedOptions?.find { it.name == productOption.name }
+            val preselectedOption = preselectedVariant?.selectedOptions?.find {
+                it.name == productOption.name
+            }
             optionItem.setProductOption(productOption, preselectedOption)
             optionItem.onSelectOptionListener = object : OptionsContainer.OnSelectOptionListener {
                 override fun onOptionsSelected() {

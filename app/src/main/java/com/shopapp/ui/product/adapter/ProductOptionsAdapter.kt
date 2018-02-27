@@ -5,12 +5,12 @@ import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.View
 import android.widget.TextView
-import com.shopapp.gateway.entity.VariantOption
 import com.shopapp.R
+import com.shopapp.gateway.entity.VariantOption
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 
-class OptionsAdapter(
+class ProductOptionsAdapter(
     defaultVariantOption: VariantOption,
     dataList: List<String>,
     onItemClickListener: OnItemClickListener
