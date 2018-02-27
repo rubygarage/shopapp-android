@@ -239,4 +239,10 @@ object MockInstantiator {
         on { expireYear } doReturn DEFAULT_YEAR
         on { verificationCode } doReturn DEFAULT_CVV
     }
+
+    fun newPolicy(): Policy = mock {
+        on { title } doReturn DEFAULT_TITLE
+        on { body } doReturn DEFAULT_DESCRIPTION
+        on { url } doReturn DEFAULT_URL
+    }
 }
