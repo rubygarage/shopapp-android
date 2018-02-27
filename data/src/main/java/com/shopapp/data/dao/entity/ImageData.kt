@@ -1,6 +1,5 @@
 package com.shopapp.data.dao.entity
 
-import com.shopapp.gateway.entity.ProductVariant
 import io.requery.Entity
 import io.requery.Key
 import io.requery.OneToOne
@@ -15,5 +14,5 @@ interface ImageData : Persistable {
     var alt: String
 
     @get:OneToOne
-    var product: ProductVariant
+    var productVariant: ProductVariantData
 }
