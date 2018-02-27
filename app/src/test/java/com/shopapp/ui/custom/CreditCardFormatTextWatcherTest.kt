@@ -13,7 +13,7 @@ import org.robolectric.annotation.Config
 class CreditCardFormatTextWatcherTest {
 
     @Test
-    fun shouldFormatTextCorrectly() {
+    fun shouldAddSpacesToText() {
 
         val padding = 5
         val formatter = CreditCardFormatTextWatcher(padding)
