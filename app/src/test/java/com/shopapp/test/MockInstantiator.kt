@@ -176,6 +176,15 @@ object MockInstantiator {
         on { bio } doReturn DEFAULT_BIO
     }
 
+    fun newCartProduct(): CartProduct = mock {
+        val productVariantMock = newProductVariant()
+
+        on { title } doReturn DEFAULT_TITLE
+        on { productVariant } doReturn productVariantMock
+        on { quantity } doReturn DEFAULT_QUANTITY
+        on { currency } doReturn DEFAULT_CURRENCY
+    }
+    
     fun newCustomer(): Customer = mock {
 
         val addressesMock = newList(newAddress(), 5)
