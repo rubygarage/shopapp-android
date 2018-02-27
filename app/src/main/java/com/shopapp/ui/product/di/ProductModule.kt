@@ -12,7 +12,7 @@ import dagger.Provides
 class ProductModule {
 
     @Provides
-    fun provideBlogPresenter(productDetailsUseCase: ProductDetailsUseCase, cartAddItemUseCase: CartAddItemUseCase): ProductDetailsPresenter {
+    fun provideProductDetailsPresenter(productDetailsUseCase: ProductDetailsUseCase, cartAddItemUseCase: CartAddItemUseCase): ProductDetailsPresenter {
         return ProductDetailsPresenter(productDetailsUseCase, cartAddItemUseCase)
     }
 

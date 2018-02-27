@@ -13,7 +13,7 @@ import dagger.Provides
 class TestProductModule {
 
     @Provides
-    fun provideBlogPresenter(
+    fun provideProductDetailsPresenter(
         productDetailsUseCase: ProductDetailsUseCase,
         cartAddItemUseCase: CartAddItemUseCase
     ): ProductDetailsPresenter = mock()

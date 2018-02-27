@@ -11,6 +11,7 @@ import com.shopapp.util.MockInstantiator
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_product_details.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -79,5 +80,10 @@ class ProductDetailsActivityTest {
         activity.quantityEditText.setText(quantity.toString())
         activity.cartButton.performClick()
         verify(activity.presenter).addProductToCart(productVariant, data.title, data.currency, quantity.toString())
+    }
+
+    @After
+    fun tearDown() {
+        activity.finish()
     }
 }
