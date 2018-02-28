@@ -7,7 +7,7 @@ import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ui.base.pagination.PaginationFragment
 import com.shopapp.ui.category.CategoryActivity
-import com.shopapp.ui.home.adapter.CategoriesAdapter
+import com.shopapp.ui.category.adapter.CategoryGridAdapter
 import com.shopapp.ui.search.contract.CategoryListPresenter
 import com.shopapp.ui.search.contract.CategoryListView
 import javax.inject.Inject
@@ -40,7 +40,7 @@ class CategoryListFragment :
 
     override fun isGrid() = true
 
-    override fun setupAdapter() = CategoriesAdapter(dataList, this)
+    override fun setupAdapter() = CategoryGridAdapter(dataList, this)
 
     //LCE
 
