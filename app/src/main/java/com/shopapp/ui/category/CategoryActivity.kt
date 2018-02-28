@@ -7,11 +7,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import com.shopapp.R
+import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Category
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.SortType
-import com.shopapp.R
-import com.shopapp.ShopApplication
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.category.contract.CategoryPresenter
@@ -145,14 +145,9 @@ class CategoryActivity :
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-        if (data.isNotEmpty()) {
-            paginationValue = data.last().paginationValue
-            this.dataList.addAll(data)
-            adapter.notifyDataSetChanged()
-        }
-        if (dataList.isEmpty()) {
-            showEmptyState()
-        }
+        paginationValue = data.last().paginationValue
+        this.dataList.addAll(data)
+        adapter.notifyDataSetChanged()
     }
 
     //CALLBACK

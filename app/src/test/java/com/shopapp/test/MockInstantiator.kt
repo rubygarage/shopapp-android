@@ -12,6 +12,7 @@ object MockInstantiator {
     const val DEFAULT_CURRENCY = "USD"
     const val DEFAULT_EMAIL = "default@mail.com"
     const val DEFAULT_ORDER_NUMBER = 5
+    const val DEFAULT_LIST_SIZE = 5
     const val DEFAULT_PAGINATION_VALUE = "default_pagination_value"
     const val DEFAULT_TITLE = "default_title"
     const val DEFAULT_QUANTITY = 5
@@ -49,7 +50,7 @@ object MockInstantiator {
 
     fun newOrder(): Order = mock {
 
-        val orderProductListMock = newList(newOrderProduct(), 5)
+        val orderProductListMock = newList(newOrderProduct(), DEFAULT_LIST_SIZE)
         val addressMock = newAddress()
 
         on { id } doReturn DEFAULT_ID
@@ -214,6 +215,50 @@ object MockInstantiator {
         on { currency } doReturn DEFAULT_CURRENCY
         on { address } doReturn addressMock
         on { shippingRate } doReturn shippingRateMock
+    }
+
+    fun newCategory(): Category = mock {
+        val imageMock = newImage()
+        val productListMock = newList(newProduct(), DEFAULT_LIST_SIZE)
+
+        on { id } doReturn DEFAULT_ID
+        on { title } doReturn DEFAULT_TITLE
+        on { categoryDescription } doReturn DEFAULT_DESCRIPTION
+        on { additionalDescription } doReturn DEFAULT_DESCRIPTION
+        on { image } doReturn imageMock
+        on { updatedAt } doReturn DEFAULT_DATE
+        on { productList } doReturn productListMock
+        on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
+    }
+
+    fun newProductOption(): ProductOption = mock {
+        on { id } doReturn DEFAULT_ID
+        on { name } doReturn DEFAULT_NAME
+        on { values } doReturn listOf(DEFAULT_VALUE)
+    }
+
+    fun newProduct(): Product = mock {
+
+        val imagesMock = newList(newImage(), 5)
+        val optionsMock = newList(newProductOption(), 5)
+        val variantsMock = newList(newProductVariant(), 5)
+
+        on { id } doReturn DEFAULT_ID
+        on { title } doReturn DEFAULT_TITLE
+        on { productDescription } doReturn DEFAULT_DESCRIPTION
+        on { additionalDescription } doReturn DEFAULT_DESCRIPTION
+        on { currency } doReturn DEFAULT_CURRENCY
+        on { price } doReturn DEFAULT_PRICE
+        on { hasAlternativePrice } doReturn true
+        on { discount } doReturn ""
+        on { vendor } doReturn DEFAULT_VENDOR
+        on { type } doReturn DEFAULT_TYPE
+        on { createdAt } doReturn DEFAULT_DATE
+        on { updatedAt } doReturn DEFAULT_DATE
+        on { tags } doReturn listOf<String>()
+        on { images } doReturn imagesMock
+        on { options } doReturn optionsMock
+        on { variants } doReturn variantsMock
     }
 
     fun newCard(): Card = mock {
