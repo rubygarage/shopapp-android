@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 import org.robolectric.annotation.Config
 
@@ -38,7 +37,6 @@ class CategoryRepositoryTest {
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         repository = CategoryRepositoryImpl(api)
     }
 
