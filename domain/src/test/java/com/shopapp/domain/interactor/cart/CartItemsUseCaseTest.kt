@@ -7,16 +7,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class CartItemsUseCaseTest {
-
-    private lateinit var useCase: CartItemsUseCase
 
     @Mock
     private lateinit var cartRepository: CartRepository
+
+    private lateinit var useCase: CartItemsUseCase
 
     @Before
     fun setUpTest() {
@@ -26,6 +24,7 @@ class CartItemsUseCaseTest {
     @Test
     fun shouldDelegateCallToRepository() {
         useCase.buildUseCaseObservable(Unit)
+
         verify(cartRepository).getCartProductList()
     }
 }

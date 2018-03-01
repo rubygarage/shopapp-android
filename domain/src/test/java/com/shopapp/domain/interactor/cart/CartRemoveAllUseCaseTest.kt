@@ -7,16 +7,14 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class CartRemoveAllUseCaseTest {
-
-    private lateinit var useCase: CartRemoveAllUseCase
 
     @Mock
     private lateinit var cartRepository: CartRepository
+
+    private lateinit var useCase: CartRemoveAllUseCase
 
     @Before
     fun setUpTest() {
@@ -26,6 +24,7 @@ class CartRemoveAllUseCaseTest {
     @Test
     fun shouldDelegateCallToRepository() {
         useCase.buildUseCaseCompletable(Unit)
+
         verify(cartRepository).deleteAllProductsFromCart()
     }
 }
