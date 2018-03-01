@@ -18,12 +18,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
+import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@RunWith(MockitoJUnitRunner.Silent::class)
 class ProductDetailsPresenterTest {
 
     @Rule
@@ -46,7 +43,6 @@ class ProductDetailsPresenterTest {
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         presenter = ProductDetailsPresenter(productDetailsUseCase, cartAddItemUseCase)
         presenter.attachView(view)
         productDetailsUseCase.mock()

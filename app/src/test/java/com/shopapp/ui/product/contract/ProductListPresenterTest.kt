@@ -17,12 +17,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
+import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@RunWith(MockitoJUnitRunner.Silent::class)
 class ProductListPresenterTest {
 
     companion object {
@@ -48,7 +45,6 @@ class ProductListPresenterTest {
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         presenter = ProductListPresenter(useCase)
         presenter.attachView(view)
         useCase.mock()
