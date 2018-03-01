@@ -36,7 +36,7 @@ kapt {
 
 jacocoAndroidUnitTestReport {
     csv.enabled false
-    html.enabled true
+    html.enabled false
     xml.enabled true
 }
 
@@ -99,8 +99,6 @@ project.afterEvaluate {
         ]
 
         def excludes = defaultExcludes + additionalExcludes
-
-        println("${buildDir}/tmp/kotlin-classes/${realVariantName}")
 
         def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${realVariantName}", excludes: excludes)
 
