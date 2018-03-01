@@ -1,17 +1,14 @@
 package com.shopapp.domain.interactor.account
 
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.interactor.account.EditCustomerUseCase
 import com.shopapp.domain.repository.AuthRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class EditCustomerUseCaseTest {
 
     private lateinit var useCase: EditCustomerUseCase

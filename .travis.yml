@@ -13,3 +13,9 @@ notifications:
       - shopclientapp:EBh1k4fcosP8EYhbD1R0S2qm#android
   email: false
 
+script:
+  - ./gradlew build jacocoTestReport connectedCheck
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+

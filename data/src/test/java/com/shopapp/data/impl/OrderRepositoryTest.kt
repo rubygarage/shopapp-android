@@ -18,10 +18,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class OrderRepositoryTest {
 
     companion object {
