@@ -5,11 +5,11 @@ import android.view.View
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.details.OrderDetailsActivity
 import com.shopapp.ui.product.ProductDetailsActivity
-import com.shopapp.util.MockInstantiator
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_list.*
 import kotlinx.android.synthetic.main.layout_lce.*

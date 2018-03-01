@@ -3,7 +3,7 @@ package com.shopapp.ui.item
 import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.given
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_article.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before

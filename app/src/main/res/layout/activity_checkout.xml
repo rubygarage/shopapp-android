@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/myCartView" />
 
-            <com.shopapp.ui.checkout.shipping.ShippingAddressView
+            <com.shopapp.ui.checkout.view.CheckoutShippingAddressView
                 android:id="@+id/shippingAddressView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

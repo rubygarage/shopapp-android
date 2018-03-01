@@ -9,8 +9,8 @@ import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Order
 import com.shopapp.ui.order.list.contract.OrderListPresenter
 import com.shopapp.ui.order.list.contract.OrderListView
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mock
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before

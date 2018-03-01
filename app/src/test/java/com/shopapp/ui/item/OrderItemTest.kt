@@ -4,7 +4,7 @@ import android.content.Context
 import com.shopapp.R
 import com.shopapp.domain.formatter.DateFormatter
 import com.shopapp.domain.formatter.NumberFormatter
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_order.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before

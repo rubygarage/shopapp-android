@@ -1,4 +1,4 @@
-package com.shopapp.util
+package com.shopapp.test
 
 import java.io.BufferedReader
 import java.io.IOException

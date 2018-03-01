@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.given
 import com.shopapp.R
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_address_content.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before

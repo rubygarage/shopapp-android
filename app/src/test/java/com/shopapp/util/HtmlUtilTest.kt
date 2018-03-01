@@ -1,6 +1,7 @@
 package com.shopapp.util
 
-import com.shopapp.util.ext.replaceCommandSymbols
+import com.shopapp.test.Reader
+import com.shopapp.test.ext.replaceCommandSymbols
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 

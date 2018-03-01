@@ -1,15 +1,15 @@
-package com.shopapp.ui.checkout.shipping
+package com.shopapp.ui.checkout.view
 
 import android.content.Context
 import android.graphics.Color
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
+import com.shopapp.gateway.entity.Address
 import kotlinx.android.synthetic.main.view_shipping_address.view.*
 
-class ShippingAddressView @JvmOverloads constructor(
+class CheckoutShippingAddressView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0

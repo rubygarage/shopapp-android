@@ -11,8 +11,8 @@ import com.shopapp.domain.interactor.account.SignOutUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Shop
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mock
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.After
