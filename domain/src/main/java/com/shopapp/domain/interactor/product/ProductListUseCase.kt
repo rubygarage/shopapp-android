@@ -1,9 +1,9 @@
-package com.shopapp.domain.interactor.recent
+package com.shopapp.domain.interactor.product
 
-import com.shopapp.gateway.entity.Product
-import com.shopapp.gateway.entity.SortType
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.ProductRepository
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
 import io.reactivex.Single
 import javax.inject.Inject
 

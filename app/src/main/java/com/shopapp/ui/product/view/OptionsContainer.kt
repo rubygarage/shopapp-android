@@ -5,12 +5,12 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.View
+import com.shopapp.R
 import com.shopapp.gateway.entity.ProductOption
 import com.shopapp.gateway.entity.VariantOption
-import com.shopapp.R
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.SpaceDecoration
-import com.shopapp.ui.product.adapter.OptionsAdapter
+import com.shopapp.ui.product.adapter.ProductOptionsAdapter
 import kotlinx.android.synthetic.main.container_options.view.*
 
 class OptionsContainer @JvmOverloads constructor(
@@ -22,7 +22,7 @@ class OptionsContainer @JvmOverloads constructor(
     OnItemClickListener {
 
     private var selectedVariantOptions: VariantOption? = null
-    private var adapter: OptionsAdapter? = null
+    private var adapter: ProductOptionsAdapter? = null
     private var productOption: ProductOption? = null
     var onSelectOptionListener: OnSelectOptionListener? = null
 
@@ -36,7 +36,7 @@ class OptionsContainer @JvmOverloads constructor(
         titleText.text = context.getString(R.string.product_option_title_pattern, productOption.name)
         val defaultVariant = preselectedOption
                 ?: VariantOption(productOption.name, productOption.values.first())
-        adapter = OptionsAdapter(defaultVariant, productOption.values, this)
+        adapter = ProductOptionsAdapter(defaultVariant, productOption.values, this)
         val decorator = SpaceDecoration(
             leftSpace = resources.getDimensionPixelSize(R.dimen.variant_margin),
             skipFirst = true

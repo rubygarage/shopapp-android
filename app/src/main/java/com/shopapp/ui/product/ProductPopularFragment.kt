@@ -1,26 +1,25 @@
-package com.shopapp.ui.popular
+package com.shopapp.ui.product
 
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.view.Gravity
 import android.view.View
-import com.shopapp.gateway.entity.Product
-import com.shopapp.gateway.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.base.lce.BaseLceFragment
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.GridSpaceDecoration
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
-import com.shopapp.ui.product.ProductDetailsActivity
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.contract.ProductListView
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 
-class PopularFragment :
+class ProductPopularFragment :
     BaseLceFragment<List<Product>, ProductListView, ProductListPresenter>(),
     ProductListView,
     OnItemClickListener {
@@ -46,7 +45,7 @@ class PopularFragment :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachPopularComponent().inject(this)
+        ShopApplication.appComponent.attachProductComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_popular

@@ -11,10 +11,7 @@ import com.shopapp.ui.category.di.CategoryComponent
 import com.shopapp.ui.checkout.di.CheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.CardPaymentComponent
 import com.shopapp.ui.order.di.TestOrderComponent
-import com.shopapp.ui.popular.di.TestPopularComponent
-import com.shopapp.ui.product.di.ProductDetailsComponent
-import com.shopapp.ui.product.di.TestProductHorizontalComponent
-import com.shopapp.ui.product.di.ProductListComponent
+import com.shopapp.ui.product.di.TestProductComponent
 import com.shopapp.ui.search.di.SearchComponent
 import dagger.Component
 import javax.inject.Singleton
@@ -25,15 +22,9 @@ interface TestAppComponent : AppComponent {
 
     override fun attachBlogComponent(): TestBlogComponent
 
-    override fun attachDetailsComponent(): ProductDetailsComponent
-
     override fun attachSearchComponent(): SearchComponent
 
-    override fun attachProductComponent(): ProductListComponent
-
-    override fun attachRecentComponent(): TestProductHorizontalComponent
-
-    override fun attachPopularComponent(): TestPopularComponent
+    override fun attachProductComponent(): TestProductComponent
 
     override fun attachCategoryComponent(): CategoryComponent
 

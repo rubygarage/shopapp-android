@@ -10,7 +10,7 @@ import com.shopapp.R
 import com.shopapp.ext.replaceOnce
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.blog.BlogFragment
-import com.shopapp.ui.popular.PopularFragment
+import com.shopapp.ui.product.ProductPopularFragment
 import com.shopapp.ui.product.ProductHorizontalFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -19,7 +19,7 @@ class HomeFragment :
     SwipeRefreshLayout.OnRefreshListener {
 
     private var productHorizontalFragment: ProductHorizontalFragment? = null
-    private var popularFragment: PopularFragment? = null
+    private var popularFragment: ProductPopularFragment? = null
     private var blogFragment: BlogFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,9 +52,9 @@ class HomeFragment :
                 }
                 fragment
             }).commit()
-        childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name,
+        childFragmentManager.replaceOnce(R.id.popularContainer, ProductPopularFragment::javaClass.name,
             {
-                val fragment = PopularFragment()
+                val fragment = ProductPopularFragment()
                 popularFragment = fragment
                 popularFragment?.visibilityListener = object : FragmentVisibilityListener {
                     override fun changeVisibility(isVisible: Boolean) {

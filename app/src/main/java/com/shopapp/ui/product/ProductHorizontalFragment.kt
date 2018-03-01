@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
-import com.shopapp.gateway.entity.Product
-import com.shopapp.gateway.entity.SortType
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.base.lce.BaseLceFragment
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.SpaceDecoration
@@ -27,9 +27,9 @@ class ProductHorizontalFragment :
 
     companion object {
 
-        private const val SORT_TYPE = "sort_type"
-        private const val KEYWORD = "keyword"
-        private const val EXCLUDE_KEYWORD = "exclude_keyword"
+        const val SORT_TYPE = "sort_type"
+        const val KEYWORD = "keyword"
+        const val EXCLUDE_KEYWORD = "exclude_keyword"
 
         fun newInstance(
             sortType: SortType,
@@ -80,7 +80,7 @@ class ProductHorizontalFragment :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachRecentComponent().inject(this)
+        ShopApplication.appComponent.attachProductComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.fragment_recent

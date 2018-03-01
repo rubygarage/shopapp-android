@@ -2,7 +2,7 @@ package com.shopapp.ui.product.contract
 
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.SortType
-import com.shopapp.domain.interactor.recent.ProductListUseCase
+import com.shopapp.domain.interactor.product.ProductListUseCase
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject

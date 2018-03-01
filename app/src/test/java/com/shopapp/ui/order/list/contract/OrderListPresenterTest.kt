@@ -1,12 +1,12 @@
 package com.shopapp.ui.order.list.contract
 
-import com.shopapp.gateway.entity.Error
-import com.shopapp.gateway.entity.Order
-import com.shopapp.domain.interactor.order.OrderListUseCase
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
+import com.shopapp.domain.interactor.order.OrderListUseCase
+import com.shopapp.gateway.entity.Error
+import com.shopapp.gateway.entity.Order
 import com.shopapp.util.RxImmediateSchedulerRule
 import com.shopapp.util.ext.mock
 import io.reactivex.Single
@@ -48,11 +48,6 @@ class OrderListPresenterTest {
         useCase.mock()
     }
 
-    @After
-    fun tearDown() {
-        presenter.detachView(false)
-    }
-
     @Test
     fun shouldShowContentOnSingleSuccess() {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
@@ -83,4 +78,8 @@ class OrderListPresenterTest {
         inOrder.verify(view).showError(false)
     }
 
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
+    }
 }

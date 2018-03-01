@@ -1,8 +1,8 @@
 package com.shopapp.util
 
-import com.shopapp.gateway.entity.*
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
+import com.shopapp.gateway.entity.*
 import java.math.BigDecimal
 import java.util.*
 
@@ -30,6 +30,8 @@ object MockInstantiator {
     const val DEFAULT_BIO = "default_bio"
     const val DEFAULT_CONTENT_HTML = "<html><head></head><body>default_content_html</body></html>"
     const val DEFAULT_URL = "default_url"
+    const val DEFAULT_VENDOR = "default_vendor"
+    const val DEFAULT_TYPE = "default_type"
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
@@ -85,6 +87,46 @@ object MockInstantiator {
     fun newVariantOption(): VariantOption = mock {
         on { name } doReturn DEFAULT_NAME
         on { value } doReturn DEFAULT_VALUE
+    }
+
+    fun newProductOption(): ProductOption = mock {
+        on { id } doReturn DEFAULT_ID
+        on { name } doReturn DEFAULT_NAME
+        on { values } doReturn listOf(DEFAULT_VALUE)
+    }
+
+    fun newCartProduct(): CartProduct = mock {
+
+        val productVariantMock = newProductVariant()
+
+        on { productVariant } doReturn productVariantMock
+        on { title } doReturn DEFAULT_TITLE
+        on { currency } doReturn DEFAULT_CURRENCY
+        on { quantity } doReturn DEFAULT_QUANTITY
+    }
+
+    fun newProduct(): Product = mock {
+
+        val imagesMock = newList(newImage(), 5)
+        val optionsMock = newList(newProductOption(), 5)
+        val variantsMock = newList(newProductVariant(), 5)
+
+        on { id } doReturn DEFAULT_ID
+        on { title } doReturn DEFAULT_TITLE
+        on { productDescription } doReturn DEFAULT_DESCRIPTION
+        on { additionalDescription } doReturn DEFAULT_DESCRIPTION
+        on { currency } doReturn DEFAULT_CURRENCY
+        on { price } doReturn DEFAULT_PRICE
+        on { hasAlternativePrice } doReturn true
+        on { discount } doReturn ""
+        on { vendor } doReturn DEFAULT_VENDOR
+        on { type } doReturn DEFAULT_TYPE
+        on { createdAt } doReturn DEFAULT_DATE
+        on { updatedAt } doReturn DEFAULT_DATE
+        on { tags } doReturn listOf<String>()
+        on { images } doReturn imagesMock
+        on { options } doReturn optionsMock
+        on { variants } doReturn variantsMock
     }
 
     fun newImage(): Image = mock {
