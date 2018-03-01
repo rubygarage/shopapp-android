@@ -40,7 +40,8 @@ class HomeFragment :
 
         refreshLayout.setOnRefreshListener(this)
 
-        childFragmentManager.replaceOnce(R.id.recentContainer,
+        childFragmentManager.replaceOnce(
+            R.id.recentContainer,
             ProductHorizontalFragment::javaClass.name,
             {
                 val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
@@ -51,8 +52,13 @@ class HomeFragment :
                     }
                 }
                 fragment
-            }).commit()
-        childFragmentManager.replaceOnce(R.id.popularContainer, ProductPopularFragment::javaClass.name,
+            }
+        )
+        .commit()
+        
+        childFragmentManager.replaceOnce(
+        	R.id.popularContainer,
+        	ProductPopularFragment::javaClass.name,
             {
                 val fragment = ProductPopularFragment()
                 popularFragment = fragment
@@ -62,8 +68,13 @@ class HomeFragment :
                     }
                 }
                 fragment
-            }).commit()
-        childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name,
+            }
+        )
+        .commit()
+
+        childFragmentManager.replaceOnce(
+            R.id.blogContainer,
+            BlogFragment::javaClass.name,
             {
                 val fragment = BlogFragment()
                 blogFragment = fragment
@@ -73,7 +84,8 @@ class HomeFragment :
                     }
                 }
                 fragment
-            }).commit()
+            }
+        ).commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
