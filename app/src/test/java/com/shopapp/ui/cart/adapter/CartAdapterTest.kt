@@ -5,7 +5,6 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.ui.base.recycler.OnItemClickListener
-import com.shopapp.ui.item.OrderItem
 import com.shopapp.ui.item.cart.CartItem
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -53,7 +52,7 @@ class CartAdapterTest {
     }
 
     @Test
-    fun shouldCallSetOrder() {
+    fun shouldCallSetCartProduct() {
         val itemView: CartItem = mock()
         val product: CartProduct = mock()
         adapter.bindData(itemView, product, 0)
