@@ -124,7 +124,7 @@ class CreditCardFormatTextWatcher : TextWatcher {
         afterTextChanged(textView.editableText)
     }
 
-    class PaddingRightSpan(private val mPadding: Int) : ReplacementSpan() {
+    class PaddingRightSpan(val mPadding: Int) : ReplacementSpan() {
 
         override fun getSize(paint: Paint, text: CharSequence, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
             val widths = FloatArray(end - start)
