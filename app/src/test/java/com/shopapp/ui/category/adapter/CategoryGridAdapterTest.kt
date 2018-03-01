@@ -52,7 +52,7 @@ class CategoryGridAdapterTest {
     }
 
     @Test
-    fun shouldCallSetOrder() {
+    fun shouldCallSetCategory() {
         val itemView: CategoryItem = mock()
         val category: Category = mock()
         adapter.bindData(itemView, category, 0)

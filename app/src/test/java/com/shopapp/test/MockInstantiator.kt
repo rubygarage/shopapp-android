@@ -230,37 +230,7 @@ object MockInstantiator {
         on { productList } doReturn productListMock
         on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
     }
-
-    fun newProductOption(): ProductOption = mock {
-        on { id } doReturn DEFAULT_ID
-        on { name } doReturn DEFAULT_NAME
-        on { values } doReturn listOf(DEFAULT_VALUE)
-    }
-
-    fun newProduct(): Product = mock {
-
-        val imagesMock = newList(newImage(), 5)
-        val optionsMock = newList(newProductOption(), 5)
-        val variantsMock = newList(newProductVariant(), 5)
-
-        on { id } doReturn DEFAULT_ID
-        on { title } doReturn DEFAULT_TITLE
-        on { productDescription } doReturn DEFAULT_DESCRIPTION
-        on { additionalDescription } doReturn DEFAULT_DESCRIPTION
-        on { currency } doReturn DEFAULT_CURRENCY
-        on { price } doReturn DEFAULT_PRICE
-        on { hasAlternativePrice } doReturn true
-        on { discount } doReturn ""
-        on { vendor } doReturn DEFAULT_VENDOR
-        on { type } doReturn DEFAULT_TYPE
-        on { createdAt } doReturn DEFAULT_DATE
-        on { updatedAt } doReturn DEFAULT_DATE
-        on { tags } doReturn listOf<String>()
-        on { images } doReturn imagesMock
-        on { options } doReturn optionsMock
-        on { variants } doReturn variantsMock
-    }
-
+   
     fun newCard(): Card = mock {
         on { firstName } doReturn DEFAULT_FIRST_NAME
         on { lastName } doReturn DEFAULT_LAST_NAME
