@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.VariantOption
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

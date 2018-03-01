@@ -72,6 +72,6 @@ class CheckoutEmailViewTest {
         view.emailChangeListener = emailChangeListener
         view.setData(customer)
         view.emailInput.setText("testemail1@gmail.com")
-        verify(emailChangeListener, times(2))
+        verify(emailChangeListener, times(2)).onEmailChanged()
     }
 }

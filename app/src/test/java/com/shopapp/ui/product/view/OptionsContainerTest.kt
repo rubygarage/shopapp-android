@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.gateway.entity.ProductOption
 import com.shopapp.gateway.entity.VariantOption
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.container_options.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
