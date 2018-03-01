@@ -4,13 +4,11 @@ import com.shopapp.domain.formatter.DateFormatter
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
+import org.mockito.junit.MockitoJUnitRunner
 import java.text.SimpleDateFormat
 import java.util.*
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@RunWith(MockitoJUnitRunner::class)
 class DateFormatterTest {
 
     private val formatter = DateFormatter()

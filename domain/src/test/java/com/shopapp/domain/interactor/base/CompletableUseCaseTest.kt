@@ -1,18 +1,16 @@
 package com.shopapp.domain.interactor.base
 
-import com.shopapp.gateway.entity.Error
-import com.shopapp.domain.RxImmediateSchedulerRule
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.domain.RxImmediateSchedulerRule
+import com.shopapp.gateway.entity.Error
 import io.reactivex.Completable
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
 @RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class CompletableUseCaseTest {
 
     @Rule

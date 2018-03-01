@@ -3,12 +3,7 @@ package com.shopapp.domain.validator
 import org.hamcrest.core.Is.`is`
 import org.junit.Assert.assertThat
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class FieldValidatorTest {
 
     private val fieldValidator = FieldValidator()

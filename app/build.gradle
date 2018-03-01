@@ -3,18 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
+apply plugin: 'jacoco-android'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
     buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
-
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
 
     defaultConfig {
         applicationId "com.shopapp"
@@ -31,12 +26,24 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+
+            all {
+                jacoco {
+                    includeNoLocationClasses = true
+                }
+            }
         }
     }
 }
 
 kapt {
     generateStubs = true
+}
+
+jacocoAndroidUnitTestReport {
+    csv.enabled false
+    html.enabled false
+    xml.enabled true
 }
 
 dependencies {
@@ -83,4 +90,25 @@ dependencies {
     testImplementation "org.robolectric:shadows-support-v4:3.3.2"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+}
+
+project.afterEvaluate {
+    android.applicationVariants.all { variant ->
+        def realVariantName = variant.name
+        def variantName = variant.name.capitalize()
+
+        def task = project.tasks["jacocoTest${variantName}UnitTestReport"]
+        def defaultExcludes = task.classDirectories.excludes
+
+        def additionalExcludes = [
+
+        ]
+
+        def excludes = defaultExcludes + additionalExcludes
+
+        def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${realVariantName}", excludes: excludes)
+
+        task.classDirectories.excludes = excludes
+        task.classDirectories += kotlinDebugTree
+    }
 }
