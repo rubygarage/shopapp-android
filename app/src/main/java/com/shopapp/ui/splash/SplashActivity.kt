@@ -26,5 +26,6 @@ class SplashActivity : AppCompatActivity() {
                 }
             })
             .duration = BACKGROUND_ANIMATION_DURATION
+
     }
 }
