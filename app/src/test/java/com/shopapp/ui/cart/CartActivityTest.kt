@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
+import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -121,6 +122,16 @@ class CartActivityTest {
         assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
         assertNotNull(startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldShowEmptyState() {
+        activity.showEmptyState()
+        val id = shadowOf(activity.emptyView.emptyImage.drawable).createdFromResId
+        assertEquals(R.drawable.ic_cart_empty, id)
+        assertEquals(context.getString(R.string.empty_cart_message), activity.emptyView.emptyMessage.text)
+        assertEquals(context.getString(R.string.start_shopping), activity.emptyView.emptyButton.text)
+        assertEquals(View.VISIBLE, activity.emptyView.emptyButton.visibility)
     }
 
     @After

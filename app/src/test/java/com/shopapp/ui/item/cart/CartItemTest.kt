@@ -41,11 +41,6 @@ class CartItemTest {
         shadowOf(view).callOnAttachedToWindow()
     }
 
-    @After
-    fun tearDown() {
-        shadowOf(view).callOnDetachedFromWindow()
-    }
-
     @Test
     fun shouldSetTitle() {
         val product = MockInstantiator.newCartProduct()
@@ -102,6 +97,11 @@ class CartItemTest {
         given(product.quantity).willReturn(1)
         view.setCartProduct(product)
         assertEquals(View.GONE, view.eachPrice.visibility)
+    }
+
+    @After
+    fun tearDown() {
+        shadowOf(view).callOnDetachedFromWindow()
     }
 
 }

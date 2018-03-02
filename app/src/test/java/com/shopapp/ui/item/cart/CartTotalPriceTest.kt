@@ -39,11 +39,6 @@ class CartTotalPriceTest {
         shadowOf(view).callOnAttachedToWindow()
     }
 
-    @After
-    fun tearDown() {
-        shadowOf(view).callOnDetachedFromWindow()
-    }
-
     @Test
     fun shouldSetTitle() {
         val size = 2
@@ -64,4 +59,8 @@ class CartTotalPriceTest {
         assertEquals(expected, view.orderTotalValue.text.toString())
     }
 
+    @After
+    fun tearDown() {
+        shadowOf(view).callOnDetachedFromWindow()
+    }
 }
