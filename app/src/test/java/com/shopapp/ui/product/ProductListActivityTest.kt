@@ -8,8 +8,8 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
-import com.shopapp.util.MockInstantiator
 import junit.framework.Assert
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_pagination.*

@@ -7,9 +7,9 @@ import com.nhaarman.mockito_kotlin.inOrder
 import com.shopapp.domain.interactor.product.ProductListUseCase
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.SortType
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import com.shopapp.ui.const.Constant
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before

@@ -4,8 +4,8 @@ import com.shopapp.gateway.entity.Error
 import com.shopapp.domain.interactor.account.ChangePasswordUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.util.ext.mock
-import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
+import com.shopapp.test.RxImmediateSchedulerRule
 import io.reactivex.Completable
 import org.junit.After
 import org.junit.Before

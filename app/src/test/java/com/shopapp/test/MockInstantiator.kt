@@ -1,4 +1,4 @@
-package com.shopapp.util
+package com.shopapp.test
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -166,7 +166,6 @@ object MockInstantiator {
         on { publishedAt } doReturn DEFAULT_DATE
         on { url } doReturn DEFAULT_URL
         on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
-
     }
 
     fun newAuthor(): Author = mock {
@@ -175,5 +174,42 @@ object MockInstantiator {
         on { fullName } doReturn DEFAULT_NAME
         on { email } doReturn DEFAULT_EMAIL
         on { bio } doReturn DEFAULT_BIO
+    }
+
+    fun newCustomer(): Customer = mock {
+
+        val addressesMock = newList(newAddress(), 5)
+        val defaultAddressMock = newAddress()
+
+        on { id } doReturn DEFAULT_ID
+        on { email } doReturn DEFAULT_EMAIL
+        on { firstName } doReturn DEFAULT_FIRST_NAME
+        on { lastName } doReturn DEFAULT_LAST_NAME
+        on { phone } doReturn DEFAULT_PHONE
+        on { isAcceptsMarketing } doReturn true
+        on { addressList } doReturn addressesMock
+        on { defaultAddress } doReturn defaultAddressMock
+    }
+
+    fun newShippingRate(): ShippingRate = mock {
+        on { title } doReturn DEFAULT_TITLE
+        on { price } doReturn DEFAULT_PRICE
+        on { handle } doReturn ""
+    }
+
+    fun newCheckout(): Checkout = mock {
+
+        val addressMock = newAddress()
+        val shippingRateMock = newShippingRate()
+
+        on { checkoutId } doReturn DEFAULT_ID
+        on { webUrl } doReturn ""
+        on { requiresShipping } doReturn true
+        on { subtotalPrice } doReturn DEFAULT_PRICE
+        on { totalPrice } doReturn DEFAULT_PRICE
+        on { taxPrice } doReturn DEFAULT_PRICE
+        on { currency } doReturn DEFAULT_CURRENCY
+        on { address } doReturn addressMock
+        on { shippingRate } doReturn shippingRateMock
     }
 }

@@ -6,9 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
+import com.shopapp.R
+import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.gateway.entity.Checkout
 import com.shopapp.gateway.entity.ShippingRate
-import com.shopapp.R
 import com.shopapp.ui.checkout.adapter.ShippingOptionsAdapter
 import kotlinx.android.synthetic.main.view_checkout_shipping_options.view.*
 
@@ -26,14 +27,13 @@ class CheckoutShippingOptionsView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_checkout_shipping_options, this)
-        adapter = ShippingOptionsAdapter(mutableListOf())
+        adapter = ShippingOptionsAdapter(mutableListOf(), NumberFormatter())
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
 
     fun setData(checkout: Checkout, shippingRates: List<ShippingRate>) {
-
         if (shippingRates.isEmpty()) {
             title.setTextColor(ContextCompat.getColor(context, R.color.textColorSecondary))
             message.setText(R.string.order_can_not_be_processed)

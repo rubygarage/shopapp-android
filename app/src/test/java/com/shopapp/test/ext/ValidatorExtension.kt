@@ -1,4 +1,4 @@
-package com.shopapp.util.ext
+package com.shopapp.test.ext
 
 import com.shopapp.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.any

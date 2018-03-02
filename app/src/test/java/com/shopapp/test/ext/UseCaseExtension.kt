@@ -1,4 +1,4 @@
-package com.shopapp.util.ext
+package com.shopapp.test.ext
 
 import com.shopapp.domain.interactor.base.CompletableUseCase
 import com.shopapp.domain.interactor.base.SingleUseCase

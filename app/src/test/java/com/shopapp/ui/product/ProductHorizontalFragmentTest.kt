@@ -8,9 +8,9 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.const.Constant
-import com.shopapp.util.MockInstantiator
 import kotlinx.android.synthetic.main.fragment_recent.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import org.junit.Assert.assertEquals

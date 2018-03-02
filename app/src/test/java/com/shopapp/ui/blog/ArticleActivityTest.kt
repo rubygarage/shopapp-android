@@ -1,14 +1,13 @@
 package com.shopapp.ui.blog
 
 import android.content.Context
-import android.content.Intent
 import android.view.View
 import android.webkit.WebSettings
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
-import com.shopapp.util.MockInstantiator
-import com.shopapp.util.ext.replaceCommandSymbols
+import com.shopapp.test.MockInstantiator
+import com.shopapp.test.ext.replaceCommandSymbols
 import kotlinx.android.synthetic.main.activity_article.*
 import org.junit.After
 import org.junit.Assert.assertEquals

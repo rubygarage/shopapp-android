@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.OrderProduct
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.OrderProductItem
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

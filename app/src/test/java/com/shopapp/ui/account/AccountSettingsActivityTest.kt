@@ -1,11 +1,11 @@
 package com.shopapp.ui.account
 
 import android.content.Context
-import com.shopapp.R
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.R
 import com.shopapp.TestShopApplication
-import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.test.RxImmediateSchedulerRule
 import kotlinx.android.synthetic.main.activity_account_settings.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
