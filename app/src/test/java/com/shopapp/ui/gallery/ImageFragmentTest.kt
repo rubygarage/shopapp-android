@@ -19,7 +19,6 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentController
 
-
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class ImageFragmentTest {
@@ -57,4 +56,19 @@ class ImageFragmentTest {
         assertTrue(fragment.view is SimpleDraweeView)
     }
 
+    @Test
+    fun shouldProceedOnClick() {
+        val listener: View.OnClickListener = mock()
+        val fragmentForSetup = ImageFragment.newInstance(image, true)
+        fragmentForSetup.imageClickListener = listener
+
+        fragment = SupportFragmentController
+            .of(fragmentForSetup)
+            .create()
+            .start()
+            .get()
+
+        fragment.view?.performClick()
+        verify(listener).onClick(any())
+    }
 }

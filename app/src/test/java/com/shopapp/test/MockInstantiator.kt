@@ -40,7 +40,7 @@ object MockInstantiator {
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
-    fun <T> newList(item: T, size: Int = 0): List<T> {
+    fun <T> newList(item: T, size: Int = DEFAULT_LIST_SIZE): List<T> {
         val list: MutableList<T> = mutableListOf()
         repeat(size) {
             list.add(item)
@@ -50,7 +50,7 @@ object MockInstantiator {
 
     fun newOrder(): Order = mock {
 
-        val orderProductListMock = newList(newOrderProduct(), DEFAULT_LIST_SIZE)
+        val orderProductListMock = newList(newOrderProduct())
         val addressMock = newAddress()
 
         on { id } doReturn DEFAULT_ID
@@ -111,9 +111,9 @@ object MockInstantiator {
 
     fun newProduct(): Product = mock {
 
-        val imagesMock = newList(newImage(), 5)
-        val optionsMock = newList(newProductOption(), 5)
-        val variantsMock = newList(newProductVariant(), 5)
+        val imagesMock = newList(newImage())
+        val optionsMock = newList(newProductOption())
+        val variantsMock = newList(newProductVariant())
 
         on { id } doReturn DEFAULT_ID
         on { title } doReturn DEFAULT_TITLE
