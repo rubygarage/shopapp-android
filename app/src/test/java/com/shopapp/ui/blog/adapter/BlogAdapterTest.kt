@@ -6,7 +6,8 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.Article
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.ArticleItem
-import junit.framework.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -41,13 +42,13 @@ class BlogAdapterTest {
 
     @Test
     fun shouldReturnCorrectCount() {
-        Assert.assertEquals(BlogAdapterTest.SIZE, adapter.itemCount)
+        assertEquals(BlogAdapterTest.SIZE, adapter.itemCount)
     }
 
     @Test
     fun shouldReturnCorrectType() {
         val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
-        Assert.assertTrue(itemView is ArticleItem)
+        assertTrue(itemView is ArticleItem)
     }
 
     @Test

@@ -16,7 +16,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -30,14 +29,12 @@ class ShopRepositoryTest {
     private lateinit var api: Api
 
     private lateinit var repository: ShopRepository
-
-    private lateinit var observerShop: TestObserver<Shop>
+    private lateinit var shopObserver: TestObserver<Shop>
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         repository = ShopRepositoryImpl(api)
-        observerShop = TestObserver()
+        shopObserver = TestObserver()
     }
 
     @Test
@@ -53,9 +50,9 @@ class ShopRepositoryTest {
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onResult(shop)
         })
-        repository.getShop().subscribe(observerShop)
-        observerShop.assertComplete()
-        observerShop.assertValue(shop)
+        repository.getShop().subscribe(shopObserver)
+        shopObserver.assertComplete()
+        shopObserver.assertValue(shop)
     }
 
     @Test
@@ -65,8 +62,8 @@ class ShopRepositoryTest {
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onFailure(error)
         })
-        repository.getShop().subscribe(observerShop)
-        observerShop.assertError(error)
+        repository.getShop().subscribe(shopObserver)
+        shopObserver.assertError(error)
     }
 
 }

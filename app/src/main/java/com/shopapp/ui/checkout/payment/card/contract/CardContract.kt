@@ -1,12 +1,12 @@
 package com.shopapp.ui.checkout.payment.card.contract
 
 import android.support.annotation.StringRes
-import com.shopapp.gateway.entity.Card
-import com.shopapp.gateway.entity.CardType
+import com.shopapp.R
 import com.shopapp.domain.interactor.checkout.CheckCreditCardUseCase
 import com.shopapp.domain.interactor.checkout.GetAcceptedCardTypesUseCase
 import com.shopapp.domain.validator.CardValidator
-import com.shopapp.R
+import com.shopapp.gateway.entity.Card
+import com.shopapp.gateway.entity.CardType
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
@@ -22,14 +22,13 @@ interface CardView : BaseLceView<List<CardType>> {
 
 class CardPresenter @Inject constructor(
     private val checkCreditCardUseCase: CheckCreditCardUseCase,
-    private val getAcceptedCardTypesUseCase: GetAcceptedCardTypesUseCase
+    private val getAcceptedCardTypesUseCase: GetAcceptedCardTypesUseCase,
+    private val cardValidator: CardValidator
 ) :
     BaseLcePresenter<List<CardType>, CardView>(
         checkCreditCardUseCase,
         getAcceptedCardTypesUseCase
     ) {
-
-    private val cardValidator: CardValidator = CardValidator()
 
     fun getAcceptedCardTypes() {
         getAcceptedCardTypesUseCase.execute(

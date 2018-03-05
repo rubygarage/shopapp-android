@@ -1,22 +1,21 @@
 package com.shopapp.data.impl
 
-import com.shopapp.gateway.Api
-import com.shopapp.gateway.ApiCallback
-import com.shopapp.gateway.entity.Error
-import com.shopapp.gateway.entity.Order
-import com.shopapp.data.RxImmediateSchedulerRule
-import com.shopapp.domain.repository.OrderRepository
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.data.RxImmediateSchedulerRule
+import com.shopapp.domain.repository.OrderRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Error
+import com.shopapp.gateway.entity.Order
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -47,7 +46,6 @@ class OrderRepositoryTest {
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         repository = OrderRepositoryImpl(api)
         orderListObserver = TestObserver()
         orderObserver = TestObserver()

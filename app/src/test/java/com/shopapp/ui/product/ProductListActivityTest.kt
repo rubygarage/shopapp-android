@@ -10,7 +10,6 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
-import junit.framework.Assert
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_pagination.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -51,7 +50,7 @@ class ProductListActivityTest {
 
     @Test
     fun shouldSetCorrectTitle() {
-        Assert.assertEquals(TITLE, activity.toolbar.toolbarTitle.text)
+        assertEquals(TITLE, activity.toolbar.toolbarTitle.text)
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.shopapp.util
 
 import com.shopapp.test.Reader
 import com.shopapp.test.ext.replaceCommandSymbols
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class HtmlUtilTest {

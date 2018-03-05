@@ -4,11 +4,11 @@ import android.content.Context
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.order.details.OrderDetailsActivity
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
 import kotlinx.android.synthetic.main.activity_order_success.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
