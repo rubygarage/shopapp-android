@@ -12,11 +12,11 @@ import com.shopapp.ui.address.account.AddressListActivity
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.list.OrderListActivity
 import com.shopapp.ui.policy.PolicyActivity
-import junit.framework.Assert.assertEquals
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

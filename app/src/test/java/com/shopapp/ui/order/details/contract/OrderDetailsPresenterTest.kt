@@ -46,11 +46,6 @@ class OrderDetailsPresenterTest {
         useCase.mock()
     }
 
-    @After
-    fun tearDown() {
-        presenter.detachView(false)
-    }
-
     @Test
     fun shouldShowContentOnSingleSuccess() {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(order))
@@ -79,5 +74,10 @@ class OrderDetailsPresenterTest {
         val inOrder = inOrder(view, useCase)
         inOrder.verify(useCase).execute(any(), any(), eq(orderId))
         inOrder.verify(view).showError(false)
+    }
+
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
     }
 }

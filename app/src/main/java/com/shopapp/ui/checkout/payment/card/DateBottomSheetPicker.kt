@@ -10,7 +10,7 @@ class DateBottomSheetPicker : BaseBottomSheetPicker<String>() {
 
     companion object {
         private const val DATE_TYPE = "DATE_TYPE"
-        private const val MAX_AVAILABLE_YEARS_COUNT = 30
+        const val MAX_AVAILABLE_YEARS_COUNT = 30
         const val DATE_TYPE_MONTH = "MONTH"
         const val DATE_TYPE_YEAR = "YEAR"
 

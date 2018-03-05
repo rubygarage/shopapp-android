@@ -32,6 +32,10 @@ object MockInstantiator {
     const val DEFAULT_URL = "default_url"
     const val DEFAULT_VENDOR = "default_vendor"
     const val DEFAULT_TYPE = "default_type"
+    const val DEFAULT_CARD_NUMBER = "4242424242424242"
+    const val DEFAULT_MONTH = "07"
+    const val DEFAULT_YEAR = "2020"
+    const val DEFAULT_CVV = "123"
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
@@ -211,5 +215,14 @@ object MockInstantiator {
         on { currency } doReturn DEFAULT_CURRENCY
         on { address } doReturn addressMock
         on { shippingRate } doReturn shippingRateMock
+    }
+
+    fun newCard(): Card = mock {
+        on { firstName } doReturn DEFAULT_FIRST_NAME
+        on { lastName } doReturn DEFAULT_LAST_NAME
+        on { cardNumber } doReturn DEFAULT_CARD_NUMBER
+        on { expireMonth } doReturn DEFAULT_MONTH
+        on { expireYear } doReturn DEFAULT_YEAR
+        on { verificationCode } doReturn DEFAULT_CVV
     }
 }

@@ -16,7 +16,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -30,20 +29,16 @@ class AuthRepositoryTest {
     private lateinit var api: Api
 
     private lateinit var repository: AuthRepository
-
-    private lateinit var observerCustomer: TestObserver<Customer>
-
-    private lateinit var observerUnit: TestObserver<Unit>
-
-    private lateinit var observerBoolean: TestObserver<Boolean>
+    private lateinit var customerObserver: TestObserver<Customer>
+    private lateinit var unitObserver: TestObserver<Unit>
+    private lateinit var booleanObserver: TestObserver<Boolean>
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
-        observerCustomer = TestObserver()
-        observerUnit = TestObserver()
-        observerBoolean = TestObserver()
+        customerObserver = TestObserver()
+        unitObserver = TestObserver()
+        booleanObserver = TestObserver()
     }
 
     @Test
@@ -58,8 +53,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(1)
             callback.onResult(Unit)
         })
-        repository.changePassword("").subscribe(observerUnit)
-        observerUnit.assertComplete()
+        repository.changePassword("").subscribe(unitObserver)
+        unitObserver.assertComplete()
     }
 
     @Test
@@ -70,8 +65,8 @@ class AuthRepositoryTest {
             callback.onFailure(error)
         })
 
-        repository.changePassword("").subscribe(observerUnit)
-        observerUnit.assertError(error)
+        repository.changePassword("").subscribe(unitObserver)
+        unitObserver.assertError(error)
     }
 
     @Test
@@ -88,8 +83,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(2)
             callback.onResult(Unit)
         })
-        repository.signIn("", "").subscribe(observerUnit)
-        observerUnit.assertComplete()
+        repository.signIn("", "").subscribe(unitObserver)
+        unitObserver.assertComplete()
     }
 
     @Test
@@ -100,8 +95,8 @@ class AuthRepositoryTest {
             callback.onFailure(error)
         })
 
-        repository.signIn("", "").subscribe(observerUnit)
-        observerUnit.assertError(error)
+        repository.signIn("", "").subscribe(unitObserver)
+        unitObserver.assertError(error)
     }
 
     @Test
@@ -138,9 +133,9 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(observerUnit)
+        ).subscribe(unitObserver)
 
-        observerUnit.assertComplete()
+        unitObserver.assertComplete()
     }
 
     @Test
@@ -157,9 +152,9 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(observerUnit)
+        ).subscribe(unitObserver)
 
-        observerUnit.assertError(error)
+        unitObserver.assertError(error)
     }
 
     @Test
@@ -200,8 +195,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(3)
             callback.onResult(Unit)
         })
-        repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
-        observerCustomer.assertComplete()
+        repository.editCustomer("name", "lastName", "123654789").subscribe(customerObserver)
+        customerObserver.assertComplete()
     }
 
     @Test
@@ -211,8 +206,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(3)
             callback.onFailure(error)
         })
-        repository.editCustomer("name", "lastName", "123654789").subscribe(observerCustomer)
-        observerCustomer.assertError(error)
+        repository.editCustomer("name", "lastName", "123654789").subscribe(customerObserver)
+        customerObserver.assertError(error)
     }
 
     @Test
@@ -230,8 +225,8 @@ class AuthRepositoryTest {
             callback.onResult(Unit)
         })
 
-        repository.forgotPassword(email).subscribe(observerUnit)
-        observerUnit.assertComplete()
+        repository.forgotPassword(email).subscribe(unitObserver)
+        unitObserver.assertComplete()
     }
 
     @Test
@@ -261,8 +256,8 @@ class AuthRepositoryTest {
             callback.onResult(Unit)
         })
 
-        repository.updateAccountSettings(true).subscribe(observerBoolean)
-        observerBoolean.assertComplete()
+        repository.updateAccountSettings(true).subscribe(booleanObserver)
+        booleanObserver.assertComplete()
     }
 
     @Test
@@ -273,8 +268,8 @@ class AuthRepositoryTest {
             callback.onFailure(error)
         })
 
-        repository.updateAccountSettings(true).subscribe(observerBoolean)
-        observerBoolean.assertError(error)
+        repository.updateAccountSettings(true).subscribe(booleanObserver)
+        booleanObserver.assertError(error)
     }
 
     @Test
@@ -289,9 +284,9 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Boolean>>(0)
             callback.onResult(false)
         })
-        repository.isLoggedIn().subscribe(observerBoolean)
-        observerBoolean.assertComplete()
-        observerBoolean.assertValue(false)
+        repository.isLoggedIn().subscribe(booleanObserver)
+        booleanObserver.assertComplete()
+        booleanObserver.assertValue(false)
     }
 
     @Test
@@ -301,8 +296,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Boolean>>(0)
             callback.onFailure(error)
         })
-        repository.isLoggedIn().subscribe(observerBoolean)
-        observerBoolean.assertError(error)
+        repository.isLoggedIn().subscribe(booleanObserver)
+        booleanObserver.assertError(error)
     }
 
     @Test
@@ -317,8 +312,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(0)
             callback.onResult(Unit)
         })
-        repository.signOut().subscribe(observerUnit)
-        observerUnit.assertComplete()
+        repository.signOut().subscribe(unitObserver)
+        unitObserver.assertComplete()
     }
 
     @Test
@@ -328,8 +323,8 @@ class AuthRepositoryTest {
             val callback = it.getArgument<ApiCallback<Unit>>(0)
             callback.onFailure(error)
         })
-        repository.signOut().subscribe(observerUnit)
-        observerUnit.assertError(error)
+        repository.signOut().subscribe(unitObserver)
+        unitObserver.assertError(error)
     }
 
 }

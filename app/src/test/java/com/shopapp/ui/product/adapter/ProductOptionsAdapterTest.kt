@@ -8,7 +8,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.gateway.entity.VariantOption
 import com.shopapp.ui.base.recycler.OnItemClickListener
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
