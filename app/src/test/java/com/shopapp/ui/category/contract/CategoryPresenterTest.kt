@@ -5,20 +5,17 @@ import com.shopapp.domain.interactor.category.CategoryUseCase
 import com.shopapp.gateway.entity.Category
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.SortType
-import com.shopapp.util.MockInstantiator
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mock
+import com.shopapp.test.MockInstantiator
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 class CategoryPresenterTest {
 

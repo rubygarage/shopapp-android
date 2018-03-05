@@ -7,7 +7,7 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.shopapp.ui.product.ProductDetailsActivity
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*

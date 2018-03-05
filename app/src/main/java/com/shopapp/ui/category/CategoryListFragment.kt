@@ -1,15 +1,14 @@
-package com.shopapp.ui.search
+package com.shopapp.ui.category
 
 import android.os.Bundle
 import android.view.View
-import com.shopapp.gateway.entity.Category
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.base.pagination.PaginationFragment
-import com.shopapp.ui.category.CategoryActivity
 import com.shopapp.ui.category.adapter.CategoryGridAdapter
-import com.shopapp.ui.search.contract.CategoryListPresenter
-import com.shopapp.ui.search.contract.CategoryListView
+import com.shopapp.ui.category.contract.CategoryListPresenter
+import com.shopapp.ui.category.contract.CategoryListView
 import javax.inject.Inject
 
 class CategoryListFragment :
@@ -31,7 +30,7 @@ class CategoryListFragment :
     override fun getContentView() = R.layout.fragment_search_with_categories_list
 
     override fun inject() {
-        ShopApplication.appComponent.attachSearchComponent().inject(this)
+        ShopApplication.appComponent.attachCategoryComponent().inject(this)
     }
 
     override fun createPresenter() = categoryListPresenter

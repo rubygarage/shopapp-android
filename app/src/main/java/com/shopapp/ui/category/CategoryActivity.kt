@@ -41,7 +41,7 @@ class CategoryActivity :
 
         private const val PROGRESS_START_BIAS = 0.2f
         private const val PROGRESS_END_BIAS = 1.5f
-        private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+        const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 
         fun getStartIntent(context: Context, category: Category): Intent {
             val intent = Intent(context, CategoryActivity::class.java)
