@@ -35,7 +35,6 @@ class CategoryListPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = CategoryListPresenter(categoryListUseCase)
         presenter.attachView(view)
-        MockInstantiator
         categoryListUseCase.mock()
     }
 
@@ -57,17 +56,6 @@ class CategoryListPresenterTest {
         val inOrder = inOrder(categoryListUseCase, view)
         inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showContent(categories)
-    }
-
-    @Test
-    fun shouldPrintStackTrace() {
-        val error: Throwable = mock()
-        given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
-        presenter.getCategoryList(DEFAULT_LIST_SIZE, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_LIST_SIZE, DEFAULT_PAGINATION_VALUE)
-        val inOrder = inOrder(categoryListUseCase, error)
-        inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
-        inOrder.verify(error).printStackTrace()
     }
 
     @After

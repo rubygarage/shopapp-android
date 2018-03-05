@@ -72,14 +72,17 @@ class CategoryPresenterTest {
     }
 
     @Test
-    fun shouldPrintStackTrace() {
-        val error: Throwable = mock()
-        given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
-        presenter.loadProductList(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val inOrder = inOrder(categoryUseCase, error)
+    fun shouldShowEmptyState() {
+        val products: List<Product> = emptyList()
+        val category: Category = mock {
+            on { productList } doReturn products
+        }
+        given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
+        presenter.loadProductList(PER_PAGE, null, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        val params = CategoryUseCase.Params(PER_PAGE, null, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        val inOrder = inOrder(categoryUseCase, view)
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
-        inOrder.verify(error).printStackTrace()
+        inOrder.verify(view).showEmptyState()
     }
 
     @After
