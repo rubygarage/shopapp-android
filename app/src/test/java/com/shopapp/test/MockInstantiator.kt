@@ -1,4 +1,4 @@
-package com.shopapp.util
+package com.shopapp.test
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -175,15 +175,6 @@ object MockInstantiator {
         on { bio } doReturn DEFAULT_BIO
     }
 
-    fun newCartProduct(): CartProduct = mock {
-        val productVariantMock = newProductVariant()
-
-        on { title } doReturn DEFAULT_TITLE
-        on { productVariant } doReturn productVariantMock
-        on { quantity } doReturn DEFAULT_QUANTITY
-        on { currency } doReturn DEFAULT_CURRENCY
-    }
-    
     fun newCustomer(): Customer = mock {
 
         val addressesMock = newList(newAddress(), 5)

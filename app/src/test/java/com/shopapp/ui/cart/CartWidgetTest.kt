@@ -3,7 +3,7 @@ package com.shopapp.ui.cart
 import android.app.Activity
 import android.view.View
 import com.shopapp.TestShopApplication
-import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.test.RxImmediateSchedulerRule
 import kotlinx.android.synthetic.main.widget_cart.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before

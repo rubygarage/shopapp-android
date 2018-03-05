@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.doAnswer
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.R
 import com.shopapp.domain.formatter.NumberFormatter
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_footer_cart.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals

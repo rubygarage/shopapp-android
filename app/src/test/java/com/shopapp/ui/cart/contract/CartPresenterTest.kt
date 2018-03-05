@@ -5,9 +5,9 @@ import com.shopapp.domain.interactor.cart.CartItemsUseCase
 import com.shopapp.domain.interactor.cart.CartQuantityUseCase
 import com.shopapp.domain.interactor.cart.CartRemoveUseCase
 import com.shopapp.gateway.entity.CartProduct
-import com.shopapp.util.MockInstantiator
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mock
+import com.shopapp.test.MockInstantiator
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

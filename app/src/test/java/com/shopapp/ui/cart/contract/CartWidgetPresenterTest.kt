@@ -3,17 +3,14 @@ package com.shopapp.ui.cart.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.cart.CartItemsUseCase
 import com.shopapp.gateway.entity.CartProduct
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mock
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Observable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 class CartWidgetPresenterTest {
 
