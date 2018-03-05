@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.recycler.OnItemClickListener
@@ -34,6 +35,7 @@ class CartActivity :
     lateinit var cartPresenter: CartPresenter
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
+    private val formatter = NumberFormatter()
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CartActivity::class.java)
@@ -105,7 +107,7 @@ class CartActivity :
         this.data.clear()
         this.data.addAll(data)
         adapter.notifyDataSetChanged()
-        totalPriceView.setData(this.data)
+        totalPriceView.setData(this.data, formatter)
     }
 
     //CALLBACK

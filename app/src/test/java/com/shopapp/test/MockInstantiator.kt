@@ -96,13 +96,12 @@ object MockInstantiator {
     }
 
     fun newCartProduct(): CartProduct = mock {
-
         val productVariantMock = newProductVariant()
 
-        on { productVariant } doReturn productVariantMock
         on { title } doReturn DEFAULT_TITLE
-        on { currency } doReturn DEFAULT_CURRENCY
+        on { productVariant } doReturn productVariantMock
         on { quantity } doReturn DEFAULT_QUANTITY
+        on { currency } doReturn DEFAULT_CURRENCY
     }
 
     fun newProduct(): Product = mock {
