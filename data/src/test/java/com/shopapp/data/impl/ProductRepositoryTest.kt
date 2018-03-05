@@ -17,9 +17,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 class ProductRepositoryTest {
 
     companion object {
@@ -50,6 +50,7 @@ class ProductRepositoryTest {
 
     @Before
     fun setUpTest() {
+        MockitoAnnotations.initMocks(this)
         repository = ProductRepositoryImpl(api)
         productListObserver = TestObserver()
         productObserver = TestObserver()

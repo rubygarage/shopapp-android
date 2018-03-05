@@ -17,6 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 class BlogRepositoryTest {
@@ -46,6 +47,7 @@ class BlogRepositoryTest {
 
     @Before
     fun setUpTest() {
+        MockitoAnnotations.initMocks(this)
         repository = BlogRepositoryImpl(api)
         articleObserver = TestObserver()
         articleListObserver = TestObserver()

@@ -16,9 +16,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 class ShopRepositoryTest {
 
     @Rule
@@ -33,6 +33,7 @@ class ShopRepositoryTest {
 
     @Before
     fun setUpTest() {
+        MockitoAnnotations.initMocks(this)
         repository = ShopRepositoryImpl(api)
         shopObserver = TestObserver()
     }

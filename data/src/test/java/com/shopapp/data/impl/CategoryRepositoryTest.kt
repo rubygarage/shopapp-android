@@ -13,9 +13,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 class CategoryRepositoryTest {
 
     companion object {
@@ -35,6 +35,7 @@ class CategoryRepositoryTest {
 
     @Before
     fun setUpTest() {
+        MockitoAnnotations.initMocks(this)
         repository = CategoryRepositoryImpl(api)
     }
 

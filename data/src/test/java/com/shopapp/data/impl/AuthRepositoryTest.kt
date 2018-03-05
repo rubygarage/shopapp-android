@@ -16,6 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 class AuthRepositoryTest {
@@ -34,6 +35,7 @@ class AuthRepositoryTest {
 
     @Before
     fun setUpTest() {
+        MockitoAnnotations.initMocks(this)
         repository = AuthRepositoryImpl(api)
         customerObserver = TestObserver()
         unitObserver = TestObserver()
