@@ -19,4 +19,5 @@ class CategoryModule {
     fun provideCategoryListPresenter(categoryListUseCase: CategoryListUseCase): CategoryListPresenter {
         return CategoryListPresenter(categoryListUseCase)
     }
+
 }
