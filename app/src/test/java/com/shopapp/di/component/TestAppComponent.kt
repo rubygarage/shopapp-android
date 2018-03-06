@@ -7,7 +7,7 @@ import com.shopapp.ui.address.account.di.AddressComponent
 import com.shopapp.ui.address.checkout.di.CheckoutAddressComponent
 import com.shopapp.ui.blog.di.TestBlogComponent
 import com.shopapp.ui.cart.di.TestCartComponent
-import com.shopapp.ui.category.di.CategoryComponent
+import com.shopapp.ui.category.di.TestCategoryComponent
 import com.shopapp.ui.checkout.di.CheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.TestCardPaymentComponent
 import com.shopapp.ui.order.di.TestOrderComponent
@@ -26,7 +26,7 @@ interface TestAppComponent : AppComponent {
 
     override fun attachProductComponent(): TestProductComponent
 
-    override fun attachCategoryComponent(): CategoryComponent
+    override fun attachCategoryComponent(): TestCategoryComponent
 
     override fun attachCartComponent(): TestCartComponent
 

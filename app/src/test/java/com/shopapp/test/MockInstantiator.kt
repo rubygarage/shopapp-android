@@ -12,6 +12,7 @@ object MockInstantiator {
     const val DEFAULT_CURRENCY = "USD"
     const val DEFAULT_EMAIL = "default@mail.com"
     const val DEFAULT_ORDER_NUMBER = 5
+    const val DEFAULT_LIST_SIZE = 5
     const val DEFAULT_PAGINATION_VALUE = "default_pagination_value"
     const val DEFAULT_TITLE = "default_title"
     const val DEFAULT_QUANTITY = 5
@@ -49,7 +50,7 @@ object MockInstantiator {
 
     fun newOrder(): Order = mock {
 
-        val orderProductListMock = newList(newOrderProduct(), 5)
+        val orderProductListMock = newList(newOrderProduct(), DEFAULT_LIST_SIZE)
         val addressMock = newAddress()
 
         on { id } doReturn DEFAULT_ID
@@ -216,6 +217,20 @@ object MockInstantiator {
         on { shippingRate } doReturn shippingRateMock
     }
 
+    fun newCategory(): Category = mock {
+        val imageMock = newImage()
+        val productListMock = newList(newProduct(), DEFAULT_LIST_SIZE)
+
+        on { id } doReturn DEFAULT_ID
+        on { title } doReturn DEFAULT_TITLE
+        on { categoryDescription } doReturn DEFAULT_DESCRIPTION
+        on { additionalDescription } doReturn DEFAULT_DESCRIPTION
+        on { image } doReturn imageMock
+        on { updatedAt } doReturn DEFAULT_DATE
+        on { productList } doReturn productListMock
+        on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
+    }
+   
     fun newCard(): Card = mock {
         on { firstName } doReturn DEFAULT_FIRST_NAME
         on { lastName } doReturn DEFAULT_LAST_NAME

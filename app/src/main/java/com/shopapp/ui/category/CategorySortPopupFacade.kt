@@ -94,7 +94,7 @@ class CategorySortPopupFacade(
             R.id.lowToHighSort -> sortType = SortType.PRICE_LOW_TO_HIGH
         }
         sortType?.let {
-            if (this.sortType != sortType) {
+            if (this.sortType != it) {
                 listener.onSortTypeChanged(it)
             } else {
                 listener.onSortTypeChanged(SortType.NAME)
