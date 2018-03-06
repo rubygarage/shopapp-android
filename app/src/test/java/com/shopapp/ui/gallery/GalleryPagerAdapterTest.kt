@@ -34,7 +34,6 @@ class GalleryPagerAdapterTest {
         adapter = GalleryPagerAdapter(activity.supportFragmentManager)
         adapter.product = product
         adapter.notifyDataSetChanged()
-
     }
 
     @Test
