@@ -16,9 +16,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 class OrderRepositoryTest {
 
     companion object {
@@ -46,6 +46,7 @@ class OrderRepositoryTest {
 
     @Before
     fun setUpTest() {
+        MockitoAnnotations.initMocks(this)
         repository = OrderRepositoryImpl(api)
         orderListObserver = TestObserver()
         orderObserver = TestObserver()

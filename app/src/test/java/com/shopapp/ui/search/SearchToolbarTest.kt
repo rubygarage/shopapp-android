@@ -3,6 +3,7 @@ package com.shopapp.ui.search
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -14,6 +15,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
@@ -24,20 +27,24 @@ import org.robolectric.shadows.support.v4.SupportFragmentTestUtil
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class SearchToolbarTest {
 
-
     @Rule
     @JvmField
     var testSchedulerRule = RxImmediateSchedulerRule()
+
+    @Mock
+    private lateinit var listener: SearchToolbar.SearchToolbarListener
     private lateinit var fragment: SearchWithCategoriesFragment
     private lateinit var context: Context
     private lateinit var toolbar: SearchToolbar
 
     @Before
     fun setUp() {
+        MockitoAnnotations.initMocks(this)
         fragment = SearchWithCategoriesFragment()
         SupportFragmentTestUtil.startFragment(fragment, HomeActivity::class.java)
         context = RuntimeEnvironment.application.baseContext
         toolbar = fragment.searchToolbar
+        toolbar.searchToolbarListener = listener
     }
 
     @Test
@@ -161,5 +168,20 @@ class SearchToolbarTest {
         assertFalse(toolbar.isToolbarExpanded())
         toolbar.searchInput.performClick()
         assertTrue(toolbar.isToolbarExpanded())
+    }
+
+    @Test
+    fun shouldHideClearButton() {
+        shadowOf(toolbar).callOnAttachedToWindow()
+        toolbar.searchInput.setText("sometext")
+        assertEquals(View.GONE, toolbar.clear.visibility)
+    }
+
+    @Test
+    fun shouldCallListener() {
+        shadowOf(toolbar).callOnAttachedToWindow()
+        toolbar.changeToolbarState()
+        toolbar.searchInput.setText("sometext")
+        verify(listener).onQueryChanged("sometext")
     }
 }

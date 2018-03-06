@@ -3,9 +3,9 @@ package com.shopapp.ui.search
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import com.shopapp.gateway.entity.Product
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Product
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationFragment
 import com.shopapp.ui.base.recycler.divider.BackgroundItemDecoration

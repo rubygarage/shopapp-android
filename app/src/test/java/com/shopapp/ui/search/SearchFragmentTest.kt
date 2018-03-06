@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -96,5 +97,11 @@ class SearchFragmentTest {
         fragment.showContent(products)
 
         assertEquals(Constant.DEFAULT_PER_PAGE_COUNT, fragment.recyclerView.adapter.itemCount)
+    }
+
+    @Test
+    fun shouldStopRefreshing() {
+        fragment.hideProgress()
+        assertFalse(fragment.swipeRefreshLayout.isRefreshing)
     }
 }
