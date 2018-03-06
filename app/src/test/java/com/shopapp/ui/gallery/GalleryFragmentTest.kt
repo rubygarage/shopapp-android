@@ -5,7 +5,7 @@ import android.view.View
 import com.nhaarman.mockito_kotlin.given
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Product
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -26,12 +26,14 @@ class GalleryFragmentTest {
 
     private lateinit var controller: SupportFragmentController<GalleryFragment>
     private lateinit var context: Context
-    private var product: Product = MockInstantiator.newProduct()
+    private lateinit var product: Product
 
     @Before
     fun setUp() {
+        product = MockInstantiator.newProduct()
         context = RuntimeEnvironment.application.baseContext
-        controller = SupportFragmentController.of(GalleryFragment.newInstance(product, false, SELECTED_INDEX))
+        val fragment = GalleryFragment.newInstance(product, false, SELECTED_INDEX)
+        controller = SupportFragmentController.of(fragment)
     }
 
     @Test

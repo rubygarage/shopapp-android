@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Product
-import com.shopapp.util.MockInstantiator
+import com.shopapp.test.MockInstantiator
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
