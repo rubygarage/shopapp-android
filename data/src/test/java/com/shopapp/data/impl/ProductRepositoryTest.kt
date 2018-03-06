@@ -26,6 +26,7 @@ class ProductRepositoryTest {
         private const val PER_PAGE = 10
         private const val PAGINATION_VALUE = "pagination_value"
         private const val KEYWORD = "keyword"
+        private const val QUERY = "query"
         private const val EXCLUDE_KEYWORD = "exclude_keyword"
         private const val PRODUCT_ID = "product_id"
         private val sortBy = SortType.RELEVANT
@@ -112,5 +113,34 @@ class ProductRepositoryTest {
         })
         repository.getProduct(PRODUCT_ID).subscribe(productObserver)
         productObserver.assertError(error)
+    }
+
+    @Test
+    fun searchProductShouldDelegateCallToApi() {
+        repository.searchProductListByQuery(QUERY, PER_PAGE, PAGINATION_VALUE).subscribe()
+        verify(api).searchProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())
+    }
+
+    @Test
+    fun searchProductShouldReturnValueWhenOnResult() {
+        given(api.searchProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Product>>>(3)
+            callback.onResult(productList)
+        })
+        repository.searchProductListByQuery(QUERY, PER_PAGE, PAGINATION_VALUE)
+            .test()
+            .assertValue(productList)
+    }
+
+    @Test
+    fun searchProductShouldReturnErrorOnFailure() {
+        val error = Error.Content()
+        given(api.searchProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Product>>>(3)
+            callback.onFailure(error)
+        })
+        repository.searchProductListByQuery(QUERY, PER_PAGE, PAGINATION_VALUE)
+            .test()
+            .assertError(error)
     }
 }

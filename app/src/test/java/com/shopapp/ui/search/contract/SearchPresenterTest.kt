@@ -59,16 +59,6 @@ class SearchPresenterTest {
     }
 
     @Test
-    fun shouldPrintStackTraceOnSearchError() {
-        val error: Throwable = mock()
-        given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
-        presenter.search(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)
-        val inOrder = inOrder(searchUseCase, error)
-        inOrder.verify(searchUseCase).execute(any(), any(), any())
-        inOrder.verify(error).printStackTrace()
-    }
-
-    @Test
     fun shouldHideProgressOnSearchError() {
         val error: Throwable = mock()
         given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
