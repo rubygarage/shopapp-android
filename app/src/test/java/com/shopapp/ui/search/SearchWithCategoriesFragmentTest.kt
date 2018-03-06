@@ -2,11 +2,14 @@ package com.shopapp.ui.search
 
 import android.content.Context
 import android.support.v4.app.Fragment
+import android.view.View
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.category.CategoryListFragment
 import com.shopapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_search_with_categories.*
+import kotlinx.android.synthetic.main.toolbar_search.view.*
+import org.junit.Assert
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -64,8 +67,9 @@ class SearchWithCategoriesFragmentTest {
     }
 
     @Test
-    fun shouldExpandToolbar(){
+    fun shouldExpandToolbar() {
         fragment.searchToolbar.changeToolbarState()
         assertTrue(fragment.searchToolbar.isToolbarExpanded())
     }
+
 }
