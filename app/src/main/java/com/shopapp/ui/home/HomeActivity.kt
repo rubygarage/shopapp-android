@@ -24,9 +24,9 @@ class HomeActivity : AppCompatActivity() {
 
         private const val CURRENT_SCREEN = "current_screen"
 
-        private const val HOME = 0
-        private const val SEARCH = 1
-        private const val ACCOUNT = 2
+        const val HOME = 0
+        const val SEARCH = 1
+        const val ACCOUNT = 2
 
         fun getStartIntent(context: Context, isNewTask: Boolean = false): Intent {
             val intent = Intent(context, HomeActivity::class.java)

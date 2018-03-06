@@ -10,4 +10,5 @@ interface TestCategoryComponent : CategoryComponent {
     override fun inject(activity: CategoryActivity)
 
     override fun inject(activity: CategoryListFragment)
+
 }
