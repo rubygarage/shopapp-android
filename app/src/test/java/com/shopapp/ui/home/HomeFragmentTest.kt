@@ -1,19 +1,15 @@
 package com.shopapp.ui.home
 
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.blog.BlogFragment
-import com.shopapp.ui.popular.PopularFragment
 import com.shopapp.ui.product.ProductHorizontalFragment
-import org.junit.Assert.assertEquals
+import com.shopapp.ui.product.ProductPopularFragment
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentController
 
@@ -39,7 +35,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldShowSearchScreen() {
-        assertTrue(fragment.childFragmentManager.findFragmentById(R.id.popularContainer) is PopularFragment)
+        assertTrue(fragment.childFragmentManager.findFragmentById(R.id.popularContainer) is ProductPopularFragment)
     }
 
     @Test
