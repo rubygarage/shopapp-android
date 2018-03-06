@@ -3,6 +3,7 @@ package com.shopapp.test
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.gateway.entity.*
+import com.shopapp.ui.const.Constant
 import java.math.BigDecimal
 import java.util.*
 
@@ -12,7 +13,6 @@ object MockInstantiator {
     const val DEFAULT_CURRENCY = "USD"
     const val DEFAULT_EMAIL = "default@mail.com"
     const val DEFAULT_ORDER_NUMBER = 5
-    const val DEFAULT_LIST_SIZE = 5
     const val DEFAULT_PAGINATION_VALUE = "default_pagination_value"
     const val DEFAULT_TITLE = "default_title"
     const val DEFAULT_QUANTITY = 5
@@ -40,7 +40,7 @@ object MockInstantiator {
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
-    fun <T> newList(item: T, size: Int = DEFAULT_LIST_SIZE): List<T> {
+    fun <T> newList(item: T, size: Int = Constant.DEFAULT_PER_PAGE_COUNT): List<T> {
         val list: MutableList<T> = mutableListOf()
         repeat(size) {
             list.add(item)
@@ -219,7 +219,7 @@ object MockInstantiator {
 
     fun newCategory(): Category = mock {
         val imageMock = newImage()
-        val productListMock = newList(newProduct(), DEFAULT_LIST_SIZE)
+        val productListMock = newList(newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
 
         on { id } doReturn DEFAULT_ID
         on { title } doReturn DEFAULT_TITLE

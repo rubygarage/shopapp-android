@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Product
 import com.shopapp.test.MockInstantiator
+import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -38,7 +39,7 @@ class GalleryPagerAdapterTest {
 
     @Test
     fun shouldReturnCorrectItemCount() {
-        assertEquals(MockInstantiator.DEFAULT_LIST_SIZE, adapter.count)
+        assertEquals(DEFAULT_PER_PAGE_COUNT, adapter.count)
     }
 
     @Test
