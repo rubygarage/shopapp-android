@@ -2,8 +2,8 @@ package com.shopapp.ui.policy
 
 import android.content.Context
 import com.shopapp.TestShopApplication
-import com.shopapp.util.MockInstantiator
-import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.test.MockInstantiator
+import com.shopapp.test.RxImmediateSchedulerRule
 import kotlinx.android.synthetic.main.activity_policy.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert.assertEquals
