@@ -100,9 +100,7 @@ project.afterEvaluate {
         def task = project.tasks["jacocoTest${variantName}UnitTestReport"]
         def defaultExcludes = task.classDirectories.excludes
 
-        def additionalExcludes = [
-
-        ]
+        def additionalExcludes = []
 
         def excludes = defaultExcludes + additionalExcludes
 

@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.shopapp.gateway.entity.Address
-import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.address.base.BaseAddressActivity
 import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.ui.address.checkout.contract.CheckoutUnAuthAddressPresenter
@@ -18,9 +18,9 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
 
     companion object {
 
-        private const val CHECKOUT_ID = "checkout_id"
-        private const val ADDRESS = "address"
-        private const val IS_SHIPPING = "is_shipping"
+        const val CHECKOUT_ID = "checkout_id"
+        const val ADDRESS = "address"
+        const val IS_SHIPPING = "is_shipping"
 
         fun getStartIntent(
             context: Context,

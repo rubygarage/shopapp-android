@@ -6,10 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.TaskStackBuilder
 import android.view.View
-import com.shopapp.gateway.entity.*
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.registerKeyboardVisibilityListener
+import com.shopapp.gateway.entity.*
 import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
 import com.shopapp.ui.base.lce.BaseLceActivity
@@ -224,6 +224,8 @@ class CheckoutActivity :
                     val cardToken = paymentView.getCardData().second
                     presenter.completeCheckoutByCard(checkout, email, billingAddress, cardToken)
                 }
+                else -> {
+                }
             }
         }
 
@@ -254,7 +256,7 @@ class CheckoutActivity :
         if (checkout != null) {
             presenter.getCheckout(checkout.checkoutId)
         } else {
-            presenter.getCartProductList()
+            presenter.getCheckoutData()
         }
     }
 

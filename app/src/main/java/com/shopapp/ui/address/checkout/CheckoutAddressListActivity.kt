@@ -6,9 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.address.base.BaseAddressListActivity
 import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import com.shopapp.ui.address.checkout.contract.CheckoutAddressListPresenter
@@ -24,11 +24,11 @@ class CheckoutAddressListActivity :
 
     companion object {
 
-        private const val CHECKOUT_ID = "checkout_id"
-        private const val SELECTED_ADDRESS = "selected_address"
-        private const val IS_SHIPPING = "is_shipping"
-        private const val SHIPPING_ADDRESS = "shipping_address"
-        private const val BILLING_ADDRESS = "billing_address"
+        const val CHECKOUT_ID = "checkout_id"
+        const val SELECTED_ADDRESS = "selected_address"
+        const val IS_SHIPPING = "is_shipping"
+        const val SHIPPING_ADDRESS = "shipping_address"
+        const val BILLING_ADDRESS = "billing_address"
 
         fun getStartIntent(
             context: Context,

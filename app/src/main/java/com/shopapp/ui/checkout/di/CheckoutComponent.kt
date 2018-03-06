@@ -1,6 +1,5 @@
 package com.shopapp.ui.checkout.di
 
-import com.shopapp.ui.checkout.view.CheckoutMyCartView
 import com.shopapp.ui.checkout.CheckoutActivity
 import dagger.Subcomponent
 
@@ -8,6 +7,4 @@ import dagger.Subcomponent
 interface CheckoutComponent {
 
     fun inject(activity: CheckoutActivity)
-
-    fun inject(view: CheckoutMyCartView)
 }
