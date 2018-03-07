@@ -3,6 +3,7 @@ package com.shopapp.test
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.gateway.entity.*
+import com.shopapp.ui.const.Constant
 import java.math.BigDecimal
 import java.util.*
 
@@ -12,7 +13,6 @@ object MockInstantiator {
     const val DEFAULT_CURRENCY = "USD"
     const val DEFAULT_EMAIL = "default@mail.com"
     const val DEFAULT_ORDER_NUMBER = 5
-    const val DEFAULT_LIST_SIZE = 5
     const val DEFAULT_PAGINATION_VALUE = "default_pagination_value"
     const val DEFAULT_TITLE = "default_title"
     const val DEFAULT_QUANTITY = 5
@@ -40,7 +40,7 @@ object MockInstantiator {
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
-    fun <T> newList(item: T, size: Int = 0): List<T> {
+    fun <T> newList(item: T, size: Int = Constant.DEFAULT_PER_PAGE_COUNT): List<T> {
         val list: MutableList<T> = mutableListOf()
         repeat(size) {
             list.add(item)
@@ -50,7 +50,7 @@ object MockInstantiator {
 
     fun newOrder(): Order = mock {
 
-        val orderProductListMock = newList(newOrderProduct(), DEFAULT_LIST_SIZE)
+        val orderProductListMock = newList(newOrderProduct())
         val addressMock = newAddress()
 
         on { id } doReturn DEFAULT_ID
@@ -111,9 +111,9 @@ object MockInstantiator {
 
     fun newProduct(): Product = mock {
 
-        val imagesMock = newList(newImage(), 5)
-        val optionsMock = newList(newProductOption(), 5)
-        val variantsMock = newList(newProductVariant(), 5)
+        val imagesMock = newList(newImage())
+        val optionsMock = newList(newProductOption())
+        val variantsMock = newList(newProductVariant())
 
         on { id } doReturn DEFAULT_ID
         on { title } doReturn DEFAULT_TITLE
@@ -219,7 +219,7 @@ object MockInstantiator {
 
     fun newCategory(): Category = mock {
         val imageMock = newImage()
-        val productListMock = newList(newProduct(), DEFAULT_LIST_SIZE)
+        val productListMock = newList(newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
 
         on { id } doReturn DEFAULT_ID
         on { title } doReturn DEFAULT_TITLE

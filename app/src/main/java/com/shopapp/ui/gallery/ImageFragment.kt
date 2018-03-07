@@ -12,7 +12,6 @@ import com.shopapp.R
 import com.shopapp.ui.custom.zoomable.DoubleTapGestureListener
 import com.shopapp.ui.custom.zoomable.ZoomableDraweeView
 
-
 class ImageFragment : Fragment() {
 
     companion object {
@@ -61,4 +60,5 @@ class ImageFragment : Fragment() {
             imageClickListener?.let { view.setOnClickListener(it) }
         }
     }
+
 }
