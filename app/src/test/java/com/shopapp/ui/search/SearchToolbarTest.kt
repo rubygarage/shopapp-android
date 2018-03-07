@@ -151,7 +151,6 @@ class SearchToolbarTest {
         assertFalse(toolbar.isToolbarExpanded())
     }
 
-
     @Test
     fun shouldDoNothingIfExpanded() {
         toolbar.changeToolbarState()
