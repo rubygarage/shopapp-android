@@ -3,19 +3,18 @@ package com.shopapp.ui.address.checkout
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Address
-import com.shopapp.ui.const.Extra
+import com.shopapp.ui.address.base.BaseAddressActivity
 import com.shopapp.ui.address.base.contract.AddressPresenter
 import com.shopapp.ui.address.base.contract.AddressView
-import com.shopapp.ShopApplication
-import com.shopapp.ui.address.base.BaseAddressActivity
+import com.shopapp.ui.const.Extra
 
 class CheckoutAddressActivity : BaseAddressActivity<AddressView, AddressPresenter<AddressView>>() {
 
     companion object {
 
-        private const val ADDRESS = "address"
-        private const val IS_SELECTED_ADDRESS = "is_selected_address"
+        const val IS_SELECTED_ADDRESS = "is_selected_address"
 
         fun getStartIntent(
             context: Context,

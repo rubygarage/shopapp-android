@@ -1,15 +1,13 @@
 package com.shopapp.di.module
 
-import com.shopapp.gateway.Api
-import com.shopapp.domain.database.Dao
-import com.shopapp.domain.repository.*
 import com.nhaarman.mockito_kotlin.mock
+import com.shopapp.domain.repository.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class TestRepositoryModule(private val api: Api, private val dao: Dao)  {
+class TestRepositoryModule {
 
     @Provides
     @Singleton

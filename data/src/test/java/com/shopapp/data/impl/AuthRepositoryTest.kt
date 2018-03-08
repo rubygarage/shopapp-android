@@ -1,25 +1,26 @@
 package com.shopapp.data.impl
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.data.RxImmediateSchedulerRule
 import com.shopapp.domain.repository.AuthRepository
 import com.shopapp.gateway.Api
 import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 class AuthRepositoryTest {
+
+    companion object {
+        private const val ADDRESS_ID = "address_id"
+    }
 
     @Rule
     @JvmField
@@ -28,10 +29,15 @@ class AuthRepositoryTest {
     @Mock
     private lateinit var api: Api
 
+    @Mock
+    private lateinit var address: Address
+
     private lateinit var repository: AuthRepository
     private lateinit var customerObserver: TestObserver<Customer>
     private lateinit var unitObserver: TestObserver<Unit>
     private lateinit var booleanObserver: TestObserver<Boolean>
+    private lateinit var stringObserver: TestObserver<String>
+    private lateinit var countriesObserver: TestObserver<List<Country>>
 
     @Before
     fun setUpTest() {
@@ -40,6 +46,8 @@ class AuthRepositoryTest {
         customerObserver = TestObserver()
         unitObserver = TestObserver()
         booleanObserver = TestObserver()
+        stringObserver = TestObserver()
+        countriesObserver = TestObserver()
     }
 
     @Test
@@ -153,7 +161,8 @@ class AuthRepositoryTest {
             "test@email.com",
             "123456789",
             "+38063329670"
-        ).subscribe(unitObserver)
+        )
+            .subscribe(unitObserver)
 
         unitObserver.assertError(error)
     }
@@ -328,4 +337,143 @@ class AuthRepositoryTest {
         unitObserver.assertError(error)
     }
 
+    @Test
+    fun createCustomerAddressShouldDelegateCallToApi() {
+        repository.createCustomerAddress(address).subscribe()
+        verify(api).createCustomerAddress(eq(address), any())
+    }
+
+    @Test
+    fun createCustomerAddressShouldCompleteOnApiResult() {
+        val addressId = "addressId"
+        given(api.createCustomerAddress(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<String>>(1)
+            callback.onResult(addressId)
+        })
+        repository.createCustomerAddress(address).subscribe(stringObserver)
+        stringObserver.assertValue(addressId)
+    }
+
+    @Test
+    fun createCustomerAddressShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.createCustomerAddress(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onFailure(error)
+        })
+        repository.createCustomerAddress(address).subscribe(stringObserver)
+        stringObserver.assertError(error)
+    }
+
+    @Test
+    fun getCountriesShouldDelegateCallToApi() {
+        repository.getCountries().subscribe()
+        verify(api).getCountries(any())
+    }
+
+    @Test
+    fun getCountriesShouldCompleteOnApiResult() {
+        val countries = listOf<Country>()
+        given(api.getCountries(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Country>>>(0)
+            callback.onResult(countries)
+        })
+        repository.getCountries().subscribe(countriesObserver)
+        countriesObserver.assertValue(countries)
+    }
+
+    @Test
+    fun getCountriesShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.getCountries(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Country>>>(0)
+            callback.onFailure(error)
+        })
+        repository.getCountries().subscribe(countriesObserver)
+        countriesObserver.assertError(error)
+    }
+
+    @Test
+    fun editCustomerAddressShouldDelegateCallToApi() {
+        val address: Address = mock()
+        repository.editCustomerAddress(ADDRESS_ID, address).subscribe()
+        verify(api).editCustomerAddress(eq(ADDRESS_ID), eq(address), any())
+    }
+
+    @Test
+    fun editCustomerAddressShouldCompleteOnApiResult() {
+        val address: Address = mock()
+        given(api.editCustomerAddress(any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(2)
+            callback.onResult(Unit)
+        })
+        repository.editCustomerAddress(ADDRESS_ID, address).subscribe(unitObserver)
+        unitObserver.assertComplete()
+    }
+
+    @Test
+    fun editCustomerAddressShouldErrorOnApiFailure() {
+        val address: Address = mock()
+        val error = Error.Content()
+        given(api.editCustomerAddress(any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(2)
+            callback.onFailure(error)
+        })
+        repository.editCustomerAddress(ADDRESS_ID, address).subscribe(unitObserver)
+        unitObserver.assertError(error)
+    }
+
+    @Test
+    fun deleteCustomerAddressShouldDelegateCallToApi() {
+        repository.deleteCustomerAddress(ADDRESS_ID).subscribe()
+        verify(api).deleteCustomerAddress(eq(ADDRESS_ID), any())
+    }
+
+    @Test
+    fun deleteCustomerAddressShouldCompleteOnApiResult() {
+        given(api.deleteCustomerAddress(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onResult(Unit)
+        })
+        repository.deleteCustomerAddress(ADDRESS_ID).subscribe(unitObserver)
+        unitObserver.assertComplete()
+    }
+
+    @Test
+    fun deleteCustomerAddressShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.deleteCustomerAddress(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onFailure(error)
+        })
+        repository.deleteCustomerAddress(ADDRESS_ID).subscribe(unitObserver)
+        unitObserver.assertError(error)
+    }
+
+    @Test
+    fun setDefaultShippingAddressShouldDelegateCallToApi() {
+        repository.setDefaultShippingAddress(ADDRESS_ID).subscribe()
+        verify(api).setDefaultShippingAddress(eq(ADDRESS_ID), any())
+    }
+
+    @Test
+    fun setDefaultShippingAddressShouldCompleteOnApiResult() {
+        given(api.setDefaultShippingAddress(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onResult(Unit)
+        })
+        repository.setDefaultShippingAddress(ADDRESS_ID).subscribe(unitObserver)
+        unitObserver.assertComplete()
+    }
+
+    @Test
+    fun setDefaultShippingAddressShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.setDefaultShippingAddress(any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onFailure(error)
+        })
+        repository.setDefaultShippingAddress(ADDRESS_ID).subscribe(unitObserver)
+        unitObserver.assertError(error)
+    }
 }
