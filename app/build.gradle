@@ -42,7 +42,7 @@ kapt {
 
 jacocoAndroidUnitTestReport {
     csv.enabled false
-    html.enabled true
+    html.enabled false
     xml.enabled true
 }
 
