@@ -25,7 +25,6 @@ class LceLoadingView @JvmOverloads constructor(
 
     private var startTime: Long = START_TIME
     private var postedHide = false
-    private var postedShow = false
     private var dismissed = false
 
     private val mDelayedHide = Runnable {
@@ -52,7 +51,6 @@ class LceLoadingView @JvmOverloads constructor(
         post {
             if (state is LceLayout.LceState.LoadingState) {
                 dismissed = false
-                postedShow = false
                 startTime = System.currentTimeMillis()
                 visibility = View.VISIBLE
                 val background = if (state.isTranslucent) {

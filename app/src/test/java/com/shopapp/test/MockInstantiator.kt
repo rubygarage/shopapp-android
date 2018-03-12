@@ -37,6 +37,8 @@ object MockInstantiator {
     const val DEFAULT_MONTH = "07"
     const val DEFAULT_YEAR = "2020"
     const val DEFAULT_CVV = "123"
+    const val DEFAULT_CODE = "default_code"
+    const val DEFAULT_NUMBER_ID = 123L
     val DEFAULT_PRICE = BigDecimal.TEN
     val DEFAULT_DATE = Date()
 
@@ -244,5 +246,22 @@ object MockInstantiator {
         on { title } doReturn DEFAULT_TITLE
         on { body } doReturn DEFAULT_DESCRIPTION
         on { url } doReturn DEFAULT_URL
+    }
+
+    fun newCountry(): Country = mock {
+
+        val statesMock = newList(newState(), 5)
+
+        on { id } doReturn DEFAULT_NUMBER_ID
+        on { code } doReturn DEFAULT_CODE
+        on { name } doReturn DEFAULT_NAME
+        on { states } doReturn statesMock
+    }
+
+    fun newState(): State = mock {
+        on { id } doReturn DEFAULT_NUMBER_ID
+        on { countryId } doReturn DEFAULT_NUMBER_ID
+        on { code } doReturn DEFAULT_CODE
+        on { name } doReturn DEFAULT_NAME
     }
 }

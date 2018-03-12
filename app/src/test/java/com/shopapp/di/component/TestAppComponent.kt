@@ -1,10 +1,10 @@
 package com.shopapp.di.component
 
 import com.shopapp.di.module.TestRepositoryModule
-import com.shopapp.di.module.ValidatorModule
+import com.shopapp.di.module.TestValidatorModule
 import com.shopapp.ui.account.di.TestAuthComponent
-import com.shopapp.ui.address.account.di.AddressComponent
-import com.shopapp.ui.address.checkout.di.CheckoutAddressComponent
+import com.shopapp.ui.address.account.di.TestAddressComponent
+import com.shopapp.ui.address.checkout.di.TestCheckoutAddressComponent
 import com.shopapp.ui.blog.di.TestBlogComponent
 import com.shopapp.ui.cart.di.TestCartComponent
 import com.shopapp.ui.category.di.TestCategoryComponent
@@ -17,7 +17,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [TestRepositoryModule::class, ValidatorModule::class])
+@Component(modules = [TestRepositoryModule::class, TestValidatorModule::class])
 interface TestAppComponent : AppComponent {
 
     override fun attachBlogComponent(): TestBlogComponent
@@ -34,12 +34,11 @@ interface TestAppComponent : AppComponent {
 
     override fun attachOrderComponent(): TestOrderComponent
 
-    override fun attachAddressComponent(): AddressComponent
+    override fun attachAddressComponent(): TestAddressComponent
 
     override fun attachCheckoutComponent(): TestCheckoutComponent
 
     override fun attachCardPaymentComponent(): TestCardPaymentComponent
 
-    override fun attachCheckoutAddressComponent(): CheckoutAddressComponent
-
+    override fun attachCheckoutAddressComponent(): TestCheckoutAddressComponent
 }

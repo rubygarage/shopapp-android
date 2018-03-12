@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
-import com.shopapp.gateway.entity.Address
-import com.shopapp.gateway.entity.Country
-import com.shopapp.gateway.entity.State
 import com.shopapp.R
 import com.shopapp.ext.getTrimmedString
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
+import com.shopapp.gateway.entity.State
 import com.shopapp.ui.address.base.contract.AddressPresenter
 import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.ui.base.lce.BaseLceActivity
@@ -26,12 +26,12 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     AddressView {
 
     companion object {
-        private const val ADDRESS = "address"
+        const val ADDRESS = "address"
     }
 
     @Inject
     lateinit var addressPresenter: P
-    protected var isEditMode = false
+    private var isEditMode = false
     private var address: Address? = null
     private lateinit var fieldTextWatcher: TextWatcher
     private lateinit var countryPicker: CountryBottomSheetPicker
@@ -46,7 +46,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         setupListeners()
         loadCountries()
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -123,12 +122,12 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
         countryInput.setOnClickListener {
             it.hideKeyboard()
-            countryPicker.show(supportFragmentManager, "", countryInput.text.toString())
+            countryPicker.show(supportFragmentManager, CountryBottomSheetPicker::class.java.name, countryInput.text.toString())
         }
 
         stateInput.setOnClickListener {
             it.hideKeyboard()
-            statePicker.show(supportFragmentManager, "", stateInput.text.toString())
+            statePicker.show(supportFragmentManager, StateBottomSheetPicker::class.java.name, stateInput.text.toString())
         }
     }
 
@@ -226,7 +225,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
                 setupStates(countries[index])
             }
         }
-
     }
 
     override fun showContent(data: Address?) {

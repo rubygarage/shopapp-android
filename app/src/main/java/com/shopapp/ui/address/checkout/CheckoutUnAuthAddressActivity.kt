@@ -18,9 +18,8 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
 
     companion object {
 
-        const val CHECKOUT_ID = "checkout_id"
-        const val ADDRESS = "address"
-        const val IS_SHIPPING = "is_shipping"
+        val CHECKOUT_ID = "checkout_id"
+        val IS_SHIPPING = "is_shipping"
 
         fun getStartIntent(
             context: Context,
@@ -61,11 +60,7 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
         val address = getAddress()
         if (isShippingAddress) {
             checkoutId?.let {
-                if (isEditMode) {
-                    presenter.editShippingAddress(it, address)
-                } else {
-                    presenter.submitShippingAddress(it, address)
-                }
+                presenter.submitShippingAddress(it, address)
             }
         } else {
             if (fieldValidator.isAddressValid(address)) {

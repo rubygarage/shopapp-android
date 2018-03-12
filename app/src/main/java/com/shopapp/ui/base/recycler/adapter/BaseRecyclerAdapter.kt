@@ -67,9 +67,9 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
 
     }
 
-    protected open fun getHeaderView(context: Context): View? = null
+    open fun getHeaderView(context: Context): View? = null
 
-    protected open fun getFooterView(context: Context): View? = null
+    open fun getFooterView(context: Context): View? = null
 
     protected open fun setOnClickListenerForEachItem() {
 

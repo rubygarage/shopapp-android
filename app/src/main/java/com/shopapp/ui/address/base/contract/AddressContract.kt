@@ -1,13 +1,13 @@
 package com.shopapp.ui.address.base.contract
 
-import com.shopapp.gateway.entity.Address
-import com.shopapp.gateway.entity.Country
+import com.shopapp.R
 import com.shopapp.domain.interactor.account.CreateCustomerAddressUseCase
 import com.shopapp.domain.interactor.account.EditCustomerAddressUseCase
 import com.shopapp.domain.interactor.account.GetCountriesUseCase
 import com.shopapp.domain.interactor.base.UseCase
 import com.shopapp.domain.validator.FieldValidator
-import com.shopapp.R
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 
@@ -64,10 +64,10 @@ open class AddressPresenter<V : AddressView>(
         createCustomerAddressUseCase.execute(
             { view?.addressChanged(address) },
             {
-                it.printStackTrace()
+                resolveError(it)
                 view?.addressChanged(address)
             },
-            CreateCustomerAddressUseCase.Params(address)
+            address
         )
     }
 
@@ -75,7 +75,7 @@ open class AddressPresenter<V : AddressView>(
         editCustomerAddressUseCase.execute(
             { view?.addressChanged(address) },
             {
-                it.printStackTrace()
+                resolveError(it)
                 view?.addressChanged(address)
             },
             EditCustomerAddressUseCase.Params(addressId, address)
