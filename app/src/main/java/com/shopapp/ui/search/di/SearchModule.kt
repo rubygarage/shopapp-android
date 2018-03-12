@@ -12,4 +12,5 @@ class SearchModule {
     fun provideSearchPresenter(searchUseCase: SearchUseCase): SearchPresenter {
         return SearchPresenter(searchUseCase)
     }
+
 }
