@@ -14,22 +14,24 @@ class LceLoadingView @JvmOverloads constructor(
     LceView {
 
     companion object {
-        private const val START_TIME = -1L
-        private const val MIN_SHOW_TIME = 500L
+        private const val DEFAULT_START_TIME = -1L
+        private const val DEFAULT_MIN_SHOW_TIME = 500L
     }
+
+    var minShowTime = DEFAULT_MIN_SHOW_TIME
 
     init {
         View.inflate(context, R.layout.view_lce_loading, this)
         isClickable = true
     }
 
-    private var startTime: Long = START_TIME
+    private var startTime: Long = DEFAULT_START_TIME
     private var postedHide = false
     private var dismissed = false
 
-    private val mDelayedHide = Runnable {
+    private val delayedHide = Runnable {
         postedHide = false
-        startTime = START_TIME
+        startTime = DEFAULT_START_TIME
         visibility = View.GONE
     }
 
@@ -44,7 +46,7 @@ class LceLoadingView @JvmOverloads constructor(
     }
 
     private fun removeCallbacks() {
-        removeCallbacks(mDelayedHide)
+        removeCallbacks(delayedHide)
     }
 
     override fun changeState(state: LceLayout.LceState) {
@@ -62,11 +64,11 @@ class LceLoadingView @JvmOverloads constructor(
             } else {
                 dismissed = true
                 val diff = System.currentTimeMillis() - startTime
-                if (diff >= MIN_SHOW_TIME || startTime == START_TIME) {
+                if (diff >= minShowTime || startTime == DEFAULT_START_TIME) {
                     visibility = View.GONE
                 } else {
                     if (!postedHide) {
-                        postDelayed(mDelayedHide, MIN_SHOW_TIME - diff)
+                        postDelayed(delayedHide, minShowTime - diff)
                         postedHide = true
                     }
                 }

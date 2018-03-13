@@ -10,6 +10,9 @@ import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.test.ext.replaceCommandSymbols
 import kotlinx.android.synthetic.main.activity_article.*
+import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -37,6 +40,7 @@ class ArticleActivityTest {
             .resume()
             .visible()
             .get()
+        activity.loadingView.minShowTime = 0
     }
 
     @Test
@@ -96,7 +100,9 @@ class ArticleActivityTest {
 
     @Test
     fun shouldShowContentInWebView() {
+        assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
+        assertEquals(View.GONE, activity.lceLayout.loadingView.visibility)
         val webView = shadowOf(activity.content)
         val tmp = shadowOf(activity.mainLooper)
         tmp.idle()

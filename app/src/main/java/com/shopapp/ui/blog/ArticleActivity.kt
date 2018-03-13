@@ -47,7 +47,7 @@ class ArticleActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        loadData(false)
+        loadData()
         setupWebView()
     }
 
