@@ -32,8 +32,12 @@ class BlogActivityTest {
 
     @Before
     fun setUpTest() {
-        activity = Robolectric.setupActivity(BlogActivity::class.java)
         context = RuntimeEnvironment.application.baseContext
+        activity = Robolectric.buildActivity(BlogActivity::class.java, BlogActivity.getStartIntent(context))
+            .create()
+            .resume()
+            .get()
+        activity.loadingView.minShowTime = 0
     }
 
     @Test
@@ -51,7 +55,9 @@ class BlogActivityTest {
     fun shouldShowContentView() {
         val articleCount = 5
         val articleList = MockInstantiator.newList(MockInstantiator.newArticle(), articleCount)
+        assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
         activity.showContent(articleList)
+        assertEquals(View.GONE, activity.lceLayout.loadingView.visibility)
         assertEquals(View.GONE, activity.emptyView.visibility)
         assertEquals(false, activity.swipeRefreshLayout.isRefreshing)
         assertEquals(articleCount, activity.recyclerView.adapter.itemCount)

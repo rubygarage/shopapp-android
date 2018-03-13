@@ -5,13 +5,16 @@ import android.view.View
 import android.webkit.WebSettings
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.test.ext.replaceCommandSymbols
 import kotlinx.android.synthetic.main.activity_article.*
+import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +35,12 @@ class ArticleActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = ArticleActivity.getStartIntent(context, MockInstantiator.DEFAULT_ID)
-        activity = Robolectric.buildActivity(ArticleActivity::class.java, intent).create().get()
+        activity = Robolectric.buildActivity(ArticleActivity::class.java, intent)
+            .create()
+            .resume()
+            .visible()
+            .get()
+        activity.loadingView.minShowTime = 0
     }
 
     @Test
@@ -45,6 +53,12 @@ class ArticleActivityTest {
     }
 
     @Test
+    fun shouldInflateCorrectMenu() {
+        val menu = shadowOf(activity).optionsMenu
+        assertEquals(context.getString(R.string.share), menu.findItem(R.id.share).title)
+    }
+
+    @Test
     fun shouldGetArticleOnCreate() {
         verify(activity.presenter).loadArticles(MockInstantiator.DEFAULT_ID)
     }
@@ -53,6 +67,14 @@ class ArticleActivityTest {
     fun shouldShowArticleTitleOnShowContent() {
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
         assertEquals(MockInstantiator.DEFAULT_TITLE, activity.articleTitle.text.toString())
+    }
+
+    @Test
+    fun shouldShowShareMenuItemOnShowContent() {
+        val menu = shadowOf(activity).optionsMenu
+        assertFalse(menu.findItem(R.id.share).isVisible)
+        activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
+        assertTrue(menu.findItem(R.id.share).isVisible)
     }
 
     @Test
@@ -78,7 +100,9 @@ class ArticleActivityTest {
 
     @Test
     fun shouldShowContentInWebView() {
+        assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
+        assertEquals(View.GONE, activity.lceLayout.loadingView.visibility)
         val webView = shadowOf(activity.content)
         val tmp = shadowOf(activity.mainLooper)
         tmp.idle()
