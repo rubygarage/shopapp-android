@@ -3,9 +3,9 @@ package com.shopapp.ui.order.list
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.shopapp.gateway.entity.Order
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Order
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.base.recycler.divider.BackgroundItemDecoration
@@ -97,10 +97,9 @@ class OrderListActivity :
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {
-        val productVariant = dataList.getOrNull(orderPosition)
-            ?.orderProducts
-            ?.getOrNull(productPosition)
-            ?.productVariant
+        val productVariant = dataList.getOrNull(orderPosition)?.let {
+            it.orderProducts.getOrNull(productPosition)?.productVariant
+        }
         productVariant?.let {
             startActivity(ProductDetailsActivity.getStartIntent(this, it))
         }

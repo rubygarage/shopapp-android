@@ -2,7 +2,9 @@ package com.shopapp.ui.order.list
 
 import android.content.Context
 import android.view.View
+import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.willReturn
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
@@ -18,6 +20,7 @@ import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -95,6 +98,22 @@ class OrderListActivityTest {
         assertEquals(orderMock.orderProducts.first().productVariant,
             startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldNotStartProductDetailsActivityOnEmptyOrderList() {
+        activity.showContent(listOf())
+        activity.onProductVariantClicked(0, 0)
+        assertNull(shadowOf(activity).nextStartedActivity)
+    }
+
+    @Test
+    fun shouldNotStartProductDetailsActivityOnEmptyProductList() {
+        val orderMock = MockInstantiator.newOrder()
+        given { orderMock.orderProducts } willReturn { listOf() }
+        activity.showContent(listOf(orderMock))
+        activity.onProductVariantClicked(0, 0)
+        assertNull(shadowOf(activity).nextStartedActivity)
     }
 
     @Test
