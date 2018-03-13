@@ -8,11 +8,11 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.blog.adapter.BlogAdapter
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
-import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.fragment_blog.*
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,6 +20,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment
 
@@ -119,5 +120,36 @@ class BlogFragmentTest {
     fun shouldHideSeeAllView() {
         fragment.showContent(emptyList())
         assertEquals(View.GONE, fragment.seeAll.visibility)
+    }
+
+    @Test
+    fun shouldStartBlogActivityWhenSeeAllClicked() {
+        fragment.seeAll.performClick()
+
+        val startedIntent = shadowOf(fragment.activity).nextStartedActivity
+        val shadowIntent = shadowOf(startedIntent)
+        assertEquals(BlogActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldStartArticleActivityWhenItemClicked() {
+        val article = MockInstantiator.newArticle()
+        fragment.showContent(listOf(article))
+        fragment.onItemClicked(0)
+
+        val startedIntent = shadowOf(fragment.activity).nextStartedActivity
+        val shadowIntent = shadowOf(startedIntent)
+        assertEquals(article.id,
+            startedIntent.extras.getString(ArticleActivity.EXTRA_ARTICLE_ID))
+        assertEquals(ArticleActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldNotStartArticleActivityWhenItemClickedWithWrongPosition() {
+        fragment.showContent(listOf())
+        fragment.onItemClicked(0)
+
+        val startedIntent = shadowOf(fragment.activity).nextStartedActivity
+        assertNull(startedIntent)
     }
 }

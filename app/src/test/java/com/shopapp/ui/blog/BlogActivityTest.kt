@@ -32,8 +32,11 @@ class BlogActivityTest {
 
     @Before
     fun setUpTest() {
-        activity = Robolectric.setupActivity(BlogActivity::class.java)
         context = RuntimeEnvironment.application.baseContext
+        activity = Robolectric.buildActivity(BlogActivity::class.java, BlogActivity.getStartIntent(context))
+            .create()
+            .resume()
+            .get()
     }
 
     @Test
