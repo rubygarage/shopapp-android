@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.cart.CartItem
 import org.junit.Assert.assertEquals
@@ -43,6 +44,19 @@ class CartAdapterTest {
     @Test
     fun shouldReturnCorrectCount() {
         assertEquals(SIZE, adapter.itemCount)
+    }
+
+    @Test
+    fun shouldReturnCorrectItemId() {
+        val position = 0
+        val cartItem = MockInstantiator.newCartProduct()
+        given(dataList[position]).willReturn(cartItem)
+        assertEquals(cartItem.productVariant.id.hashCode().toLong(), adapter.getItemId(position))
+    }
+
+    @Test
+    fun shouldReturnDefaultItemId() {
+        assertEquals(-1, adapter.getItemId(SIZE + 1))
     }
 
     @Test

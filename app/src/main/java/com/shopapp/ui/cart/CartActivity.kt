@@ -29,7 +29,8 @@ class CartActivity :
     BaseLceActivity<List<CartProduct>, CartView, CartPresenter>(),
     CartView,
     OnItemClickListener,
-    CartItem.ActionListener {
+    CartItem.ActionListener,
+    SwipeToDeleteCallback.OnItemSwipeListener {
 
     @Inject
     lateinit var cartPresenter: CartPresenter
@@ -76,16 +77,8 @@ class CartActivity :
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(decoration)
-        val swipeHandler = object : SwipeToDeleteCallback() {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                data.getOrNull(viewHolder.adapterPosition)?.let {
-                    presenter.removeProduct(it.productVariant.id)
-                }
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(this))
         itemTouchHelper.attachToRecyclerView(recyclerView)
-
     }
 
     override fun setupEmptyView(emptyView: LceEmptyView) {
@@ -129,5 +122,11 @@ class CartActivity :
 
     override fun onQuantityChanged(productVariantId: String, newQuantity: Int) {
         presenter.changeProductQuantity(productVariantId, newQuantity)
+    }
+
+    override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+        data.getOrNull(viewHolder?.adapterPosition ?: -1)?.let {
+            presenter.removeProduct(it.productVariant.id)
+        }
     }
 }
