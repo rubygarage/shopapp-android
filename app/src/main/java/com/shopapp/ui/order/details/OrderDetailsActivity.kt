@@ -4,11 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.shopapp.gateway.entity.Order
-import com.shopapp.domain.formatter.DateFormatter
-import com.shopapp.domain.formatter.NumberFormatter
+import android.view.View
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Order
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.SpaceDecoration
@@ -80,8 +81,13 @@ class OrderDetailsActivity :
             data.totalShippingPrice ?: BigDecimal.ZERO,
             data.totalPrice,
             data.currency)
-        data.address?.let {
-            addressContentView.setAddress(it)
+
+        val address = data.address
+        if (address != null) {
+            addressContentView.setAddress(address)
+        } else {
+            addressContentView.visibility = View.GONE
+            shippingAddressTitle.visibility = View.GONE
         }
 
         val spaceDecoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin))
@@ -92,7 +98,7 @@ class OrderDetailsActivity :
     }
 
     override fun onItemClicked(position: Int) {
-        val productVariant = order?.orderProducts?.getOrNull(position)?.productVariant
+        val productVariant = order?.let { it.orderProducts.getOrNull(position)?.productVariant }
         productVariant?.let { startActivity(ProductDetailsActivity.getStartIntent(this, it)) }
     }
 }
