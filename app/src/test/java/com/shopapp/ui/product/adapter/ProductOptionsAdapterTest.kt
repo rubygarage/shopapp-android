@@ -9,6 +9,7 @@ import com.shopapp.R
 import com.shopapp.gateway.entity.VariantOption
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -73,6 +74,20 @@ class ProductOptionsAdapterTest {
     @Test
     fun shouldSetUnSelectedStyles() {
         given(defaultVariantOptions.value).willReturn("")
+        adapter.bindData(itemView, TEST_DATA, 0)
+        verify(itemView).setBackgroundResource(R.drawable.background_unselected_variant)
+        verify(itemView).setTextColor(ContextCompat.getColor(context, R.color.black))
+    }
+
+    @Test
+    fun shouldReturnTextView(){
+        val view = adapter.getItemView(context, 0)
+        assertTrue(view is TextView)
+    }
+
+    @Test
+    fun shouldSetUnSelectedStylesOnNullSelectedVariant(){
+        adapter.selectedVariantOptions = null
         adapter.bindData(itemView, TEST_DATA, 0)
         verify(itemView).setBackgroundResource(R.drawable.background_unselected_variant)
         verify(itemView).setTextColor(ContextCompat.getColor(context, R.color.black))

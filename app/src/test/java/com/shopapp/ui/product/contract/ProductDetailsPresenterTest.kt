@@ -70,6 +70,15 @@ class ProductDetailsPresenterTest {
     }
 
     @Test
+    fun shouldShowMessageOnInvalidQuantityString() {
+        val productVariant = MockInstantiator.newProductVariant()
+        presenter.addProductToCart(productVariant, MockInstantiator.DEFAULT_TITLE,
+            MockInstantiator.DEFAULT_CURRENCY, "invalidQuantityString")
+
+        verify(view).showMessage(R.string.quantity_warning_message)
+    }
+
+    @Test
     fun shouldShowErrorOnUseCaseContentError() {
         given(productDetailsUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
         presenter.loadProductDetails(MockInstantiator.DEFAULT_ID)

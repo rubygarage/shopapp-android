@@ -21,6 +21,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import org.robolectric.shadows.ShadowToast
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -35,7 +36,12 @@ class ProductDetailsActivityTest {
         context = RuntimeEnvironment.application.baseContext
         productVariant = MockInstantiator.newProductVariant()
         val intent = ProductDetailsActivity.getStartIntent(context, productVariant)
-        activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent).create().resume().get()
+        activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent)
+            .create()
+            .start()
+            .resume()
+            .visible()
+            .get()
     }
 
     @Test
@@ -80,6 +86,14 @@ class ProductDetailsActivityTest {
         activity.quantityEditText.setText(quantity.toString())
         activity.cartButton.performClick()
         verify(activity.presenter).addProductToCart(productVariant, data.title, data.currency, quantity.toString())
+    }
+
+    @Test
+    fun shouldShowSuccessToast() {
+        activity.productAddedToCart()
+        val looper = shadowOf(activity.mainLooper)
+        looper.idle()
+        assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.product_added))
     }
 
     @After

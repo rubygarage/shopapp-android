@@ -26,6 +26,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -45,7 +46,7 @@ class ProductListActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = ProductListActivity.getStartIntent(context, TITLE, sortType, KEYWORD, EXCLUDE_KEYWORD)
-        activity = Robolectric.buildActivity(ProductListActivity::class.java, intent).create().get()
+        activity = Robolectric.buildActivity(ProductListActivity::class.java, intent).create().resume().visible().get()
     }
 
     @Test

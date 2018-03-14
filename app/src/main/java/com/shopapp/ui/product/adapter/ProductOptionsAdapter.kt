@@ -27,6 +27,7 @@ class ProductOptionsAdapter(
         val itemView = TextView(context)
         itemView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
             context.resources.getDimension(R.dimen.variant_text_size))
+        itemView.textSize
         return itemView
     }
 

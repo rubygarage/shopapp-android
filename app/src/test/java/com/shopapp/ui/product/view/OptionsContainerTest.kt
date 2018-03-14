@@ -2,6 +2,7 @@ package com.shopapp.ui.product.view
 
 import android.content.Context
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.gateway.entity.ProductOption
@@ -9,6 +10,7 @@ import com.shopapp.gateway.entity.VariantOption
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.container_options.view.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,5 +62,18 @@ class OptionsContainerTest {
         itemView.onSelectOptionListener = onSelectOptionListener
         itemView.onItemClicked(0)
         verify(onSelectOptionListener).onOptionsSelected()
+    }
+
+    @Test
+    fun shouldReturnNullBeforeAdapterSet() {
+        assertNull(itemView.getSelectedVariantOption())
+    }
+
+    @Test
+    fun shouldDoNothingIfDataNotSet() {
+        val onSelectOptionListener: OptionsContainer.OnSelectOptionListener = mock()
+        itemView.onSelectOptionListener = onSelectOptionListener
+        itemView.onItemClicked(0)
+        verify(onSelectOptionListener, never()).onOptionsSelected()
     }
 }

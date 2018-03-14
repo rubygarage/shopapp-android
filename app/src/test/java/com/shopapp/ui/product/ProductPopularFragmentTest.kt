@@ -9,8 +9,7 @@ import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import kotlinx.android.synthetic.main.activity_pagination.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -89,5 +88,14 @@ class ProductPopularFragmentTest {
         assertEquals(productMock.id,
             startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldNotOpenProductDetailsOnInvalidPositionClick() {
+        val productMock = MockInstantiator.newProduct()
+        val dataList = listOf(productMock)
+        fragment.showContent(dataList)
+        fragment.onItemClicked(dataList.size + 1)
+        assertNull(Shadows.shadowOf(fragment.activity).nextStartedActivity)
     }
 }
