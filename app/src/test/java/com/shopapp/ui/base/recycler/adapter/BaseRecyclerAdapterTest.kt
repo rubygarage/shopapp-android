@@ -3,7 +3,9 @@ package com.shopapp.ui.base.recycler.adapter
 import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
 import org.junit.Assert.*
 import org.junit.Before
@@ -57,7 +59,17 @@ class BaseRecyclerAdapterTest {
         assertNotNull(viewHolder.itemView)
     }
 
+    @Test
+    fun shouldBindFooter() {
+        val viewHolder = adapter.createViewHolder(LinearLayout(context), 300)
+        adapter.onBindViewHolder(viewHolder, dataList.size + 1)
+        verify(adapter.bindFooterCallListener).onCall()
+    }
+
+
     private class TestBaseRecyclerAdapter(dataList: List<Any>) : BaseRecyclerAdapter<Any>(dataList) {
+
+        val bindFooterCallListener: CallListener = mock()
 
         init {
             withHeader = true
@@ -73,5 +85,14 @@ class BaseRecyclerAdapterTest {
         override fun bindData(itemView: View, data: Any, position: Int) {
 
         }
+
+        override fun bindFooterData(itemView: View, position: Int) {
+            super.bindFooterData(itemView, position)
+            bindFooterCallListener.onCall()
+        }
+    }
+
+    private interface CallListener {
+        fun onCall()
     }
 }

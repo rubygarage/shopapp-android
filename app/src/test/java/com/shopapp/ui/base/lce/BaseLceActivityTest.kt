@@ -11,8 +11,10 @@ import com.shopapp.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
+import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,6 +23,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
+import org.robolectric.fakes.RoboMenuItem
 import org.robolectric.shadows.ShadowToast
 
 @RunWith(RobolectricTestRunner::class)
@@ -32,7 +35,11 @@ class BaseLceActivityTest {
 
     @Before
     fun setUpTest() {
-        activity = Robolectric.setupActivity(TestBaseLceActivity::class.java)
+        activity = Robolectric.buildActivity(TestBaseLceActivity::class.java)
+            .create()
+            .resume()
+            .visible()
+            .get()
         context = RuntimeEnvironment.application.baseContext
     }
 
@@ -96,6 +103,28 @@ class BaseLceActivityTest {
     @Test
     fun shouldShowLoadingWhenLoadData() {
         activity.loadData()
+        assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
+    }
+
+    @Test
+    fun shouldFinishActivityOnCloseMenuItemClick() {
+        val item = RoboMenuItem(R.id.close)
+        activity.onOptionsItemSelected(item)
+        assertTrue(activity.isFinishing)
+    }
+
+    @Test
+    fun shouldFinishActivityOnHomeMenuItemClick() {
+        val item = RoboMenuItem(android.R.id.home)
+        activity.onOptionsItemSelected(item)
+        assertTrue(activity.isFinishing)
+    }
+
+    @Test
+    fun shouldShowProgressOnReload() {
+        activity.changeState(LceLayout.LceState.ErrorState(false))
+        assertEquals(View.GONE, activity.lceLayout.loadingView.visibility)
+        activity.lceLayout.tryAgainButton.performClick()
         assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
     }
 

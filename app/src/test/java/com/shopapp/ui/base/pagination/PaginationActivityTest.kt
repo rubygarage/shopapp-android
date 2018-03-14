@@ -1,11 +1,15 @@
 package com.shopapp.ui.base.pagination
 
 import android.content.Context
+import android.os.Bundle
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_pagination.*
 import org.junit.After
@@ -68,6 +72,24 @@ class PaginationActivityTest {
         verify(activity.recyclerView.adapter).notifyDataSetChanged()
     }
 
+    @Test
+    fun shouldNotCallOnClickWithNegativePosition() {
+        activity.onItemClicked(-1)
+        verify(activity.mockListener, never()).onItemClicked(-1)
+    }
+
+    @Test
+    fun shouldNotCallOnClickWithPositionMoreThanDataListSize() {
+        activity.onItemClicked(9999)
+        verify(activity.mockListener, never()).onItemClicked(9999)
+    }
+
+    @Test
+    fun shouldCallOnClickWithCorrectPosition() {
+        activity.onItemClicked(1)
+        verify(activity.mockListener).onItemClicked(1)
+    }
+
     @After
     fun tearDown() {
         activity.finish()
@@ -75,9 +97,17 @@ class PaginationActivityTest {
 
     private class TestPaginationActivity : PaginationActivity<Any, BaseLceView<Any>, TestBaseLcePresenter>() {
 
+        val mockListener: OnItemClickListener = mock()
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            dataList.addAll(MockInstantiator.newList(Any()))
+        }
+
         override fun setupAdapter(): BaseRecyclerAdapter<Any> = mock()
 
         override fun onItemClicked(data: Any, position: Int) {
+            mockListener.onItemClicked(position)
         }
 
         override fun inject() {
