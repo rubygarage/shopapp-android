@@ -28,4 +28,11 @@ class UpperCaseHintTextInputLayoutTest {
         view.hint = lowercaseText
         assertEquals(lowercaseText.toUpperCase(), view.hint)
     }
+
+    @Test
+    fun shouldNotSetHint() {
+        val lowercaseText: String? = null
+        view.hint = lowercaseText
+        assertEquals(null, view.hint)
+    }
 }

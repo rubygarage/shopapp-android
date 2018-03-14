@@ -1,6 +1,11 @@
 package com.shopapp.ui.custom
 
 import android.view.ContextThemeWrapper
+import android.view.MotionEvent
+import android.view.View
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import org.junit.Assert
 import org.junit.Before
@@ -33,5 +38,16 @@ class UnMutableTextInputEditTextTest {
     fun shouldNotSetFocus() {
         view.performClick()
         Assert.assertEquals(false, view.isFocused)
+    }
+
+    @Test
+    fun shouldProceedClickOnDownAction() {
+        val event: MotionEvent = mock {
+            on { action } doReturn MotionEvent.ACTION_DOWN
+        }
+        val listener: View.OnClickListener = mock()
+        view.setOnClickListener(listener)
+        view.onTouchEvent(event)
+        verify(listener).onClick(view)
     }
 }
