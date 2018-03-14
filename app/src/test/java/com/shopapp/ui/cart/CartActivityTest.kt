@@ -3,7 +3,10 @@ package com.shopapp.ui.cart
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.OrientationHelper
+import android.support.v7.widget.RecyclerView
 import android.view.View
+import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
@@ -132,6 +135,17 @@ class CartActivityTest {
         assertEquals(context.getString(R.string.empty_cart_message), activity.emptyView.emptyMessage.text)
         assertEquals(context.getString(R.string.start_shopping), activity.emptyView.emptyButton.text)
         assertEquals(View.VISIBLE, activity.emptyView.emptyButton.visibility)
+    }
+
+    @Test
+    fun shouldRemoveProductWhenOnItemSwiped() {
+        val viewHolder: RecyclerView.ViewHolder = mock()
+        given(viewHolder.adapterPosition).willReturn(0)
+        val products = MockInstantiator.newList(MockInstantiator.newCartProduct())
+        activity.showContent(products)
+        activity.onItemSwiped(viewHolder, 0)
+
+        verify(activity.presenter).removeProduct(products.first().productVariant.productId)
     }
 
     @After
