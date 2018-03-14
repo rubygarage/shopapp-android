@@ -1,11 +1,11 @@
 package com.shopapp.ui.account.contract
 
-import com.shopapp.gateway.entity.Error
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.ChangePasswordUseCase
 import com.shopapp.domain.validator.FieldValidator
-import com.nhaarman.mockito_kotlin.*
-import com.shopapp.test.ext.mock
+import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import org.junit.After
 import org.junit.Before
@@ -38,11 +38,6 @@ class ChangePasswordPresenterTest {
         presenter.attachView(view)
         useCase.mock()
         validator.mock()
-    }
-
-    @After
-    fun tearDown() {
-        presenter.detachView(false)
     }
 
     @Test
@@ -109,5 +104,10 @@ class ChangePasswordPresenterTest {
         presenter.changePassword("12345678", "123456789")
         verify(view).passwordsMatchError()
         verify(useCase, never()).execute(any(), any(), any())
+    }
+
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
     }
 }

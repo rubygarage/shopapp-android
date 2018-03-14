@@ -232,7 +232,7 @@ object MockInstantiator {
         on { productList } doReturn productListMock
         on { paginationValue } doReturn DEFAULT_PAGINATION_VALUE
     }
-   
+
     fun newCard(): Card = mock {
         on { firstName } doReturn DEFAULT_FIRST_NAME
         on { lastName } doReturn DEFAULT_LAST_NAME
@@ -264,4 +264,16 @@ object MockInstantiator {
         on { code } doReturn DEFAULT_CODE
         on { name } doReturn DEFAULT_NAME
     }
+
+    fun newShop(): Shop = mock {
+
+        val policy = newPolicy()
+
+        on { name } doReturn DEFAULT_NAME
+        on { description } doReturn DEFAULT_DESCRIPTION
+        on { privacyPolicy } doReturn policy
+        on { refundPolicy } doReturn policy
+        on { termsOfService } doReturn policy
+    }
+
 }

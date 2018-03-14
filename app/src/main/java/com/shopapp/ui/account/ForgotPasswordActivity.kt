@@ -94,6 +94,6 @@ class ForgotPasswordActivity :
         v.requestFocus()
         v.hideKeyboard()
         changeState(LceLayout.LceState.LoadingState(true))
-        presenter.resetPassword(emailInput.text.toString())
+        presenter.forgotPassword(emailInput.text.toString())
     }
 }
