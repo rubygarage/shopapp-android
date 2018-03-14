@@ -3,9 +3,7 @@ package com.shopapp.ui.base.picker
 import android.content.Context
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.TestShopApplication
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 import org.junit.Before
@@ -49,14 +47,33 @@ class BaseBottomSheetPickerTest {
     fun shouldReturnResultWhenDoneClicked() {
         fragment.setData(listOf())
         fragment.show(fragmentManager, "tag", "")
-        val testObject = "TEST"
+
         @Suppress("UNCHECKED_CAST")
         val adapter = fragment.recyclerView.adapter as BottomSheetPickerAdapter<Any>
-        val mockListener: BaseBottomSheetPicker.OnDoneButtonClickedListener<Any> = mock()
+        val testObject = "TEST"
         given(adapter.selectedItemData).willReturn(testObject)
+
+        val mockListener: BaseBottomSheetPicker.OnDoneButtonClickedListener<Any> = mock()
         fragment.onDoneButtonClickedListener = mockListener
+
         fragment.done.performClick()
         verify(mockListener).onDoneButtonClicked(testObject)
+    }
+
+    @Test
+    fun shouldNotReturnNullValue() {
+        fragment.setData(listOf())
+        fragment.show(fragmentManager, "tag", "")
+
+        @Suppress("UNCHECKED_CAST")
+        val adapter = fragment.recyclerView.adapter as BottomSheetPickerAdapter<Any>
+        given(adapter.selectedItemData).willReturn(null)
+
+        val mockListener: BaseBottomSheetPicker.OnDoneButtonClickedListener<Any> = mock()
+        fragment.onDoneButtonClickedListener = mockListener
+
+        fragment.done.performClick()
+        verify(mockListener, never()).onDoneButtonClicked(any())
     }
 
     class TestBaseBottomSheetPicker : BaseBottomSheetPicker<Any>() {

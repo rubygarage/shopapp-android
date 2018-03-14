@@ -1,11 +1,15 @@
 package com.shopapp.ui.base.pagination
 
 import android.content.Context
+import android.os.Bundle
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_pagination.*
 import org.junit.Assert.assertFalse
@@ -16,6 +20,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import org.robolectric.fakes.RoboMenuItem
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil
 
 @RunWith(RobolectricTestRunner::class)
@@ -68,11 +73,44 @@ class PaginationFragmentTest {
         verify(fragment.recyclerView.adapter).notifyDataSetChanged()
     }
 
+    @Test
+    fun shouldNotCallOnClickWithNegativePosition() {
+        fragment.onItemClicked(-1)
+        verify(fragment.mockListener, never()).onItemClicked(-1)
+    }
+
+    @Test
+    fun shouldNotCallOnClickWithPositionMoreThanDataListSize() {
+        fragment.onItemClicked(9999)
+        verify(fragment.mockListener, never()).onItemClicked(9999)
+    }
+
+    @Test
+    fun shouldCallOnClickWithCorrectPosition() {
+        fragment.onItemClicked(1)
+        verify(fragment.mockListener).onItemClicked(1)
+    }
+
+    @Test
+    fun shouldFinishParentActivity() {
+        val item = RoboMenuItem(android.R.id.home)
+        fragment.onOptionsItemSelected(item)
+        assertTrue(fragment.activity!!.isFinishing)
+    }
+
     class TestPaginationFragment : PaginationFragment<Any, BaseLceView<Any>, TestBaseLcePresenter>() {
+
+        val mockListener: OnItemClickListener = mock()
+
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            dataList.addAll(MockInstantiator.newList(Any()))
+        }
 
         override fun setupAdapter(): BaseRecyclerAdapter<Any> = mock()
 
         override fun onItemClicked(data: Any, position: Int) {
+            mockListener.onItemClicked(position)
         }
 
         override fun inject() {

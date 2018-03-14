@@ -7,8 +7,10 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -80,6 +82,14 @@ class BaseLceFragmentTest {
     @Test
     fun shouldShowLoadingWhenLoadData() {
         fragment.loadData()
+        assertEquals(View.VISIBLE, fragment.lceLayout.loadingView.visibility)
+    }
+
+    @Test
+    fun shouldShowProgressOnReload() {
+        fragment.showError(false)
+        assertEquals(View.GONE, fragment.lceLayout.loadingView.visibility)
+        fragment.lceLayout.tryAgainButton.performClick()
         assertEquals(View.VISIBLE, fragment.lceLayout.loadingView.visibility)
     }
 
