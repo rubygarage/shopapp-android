@@ -81,8 +81,6 @@ class OrderDetailsActivity :
             data.totalShippingPrice ?: BigDecimal.ZERO,
             data.totalPrice,
             data.currency)
-        data.address?.let {
-        }
 
         if (data.address != null) {
             addressContentView.setAddress(data.address!!)
