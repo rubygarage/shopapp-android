@@ -82,8 +82,9 @@ class OrderDetailsActivity :
             data.totalPrice,
             data.currency)
 
-        if (data.address != null) {
-            addressContentView.setAddress(data.address!!)
+        val address = data.address
+        if (address != null) {
+            addressContentView.setAddress(address)
         } else {
             addressContentView.visibility = View.GONE
             shippingAddressTitle.visibility = View.GONE
