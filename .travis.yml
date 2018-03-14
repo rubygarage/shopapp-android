@@ -12,6 +12,11 @@ notifications:
     rooms:
       - shopclientapp:EBh1k4fcosP8EYhbD1R0S2qm#android
   email: false
+  
+branches:
+  only:
+    - master
+    - develop
 
 script:
   - ./gradlew build jacocoTestReport connectedCheck
