@@ -7,6 +7,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
+import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -20,6 +21,7 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import org.robolectric.Shadows
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
@@ -149,4 +151,58 @@ class SignInActivityTest {
         assertEquals(View.VISIBLE, activity.contentView.visibility)
     }
 
+    @Test
+    fun shouldAddTextWatcherWhenOnResume() {
+        assertNotNull(Shadows.shadowOf(activity.emailInput).watchers.find { it is SimpleTextWatcher })
+        assertNotNull(Shadows.shadowOf(activity.passwordInput).watchers.find { it is SimpleTextWatcher })
+    }
+
+    @Test
+    fun shouldRemoveTextWatcherWhenOnPause() {
+        context = RuntimeEnvironment.application.baseContext
+        val activity = Robolectric.buildActivity(SignInActivity::class.java, SignInActivity.getStartIntent(context))
+            .create()
+            .resume()
+            .pause()
+            .get()
+
+        assertTrue(Shadows.shadowOf(activity.emailInput).watchers.size == 1)
+        assertTrue(Shadows.shadowOf(activity.emailInput).watchers.first() !is SimpleTextWatcher)
+        assertTrue(Shadows.shadowOf(activity.passwordInput).watchers.size == 1)
+        assertTrue(Shadows.shadowOf(activity.passwordInput).watchers.first() !is SimpleTextWatcher)
+    }
+
+    @Test
+    fun shouldDisableErrorWhenEmailChanged() {
+        val inputLayout = activity.emailInputLayout
+        inputLayout.error = "error"
+        assertTrue(inputLayout.isErrorEnabled)
+        activity.emailInput.setText("email")
+        assertFalse(inputLayout.isErrorEnabled)
+    }
+
+    @Test
+    fun shouldDisableErrorWhenPasswordChanged() {
+        val inputLayout = activity.passwordInputLayout
+        inputLayout.error = "error"
+        assertTrue(inputLayout.isErrorEnabled)
+        activity.passwordInput.setText("password")
+        assertFalse(inputLayout.isErrorEnabled)
+    }
+
+    @Test
+    fun shouldShowEmailError() {
+        activity.showEmailError()
+
+        assertTrue(activity.emailInputLayout.isErrorEnabled)
+        assertEquals(context.getString(R.string.invalid_email_error_message), activity.emailInputLayout.error)
+    }
+
+    @Test
+    fun shouldShowPasswordError() {
+        activity.showPasswordError()
+
+        assertTrue(activity.passwordInputLayout.isErrorEnabled)
+        assertEquals(context.getString(R.string.invalid_password_error_message), activity.passwordInputLayout.error)
+    }
 }

@@ -40,8 +40,10 @@ class ChangePasswordPresenter(
             view?.showUpdateProgress()
             changePasswordUseCase.execute(
                 {
-                    view?.hideUpdateProgress()
-                    view?.passwordChanged()
+                    view?.let {
+                        it.hideUpdateProgress()
+                        it.passwordChanged()
+                    }
                 },
                 {
                     resolveError(it)

@@ -1,5 +1,6 @@
 package com.shopapp.ui.account
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.*
@@ -9,6 +10,7 @@ import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Policy
 import com.shopapp.gateway.entity.Shop
 import com.shopapp.ui.address.account.AddressListActivity
+import com.shopapp.ui.const.RequestCode
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.list.OrderListActivity
 import com.shopapp.ui.policy.PolicyActivity
@@ -16,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,6 +47,27 @@ class AccountFragmentTest {
     @Test
     fun shouldChangeActivityTitle() {
         assertEquals(context.getString(R.string.my_account), fragment.toolbar.toolbarTitle.text)
+    }
+
+    @Test
+    fun shouldGetShopInfoWhenShopIsNull() {
+        verify(fragment.presenter).getShopInfo()
+    }
+
+    @Test
+    fun shouldShowSettingsMenuItemWhenUserIsAuthorised() {
+        val menu = shadowOf(fragment.activity).optionsMenu
+        assertFalse(menu.findItem(R.id.settings).isVisible)
+        fragment.showContent(true)
+        assertTrue(menu.findItem(R.id.settings).isVisible)
+    }
+
+    @Test
+    fun shouldHideSettingsMenuItemWhenUserDoesNotAuthorised() {
+        val menu = shadowOf(fragment.activity).optionsMenu
+        assertFalse(menu.findItem(R.id.settings).isVisible)
+        fragment.showContent(false)
+        assertFalse(menu.findItem(R.id.settings).isVisible)
     }
 
     @Test
@@ -148,6 +171,34 @@ class AccountFragmentTest {
     }
 
     @Test
+    fun shouldShowCustomerTitleViewWhenFirstNameIsEmpty() {
+        val customer: Customer = mock {
+            on { firstName } doReturn ""
+            on { lastName } doReturn "lastName"
+        }
+        val resultName = context.getString(R.string.full_name_pattern, "", "lastName").trim()
+        fragment.customerReceived(customer)
+        assertEquals(View.GONE, fragment.unauthGroup.visibility)
+        assertEquals(View.VISIBLE, fragment.authGroup.visibility)
+        assertEquals(resultName, fragment.name.text.toString())
+        assertEquals("L", fragment.avatarView.text.toString())
+    }
+
+    @Test
+    fun shouldShowCustomerTitleViewWhenLastNameIsEmpty() {
+        val customer: Customer = mock {
+            on { firstName } doReturn "name"
+            on { lastName } doReturn ""
+        }
+        val resultName = context.getString(R.string.full_name_pattern, "name", "").trim()
+        fragment.customerReceived(customer)
+        assertEquals(View.GONE, fragment.unauthGroup.visibility)
+        assertEquals(View.VISIBLE, fragment.authGroup.visibility)
+        assertEquals(resultName, fragment.name.text.toString())
+        assertEquals("N", fragment.avatarView.text.toString())
+    }
+
+    @Test
     fun shouldShowCustomerEmailIfNameIsEmpty() {
         val customer: Customer = mock {
             on { firstName } doReturn ""
@@ -224,4 +275,39 @@ class AccountFragmentTest {
         verify(fragment.presenter).signOut()
     }
 
+    @Test
+    fun shouldLoadDataWhenOnActivityResultWithIsSignInAndResultOk() {
+        fragment.onActivityResult(RequestCode.SIGN_IN, Activity.RESULT_OK, null)
+        verify(fragment.presenter, times(2)).isAuthorized()
+    }
+
+    @Test
+    fun shouldLoadDataWhenOnActivityResultWithIsSignUpAndResultOk() {
+        fragment.onActivityResult(RequestCode.SIGN_UP, Activity.RESULT_OK, null)
+        verify(fragment.presenter, times(2)).isAuthorized()
+    }
+
+    @Test
+    fun shouldLoadDataWhenOnActivityResultWithPersonalInfoInAndResultOk() {
+        fragment.onActivityResult(RequestCode.PERSONAL_INFO, Activity.RESULT_OK, null)
+        verify(fragment.presenter, times(2)).isAuthorized()
+    }
+
+    @Test
+    fun shouldNotLoadDataWhenOnActivityResultWithIsSignInAndResultCanceled() {
+        fragment.onActivityResult(RequestCode.SIGN_IN, Activity.RESULT_CANCELED, null)
+        verify(fragment.presenter, times(1)).isAuthorized()
+    }
+
+    @Test
+    fun shouldNotLoadDataWhenOnActivityResultWithIsSignUpAndResultCanceled() {
+        fragment.onActivityResult(RequestCode.SIGN_UP, Activity.RESULT_CANCELED, null)
+        verify(fragment.presenter, times(1)).isAuthorized()
+    }
+
+    @Test
+    fun shouldNotLoadDataWhenOnActivityResultWithPersonalInfoInAndResultCanceled() {
+        fragment.onActivityResult(RequestCode.PERSONAL_INFO, Activity.RESULT_CANCELED, null)
+        verify(fragment.presenter, times(1)).isAuthorized()
+    }
 }
