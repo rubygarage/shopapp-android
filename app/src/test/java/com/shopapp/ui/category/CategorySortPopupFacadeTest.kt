@@ -8,20 +8,19 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class CategorySortPopupFacadeTest {
-
 
     private lateinit var facade: CategorySortPopupFacade
     private lateinit var context: Context
@@ -40,6 +39,48 @@ class CategorySortPopupFacadeTest {
         val popup = Shadows.shadowOf(RuntimeEnvironment.application).latestPopupWindow
 
         assertNotNull(popup)
+    }
+
+    @Test
+    fun shouldNewestBeCheckedWithRecentSortType() {
+        val anchor = View(context)
+        facade.showSortPopup(anchor, SortType.RECENT)
+        val popup = Shadows.shadowOf(RuntimeEnvironment.application).latestPopupWindow
+        assertNotNull(popup)
+
+        val view = popup.contentView.findViewById<TextView>(R.id.newestSort)
+        val drawable = view.compoundDrawables[2]
+
+        assertNotNull(drawable)
+        assertEquals(R.drawable.ic_check_black, shadowOf(drawable).createdFromResId)
+    }
+
+    @Test
+    fun shouldHighToLowBeCheckedWithHighToLowSortType() {
+        val anchor = View(context)
+        facade.showSortPopup(anchor, SortType.PRICE_HIGH_TO_LOW)
+        val popup = Shadows.shadowOf(RuntimeEnvironment.application).latestPopupWindow
+        assertNotNull(popup)
+
+        val view = popup.contentView.findViewById<TextView>(R.id.highToLowSort)
+        val drawable = view.compoundDrawables[2]
+
+        assertNotNull(drawable)
+        assertEquals(R.drawable.ic_check_black, shadowOf(drawable).createdFromResId)
+    }
+
+    @Test
+    fun shouldLowToHighBeCheckedWithLowToHighSortType() {
+        val anchor = View(context)
+        facade.showSortPopup(anchor, SortType.PRICE_LOW_TO_HIGH)
+        val popup = Shadows.shadowOf(RuntimeEnvironment.application).latestPopupWindow
+        assertNotNull(popup)
+
+        val view = popup.contentView.findViewById<TextView>(R.id.lowToHighSort)
+        val drawable = view.compoundDrawables[2]
+
+        assertNotNull(drawable)
+        assertEquals(R.drawable.ic_check_black, shadowOf(drawable).createdFromResId)
     }
 
     @Test
