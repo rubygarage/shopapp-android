@@ -31,7 +31,7 @@ class AvatarViewTest {
     }
 
     @Test
-    fun shouldNotSeEmptyName() {
+    fun shouldNotSetEmptyName() {
         val name = "test name"
         view.setName(name)
         assertEquals("TN", view.text.toString())
