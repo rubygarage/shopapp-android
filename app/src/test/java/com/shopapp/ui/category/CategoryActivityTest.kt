@@ -1,18 +1,20 @@
 package com.shopapp.ui.category
 
+import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.shopapp.ui.product.ProductDetailsActivity
-import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
+import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -27,15 +29,18 @@ import org.robolectric.annotation.Config
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
 class CategoryActivityTest {
 
+    private lateinit var context: Context
     private lateinit var activity: CategoryActivity
 
     @Before
     fun setUpTest() {
-        val intent = CategoryActivity.getStartIntent(
-            RuntimeEnvironment.application.baseContext,
-            MockInstantiator.newCategory()
-        )
-        activity = Robolectric.buildActivity(CategoryActivity::class.java, intent).create().get()
+        context = RuntimeEnvironment.application.baseContext
+        val intent = CategoryActivity.getStartIntent(context, MockInstantiator.newCategory())
+        activity = Robolectric.buildActivity(CategoryActivity::class.java, intent)
+            .create()
+            .resume()
+            .visible()
+            .get()
     }
 
     @Test
@@ -62,6 +67,14 @@ class CategoryActivityTest {
             MockInstantiator.DEFAULT_ID,
             SortType.NAME
         )
+    }
+
+    @Test
+    fun shouldShowSortPopupWhenSortLayoutClicked() {
+        activity.sortLayout.performClick()
+
+        val popup = Shadows.shadowOf(RuntimeEnvironment.application).latestPopupWindow
+        Assert.assertNotNull(popup)
     }
 
     @Test

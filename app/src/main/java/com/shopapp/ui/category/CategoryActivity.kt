@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
-import android.view.MenuItem
 import android.view.ViewGroup
 import com.shopapp.R
 import com.shopapp.ShopApplication
@@ -62,16 +61,8 @@ class CategoryActivity :
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_categories, menu)
+        menuInflater.inflate(R.menu.menu_cart, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return if (item?.itemId == R.id.sort) {
-            true
-        } else {
-            super.onOptionsItemSelected(item)
-        }
     }
 
     //INIT

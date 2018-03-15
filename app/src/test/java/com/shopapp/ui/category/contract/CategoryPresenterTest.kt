@@ -10,7 +10,6 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -72,7 +71,7 @@ class CategoryPresenterTest {
     }
 
     @Test
-    fun shouldShowEmptyState() {
+    fun shouldShowEmptyStateWhenReceiveEmptyList() {
         val products: List<Product> = emptyList()
         val category: Category = mock {
             on { productList } doReturn products
@@ -83,6 +82,21 @@ class CategoryPresenterTest {
         val inOrder = inOrder(categoryUseCase, view)
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showEmptyState()
+    }
+
+    @Test
+    fun shouldNotShowEmptyStateWhenReceiveEmptyList() {
+        val pagination = "pagination"
+        val products: List<Product> = emptyList()
+        val category: Category = mock {
+            on { productList } doReturn products
+        }
+        given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
+        presenter.loadProductList(PER_PAGE, pagination, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        val params = CategoryUseCase.Params(PER_PAGE, pagination, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        val inOrder = inOrder(categoryUseCase, view)
+        inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
+        inOrder.verify(view, never()).showEmptyState()
     }
 
     @After
