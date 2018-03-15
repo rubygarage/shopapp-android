@@ -36,12 +36,7 @@ class ProductDetailsActivityTest {
         context = RuntimeEnvironment.application.baseContext
         productVariant = MockInstantiator.newProductVariant()
         val intent = ProductDetailsActivity.getStartIntent(context, productVariant)
-        activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent)
-            .create()
-            .start()
-            .resume()
-            .visible()
-            .get()
+        activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent).create().resume().get()
     }
 
     @Test
