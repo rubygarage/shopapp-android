@@ -6,17 +6,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.view.View
-import com.shopapp.gateway.entity.Product
 import com.shopapp.R
 import com.shopapp.ext.replaceOnce
+import com.shopapp.gateway.entity.Product
 import kotlinx.android.synthetic.main.activity_gallery.*
 
 class GalleryActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val EXTRA_PRODUCT = "product"
-        private const val EXTRA_SELECTED_POSITION = "selected_position"
+        const val EXTRA_PRODUCT = "product"
+        const val EXTRA_SELECTED_POSITION = "selected_position"
 
         fun getStartIntent(context: Context, product: Product?, selectedPosition: Int = 0): Intent {
             val intent = Intent(context, GalleryActivity::class.java)

@@ -3,16 +3,19 @@ package com.shopapp.ui.gallery
 import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Product
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.fragment_gallery.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentController
 
@@ -69,4 +72,27 @@ class GalleryFragmentTest {
         assertEquals(View.VISIBLE, fragment.noImagePlaceholder.visibility)
     }
 
+    @Test
+    fun shouldStartGalleryActivityWhenThumbnailImageClicked() {
+        controller = SupportFragmentController.of(GalleryFragment.newInstance(product, true, SELECTED_INDEX))
+        val fragment = controller.create().start().get()
+        val adapter = fragment.pager.adapter as GalleryPagerAdapter
+        adapter.imageClickListener?.onClick(mock())
+
+        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
+        val shadowIntent = Shadows.shadowOf(startedIntent)
+        assertEquals(product, startedIntent.extras.getParcelable(GalleryActivity.EXTRA_PRODUCT))
+        assertEquals(fragment.pager.currentItem, startedIntent.extras.getInt(GalleryActivity.EXTRA_SELECTED_POSITION))
+        assertEquals(GalleryActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldNotStartGalleryActivityWhenImageClicked() {
+        val fragment = controller.create().start().get()
+        val adapter = fragment.pager.adapter as GalleryPagerAdapter
+        adapter.imageClickListener?.onClick(mock())
+
+        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
+        assertNull(startedIntent)
+    }
 }

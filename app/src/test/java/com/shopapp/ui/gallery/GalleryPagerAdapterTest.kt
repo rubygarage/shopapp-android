@@ -2,6 +2,7 @@ package com.shopapp.ui.gallery
 
 import android.content.Context
 import android.support.v7.app.AppCompatActivity
+import com.nhaarman.mockito_kotlin.given
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Product
 import com.shopapp.test.MockInstantiator
@@ -40,6 +41,12 @@ class GalleryPagerAdapterTest {
     @Test
     fun shouldReturnCorrectItemCount() {
         assertEquals(DEFAULT_PER_PAGE_COUNT, adapter.count)
+    }
+
+    @Test
+    fun shouldReturnDefaultZeroCount() {
+        given(product.images).willReturn(null)
+        assertEquals(0, adapter.count)
     }
 
     @Test
