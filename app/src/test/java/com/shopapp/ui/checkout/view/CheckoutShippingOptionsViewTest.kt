@@ -8,8 +8,7 @@ import com.shopapp.R
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.checkout.adapter.ShippingOptionsAdapter
 import kotlinx.android.synthetic.main.view_checkout_shipping_options.view.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -90,5 +89,15 @@ class CheckoutShippingOptionsViewTest {
         assertNull(adapter.shippingRate)
         view.selectShippingRate(shippingRate)
         assertEquals(shippingRate, adapter.shippingRate)
+    }
+
+    @Test
+    fun shouldSetListenerToRecyclerViewAdapter() {
+        val onOptionSelectedListener: CheckoutShippingOptionsView.OnOptionSelectedListener? = mock()
+        view.onOptionSelectedListener = onOptionSelectedListener
+        assertNotNull(view.recyclerView.adapter)
+        assertTrue(view.recyclerView.adapter is ShippingOptionsAdapter)
+        val adapter = view.recyclerView.adapter as ShippingOptionsAdapter
+        assertEquals(onOptionSelectedListener, adapter.onOptionSelectedListener)
     }
 }

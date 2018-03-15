@@ -16,6 +16,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
+import org.robolectric.fakes.RoboMenuItem
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -49,7 +50,7 @@ class PaymentActivityTest {
     }
 
     @Test
-    fun shouldSetResultAndFinishActivityWhenPaymentChecked() {
+    fun shouldSetCardPaymentAsResultAndFinishActivityWhenPaymentChecked() {
         activity.onCheckedChanged(activity.cardPayRadioButton, true)
 
         val shadowActivity = shadowOf(activity)
@@ -57,6 +58,49 @@ class PaymentActivityTest {
         assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
         assertEquals(PaymentType.CARD_PAYMENT, resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE))
         assertTrue(shadowActivity.isFinishing)
+    }
+
+    @Test
+    fun shouldSetAndroidPaymentAsResultAndFinishActivityWhenPaymentChecked() {
+        activity.onCheckedChanged(activity.androidPayRadioButton, true)
+
+        val shadowActivity = shadowOf(activity)
+        val resultIntent = shadowActivity.resultIntent
+        assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
+        assertEquals(PaymentType.ANDROID_PAYMENT, resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE))
+        assertTrue(shadowActivity.isFinishing)
+    }
+
+    @Test
+    fun shouldSetWebPaymentAsResultAndFinishActivityWhenPaymentChecked() {
+        activity.onCheckedChanged(activity.webPayRadioButton, true)
+
+        val shadowActivity = shadowOf(activity)
+        val resultIntent = shadowActivity.resultIntent
+        assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
+        assertEquals(PaymentType.WEB_PAYMENT, resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE))
+        assertTrue(shadowActivity.isFinishing)
+    }
+
+    @Test
+    fun shouldCheckAndroidPayment() {
+        val intent = PaymentActivity.getStartIntent(context, PaymentType.ANDROID_PAYMENT)
+        val activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume().get()
+        assertTrue(activity.androidPayRadioButton.isChecked)
+    }
+
+    @Test
+    fun shouldCheckWebPayment() {
+        val intent = PaymentActivity.getStartIntent(context, PaymentType.WEB_PAYMENT)
+        val activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume().get()
+        assertTrue(activity.webPayRadioButton.isChecked)
+    }
+
+    @Test
+    fun shouldFinishActivity() {
+        val item = RoboMenuItem(android.R.id.home)
+        assertTrue(activity.onOptionsItemSelected(item))
+        assertTrue(activity.isFinishing)
     }
 
     @After

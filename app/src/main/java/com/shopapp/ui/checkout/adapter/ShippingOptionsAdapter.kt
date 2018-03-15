@@ -18,7 +18,7 @@ class ShippingOptionsAdapter(
     var onOptionSelectedListener: CheckoutShippingOptionsView.OnOptionSelectedListener? = null
     private var currencyCode: String? = null
 
-    override fun getItemView(context: Context, viewType: Int) =
+    override fun getItemView(context: Context, viewType: Int): View =
         ShippingOptionItem(context, onOptionSelectedListener)
 
     override fun bindData(itemView: View, data: ShippingRate, position: Int) {

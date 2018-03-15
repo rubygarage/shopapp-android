@@ -1,11 +1,11 @@
 package com.shopapp.ui.checkout
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
-import com.nhaarman.mockito_kotlin.anyOrNull
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.never
+import android.widget.TextView
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
@@ -17,7 +17,9 @@ import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
 import com.shopapp.ui.checkout.payment.PaymentActivity
 import com.shopapp.ui.checkout.payment.card.CardActivity
+import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.PaymentType
+import com.shopapp.ui.const.RequestCode
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.success.OrderSuccessActivity
 import kotlinx.android.synthetic.main.activity_checkout.*
@@ -303,5 +305,196 @@ class CheckoutActivityTest {
         activity.placeOrderButton.performClick()
 
         verify(activity.presenter).completeCheckoutByCard(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+    }
+
+    @Test
+    fun shouldNotReloadCheckoutIfShippingAddressNotChanged() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, false)
+
+        activity.showContent(checkout)
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter, times(1)).getCheckoutData()
+        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(any(), any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+    }
+
+    @Test
+    fun shouldReloadCheckoutDataOnShippingAddressAdded() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
+
+        activity.showContent(checkout)
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(any(), any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+    }
+
+    @Test
+    fun shouldReloadCheckoutDataOnShippingAddressEdited() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
+
+        activity.showContent(checkout)
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(any(), any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+    }
+
+    @Test
+    fun shouldNotSetUpPaymentViewIfBillingAddressNotChanged() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, false)
+
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId),
+            RequestCode.ADD_BILLING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter, never()).getCheckoutData()
+        assertEquals(null, activity.paymentView.getAddress())
+    }
+
+    @Test
+    fun shouldSetUpPaymentViewOnBillingAddressAdded() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
+        dataIntent.putExtra(Extra.ADDRESS, address)
+
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId),
+            RequestCode.ADD_BILLING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        assertEquals(address, activity.paymentView.getAddress())
+    }
+
+    @Test
+    fun shouldSetUpPaymentViewOnBillingAddressEdited() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
+        dataIntent.putExtra(Extra.ADDRESS, address)
+
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId),
+            RequestCode.EDIT_BILLING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        assertEquals(address, activity.paymentView.getAddress())
+    }
+
+    @Test
+    fun shouldSetUpPaymentViewOnCardChanged() {
+        val card = MockInstantiator.newCard()
+        val cardToken = "token"
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
+        dataIntent.putExtra(Extra.CARD, card)
+        dataIntent.putExtra(Extra.CARD_TOKEN, cardToken)
+
+        activity.startActivityForResult(CardActivity.getStartIntent(context, card), RequestCode.CARD)
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        assertEquals(card, activity.paymentView.getCardData().first)
+        assertEquals(cardToken, activity.paymentView.getCardData().second)
+    }
+
+    @Test
+    fun shouldVerifyDataOnCanceledResult() {
+        val shadowActivity = shadowOf(activity)
+
+        activity.showContent(checkout)
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_CANCELED, null)
+        verify(activity.presenter).getCheckoutData()
+    }
+
+    @Test
+    fun shouldClearPaymentView() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.CLEAR_BILLING, true)
+
+        activity.paymentView.setAddressData(address)
+
+        activity.startActivityForResult(
+            CheckoutAddressListActivity.getStartIntent(context, checkout.checkoutId, null, false, null, null),
+            RequestCode.EDIT_BILLING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        assertEquals(null, activity.paymentView.getAddress())
+    }
+
+    @Test
+    fun shouldClearShippingViews() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.CLEAR_SHIPPING, true)
+
+        activity.shippingAddressView.setAddress(address)
+
+        activity.startActivityForResult(
+            CheckoutAddressListActivity.getStartIntent(context, checkout.checkoutId, null, true, address, null),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        assertEquals(null, activity.shippingAddressView.getAddress())
+        val messageView = activity.shippingOptionsView.findViewById<TextView>(R.id.message)
+        assertEquals(View.VISIBLE, messageView.visibility)
+        assertEquals(context.resources.getString(R.string.please_add_shipping_address_first), messageView.text.toString())
     }
 }

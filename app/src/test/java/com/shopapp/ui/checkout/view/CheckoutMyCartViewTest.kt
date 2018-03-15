@@ -8,6 +8,7 @@ import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.view_checkout_my_cart.view.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,5 +54,17 @@ class CheckoutMyCartViewTest {
         assertEquals(productVariantMock,
             startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldNotStartProductDetailsActivityWhenOnItemClickedWithInvalidPosition() {
+        val productVariantMock = MockInstantiator.newProductVariant()
+        val cartProduct: CartProduct = mock {
+            on { productVariant } doReturn productVariantMock
+        }
+        val data = listOf(cartProduct)
+        view.setData(data)
+        view.onItemClicked(data.size + 1)
+        assertNull(Shadows.shadowOf(application).nextStartedActivity)
     }
 }

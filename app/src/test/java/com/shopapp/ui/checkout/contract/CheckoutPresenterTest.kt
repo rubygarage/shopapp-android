@@ -294,4 +294,13 @@ class CheckoutPresenterTest {
 
         verify(view).checkoutValidationPassed(false)
     }
+
+    @Test
+    fun verifyCheckoutDataShouldNotPassWhenShippingRateIsNull() {
+        given(checkout.shippingRate).willReturn(null)
+        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address)
+
+        verify(view).checkoutValidationPassed(false)
+    }
 }

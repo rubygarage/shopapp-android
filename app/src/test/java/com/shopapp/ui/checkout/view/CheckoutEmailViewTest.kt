@@ -2,6 +2,7 @@ package com.shopapp.ui.checkout.view
 
 import android.content.Context
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
@@ -10,8 +11,7 @@ import com.shopapp.gateway.entity.Customer
 import com.shopapp.test.MockInstantiator
 import com.shopapp.test.robolectric.ShadowTextInputLayout
 import kotlinx.android.synthetic.main.view_checkout_email.view.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -73,5 +73,28 @@ class CheckoutEmailViewTest {
         view.setData(customer)
         view.emailInput.setText("testemail1@gmail.com")
         verify(emailChangeListener, times(2)).onEmailChanged()
+    }
+
+    @Test
+    fun shouldClearViewFocusOnDoneClick() {
+        view.emailInput.requestFocus()
+        assertTrue(view.emailInput.isFocused)
+        assertTrue(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_DONE, null))
+        assertFalse(view.emailInput.isFocused)
+    }
+
+    @Test
+    fun shouldDoNothingOnNonDoneAction() {
+        assertFalse(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_NEXT, null))
+        assertFalse(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_GO, null))
+        assertFalse(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_SEARCH, null))
+        assertFalse(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_UNSPECIFIED, null))
+        assertFalse(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_NONE, null))
+        assertFalse(view.onEditorAction(view.emailInput, EditorInfo.IME_ACTION_PREVIOUS, null))
+    }
+
+    @Test
+    fun shouldDoNothingOnNullView() {
+        assertFalse(view.onEditorAction(null, EditorInfo.IME_ACTION_DONE, null))
     }
 }
