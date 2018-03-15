@@ -3,7 +3,9 @@ package com.shopapp.ui.search
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
@@ -179,5 +181,19 @@ class SearchToolbarTest {
         toolbar.changeToolbarState()
         toolbar.searchInput.setText("sometext")
         verify(listener).onQueryChanged("sometext")
+    }
+
+    @Test
+    fun shouldCallQueryChangedWhenSearchEditorButtonClicked() {
+        toolbar.searchInput.setText("sometext")
+        toolbar.searchInput.onEditorAction(EditorInfo.IME_ACTION_SEARCH)
+        verify(listener).onQueryChanged("sometext")
+    }
+
+    @Test
+    fun shouldCallQueryChangedWhenNotSearchEditorButtonClicked() {
+        toolbar.searchInput.setText("sometext")
+        toolbar.searchInput.onEditorAction(EditorInfo.IME_ACTION_DONE)
+        verify(listener, never()).onQueryChanged("sometext")
     }
 }
