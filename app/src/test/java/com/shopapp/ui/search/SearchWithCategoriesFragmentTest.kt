@@ -2,23 +2,22 @@ package com.shopapp.ui.search
 
 import android.content.Context
 import android.support.v4.app.Fragment
-import android.view.View
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.anyOrNull
+import com.nhaarman.mockito_kotlin.eq
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.category.CategoryListFragment
-import com.shopapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_search_with_categories.*
-import kotlinx.android.synthetic.main.toolbar_search.view.*
-import org.junit.Assert
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.support.v4.SupportFragmentTestUtil
+import org.robolectric.shadows.support.v4.SupportFragmentController
 
 
 @RunWith(RobolectricTestRunner::class)
@@ -30,8 +29,12 @@ class SearchWithCategoriesFragmentTest {
 
     @Before
     fun setUp() {
-        fragment = SearchWithCategoriesFragment()
-        SupportFragmentTestUtil.startFragment(fragment, HomeActivity::class.java)
+        fragment = SupportFragmentController.of(SearchWithCategoriesFragment())
+            .create()
+            .start()
+            .resume()
+            .visible()
+            .get()
         context = RuntimeEnvironment.application.baseContext
     }
 
@@ -70,6 +73,17 @@ class SearchWithCategoriesFragmentTest {
     fun shouldExpandToolbar() {
         fragment.searchToolbar.changeToolbarState()
         assertTrue(fragment.searchToolbar.isToolbarExpanded())
+    }
+
+    @Test
+    fun shouldSearchQueryWhenQueryChangedAndSearchFragmentIsVisible() {
+        fragment.onToolbarStateChanged(true)
+        val testQuery = "testQuery"
+        fragment.onQueryChanged(testQuery)
+        val fragment = fragment.childFragmentManager.fragments.firstOrNull()
+        assertNotNull(fragment)
+        assertTrue(fragment is SearchFragment)
+        verify((fragment as SearchFragment).presenter).search(any(), anyOrNull(), eq(testQuery))
     }
 
 }
