@@ -8,10 +8,12 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.R
 import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_cart.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -27,6 +29,7 @@ class CartItemTest {
 
     private lateinit var context: Context
     private lateinit var view: CartItem
+    private lateinit var product: CartProduct
 
     private val formatter: NumberFormatter = mock {
         on { formatPrice(any(), any()) } doAnswer {
@@ -39,11 +42,11 @@ class CartItemTest {
         context = RuntimeEnvironment.application.baseContext
         view = CartItem(context, formatter)
         shadowOf(view).callOnAttachedToWindow()
+        product = MockInstantiator.newCartProduct()
     }
 
     @Test
     fun shouldSetTitle() {
-        val product = MockInstantiator.newCartProduct()
         view.setCartProduct(product)
         val expected = context.resources.getString(R.string.cart_product_title, MockInstantiator.DEFAULT_TITLE, MockInstantiator.DEFAULT_TITLE)
         assertEquals(expected, view.titleText.text.toString())
@@ -51,7 +54,6 @@ class CartItemTest {
 
     @Test
     fun shouldSetQuantity() {
-        val product = MockInstantiator.newCartProduct()
         view.setCartProduct(product)
         assertEquals(MockInstantiator.DEFAULT_QUANTITY.toString(), view.quantityEditText.text.toString())
         assertEquals(MockInstantiator.DEFAULT_QUANTITY.toString().length, view.quantityEditText.selectionEnd)
@@ -59,7 +61,6 @@ class CartItemTest {
 
     @Test
     fun shouldSetPrice() {
-        val product = MockInstantiator.newCartProduct()
         view.setCartProduct(product)
         val expectedPrice = MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
         val expected = expectedPrice.toString() + MockInstantiator.DEFAULT_CURRENCY
@@ -68,7 +69,6 @@ class CartItemTest {
 
     @Test
     fun shouldChangePriceOnQuantityChanged() {
-        val product = MockInstantiator.newCartProduct()
         view.setCartProduct(product)
         val expectedPrice = MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
         val expected = expectedPrice.toString() + MockInstantiator.DEFAULT_CURRENCY
@@ -83,7 +83,6 @@ class CartItemTest {
 
     @Test
     fun shouldShowEachPriceTitle() {
-        val product = MockInstantiator.newCartProduct()
         view.setCartProduct(product)
         val str = MockInstantiator.DEFAULT_PRICE.toString() + MockInstantiator.DEFAULT_CURRENCY
         val expected = context.getString(R.string.each_price_pattern, str)
@@ -93,10 +92,29 @@ class CartItemTest {
 
     @Test
     fun shouldHideEachPriceTitle() {
-        val product = MockInstantiator.newCartProduct()
         given(product.quantity).willReturn(1)
         view.setCartProduct(product)
         assertEquals(View.GONE, view.eachPrice.visibility)
+    }
+
+    @Test
+    fun shouldResetQuantityWhenViewLostFocusAndTextIsEmpty() {
+        view.setCartProduct(product)
+        view.quantityEditText.setText("")
+        view.onFocusChange(view.quantityEditText, false)
+
+        assertTrue(view.quantityEditText.text.isNotEmpty())
+        assertEquals(product.quantity.toString(), view.quantityEditText.text.toString())
+    }
+
+    @Test
+    fun shouldResetQuantityWhenViewLostFocusAndQuantityIsZero() {
+        view.setCartProduct(product)
+        view.quantityEditText.setText("0")
+        view.onFocusChange(view.quantityEditText, false)
+
+        assertTrue(view.quantityEditText.text.isNotEmpty())
+        assertEquals(product.quantity.toString(), view.quantityEditText.text.toString())
     }
 
     @After

@@ -59,6 +59,12 @@ class CartTotalPriceTest {
         assertEquals(expected, view.orderTotalValue.text.toString())
     }
 
+    @Test
+    fun shouldSetEmptyCurrencyWhenDataListIsEmpty() {
+        view.setData(listOf(), formatter)
+        assertEquals(0.toString(), view.orderTotalValue.text)
+    }
+
     @After
     fun tearDown() {
         shadowOf(view).callOnDetachedFromWindow()
