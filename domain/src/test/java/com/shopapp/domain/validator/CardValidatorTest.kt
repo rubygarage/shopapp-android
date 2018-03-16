@@ -60,73 +60,73 @@ class CardValidatorTest {
 
     @Test
     fun isCardValidWithVisaAndCorrectDataShouldReturnValid() {
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithAmericanExpressAndCorrectDataShouldReturnValid() {
         given(card.cardNumber).willReturn("378282246310005")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithDinersClubAndCorrectDataShouldReturnValid() {
         given(card.cardNumber).willReturn("30569309025904")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithDiscoverAndCorrectDataShouldReturnValid() {
         given(card.cardNumber).willReturn("6011111111111117")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithJcbCorrectDataShouldReturnValid() {
         given(card.cardNumber).willReturn("3530111333300000")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithMasterCardCorrectDataShouldReturnValid() {
         given(card.cardNumber).willReturn("5555555555554444")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyFirstNameShouldReturnInvalidName() {
         given(card.firstName).willReturn("")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NAME)
+        assertEquals(CardValidator.CardValidationResult.INVALID_NAME, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyLastNameShouldReturnInvalidName() {
         given(card.lastName).willReturn("")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NAME)
+        assertEquals(CardValidator.CardValidationResult.INVALID_NAME, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyYearShouldInvalidDate() {
         given(card.expireYear).willReturn("")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithIncorrectExpiredYearShouldInvalidDate() {
         given(card.expireYear).willReturn("15")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyMonthShouldInvalidDate() {
         given(card.expireMonth).willReturn("")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithIncorrectMonthShouldInvalidDate() {
         given(card.expireMonth).willReturn("13")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
@@ -136,43 +136,53 @@ class CardValidatorTest {
         val currentYear = calendar.get(Calendar.YEAR)
         given(card.expireMonth).willReturn(currentMonth.toString())
         given(card.expireYear).willReturn(currentYear.toString())
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithValidMonthAndSameYearShouldInvalidDate() {
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH + 1)
+        val currentYear = calendar.get(Calendar.YEAR)
+        given(card.expireMonth).willReturn(currentMonth.toString())
+        given(card.expireYear).willReturn(currentYear.toString())
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyCvvShouldCvvReturnInvalidCvv() {
         given(card.verificationCode).willReturn("")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_CVV)
+        assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithShortCvvShouldCvvReturnInvalidCvv() {
         given(card.verificationCode).willReturn("22")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_CVV)
+        assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithLongCvvShouldCvvReturnInvalidCvv() {
         given(card.verificationCode).willReturn("55555")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_CVV)
+        assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyNumberShouldReturnInvalidNumber() {
         given(card.cardNumber).willReturn("")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NUMBER)
+        assertEquals(CardValidator.CardValidationResult.INVALID_NUMBER, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithShortNumberShouldReturnInvalidNumber() {
         given(card.cardNumber).willReturn("4111")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NUMBER)
+        assertEquals(CardValidator.CardValidationResult.INVALID_NUMBER, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithIncorrectNumberShouldReturnInvalidNumber() {
         given(card.cardNumber).willReturn("1111111111111111")
-        assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NUMBER)
+        assertEquals(CardValidator.CardValidationResult.INVALID_NUMBER, cardValidator.isCardValid(card))
     }
 
 }

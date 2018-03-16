@@ -66,6 +66,13 @@ class FieldValidatorTest {
     }
 
     @Test
+    fun isAddressValidWithEmptyCityShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.city).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
     fun isAddressValidWithEmptyCountryShouldReturnFalse() {
         val address = prepareAddress()
         given(address.country).willReturn("")
