@@ -64,6 +64,29 @@ class PaymentViewTest {
     }
 
     @Test
+    fun shouldSetUpAndroidPaymentTypeCorrectly() {
+        view.setPaymentType(PaymentType.ANDROID_PAYMENT)
+
+        val shadowDrawable = shadowOf(view.paymentTypeText.compoundDrawables[0])
+        assertEquals(R.drawable.ic_android, shadowDrawable.createdFromResId)
+        assertEquals(context.getString(R.string.android_payment), view.paymentTypeText.text)
+        assertEquals(View.GONE, view.addPaymentTypeButton.visibility)
+        assertEquals(View.VISIBLE, view.paymentGroup.visibility)
+    }
+
+    @Test
+    fun shouldSetUpWebPaymentTypeCorrectly() {
+        view.setPaymentType(PaymentType.WEB_PAYMENT)
+
+        val shadowDrawable = shadowOf(view.paymentTypeText.compoundDrawables[0])
+        assertEquals(R.drawable.ic_web, shadowDrawable.createdFromResId)
+        assertEquals(context.getString(R.string.credit_card), view.paymentTypeText.text)
+        assertEquals(View.GONE, view.addPaymentTypeButton.visibility)
+        assertEquals(View.VISIBLE, view.paymentGroup.visibility)
+
+    }
+
+    @Test
     fun shouldSetCardDataCorrectly() {
         val card = MockInstantiator.newCard()
         given(card.cardNumber).willReturn("4242424242424242")

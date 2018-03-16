@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
-import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -24,6 +23,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 
@@ -32,22 +32,24 @@ import org.robolectric.shadows.ShadowToast
 class CardActivityTest {
 
     private lateinit var context: Context
-    private lateinit var activity: CardActivity
+    private lateinit var activityController: ActivityController<CardActivity>
 
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = CardActivity.getStartIntent(context, null)
-        activity = Robolectric.buildActivity(CardActivity::class.java, intent).create().start().resume().get()
+        activityController = Robolectric.buildActivity(CardActivity::class.java, intent)
     }
 
     @Test
     fun shouldSetCorrectTitle() {
+        val activity = activityController.create().start().resume().visible().get()
         assertEquals(context.getString(R.string.credit_card), activity.toolbar.toolbarTitle.text)
     }
 
     @Test
     fun shouldLoadAcceptedCardTypesWhenOnCreate() {
+        val activity = activityController.create().start().resume().visible().get()
         verify(activity.presenter).getAcceptedCardTypes()
         assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
         assertFalse(activity.submitButton.isEnabled)
@@ -55,6 +57,7 @@ class CardActivityTest {
 
     @Test
     fun shouldShowAcceptedCardTypes() {
+        val activity = activityController.create().start().resume().visible().get()
         assertEquals(View.GONE, activity.visa.visibility)
         assertEquals(View.GONE, activity.masterCard.visibility)
         assertEquals(View.GONE, activity.amex.visibility)
@@ -75,6 +78,7 @@ class CardActivityTest {
 
     @Test
     fun shouldSetResultAndFinishActivityWhenCardTokenReceived() {
+        val activity = activityController.create().start().resume().visible().get()
         val card = MockInstantiator.newCard()
         val token = "token"
         val testData = Pair(card, token)
@@ -90,6 +94,7 @@ class CardActivityTest {
 
     @Test
     fun shouldRequestTokenWhenCardValidationPassed() {
+        val activity = activityController.create().start().resume().visible().get()
         val card = MockInstantiator.newCard()
         activity.cardPassValidation(card)
 
@@ -123,6 +128,7 @@ class CardActivityTest {
 
     @Test
     fun shouldShowCardValidationError() {
+        val activity = activityController.create().start().resume().visible().get()
         val errorRes = R.string.card_number_error
         activity.loadingView.visibility = View.VISIBLE
         activity.cardValidationError(errorRes)
@@ -143,6 +149,7 @@ class CardActivityTest {
 
     @Test
     fun shouldShowMonthPickerWhenClickOnForm() {
+        val activity = activityController.create().start().resume().visible().get()
         activity.monthInput.getOnClickListener()?.onClick(activity.monthInput)
         activity.supportFragmentManager.executePendingTransactions()
 
@@ -153,6 +160,7 @@ class CardActivityTest {
 
     @Test
     fun shouldShowYearPickerWhenClickOnForm() {
+        val activity = activityController.create().start().resume().visible().get()
         activity.yearInput.getOnClickListener()?.onClick(activity.yearInput)
         activity.supportFragmentManager.executePendingTransactions()
 
@@ -163,6 +171,7 @@ class CardActivityTest {
 
     @Test
     fun shouldShowMonthPickerWhenClickOnNextKey() {
+        val activity = activityController.create().start().resume().visible().get()
         activity.cardNumberInput.onEditorAction(EditorInfo.IME_ACTION_NEXT)
 
         val dialog = activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_MONTH)
@@ -170,8 +179,13 @@ class CardActivityTest {
         assertTrue(dialog.isVisible)
     }
 
-    @After
-    fun tearDown() {
-        activity.finish()
+    @Test
+    fun shouldRemoveWatchers() {
+        val activity = activityController.create().start().resume().visible().pause().get()
+        assertEquals(1, shadowOf(activity.cardNumberInput).watchers.size)
+        assertEquals(1, shadowOf(activity.holderNameInput).watchers.size)
+        assertEquals(1, shadowOf(activity.monthInput).watchers.size)
+        assertEquals(1, shadowOf(activity.yearInput).watchers.size)
+        assertEquals(1, shadowOf(activity.cvvInput).watchers.size)
     }
 }
