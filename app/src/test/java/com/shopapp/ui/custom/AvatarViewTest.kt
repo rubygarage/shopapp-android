@@ -2,6 +2,7 @@ package com.shopapp.ui.custom
 
 import android.content.Context
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,6 +27,18 @@ class AvatarViewTest {
     fun shouldSetTextWithFirstLetters() {
         val name = "test name"
         view.setName(name)
+        assertEquals("TN", view.text.toString())
+    }
+
+    @Test
+    fun shouldNotSetEmptyName() {
+        val name = "test name"
+        view.setName(name)
+        assertEquals("TN", view.text.toString())
+
+        val emptyName = ""
+        view.setName(emptyName)
+        assertNotEquals("", view.text.toString())
         assertEquals("TN", view.text.toString())
     }
 }
