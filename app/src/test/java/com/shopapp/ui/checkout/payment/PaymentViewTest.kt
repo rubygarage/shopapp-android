@@ -72,11 +72,6 @@ class PaymentViewTest {
         assertEquals(context.getString(R.string.android_payment), view.paymentTypeText.text)
         assertEquals(View.GONE, view.addPaymentTypeButton.visibility)
         assertEquals(View.VISIBLE, view.paymentGroup.visibility)
-
-        assertEquals(View.VISIBLE, view.addCardButton.visibility)
-        assertEquals(View.VISIBLE, view.addAddressButton.visibility)
-        assertEquals(View.VISIBLE, view.addressBottomSpace.visibility)
-        assertEquals(View.VISIBLE, view.cardTypeDivider.visibility)
     }
 
     @Test
@@ -89,10 +84,6 @@ class PaymentViewTest {
         assertEquals(View.GONE, view.addPaymentTypeButton.visibility)
         assertEquals(View.VISIBLE, view.paymentGroup.visibility)
 
-        assertEquals(View.VISIBLE, view.addCardButton.visibility)
-        assertEquals(View.VISIBLE, view.addAddressButton.visibility)
-        assertEquals(View.VISIBLE, view.addressBottomSpace.visibility)
-        assertEquals(View.VISIBLE, view.cardTypeDivider.visibility)
     }
 
     @Test

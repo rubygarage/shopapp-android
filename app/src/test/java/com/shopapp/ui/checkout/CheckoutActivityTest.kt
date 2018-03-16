@@ -369,7 +369,6 @@ class CheckoutActivityTest {
         val shadowActivity = shadowOf(activity)
         val dataIntent = Intent()
         dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, false)
-
         activity.startActivityForResult(
             CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId),
             RequestCode.ADD_BILLING_ADDRESS
@@ -377,8 +376,6 @@ class CheckoutActivityTest {
 
         val requestIntent = shadowActivity.nextStartedActivityForResult
         shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
-
-        verify(activity.presenter, never()).getCheckoutData()
         assertEquals(null, activity.paymentView.getAddress())
     }
 
