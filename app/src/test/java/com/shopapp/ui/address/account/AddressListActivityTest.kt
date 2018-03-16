@@ -1,10 +1,15 @@
 package com.shopapp.ui.address.account
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.base.BaseAddressActivity
+import com.shopapp.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
@@ -60,5 +65,66 @@ class AddressListActivityTest {
         val shadowIntent = shadowOf(startedIntent)
         assertNull(startedIntent.extras.getParcelable(BaseAddressActivity.ADDRESS))
         assertEquals(AddressActivity::class.java, shadowIntent.intentClass)
+    }
+    /* val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
+        dataIntent.putExtra(Extra.ADDRESS, address)
+
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId),
+            RequestCode.ADD_BILLING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+
+        verify(activity.presenter).getCheckoutData()
+        assertEquals(address, activity.paymentView.getAddress())*/
+
+    @Test
+    fun shouldReloadDataOnAddressAdded() {
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            AddressActivity.getStartIntent(context),
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, Intent())
+
+        verify(activity.presenter, times(2)).getAddressList()
+    }
+
+    @Test
+    fun shouldReloadDataOnAddressChanged() {
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            AddressActivity.getStartIntent(context, MockInstantiator.newAddress()),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, Intent())
+
+        verify(activity.presenter, times(2)).getAddressList()
+    }
+
+
+    @Test
+    fun shouldNotReloadDataOnResultCancel() {
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            AddressActivity.getStartIntent(context, MockInstantiator.newAddress()),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_CANCELED, Intent())
+
+        verify(activity.presenter, times(1)).getAddressList()
     }
 }
