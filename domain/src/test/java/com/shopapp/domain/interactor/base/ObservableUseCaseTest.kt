@@ -4,13 +4,10 @@ import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.RxImmediateSchedulerRule
 import com.shopapp.gateway.entity.Error
 import io.reactivex.Observable
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(MockitoJUnitRunner::class)
 class ObservableUseCaseTest {
 
     @Rule
@@ -68,6 +65,32 @@ class ObservableUseCaseTest {
     }
 
     @Test
+    fun shouldDisposeLastDisposable() {
+        val result: Any = mock()
+        val useCase = object : TestObservableUseCase<Any, Unit>() {
+            override fun buildUseCaseObservable(params: Unit) = Observable.create<Any> {
+                Observable.just(run {
+                    Thread.sleep(100)
+                    result
+                })
+            }
+        }
+        useCase.attachToLifecycle()
+
+        useCase.execute(onSuccess, onError, onComplete, Unit)
+        val firstDisposable = useCase.publicLastDisposable()
+        assertFalse(firstDisposable!!.isDisposed)
+
+        useCase.execute(onSuccess, onError, onComplete, Unit)
+        val secondDisposable = useCase.publicLastDisposable()
+        assertNotSame(firstDisposable, secondDisposable)
+        assertTrue(firstDisposable.isDisposed)
+        assertFalse(secondDisposable!!.isDisposed)
+
+        secondDisposable.dispose()
+    }
+
+    @Test
     fun shouldInvokeOnCompleteOnSuccess() {
         val result: Any = mock()
         useCase = object : ObservableUseCase<Any, Unit>() {
@@ -94,5 +117,10 @@ class ObservableUseCaseTest {
         verify(onError).invoke(error)
         verify(onSuccess, never()).invoke(any())
         verify(onComplete, never()).invoke()
+    }
+
+    private abstract class TestObservableUseCase<T, in Params> : ObservableUseCase<T, Params>() {
+
+        fun publicLastDisposable() = lastDisposable
     }
 }

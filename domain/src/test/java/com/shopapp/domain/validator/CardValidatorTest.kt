@@ -1,16 +1,15 @@
 package com.shopapp.domain.validator
 
 import com.shopapp.gateway.entity.Card
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
+import org.mockito.BDDMockito.given
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
+import java.util.*
 
-@RunWith(MockitoJUnitRunner::class)
 class CardValidatorTest {
 
     @Mock
@@ -21,119 +20,169 @@ class CardValidatorTest {
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
 
-        Mockito.doReturn("FIRST").`when`(card).firstName
-        Mockito.doReturn("LAST").`when`(card).lastName
-        Mockito.doReturn("4111111111111111").`when`(card).cardNumber
-        Mockito.doReturn("391").`when`(card).verificationCode
-        Mockito.doReturn("08").`when`(card).expireMonth
-        Mockito.doReturn("2020").`when`(card).expireYear
+        given(card.firstName).willReturn("FIRST")
+        given(card.lastName).willReturn("LAST")
+        given(card.cardNumber).willReturn("4111111111111111")
+        given(card.verificationCode).willReturn("391")
+        given(card.expireMonth).willReturn("08")
+        given(card.expireYear).willReturn("2020")
     }
 
     @Test
     fun splitExpireDateWithCorrectDateShouldReturnValue() {
-        Assert.assertEquals(cardValidator.splitExpireDate("08/20"), Pair("08", "20"))
+        assertEquals(cardValidator.splitExpireDate("08/20"), Pair("08", "20"))
     }
 
     @Test
     fun splitExpireDateWithIncorrectDateShouldReturnShouldReturnNull() {
-        Assert.assertNull(cardValidator.splitExpireDate("0820"))
+        assertNull(cardValidator.splitExpireDate("0820"))
     }
 
     @Test
     fun splitExpireDateWithEmptyStringShouldReturnShouldReturnNull() {
-        Assert.assertNull(cardValidator.splitExpireDate(""))
+        assertNull(cardValidator.splitExpireDate(""))
     }
 
     @Test
     fun splitHolderNameWithCorrectNameShouldReturnValue() {
-        Assert.assertEquals(cardValidator.splitHolderName("FIRST SECOND"), Pair("FIRST", "SECOND"))
+        assertEquals(cardValidator.splitHolderName("FIRST SECOND"), Pair("FIRST", "SECOND"))
     }
 
     @Test
     fun splitHolderNameWithIncorrectNameShouldReturnNull() {
-        Assert.assertNull(cardValidator.splitHolderName("FIRST"))
+        assertNull(cardValidator.splitHolderName("FIRST"))
     }
 
     @Test
     fun splitHolderNameWithEmptyNameShouldReturnNull() {
-        Assert.assertNull(cardValidator.splitHolderName(""))
+        assertNull(cardValidator.splitHolderName(""))
     }
 
     @Test
-    fun isCardValidWithCorrectDataShouldReturnValid() {
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.VALID)
+    fun isCardValidWithVisaAndCorrectDataShouldReturnValid() {
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithAmericanExpressAndCorrectDataShouldReturnValid() {
+        given(card.cardNumber).willReturn("378282246310005")
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithDinersClubAndCorrectDataShouldReturnValid() {
+        given(card.cardNumber).willReturn("30569309025904")
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithDiscoverAndCorrectDataShouldReturnValid() {
+        given(card.cardNumber).willReturn("6011111111111117")
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithJcbCorrectDataShouldReturnValid() {
+        given(card.cardNumber).willReturn("3530111333300000")
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithMasterCardCorrectDataShouldReturnValid() {
+        given(card.cardNumber).willReturn("5555555555554444")
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyFirstNameShouldReturnInvalidName() {
-        Mockito.doReturn("").`when`(card).firstName
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NAME)
+        given(card.firstName).willReturn("")
+        assertEquals(CardValidator.CardValidationResult.INVALID_NAME, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyLastNameShouldReturnInvalidName() {
-        Mockito.doReturn("").`when`(card).lastName
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NAME)
+        given(card.lastName).willReturn("")
+        assertEquals(CardValidator.CardValidationResult.INVALID_NAME, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyYearShouldInvalidDate() {
-        Mockito.doReturn("").`when`(card).expireYear
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        given(card.expireYear).willReturn("")
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithIncorrectExpiredYearShouldInvalidDate() {
-        Mockito.doReturn("15").`when`(card).expireYear
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        given(card.expireYear).willReturn("15")
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyMonthShouldInvalidDate() {
-        Mockito.doReturn("").`when`(card).expireMonth
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        given(card.expireMonth).willReturn("")
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithIncorrectMonthShouldInvalidDate() {
-        Mockito.doReturn("13").`when`(card).expireMonth
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_DATE)
+        given(card.expireMonth).willReturn("13")
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithExpiredMonthAndSameYearShouldInvalidDate() {
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH)
+        val currentYear = calendar.get(Calendar.YEAR)
+        given(card.expireMonth).willReturn(currentMonth.toString())
+        given(card.expireYear).willReturn(currentYear.toString())
+        assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
+    }
+
+    @Test
+    fun isCardValidWithValidMonthAndSameYearShouldInvalidDate() {
+        val calendar = Calendar.getInstance()
+        val currentMonth = calendar.get(Calendar.MONTH + 1)
+        val currentYear = calendar.get(Calendar.YEAR)
+        given(card.expireMonth).willReturn(currentMonth.toString())
+        given(card.expireYear).willReturn(currentYear.toString())
+        assertEquals(CardValidator.CardValidationResult.VALID, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyCvvShouldCvvReturnInvalidCvv() {
-        Mockito.doReturn("").`when`(card).verificationCode
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_CVV)
+        given(card.verificationCode).willReturn("")
+        assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithShortCvvShouldCvvReturnInvalidCvv() {
-        Mockito.doReturn("22").`when`(card).verificationCode
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_CVV)
+        given(card.verificationCode).willReturn("22")
+        assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithLongCvvShouldCvvReturnInvalidCvv() {
-        Mockito.doReturn("55555").`when`(card).verificationCode
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_CVV)
+        given(card.verificationCode).willReturn("55555")
+        assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithEmptyNumberShouldReturnInvalidNumber() {
-        Mockito.doReturn("").`when`(card).cardNumber
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NUMBER)
+        given(card.cardNumber).willReturn("")
+        assertEquals(CardValidator.CardValidationResult.INVALID_NUMBER, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithShortNumberShouldReturnInvalidNumber() {
-        Mockito.doReturn("4111").`when`(card).cardNumber
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NUMBER)
+        given(card.cardNumber).willReturn("4111")
+        assertEquals(CardValidator.CardValidationResult.INVALID_NUMBER, cardValidator.isCardValid(card))
     }
 
     @Test
     fun isCardValidWithIncorrectNumberShouldReturnInvalidNumber() {
-        Mockito.doReturn("1111111111111111").`when`(card).cardNumber
-        Assert.assertEquals(cardValidator.isCardValid(card), CardValidator.CardValidationResult.INVALID_NUMBER)
+        given(card.cardNumber).willReturn("1111111111111111")
+        assertEquals(CardValidator.CardValidationResult.INVALID_NUMBER, cardValidator.isCardValid(card))
     }
 
 }

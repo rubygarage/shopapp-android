@@ -1,7 +1,11 @@
 package com.shopapp.domain.validator
 
-import org.hamcrest.core.Is.`is`
-import org.junit.Assert.assertThat
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.mock
+import com.shopapp.gateway.entity.Address
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class FieldValidatorTest {
@@ -10,41 +14,113 @@ class FieldValidatorTest {
 
     @Test
     fun isEmailValidWithCorrectEmailShouldReturnTrue() {
-        assertThat(fieldValidator.isEmailValid("name@email.com"), `is`(true))
+        assertTrue(fieldValidator.isEmailValid("name@email.com"))
     }
 
     @Test
     fun isEmailValidWithEmptyEmailShouldReturnFalse() {
-        assertThat(fieldValidator.isEmailValid(""), `is`(false))
+        assertFalse(fieldValidator.isEmailValid(""))
     }
 
     @Test
     fun isEmailValidWithEmptyEmailNameShouldReturnFalse() {
-        assertThat(fieldValidator.isEmailValid("@email.com"), `is`(false))
+        assertFalse(fieldValidator.isEmailValid("@email.com"))
     }
 
     @Test
     fun isEmailValidWithEmptyEmailSecondLevelDomainShouldReturnFalse() {
-        assertThat(fieldValidator.isEmailValid("name@.com"), `is`(false))
+        assertFalse(fieldValidator.isEmailValid("name@.com"))
     }
 
     @Test
     fun isEmailValidWithEmptyEmailFirstLevelDomainShouldReturnFalse() {
-        assertThat(fieldValidator.isEmailValid("name@email"), `is`(false))
+        assertFalse(fieldValidator.isEmailValid("name@email"))
     }
 
     @Test
     fun isPasswordValidWithCorrectPasswordShouldReturnTrue() {
-        assertThat(fieldValidator.isPasswordValid("password"), `is`(true))
+        assertTrue(fieldValidator.isPasswordValid("password"))
     }
 
     @Test
     fun isPasswordValidWithEmptyPasswordShouldReturnFalse() {
-        assertThat(fieldValidator.isPasswordValid(""), `is`(false))
+        assertFalse(fieldValidator.isPasswordValid(""))
     }
 
     @Test
     fun isPasswordValidWithShortPasswordShouldReturnFalse() {
-        assertThat(fieldValidator.isPasswordValid("pass"), `is`(false))
+        assertFalse(fieldValidator.isPasswordValid("pass"))
     }
+
+    @Test
+    fun isAddressValidWithCorrectDataShouldReturnTrue() {
+        val address = prepareAddress()
+        assertTrue(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyAddressShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.address).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyCityShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.city).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyCountryShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.country).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyFirstNameShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.firstName).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyLastNameShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.lastName).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyZipShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.zip).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithEmptyDataShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.address).willReturn("")
+        given(address.country).willReturn("")
+        given(address.firstName).willReturn("")
+        given(address.lastName).willReturn("")
+        given(address.zip).willReturn("")
+        assertFalse(fieldValidator.isAddressValid(address))
+    }
+
+    private fun prepareAddress(): Address = mock {
+        on { address }.doReturn("address")
+        on { secondAddress }.doReturn("secondAddress")
+        on { city }.doReturn("city")
+        on { country }.doReturn("country")
+        on { state }.doReturn("state")
+        on { firstName }.doReturn("firstName")
+        on { lastName }.doReturn("lastName")
+        on { zip }.doReturn("zip")
+        on { phone }.doReturn("phone")
+    }
+
 }
