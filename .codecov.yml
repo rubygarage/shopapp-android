@@ -7,6 +7,6 @@ comment:
   branches: null
 
 ignore:
-  - di/.*
-  - zoomable/.*
-  - const/.*
+  - */di/*
+  - */zoomable/*
+  - */const/*
