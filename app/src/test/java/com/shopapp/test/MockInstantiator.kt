@@ -22,7 +22,7 @@ object MockInstantiator {
     const val DEFAULT_VALUE = "default_value"
     const val DEFAULT_ADDRESS = "default_address"
     const val DEFAULT_CITY = "default_city"
-    const val DEFAULT_COUNTRY = "default_country"
+    const val DEFAULT_COUNTRY_NAME = "default_country"
     const val DEFAULT_STATE = "default_state"
     const val DEFAULT_FIRST_NAME = "default_first_name"
     const val DEFAULT_LAST_NAME = "default_last_name"
@@ -146,7 +146,7 @@ object MockInstantiator {
         on { address } doReturn DEFAULT_ADDRESS
         on { secondAddress } doReturn DEFAULT_ADDRESS
         on { city } doReturn DEFAULT_CITY
-        on { country } doReturn DEFAULT_COUNTRY
+        on { country } doReturn DEFAULT_COUNTRY_NAME
         on { state } doReturn DEFAULT_STATE
         on { firstName } doReturn DEFAULT_FIRST_NAME
         on { lastName } doReturn DEFAULT_LAST_NAME
@@ -254,7 +254,7 @@ object MockInstantiator {
 
         on { id } doReturn DEFAULT_NUMBER_ID
         on { code } doReturn DEFAULT_CODE
-        on { name } doReturn DEFAULT_NAME
+        on { name } doReturn DEFAULT_COUNTRY_NAME
         on { states } doReturn statesMock
     }
 

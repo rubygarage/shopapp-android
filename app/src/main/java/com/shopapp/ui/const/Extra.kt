@@ -10,4 +10,9 @@ object Extra {
     const val IS_ADDRESS_CHANGED = "is_address_changed"
     const val CLEAR_SHIPPING = "clear_shipping"
     const val CLEAR_BILLING = "clear_billing"
+    const val CHECKOUT_ID = "checkout_id"
+    const val IS_SHIPPING = "is_shipping"
+    const val BILLING_ADDRESS = "billing_address"
+    const val SHIPPING_ADDRESS = "shipping_address"
+    const val SELECTED_ADDRESS = "selected_address"
 }

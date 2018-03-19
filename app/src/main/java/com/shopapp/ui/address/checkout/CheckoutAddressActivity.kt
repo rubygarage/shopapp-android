@@ -14,16 +14,14 @@ class CheckoutAddressActivity : BaseAddressActivity<AddressView, AddressPresente
 
     companion object {
 
-        const val IS_SELECTED_ADDRESS = "is_selected_address"
-
         fun getStartIntent(
             context: Context,
             address: Address? = null,
             isSelectedAddress: Boolean = false
         ): Intent {
             val intent = Intent(context, CheckoutAddressActivity::class.java)
-            intent.putExtra(ADDRESS, address)
-            intent.putExtra(IS_SELECTED_ADDRESS, isSelectedAddress)
+            intent.putExtra(Extra.ADDRESS, address)
+            intent.putExtra(Extra.IS_SELECTED_ADDRESS, isSelectedAddress)
             return intent
         }
     }
@@ -40,7 +38,7 @@ class CheckoutAddressActivity : BaseAddressActivity<AddressView, AddressPresente
         val result = Intent()
         result.putExtra(Extra.ADDRESS, address)
         result.putExtra(Extra.IS_SELECTED_ADDRESS,
-            intent.getBooleanExtra(IS_SELECTED_ADDRESS, false))
+            intent.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false))
         setResult(Activity.RESULT_OK, result)
         finish()
     }

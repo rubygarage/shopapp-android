@@ -18,9 +18,6 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
 
     companion object {
 
-        val CHECKOUT_ID = "checkout_id"
-        val IS_SHIPPING = "is_shipping"
-
         fun getStartIntent(
             context: Context,
             checkoutId: String? = null,
@@ -28,11 +25,12 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
             isShipping: Boolean = false
         ): Intent {
             val intent = Intent(context, CheckoutUnAuthAddressActivity::class.java)
-            intent.putExtra(CHECKOUT_ID, checkoutId)
-            intent.putExtra(ADDRESS, address)
-            intent.putExtra(IS_SHIPPING, isShipping)
+            intent.putExtra(Extra.CHECKOUT_ID, checkoutId)
+            intent.putExtra(Extra.ADDRESS, address)
+            intent.putExtra(Extra.IS_SHIPPING, isShipping)
             return intent
         }
+
     }
 
     @Inject
@@ -44,8 +42,8 @@ class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutU
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkoutId = intent.getStringExtra(CHECKOUT_ID)
-        isShippingAddress = intent.getBooleanExtra(IS_SHIPPING, false)
+        checkoutId = intent.getStringExtra(Extra.CHECKOUT_ID)
+        isShippingAddress = intent.getBooleanExtra(Extra.IS_SHIPPING, false)
     }
 
     //INIT

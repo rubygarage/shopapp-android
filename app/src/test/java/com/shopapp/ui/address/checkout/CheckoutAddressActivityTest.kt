@@ -5,7 +5,6 @@ import android.content.Context
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
 import com.shopapp.test.MockInstantiator
-import com.shopapp.ui.address.base.BaseAddressActivity
 import com.shopapp.ui.const.Extra
 import org.junit.Assert.*
 import org.junit.Before
@@ -35,10 +34,10 @@ class CheckoutAddressActivityTest {
 
     @Test
     fun shouldExtractDataFromBundle() {
-        val address: Address = activity.intent.getParcelableExtra(BaseAddressActivity.ADDRESS)
+        val address: Address = activity.intent.getParcelableExtra(Extra.ADDRESS)
         assertNotNull(address)
         assertEquals(this.address, address)
-        assertTrue(activity.intent.getBooleanExtra(CheckoutAddressActivity.IS_SELECTED_ADDRESS, false))
+        assertTrue(activity.intent.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false))
     }
 
     @Test

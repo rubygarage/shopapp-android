@@ -43,11 +43,11 @@ class CheckoutUnAuthAddressActivityTest {
 
     @Test
     fun shouldExtractDataFromBundle() {
-        val address: Address = activity.intent.getParcelableExtra(BaseAddressActivity.ADDRESS)
+        val address: Address = activity.intent.getParcelableExtra(Extra.ADDRESS)
         assertNotNull(address)
         assertEquals(this.address, address)
-        assertEquals(CHECKOUT_ID, activity.intent.getStringExtra(CheckoutUnAuthAddressActivity.CHECKOUT_ID))
-        assertTrue(activity.intent.getBooleanExtra(CheckoutUnAuthAddressActivity.IS_SHIPPING, false))
+        assertEquals(CHECKOUT_ID, activity.intent.getStringExtra(Extra.CHECKOUT_ID))
+        assertTrue(activity.intent.getBooleanExtra(Extra.IS_SHIPPING, false))
     }
 
     @Test

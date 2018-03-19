@@ -24,12 +24,6 @@ class CheckoutAddressListActivity :
 
     companion object {
 
-        const val CHECKOUT_ID = "checkout_id"
-        const val SELECTED_ADDRESS = "selected_address"
-        const val IS_SHIPPING = "is_shipping"
-        const val SHIPPING_ADDRESS = "shipping_address"
-        const val BILLING_ADDRESS = "billing_address"
-
         fun getStartIntent(
             context: Context,
             checkoutId: String? = null,
@@ -39,11 +33,11 @@ class CheckoutAddressListActivity :
             billingAddress: Address?
         ): Intent {
             val intent = Intent(context, CheckoutAddressListActivity::class.java)
-            intent.putExtra(CHECKOUT_ID, checkoutId)
-            intent.putExtra(IS_SHIPPING, isShippingAddress)
-            intent.putExtra(SELECTED_ADDRESS, selectedAddress)
-            intent.putExtra(SHIPPING_ADDRESS, shippingAddress)
-            intent.putExtra(BILLING_ADDRESS, billingAddress)
+            intent.putExtra(Extra.CHECKOUT_ID, checkoutId)
+            intent.putExtra(Extra.IS_SHIPPING, isShippingAddress)
+            intent.putExtra(Extra.SELECTED_ADDRESS, selectedAddress)
+            intent.putExtra(Extra.SHIPPING_ADDRESS, shippingAddress)
+            intent.putExtra(Extra.BILLING_ADDRESS, billingAddress)
             return intent
         }
     }
@@ -59,10 +53,10 @@ class CheckoutAddressListActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        checkoutId = intent.getStringExtra(CHECKOUT_ID)
-        isShipping = intent.getBooleanExtra(IS_SHIPPING, true)
-        shippingAddress = intent.getParcelableExtra(SHIPPING_ADDRESS)
-        billingAddress = intent.getParcelableExtra(BILLING_ADDRESS)
+        checkoutId = intent.getStringExtra(Extra.CHECKOUT_ID)
+        isShipping = intent.getBooleanExtra(Extra.IS_SHIPPING, true)
+        shippingAddress = intent.getParcelableExtra(Extra.SHIPPING_ADDRESS)
+        billingAddress = intent.getParcelableExtra(Extra.BILLING_ADDRESS)
 
         setTitle(getString(if (isShipping) R.string.shipping_address else R.string.billing_address))
     }
@@ -73,19 +67,17 @@ class CheckoutAddressListActivity :
         val isEditAddressRequest = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
         val isResultOk = resultCode == Activity.RESULT_OK
 
-        if (isAddAddressRequest && isResultOk) {
-            loadData()
-        } else if (isEditAddressRequest && isResultOk) {
-            val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
-            val isSelectedAddress = data?.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false) == true
-            if (address != null && isSelectedAddress) {
-                onAddressSelected(address)
+        if(isResultOk) {
+            if (isAddAddressRequest) {
+                loadData()
+            } else if (isEditAddressRequest) {
+                val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
+                val isSelectedAddress = data?.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false) == true
+                if (address != null && isSelectedAddress) {
+                    onAddressSelected(address)
+                }
+                loadData()
             }
-            loadData()
-        }
-
-        if ((isAddAddressRequest || isEditAddressRequest) && isResultOk) {
-            loadData()
         }
     }
 
@@ -96,7 +88,7 @@ class CheckoutAddressListActivity :
     }
 
     override fun getAdapter(): CheckoutAddressListAdapter {
-        selectedAddress = intent.getParcelableExtra(SELECTED_ADDRESS)
+        selectedAddress = intent.getParcelableExtra(Extra.SELECTED_ADDRESS)
         val adapter = CheckoutAddressListAdapter(dataList, this, this, this)
         adapter.selectedAddress = selectedAddress
         return adapter
