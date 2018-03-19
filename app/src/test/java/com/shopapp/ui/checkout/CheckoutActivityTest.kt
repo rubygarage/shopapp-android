@@ -189,9 +189,9 @@ class CheckoutActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(CheckoutAddressListActivity.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(CheckoutAddressListActivity.SELECTED_ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(CheckoutAddressListActivity.IS_SHIPPING))
+        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
+        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
+        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -202,9 +202,9 @@ class CheckoutActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(CheckoutUnAuthAddressActivity.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(BaseAddressActivity.ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(CheckoutUnAuthAddressActivity.IS_SHIPPING))
+        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
+        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.ADDRESS))
+        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -217,9 +217,9 @@ class CheckoutActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(CheckoutAddressListActivity.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(CheckoutAddressListActivity.SELECTED_ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(CheckoutAddressListActivity.IS_SHIPPING))
+        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
+        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
+        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -231,9 +231,9 @@ class CheckoutActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(CheckoutUnAuthAddressActivity.CHECKOUT_ID))
-        assertNull(startedIntent.extras.getParcelable(BaseAddressActivity.ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(CheckoutUnAuthAddressActivity.IS_SHIPPING))
+        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
+        assertNull(startedIntent.extras.getParcelable(Extra.ADDRESS))
+        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -263,9 +263,9 @@ class CheckoutActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertNull(startedIntent.extras.getString(CheckoutAddressListActivity.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(CheckoutAddressListActivity.SELECTED_ADDRESS))
-        assertEquals(false, startedIntent.extras.getBoolean(CheckoutAddressListActivity.IS_SHIPPING))
+        assertNull(startedIntent.extras.getString(Extra.CHECKOUT_ID))
+        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
+        assertEquals(false, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -276,9 +276,9 @@ class CheckoutActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertNull(startedIntent.extras.getString(CheckoutUnAuthAddressActivity.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(BaseAddressActivity.ADDRESS))
-        assertEquals(false, startedIntent.extras.getBoolean(CheckoutUnAuthAddressActivity.IS_SHIPPING))
+        assertNull(startedIntent.extras.getString(Extra.CHECKOUT_ID))
+        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.ADDRESS))
+        assertEquals(false, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
     }
 

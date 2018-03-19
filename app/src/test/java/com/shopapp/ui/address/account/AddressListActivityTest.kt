@@ -9,6 +9,7 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.base.BaseAddressActivity
+import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_lce.*
@@ -53,7 +54,7 @@ class AddressListActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertEquals(address, startedIntent.extras.getParcelable(BaseAddressActivity.ADDRESS))
+        assertEquals(address, startedIntent.extras.getParcelable(Extra.ADDRESS))
         assertEquals(AddressActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -63,24 +64,9 @@ class AddressListActivityTest {
 
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertNull(startedIntent.extras.getParcelable(BaseAddressActivity.ADDRESS))
+        assertNull(startedIntent.extras.getParcelable(Extra.ADDRESS))
         assertEquals(AddressActivity::class.java, shadowIntent.intentClass)
     }
-    /* val shadowActivity = shadowOf(activity)
-        val dataIntent = Intent()
-        dataIntent.putExtra(Extra.IS_ADDRESS_CHANGED, true)
-        dataIntent.putExtra(Extra.ADDRESS, address)
-
-        activity.startActivityForResult(
-            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId),
-            RequestCode.ADD_BILLING_ADDRESS
-        )
-
-        val requestIntent = shadowActivity.nextStartedActivityForResult
-        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
-
-        verify(activity.presenter).getCheckoutData()
-        assertEquals(address, activity.paymentView.getAddress())*/
 
     @Test
     fun shouldReloadDataOnAddressAdded() {

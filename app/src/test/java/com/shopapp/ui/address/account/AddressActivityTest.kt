@@ -4,7 +4,7 @@ import android.content.Context
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
 import com.shopapp.test.MockInstantiator
-import com.shopapp.ui.address.base.BaseAddressActivity
+import com.shopapp.ui.const.Extra
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -33,7 +33,7 @@ class AddressActivityTest {
 
     @Test
     fun shouldExtractAddressFromBundle() {
-        val address: Address = activity.intent.getParcelableExtra(BaseAddressActivity.ADDRESS)
+        val address: Address = activity.intent.getParcelableExtra(Extra.ADDRESS)
         assertNotNull(address)
         assertEquals(this.address, address)
     }
