@@ -67,7 +67,7 @@ class CheckoutAddressListActivity :
         val isEditAddressRequest = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
         val isResultOk = resultCode == Activity.RESULT_OK
 
-        if (isResultOk) {
+        if(isResultOk) {
             if (isAddAddressRequest) {
                 loadData()
             } else if (isEditAddressRequest) {
@@ -76,10 +76,6 @@ class CheckoutAddressListActivity :
                 if (address != null && isSelectedAddress) {
                     onAddressSelected(address)
                 }
-                loadData()
-            }
-
-            if (isAddAddressRequest || isEditAddressRequest) {
                 loadData()
             }
         }

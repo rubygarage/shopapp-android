@@ -2,17 +2,21 @@ package com.shopapp.ui.address.checkout
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AlertDialog
 import android.view.View
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
 import com.shopapp.test.MockInstantiator
+import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.RequestCode
+import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
@@ -228,22 +232,103 @@ class CheckoutAddressListActivityTest {
         val intent = shadowOf(intentForResult.intent)
 
         assertEquals(CheckoutAddressActivity::class.java, intent.intentClass)
-        assertEquals(address, intentForResult.intent.extras.getParcelable(Extra.ADDRESS))
+        assertEquals(shippingAddress, intentForResult.intent.extras.getParcelable(Extra.ADDRESS))
         assertTrue(intentForResult.intent.extras.getBoolean(Extra.IS_SELECTED_ADDRESS))
 
     }
 
-    /* @Test
-    fun shouldSetResultAndFinishWhenAddressChanged() {
-        activity.addressChanged(address)
-        val shadowActivity = Shadows.shadowOf(activity)
-        val resultIntent = shadowActivity.resultIntent
+    @Test
+    fun shouldReloadDataWhenAddressAdded() {
+        activity = getShippingModeActivity()
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            CheckoutAddressActivity.getStartIntent(context, address, true),
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, Intent())
+
+        assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
+        verify(activity.presenter, times(2)).getAddressList()
+    }
+
+    @Test
+    fun shouldReloadDataWhenAddressEdited() {
+        activity = getShippingModeActivity()
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            CheckoutAddressActivity.getStartIntent(context, address, true),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, Intent())
+
+        verify(activity.presenter, times(2)).getAddressList()
+    }
+
+    @Test
+    fun shouldSelectAddressWhenAddressEdited() {
+        activity = getShippingModeActivity()
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            CheckoutAddressActivity.getStartIntent(context, address, true),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        val resultIntent = Intent()
+        resultIntent.putExtra(Extra.ADDRESS, address)
+        resultIntent.putExtra(Extra.IS_SELECTED_ADDRESS, true)
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, resultIntent)
+
+        assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
+        verify(activity.presenter).setShippingAddress(MockInstantiator.DEFAULT_ID, address)
+        verify(activity.presenter, times(2)).getAddressList()
+
+    }
+
+    @Test
+    fun shouldSetResultWhenAddressEdited() {
+        activity = getBillingModeActivity()
+        val shadowActivity = shadowOf(activity)
+
+        activity.startActivityForResult(
+            CheckoutAddressActivity.getStartIntent(context, address, true),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        val resultIntent = Intent()
+        resultIntent.putExtra(Extra.ADDRESS, address)
+        resultIntent.putExtra(Extra.IS_SELECTED_ADDRESS, true)
+
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, resultIntent)
 
         assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
         assertEquals(address, resultIntent.extras.getParcelable(Extra.ADDRESS))
-        assertTrue(resultIntent.extras.getBoolean(Extra.IS_ADDRESS_CHANGED))
-        assertTrue(shadowActivity.isFinishing)
-    }*/
+        assertTrue(resultIntent.extras.getBoolean(Extra.IS_SELECTED_ADDRESS))
+
+        verify(activity.presenter, times(2)).getAddressList()
+    }
+
+    @Test
+    fun shouldSetDefaultAddressAsSelected() {
+        activity = getShippingModeActivity()
+        activity.showContent(address to addressList)
+        activity.onAddressSelected(shippingAddress)
+        activity.onDeleteButtonClicked(shippingAddress)
+
+        val dialog = ShadowAlertDialog.getLatestAlertDialog()
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick()
+
+        val adapter = activity.recyclerView.adapter as CheckoutAddressListAdapter
+        assertEquals(address, adapter.selectedAddress)
+    }
 
     private fun getShippingModeActivity(): CheckoutAddressListActivity {
         val intent = CheckoutAddressListActivity.getStartIntent(context,
@@ -266,4 +351,5 @@ class CheckoutAddressListActivityTest {
 
         return Robolectric.buildActivity(CheckoutAddressListActivity::class.java, intent).create().start().resume().visible().get()
     }
+
 }
