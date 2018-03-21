@@ -4,6 +4,7 @@ import com.shopapp.data.util.ConstantHolder
 import com.shopapp.data.util.MockInstantiator
 import com.shopapp.data.util.RequeryMockInstantiator
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class ImageAdapterTest {
@@ -24,4 +25,13 @@ class ImageAdapterTest {
         assertEquals(ConstantHolder.DEFAULT_DESCRIPTION, result?.alt)
     }
 
+    @Test
+    fun shouldReturnNullWhenAdaptFromImageStorefrontToImageData() {
+        assertNull(ImageAdapter.adaptToStore(null))
+    }
+
+    @Test
+    fun shouldReturnNullWhenAdaptFromImageDataStorefrontToImage() {
+        assertNull(ImageAdapter.adaptFromStore(null))
+    }
 }
