@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_product_details.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -89,6 +90,25 @@ class ProductDetailsActivityTest {
         val looper = shadowOf(activity.mainLooper)
         looper.idle()
         assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.product_added))
+    }
+
+    @Test
+    fun shouldClearQuantityViewFocus() {
+        val intent = ProductDetailsActivity.getStartIntent(context, productVariant)
+        val activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent)
+            .create()
+            .resume()
+            .get()
+
+        assertFalse(activity.quantityEditText.isFocused)
+    }
+
+    @Test
+    fun shouldHideRecentContainerWhenCallChangeVisibilityWithVisibleFalse() {
+        activity.showContent(MockInstantiator.newProduct())
+        val fragment = activity.supportFragmentManager.findFragmentById(R.id.relatedContainer) as ProductHorizontalFragment
+        fragment.visibilityListener?.changeVisibility(false)
+        assertEquals(View.GONE, activity.relatedContainer.visibility)
     }
 
     @After

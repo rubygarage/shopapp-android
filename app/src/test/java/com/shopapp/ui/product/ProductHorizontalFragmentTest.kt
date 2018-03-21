@@ -66,6 +66,13 @@ class ProductHorizontalFragmentTest {
     }
 
     @Test
+    fun shouldShowEmptyTitle() {
+        fragment = ProductHorizontalFragment.newInstance(SortType.NAME, KEYWORD, EXCLUDE_KEYWORD)
+        startFragment(fragment)
+        assertEquals("", fragment.titleText.text.toString())
+    }
+
+    @Test
     fun shouldLoadDataWhenOnViewCreated() {
         verify(fragment.presenter).loadProductList(sortType, Constant.DEFAULT_PER_PAGE_COUNT,
             null, KEYWORD, EXCLUDE_KEYWORD)
