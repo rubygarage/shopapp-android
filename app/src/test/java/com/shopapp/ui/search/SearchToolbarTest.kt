@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.only
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
@@ -181,6 +182,19 @@ class SearchToolbarTest {
         toolbar.changeToolbarState()
         toolbar.searchInput.setText("sometext")
         verify(listener).onQueryChanged("sometext")
+    }
+
+    @Test
+    fun shouldNotCallListener() {
+        shadowOf(toolbar).callOnAttachedToWindow()
+        toolbar.changeToolbarState()
+        toolbar.searchInput.setText("sometext")
+        verify(listener).onQueryChanged("sometext")
+
+        shadowOf(toolbar).callOnDetachedFromWindow()
+        toolbar.changeToolbarState()
+        toolbar.searchInput.setText("someAnotherText")
+        verify(listener, never()).onQueryChanged("someAnotherText")
     }
 
     @Test

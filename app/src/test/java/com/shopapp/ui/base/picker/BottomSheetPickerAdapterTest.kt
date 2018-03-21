@@ -68,6 +68,15 @@ class BottomSheetPickerAdapterTest {
         assertEquals(position.toLong(), adapter.getItemId(3))
     }
 
+    @Test
+    fun shouldSelectItemOnClick() {
+        val selectedItem = "selectedItem"
+        val simpleItem = "selectedItem"
+        adapter.dataList = mutableListOf(selectedItem, simpleItem)
+        adapter.onItemClicked(1)
+        assertEquals(simpleItem, adapter.selectedItemData)
+    }
+
     private class TestBottomSheetPickerAdapter : BottomSheetPickerAdapter<String>() {
         override fun convertModel(it: String) = it
     }

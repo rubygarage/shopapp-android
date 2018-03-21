@@ -8,6 +8,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,13 +32,13 @@ class UnMutableTextInputEditTextTest {
     fun shouldSetTextProgrammatically() {
         val testText = "testText"
         view.setText(testText)
-        Assert.assertEquals(testText, view.text.toString())
+        assertEquals(testText, view.text.toString())
     }
 
     @Test
     fun shouldNotSetFocus() {
         view.performClick()
-        Assert.assertEquals(false, view.isFocused)
+        assertEquals(false, view.isFocused)
     }
 
     @Test

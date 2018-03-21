@@ -1,6 +1,7 @@
 package com.shopapp.ui.home
 
 import android.content.Context
+import android.os.Bundle
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.account.AccountFragment
@@ -69,9 +70,18 @@ class HomeActivityTest {
     }
 
     @Test
-    fun shouldOpenHomeOnBackPress() {
+    fun shouldOpenHomeFromSearchOnBackPress() {
         activity.bottomTabNavigation.getTabAt(HomeActivity.SEARCH)?.select()
         assertTrue(activity.supportFragmentManager.findFragmentById(R.id.content) is SearchWithCategoriesFragment)
+        activity.onBackPressed()
+        assertEquals(HomeActivity.HOME, activity.bottomTabNavigation.selectedTabPosition)
+        assertTrue(activity.supportFragmentManager.findFragmentById(R.id.content) is HomeFragment)
+    }
+
+    @Test
+    fun shouldOpenHomeFromAccountOnBackPress() {
+        activity.bottomTabNavigation.getTabAt(HomeActivity.ACCOUNT)?.select()
+        assertTrue(activity.supportFragmentManager.findFragmentById(R.id.content) is AccountFragment)
         activity.onBackPressed()
         assertEquals(HomeActivity.HOME, activity.bottomTabNavigation.selectedTabPosition)
         assertTrue(activity.supportFragmentManager.findFragmentById(R.id.content) is HomeFragment)

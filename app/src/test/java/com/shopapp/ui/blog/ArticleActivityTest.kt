@@ -53,12 +53,6 @@ class ArticleActivityTest {
     }
 
     @Test
-    fun shouldInflateCorrectMenu() {
-        val menu = shadowOf(activity).optionsMenu
-        assertEquals(context.getString(R.string.share), menu.findItem(R.id.share).title)
-    }
-
-    @Test
     fun shouldGetArticleOnCreate() {
         verify(activity.presenter).loadArticles(MockInstantiator.DEFAULT_ID)
     }
@@ -67,14 +61,6 @@ class ArticleActivityTest {
     fun shouldShowArticleTitleOnShowContent() {
         activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
         assertEquals(MockInstantiator.DEFAULT_TITLE, activity.articleTitle.text.toString())
-    }
-
-    @Test
-    fun shouldShowShareMenuItemOnShowContent() {
-        val menu = shadowOf(activity).optionsMenu
-        assertFalse(menu.findItem(R.id.share).isVisible)
-        activity.showContent(Pair(MockInstantiator.newArticle(), MockInstantiator.DEFAULT_URL))
-        assertTrue(menu.findItem(R.id.share).isVisible)
     }
 
     @Test

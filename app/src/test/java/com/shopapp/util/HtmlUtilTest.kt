@@ -20,6 +20,14 @@ class HtmlUtilTest {
     }
 
     @Test
+    fun shouldChangeStyleToAllImages() {
+        val testedString = Reader.readFile("testImageStyle.html")!!
+        val expected = Reader.readFile("resultImageStyle.html")!!.replaceCommandSymbols()
+        val actual = HtmlUtil.fitHtmlImages(testedString).replaceCommandSymbols()
+        assertEquals(expected, actual)
+    }
+
+    @Test
     fun shouldSetSizeToAllFrames() {
         val testedString = Reader.readFile("testFrame.html")!!
         val expected = Reader.readFile("resultFrame.html")!!.replaceCommandSymbols()

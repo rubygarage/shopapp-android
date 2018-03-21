@@ -44,4 +44,11 @@ class BottomSheetPickerItemTest {
         assertEquals(ContextCompat.getDrawable(context, R.color.transparent), itemView.titleView.background)
         assertEquals(ContextCompat.getColor(context, R.color.textColorSecondary), itemView.titleView.currentTextColor)
     }
+
+    @Test
+    fun shouldReturnBindData() {
+        val data = "testData"
+        itemView.bindData(data, data)
+        assertEquals(data, itemView.data)
+    }
 }
