@@ -18,7 +18,7 @@ android {
         testInstrumentationRunner globalConfiguration["testInstrumentationRunner"]
 
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         multiDexEnabled true
     }
