@@ -2,6 +2,7 @@ package com.shopapp.ui.item.cart
 
 import android.content.Context
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doAnswer
 import com.nhaarman.mockito_kotlin.given
@@ -12,8 +13,7 @@ import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_cart.view.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -115,6 +115,12 @@ class CartItemTest {
 
         assertTrue(view.quantityEditText.text.isNotEmpty())
         assertEquals(product.quantity.toString(), view.quantityEditText.text.toString())
+    }
+
+    @Test
+    fun shouldClearViewFocusOnKeyboardAction() {
+        view.quantityEditText.onEditorAction(EditorInfo.IME_ACTION_DONE)
+        assertFalse(view.quantityEditText.isFocused)
     }
 
     @After

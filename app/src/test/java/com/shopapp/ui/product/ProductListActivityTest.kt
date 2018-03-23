@@ -16,8 +16,7 @@ import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +44,7 @@ class ProductListActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = ProductListActivity.getStartIntent(context, TITLE, sortType, KEYWORD, EXCLUDE_KEYWORD)
-        activity = Robolectric.buildActivity(ProductListActivity::class.java, intent).create().get()
+        activity = Robolectric.buildActivity(ProductListActivity::class.java, intent).create().start().resume().visible().get()
     }
 
     @Test

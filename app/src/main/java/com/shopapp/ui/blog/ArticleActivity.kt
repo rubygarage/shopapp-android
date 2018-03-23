@@ -5,13 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.webkit.WebSettings
 import com.shopapp.R
 import com.shopapp.ShopApplication
-import com.shopapp.ext.shareText
 import com.shopapp.gateway.entity.Article
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.blog.contract.ArticlePresenter
@@ -29,7 +26,6 @@ class ArticleActivity :
     lateinit var articlePresenter: ArticlePresenter
 
     private var shareUrl: String? = null
-    private var shareMenuItem: MenuItem? = null
 
     companion object {
         const val EXTRA_ARTICLE_ID = "extra_article_id"
@@ -49,25 +45,6 @@ class ArticleActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         loadData()
         setupWebView()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_article, menu)
-        shareMenuItem = menu.findItem(R.id.share)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.let {
-            return when (item.itemId) {
-                R.id.share -> {
-                    shareUrl?.let { shareText(it, "Share") }
-                    true
-                }
-                else -> super.onOptionsItemSelected(item)
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     //SETUP
@@ -97,7 +74,6 @@ class ArticleActivity :
         super.showContent(data)
         val article = data.first
         val baseUrl = data.second
-        shareMenuItem?.isVisible = true
         shareUrl = article.url
         articleTitle.text = article.title
 
