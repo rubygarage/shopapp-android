@@ -1,14 +1,14 @@
 package com.shopapp.ui.product.adapter
 
-import com.shopapp.gateway.entity.Image
-import com.shopapp.gateway.entity.ProductVariant
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.gateway.entity.Image
+import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.ProductVariantItem
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

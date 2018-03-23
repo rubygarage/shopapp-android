@@ -5,10 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.ViewGroup
-import com.shopapp.gateway.entity.Product
-import com.shopapp.gateway.entity.SortType
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.shopapp.ui.product.adapter.ProductListAdapter
@@ -22,10 +22,10 @@ class ProductListActivity :
 
     companion object {
 
-        private const val TITLE = "title"
-        private const val SORT_TYPE = "sort_type"
-        private const val KEYWORD = "keyword"
-        private const val EXCLUDE_KEYWORD = "exclude_keyword"
+        const val TITLE = "title"
+        const val SORT_TYPE = "sort_type"
+        const val KEYWORD = "keyword"
+        const val EXCLUDE_KEYWORD = "exclude_keyword"
 
         fun getStartIntent(context: Context, title: String, sortType: SortType = SortType.NAME,
                            keyword: String? = null, excludeKeyword: String? = null): Intent {

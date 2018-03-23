@@ -6,9 +6,10 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.recycler.OnItemClickListener
@@ -28,12 +29,14 @@ class CartActivity :
     BaseLceActivity<List<CartProduct>, CartView, CartPresenter>(),
     CartView,
     OnItemClickListener,
-    CartItem.ActionListener {
+    CartItem.ActionListener,
+    SwipeToDeleteCallback.OnItemSwipeListener {
 
     @Inject
     lateinit var cartPresenter: CartPresenter
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
+    private val formatter = NumberFormatter()
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, CartActivity::class.java)
@@ -74,16 +77,8 @@ class CartActivity :
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(decoration)
-        val swipeHandler = object : SwipeToDeleteCallback() {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                data.getOrNull(viewHolder.adapterPosition)?.let {
-                    presenter.removeProduct(it.productVariant.id)
-                }
-            }
-        }
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(this))
         itemTouchHelper.attachToRecyclerView(recyclerView)
-
     }
 
     override fun setupEmptyView(emptyView: LceEmptyView) {
@@ -105,7 +100,7 @@ class CartActivity :
         this.data.clear()
         this.data.addAll(data)
         adapter.notifyDataSetChanged()
-        totalPriceView.setData(this.data)
+        totalPriceView.setData(this.data, formatter)
     }
 
     //CALLBACK
@@ -127,5 +122,11 @@ class CartActivity :
 
     override fun onQuantityChanged(productVariantId: String, newQuantity: Int) {
         presenter.changeProductQuantity(productVariantId, newQuantity)
+    }
+
+    override fun onItemSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+        data.getOrNull(viewHolder?.adapterPosition ?: -1)?.let {
+            presenter.removeProduct(it.productVariant.id)
+        }
     }
 }

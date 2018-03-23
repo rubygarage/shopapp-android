@@ -7,10 +7,10 @@ import android.support.annotation.StringRes
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.View
+import com.shopapp.R
+import com.shopapp.domain.detector.CardTypeDetector
 import com.shopapp.gateway.entity.Address
 import com.shopapp.gateway.entity.Card
-import com.shopapp.domain.detector.CardTypeDetector
-import com.shopapp.R
 import com.shopapp.ui.const.PaymentType
 import kotlinx.android.synthetic.main.view_payment.view.*
 
@@ -19,8 +19,8 @@ class PaymentView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val LAST_CARD_NUMBERS = 4
-        private const val LAST_DATE_NUMBERS = 2
+        const val LAST_CARD_NUMBERS = 4
+        const val LAST_DATE_NUMBERS = 2
     }
 
     private val cardTypeDetector = CardTypeDetector()

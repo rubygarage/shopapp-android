@@ -1,14 +1,14 @@
 package com.shopapp.ui.order.details.adapter
 
-import com.shopapp.gateway.entity.OrderProduct
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.gateway.entity.OrderProduct
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.OrderProductItem
-import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import com.shopapp.test.MockInstantiator
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

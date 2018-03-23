@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:ignore="RtlSymmetry">
 
-    <com.shopapp.ui.base.BaseToolbar
+    <com.shopapp.ui.custom.CenteredTitleToolbar
         android:id="@+id/toolbar"
         style="@style/ToolbarStyle"
         app:layout_constraintEnd_toEndOf="parent"

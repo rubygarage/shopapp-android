@@ -13,7 +13,7 @@ import com.shopapp.ui.blog.adapter.BlogAdapter
 import com.shopapp.ui.blog.contract.BlogPresenter
 import com.shopapp.ui.blog.contract.BlogView
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.shopapp.ui.custom.DividerItemDecorator
+import com.shopapp.ui.base.recycler.divider.DividerItemDecorator
 import kotlinx.android.synthetic.main.fragment_blog.*
 import javax.inject.Inject
 

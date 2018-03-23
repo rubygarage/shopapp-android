@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco-android'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -16,6 +18,12 @@ android {
 
 kapt {
     generateStubs = true
+}
+
+jacocoAndroidUnitTestReport {
+    csv.enabled false
+    html.enabled false
+    xml.enabled true
 }
 
 ext {
@@ -39,7 +47,27 @@ dependencies {
 
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+}
+
+project.afterEvaluate {
+    android.libraryVariants.all { variant ->
+        def realVariantName = variant.name
+        def variantName = variant.name.capitalize()
+
+        def task = project.tasks["jacocoTest${variantName}UnitTestReport"]
+        def defaultExcludes = task.classDirectories.excludes
+
+        def additionalExcludes = [
+
+        ]
+
+        def excludes = defaultExcludes + additionalExcludes
+
+        def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/${realVariantName}", excludes: excludes)
+
+        task.classDirectories.excludes = excludes
+        task.classDirectories += kotlinDebugTree
+    }
 }

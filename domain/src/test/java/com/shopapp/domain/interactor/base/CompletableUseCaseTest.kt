@@ -1,18 +1,14 @@
 package com.shopapp.domain.interactor.base
 
-import com.shopapp.gateway.entity.Error
-import com.shopapp.domain.RxImmediateSchedulerRule
 import com.nhaarman.mockito_kotlin.*
+import com.shopapp.domain.RxImmediateSchedulerRule
+import com.shopapp.gateway.entity.Error
 import io.reactivex.Completable
-import org.junit.Assert
+import io.reactivex.Single
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
-@RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class CompletableUseCaseTest {
 
     @Rule
@@ -45,7 +41,7 @@ class CompletableUseCaseTest {
         useCase.attachToLifecycle()
 
         useCase.execute(onComplete, onError, "")
-        Assert.assertEquals(1, useCase.disposables.size())
+        assertEquals(1, useCase.disposables.size())
     }
 
     @Test
@@ -56,10 +52,34 @@ class CompletableUseCaseTest {
         useCase.attachToLifecycle()
 
         useCase.execute(onComplete, onError, "")
-        Assert.assertEquals(1, useCase.disposables.size())
+        assertEquals(1, useCase.disposables.size())
 
         useCase.dispose()
-        Assert.assertEquals(0, useCase.disposables.size())
+        assertEquals(0, useCase.disposables.size())
+    }
+
+    @Test
+    fun shouldDisposeLastDisposable() {
+        val useCase = object : TestCompletableUseCase<Unit>() {
+            override fun buildUseCaseCompletable(params: Unit) = Completable.create {
+                Single.just(run {
+                    Thread.sleep(100)
+                })
+            }
+        }
+        useCase.attachToLifecycle()
+
+        useCase.execute(onComplete, onError, Unit)
+        val firstDisposable = useCase.publicLastDisposable()
+        assertFalse(firstDisposable!!.isDisposed)
+
+        useCase.execute(onComplete, onError, Unit)
+        val secondDisposable = useCase.publicLastDisposable()
+        assertNotSame(firstDisposable, secondDisposable)
+        assertTrue(firstDisposable.isDisposed)
+        assertFalse(secondDisposable!!.isDisposed)
+
+        secondDisposable.dispose()
     }
 
     @Test
@@ -84,5 +104,10 @@ class CompletableUseCaseTest {
         useCase.execute(onComplete, onError, "")
         verify(onComplete, never()).invoke()
         verify(onError).invoke(error)
+    }
+
+    private abstract class TestCompletableUseCase<in Params> : CompletableUseCase<Params>() {
+
+        fun publicLastDisposable() = lastDisposable
     }
 }

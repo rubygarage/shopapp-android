@@ -6,11 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
-import com.shopapp.gateway.entity.CartProduct
-import com.shopapp.gateway.entity.ProductVariant
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopapp.R
-import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.SpaceDecoration
 import com.shopapp.ui.product.ProductDetailsActivity
@@ -27,7 +26,6 @@ class CheckoutMyCartView @JvmOverloads constructor(
     private val cartProductList = mutableListOf<ProductVariant>()
 
     init {
-        ShopApplication.appComponent.attachCheckoutComponent().inject(this)
         View.inflate(context, R.layout.view_checkout_my_cart, this)
         orientation = VERTICAL
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

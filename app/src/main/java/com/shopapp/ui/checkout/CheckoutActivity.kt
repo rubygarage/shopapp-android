@@ -6,10 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.TaskStackBuilder
 import android.view.View
-import com.shopapp.gateway.entity.*
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.registerKeyboardVisibilityListener
+import com.shopapp.gateway.entity.*
 import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
 import com.shopapp.ui.base.lce.BaseLceActivity
@@ -84,18 +84,20 @@ class CheckoutActivity :
         val isClearShippingAddress = data?.getBooleanExtra(Extra.CLEAR_SHIPPING, false) ?: false
         val isClearBillingAddress = data?.getBooleanExtra(Extra.CLEAR_BILLING, false) ?: false
 
-        if ((isAddShippingAddress || isEditShippingAddress) && isOkResult && isAddressChanged) {
-            loadData()
-        } else if (isPayment && isOkResult) {
-            val paymentType: PaymentType? = data?.getSerializableExtra(Extra.PAYMENT_TYPE) as? PaymentType
-            paymentView.setPaymentType(paymentType)
-        } else if (isCard && isOkResult) {
-            val card: Card? = data?.getParcelableExtra(Extra.CARD)
-            val cardToken: String? = data?.getStringExtra(Extra.CARD_TOKEN)
-            paymentView.setCardData(card, cardToken)
-        } else if ((isAddBillingAddress || isEditBillingAddress) && isOkResult && isAddressChanged) {
-            val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
-            paymentView.setAddressData(address)
+        if (isOkResult) {
+            if ((isAddShippingAddress || isEditShippingAddress) && isAddressChanged) {
+                loadData()
+            } else if (isPayment) {
+                val paymentType: PaymentType? = data?.getSerializableExtra(Extra.PAYMENT_TYPE) as? PaymentType
+                paymentView.setPaymentType(paymentType)
+            } else if (isCard) {
+                val card: Card? = data?.getParcelableExtra(Extra.CARD)
+                val cardToken: String? = data?.getStringExtra(Extra.CARD_TOKEN)
+                paymentView.setCardData(card, cardToken)
+            } else if ((isAddBillingAddress || isEditBillingAddress) && isAddressChanged) {
+                val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
+                paymentView.setAddressData(address)
+            }
         }
 
         if (isClearBillingAddress) {
@@ -224,6 +226,8 @@ class CheckoutActivity :
                     val cardToken = paymentView.getCardData().second
                     presenter.completeCheckoutByCard(checkout, email, billingAddress, cardToken)
                 }
+                else -> {
+                }
             }
         }
 
@@ -254,7 +258,7 @@ class CheckoutActivity :
         if (checkout != null) {
             presenter.getCheckout(checkout.checkoutId)
         } else {
-            presenter.getCartProductList()
+            presenter.getCheckoutData()
         }
     }
 

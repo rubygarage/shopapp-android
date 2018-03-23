@@ -6,11 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.widget.Toast
-import com.shopapp.gateway.entity.Customer
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.hideKeyboard
 import com.shopapp.ext.setTextWhenDisable
+import com.shopapp.gateway.entity.Customer
 import com.shopapp.ui.account.contract.PersonalInfoPresenter
 import com.shopapp.ui.account.contract.PersonalInfoView
 import com.shopapp.ui.base.lce.BaseLceActivity
@@ -79,7 +79,6 @@ class PersonalInfoActivity :
         val isPhoneChanged = phoneInput.text.toString() != customer?.phone ?: ""
 
         saveButton.isEnabled = isNameChanged || isLastNameChanged || isPhoneChanged
-
     }
 
     private fun setupClickListeners() {

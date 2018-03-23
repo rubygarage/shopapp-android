@@ -46,7 +46,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
         <TextView
-            android:id="@+id/billingAddressTitle"
+            android:id="@+id/shippingAddressTitle"
             style="@style/OrderTitleView"
             android:layout_marginTop="8dp"
             android:text="@string/shipping_address"
@@ -66,7 +66,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/billingAddressTitle" />
+            app:layout_constraintTop_toBottomOf="@+id/shippingAddressTitle" />
 
     </android.support.constraint.ConstraintLayout>
 

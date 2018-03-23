@@ -7,21 +7,16 @@ import com.nhaarman.mockito_kotlin.inOrder
 import com.shopapp.domain.interactor.order.OrderDetailsUseCase
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Order
-import com.shopapp.util.RxImmediateSchedulerRule
-import com.shopapp.util.ext.mockUseCase
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class OrderDetailsPresenterTest {
 
     companion object {
@@ -48,12 +43,7 @@ class OrderDetailsPresenterTest {
         MockitoAnnotations.initMocks(this)
         presenter = OrderDetailsPresenter(useCase)
         presenter.attachView(view)
-        useCase.mockUseCase()
-    }
-
-    @After
-    fun tearDown() {
-        presenter.detachView(false)
+        useCase.mock()
     }
 
     @Test
@@ -84,5 +74,10 @@ class OrderDetailsPresenterTest {
         val inOrder = inOrder(view, useCase)
         inOrder.verify(useCase).execute(any(), any(), eq(orderId))
         inOrder.verify(view).showError(false)
+    }
+
+    @After
+    fun tearDown() {
+        presenter.detachView(false)
     }
 }

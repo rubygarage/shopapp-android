@@ -5,13 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
-import android.view.MenuItem
 import android.view.ViewGroup
+import com.shopapp.R
+import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Category
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.SortType
-import com.shopapp.R
-import com.shopapp.ShopApplication
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.category.contract.CategoryPresenter
@@ -41,7 +40,7 @@ class CategoryActivity :
 
         private const val PROGRESS_START_BIAS = 0.2f
         private const val PROGRESS_END_BIAS = 1.5f
-        private const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+        const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
 
         fun getStartIntent(context: Context, category: Category): Intent {
             val intent = Intent(context, CategoryActivity::class.java)
@@ -62,16 +61,8 @@ class CategoryActivity :
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_categories, menu)
+        menuInflater.inflate(R.menu.menu_cart, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return if (item?.itemId == R.id.sort) {
-            true
-        } else {
-            super.onOptionsItemSelected(item)
-        }
     }
 
     //INIT
@@ -145,14 +136,9 @@ class CategoryActivity :
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-        if (data.isNotEmpty()) {
-            paginationValue = data.last().paginationValue
-            this.dataList.addAll(data)
-            adapter.notifyDataSetChanged()
-        }
-        if (dataList.isEmpty()) {
-            showEmptyState()
-        }
+        paginationValue = data.last().paginationValue
+        this.dataList.addAll(data)
+        adapter.notifyDataSetChanged()
     }
 
     //CALLBACK

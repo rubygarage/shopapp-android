@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.shopapp.R
+import com.shopapp.ui.category.CategoryListFragment
 import kotlinx.android.synthetic.main.fragment_search_with_categories.*
 
 class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarListener {

@@ -1,13 +1,11 @@
 package com.shopapp.ui.checkout.contract
 
-import com.shopapp.gateway.entity.*
-import com.shopapp.ui.const.PaymentType
-import com.shopapp.domain.interactor.account.GetCustomerUseCase
-import com.shopapp.domain.interactor.cart.CartItemsUseCase
 import com.shopapp.domain.interactor.cart.CartRemoveAllUseCase
 import com.shopapp.domain.interactor.checkout.*
+import com.shopapp.gateway.entity.*
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.ui.const.PaymentType
 import javax.inject.Inject
 
 interface CheckoutView : BaseLceView<Checkout> {
@@ -28,78 +26,32 @@ interface CheckoutView : BaseLceView<Checkout> {
 }
 
 class CheckoutPresenter @Inject constructor(
-    private val cartItemsUseCase: CartItemsUseCase,
+    private val setupCheckoutUseCase: SetupCheckoutUseCase,
     private val cartRemoveAllUseCase: CartRemoveAllUseCase,
-    private val createCheckoutUseCase: CreateCheckoutUseCase,
     private val getCheckoutUseCase: GetCheckoutUseCase,
-    private val getCustomerUseCase: GetCustomerUseCase,
-    private val setShippingAddressUseCase: SetShippingAddressUseCase,
     private val getShippingRatesUseCase: GetShippingRatesUseCase,
     private val setShippingRateUseCase: SetShippingRateUseCase,
     private val completeCheckoutByCardUseCase: CompleteCheckoutByCardUseCase
 ) :
     BaseLcePresenter<Checkout, CheckoutView>(
-        cartItemsUseCase,
+        setupCheckoutUseCase,
         cartRemoveAllUseCase,
-        createCheckoutUseCase,
         getCheckoutUseCase,
-        getCustomerUseCase,
-        setShippingAddressUseCase,
         getShippingRatesUseCase,
         setShippingRateUseCase,
         completeCheckoutByCardUseCase
     ) {
 
-    fun getCartProductList() {
-        cartItemsUseCase.execute(
+    fun getCheckoutData() {
+        setupCheckoutUseCase.execute(
             {
-                view?.cartProductListReceived(it)
-                createCheckout(it)
+                val (productList, checkout, customer) = it
+                view?.cartProductListReceived(productList)
+                view?.showContent(checkout)
+                view?.customerReceived(customer)
             },
             { resolveError(it) },
-            {},
             Unit
-        )
-    }
-
-    private fun createCheckout(cartProductList: List<CartProduct>) {
-        createCheckoutUseCase.execute(
-            { getCustomer(it) },
-            { resolveError(it) },
-            cartProductList
-        )
-    }
-
-    private fun getCustomer(checkout: Checkout) {
-        getCustomerUseCase.execute(
-            {
-                view?.customerReceived(it)
-                val defaultAddress = it?.defaultAddress
-                if (defaultAddress != null) {
-                    setShippingAddress(checkout, defaultAddress)
-                } else {
-                    view?.showContent(checkout)
-                }
-            },
-            {
-                it.printStackTrace()
-                view?.showContent(checkout)
-                view?.customerReceived(null)
-            },
-            Unit
-        )
-    }
-
-    private fun setShippingAddress(checkout: Checkout, address: Address) {
-        setShippingAddressUseCase.execute(
-            {
-                view?.showContent(it)
-            },
-            {
-                it.printStackTrace()
-                view?.showContent(checkout)
-            },
-            SetShippingAddressUseCase.Params(checkout.checkoutId, address)
         )
     }
 

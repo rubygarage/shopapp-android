@@ -2,23 +2,23 @@ package com.shopapp.ui.checkout.adapter
 
 import android.content.Context
 import android.view.View
+import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.gateway.entity.Checkout
 import com.shopapp.gateway.entity.ShippingRate
-import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
 import com.shopapp.ui.item.ShippingOptionItem
 
 class ShippingOptionsAdapter(
-    private val data: MutableList<ShippingRate>
+    private val data: MutableList<ShippingRate>,
+    private val numberFormatter: NumberFormatter
 ) : BaseRecyclerAdapter<ShippingRate>(data) {
 
     var shippingRate: ShippingRate? = null
     var onOptionSelectedListener: CheckoutShippingOptionsView.OnOptionSelectedListener? = null
     private var currencyCode: String? = null
-    private val numberFormatter = NumberFormatter()
 
-    override fun getItemView(context: Context, viewType: Int) =
+    override fun getItemView(context: Context, viewType: Int): View =
         ShippingOptionItem(context, onOptionSelectedListener)
 
     override fun bindData(itemView: View, data: ShippingRate, position: Int) {

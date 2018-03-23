@@ -1,24 +1,20 @@
 package com.shopapp.ui.account.contract
 
-import com.shopapp.gateway.entity.Error
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.SignUpUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.ext.mock
-import com.shopapp.util.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.gateway.entity.Error
 import io.reactivex.Completable
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class SignUpPresenterTest {
 
     @Rule

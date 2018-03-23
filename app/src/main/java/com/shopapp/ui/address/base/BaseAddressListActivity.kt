@@ -3,8 +3,8 @@ package com.shopapp.ui.address.base
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
+import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.address.base.adapter.AddressListAdapter
 import com.shopapp.ui.address.base.contract.AddressListPresenter
 import com.shopapp.ui.address.base.contract.AddressListView

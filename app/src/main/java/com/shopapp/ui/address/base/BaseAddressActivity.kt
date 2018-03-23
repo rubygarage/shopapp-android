@@ -5,17 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
-import com.shopapp.gateway.entity.Address
-import com.shopapp.gateway.entity.Country
-import com.shopapp.gateway.entity.State
 import com.shopapp.R
 import com.shopapp.ext.getTrimmedString
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
+import com.shopapp.gateway.entity.State
 import com.shopapp.ui.address.base.contract.AddressPresenter
 import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.base.picker.BaseBottomSheetPicker
+import com.shopapp.ui.const.Extra
 import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_address.*
 import kotlinx.android.synthetic.main.activity_lce.*
@@ -25,17 +26,19 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     BaseLceActivity<Address?, V, P>(),
     AddressView {
 
-    companion object {
-        private const val ADDRESS = "address"
-    }
-
     @Inject
     lateinit var addressPresenter: P
-    protected var isEditMode = false
+    private var isEditMode = false
     private var address: Address? = null
     private lateinit var fieldTextWatcher: TextWatcher
-    private lateinit var countryPicker: CountryBottomSheetPicker
-    private lateinit var statePicker: StateBottomSheetPicker
+
+    private val countryPicker: CountryBottomSheetPicker by lazy {
+        CountryBottomSheetPicker.newInstance()
+    }
+
+    private val statePicker: StateBottomSheetPicker by lazy {
+        StateBottomSheetPicker.newInstance()
+    }
 
     //ANDROID
 
@@ -46,7 +49,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         setupListeners()
         loadCountries()
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -91,7 +93,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     //SETUP
 
     private fun setupMode() {
-        address = intent.getParcelableExtra(ADDRESS)
+        address = intent.getParcelableExtra(Extra.ADDRESS)
         isEditMode = address != null
         val titleRes: Int?
         if (isEditMode) {
@@ -123,12 +125,12 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
         countryInput.setOnClickListener {
             it.hideKeyboard()
-            countryPicker.show(supportFragmentManager, "", countryInput.text.toString())
+            countryPicker.show(supportFragmentManager, CountryBottomSheetPicker::class.java.name, countryInput.text.toString())
         }
 
         stateInput.setOnClickListener {
             it.hideKeyboard()
-            statePicker.show(supportFragmentManager, "", stateInput.text.toString())
+            statePicker.show(supportFragmentManager, StateBottomSheetPicker::class.java.name, stateInput.text.toString())
         }
     }
 
@@ -188,7 +190,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     private fun setupCountries(countries: List<Country>) {
-        countryPicker = CountryBottomSheetPicker.newInstance()
         countryPicker.setData(countries)
         countryPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
             override fun onDoneButtonClicked(selectedData: Country) {
@@ -200,17 +201,16 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
     private fun setupStates(country: Country) {
         val states = country.states
-        if (states != null && states.isEmpty()) {
-            stateInputContainer.visibility = View.GONE
-        } else if (states != null) {
+        if (states != null && states.isNotEmpty()) {
             stateInputContainer.visibility = View.VISIBLE
-            statePicker = StateBottomSheetPicker.newInstance()
             statePicker.setData(states)
             statePicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<State> {
                 override fun onDoneButtonClicked(selectedData: State) {
                     stateInput.setText(selectedData.name)
                 }
             }
+        } else {
+            stateInputContainer.visibility = View.GONE
         }
     }
 
@@ -226,7 +226,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
                 setupStates(countries[index])
             }
         }
-
     }
 
     override fun showContent(data: Address?) {

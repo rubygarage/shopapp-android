@@ -20,6 +20,8 @@ class UnMutableTextInputEditText(context: Context?, attrs: AttributeSet?) :
         this.onClickListener = onClickListener
     }
 
+    fun getOnClickListener() = onClickListener
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_DOWN) {

@@ -7,7 +7,7 @@ import dagger.Subcomponent
 @Subcomponent(modules = [OrderModule::class])
 interface OrderComponent {
 
-    fun inject(orderListActivity: OrderListActivity)
+    fun inject(activity: OrderListActivity)
 
-    fun inject(orderDetailsActivity: OrderDetailsActivity)
+    fun inject(activity: OrderDetailsActivity)
 }

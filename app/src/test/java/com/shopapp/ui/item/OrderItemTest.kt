@@ -1,12 +1,12 @@
 package com.shopapp.ui.item
 
 import android.content.Context
+import com.shopapp.R
 import com.shopapp.domain.formatter.DateFormatter
 import com.shopapp.domain.formatter.NumberFormatter
-import com.shopapp.R
-import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_order.view.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

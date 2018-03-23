@@ -5,13 +5,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.*
-import com.shopapp.gateway.entity.SortType
 import com.shopapp.R
 import com.shopapp.ext.replaceOnce
+import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.blog.BlogFragment
-import com.shopapp.ui.popular.PopularFragment
 import com.shopapp.ui.product.ProductHorizontalFragment
+import com.shopapp.ui.product.ProductPopularFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment :
@@ -19,7 +19,7 @@ class HomeFragment :
     SwipeRefreshLayout.OnRefreshListener {
 
     private var productHorizontalFragment: ProductHorizontalFragment? = null
-    private var popularFragment: PopularFragment? = null
+    private var popularFragment: ProductPopularFragment? = null
     private var blogFragment: BlogFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,9 @@ class HomeFragment :
 
         refreshLayout.setOnRefreshListener(this)
 
-        childFragmentManager.replaceOnce(R.id.recentContainer,
+
+        childFragmentManager.replaceOnce(
+            R.id.recentContainer,
             ProductHorizontalFragment::javaClass.name,
             {
                 val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
@@ -51,10 +53,14 @@ class HomeFragment :
                     }
                 }
                 fragment
-            }).commit()
-        childFragmentManager.replaceOnce(R.id.popularContainer, PopularFragment::javaClass.name,
+            }
+        ).commit()
+
+        childFragmentManager.replaceOnce(
+            R.id.popularContainer,
+            ProductPopularFragment::javaClass.name,
             {
-                val fragment = PopularFragment()
+                val fragment = ProductPopularFragment()
                 popularFragment = fragment
                 popularFragment?.visibilityListener = object : FragmentVisibilityListener {
                     override fun changeVisibility(isVisible: Boolean) {
@@ -62,8 +68,12 @@ class HomeFragment :
                     }
                 }
                 fragment
-            }).commit()
-        childFragmentManager.replaceOnce(R.id.blogContainer, BlogFragment::javaClass.name,
+            }
+        ).commit()
+
+        childFragmentManager.replaceOnce(
+            R.id.blogContainer,
+            BlogFragment::javaClass.name,
             {
                 val fragment = BlogFragment()
                 blogFragment = fragment
@@ -73,7 +83,8 @@ class HomeFragment :
                     }
                 }
                 fragment
-            }).commit()
+            }
+        ).commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -12,19 +12,19 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Toast
+import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.ext.registerKeyboardVisibilityListener
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.gateway.entity.SortType
-import com.shopapp.domain.formatter.NumberFormatter
-import com.shopapp.R
-import com.shopapp.ShopApplication
-import com.shopapp.ext.registerKeyboardVisibilityListener
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.custom.SimpleTransitionListener
 import com.shopapp.ui.gallery.GalleryFragment
-import com.shopapp.ui.product.contract.DetailsPresenter
-import com.shopapp.ui.product.contract.DetailsView
+import com.shopapp.ui.product.contract.ProductDetailsPresenter
+import com.shopapp.ui.product.contract.ProductDetailsView
 import com.shopapp.ui.product.view.OptionsGroupContainer
 import kotlinx.android.synthetic.main.activity_product_details.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
@@ -32,8 +32,8 @@ import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 import javax.inject.Inject
 
 class ProductDetailsActivity :
-    BaseLceActivity<Product, DetailsView, DetailsPresenter>(),
-    DetailsView,
+    BaseLceActivity<Product, ProductDetailsView, ProductDetailsPresenter>(),
+    ProductDetailsView,
     OptionsGroupContainer.OnVariantSelectListener {
 
     companion object {
@@ -62,7 +62,7 @@ class ProductDetailsActivity :
     }
 
     @Inject
-    lateinit var detailsPresenter: DetailsPresenter
+    lateinit var productDetailsPresenter: ProductDetailsPresenter
     private lateinit var productId: String
     private lateinit var formatter: NumberFormatter
     private var galleryFragment: GalleryFragment? = null
@@ -107,13 +107,13 @@ class ProductDetailsActivity :
     //INITIAL
 
     override fun inject() {
-        ShopApplication.appComponent.attachDetailsComponent().inject(this)
+        ShopApplication.appComponent.attachProductComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_product_details
 
-    override fun createPresenter(): DetailsPresenter {
-        return detailsPresenter
+    override fun createPresenter(): ProductDetailsPresenter {
+        return productDetailsPresenter
     }
 
     //SETUP

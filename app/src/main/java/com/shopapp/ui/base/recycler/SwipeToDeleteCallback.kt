@@ -7,7 +7,7 @@ import android.view.View
 import com.shopapp.R
 
 
-abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+class SwipeToDeleteCallback(private val onItemSwipeListener: OnItemSwipeListener) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         return true
@@ -45,5 +45,14 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.SimpleCallback(0, ItemTou
             ItemTouchHelper.Callback.getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
                 actionState, isCurrentlyActive)
         }
+    }
+
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
+        onItemSwipeListener.onItemSwiped(viewHolder, direction)
+    }
+
+    interface OnItemSwipeListener {
+
+        fun onItemSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int)
     }
 }

@@ -2,13 +2,13 @@ package com.shopapp.ui.item
 
 import android.content.Context
 import android.view.View
-import com.shopapp.gateway.entity.VariantOption
-import com.shopapp.domain.formatter.NumberFormatter
 import com.nhaarman.mockito_kotlin.given
 import com.shopapp.R
-import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.VariantOption
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_order_product.view.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

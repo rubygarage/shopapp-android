@@ -2,9 +2,9 @@ package com.shopapp.ui.view
 
 import android.content.Context
 import com.shopapp.domain.formatter.NumberFormatter
-import com.shopapp.util.MockInstantiator
-import junit.framework.Assert.assertEquals
+import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.view_price.view.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

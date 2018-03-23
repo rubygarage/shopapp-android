@@ -1,0 +1,9 @@
+<lint>
+    <issue id="InvalidPackage">
+        <!-- Ignore javax.* from requery -->
+        <ignore regexp="javax.cache"/>
+        <ignore regexp="javax.naming"/>
+        <ignore regexp="javax.sql.rowset.serial"/>
+        <ignore regexp="javax.transaction"/>
+    </issue>
+</lint>

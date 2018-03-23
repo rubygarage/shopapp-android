@@ -4,15 +4,10 @@ import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.RxImmediateSchedulerRule
 import com.shopapp.gateway.entity.Error
 import io.reactivex.Single
-import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
-import org.robolectric.annotation.Config
 
-@RunWith(MockitoJUnitRunner::class)
-@Config(manifest = Config.NONE)
 class SingleUseCaseTest {
 
     @Rule
@@ -47,7 +42,7 @@ class SingleUseCaseTest {
         useCase.attachToLifecycle()
 
         useCase.execute(onSuccess, onError, Unit)
-        Assert.assertEquals(1, useCase.disposables.size())
+        assertEquals(1, useCase.disposables.size())
     }
 
     @Test
@@ -59,10 +54,36 @@ class SingleUseCaseTest {
         useCase.attachToLifecycle()
 
         useCase.execute(onSuccess, onError, Unit)
-        Assert.assertEquals(1, useCase.disposables.size())
+        assertEquals(1, useCase.disposables.size())
 
         useCase.dispose()
-        Assert.assertEquals(0, useCase.disposables.size())
+        assertEquals(0, useCase.disposables.size())
+    }
+
+    @Test
+    fun shouldDisposeLastDisposable() {
+        val result: Any = mock()
+        val useCase = object : TestSingleUseCase<Any, Unit>() {
+            override fun buildUseCaseSingle(params: Unit) = Single.create<Any> {
+                Single.just(run {
+                    Thread.sleep(100)
+                    result
+                })
+            }
+        }
+        useCase.attachToLifecycle()
+
+        useCase.execute(onSuccess, onError, Unit)
+        val firstDisposable = useCase.publicLastDisposable()
+        assertFalse(firstDisposable!!.isDisposed)
+
+        useCase.execute(onSuccess, onError, Unit)
+        val secondDisposable = useCase.publicLastDisposable()
+        assertNotSame(firstDisposable, secondDisposable)
+        assertTrue(firstDisposable.isDisposed)
+        assertFalse(secondDisposable!!.isDisposed)
+
+        secondDisposable.dispose()
     }
 
     @Test
@@ -88,5 +109,10 @@ class SingleUseCaseTest {
         useCase.execute(onSuccess, onError, Unit)
         verify(onSuccess, never()).invoke(any())
         verify(onError).invoke(error)
+    }
+
+    private abstract class TestSingleUseCase<T, in Params> : SingleUseCase<T, Params>() {
+
+        fun publicLastDisposable() = lastDisposable
     }
 }

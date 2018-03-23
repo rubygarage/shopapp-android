@@ -1,13 +1,13 @@
 package com.shopapp.data.dao
 
 import android.content.Context
-import com.shopapp.gateway.entity.CartProduct
-import com.shopapp.gateway.entity.Error
-import com.shopapp.domain.database.Dao
 import com.shopapp.data.dao.adapter.CartProductAdapter
 import com.shopapp.data.dao.entity.CartProductData
 import com.shopapp.data.dao.entity.CartProductDataEntity
 import com.shopapp.data.dao.entity.Models
+import com.shopapp.domain.database.Dao
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.gateway.entity.Error
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -17,25 +17,29 @@ import io.requery.reactivex.KotlinReactiveEntityStore
 import io.requery.sql.KotlinEntityDataStore
 import io.requery.sql.TableCreationMode
 
-class DaoImpl(context: Context) : Dao {
+class DaoImpl : Dao {
 
     companion object {
-        private const val MAX_QUANTITY = 999
+        const val MAX_QUANTITY = 999
+        const val PRODUCT_NOT_FOUND_ERROR = "Product not found"
     }
 
     private val store: KotlinReactiveEntityStore<Persistable>
 
-    init {
+    constructor(context: Context) {
         val source = DatabaseSource(context, Models.DEFAULT, 1)
         source.setTableCreationMode(TableCreationMode.DROP_CREATE)
         store = KotlinReactiveEntityStore(KotlinEntityDataStore(source.configuration))
+    }
+
+    internal constructor(store: KotlinReactiveEntityStore<Persistable>) {
+        this.store = store
     }
 
     override fun getCartDataList(): Observable<List<CartProduct>> {
         return store.select(CartProductDataEntity::class)
             .get()
             .observableResult()
-            .map { it -> it.asIterable() }
             .map {
                 val list: MutableList<CartProduct> = mutableListOf()
                 it.iterator().forEach { list.add(CartProductAdapter.adaptFromStore(it)) }
@@ -68,7 +72,11 @@ class DaoImpl(context: Context) : Dao {
     }
 
     override fun deleteAllProductsFromCart(): Completable {
-        return store.delete(CartProductDataEntity::class).get().single().toCompletable()
+        return store
+            .delete(CartProductDataEntity::class)
+            .get()
+            .single()
+            .toCompletable()
     }
 
     override fun changeCartProductQuantity(
@@ -83,6 +91,6 @@ class DaoImpl(context: Context) : Dao {
         return storeItem?.let {
             it.quantity = newQuantity
             store.update(storeItem).map { CartProductAdapter.adaptFromStore(it) }
-        } ?: Single.error(Error.NonCritical("Product not found"))
+        } ?: Single.error(Error.NonCritical(PRODUCT_NOT_FOUND_ERROR))
     }
 }

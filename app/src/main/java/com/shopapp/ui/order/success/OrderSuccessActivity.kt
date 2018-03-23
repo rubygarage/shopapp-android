@@ -12,8 +12,8 @@ class OrderSuccessActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val ORDER_ID = "order_id"
-        private const val ORDER_NUMBER = "order_number"
+        const val ORDER_ID = "order_id"
+        const val ORDER_NUMBER = "order_number"
 
         fun getStartIntent(context: Context, orderId: String, orderNumber: Int): Intent {
             val intent = Intent(context, OrderSuccessActivity::class.java)
