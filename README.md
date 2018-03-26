@@ -7,6 +7,8 @@ ShopApp connects with popular ecommerce platforms like Shopify, Magento, BigComm
 So far, we’ve developed a [Shopify provider for Android](https://github.com/rubygarage/shopapp-shopify-android) and [Shopify provider for iOS](https://github.com/rubygarage/shopapp-shopify-ios).
 Currently we’re working on adding more providers and extending the features list, so stay in touch with our updates. 
 
+![ ](https://github.com/rubygarage/shopapp-android/blob/master/assets/shopapp-main-screen.gif)
+
 ## Installation
 To install the dependencies required for an application build, ShopApp uses [Gradle](https://gradle.org). Connect one of the providers for an online store and install all the dependencies. As an example, let's use Shopify.
 
@@ -40,4 +42,8 @@ To create a client for another SaaS provider, you have to add the following depe
 * Gradle to install all the dependencies   
 
 ## License
-ShopApp is licensed under [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0)
+The ShopApp Shopify for iOS provider is licensed under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0)
+***
+<a href="https://rubygarage.org/"><img src="https://github.com/rubygarage/shopapp-shopify-ios/blob/master/assets/rubygarage.png?raw=true" alt="RubyGarage Logo" width="415" height="128"></a>
+
+RubyGarage is a leading software development and consulting company in Eastern Europe. Our main expertise includes Ruby and Ruby on Rails, but we successfuly employ other technologies to deliver the best results to our clients. [Check out our portoflio](https://rubygarage.org/portfolio) for even more exciting works!
