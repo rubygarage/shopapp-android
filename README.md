@@ -1,4 +1,7 @@
 
+[![Build Status](https://travis-ci.org/rubygarage/shopapp-android.svg?branch=master)](https://travis-ci.org/rubygarage/shopapp-android)
+[![codecov](https://codecov.io/gh/rubygarage/shopapp-android/branch/master/graph/badge.svg)](https://codecov.io/gh/rubygarage/shopapp-android)
+
 # ShopApp for Android
 ShopApp connects with popular ecommerce platforms like Shopify, Magento, BigCommerce, and WooCommerce to transfer them into a mobile app for iOS and Android.
 So far, we’ve developed a [Shopify provider for Android](https://github.com/rubygarage/shopapp-shopify-android) and [Shopify provider for iOS](https://github.com/rubygarage/shopapp-shopify-ios).
