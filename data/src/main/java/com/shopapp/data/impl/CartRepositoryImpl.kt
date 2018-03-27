@@ -1,7 +1,7 @@
 package com.shopapp.data.impl
 
 import com.shopapp.gateway.entity.CartProduct
-import com.shopapp.domain.database.Dao
+import com.shopapp.data.dao.Dao
 import com.shopapp.domain.repository.CartRepository
 import io.reactivex.Completable
 import io.reactivex.Observable

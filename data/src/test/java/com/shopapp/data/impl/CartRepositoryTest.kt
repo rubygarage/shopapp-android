@@ -2,7 +2,7 @@ package com.shopapp.data.impl
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.database.Dao
+import com.shopapp.data.dao.Dao
 import com.shopapp.domain.repository.CartRepository
 import com.shopapp.gateway.entity.CartProduct
 import org.junit.Before
