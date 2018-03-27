@@ -2,7 +2,7 @@ package com.shopapp.di.module
 
 import com.shopapp.gateway.Api
 import com.shopapp.data.impl.*
-import com.shopapp.domain.database.Dao
+import com.shopapp.data.dao.Dao
 import com.shopapp.domain.repository.*
 import dagger.Module
 import dagger.Provides
