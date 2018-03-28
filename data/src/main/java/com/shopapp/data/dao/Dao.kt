@@ -1,4 +1,4 @@
-package com.shopapp.domain.database
+package com.shopapp.data.dao
 
 import com.shopapp.gateway.entity.CartProduct
 import io.reactivex.Completable

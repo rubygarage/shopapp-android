@@ -2,6 +2,7 @@ package com.shopapp.data.dao
 
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.data.dao.entity.CartProductDataEntity
+import com.shopapp.data.dao.impl.DaoImpl
 import com.shopapp.data.util.ConstantHolder
 import com.shopapp.data.util.MockInstantiator
 import com.shopapp.data.util.RequeryMockInstantiator
