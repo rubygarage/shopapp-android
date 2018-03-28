@@ -3,7 +3,7 @@ package com.shopapp
 import com.shopapp.di.component.AppComponent
 import com.shopapp.di.component.DaggerTestAppComponent
 import com.shopapp.di.component.TestAppComponent
-import com.shopapp.domain.database.Dao
+import com.shopapp.data.dao.Dao
 import com.shopapp.gateway.Api
 
 class TestShopApplication : ShopApplication() {

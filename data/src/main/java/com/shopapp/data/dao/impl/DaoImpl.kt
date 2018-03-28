@@ -1,11 +1,11 @@
-package com.shopapp.data.dao
+package com.shopapp.data.dao.impl
 
 import android.content.Context
+import com.shopapp.data.dao.Dao
 import com.shopapp.data.dao.adapter.CartProductAdapter
 import com.shopapp.data.dao.entity.CartProductData
 import com.shopapp.data.dao.entity.CartProductDataEntity
 import com.shopapp.data.dao.entity.Models
-import com.shopapp.domain.database.Dao
 import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.gateway.entity.Error
 import io.reactivex.Completable

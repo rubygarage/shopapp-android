@@ -34,12 +34,12 @@ class CardValidatorTest {
     }
 
     @Test
-    fun splitExpireDateWithIncorrectDateShouldReturnShouldReturnNull() {
+    fun splitExpireDateWithIncorrectDateShouldReturnNull() {
         assertNull(cardValidator.splitExpireDate("0820"))
     }
 
     @Test
-    fun splitExpireDateWithEmptyStringShouldReturnShouldReturnNull() {
+    fun splitExpireDateWithEmptyStringShouldReturnNull() {
         assertNull(cardValidator.splitExpireDate(""))
     }
 
@@ -106,31 +106,31 @@ class CardValidatorTest {
     }
 
     @Test
-    fun isCardValidWithEmptyYearShouldInvalidDate() {
+    fun isCardValidWithEmptyYearShouldReturnInvalidDate() {
         given(card.expireYear).willReturn("")
         assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
-    fun isCardValidWithIncorrectExpiredYearShouldInvalidDate() {
+    fun isCardValidWithIncorrectExpiredYearShouldReturnInvalidDate() {
         given(card.expireYear).willReturn("15")
         assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
-    fun isCardValidWithEmptyMonthShouldInvalidDate() {
+    fun isCardValidWithEmptyMonthShouldReturnInvalidDate() {
         given(card.expireMonth).willReturn("")
         assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
-    fun isCardValidWithIncorrectMonthShouldInvalidDate() {
+    fun isCardValidWithIncorrectMonthShouldReturnInvalidDate() {
         given(card.expireMonth).willReturn("13")
         assertEquals(CardValidator.CardValidationResult.INVALID_DATE, cardValidator.isCardValid(card))
     }
 
     @Test
-    fun isCardValidWithExpiredMonthAndSameYearShouldInvalidDate() {
+    fun isCardValidWithExpiredMonthAndSameYearShouldReturnInvalidDate() {
         val calendar = Calendar.getInstance()
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentYear = calendar.get(Calendar.YEAR)
@@ -140,9 +140,9 @@ class CardValidatorTest {
     }
 
     @Test
-    fun isCardValidWithValidMonthAndSameYearShouldInvalidDate() {
+    fun isCardValidWithValidMonthAndSameYearShouldReturnValid() {
         val calendar = Calendar.getInstance()
-        val currentMonth = calendar.get(Calendar.MONTH + 1)
+        val currentMonth = calendar.get(Calendar.MONTH) + 1
         val currentYear = calendar.get(Calendar.YEAR)
         given(card.expireMonth).willReturn(currentMonth.toString())
         given(card.expireYear).willReturn(currentYear.toString())
@@ -150,19 +150,19 @@ class CardValidatorTest {
     }
 
     @Test
-    fun isCardValidWithEmptyCvvShouldCvvReturnInvalidCvv() {
+    fun isCardValidWithEmptyCvvShouldReturnInvalidCvv() {
         given(card.verificationCode).willReturn("")
         assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
-    fun isCardValidWithShortCvvShouldCvvReturnInvalidCvv() {
+    fun isCardValidWithShortCvvShouldReturnInvalidCvv() {
         given(card.verificationCode).willReturn("22")
         assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
 
     @Test
-    fun isCardValidWithLongCvvShouldCvvReturnInvalidCvv() {
+    fun isCardValidWithLongCvvShouldReturnInvalidCvv() {
         given(card.verificationCode).willReturn("55555")
         assertEquals(CardValidator.CardValidationResult.INVALID_CVV, cardValidator.isCardValid(card))
     }
