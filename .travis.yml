@@ -19,7 +19,7 @@ branches:
     - develop
 
 script:
-  - ./gradlew build jacocoTestReport connectedCheck
+  - ./gradlew assembleWithoutApi lintWithoutApiRelease lintWithoutApiDebug testWithoutApiReleaseUnitTest testWithoutApiDebugUnitTest jacocoTestReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
