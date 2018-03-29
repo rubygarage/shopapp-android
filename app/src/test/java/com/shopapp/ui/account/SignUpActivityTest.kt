@@ -83,10 +83,7 @@ class SignUpActivityTest {
 
         assertTrue(spans.isNotEmpty())
         spans.first().onClick(activity.policyText)
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(PolicyActivity::class.java, shadowIntent.intentClass)
-        assertEquals(privacy, startedIntent.extras.getParcelable(PolicyActivity.EXTRA_POLICY))
+        verify(activity.router).showPolicy(activity, privacy)
     }
 
     @Test
@@ -96,10 +93,7 @@ class SignUpActivityTest {
 
         assertTrue(spans.isNotEmpty())
         spans.last().onClick(activity.policyText)
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(PolicyActivity::class.java, shadowIntent.intentClass)
-        assertEquals(terms, startedIntent.extras.getParcelable(PolicyActivity.EXTRA_POLICY))
+        verify(activity.router).showPolicy(activity, terms)
     }
 
     @Test

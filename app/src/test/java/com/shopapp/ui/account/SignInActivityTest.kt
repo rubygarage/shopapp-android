@@ -205,4 +205,10 @@ class SignInActivityTest {
         assertTrue(activity.passwordInputLayout.isErrorEnabled)
         assertEquals(context.getString(R.string.invalid_password_error_message), activity.passwordInputLayout.error)
     }
+
+    @Test
+    fun shouldShowForgotPassword() {
+        activity.forgotPassword.performClick()
+        verify(activity.router).showForgotScreen(activity)
+    }
 }

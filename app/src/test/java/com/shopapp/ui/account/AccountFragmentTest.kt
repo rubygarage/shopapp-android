@@ -9,11 +9,8 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Policy
 import com.shopapp.gateway.entity.Shop
-import com.shopapp.ui.address.account.AddressListActivity
 import com.shopapp.ui.const.RequestCode
 import com.shopapp.ui.home.HomeActivity
-import com.shopapp.ui.order.list.OrderListActivity
-import com.shopapp.ui.policy.PolicyActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
@@ -71,18 +68,14 @@ class AccountFragmentTest {
     }
 
     @Test
-    fun shouldSetupPrivacyRouting() {
+    fun shouldShowPrivacy() {
         val shop: Shop = mock()
         val privacy: Policy = mock()
         given(shop.privacyPolicy).willReturn(privacy)
 
         fragment.shopReceived(shop)
         fragment.privacyPolicy.performClick()
-
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(PolicyActivity::class.java, shadowIntent.intentClass)
-        assertEquals(privacy, startedIntent.extras.getParcelable(PolicyActivity.EXTRA_POLICY))
+        verify(fragment.router).showPolicy(fragment, privacy)
     }
 
     @Test
@@ -93,11 +86,7 @@ class AccountFragmentTest {
 
         fragment.shopReceived(shop)
         fragment.termsOfService.performClick()
-
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(PolicyActivity::class.java, shadowIntent.intentClass)
-        assertEquals(terms, startedIntent.extras.getParcelable(PolicyActivity.EXTRA_POLICY))
+        verify(fragment.router).showPolicy(fragment, terms)
     }
 
     @Test
@@ -109,10 +98,7 @@ class AccountFragmentTest {
         fragment.shopReceived(shop)
         fragment.refundPolicy.performClick()
 
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(PolicyActivity::class.java, shadowIntent.intentClass)
-        assertEquals(refund, startedIntent.extras.getParcelable(PolicyActivity.EXTRA_POLICY))
+        verify(fragment.router).showPolicy(fragment, refund)
     }
 
     @Test
@@ -213,15 +199,13 @@ class AccountFragmentTest {
     }
 
     @Test
-    fun shouldShowSignInActivity() {
+    fun shouldShowSignIn() {
         fragment.signInButton.performClick()
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(SignInActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showSignInForResult(fragment, RequestCode.SIGN_IN)
     }
 
     @Test
-    fun shouldShowSignUpActivity() {
+    fun shouldShowSignUp() {
         val shop: Shop = mock()
         val terms: Policy = mock()
         val privacy: Policy = mock()
@@ -229,44 +213,32 @@ class AccountFragmentTest {
         given(shop.privacyPolicy).willReturn(privacy)
         fragment.shopReceived(shop)
         fragment.createAccount.performClick()
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(SignUpActivity::class.java, shadowIntent.intentClass)
-        assertEquals(terms, startedIntent.extras.getParcelable(SignUpActivity.TERMS_OF_SERVICE))
-        assertEquals(privacy, startedIntent.extras.getParcelable(SignUpActivity.PRIVACY_POLICY))
+        verify(fragment.router).showSignUpForResult(fragment, privacy, terms, RequestCode.SIGN_UP)
     }
 
     @Test
-    fun shouldShowOrderActivity() {
+    fun shouldShowOrder() {
         fragment.myOrders.performClick()
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(OrderListActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showOrderList(fragment)
     }
 
     @Test
-    fun shouldShowPersonalInfoActivity() {
+    fun shouldShowPersonalInfo() {
         fragment.personalInfo.performClick()
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(PersonalInfoActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showPersonalInfoForResult(fragment, RequestCode.PERSONAL_INFO)
     }
 
     @Test
-    fun shouldShowAddressListActivity() {
+    fun shouldShowAddressList() {
         fragment.shippingAddress.performClick()
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(AddressListActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showAddressList(fragment)
     }
 
     @Test
-    fun shouldShowAccountSettingsActivity() {
+    fun shouldShowAccountSettings() {
         val shadow = shadowOf(fragment.activity)
         shadow.clickMenuItem(R.id.settings)
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(AccountSettingsActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showSettings(fragment)
     }
 
     @Test
