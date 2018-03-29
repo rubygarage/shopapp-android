@@ -13,9 +13,11 @@ import com.shopapp.ui.address.base.BaseAddressListActivity
 import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import com.shopapp.ui.address.checkout.contract.CheckoutAddressListPresenter
 import com.shopapp.ui.address.checkout.contract.CheckoutAddressListView
+import com.shopapp.ui.address.checkout.router.CheckoutAddressesRouter
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.RequestCode
+import javax.inject.Inject
 
 class CheckoutAddressListActivity :
     BaseAddressListActivity<CheckoutAddressListAdapter, CheckoutAddressListView, CheckoutAddressListPresenter>(),
@@ -42,6 +44,9 @@ class CheckoutAddressListActivity :
         }
     }
 
+    @Inject
+    lateinit var router: CheckoutAddressesRouter
+
     private var checkoutId: String? = null
     private var isShipping = true
     private var selectedAddress: Address? = null
@@ -67,7 +72,7 @@ class CheckoutAddressListActivity :
         val isEditAddressRequest = requestCode == RequestCode.EDIT_SHIPPING_ADDRESS
         val isResultOk = resultCode == Activity.RESULT_OK
 
-        if(isResultOk) {
+        if (isResultOk) {
             if (isAddAddressRequest) {
                 loadData()
             } else if (isEditAddressRequest) {
@@ -150,10 +155,7 @@ class CheckoutAddressListActivity :
     override fun onEditButtonClicked(address: Address) {
         doAction(address, true, {
             val isSelectedAddress = address == selectedAddress
-            startActivityForResult(
-                CheckoutAddressActivity.getStartIntent(this, address, isSelectedAddress),
-                RequestCode.EDIT_SHIPPING_ADDRESS
-            )
+            router.showCheckoutAddressForResult(this, RequestCode.EDIT_SHIPPING_ADDRESS, address, isSelectedAddress)
         })
     }
 
@@ -176,8 +178,6 @@ class CheckoutAddressListActivity :
     }
 
     override fun onClick(v: View?) {
-        startActivityForResult(
-            CheckoutAddressActivity.getStartIntent(this), RequestCode.ADD_SHIPPING_ADDRESS
-        )
+        router.showCheckoutAddressForResult(this, RequestCode.ADD_SHIPPING_ADDRESS)
     }
 }

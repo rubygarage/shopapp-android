@@ -11,6 +11,7 @@ import com.shopapp.ShopApplication
 import com.shopapp.ext.getTrimmedString
 import com.shopapp.ui.account.contract.SignInPresenter
 import com.shopapp.ui.account.contract.SignInView
+import com.shopapp.ui.account.router.SignInRouter
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.custom.SimpleTextWatcher
@@ -22,6 +23,10 @@ class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
 
     @Inject
     lateinit var signInPresenter: SignInPresenter
+
+    @Inject
+    lateinit var router: SignInRouter
+
     private lateinit var emailTextWatcher: TextWatcher
     private lateinit var passwordTextWatcher: TextWatcher
 
@@ -81,7 +86,7 @@ class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
 
     private fun setupButtonListeners() {
         loginButton.setOnClickListener { loadData(true) }
-        forgotPassword.setOnClickListener { startActivity(ForgotPasswordActivity.getStartIntent(this)) }
+        forgotPassword.setOnClickListener { router.showForgotScreen(this) }
     }
 
     private fun checkInputFields(inputLayout: TextInputLayout) {

@@ -1,12 +1,13 @@
 package com.shopapp.ui.address.checkout.di
 
-import com.shopapp.ui.address.base.contract.AddressPresenter
-import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.domain.interactor.account.*
 import com.shopapp.domain.interactor.checkout.SetShippingAddressUseCase
 import com.shopapp.domain.validator.FieldValidator
+import com.shopapp.ui.address.base.contract.AddressPresenter
+import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.ui.address.checkout.contract.CheckoutAddressListPresenter
 import com.shopapp.ui.address.checkout.contract.CheckoutUnAuthAddressPresenter
+import com.shopapp.ui.address.checkout.router.CheckoutAddressesRouter
 import dagger.Module
 import dagger.Provides
 
@@ -57,4 +58,6 @@ class CheckoutAddressModule {
             editCustomerAddressUseCase
         )
 
+    @Provides
+    fun provideCheckoutAddressesRouter(): CheckoutAddressesRouter = CheckoutAddressesRouter()
 }

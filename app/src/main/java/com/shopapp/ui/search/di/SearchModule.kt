@@ -2,6 +2,7 @@ package com.shopapp.ui.search.di
 
 import com.shopapp.domain.interactor.search.SearchUseCase
 import com.shopapp.ui.search.contract.SearchPresenter
+import com.shopapp.ui.search.router.SearchRouter
 import dagger.Module
 import dagger.Provides
 
@@ -13,4 +14,6 @@ class SearchModule {
         return SearchPresenter(searchUseCase)
     }
 
+    @Provides
+    fun provideSearchRouter(): SearchRouter = SearchRouter()
 }

@@ -16,6 +16,7 @@ import com.shopapp.ui.base.recycler.divider.SpaceDecoration
 import com.shopapp.ui.order.details.adapter.OrderProductsAdapter
 import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
 import com.shopapp.ui.order.details.contract.OrderDetailsView
+import com.shopapp.ui.order.details.router.OrderRouter
 import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_details.*
@@ -41,6 +42,10 @@ class OrderDetailsActivity :
 
     @Inject
     lateinit var detailsPresenter: OrderDetailsPresenter
+
+    @Inject
+    lateinit var router: OrderRouter
+
     private lateinit var orderId: String
     private lateinit var formatter: NumberFormatter
 
@@ -103,6 +108,6 @@ class OrderDetailsActivity :
 
     override fun onItemClicked(position: Int) {
         val productVariant = order?.let { it.orderProducts.getOrNull(position)?.productVariant }
-        productVariant?.let { startActivity(ProductDetailsActivity.getStartIntent(this, it)) }
+        productVariant?.let { router.showProduct(this, it) }
     }
 }

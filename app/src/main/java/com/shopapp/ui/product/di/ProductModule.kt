@@ -5,6 +5,7 @@ import com.shopapp.domain.interactor.product.ProductDetailsUseCase
 import com.shopapp.domain.interactor.product.ProductListUseCase
 import com.shopapp.ui.product.contract.ProductDetailsPresenter
 import com.shopapp.ui.product.contract.ProductListPresenter
+import com.shopapp.ui.product.router.ProductRouter
 import dagger.Module
 import dagger.Provides
 
@@ -20,4 +21,7 @@ class ProductModule {
     fun provideProductListPresenter(productListUseCase: ProductListUseCase): ProductListPresenter {
         return ProductListPresenter(productListUseCase)
     }
+
+    @Provides
+    fun provideProductRouter(): ProductRouter = ProductRouter()
 }

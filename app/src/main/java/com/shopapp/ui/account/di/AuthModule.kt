@@ -3,6 +3,10 @@ package com.shopapp.ui.account.di
 import com.shopapp.domain.interactor.account.*
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.ui.account.contract.*
+import com.shopapp.ui.account.router.AccountRouter
+import com.shopapp.ui.account.router.PersonalInfoRouter
+import com.shopapp.ui.account.router.SignInRouter
+import com.shopapp.ui.account.router.SignUpRouter
 import dagger.Module
 import dagger.Provides
 
@@ -49,4 +53,17 @@ class AuthModule {
                                         updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
         return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
     }
+
+    @Provides
+    fun provideAccountRouter(): AccountRouter = AccountRouter()
+
+    @Provides
+    fun provideSignInRouter(): SignInRouter = SignInRouter()
+
+    @Provides
+    fun provideSignUpRouter(): SignUpRouter = SignUpRouter()
+
+    @Provides
+    fun providePersonalInfoRouter(): PersonalInfoRouter = PersonalInfoRouter()
+
 }

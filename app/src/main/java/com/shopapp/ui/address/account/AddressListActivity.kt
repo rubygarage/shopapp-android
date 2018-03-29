@@ -5,20 +5,25 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Address
+import com.shopapp.ui.address.account.router.AddressesRouter
 import com.shopapp.ui.address.base.BaseAddressListActivity
 import com.shopapp.ui.address.base.adapter.AddressListAdapter
 import com.shopapp.ui.address.base.contract.AddressListPresenter
 import com.shopapp.ui.address.base.contract.AddressListView
 import com.shopapp.ui.const.RequestCode
+import javax.inject.Inject
 
 class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressListView, AddressListPresenter<AddressListView>>() {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, AddressListActivity::class.java)
     }
+
+    @Inject
+    lateinit var router: AddressesRouter
 
     //ANDROID
 
@@ -48,15 +53,10 @@ class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressL
     //CALLBACK
 
     override fun onEditButtonClicked(address: Address) {
-        startActivityForResult(
-            AddressActivity.getStartIntent(this, address),
-            RequestCode.EDIT_SHIPPING_ADDRESS
-        )
+        router.showAddressForResult(this, RequestCode.EDIT_SHIPPING_ADDRESS, address)
     }
 
     override fun onClick(v: View?) {
-        startActivityForResult(
-            AddressActivity.getStartIntent(this), RequestCode.ADD_SHIPPING_ADDRESS
-        )
+        router.showAddressForResult(this, RequestCode.ADD_SHIPPING_ADDRESS)
     }
 }

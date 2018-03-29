@@ -13,6 +13,7 @@ import com.shopapp.ext.setTextWhenDisable
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.ui.account.contract.PersonalInfoPresenter
 import com.shopapp.ui.account.contract.PersonalInfoView
+import com.shopapp.ui.account.router.PersonalInfoRouter
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.custom.SimpleTextWatcher
@@ -31,6 +32,10 @@ class PersonalInfoActivity :
 
     @Inject
     lateinit var personalInfoPresenter: PersonalInfoPresenter
+
+    @Inject
+    lateinit var router: PersonalInfoRouter
+
     private lateinit var fieldTextWatcher: TextWatcher
     private var customer: Customer? = null
 
@@ -92,7 +97,7 @@ class PersonalInfoActivity :
             )
         }
         changePassword.setOnClickListener {
-            startActivity(ChangePasswordActivity.getStartIntent(this))
+            router.showChangePassword(this)
         }
     }
 
