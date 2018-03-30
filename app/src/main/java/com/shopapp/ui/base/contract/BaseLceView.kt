@@ -2,6 +2,7 @@ package com.shopapp.ui.base.contract
 
 import android.support.annotation.StringRes
 import com.hannesdorfmann.mosby3.mvp.MvpView
+import com.shopapp.gateway.entity.Error
 
 interface BaseLceView<in T> : MvpView {
 
@@ -11,7 +12,7 @@ interface BaseLceView<in T> : MvpView {
 
     fun showEmptyState()
 
-    fun showError(isNetworkError: Boolean)
+    fun showError(error: Error)
 
     fun showMessage(@StringRes messageRes: Int)
 

@@ -20,7 +20,7 @@ class CheckoutFailureView @JvmOverloads constructor(
     }
 
     fun setListeners(tryAgainClickListener: OnClickListener, backToShopClickListener: OnClickListener) {
-        tryAgainButton.setOnClickListener(tryAgainClickListener)
+        tryAgainCheckoutButton.setOnClickListener(tryAgainClickListener)
         backToShop.setOnClickListener(backToShopClickListener)
     }
 }

@@ -9,6 +9,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -84,12 +85,16 @@ class PersonalInfoPresenterTest {
 
     @Test
     fun shouldShowErrorOnGetCustomerContentError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getCustomer()
 
-        val inOrder = inOrder(view, getCustomerUseCase)
-        inOrder.verify(getCustomerUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, getCustomerUseCase)
+            inOrder.verify(getCustomerUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
@@ -130,17 +135,21 @@ class PersonalInfoPresenterTest {
         val lastName = "lastName"
         val phone = "06333291677"
 
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.editCustomer(name, lastName, phone)
 
-        val inOrder = inOrder(view, editCustomerUseCase)
-        inOrder.verify(editCustomerUseCase).execute(any(), any(), eq(EditCustomerUseCase.Params(name, lastName, phone)))
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, editCustomerUseCase)
+            inOrder.verify(editCustomerUseCase).execute(any(), any(), eq(EditCustomerUseCase.Params(name, lastName, phone)))
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
     fun shouldExplicitHideProgressOnEditCustomerError() {
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.editCustomer("name", "lastName", "06333291677")
         verify(view).hideProgress()
     }

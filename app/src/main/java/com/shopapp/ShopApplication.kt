@@ -29,7 +29,7 @@ open class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val api = null //Initialize your api here.
+        val api = null
         val dao = DaoImpl(this)
 
         appComponent = buildAppComponent(api, dao)

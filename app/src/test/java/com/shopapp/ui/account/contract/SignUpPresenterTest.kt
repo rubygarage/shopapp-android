@@ -3,12 +3,12 @@ package com.shopapp.ui.account.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.SignUpUseCase
 import com.shopapp.domain.validator.FieldValidator
-import com.nhaarman.mockito_kotlin.*
-import com.shopapp.test.ext.mock
-import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.gateway.entity.Error
+import com.shopapp.test.RxImmediateSchedulerRule
+import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -98,9 +98,13 @@ class SignUpPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(false)))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
         presenter.signUp(name, lastName, email, password, phone)
-        verify(view).showError(false)
-    }
 
+        argumentCaptor<Error>().apply {
+            verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
+    }
 }

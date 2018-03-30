@@ -10,6 +10,7 @@ import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -73,12 +74,16 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldShowErrorOnGetCustomerContentError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getCustomer()
 
-        val inOrder = inOrder(view, getCustomerUseCase)
-        inOrder.verify(getCustomerUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, getCustomerUseCase)
+            inOrder.verify(getCustomerUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
 
@@ -101,12 +106,16 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldShowErrorOnUpdateSettingsContentError() {
-        given(accountSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(false)))
+        given(accountSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
         presenter.updateSettings(true)
 
-        val inOrder = inOrder(view, getCustomerUseCase)
-        verify(accountSettingsUseCase).execute(any(), any(), eq(true))
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, getCustomerUseCase)
+            verify(accountSettingsUseCase).execute(any(), any(), eq(true))
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @After

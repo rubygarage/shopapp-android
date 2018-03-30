@@ -2,16 +2,13 @@ package com.shopapp.ui.base.lce
 
 import android.content.Context
 import android.view.View
-import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.R
 import com.shopapp.TestShopApplication
-import com.shopapp.ui.base.contract.BaseLcePresenter
-import com.shopapp.ui.base.contract.BaseLceView
-import com.shopapp.ui.base.lce.view.LceLayout
+import com.shopapp.gateway.entity.Error
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +29,7 @@ class BaseLceFragmentTest {
     @Before
     fun setUp() {
         fragment = TestBaseLceFragment()
-        SupportFragmentTestUtil.startFragment(fragment)
+        SupportFragmentTestUtil.startFragment(fragment, TestBaseLceActivity::class.java)
         context = RuntimeEnvironment.application.baseContext
     }
 
@@ -87,19 +84,18 @@ class BaseLceFragmentTest {
 
     @Test
     fun shouldShowProgressOnReload() {
-        fragment.showError(false)
+        fragment.showError(Error.Content())
         assertEquals(View.GONE, fragment.lceLayout.loadingView.visibility)
         fragment.lceLayout.tryAgainButton.performClick()
         assertEquals(View.VISIBLE, fragment.lceLayout.loadingView.visibility)
     }
 
-    class TestBaseLceFragment : BaseLceFragment<Any, BaseLceView<Any>, BaseLcePresenter<Any, BaseLceView<Any>>>() {
-
-        override fun inject() {
-        }
-
-        override fun getContentView(): Int = R.layout.activity_splash
-
-        override fun createPresenter(): BaseLcePresenter<Any, BaseLceView<Any>> = mock()
+    @Test
+    fun shouldActivityFinishWhenBackButtonClick() {
+        val activity = fragment.activity
+        assertNotNull(activity)
+        assertFalse(activity!!.isFinishing)
+        fragment.lceLayout.backButton.performClick()
+        assertTrue(activity.isFinishing)
     }
 }

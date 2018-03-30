@@ -15,6 +15,7 @@ import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -91,10 +92,14 @@ class AddressPresenterTest {
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
-        val inOrder = inOrder(view, createCustomerAddressUseCase)
-        inOrder.verify(createCustomerAddressUseCase).execute(any(), any(), eq(address))
-        inOrder.verify(view).showError(false)
-        inOrder.verify(view).addressChanged(address)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, createCustomerAddressUseCase)
+            inOrder.verify(createCustomerAddressUseCase).execute(any(), any(), eq(address))
+            inOrder.verify(view).showError(capture())
+            inOrder.verify(view).addressChanged(address)
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
@@ -144,15 +149,18 @@ class AddressPresenterTest {
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.editAddress(MockInstantiator.DEFAULT_ID, address)
 
-        argumentCaptor<EditCustomerAddressUseCase.Params>().apply {
-            val inOrder = inOrder(view, editCustomerAddressUseCase)
-            inOrder.verify(editCustomerAddressUseCase).execute(any(), any(), capture())
-            inOrder.verify(view).showError(false)
-            inOrder.verify(view).addressChanged(address)
 
+        val inOrder = inOrder(view, editCustomerAddressUseCase)
+        argumentCaptor<EditCustomerAddressUseCase.Params>().apply {
+            inOrder.verify(editCustomerAddressUseCase).execute(any(), any(), capture())
             assertEquals(MockInstantiator.DEFAULT_ID, firstValue.addressId)
             assertEquals(address, firstValue.address)
         }
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
+        inOrder.verify(view).addressChanged(address)
     }
 
     @Test
@@ -190,9 +198,13 @@ class AddressPresenterTest {
         given(countriesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
         presenter.getCountriesList()
 
-        val inOrder = inOrder(view, countriesUseCase)
-        inOrder.verify(countriesUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, countriesUseCase)
+            inOrder.verify(countriesUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test

@@ -6,11 +6,11 @@ import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
-import com.shopapp.gateway.entity.Order
-import com.shopapp.domain.formatter.DateFormatter
-import com.shopapp.domain.formatter.NumberFormatter
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.shopapp.R
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Order
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.SpaceDecoration
 import com.shopapp.ui.product.adapter.ProductVariantAdapter

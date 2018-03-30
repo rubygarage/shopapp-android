@@ -1,9 +1,6 @@
 package com.shopapp.ui.order.list.contract
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.eq
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.inOrder
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.order.OrderListUseCase
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Order
@@ -11,6 +8,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -65,12 +63,15 @@ class OrderListPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(useCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(useCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getOrders(1, null)
 
         val inOrder = inOrder(view, useCase)
         inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @After

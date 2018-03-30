@@ -61,4 +61,13 @@ class LceLayoutTest {
         view.tryAgainButtonClickListener = listener
         assertEquals(listener, tryAgainButton.onClickListener)
     }
+
+    @Test
+    fun shouldSetListenerToBackButton() {
+        val listener: View.OnClickListener = mock()
+        val backButton = shadowOf(view.backButton)
+        assertNull(backButton.onClickListener)
+        view.backButtonClickListener = listener
+        assertEquals(listener, backButton.onClickListener)
+    }
 }
