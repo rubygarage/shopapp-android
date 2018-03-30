@@ -73,5 +73,8 @@ class LceErrorViewTest {
 
         view.changeState(LceLayout.LceState.LoadingState())
         assertEquals(View.GONE, view.visibility)
+
+        view.changeState(LceLayout.LceState.ErrorState(Error.NonCritical("")))
+        assertEquals(View.GONE, view.visibility)
     }
 }

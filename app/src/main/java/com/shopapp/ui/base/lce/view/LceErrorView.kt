@@ -23,28 +23,36 @@ class LceErrorView @JvmOverloads constructor(
 
     override fun changeState(state: LceLayout.LceState) {
         visibility = if (state is LceLayout.LceState.ErrorState) {
-            when (state.error) {
-                is Error.Content -> {
-                    if (state.error.isNetworkError) {
-                        errorImage.setImageResource(R.drawable.ic_no_signal)
-                        errorMessage.setText(R.string.network_connection_error)
-                    } else {
-                        errorImage.setImageResource(R.drawable.ic_sentiment_very_dissatisfied)
-                        errorMessage.setText(R.string.default_error)
-                    }
-                    tryAgainButton.visibility = View.VISIBLE
-                    backButton.visibility = View.GONE
-                }
-                is Error.Critical -> {
-                    errorImage.setImageResource(R.drawable.ic_categories_empty)
-                    errorMessage.setText(R.string.сould_not_find_it)
-                    tryAgainButton.visibility = View.GONE
-                    backButton.visibility = View.VISIBLE
-                }
-            }
-            View.VISIBLE
+            configureErrorView(state.error)
         } else {
             View.GONE
+        }
+    }
+
+    private fun configureErrorView(error: Error): Int {
+        when (error) {
+            is Error.Content -> {
+                if (error.isNetworkError) {
+                    errorImage.setImageResource(R.drawable.ic_no_signal)
+                    errorMessage.setText(R.string.network_connection_error)
+                } else {
+                    errorImage.setImageResource(R.drawable.ic_sentiment_very_dissatisfied)
+                    errorMessage.setText(R.string.default_error)
+                }
+                tryAgainButton.visibility = View.VISIBLE
+                backButton.visibility = View.GONE
+                return View.VISIBLE
+            }
+            is Error.Critical -> {
+                errorImage.setImageResource(R.drawable.ic_categories_empty)
+                errorMessage.setText(R.string.сould_not_find_it)
+                tryAgainButton.visibility = View.GONE
+                backButton.visibility = View.VISIBLE
+                return View.VISIBLE
+            }
+            is Error.NonCritical -> {
+                return View.GONE
+            }
         }
     }
 }
