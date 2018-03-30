@@ -91,13 +91,17 @@ class CheckoutPresenterTest {
     }
 
     @Test
-    fun getCheckoutDataShouldShowMessageOnUseCaseNonCriticalError() {
+    fun getCheckoutDataShouldShowMessageAndShowErrorScreenOnUseCaseNonCriticalError() {
         given(setupCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
         presenter.getCheckoutData()
 
         val inOrder = inOrder(view, setupCheckoutUseCase)
         inOrder.verify(setupCheckoutUseCase).execute(any(), any(), any())
         inOrder.verify(view).showMessage("ErrorMessage")
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
