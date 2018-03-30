@@ -10,9 +10,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.verify
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -47,11 +47,8 @@ class CartWidgetTest {
     }
 
     @Test
-    fun shouldStartCartActivity() {
+    fun shouldShowCart() {
         widget.image.performClick()
-
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(CartActivity::class.java, shadowIntent.intentClass)
+        verify(widget.router).showCart(widget.context)
     }
 }

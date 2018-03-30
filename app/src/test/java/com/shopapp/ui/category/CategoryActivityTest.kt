@@ -10,7 +10,6 @@ import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
-import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -92,13 +91,10 @@ class CategoryActivityTest {
     }
 
     @Test
-    fun shouldStartProductDetailsActivity() {
+    fun shouldShowProduct() {
         val productMock = MockInstantiator.newProduct()
         activity.onItemClicked(productMock, 0)
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productMock.id, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showProduct(activity, productMock.id)
     }
 
     @Test

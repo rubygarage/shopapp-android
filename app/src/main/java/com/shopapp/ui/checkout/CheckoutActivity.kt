@@ -160,7 +160,7 @@ class CheckoutActivity :
                             isShippingAddress = true,
                             shippingAddress = null,
                             billingAddress = paymentView.getAddress(),
-                            requestCode = RequestCode.EDIT_SHIPPING_ADDRESS
+                            requestCode = RequestCode.ADD_SHIPPING_ADDRESS
                         )
                     } else {
                         router.showCheckoutUnAuthAddressListForResult(
@@ -188,7 +188,7 @@ class CheckoutActivity :
                         isShippingAddress = false,
                         shippingAddress = checkout?.address,
                         billingAddress = null,
-                        requestCode = RequestCode.EDIT_BILLING_ADDRESS)
+                        requestCode = RequestCode.ADD_BILLING_ADDRESS)
                 } else {
                     router.showCheckoutUnAuthAddressListForResult(
                         activity = this,
@@ -292,10 +292,7 @@ class CheckoutActivity :
 
     override fun checkoutCompleted(order: Order) {
         changeState(LceLayout.LceState.ContentState)
-        val taskBuilder = TaskStackBuilder.create(this)
-        taskBuilder.addNextIntent(HomeActivity.getStartIntent(this, true))
-        taskBuilder.addNextIntent(OrderSuccessActivity.getStartIntent(this, order.id, order.orderNumber))
-        taskBuilder.startActivities()
+        router.showSuccessOrder(this, order.id, order.orderNumber)
     }
 
     override fun checkoutError() {

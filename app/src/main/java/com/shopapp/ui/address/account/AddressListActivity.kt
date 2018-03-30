@@ -8,7 +8,7 @@ import android.view.View
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Address
-import com.shopapp.ui.address.account.router.AddressesRouter
+import com.shopapp.ui.address.account.router.AddressListRouter
 import com.shopapp.ui.address.base.BaseAddressListActivity
 import com.shopapp.ui.address.base.adapter.AddressListAdapter
 import com.shopapp.ui.address.base.contract.AddressListPresenter
@@ -23,7 +23,7 @@ class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressL
     }
 
     @Inject
-    lateinit var router: AddressesRouter
+    lateinit var router: AddressListRouter
 
     //ANDROID
 

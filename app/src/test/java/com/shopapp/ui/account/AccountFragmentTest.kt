@@ -75,7 +75,7 @@ class AccountFragmentTest {
 
         fragment.shopReceived(shop)
         fragment.privacyPolicy.performClick()
-        verify(fragment.router).showPolicy(fragment, privacy)
+        verify(fragment.router).showPolicy(fragment.context, privacy)
     }
 
     @Test
@@ -86,7 +86,7 @@ class AccountFragmentTest {
 
         fragment.shopReceived(shop)
         fragment.termsOfService.performClick()
-        verify(fragment.router).showPolicy(fragment, terms)
+        verify(fragment.router).showPolicy(fragment.context, terms)
     }
 
     @Test
@@ -98,7 +98,7 @@ class AccountFragmentTest {
         fragment.shopReceived(shop)
         fragment.refundPolicy.performClick()
 
-        verify(fragment.router).showPolicy(fragment, refund)
+        verify(fragment.router).showPolicy(fragment.context, refund)
     }
 
     @Test
@@ -219,7 +219,7 @@ class AccountFragmentTest {
     @Test
     fun shouldShowOrder() {
         fragment.myOrders.performClick()
-        verify(fragment.router).showOrderList(fragment)
+        verify(fragment.router).showOrderList(fragment.context)
     }
 
     @Test
@@ -231,14 +231,14 @@ class AccountFragmentTest {
     @Test
     fun shouldShowAddressList() {
         fragment.shippingAddress.performClick()
-        verify(fragment.router).showAddressList(fragment)
+        verify(fragment.router).showAddressList(fragment.context)
     }
 
     @Test
     fun shouldShowAccountSettings() {
         val shadow = shadowOf(fragment.activity)
         shadow.clickMenuItem(R.id.settings)
-        verify(fragment.router).showSettings(fragment)
+        verify(fragment.router).showSettings(fragment.context)
     }
 
     @Test

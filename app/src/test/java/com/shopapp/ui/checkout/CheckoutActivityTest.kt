@@ -14,13 +14,10 @@ import com.shopapp.gateway.entity.Customer
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
-import com.shopapp.ui.checkout.payment.PaymentActivity
 import com.shopapp.ui.checkout.payment.card.CardActivity
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.PaymentType
 import com.shopapp.ui.const.RequestCode
-import com.shopapp.ui.home.HomeActivity
-import com.shopapp.ui.order.success.OrderSuccessActivity
 import kotlinx.android.synthetic.main.activity_checkout.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
@@ -29,7 +26,8 @@ import kotlinx.android.synthetic.main.view_checkout_failure.view.*
 import kotlinx.android.synthetic.main.view_checkout_my_cart.view.*
 import kotlinx.android.synthetic.main.view_payment.view.*
 import kotlinx.android.synthetic.main.view_shipping_address.view.*
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -144,15 +142,10 @@ class CheckoutActivityTest {
     }
 
     @Test
-    fun shouldStartOrderSuccessActivityWhenCheckoutCompleted() {
+    fun shouldShowOrderSuccess() {
         val order = MockInstantiator.newOrder()
         activity.checkoutCompleted(order)
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(order.id, startedIntent.extras.getString(OrderSuccessActivity.ORDER_ID))
-        assertEquals(order.orderNumber, startedIntent.extras.getInt(OrderSuccessActivity.ORDER_NUMBER))
-        assertEquals(OrderSuccessActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showSuccessOrder(activity, order.id, order.orderNumber)
     }
 
     @Test
@@ -181,113 +174,123 @@ class CheckoutActivityTest {
     }
 
     @Test
-    fun shouldStartCheckoutAddressListActivityWhenShippingAddressViewEditButtonClicked() {
+    fun shouldShowCheckoutAddressListForEdit() {
         activity.showContent(checkout)
         activity.customerReceived(customer)
         activity.shippingAddressView.editButton.performClick()
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
-        assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckoutAddressListForResult(
+            activity,
+            checkout.checkoutId,
+            checkout.address,
+            true,
+            null,
+            activity.paymentView.getAddress(),
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
     }
 
     @Test
-    fun shouldStartCheckoutUnAuthAddressActivityWhenShippingAddressViewEditButtonClicked() {
+    fun shouldShowCheckoutUnAuthAddressListForEdit() {
         activity.showContent(checkout)
         activity.shippingAddressView.editButton.performClick()
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
-        assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckoutUnAuthAddressListForResult(
+            activity,
+            checkout.checkoutId,
+            checkout.address,
+            true,
+            RequestCode.EDIT_SHIPPING_ADDRESS
+        )
     }
 
     @Test
-    fun shouldStartCheckoutAddressListActivityWhenShippingAddressViewAddNewAddressButtonClicked() {
+    fun shouldShowCheckoutAddressListForAdd() {
         activity.showContent(checkout)
         activity.customerReceived(customer)
         activity.shippingAddressView.setAddress(checkout.address)
         activity.shippingAddressView.addNewAddressButton.performClick()
 
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
-        assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckoutAddressListForResult(
+            activity,
+            checkout.checkoutId,
+            checkout.address,
+            true,
+            null,
+            activity.paymentView.getAddress(),
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
+
     }
 
     @Test
-    fun shouldStartCheckoutUnAuthAddressActivityWhenShippingAddressViewAddNewAddressButtonClicked() {
+    fun shouldStartCheckoutUnAuthAddressListForAdd() {
         activity.showContent(checkout)
         activity.shippingAddressView.setAddress(checkout.address)
         activity.shippingAddressView.addNewAddressButton.performClick()
 
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(checkout.checkoutId, startedIntent.extras.getString(Extra.CHECKOUT_ID))
-        assertNull(startedIntent.extras.getParcelable(Extra.ADDRESS))
-        assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
-        assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckoutUnAuthAddressListForResult(
+            activity,
+            checkout.checkoutId,
+            null,
+            true,
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
     }
 
     @Test
-    fun shouldStartPaymentActivityWhenPaymentViewAddPaymentTypeButtonClicked() {
+    fun shouldShowPayment() {
         activity.paymentView.addPaymentTypeButton.performClick()
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(PaymentActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showPaymentResult(
+            activity,
+            activity.paymentView.getPaymentType(),
+            RequestCode.PAYMENT
+        )
     }
 
     @Test
-    fun shouldStartCardActivityWhenPaymentViewAddCardButtonClicked() {
+    fun shouldShowCard() {
         activity.paymentView.addCardButton.performClick()
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(CardActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCardForResult(
+            activity,
+            activity.paymentView.getCardData().first,
+            RequestCode.CARD
+        )
     }
 
     @Test
-    fun shouldStartCheckoutAddressListActivityWhenPaymentViewAddAddressButtonClicked() {
+    fun shouldShowCheckoutAddressListForAddWhenPaymentViewAddAddressButtonClicked() {
+        activity.showContent(checkout)
         activity.customerReceived(customer)
         activity.paymentView.setAddressData(checkout.address)
         activity.paymentView.addAddressButton.performClick()
 
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertNull(startedIntent.extras.getString(Extra.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
-        assertEquals(false, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
-        assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
+
+        verify(activity.router).showCheckoutAddressListForResult(
+            activity = activity,
+            selectedAddress = activity.paymentView.getAddress(),
+            isShippingAddress = false,
+            shippingAddress = checkout.address,
+            billingAddress = null,
+            requestCode = RequestCode.ADD_BILLING_ADDRESS
+        )
     }
 
     @Test
-    fun shouldStartCheckoutUnAuthAddressActivityWhenPaymentViewAddAddressButtonClicked() {
+    fun shouldShowCheckoutUnAuthAddressForAddWhenPaymentViewAddAddressButtonClicked() {
         activity.paymentView.setAddressData(checkout.address)
         activity.paymentView.addAddressButton.performClick()
 
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertNull(startedIntent.extras.getString(Extra.CHECKOUT_ID))
-        assertEquals(checkout.address, startedIntent.extras.getParcelable(Extra.ADDRESS))
-        assertEquals(false, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
-        assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckoutUnAuthAddressListForResult(
+            activity = activity,
+            selectedAddress = activity.paymentView.getAddress(),
+            isShippingAddress = false,
+            requestCode = RequestCode.ADD_BILLING_ADDRESS
+        )
     }
 
     @Test
-    fun shouldStartHomeActivityWhenFailureViewBackToShopClicked() {
+    fun shouldShowHome() {
         activity.failureView.backToShop.performClick()
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showHome(activity, true)
     }
 
     @Test

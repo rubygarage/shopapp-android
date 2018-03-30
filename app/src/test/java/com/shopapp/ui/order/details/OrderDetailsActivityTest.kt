@@ -8,7 +8,6 @@ import com.shopapp.TestShopApplication
 import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
-import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_details.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
@@ -73,27 +72,19 @@ class OrderDetailsActivityTest {
     }
 
     @Test
-    fun shouldStartProductDetailsActivity() {
-        val productId = "product_id"
+    fun shouldShowProduct() {
         val order = MockInstantiator.newOrder()
         val orderProductItem = MockInstantiator.newOrderProduct()
         val productVariant = MockInstantiator.newProductVariant()
-        given(productVariant.productId).willReturn(productId)
         given(orderProductItem.productVariant).willReturn(productVariant)
         given(order.orderProducts).willReturn(listOf(orderProductItem))
         activity.showContent(order)
         activity.onItemClicked(0)
-        val startedIntent = Shadows.shadowOf(activity.application).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productId,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(productVariant,
-            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showProduct(activity, productVariant)
     }
 
     @Test
-    fun shouldNotStartProductDetailsActivityWhenOrderIsNull() {
+    fun shouldNotShowProductWhenOrderIsNull() {
         activity.onItemClicked(0)
         assertNull(Shadows.shadowOf(activity.application).nextStartedActivity)
     }

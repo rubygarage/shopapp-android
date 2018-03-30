@@ -74,13 +74,10 @@ class BlogActivityTest {
     }
 
     @Test
-    fun shouldStartOrderDetailsActivity() {
+    fun shouldShowOrderDetails() {
         val articleMock = MockInstantiator.newArticle()
         activity.onItemClicked(articleMock, 0)
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ArticleActivity.EXTRA_ARTICLE_ID))
-        assertEquals(ArticleActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showArticle(activity, articleMock.id)
     }
 
     @After

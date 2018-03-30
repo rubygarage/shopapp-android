@@ -13,7 +13,7 @@ import com.shopapp.ui.address.base.BaseAddressListActivity
 import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import com.shopapp.ui.address.checkout.contract.CheckoutAddressListPresenter
 import com.shopapp.ui.address.checkout.contract.CheckoutAddressListView
-import com.shopapp.ui.address.checkout.router.CheckoutAddressesRouter
+import com.shopapp.ui.address.checkout.router.CheckoutAddressRouter
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.RequestCode
@@ -45,7 +45,7 @@ class CheckoutAddressListActivity :
     }
 
     @Inject
-    lateinit var router: CheckoutAddressesRouter
+    lateinit var router: CheckoutAddressRouter
 
     private var checkoutId: String? = null
     private var isShipping = true

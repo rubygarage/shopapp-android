@@ -6,7 +6,7 @@ import com.shopapp.ui.policy.PolicyActivity
 
 class SignUpRouter {
 
-    fun showPolicy(context: Context, policy: Policy) {
-        context.startActivity(PolicyActivity.getStartIntent(context, policy))
+    fun showPolicy(context: Context?, policy: Policy) {
+        context?.let { it.startActivity(PolicyActivity.getStartIntent(it, policy)) }
     }
 }

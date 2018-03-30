@@ -1,9 +1,9 @@
 package com.shopapp.ui.order.success
 
 import android.content.Context
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
-import com.shopapp.ui.order.details.OrderDetailsActivity
 import kotlinx.android.synthetic.main.activity_order_success.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -44,12 +43,9 @@ class OrderSuccessActivityTest {
     }
 
     @Test
-    fun shouldStartOrderDetailsActivityWhenViewOrderButtonClicked() {
+    fun shouldShowOrder() {
         activity.viewOrderButton.performClick()
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(ORDER_ID, startedIntent.extras.getString(OrderDetailsActivity.EXTRA_ORDER_ID))
-        assertEquals(OrderDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showOrder(activity, ORDER_ID)
     }
 
     @Test

@@ -4,7 +4,7 @@ import android.app.Activity
 import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.address.checkout.CheckoutAddressActivity
 
-class CheckoutAddressesRouter {
+class CheckoutAddressRouter {
 
     fun showCheckoutAddressForResult(activity: Activity,
                                      requestCode: Int,

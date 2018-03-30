@@ -12,9 +12,6 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.cart.adapter.CartAdapter
-import com.shopapp.ui.checkout.CheckoutActivity
-import com.shopapp.ui.home.HomeActivity
-import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_cart.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -29,7 +26,6 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 
@@ -84,19 +80,24 @@ class CartActivityTest {
     }
 
     @Test
-    fun shouldStartCheckoutActivity() {
+    fun shouldStartCheckout() {
         activity.checkoutButton.performClick()
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(CheckoutActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckout(activity)
     }
 
     @Test
-    fun shouldStartHomeActivity() {
+    fun shouldStartHome() {
         activity.onEmptyButtonClicked()
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showHome(activity, true)
+    }
+
+
+    @Test
+    fun shouldShowProductDetails() {
+        val products = MockInstantiator.newList(MockInstantiator.newCartProduct(), 3)
+        activity.showContent(products)
+        activity.onItemClicked(0)
+        verify(activity.router).showProduct(activity, products[0].productVariant)
     }
 
     @Test
@@ -112,19 +113,6 @@ class CartActivityTest {
         val quantity = 2
         activity.onQuantityChanged(productVariantId, quantity)
         verify(activity.presenter).changeProductQuantity(productVariantId, quantity)
-    }
-
-    @Test
-    fun shouldStartProductDetailsActivity() {
-        val products = MockInstantiator.newList(MockInstantiator.newCartProduct(), 3)
-        activity.showContent(products)
-        activity.onItemClicked(0)
-
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertNotNull(startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 
     @Test

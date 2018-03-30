@@ -2,7 +2,7 @@ package com.shopapp.ui.address.account.di
 
 import com.shopapp.domain.interactor.account.*
 import com.shopapp.domain.validator.FieldValidator
-import com.shopapp.ui.address.account.router.AddressesRouter
+import com.shopapp.ui.address.account.router.AddressListRouter
 import com.shopapp.ui.address.base.contract.AddressListPresenter
 import com.shopapp.ui.address.base.contract.AddressListView
 import com.shopapp.ui.address.base.contract.AddressPresenter
@@ -38,5 +38,5 @@ class AddressModule {
     )
 
     @Provides
-    fun provideAddressesRouter(): AddressesRouter = AddressesRouter()
+    fun provideAddressesRouter(): AddressListRouter = AddressListRouter()
 }

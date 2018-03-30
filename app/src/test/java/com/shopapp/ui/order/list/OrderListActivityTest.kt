@@ -2,16 +2,13 @@ package com.shopapp.ui.order.list
 
 import android.content.Context
 import android.view.View
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.verify
-import com.nhaarman.mockito_kotlin.willReturn
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.details.OrderDetailsActivity
-import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
@@ -77,51 +74,40 @@ class OrderListActivityTest {
     }
 
     @Test
-    fun shouldStartOrderDetailsActivity() {
+    fun shouldShowOrder() {
         val orderMock = MockInstantiator.newOrder()
         activity.onItemClicked(orderMock, 0)
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(orderMock.id, startedIntent.extras.getString(OrderDetailsActivity.EXTRA_ORDER_ID))
-        assertEquals(OrderDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showOrder(activity, orderMock.id)
     }
 
     @Test
-    fun shouldStartProductDetailsActivity() {
+    fun shouldShowProduct() {
         val orderMock = MockInstantiator.newOrder()
         activity.showContent(listOf(orderMock))
         activity.onProductVariantClicked(0, 0)
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(orderMock.orderProducts.first().productVariant!!.productId,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(orderMock.orderProducts.first().productVariant,
-            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showProduct(activity, orderMock.orderProducts[0].productVariant)
     }
 
     @Test
-    fun shouldNotStartProductDetailsActivityOnEmptyOrderList() {
+    fun shouldNotShowProductOnEmptyOrderList() {
         activity.showContent(listOf())
         activity.onProductVariantClicked(0, 0)
-        assertNull(shadowOf(activity).nextStartedActivity)
+        verify(activity.router, never()).showProduct(any(), any())
     }
 
     @Test
-    fun shouldNotStartProductDetailsActivityOnEmptyProductList() {
+    fun shouldNotStartProductOnEmptyProductList() {
         val orderMock = MockInstantiator.newOrder()
         given { orderMock.orderProducts } willReturn { listOf() }
         activity.showContent(listOf(orderMock))
         activity.onProductVariantClicked(0, 0)
-        assertNull(shadowOf(activity).nextStartedActivity)
+        verify(activity.router, never()).showProduct(any(), any())
     }
 
     @Test
-    fun shouldStartHomeActivity() {
+    fun shouldShowHome() {
         activity.onEmptyButtonClicked()
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showHome(activity, true)
     }
 
     @After

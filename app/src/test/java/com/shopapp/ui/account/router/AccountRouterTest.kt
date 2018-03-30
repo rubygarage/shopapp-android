@@ -57,7 +57,7 @@ class AccountRouterTest {
 
     @Test
     fun shouldShowOrder() {
-        router.showOrderList(fragment)
+        router.showOrderList(fragment.context)
 
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
@@ -75,7 +75,7 @@ class AccountRouterTest {
 
     @Test
     fun shouldShowAddressList() {
-        router.showAddressList(fragment)
+        router.showAddressList(fragment.context)
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(AddressListActivity::class.java, shadowIntent.intentClass)
@@ -83,7 +83,7 @@ class AccountRouterTest {
 
     @Test
     fun shouldShowAccountSettings() {
-        router.showSettings(fragment)
+        router.showSettings(fragment.context)
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(AccountSettingsActivity::class.java, shadowIntent.intentClass)
@@ -92,7 +92,7 @@ class AccountRouterTest {
     @Test
     fun shouldShowPrivacy() {
         val privacy: Policy = mock()
-        router.showPolicy(fragment, privacy)
+        router.showPolicy(fragment.context, privacy)
 
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)

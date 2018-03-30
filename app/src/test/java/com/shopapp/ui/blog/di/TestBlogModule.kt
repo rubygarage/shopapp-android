@@ -16,7 +16,6 @@ class TestBlogModule {
     @Provides
     fun provideArticlePresenter(): ArticlePresenter = mock()
 
-
     @Provides
     fun provideBlogRouter(): BlogRouter = mock()
 }

@@ -8,7 +8,6 @@ import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
-import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
@@ -19,7 +18,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil
@@ -47,10 +45,7 @@ class SearchFragmentTest {
     fun shouldStartProductActivity() {
         val product = MockInstantiator.newProduct()
         fragment.onItemClicked(product, 0)
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showProduct(fragment.context, product.id)
     }
 
     @Test

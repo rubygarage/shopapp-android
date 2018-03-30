@@ -74,7 +74,7 @@ class AccountFragment :
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        router.showSettings(this)
+        router.showSettings(context)
         return super.onOptionsItemSelected(item)
     }
 
@@ -112,13 +112,13 @@ class AccountFragment :
             router.showSignUpForResult(this, shop?.privacyPolicy, shop?.termsOfService, RequestCode.SIGN_UP)
         }
         myOrders.setOnClickListener {
-            router.showOrderList(this)
+            router.showOrderList(context)
         }
         personalInfo.setOnClickListener {
             router.showPersonalInfoForResult(this, RequestCode.PERSONAL_INFO)
         }
         shippingAddress.setOnClickListener {
-            router.showAddressList(this)
+            router.showAddressList(context)
         }
         logout.setOnClickListener {
             presenter.signOut()
@@ -127,7 +127,7 @@ class AccountFragment :
 
     private fun setupPolicy(view: View, policy: Policy?) {
         if (policy != null) {
-            view.setOnClickListener { router.showPolicy(this, policy) }
+            view.setOnClickListener { router.showPolicy(context, policy) }
             view.visibility = View.VISIBLE
         } else {
             view.visibility = View.GONE
