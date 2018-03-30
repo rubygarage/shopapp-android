@@ -20,16 +20,19 @@ class LceLayout @JvmOverloads constructor(
 
     var tryAgainButtonClickListener: OnClickListener? = null
         set(value) {
+            field = value
             value?.let { tryAgainButton.setOnClickListener(it) }
         }
 
     var backButtonClickListener: OnClickListener? = null
         set(value) {
+            field = value
             value?.let { backButton.setOnClickListener(it) }
         }
 
     var emptyButtonClickListener: OnClickListener? = null
         set(value) {
+            field = value
             value?.let { emptyButton.setOnClickListener(it) }
         }
 
