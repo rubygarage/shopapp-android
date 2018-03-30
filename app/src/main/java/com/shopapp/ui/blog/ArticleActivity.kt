@@ -15,6 +15,8 @@ import com.shopapp.ui.blog.contract.ArticlePresenter
 import com.shopapp.ui.blog.contract.ArticleView
 import com.shopapp.util.HtmlUtil
 import kotlinx.android.synthetic.main.activity_article.*
+import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import javax.inject.Inject
 
 
@@ -43,6 +45,8 @@ class ArticleActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        lceLayout.errorView.errorTarget = getString(R.string.article)
+
         loadData()
         setupWebView()
     }

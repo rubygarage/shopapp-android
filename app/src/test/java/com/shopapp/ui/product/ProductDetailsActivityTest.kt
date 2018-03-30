@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
+import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_product_details.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -109,6 +111,15 @@ class ProductDetailsActivityTest {
         val fragment = activity.supportFragmentManager.findFragmentById(R.id.relatedContainer) as ProductHorizontalFragment
         fragment.visibilityListener?.changeVisibility(false)
         assertEquals(View.GONE, activity.relatedContainer.visibility)
+    }
+
+    @Test
+    fun shouldShowNotFoundErrorWithTargetWhenCriticalErrorReceived() {
+        val target = context.getString(R.string.product)
+        activity.showError(Error.Critical())
+        assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
+        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, target),
+            activity.lceLayout.errorView.errorMessage.text)
     }
 
     @After

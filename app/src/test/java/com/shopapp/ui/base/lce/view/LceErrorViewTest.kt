@@ -56,11 +56,25 @@ class LceErrorViewTest {
         view.changeState(LceLayout.LceState.ErrorState(Error.Critical()))
         assertEquals(View.VISIBLE, view.visibility)
 
-        assertEquals(context.getString(R.string.сould_not_find_it), view.errorMessage.text.toString())
         assertEquals(ContextCompat.getDrawable(context, R.drawable.ic_categories_empty),
             view.errorImage.drawable)
         assertEquals(View.GONE, view.tryAgainButton.visibility)
         assertEquals(View.VISIBLE, view.backButton.visibility)
+    }
+
+    @Test
+    fun shouldViewBeVisibleWithDefaultMessageWhenCriticalError() {
+        view.errorTarget = null
+        view.changeState(LceLayout.LceState.ErrorState(Error.Critical()))
+        assertEquals(context.getString(R.string.сould_not_find), view.errorMessage.text.toString())
+    }
+
+    @Test
+    fun shouldViewBeVisibleWithTargetMessageWhenCriticalErrorReceived() {
+        val testTarget = "test_target"
+        view.errorTarget = testTarget
+        view.changeState(LceLayout.LceState.ErrorState(Error.Critical()))
+        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, testTarget), view.errorMessage.text.toString())
     }
 
     @Test

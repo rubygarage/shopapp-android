@@ -16,6 +16,8 @@ class LceErrorView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     LceView {
 
+    var errorTarget: String? = null
+
     init {
         layoutParams = LayoutParams(MATCH_PARENT, MATCH_PARENT)
         View.inflate(context, R.layout.view_lce_error, this)
@@ -44,8 +46,11 @@ class LceErrorView @JvmOverloads constructor(
                 return View.VISIBLE
             }
             is Error.Critical -> {
+                errorMessage.text = if (errorTarget != null)
+                    context.getString(R.string.сould_not_find_with_placeholder, errorTarget)
+                else
+                    context.getString(R.string.сould_not_find)
                 errorImage.setImageResource(R.drawable.ic_categories_empty)
-                errorMessage.setText(R.string.сould_not_find_it)
                 tryAgainButton.visibility = View.GONE
                 backButton.visibility = View.VISIBLE
                 return View.VISIBLE

@@ -132,6 +132,14 @@ class BaseLceActivityTest {
         assertTrue(activity.isFinishing)
     }
 
+    @Test
+    fun shouldShowNotFoundErrorWithDefaultMessageWhenCriticalErrorReceived() {
+        activity.showError(Error.Critical())
+        assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
+        assertEquals(context.getString(R.string.сould_not_find),
+            activity.lceLayout.errorView.errorMessage.text)
+    }
+
     @After
     fun tearDown() {
         activity.finish()

@@ -19,6 +19,8 @@ import com.shopapp.ui.const.Constant
 import com.shopapp.ui.product.ProductDetailsActivity
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import kotlinx.android.synthetic.main.activity_category.*
+import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import javax.inject.Inject
 
 
@@ -55,6 +57,8 @@ class CategoryActivity :
         super.onCreate(savedInstanceState)
         category = intent.getParcelableExtra(EXTRA_CATEGORY)
         setTitle(category.title)
+        lceLayout.errorView.errorTarget = getString(R.string.category)
+
         categorySortPopupFacade = CategorySortPopupFacade(this, this)
         sortLayout.setOnClickListener { categorySortPopupFacade?.showSortPopup(it, sortType) }
         loadData()
