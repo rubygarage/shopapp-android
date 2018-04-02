@@ -19,7 +19,7 @@ branches:
     - develop
 
 script:
-  - ./gradlew assembleWithoutApi lintWithoutApiRelease lintWithoutApiDebug testWithoutApiReleaseUnitTest testWithoutApiDebugUnitTest jacocoTestReport
+  - ./gradlew -PactiveProductFlavor="withoutApi" build jacocoTestReport connectedCheck
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

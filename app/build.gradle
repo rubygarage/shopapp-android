@@ -127,6 +127,13 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
 }
 
+android.variantFilter { variant ->
+    def activeProductFlavor = project.getProperties().get("activeProductFlavor")
+    if (activeProductFlavor != null && variant.getFlavors().get(0).name != activeProductFlavor) {
+        variant.setIgnore(true)
+    }
+}
+
 project.afterEvaluate {
     android.applicationVariants.all { variant ->
         def realVariantName = variant.name
