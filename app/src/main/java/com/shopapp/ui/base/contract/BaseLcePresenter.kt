@@ -1,7 +1,7 @@
 package com.shopapp.ui.base.contract
 
-import com.shopapp.gateway.entity.Error
 import com.shopapp.domain.interactor.base.UseCase
+import com.shopapp.gateway.entity.Error
 
 open class BaseLcePresenter<in M, V : BaseLceView<M>>(vararg useCases: UseCase) : BasePresenter<V>(*useCases) {
 
@@ -12,16 +12,13 @@ open class BaseLcePresenter<in M, V : BaseLceView<M>>(vararg useCases: UseCase) 
     protected open fun resolveError(error: Throwable): Boolean {
         error.printStackTrace()
         return when (error) {
-            is Error.Content -> {
-                view?.showError(error.isNetworkError)
+            is Error.Content,
+            is Error.Critical -> {
+                (error as? Error)?.let { view?.showError(it) }
                 true
             }
             is Error.NonCritical -> {
                 view?.showMessage(error.message)
-                true
-            }
-            is Error.Critical -> {
-                //TODO ADD ROUTING
                 true
             }
             else -> false

@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvp.MvpActivity
 import com.shopapp.R
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Error
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import com.shopapp.ui.base.lce.view.LceEmptyView
@@ -29,6 +30,7 @@ abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
         setContentView(getMainLayout())
         lceLayout.setupContentLayout(getContentView())
         lceLayout.tryAgainButtonClickListener = View.OnClickListener { onTryAgainButtonClicked() }
+        lceLayout.backButtonClickListener = View.OnClickListener { onBackPressed() }
         lceLayout.emptyButtonClickListener = View.OnClickListener { onEmptyButtonClicked() }
         toolbar?.let {
             setSupportActionBar(it)
@@ -131,9 +133,8 @@ abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
         changeState(LceLayout.LceState.EmptyState)
     }
 
-    @CallSuper
-    override fun showError(isNetworkError: Boolean) {
-        changeState(LceLayout.LceState.ErrorState(isNetworkError))
+    override fun showError(error: Error) {
+        changeState(LceLayout.LceState.ErrorState(error))
     }
 
     override fun showMessage(messageRes: Int) {

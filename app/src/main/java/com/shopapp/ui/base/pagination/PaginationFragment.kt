@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.view.View
 import com.shopapp.R
+import com.shopapp.gateway.entity.Error
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import com.shopapp.ui.base.lce.BaseLceFragment
@@ -90,8 +91,8 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
         swipeRefreshLayout.isRefreshing = false
     }
 
-    override fun showError(isNetworkError: Boolean) {
-        super.showError(isNetworkError)
+    override fun showError(error: Error) {
+        super.showError(error)
         swipeRefreshLayout.isRefreshing = false
     }
 

@@ -1,5 +1,6 @@
 package com.shopapp.ui.base.contract
 
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.Error
 import org.junit.Assert.assertTrue
@@ -26,7 +27,10 @@ class BaseLcePresenterTest {
         val error = Error.Content()
         val result = presenter.resolveError(error)
         assertTrue(result)
-        verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
@@ -34,7 +38,11 @@ class BaseLcePresenterTest {
         val error = Error.Content(true)
         val result = presenter.resolveError(error)
         assertTrue(result)
-        verify(view).showError(true)
+        argumentCaptor<Error>().apply {
+            verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+            assertTrue((firstValue as Error.Content).isNetworkError)
+        }
     }
 
     @Test

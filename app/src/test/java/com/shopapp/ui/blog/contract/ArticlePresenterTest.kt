@@ -8,6 +8,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -64,9 +65,12 @@ class ArticlePresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(useCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(useCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.loadArticles("1")
-        verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @After

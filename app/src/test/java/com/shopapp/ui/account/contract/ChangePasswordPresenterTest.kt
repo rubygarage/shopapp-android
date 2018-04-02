@@ -8,6 +8,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -86,9 +87,13 @@ class ChangePasswordPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(false)))
-        presenter.changePassword("123456789", "123456789")
-        verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
+            presenter.changePassword("123456789", "123456789")
+            verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test

@@ -36,8 +36,8 @@ class CheckoutFailureViewTest {
 
     @Test
     fun shouldCallTryAgainWhenButtonClicked() {
-        view.tryAgainButton.performClick()
-        verify(tryAgainListener).onClick(view.tryAgainButton)
+        view.tryAgainCheckoutButton.performClick()
+        verify(tryAgainListener).onClick(view.tryAgainCheckoutButton)
     }
 
     @Test

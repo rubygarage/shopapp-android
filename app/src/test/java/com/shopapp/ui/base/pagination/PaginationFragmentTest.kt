@@ -6,6 +6,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
+import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
@@ -61,7 +62,7 @@ class PaginationFragmentTest {
     @Test
     fun shouldHideLoadingWhenShowError() {
         fragment.swipeRefreshLayout.isRefreshing = true
-        fragment.showError(false)
+        fragment.showError(Error.Content())
         assertFalse(fragment.swipeRefreshLayout.isRefreshing)
     }
 

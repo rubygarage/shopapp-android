@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.shopapp.R
+import com.shopapp.gateway.entity.Error
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -37,7 +38,7 @@ class LceEmptyViewTest {
         view.changeState(LceLayout.LceState.ContentState)
         assertEquals(View.GONE, view.visibility)
 
-        view.changeState(LceLayout.LceState.ErrorState(false))
+        view.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         assertEquals(View.GONE, view.visibility)
 
         view.changeState(LceLayout.LceState.LoadingState())

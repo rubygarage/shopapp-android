@@ -13,6 +13,7 @@ import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -80,12 +81,15 @@ class ProductDetailsPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(productDetailsUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(productDetailsUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.loadProductDetails(MockInstantiator.DEFAULT_ID)
 
         val inOrder = inOrder(view, productDetailsUseCase)
         inOrder.verify(productDetailsUseCase).execute(any(), any(), eq(MockInstantiator.DEFAULT_ID))
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test

@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.shopapp.R
+import com.shopapp.gateway.entity.Error
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
@@ -19,11 +20,19 @@ class LceLayout @JvmOverloads constructor(
 
     var tryAgainButtonClickListener: OnClickListener? = null
         set(value) {
+            field = value
             value?.let { tryAgainButton.setOnClickListener(it) }
+        }
+
+    var backButtonClickListener: OnClickListener? = null
+        set(value) {
+            field = value
+            value?.let { backButton.setOnClickListener(it) }
         }
 
     var emptyButtonClickListener: OnClickListener? = null
         set(value) {
+            field = value
             value?.let { emptyButton.setOnClickListener(it) }
         }
 
@@ -47,7 +56,7 @@ class LceLayout @JvmOverloads constructor(
         class LoadingState(val isTranslucent: Boolean = false) : LceState()
         object ContentState : LceState()
         object EmptyState : LceState()
-        class ErrorState(val isNetworkError: Boolean) : LceState()
+        class ErrorState(val error: Error) : LceState()
     }
 
 }

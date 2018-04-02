@@ -50,7 +50,12 @@ class CheckoutPresenter @Inject constructor(
                 view?.showContent(checkout)
                 view?.customerReceived(customer)
             },
-            { resolveError(it) },
+            {
+                resolveError(it)
+                if (it is Error.NonCritical) {
+                    view?.showError(Error.Content())
+                }
+            },
             Unit
         )
     }

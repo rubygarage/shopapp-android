@@ -36,7 +36,7 @@ class OrderProductItemTest {
         val productVariant = orderProduct.productVariant
         itemView.setOrderProduct(orderProduct, MockInstantiator.DEFAULT_CURRENCY)
 
-        assertEquals(productVariant.title, itemView.titleText.text)
+        assertEquals(productVariant!!.title, itemView.titleText.text)
         assertEquals(context.getString(R.string.quantity_label_pattern, orderProduct.quantity), itemView.quantity.text)
         val totalPrice = numberFormatter.formatPrice(
             productVariant.price * orderProduct.quantity.toBigDecimal(),
@@ -50,7 +50,7 @@ class OrderProductItemTest {
         val orderProduct = MockInstantiator.newOrderProduct()
         val productVariant = orderProduct.productVariant
         val selectedOptions = MockInstantiator.newList(MockInstantiator.newVariantOption(), 3)
-        given(productVariant.selectedOptions).willReturn(selectedOptions)
+        given(productVariant!!.selectedOptions).willReturn(selectedOptions)
         itemView.setOrderProduct(orderProduct, MockInstantiator.DEFAULT_CURRENCY)
         assertEquals(View.VISIBLE, itemView.optionsTextView.visibility)
     }
@@ -60,7 +60,7 @@ class OrderProductItemTest {
         val orderProduct = MockInstantiator.newOrderProduct()
         val productVariant = orderProduct.productVariant
         val selectedOptions = emptyList<VariantOption>()
-        given(productVariant.selectedOptions).willReturn(selectedOptions)
+        given(productVariant!!.selectedOptions).willReturn(selectedOptions)
         itemView.setOrderProduct(orderProduct, MockInstantiator.DEFAULT_CURRENCY)
         assertEquals(View.GONE, itemView.optionsTextView.visibility)
     }
@@ -78,6 +78,16 @@ class OrderProductItemTest {
         val orderProduct = MockInstantiator.newOrderProduct()
         given(orderProduct.quantity).willReturn(1)
         itemView.setOrderProduct(orderProduct, MockInstantiator.DEFAULT_CURRENCY)
+        assertEquals(View.GONE, itemView.eachPrice.visibility)
+    }
+
+    @Test
+    fun shouldOptionsTextViewBeGoneAndShowStubTotalPriceWhenProductVariantIsNull() {
+        val orderProduct = MockInstantiator.newOrderProduct()
+        given(orderProduct.productVariant).willReturn(null)
+        itemView.setOrderProduct(orderProduct, MockInstantiator.DEFAULT_CURRENCY)
+        assertEquals(context.getString(R.string.n_a_placeholder), itemView.totalPrice.text)
+        assertEquals(View.GONE, itemView.optionsTextView.visibility)
         assertEquals(View.GONE, itemView.eachPrice.visibility)
     }
 }

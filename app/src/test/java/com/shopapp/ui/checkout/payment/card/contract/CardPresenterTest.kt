@@ -12,6 +12,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -73,12 +74,15 @@ class CardPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentErrorWhenGetAcceptedCardTypes() {
-        given(getAcceptedCardTypesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(getAcceptedCardTypesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getAcceptedCardTypes()
 
         val inOrder = inOrder(view, getAcceptedCardTypesUseCase)
         inOrder.verify(getAcceptedCardTypesUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
@@ -108,13 +112,16 @@ class CardPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentErrorWhenGetToken() {
-        given(checkCreditCardUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(checkCreditCardUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getToken(card)
 
         val inOrder = inOrder(view, checkCreditCardUseCase)
         inOrder.verify(checkCreditCardUseCase).execute(any(), any(), any())
         inOrder.verify(view, never()).cardTokenReceived(any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test

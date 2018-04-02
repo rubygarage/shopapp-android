@@ -8,6 +8,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -84,12 +85,16 @@ class SignInPresenterTest {
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(false)))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
         presenter.logIn("email@test.com", "123456789")
 
-        val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, useCase)
+            inOrder.verify(useCase).execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test

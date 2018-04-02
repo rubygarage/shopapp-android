@@ -50,6 +50,7 @@ class LceLayoutTest {
         val emptyButton = shadowOf(view.emptyButton)
         assertNull(emptyButton.onClickListener)
         view.emptyButtonClickListener = listener
+        assertEquals(listener, view.emptyButtonClickListener)
         assertEquals(listener, emptyButton.onClickListener)
     }
 
@@ -59,6 +60,17 @@ class LceLayoutTest {
         val tryAgainButton = shadowOf(view.tryAgainButton)
         assertNull(tryAgainButton.onClickListener)
         view.tryAgainButtonClickListener = listener
+        assertEquals(listener, view.tryAgainButtonClickListener)
         assertEquals(listener, tryAgainButton.onClickListener)
+    }
+
+    @Test
+    fun shouldSetListenerToBackButton() {
+        val listener: View.OnClickListener = mock()
+        val backButton = shadowOf(view.backButton)
+        assertNull(backButton.onClickListener)
+        view.backButtonClickListener = listener
+        assertEquals(listener, view.backButtonClickListener)
+        assertEquals(listener, backButton.onClickListener)
     }
 }

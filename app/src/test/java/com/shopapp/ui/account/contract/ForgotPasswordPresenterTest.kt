@@ -1,6 +1,7 @@
 package com.shopapp.ui.account.contract
 
 import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.domain.interactor.account.ForgotPasswordUseCase
@@ -10,6 +11,7 @@ import com.shopapp.test.MockInstantiator
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -83,9 +85,14 @@ class ForgotPasswordPresenterTest {
         given(validator.isEmailValid(any())).willReturn(true)
         presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
 
-        verify(view).showError(isNetworkError)
-        verify(view, never()).showContent(any())
-        verify(view, never()).showMessage(any<Int>())
-        verify(view, never()).showMessage(any<String>())
+        argumentCaptor<Error>().apply {
+            verify(view).showError(capture())
+            verify(view, never()).showContent(any())
+            verify(view, never()).showMessage(any<Int>())
+            verify(view, never()).showMessage(any<String>())
+
+            assertTrue(firstValue is Error.Content)
+            assertTrue((firstValue as Error.Content).isNetworkError)
+        }
     }
 }
