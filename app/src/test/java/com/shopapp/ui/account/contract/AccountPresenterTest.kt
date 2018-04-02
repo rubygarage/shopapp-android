@@ -1,9 +1,6 @@
 package com.shopapp.ui.account.contract
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.given
-import com.nhaarman.mockito_kotlin.inOrder
-import com.nhaarman.mockito_kotlin.verify
+import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.SessionCheckUseCase
 import com.shopapp.domain.interactor.account.ShopInfoUseCase
@@ -16,6 +13,7 @@ import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -94,12 +92,16 @@ class AccountPresenterTest {
 
     @Test
     fun shouldShowErrorOnAuthCheckContentError() {
-        given(sessionCheckUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(sessionCheckUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.isAuthorized()
 
-        val inOrder = inOrder(view, sessionCheckUseCase)
-        inOrder.verify(sessionCheckUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, sessionCheckUseCase)
+            inOrder.verify(sessionCheckUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     //log out
@@ -130,12 +132,16 @@ class AccountPresenterTest {
 
     @Test
     fun shouldShowErrorOnSignOutContentError() {
-        given(signOutUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(false)))
+        given(signOutUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
         presenter.signOut()
 
-        val inOrder = inOrder(view, signOutUseCase)
-        inOrder.verify(signOutUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, signOutUseCase)
+            inOrder.verify(signOutUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     //get shop info
@@ -166,12 +172,16 @@ class AccountPresenterTest {
 
     @Test
     fun shouldShowErrorOnShopInfoRequestContentError() {
-        given(shopInfoUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(shopInfoUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getShopInfo()
 
-        val inOrder = inOrder(view, shopInfoUseCase)
-        inOrder.verify(shopInfoUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, shopInfoUseCase)
+            inOrder.verify(shopInfoUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     // get customer

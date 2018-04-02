@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvp.MvpFragment
 import com.shopapp.R
+import com.shopapp.gateway.entity.Error
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import com.shopapp.ui.base.lce.view.LceEmptyView
@@ -35,6 +36,7 @@ abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
         super.onViewCreated(view, savedInstanceState)
         lceLayout.setupContentLayout(getContentView())
         lceLayout.tryAgainButtonClickListener = View.OnClickListener { tryAgainButtonClicked() }
+        lceLayout.backButtonClickListener = View.OnClickListener { activity?.onBackPressed() }
         setupEmptyView(emptyView)
     }
 
@@ -75,9 +77,8 @@ abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
         lceLayout.changeState(LceLayout.LceState.EmptyState)
     }
 
-    @CallSuper
-    override fun showError(isNetworkError: Boolean) {
-        lceLayout.changeState(LceLayout.LceState.ErrorState(isNetworkError))
+    override fun showError(error: Error) {
+        lceLayout.changeState(LceLayout.LceState.ErrorState(error))
     }
 
     override fun showMessage(messageRes: Int) {

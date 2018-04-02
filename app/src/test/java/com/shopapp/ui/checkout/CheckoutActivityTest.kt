@@ -12,7 +12,6 @@ import com.shopapp.gateway.entity.Address
 import com.shopapp.gateway.entity.Checkout
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.test.MockInstantiator
-import com.shopapp.ui.address.base.BaseAddressActivity
 import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
 import com.shopapp.ui.checkout.payment.PaymentActivity
@@ -294,7 +293,7 @@ class CheckoutActivityTest {
     @Test
     fun shouldCompleteOrderByCardWhenTryAgainButtonClicked() {
         activity.paymentView.setPaymentType(PaymentType.CARD_PAYMENT)
-        activity.failureView.tryAgainButton.performClick()
+        activity.failureView.tryAgainCheckoutButton.performClick()
 
         verify(activity.presenter).completeCheckoutByCard(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
     }

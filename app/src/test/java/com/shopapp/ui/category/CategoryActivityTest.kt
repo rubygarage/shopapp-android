@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
+import com.shopapp.R
 import com.shopapp.TestShopApplication
+import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
@@ -12,7 +14,9 @@ import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
+import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
 import org.junit.Assert
 import org.junit.Assert.assertEquals
@@ -106,6 +110,15 @@ class CategoryActivityTest {
             MockInstantiator.DEFAULT_ID,
             SortType.RECENT
         )
+    }
+
+    @Test
+    fun shouldShowNotFoundErrorWithTargetWhenCriticalErrorReceived() {
+        val target = context.getString(R.string.category)
+        activity.showError(Error.Critical())
+        assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
+        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, target),
+            activity.lceLayout.errorView.errorMessage.text)
     }
 
     @After

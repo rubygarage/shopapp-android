@@ -8,6 +8,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -72,12 +73,15 @@ class BlogPresenterTest {
 
     @Test
     fun shouldShowErrorOnGetCustomerContentError() {
-        given(articleListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(articleListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
 
         val inOrder = inOrder(view, articleListUseCase)
-        verify(articleListUseCase).execute(any(), any(), eq(ArticleListUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
-        inOrder.verify(view).showError(false)
+        inOrder.verify(articleListUseCase).execute(any(), any(), eq(ArticleListUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @After

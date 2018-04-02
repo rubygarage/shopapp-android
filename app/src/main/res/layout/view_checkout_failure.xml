@@ -49,13 +49,13 @@
         android:text="@string/your_purchase_could_not_be_completed"
         android:textColor="@color/textColorPrimary"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@+id/tryAgainButton"
+        app:layout_constraintBottom_toTopOf="@+id/tryAgainCheckoutButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/errorMessage" />
 
     <Button
-        android:id="@+id/tryAgainButton"
+        android:id="@+id/tryAgainCheckoutButton"
         style="@style/PrimaryButton"
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
@@ -83,6 +83,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tryAgainButton" />
+        app:layout_constraintTop_toBottomOf="@+id/tryAgainCheckoutButton" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,9 +5,9 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
-import com.shopapp.gateway.entity.OrderProduct
-import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.R
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.OrderProduct
 import kotlinx.android.synthetic.main.item_order_product.view.*
 import java.math.BigDecimal
 
@@ -24,23 +24,29 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
     fun setOrderProduct(orderProduct: OrderProduct, currency: String) {
 
         val productVariant = orderProduct.productVariant
-        val imageURI: String? = productVariant.image?.src ?: productVariant.productImage?.src
+        val imageURI: String? = productVariant?.image?.src ?: productVariant?.productImage?.src
 
         productImage.setImageURI(imageURI)
         titleText.text = orderProduct.title
-        quantity.text = resources.getString(R.string.quantity_label_pattern, orderProduct.quantity)
-        if (productVariant.selectedOptions.isNotEmpty()) {
+        quantity.text = context.getString(R.string.quantity_label_pattern, orderProduct.quantity)
+        if (productVariant != null && productVariant.selectedOptions.isNotEmpty()) {
             optionsTextView.visibility = View.VISIBLE
             optionsTextView.text = productVariant.selectedOptions
                 .joinToString(separator = System.lineSeparator()) {
-                    resources.getString(R.string.selected_options_pattern, it.name, it.value)
+                    context.getString(R.string.selected_options_pattern, it.name, it.value)
                 }
         } else {
             optionsTextView.visibility = View.GONE
         }
 
-        totalPrice.text = getTotalPrice(productVariant.price, orderProduct.quantity, currency)
-        changeEachPriceVisibility(productVariant.price, orderProduct.quantity, currency)
+        val price = productVariant?.price
+        if (price != null) {
+            totalPrice.text = getTotalPrice(price, orderProduct.quantity, currency)
+            changeEachPriceVisibility(price, orderProduct.quantity, currency)
+        } else {
+            totalPrice.text = context.getString(R.string.n_a_placeholder)
+            eachPrice.visibility = View.GONE
+        }
     }
 
     private fun changeEachPriceVisibility(price: BigDecimal, quantity: Int, currency: String) {

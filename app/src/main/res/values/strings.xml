@@ -183,5 +183,11 @@
     <string name="something_happened">Something happened…</string>
     <string name="delete_address_message">Are you sure you want to delete this address?</string>
     <string name="edit_address_message">Are you sure you want to edit this address?</string>
+    <string name="сould_not_find">Could not find</string>
+    <string name="сould_not_find_with_placeholder">Could not find %s</string>
+    <string name="product">Product</string>
+    <string name="article">Article</string>
+    <string name="order">Order</string>
+    <string name="back">Back</string>
 
 </resources>

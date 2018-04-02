@@ -11,6 +11,7 @@ import com.shopapp.ui.const.PaymentType
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -90,23 +91,30 @@ class CheckoutPresenterTest {
     }
 
     @Test
-    fun getCheckoutDataShouldShowMessageOnUseCaseNonCriticalError() {
+    fun getCheckoutDataShouldShowMessageAndShowErrorScreenOnUseCaseNonCriticalError() {
         given(setupCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
         presenter.getCheckoutData()
 
         val inOrder = inOrder(view, setupCheckoutUseCase)
         inOrder.verify(setupCheckoutUseCase).execute(any(), any(), any())
         inOrder.verify(view).showMessage("ErrorMessage")
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
     fun getCheckoutDataShouldShowErrorOnUseCaseContentError() {
-        given(setupCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(setupCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getCheckoutData()
 
         val inOrder = inOrder(view, setupCheckoutUseCase)
         inOrder.verify(setupCheckoutUseCase).execute(any(), any(), any())
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test
@@ -131,12 +139,14 @@ class CheckoutPresenterTest {
 
     @Test
     fun getCheckoutShouldShowErrorOnUseCaseContentError() {
-        given(getCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(getCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getCheckout(CHECKOUT_ID)
 
         val inOrder = inOrder(view, getCheckoutUseCase)
         inOrder.verify(getCheckoutUseCase).execute(any(), any(), eq(CHECKOUT_ID))
-        inOrder.verify(view).showError(false)
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+        }
     }
 
     @Test

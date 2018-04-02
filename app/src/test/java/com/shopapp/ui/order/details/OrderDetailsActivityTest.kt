@@ -6,12 +6,14 @@ import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_details.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
+import kotlinx.android.synthetic.main.view_lce_error.view.*
 import kotlinx.android.synthetic.main.view_price.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -121,6 +123,15 @@ class OrderDetailsActivityTest {
         activity.showContent(order)
         assertEquals(View.GONE, activity.shippingAddressTitle.visibility)
         assertEquals(View.GONE, activity.addressContentView.visibility)
+    }
+
+    @Test
+    fun shouldShowNotFoundErrorWithTargetWhenCriticalErrorReceived() {
+        val target = context.getString(R.string.order)
+        activity.showError(Error.Critical())
+        assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
+        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, target),
+            activity.lceLayout.errorView.errorMessage.text)
     }
 
     @After

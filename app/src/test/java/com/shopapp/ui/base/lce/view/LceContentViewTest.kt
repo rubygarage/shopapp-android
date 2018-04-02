@@ -2,6 +2,7 @@ package com.shopapp.ui.base.lce.view
 
 import android.content.Context
 import android.view.View
+import com.shopapp.gateway.entity.Error
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -34,7 +35,7 @@ class LceContentViewTest {
 
     @Test
     fun shouldViewBeGone() {
-        view.changeState(LceLayout.LceState.ErrorState(false))
+        view.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         assertEquals(View.GONE, view.visibility)
 
         view.changeState(LceLayout.LceState.EmptyState)

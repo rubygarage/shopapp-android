@@ -93,7 +93,7 @@ class OrderListActivityTest {
         activity.onProductVariantClicked(0, 0)
         val startedIntent = shadowOf(activity).nextStartedActivity
         val shadowIntent = shadowOf(startedIntent)
-        assertEquals(orderMock.orderProducts.first().productVariant.productId,
+        assertEquals(orderMock.orderProducts.first().productVariant!!.productId,
             startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
         assertEquals(orderMock.orderProducts.first().productVariant,
             startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))

@@ -10,6 +10,7 @@ import com.nhaarman.mockito_kotlin.times
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.base.contract.AddressPresenter
 import com.shopapp.ui.address.base.contract.AddressView
@@ -155,7 +156,7 @@ class BaseAddressActivityTest {
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
         val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
-        activity.changeState(LceLayout.LceState.ErrorState(true))
+        activity.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         activity.tryAgainButton.performClick()
 
         verify(activity.presenter, times(2)).getCountriesList()
@@ -205,7 +206,7 @@ class BaseAddressActivityTest {
         intent.putExtra(Extra.ADDRESS, address)
         val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
 
-        activity.changeState(LceLayout.LceState.ErrorState(false))
+        activity.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         assertEquals(View.VISIBLE, activity.errorView.visibility)
         activity.submitAddressError()
         assertEquals(View.VISIBLE, activity.contentView.visibility)

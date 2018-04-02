@@ -2,19 +2,16 @@ package com.shopapp.ui.base.lce
 
 import android.content.Context
 import android.view.View
-import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.R
 import com.shopapp.TestShopApplication
-import com.shopapp.ui.base.contract.BaseLcePresenter
-import com.shopapp.ui.base.contract.BaseLceView
+import com.shopapp.gateway.entity.Error
 import com.shopapp.ui.base.lce.view.LceLayout
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -122,24 +119,29 @@ class BaseLceActivityTest {
 
     @Test
     fun shouldShowProgressOnReload() {
-        activity.changeState(LceLayout.LceState.ErrorState(false))
+        activity.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         assertEquals(View.GONE, activity.lceLayout.loadingView.visibility)
         activity.lceLayout.tryAgainButton.performClick()
         assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
     }
 
+    @Test
+    fun shouldActivityFinishWhenBackButtonClick() {
+        assertFalse(activity.isFinishing)
+        activity.lceLayout.backButton.performClick()
+        assertTrue(activity.isFinishing)
+    }
+
+    @Test
+    fun shouldShowNotFoundErrorWithDefaultMessageWhenCriticalErrorReceived() {
+        activity.showError(Error.Critical())
+        assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
+        assertEquals(context.getString(R.string.сould_not_find),
+            activity.lceLayout.errorView.errorMessage.text)
+    }
+
     @After
     fun tearDown() {
         activity.finish()
-    }
-
-    private class TestBaseLceActivity : BaseLceActivity<Any, BaseLceView<Any>, BaseLcePresenter<Any, BaseLceView<Any>>>() {
-
-        override fun inject() {
-        }
-
-        override fun getContentView(): Int = R.layout.activity_splash
-
-        override fun createPresenter(): BaseLcePresenter<Any, BaseLceView<Any>> = mock()
     }
 }

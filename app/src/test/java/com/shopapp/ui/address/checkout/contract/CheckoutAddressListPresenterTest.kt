@@ -9,6 +9,7 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -69,13 +70,18 @@ class CheckoutAddressListPresenterTest {
         given(setShippingAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
         presenter.setShippingAddress(CHECKOUT_ID, address)
 
+        val inOrder = inOrder(view, setShippingAddressUseCase)
         argumentCaptor<SetShippingAddressUseCase.Params>().apply {
-            val inOrder = inOrder(view, setShippingAddressUseCase)
             inOrder.verify(setShippingAddressUseCase).execute(any(), any(), capture())
-            inOrder.verify(view).showError(false)
 
             assertEquals(CHECKOUT_ID, firstValue.checkoutId)
             assertEquals(address, firstValue.address)
+        }
+
+        argumentCaptor<Error>().apply {
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
         }
     }
 
