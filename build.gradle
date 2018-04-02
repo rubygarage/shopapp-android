@@ -9,7 +9,7 @@ buildscript {
         androidTargetSdkVersion = 26
         androidCompileSdkVersion = 26
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
-        versionName = '1.0.3'
+        versionName = '1.0.4'
 
         //DEPENDENCIES
         kotlinVersion = '1.2.31'

@@ -14,7 +14,7 @@ To install the dependencies required for an application build, ShopApp uses [Gra
 
 1. Add the following line to **app/build.gradle**:
 ```
-implementation "com.github.rubygarage:shopapp-shopify-android:1.0.2"
+implementation "com.github.rubygarage:shopapp-shopify-android:1.0.3"
 ```
 
 Also, you'll have to configure the provider to get an access to your online store. To configure the provider, follow the instructions on a provider's page <link>. For a Shopify provider, the flow is following:
@@ -34,7 +34,7 @@ Check out how to configure the [Shopify provider](https://github.com/rubygarage/
 
 To create a client for another SaaS provider, you have to add the following dependency to the dependencies:
 ```
-implementation 'com.github.rubygarage:shopapp-android:1.0.3'
+implementation 'com.github.rubygarage:shopapp-android:1.0.4'
 ```
 
 5. Next, create a class that'll interact with the main application and implement the API interface. 
