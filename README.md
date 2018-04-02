@@ -34,7 +34,11 @@ Check out how to configure the [Shopify provider](https://github.com/rubygarage/
 
 To create a client for another SaaS provider, you have to add the following dependency to the dependencies:
 ```
+<<<<<<< HEAD
 implementation 'com.github.rubygarage:shopapp-android:1.0.0'
+=======
+implementation 'com.github.rubygarage:shopapp-android:1.0.3'
+>>>>>>> master
 ```
 
 5. Next, create a class that'll interact with the main application and implement the API interface. 
