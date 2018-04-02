@@ -33,7 +33,9 @@ android {
         }
         shopifyApi {
             dimension "api"
-            apiLibrary = 'com.github.rubygarage:shopapp-shopify-android:1.0.1'
+            def shopappShopifyVersion = project.getProperties().get("shopappShopifyVersion")
+            shopappShopifyVersion = shopappShopifyVersion != null ? shopappShopifyVersion : "1.0.2"
+            apiLibrary = "com.github.rubygarage:shopapp-shopify-android:$shopappShopifyVersion"
 
             def appId = project.getProperties().get("appId")
             applicationId = appId != null ? appId : applicationId
