@@ -5,7 +5,7 @@ import com.shopapp.ui.account.ForgotPasswordActivity
 
 class SignInRouter {
 
-    fun showForgotScreen(context: Context?) {
+    fun showForgotPassword(context: Context?) {
         context?.let { it.startActivity(ForgotPasswordActivity.getStartIntent(it)) }
     }
 }

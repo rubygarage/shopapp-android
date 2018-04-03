@@ -209,6 +209,6 @@ class SignInActivityTest {
     @Test
     fun shouldShowForgotPassword() {
         activity.forgotPassword.performClick()
-        verify(activity.router).showForgotScreen(activity)
+        verify(activity.router).showForgotPassword(activity)
     }
 }

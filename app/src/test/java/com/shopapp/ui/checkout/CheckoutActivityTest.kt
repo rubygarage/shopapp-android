@@ -14,6 +14,7 @@ import com.shopapp.gateway.entity.Customer
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
+import com.shopapp.ui.checkout.payment.PaymentActivity
 import com.shopapp.ui.checkout.payment.card.CardActivity
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.PaymentType
@@ -379,6 +380,22 @@ class CheckoutActivityTest {
         val requestIntent = shadowActivity.nextStartedActivityForResult
         shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
         assertEquals(null, activity.paymentView.getAddress())
+    }
+
+    @Test
+    fun shouldSetUpPaymentView() {
+        val shadowActivity = shadowOf(activity)
+        val dataIntent = Intent()
+        dataIntent.putExtra(Extra.PAYMENT_TYPE, PaymentType.CARD_PAYMENT)
+
+        activity.startActivityForResult(
+            PaymentActivity.getStartIntent(context, null),
+            RequestCode.PAYMENT
+        )
+
+        val requestIntent = shadowActivity.nextStartedActivityForResult
+        shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
+        assertEquals(PaymentType.CARD_PAYMENT, activity.paymentView.getPaymentType())
     }
 
     @Test

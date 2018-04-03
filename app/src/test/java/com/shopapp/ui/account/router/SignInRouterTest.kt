@@ -27,7 +27,7 @@ class SignInRouterTest {
 
     @Test
     fun shouldShowForgotPasswordActivity() {
-        router.showForgotScreen(activity)
+        router.showForgotPassword(activity)
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(ForgotPasswordActivity::class.java, shadowIntent.intentClass)

@@ -86,7 +86,7 @@ class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
 
     private fun setupButtonListeners() {
         loginButton.setOnClickListener { loadData(true) }
-        forgotPassword.setOnClickListener { router.showForgotScreen(this) }
+        forgotPassword.setOnClickListener { router.showForgotPassword(this) }
     }
 
     private fun checkInputFields(inputLayout: TextInputLayout) {
