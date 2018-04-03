@@ -91,7 +91,6 @@ class AddressListActivityTest {
         verify(activity.presenter, times(2)).getAddressList()
     }
 
-
     @Test
     fun shouldNotReloadDataOnResultCancel() {
         val shadowActivity = shadowOf(activity)

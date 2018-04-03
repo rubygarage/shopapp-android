@@ -219,7 +219,6 @@ class CheckoutActivityTest {
             activity.paymentView.getAddress(),
             RequestCode.ADD_SHIPPING_ADDRESS
         )
-
     }
 
     @Test

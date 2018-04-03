@@ -13,7 +13,5 @@ class CheckoutAddressRouter {
 
         val intent = CheckoutAddressActivity.getStartIntent(activity, address, isSelectedAddress)
         activity.startActivityForResult(intent, requestCode)
-
     }
-
 }

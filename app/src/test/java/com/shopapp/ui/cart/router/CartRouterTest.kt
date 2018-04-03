@@ -45,7 +45,6 @@ class CartRouterTest {
         assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
     }
 
-
     @Test
     fun shouldStartProductDetailsActivity() {
         router.showProduct(activity, MockInstantiator.newProductVariant())

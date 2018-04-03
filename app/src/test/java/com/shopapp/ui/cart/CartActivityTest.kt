@@ -91,7 +91,6 @@ class CartActivityTest {
         verify(activity.router).showHome(activity, true)
     }
 
-
     @Test
     fun shouldShowProductDetails() {
         val products = MockInstantiator.newList(MockInstantiator.newCartProduct(), 3)

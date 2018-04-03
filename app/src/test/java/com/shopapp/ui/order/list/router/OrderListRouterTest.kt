@@ -40,7 +40,6 @@ class OrderListRouterTest {
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 
-
     @Test
     fun shouldStartHomeActivity() {
         router.showHome(activity, true)
@@ -48,7 +47,6 @@ class OrderListRouterTest {
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
     }
-
 
     @Test
     fun shouldStartOrderDetailsActivity() {
