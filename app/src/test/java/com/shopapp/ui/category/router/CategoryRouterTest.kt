@@ -4,7 +4,7 @@ import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.category.CategoryActivity
 import com.shopapp.ui.product.ProductDetailsActivity
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,7 +40,7 @@ class CategoryRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        Assert.assertEquals(productMock.id, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        Assert.assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        assertEquals(productMock.id, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
+        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 }

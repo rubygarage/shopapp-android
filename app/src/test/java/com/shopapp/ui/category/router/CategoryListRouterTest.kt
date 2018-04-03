@@ -6,6 +6,7 @@ import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.category.CategoryActivity
 import com.shopapp.ui.category.CategoryListFragment
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -35,7 +36,7 @@ class CategoryListRouterTest {
 
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        Assert.assertEquals(category, startedIntent.extras.getParcelable(CategoryActivity.EXTRA_CATEGORY))
-        Assert.assertEquals(CategoryActivity::class.java, shadowIntent.intentClass)
+        assertEquals(category, startedIntent.extras.getParcelable(CategoryActivity.EXTRA_CATEGORY))
+        assertEquals(CategoryActivity::class.java, shadowIntent.intentClass)
     }
 }

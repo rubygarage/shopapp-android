@@ -50,9 +50,9 @@ class CheckoutRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        Assert.assertEquals(order.id, startedIntent.extras.getString(OrderSuccessActivity.ORDER_ID))
-        Assert.assertEquals(order.orderNumber, startedIntent.extras.getInt(OrderSuccessActivity.ORDER_NUMBER))
-        Assert.assertEquals(OrderSuccessActivity::class.java, shadowIntent.intentClass)
+        assertEquals(order.id, startedIntent.extras.getString(OrderSuccessActivity.ORDER_ID))
+        assertEquals(order.orderNumber, startedIntent.extras.getInt(OrderSuccessActivity.ORDER_NUMBER))
+        assertEquals(OrderSuccessActivity::class.java, shadowIntent.intentClass)
     }
 
     @Test
