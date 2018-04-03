@@ -10,14 +10,11 @@ import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.registerKeyboardVisibilityListener
 import com.shopapp.gateway.entity.*
-import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
-import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.checkout.contract.CheckoutPresenter
 import com.shopapp.ui.checkout.contract.CheckoutView
-import com.shopapp.ui.checkout.payment.PaymentActivity
-import com.shopapp.ui.checkout.payment.card.CardActivity
+import com.shopapp.ui.checkout.router.CheckoutRouter
 import com.shopapp.ui.checkout.view.CheckoutEmailView
 import com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
 import com.shopapp.ui.const.Extra
@@ -43,6 +40,10 @@ class CheckoutActivity :
 
     @Inject
     lateinit var checkoutPresenter: CheckoutPresenter
+
+    @Inject
+    lateinit var router: CheckoutRouter
+
     private var checkout: Checkout? = null
     private var customer: Customer? = null
     private var unregistrar: Unregistrar? = null
@@ -130,27 +131,21 @@ class CheckoutActivity :
                 checkout?.let {
                     val address = it.address
                     if (customer != null) {
-                        startActivityForResult(
-                            CheckoutAddressListActivity.getStartIntent(
-                                context = this,
-                                checkoutId = it.checkoutId,
-                                selectedAddress = address,
-                                isShippingAddress = true,
-                                shippingAddress = null,
-                                billingAddress = paymentView.getAddress()
-                            ),
-                            RequestCode.EDIT_SHIPPING_ADDRESS
-                        )
+                        router.showCheckoutAddressListForResult(activity = this,
+                            checkoutId = it.checkoutId,
+                            selectedAddress = address,
+                            isShippingAddress = true,
+                            shippingAddress = null,
+                            billingAddress = paymentView.getAddress(),
+                            requestCode = RequestCode.EDIT_SHIPPING_ADDRESS)
                     } else if (address != null) {
                         checkout?.let {
-                            startActivityForResult(
-                                CheckoutUnAuthAddressActivity.getStartIntent(
-                                    this,
-                                    it.checkoutId,
-                                    address,
-                                    true),
-                                RequestCode.EDIT_SHIPPING_ADDRESS
-                            )
+                            router.showCheckoutUnAuthAddressListForResult(
+                                this,
+                                it.checkoutId,
+                                address,
+                                true,
+                                RequestCode.EDIT_SHIPPING_ADDRESS)
                         }
                     }
                 }
@@ -158,21 +153,18 @@ class CheckoutActivity :
             addAddressClickListener = View.OnClickListener {
                 checkout?.let {
                     if (customer != null) {
-                        startActivityForResult(
-                            CheckoutAddressListActivity.getStartIntent(
-                                context = this,
-                                checkoutId = it.checkoutId,
-                                selectedAddress = shippingAddressView.getAddress(),
-                                isShippingAddress = true,
-                                shippingAddress = null,
-                                billingAddress = paymentView.getAddress()
-                            ),
-                            RequestCode.EDIT_SHIPPING_ADDRESS
+                        router.showCheckoutAddressListForResult(
+                            activity = this,
+                            checkoutId = it.checkoutId,
+                            selectedAddress = shippingAddressView.getAddress(),
+                            isShippingAddress = true,
+                            shippingAddress = null,
+                            billingAddress = paymentView.getAddress(),
+                            requestCode = RequestCode.ADD_SHIPPING_ADDRESS
                         )
                     } else {
-                        startActivityForResult(
-                            CheckoutUnAuthAddressActivity.getStartIntent(this, it.checkoutId, isShipping = true),
-                            RequestCode.ADD_SHIPPING_ADDRESS
+                        router.showCheckoutUnAuthAddressListForResult(
+                            this, it.checkoutId, isShippingAddress = true, requestCode = RequestCode.ADD_SHIPPING_ADDRESS
                         )
                     }
                 }
@@ -183,29 +175,26 @@ class CheckoutActivity :
     private fun setupPaymentViewListeners() {
         paymentView.setClickListeners(
             paymentClickListener = View.OnClickListener {
-                startActivityForResult(PaymentActivity.getStartIntent(this, paymentView.getPaymentType()), RequestCode.PAYMENT)
+                router.showPaymentResult(this, paymentView.getPaymentType(), RequestCode.PAYMENT)
             },
             cardClickListener = View.OnClickListener {
-                startActivityForResult(CardActivity.getStartIntent(this, paymentView.getCardData().first), RequestCode.CARD)
+                router.showCardForResult(this, paymentView.getCardData().first, RequestCode.CARD)
             },
             addAddressClickListener = View.OnClickListener {
                 if (customer != null) {
-                    startActivityForResult(CheckoutAddressListActivity.getStartIntent(
-                        context = this,
+                    router.showCheckoutAddressListForResult(
+                        activity = this,
                         selectedAddress = paymentView.getAddress(),
                         isShippingAddress = false,
                         shippingAddress = checkout?.address,
-                        billingAddress = null
-                    ),
-                        RequestCode.EDIT_BILLING_ADDRESS
-                    )
+                        billingAddress = null,
+                        requestCode = RequestCode.ADD_BILLING_ADDRESS)
                 } else {
-                    startActivityForResult(CheckoutUnAuthAddressActivity.getStartIntent(
-                        context = this,
-                        address = paymentView.getAddress(),
-                        isShipping = false
-                    ),
-                        RequestCode.ADD_BILLING_ADDRESS
+                    router.showCheckoutUnAuthAddressListForResult(
+                        activity = this,
+                        selectedAddress = paymentView.getAddress(),
+                        isShippingAddress = false,
+                        requestCode = RequestCode.ADD_BILLING_ADDRESS
                     )
                 }
             }
@@ -235,7 +224,7 @@ class CheckoutActivity :
         failureView.setListeners(
             tryAgainClickListener = placeOrderClickListener,
             backToShopClickListener = View.OnClickListener {
-                startActivity(HomeActivity.getStartIntent(this, true))
+                router.showHome(this, true)
             }
         )
     }
@@ -303,10 +292,7 @@ class CheckoutActivity :
 
     override fun checkoutCompleted(order: Order) {
         changeState(LceLayout.LceState.ContentState)
-        val taskBuilder = TaskStackBuilder.create(this)
-        taskBuilder.addNextIntent(HomeActivity.getStartIntent(this, true))
-        taskBuilder.addNextIntent(OrderSuccessActivity.getStartIntent(this, order.id, order.orderNumber))
-        taskBuilder.startActivities()
+        router.showSuccessOrder(this, order.id, order.orderNumber)
     }
 
     override fun checkoutError() {

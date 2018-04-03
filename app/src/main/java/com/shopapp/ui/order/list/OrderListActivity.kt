@@ -10,12 +10,10 @@ import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.base.recycler.divider.BackgroundItemDecoration
 import com.shopapp.ui.base.recycler.divider.SpaceDecoration
-import com.shopapp.ui.home.HomeActivity
-import com.shopapp.ui.order.details.OrderDetailsActivity
 import com.shopapp.ui.order.list.adapter.OrderListAdapter
 import com.shopapp.ui.order.list.contract.OrderListPresenter
 import com.shopapp.ui.order.list.contract.OrderListView
-import com.shopapp.ui.product.ProductDetailsActivity
+import com.shopapp.ui.order.list.router.OrderListRouter
 import kotlinx.android.synthetic.main.activity_order_list.*
 import javax.inject.Inject
 
@@ -25,6 +23,9 @@ class OrderListActivity :
 
     @Inject
     lateinit var orderListPresenter: OrderListPresenter
+
+    @Inject
+    lateinit var router: OrderListRouter
 
     companion object {
 
@@ -93,7 +94,7 @@ class OrderListActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Order, position: Int) {
-        startActivity(OrderDetailsActivity.getStartIntent(this, data.id))
+        router.showOrder(this, data.id)
     }
 
     override fun onProductVariantClicked(orderPosition: Int, productPosition: Int) {
@@ -101,11 +102,11 @@ class OrderListActivity :
             it.orderProducts.getOrNull(productPosition)?.productVariant
         }
         productVariant?.let {
-            startActivity(ProductDetailsActivity.getStartIntent(this, it))
+            router.showProduct(this, it)
         }
     }
 
     override fun onEmptyButtonClicked() {
-        startActivity(HomeActivity.getStartIntent(this, true))
+        router.showHome(this, true)
     }
 }

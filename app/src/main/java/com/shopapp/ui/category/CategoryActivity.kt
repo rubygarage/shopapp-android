@@ -15,8 +15,8 @@ import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.category.contract.CategoryPresenter
 import com.shopapp.ui.category.contract.CategoryView
+import com.shopapp.ui.category.router.CategoryRouter
 import com.shopapp.ui.const.Constant
-import com.shopapp.ui.product.ProductDetailsActivity
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.activity_lce.*
@@ -31,6 +31,10 @@ class CategoryActivity :
 
     @Inject
     lateinit var categoryPresenter: CategoryPresenter
+
+    @Inject
+    lateinit var router: CategoryRouter
+
     private lateinit var category: Category
     private var sortType: SortType = SortType.NAME
     private var positiveScrollOffset = 0
@@ -148,7 +152,7 @@ class CategoryActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(ProductDetailsActivity.getStartIntent(this, data.id))
+        router.showProduct(this, data.id)
     }
 
     override fun onSortTypeChanged(sortType: SortType) {

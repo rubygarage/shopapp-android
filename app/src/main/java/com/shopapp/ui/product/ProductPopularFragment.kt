@@ -16,6 +16,7 @@ import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.contract.ProductListView
+import com.shopapp.ui.product.router.ProductRouter
 import kotlinx.android.synthetic.main.fragment_popular.*
 import javax.inject.Inject
 
@@ -26,6 +27,10 @@ class ProductPopularFragment :
 
     @Inject
     lateinit var productListPresenter: ProductListPresenter
+
+    @Inject
+    lateinit var router: ProductRouter
+
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RELEVANT
     private lateinit var adapter: ProductListAdapter
@@ -91,11 +96,7 @@ class ProductPopularFragment :
     //CALLBACK
 
     override fun onItemClicked(position: Int) {
-        productList.getOrNull(position)?.let {
-            val productId = it.id
-            context?.let {
-                startActivity(ProductDetailsActivity.getStartIntent(it, productId))
-            }
-        }
+        productList.getOrNull(position)?.let { router.showProduct(context, it.id) }
     }
+
 }

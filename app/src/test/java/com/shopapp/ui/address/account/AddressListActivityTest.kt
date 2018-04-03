@@ -51,21 +51,14 @@ class AddressListActivityTest {
     fun shouldStartAddressActivityWhenEditButtonClicked() {
         val address = MockInstantiator.newAddress()
         activity.onEditButtonClicked(address)
+        verify(activity.router).showAddressForResult(activity,  RequestCode.EDIT_SHIPPING_ADDRESS, address)
 
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(address, startedIntent.extras.getParcelable(Extra.ADDRESS))
-        assertEquals(AddressActivity::class.java, shadowIntent.intentClass)
     }
 
     @Test
     fun shouldStartAddressActivityWhenHeaderButtonClicked() {
         activity.onClick(null)
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertNull(startedIntent.extras.getParcelable(Extra.ADDRESS))
-        assertEquals(AddressActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showAddressForResult(activity,  RequestCode.ADD_SHIPPING_ADDRESS, null)
     }
 
     @Test
@@ -97,7 +90,6 @@ class AddressListActivityTest {
 
         verify(activity.presenter, times(2)).getAddressList()
     }
-
 
     @Test
     fun shouldNotReloadDataOnResultCancel() {

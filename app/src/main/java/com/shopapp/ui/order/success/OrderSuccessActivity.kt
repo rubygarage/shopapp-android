@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.shopapp.R
-import com.shopapp.ui.order.details.OrderDetailsActivity
+import com.shopapp.ShopApplication
+import com.shopapp.ui.order.success.router.OrderSuccessRouter
 import kotlinx.android.synthetic.main.activity_order_success.*
+import javax.inject.Inject
 
 class OrderSuccessActivity : AppCompatActivity() {
 
@@ -23,7 +25,11 @@ class OrderSuccessActivity : AppCompatActivity() {
         }
     }
 
+    @Inject
+    lateinit var router: OrderSuccessRouter
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        ShopApplication.appComponent.attachOrderComponent().inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_success)
         toolbar.setTitle(getString(R.string.shop))
@@ -33,7 +39,7 @@ class OrderSuccessActivity : AppCompatActivity() {
 
         orderNumberValue.text = orderNumber.toString()
         viewOrderButton.setOnClickListener {
-            startActivity(OrderDetailsActivity.getStartIntent(this, orderId))
+            router.showOrder(this, orderId)
             finish()
         }
         continueShipping.setOnClickListener {

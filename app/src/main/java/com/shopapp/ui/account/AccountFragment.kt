@@ -8,18 +8,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import com.shopapp.R
+import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Policy
 import com.shopapp.gateway.entity.Shop
-import com.shopapp.R
-import com.shopapp.ShopApplication
 import com.shopapp.ui.account.contract.AccountPresenter
 import com.shopapp.ui.account.contract.AccountView
-import com.shopapp.ui.address.account.AddressListActivity
+import com.shopapp.ui.account.router.AccountRouter
 import com.shopapp.ui.base.lce.BaseLceFragment
 import com.shopapp.ui.const.RequestCode
-import com.shopapp.ui.order.list.OrderListActivity
-import com.shopapp.ui.policy.PolicyActivity
 import kotlinx.android.synthetic.main.fragment_account.*
 import kotlinx.android.synthetic.main.fragment_account_lce.*
 import javax.inject.Inject
@@ -30,6 +28,10 @@ class AccountFragment :
 
     @Inject
     lateinit var accountPresenter: AccountPresenter
+
+    @Inject
+    lateinit var router: AccountRouter
+
     private var shop: Shop? = null
     private var customer: Customer? = null
     private var settingsMenuItem: MenuItem? = null
@@ -72,9 +74,7 @@ class AccountFragment :
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        context?.let {
-            startActivity(AccountSettingsActivity.getStartIntent(it))
-        }
+        router.showSettings(context)
         return super.onOptionsItemSelected(item)
     }
 
@@ -106,21 +106,19 @@ class AccountFragment :
 
     private fun setupButtons() {
         signInButton.setOnClickListener {
-            startActivityForResult(SignInActivity.getStartIntent(it.context), RequestCode.SIGN_IN)
+            router.showSignInForResult(this, RequestCode.SIGN_IN)
         }
         createAccount.setOnClickListener {
-            startActivityForResult(SignUpActivity.getStartIntent(it.context, shop?.privacyPolicy,
-                shop?.termsOfService), RequestCode.SIGN_UP)
-
+            router.showSignUpForResult(this, shop?.privacyPolicy, shop?.termsOfService, RequestCode.SIGN_UP)
         }
         myOrders.setOnClickListener {
-            startActivity(OrderListActivity.getStartIntent(it.context))
+            router.showOrderList(context)
         }
         personalInfo.setOnClickListener {
-            startActivityForResult(PersonalInfoActivity.getStartIntent(it.context), RequestCode.PERSONAL_INFO)
+            router.showPersonalInfoForResult(this, RequestCode.PERSONAL_INFO)
         }
         shippingAddress.setOnClickListener {
-            startActivity(AddressListActivity.getStartIntent(it.context))
+            router.showAddressList(context)
         }
         logout.setOnClickListener {
             presenter.signOut()
@@ -129,10 +127,7 @@ class AccountFragment :
 
     private fun setupPolicy(view: View, policy: Policy?) {
         if (policy != null) {
-            context?.let {
-                val context = it
-                view.setOnClickListener { startActivity(PolicyActivity.getStartIntent(context, policy)) }
-            }
+            view.setOnClickListener { router.showPolicy(context, policy) }
             view.visibility = View.VISIBLE
         } else {
             view.visibility = View.GONE

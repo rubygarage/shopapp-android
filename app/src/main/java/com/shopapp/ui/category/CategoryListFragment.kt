@@ -9,6 +9,7 @@ import com.shopapp.ui.base.pagination.PaginationFragment
 import com.shopapp.ui.category.adapter.CategoryGridAdapter
 import com.shopapp.ui.category.contract.CategoryListPresenter
 import com.shopapp.ui.category.contract.CategoryListView
+import com.shopapp.ui.category.router.CategoryListRouter
 import javax.inject.Inject
 
 class CategoryListFragment :
@@ -17,6 +18,9 @@ class CategoryListFragment :
 
     @Inject
     lateinit var categoryListPresenter: CategoryListPresenter
+
+    @Inject
+    lateinit var router: CategoryListRouter
 
     //ANDROID
 
@@ -58,8 +62,6 @@ class CategoryListFragment :
     //CALLBACK
 
     override fun onItemClicked(data: Category, position: Int) {
-        context?.let {
-            startActivity(CategoryActivity.getStartIntent(it, data))
-        }
+        router.showCategory(context, data)
     }
 }

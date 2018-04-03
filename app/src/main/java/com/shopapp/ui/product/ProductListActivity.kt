@@ -14,6 +14,7 @@ import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.contract.ProductListView
+import com.shopapp.ui.product.router.ProductRouter
 import javax.inject.Inject
 
 class ProductListActivity :
@@ -40,6 +41,10 @@ class ProductListActivity :
 
     @Inject
     lateinit var productListPresenter: ProductListPresenter
+
+    @Inject
+    lateinit var router: ProductRouter
+
     private var keyword: String? = null
     private var excludeKeyword: String? = null
     private lateinit var sortType: SortType
@@ -101,6 +106,6 @@ class ProductListActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Product, position: Int) {
-        startActivity(ProductDetailsActivity.getStartIntent(this, data.id))
+        router.showProduct(this, data.id)
     }
 }

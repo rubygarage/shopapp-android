@@ -9,10 +9,10 @@ import com.shopapp.gateway.entity.Product
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.pagination.PaginationFragment
 import com.shopapp.ui.base.recycler.divider.BackgroundItemDecoration
-import com.shopapp.ui.product.ProductDetailsActivity
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.search.contract.SearchPresenter
 import com.shopapp.ui.search.contract.SearchView
+import com.shopapp.ui.search.router.SearchRouter
 import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
 import javax.inject.Inject
 
@@ -22,6 +22,9 @@ class SearchFragment :
 
     @Inject
     lateinit var searchPresenter: SearchPresenter
+
+    @Inject
+    lateinit var router: SearchRouter
 
     private var lastQuery: String? = null
     private var currentQuery: String? = null
@@ -101,6 +104,6 @@ class SearchFragment :
     }
 
     override fun onItemClicked(data: Product, position: Int) {
-        context?.let { startActivity(ProductDetailsActivity.getStartIntent(it, data.id)) }
+        router.showProduct(context, data.id)
     }
 }

@@ -18,10 +18,8 @@ import com.shopapp.ui.base.recycler.divider.SpaceDecoration
 import com.shopapp.ui.cart.adapter.CartAdapter
 import com.shopapp.ui.cart.contract.CartPresenter
 import com.shopapp.ui.cart.contract.CartView
-import com.shopapp.ui.checkout.CheckoutActivity
-import com.shopapp.ui.home.HomeActivity
+import com.shopapp.ui.cart.router.CartRouter
 import com.shopapp.ui.item.cart.CartItem
-import com.shopapp.ui.product.ProductDetailsActivity
 import kotlinx.android.synthetic.main.activity_cart.*
 import javax.inject.Inject
 
@@ -34,6 +32,10 @@ class CartActivity :
 
     @Inject
     lateinit var cartPresenter: CartPresenter
+
+    @Inject
+    lateinit var router: CartRouter
+
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
     private val formatter = NumberFormatter()
@@ -47,7 +49,7 @@ class CartActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkoutButton.setOnClickListener { startActivity(CheckoutActivity.getStartIntent(this)) }
+        checkoutButton.setOnClickListener { router.showCheckout(this) }
         setupRecyclerView()
 
         loadData()
@@ -106,14 +108,12 @@ class CartActivity :
     //CALLBACK
 
     override fun onEmptyButtonClicked() {
-        startActivity(HomeActivity.getStartIntent(this, true))
+        router.showHome(this, true)
         overridePendingTransition(R.anim.fade_in, R.anim.slide_out)
     }
 
     override fun onItemClicked(position: Int) {
-        data.getOrNull(position)?.let {
-            startActivity(ProductDetailsActivity.getStartIntent(this, it.productVariant))
-        }
+        data.getOrNull(position)?.let { router.showProduct(this, it.productVariant) }
     }
 
     override fun onRemoveButtonClicked(productVariantId: String) {

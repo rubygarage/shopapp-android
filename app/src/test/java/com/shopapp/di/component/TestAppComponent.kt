@@ -10,9 +10,11 @@ import com.shopapp.ui.cart.di.TestCartComponent
 import com.shopapp.ui.category.di.TestCategoryComponent
 import com.shopapp.ui.checkout.di.TestCheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.TestCardPaymentComponent
+import com.shopapp.ui.gallery.di.TestGalleryComponent
 import com.shopapp.ui.order.di.TestOrderComponent
 import com.shopapp.ui.product.di.TestProductComponent
 import com.shopapp.ui.search.di.TestSearchComponent
+import com.shopapp.ui.splash.di.TestSplashComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -41,4 +43,8 @@ interface TestAppComponent : AppComponent {
     override fun attachCardPaymentComponent(): TestCardPaymentComponent
 
     override fun attachCheckoutAddressComponent(): TestCheckoutAddressComponent
+
+    override fun attachSplashComponent(): TestSplashComponent
+
+    override fun attachGalleryComponent(): TestGalleryComponent
 }

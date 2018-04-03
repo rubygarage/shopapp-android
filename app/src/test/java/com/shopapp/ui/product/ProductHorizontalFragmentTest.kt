@@ -20,7 +20,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment
 
@@ -114,15 +113,15 @@ class ProductHorizontalFragmentTest {
     }
 
     @Test
-    fun shouldOpenProductListWhenSeeAllButtonClicked() {
+    fun shouldShowProductList() {
         fragment.seeAll.performClick()
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(context.getString(R.string.latest_arrivals), startedIntent.extras.getString(ProductListActivity.TITLE))
-        assertEquals(sortType, startedIntent.extras.getSerializable(ProductListActivity.SORT_TYPE) as SortType)
-        assertEquals(KEYWORD, startedIntent.extras.getString(ProductListActivity.KEYWORD))
-        assertEquals(EXCLUDE_KEYWORD, startedIntent.extras.getString(ProductListActivity.EXCLUDE_KEYWORD))
-        assertEquals(ProductListActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showProductList(
+            fragment.context,
+            context.getString(R.string.latest_arrivals),
+            sortType,
+            KEYWORD,
+            EXCLUDE_KEYWORD
+        )
     }
 
     @Test
@@ -140,14 +139,10 @@ class ProductHorizontalFragmentTest {
     }
 
     @Test
-    fun shouldOpenProductDetailsByClick() {
+    fun shouldShowProduct() {
         val productMock = MockInstantiator.newProduct()
         fragment.showContent(listOf(productMock))
         fragment.onItemClicked(0)
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productMock.id,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showProduct(fragment.context, productMock.id)
     }
 }

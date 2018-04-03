@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Product
 import com.shopapp.test.MockInstantiator
@@ -73,17 +74,12 @@ class GalleryFragmentTest {
     }
 
     @Test
-    fun shouldStartGalleryActivityWhenThumbnailImageClicked() {
+    fun shouldShowGallery() {
         controller = SupportFragmentController.of(GalleryFragment.newInstance(product, true, SELECTED_INDEX))
         val fragment = controller.create().start().get()
         val adapter = fragment.pager.adapter as GalleryPagerAdapter
         adapter.imageClickListener?.onClick(mock())
-
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(product, startedIntent.extras.getParcelable(GalleryActivity.EXTRA_PRODUCT))
-        assertEquals(fragment.pager.currentItem, startedIntent.extras.getInt(GalleryActivity.EXTRA_SELECTED_POSITION))
-        assertEquals(GalleryActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showFullGallery(fragment.context, product, fragment.pager.currentItem)
     }
 
     @Test

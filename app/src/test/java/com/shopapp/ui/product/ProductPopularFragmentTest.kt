@@ -2,20 +2,22 @@ package com.shopapp.ui.product
 
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
+import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import kotlinx.android.synthetic.main.activity_pagination.*
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment
 
@@ -79,23 +81,19 @@ class ProductPopularFragmentTest {
     }
 
     @Test
-    fun shouldOpenProductDetailsByClick() {
+    fun shouldShowProduct() {
         val productMock = MockInstantiator.newProduct()
         fragment.showContent(listOf(productMock))
         fragment.onItemClicked(0)
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productMock.id,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showProduct(fragment.context, productMock.id)
     }
 
     @Test
-    fun shouldNotOpenProductDetailsOnInvalidPositionClick() {
+    fun shouldNotShowProductOnInvalidPositionClick() {
         val productMock = MockInstantiator.newProduct()
         val dataList = listOf(productMock)
         fragment.showContent(dataList)
         fragment.onItemClicked(dataList.size + 1)
-        assertNull(Shadows.shadowOf(fragment.activity).nextStartedActivity)
+        verify(fragment.router, never()).showProduct(any(), any())
     }
 }
