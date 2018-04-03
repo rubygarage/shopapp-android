@@ -93,7 +93,6 @@ class CheckoutRouterTest {
         assertEquals(CheckoutUnAuthAddressActivity::class.java, shadowIntent.intentClass)
     }
 
-
     @Test
     fun shouldStartCheckoutAddressListActivityWhenShippingAddressViewAddNewAddressButtonClicked() {
         router.showCheckoutAddressListForResult(
