@@ -17,7 +17,7 @@ class CategoryListPresenter @Inject constructor(
 
         categoryListUseCase.execute(
             { view?.showContent(it) },
-            { it.printStackTrace() },
+            { resolveError(it) },
             CategoryListUseCase.Params(perPage, paginationValue)
         )
     }
