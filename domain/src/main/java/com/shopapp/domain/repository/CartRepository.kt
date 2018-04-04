@@ -13,6 +13,8 @@ interface CartRepository {
 
     fun deleteProductFromCart(productVariantId: String): Completable
 
+    fun deleteProductListFromCart(productVariantIdList: List<String>): Completable
+
     fun deleteAllProductsFromCart(): Completable
 
     fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>

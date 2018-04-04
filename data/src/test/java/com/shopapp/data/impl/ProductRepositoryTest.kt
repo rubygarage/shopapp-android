@@ -10,15 +10,14 @@ import com.shopapp.gateway.Api
 import com.shopapp.gateway.ApiCallback
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Product
+import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.gateway.entity.SortType
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 class ProductRepositoryTest {
 
@@ -43,18 +42,20 @@ class ProductRepositoryTest {
     private lateinit var productList: List<Product>
 
     @Mock
+    private lateinit var productVariantList: List<ProductVariant>
+
+    @Mock
     private lateinit var product: Product
 
     private lateinit var repository: ProductRepository
-    private lateinit var productListObserver: TestObserver<List<Product>>
-    private lateinit var productObserver: TestObserver<Product>
+    private val productListObserver: TestObserver<List<Product>> = TestObserver()
+    private val productVariantListObserver: TestObserver<List<ProductVariant>> = TestObserver()
+    private val productObserver: TestObserver<Product> = TestObserver()
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = ProductRepositoryImpl(api)
-        productListObserver = TestObserver()
-        productObserver = TestObserver()
     }
 
     @Test
@@ -113,6 +114,33 @@ class ProductRepositoryTest {
         })
         repository.getProduct(PRODUCT_ID).subscribe(productObserver)
         productObserver.assertError(error)
+    }
+
+    @Test
+    fun getProductVariantListShouldDelegateCallToApi() {
+        repository.getProductVariantList(listOf(PRODUCT_ID)).subscribe()
+        verify(api).getProductVariantList(eq(listOf(PRODUCT_ID)), any())
+    }
+
+    @Test
+    fun getProductVariantListShouldReturnValueWhenOnResult() {
+        given(api.getProductVariantList(eq(listOf(PRODUCT_ID)), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<ProductVariant>>>(1)
+            callback.onResult(productVariantList)
+        })
+        repository.getProductVariantList(listOf(PRODUCT_ID)).subscribe(productVariantListObserver)
+        productVariantListObserver.assertValue(productVariantList)
+    }
+
+    @Test
+    fun getProductVariantListShouldReturnErrorOnFailure() {
+        val error = Error.Content()
+        given(api.getProductVariantList(eq(listOf(PRODUCT_ID)), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<ProductVariant>>>(1)
+            callback.onFailure(error)
+        })
+        repository.getProductVariantList(listOf(PRODUCT_ID)).subscribe(productVariantListObserver)
+        productVariantListObserver.assertError(error)
     }
 
     @Test

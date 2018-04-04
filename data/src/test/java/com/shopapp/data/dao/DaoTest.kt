@@ -240,6 +240,40 @@ class DaoTest {
     }
 
     @Test
+    fun deleteProductListFromCartShouldReturnComplete() {
+        val singleResult = Single.just(0)
+        val scalar: ReactiveScalar<Int> = mock()
+        val where: WhereAndOr<ReactiveScalar<Int>> = mock()
+        val deletion: Deletion<ReactiveScalar<Int>> = mock()
+        given(store.delete(CartProductDataEntity::class)).willReturn(deletion)
+        given(deletion.where(any<Condition<String, String>>())).willReturn(where)
+        given(where.get()).willReturn(scalar)
+        given(scalar.single()).willReturn(singleResult)
+
+        daoImpl.deleteProductListFromCart(listOf(PRODUCT_VARIANT_ID)).subscribe(unitObserver)
+
+        verify(store).delete(CartProductDataEntity::class)
+        unitObserver.assertComplete()
+    }
+
+    @Test
+    fun deleteProductListFromCartShouldReturnError() {
+        val singleResult = Single.error<Int>(error)
+        val scalar: ReactiveScalar<Int> = mock()
+        val where: WhereAndOr<ReactiveScalar<Int>> = mock()
+        val deletion: Deletion<ReactiveScalar<Int>> = mock()
+        given(store.delete(CartProductDataEntity::class)).willReturn(deletion)
+        given(deletion.where(any<Condition<String, String>>())).willReturn(where)
+        given(where.get()).willReturn(scalar)
+        given(scalar.single()).willReturn(singleResult)
+
+        daoImpl.deleteProductListFromCart(listOf(PRODUCT_VARIANT_ID)).subscribe(unitObserver)
+
+        verify(store).delete(CartProductDataEntity::class)
+        unitObserver.assertError(error)
+    }
+
+    @Test
     fun deleteAllProductsFromCartShouldReturnComplete() {
         val singleResult = Single.just(0)
         val scalar: ReactiveScalar<Int> = mock()

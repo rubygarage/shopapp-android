@@ -18,16 +18,15 @@ class LceLoadingView @JvmOverloads constructor(
         private const val DEFAULT_MIN_SHOW_TIME = 500L
     }
 
+    private var startTime: Long = DEFAULT_START_TIME
+    private var postedHide = false
+    private var dismissed = false
     var minShowTime = DEFAULT_MIN_SHOW_TIME
 
     init {
         View.inflate(context, R.layout.view_lce_loading, this)
         isClickable = true
     }
-
-    private var startTime: Long = DEFAULT_START_TIME
-    private var postedHide = false
-    private var dismissed = false
 
     private val delayedHide = Runnable {
         postedHide = false
