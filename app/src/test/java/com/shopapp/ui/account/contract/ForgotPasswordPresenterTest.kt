@@ -11,8 +11,7 @@ import com.shopapp.test.MockInstantiator
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -57,16 +56,27 @@ class ForgotPasswordPresenterTest {
     }
 
     @Test
+    fun shouldNotShowInvalidEmailErrorWhenEmailInvalid() {
+        presenter.detachView(false)
+        given(validator.isEmailValid(any())).willReturn(false)
+        presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
+
+        assertNull(presenter.view)
+        verify(view, never()).showEmailValidError()
+        verify(useCase, never()).execute(any(), any(), any())
+    }
+
+    @Test
     fun shouldShowContentWhenReturnComplete() {
         given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         given(validator.isEmailValid(any())).willReturn(true)
         presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
 
         assertTrue(presenter.isViewAttached)
-        verify(view).showContent(any())
-        verify(view, never()).showError(any())
-        verify(view, never()).showMessage(any<Int>())
-        verify(view, never()).showMessage(any<String>())
+        verify(presenter.view).showContent(any())
+        verify(presenter.view, never()).showError(any())
+        verify(presenter.view, never()).showMessage(any<Int>())
+        verify(presenter.view, never()).showMessage(any<String>())
     }
 
     @Test
