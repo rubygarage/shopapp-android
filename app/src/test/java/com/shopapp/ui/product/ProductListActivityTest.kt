@@ -16,14 +16,14 @@ import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -76,15 +76,11 @@ class ProductListActivityTest {
     }
 
     @Test
-    fun shouldStartProductDetailsActivity() {
+    fun shouldShowProduct() {
         val productMock = MockInstantiator.newProduct()
         activity.showContent(listOf(productMock))
         activity.onItemClicked(productMock, 0)
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(productMock.id,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showProduct(activity, productMock.id)
     }
 
     @After

@@ -161,12 +161,9 @@ class PersonalInfoActivityTest {
     }
 
     @Test
-    fun shouldStartChangePasswordActivityWhenButtonClicked() {
+    fun shouldShowChangePassword() {
         activity.changePassword.performClick()
-
-        val startedIntent = shadowOf(activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(ChangePasswordActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showChangePassword(activity)
     }
 
     @Test

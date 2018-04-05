@@ -20,10 +20,10 @@ import com.shopapp.ext.getTrimmedString
 import com.shopapp.ext.hideKeyboard
 import com.shopapp.ui.account.contract.SignUpPresenter
 import com.shopapp.ui.account.contract.SignUpView
+import com.shopapp.ui.account.router.SignUpRouter
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.custom.SimpleTextWatcher
-import com.shopapp.ui.policy.PolicyActivity
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import javax.inject.Inject
 
@@ -34,6 +34,10 @@ class SignUpActivity :
 
     @Inject
     lateinit var signUpPresenter: SignUpPresenter
+
+    @Inject
+    lateinit var router: SignUpRouter
+
     private lateinit var emailTextWatcher: TextWatcher
     private lateinit var passwordTextWatcher: TextWatcher
 
@@ -98,7 +102,7 @@ class SignUpActivity :
             val privacyPolicySpan = SpannableString(getString(R.string.privacy_policy))
             val clickablePrivacyPolicySpan = object : ClickableSpan() {
                 override fun onClick(textView: View) {
-                    startActivity(PolicyActivity.getStartIntent(this@SignUpActivity, privacyPolicy))
+                    router.showPolicy(this@SignUpActivity, privacyPolicy)
                 }
             }
             privacyPolicySpan.setSpan(clickablePrivacyPolicySpan, 0, privacyPolicySpan.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -106,7 +110,7 @@ class SignUpActivity :
             val termsOfServiceSpan = SpannableString(getString(R.string.terms_of_service))
             val clickableTermsOfServiceSpan = object : ClickableSpan() {
                 override fun onClick(textView: View) {
-                    startActivity(PolicyActivity.getStartIntent(this@SignUpActivity, termsOfService))
+                    router.showPolicy(this@SignUpActivity, termsOfService)
                 }
             }
             termsOfServiceSpan.setSpan(clickableTermsOfServiceSpan, 0, termsOfServiceSpan.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)

@@ -10,9 +10,11 @@ import com.shopapp.ui.cart.di.CartComponent
 import com.shopapp.ui.category.di.CategoryComponent
 import com.shopapp.ui.checkout.di.CheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.CardPaymentComponent
+import com.shopapp.ui.gallery.di.GalleryComponent
 import com.shopapp.ui.order.di.OrderComponent
 import com.shopapp.ui.product.di.ProductComponent
 import com.shopapp.ui.search.di.SearchComponent
+import com.shopapp.ui.splash.di.SplashComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -41,5 +43,9 @@ interface AppComponent {
     fun attachCardPaymentComponent(): CardPaymentComponent
 
     fun attachCheckoutAddressComponent(): CheckoutAddressComponent
+
+    fun attachSplashComponent(): SplashComponent
+
+    fun attachGalleryComponent(): GalleryComponent
 
 }

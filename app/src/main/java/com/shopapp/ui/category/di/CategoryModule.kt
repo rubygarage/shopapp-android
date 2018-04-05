@@ -4,6 +4,8 @@ import com.shopapp.domain.interactor.category.CategoryListUseCase
 import com.shopapp.domain.interactor.category.CategoryUseCase
 import com.shopapp.ui.category.contract.CategoryListPresenter
 import com.shopapp.ui.category.contract.CategoryPresenter
+import com.shopapp.ui.category.router.CategoryListRouter
+import com.shopapp.ui.category.router.CategoryRouter
 import dagger.Module
 import dagger.Provides
 
@@ -19,4 +21,10 @@ class CategoryModule {
     fun provideCategoryListPresenter(categoryListUseCase: CategoryListUseCase): CategoryListPresenter {
         return CategoryListPresenter(categoryListUseCase)
     }
+
+    @Provides
+    fun provideCategoryRouter(): CategoryRouter = CategoryRouter()
+
+    @Provides
+    fun provideCategoryListRouter(): CategoryListRouter = CategoryListRouter()
 }

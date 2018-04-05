@@ -17,6 +17,7 @@ import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.contract.ProductListView
+import com.shopapp.ui.product.router.ProductRouter
 import kotlinx.android.synthetic.main.fragment_recent.*
 import javax.inject.Inject
 
@@ -48,6 +49,10 @@ class ProductHorizontalFragment :
 
     @Inject
     lateinit var productListPresenter: ProductListPresenter
+
+    @Inject
+    lateinit var router: ProductRouter
+
     private val productList = mutableListOf<Product>()
     private var sortType = SortType.RECENT
     private var keyword: String? = null
@@ -67,11 +72,7 @@ class ProductHorizontalFragment :
             else -> ""
         }
         titleText.text = title
-        seeAll.setOnClickListener {
-            context?.let {
-                startActivity(ProductListActivity.getStartIntent(it, title, sortType, keyword, excludeKeyword))
-            }
-        }
+        seeAll.setOnClickListener { router.showProductList(context, title, sortType, keyword, excludeKeyword) }
         changeSeeAllState()
         setupRecycler()
         loadData(true)
@@ -130,11 +131,6 @@ class ProductHorizontalFragment :
     //CALLBACK
 
     override fun onItemClicked(position: Int) {
-        productList.getOrNull(position)?.let {
-            val productId = it.id
-            context?.let {
-                startActivity(ProductDetailsActivity.getStartIntent(it, productId))
-            }
-        }
+        productList.getOrNull(position)?.let { router.showProduct(context, it.id) }
     }
 }

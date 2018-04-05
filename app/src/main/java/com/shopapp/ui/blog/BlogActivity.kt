@@ -6,13 +6,14 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import com.shopapp.gateway.entity.Article
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Article
 import com.shopapp.ui.base.pagination.PaginationActivity
 import com.shopapp.ui.blog.adapter.BlogAdapter
 import com.shopapp.ui.blog.contract.BlogPresenter
 import com.shopapp.ui.blog.contract.BlogView
+import com.shopapp.ui.blog.router.BlogRouter
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import javax.inject.Inject
 
@@ -22,6 +23,9 @@ class BlogActivity :
 
     @Inject
     lateinit var blogPresenter: BlogPresenter
+
+    @Inject
+    lateinit var router: BlogRouter
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)
@@ -76,6 +80,6 @@ class BlogActivity :
     //CALLBACK
 
     override fun onItemClicked(data: Article, position: Int) {
-        startActivity(ArticleActivity.getStartIntent(this, data.id))
+        router.showArticle(this, data.id)
     }
 }

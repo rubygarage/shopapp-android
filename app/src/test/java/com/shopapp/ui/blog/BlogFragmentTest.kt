@@ -125,10 +125,7 @@ class BlogFragmentTest {
     @Test
     fun shouldStartBlogActivityWhenSeeAllClicked() {
         fragment.seeAll.performClick()
-
-        val startedIntent = shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(BlogActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showFullBlogList(fragment.context)
     }
 
     @Test
@@ -136,12 +133,7 @@ class BlogFragmentTest {
         val article = MockInstantiator.newArticle()
         fragment.showContent(listOf(article))
         fragment.onItemClicked(0)
-
-        val startedIntent = shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = shadowOf(startedIntent)
-        assertEquals(article.id,
-            startedIntent.extras.getString(ArticleActivity.EXTRA_ARTICLE_ID))
-        assertEquals(ArticleActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showArticle(fragment.context, article.id)
     }
 
     @Test

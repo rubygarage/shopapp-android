@@ -1,9 +1,8 @@
 package com.shopapp.ui.splash
 
 import android.content.Context
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.TestShopApplication
-import com.shopapp.ui.home.HomeActivity
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -11,9 +10,7 @@ import org.mockito.MockitoAnnotations
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
-import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -30,10 +27,19 @@ class SplashActivityTest {
     }
 
     @Test
-    fun shouldStartHomeActivity() {
-        Robolectric.getForegroundThreadScheduler().advanceBy(1, TimeUnit.SECONDS)
-        val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(HomeActivity::class.java, shadowIntent.intentClass)
+    fun shouldCallValidateItemsWhenOnCreate() {
+        verify(activity.presenter).validateItems()
+    }
+
+    @Test
+    fun shouldStartHomeActivityWhenShowContent() {
+        activity.showContent(Unit)
+        verify(activity.router).showHome(activity)
+    }
+
+    @Test
+    fun shouldStartHomeActivityWhenValidationError() {
+        activity.validationError()
+        verify(activity.router).showHome(activity)
     }
 }

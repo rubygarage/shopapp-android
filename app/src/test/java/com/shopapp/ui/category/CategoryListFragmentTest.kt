@@ -57,10 +57,7 @@ class CategoryListFragmentTest {
     fun shouldStartCategoryActivity() {
         val category: Category = mock()
         fragment.onItemClicked(category, 0)
-        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
-        val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(category, startedIntent.extras.getParcelable(CategoryActivity.EXTRA_CATEGORY))
-        assertEquals(CategoryActivity::class.java, shadowIntent.intentClass)
+        verify(fragment.router).showCategory(fragment.context, category)
     }
 
     @Test

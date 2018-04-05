@@ -11,6 +11,10 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
 class CartRepositoryTest {
+
+    companion object {
+        private const val ID = "id"
+    }
     
     @Mock
     private lateinit var dao: Dao
@@ -31,10 +35,15 @@ class CartRepositoryTest {
 
     @Test
     fun deleteProductShouldDelegateCallToDao() {
-        repository.deleteProductFromCart("id")
-        verify(dao).deleteProductFromCart("id")
+        repository.deleteProductFromCart(ID)
+        verify(dao).deleteProductFromCart(ID)
     }
 
+    @Test
+    fun deleteProductListFromCartShouldDelegateCallToDao() {
+        repository.deleteProductListFromCart(listOf(ID))
+        verify(dao).deleteProductListFromCart(listOf(ID))
+    }
 
     @Test
     fun getCartProductsShouldDelegateCallToDao() {
@@ -51,7 +60,7 @@ class CartRepositoryTest {
 
     @Test
     fun changeQuantityShouldDelegateCallToDao() {
-        repository.changeCartProductQuantity("id", 3)
-        verify(dao).changeCartProductQuantity("id", 3)
+        repository.changeCartProductQuantity(ID, 3)
+        verify(dao).changeCartProductQuantity(ID, 3)
     }
 }

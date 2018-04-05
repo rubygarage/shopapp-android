@@ -76,9 +76,7 @@ class CheckoutAddressListActivityTest {
     fun shouldStartCheckoutAddressActivity() {
         activity = getBillingModeActivity()
         activity.onClick(null)
-        val intentForResult = shadowOf(activity).nextStartedActivityForResult
-        val shadowIntent = shadowOf(intentForResult.intent)
-        assertEquals(CheckoutAddressActivity::class.java, shadowIntent.intentClass)
+        verify(activity.router).showCheckoutAddressForResult(activity, RequestCode.ADD_SHIPPING_ADDRESS)
     }
 
     @Test
@@ -206,14 +204,8 @@ class CheckoutAddressListActivityTest {
 
         assertNull(ShadowAlertDialog.getLatestAlertDialog())
 
-        val intentForResult = shadowOf(activity).nextStartedActivityForResult
-        assertEquals(RequestCode.EDIT_SHIPPING_ADDRESS, intentForResult.requestCode)
 
-        val intent = shadowOf(intentForResult.intent)
-
-        assertEquals(CheckoutAddressActivity::class.java, intent.intentClass)
-        assertEquals(address, intentForResult.intent.extras.getParcelable(Extra.ADDRESS))
-        assertFalse(intentForResult.intent.extras.getBoolean(Extra.IS_SELECTED_ADDRESS))
+        verify(activity.router).showCheckoutAddressForResult(activity, RequestCode.EDIT_SHIPPING_ADDRESS, address, false)
     }
 
     @Test
@@ -227,14 +219,7 @@ class CheckoutAddressListActivityTest {
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick()
 
-        val intentForResult = shadowOf(activity).nextStartedActivityForResult
-        assertEquals(RequestCode.EDIT_SHIPPING_ADDRESS, intentForResult.requestCode)
-        val intent = shadowOf(intentForResult.intent)
-
-        assertEquals(CheckoutAddressActivity::class.java, intent.intentClass)
-        assertEquals(shippingAddress, intentForResult.intent.extras.getParcelable(Extra.ADDRESS))
-        assertTrue(intentForResult.intent.extras.getBoolean(Extra.IS_SELECTED_ADDRESS))
-
+        verify(activity.router).showCheckoutAddressForResult(activity, RequestCode.EDIT_SHIPPING_ADDRESS, shippingAddress, true)
     }
 
     @Test

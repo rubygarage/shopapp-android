@@ -22,7 +22,7 @@ class CategoryPresenter @Inject constructor(private val categoryUseCase: Categor
                     view?.showEmptyState()
                 }
             },
-            { it.printStackTrace() },
+            { resolveError(it) },
             CategoryUseCase.Params(perPage, paginationValue, categoryId, sortType)
         )
     }
