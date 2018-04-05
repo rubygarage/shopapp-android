@@ -11,7 +11,6 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
-import java.util.concurrent.TimeUnit
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -28,8 +27,19 @@ class SplashActivityTest {
     }
 
     @Test
-    fun shouldStartHomeActivity() {
-        Robolectric.getForegroundThreadScheduler().advanceBy(1, TimeUnit.SECONDS)
+    fun shouldCallValidateItemsWhenOnCreate() {
+        verify(activity.presenter).validateItems()
+    }
+
+    @Test
+    fun shouldStartHomeActivityWhenShowContent() {
+        activity.showContent(Unit)
+        verify(activity.router).showHome(activity)
+    }
+
+    @Test
+    fun shouldStartHomeActivityWhenValidationError() {
+        activity.validationError()
         verify(activity.router).showHome(activity)
     }
 }

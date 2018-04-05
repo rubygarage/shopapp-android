@@ -13,6 +13,8 @@ interface Dao {
 
     fun deleteProductFromCart(productVariantId: String): Completable
 
+    fun deleteProductListFromCart(productVariantListId: List<String>): Completable
+
     fun deleteAllProductsFromCart(): Completable
 
     fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct>
