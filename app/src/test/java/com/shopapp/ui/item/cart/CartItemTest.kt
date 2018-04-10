@@ -13,7 +13,8 @@ import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_cart.view.*
 import org.junit.After
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -55,8 +56,7 @@ class CartItemTest {
     @Test
     fun shouldSetQuantity() {
         view.setCartProduct(product)
-        assertEquals(MockInstantiator.DEFAULT_QUANTITY.toString(), view.quantityEditText.text.toString())
-        assertEquals(MockInstantiator.DEFAULT_QUANTITY.toString().length, view.quantityEditText.selectionEnd)
+        assertEquals(MockInstantiator.DEFAULT_QUANTITY.toString(), view.quantityView.text.toString())
     }
 
     @Test
@@ -75,7 +75,7 @@ class CartItemTest {
         assertEquals(expected, view.totalPrice.text.toString())
 
         val newQuantity = 1
-        view.quantityEditText.setText(newQuantity.toString())
+        view.onQuantityChanged(newQuantity.toString())
         val expectedChangedPrice = MockInstantiator.DEFAULT_PRICE.toInt() * newQuantity
         val expectedChanged = expectedChangedPrice.toString() + MockInstantiator.DEFAULT_CURRENCY
         assertEquals(expectedChanged, view.totalPrice.text.toString())
@@ -98,29 +98,9 @@ class CartItemTest {
     }
 
     @Test
-    fun shouldResetQuantityWhenViewLostFocusAndTextIsEmpty() {
-        view.setCartProduct(product)
-        view.quantityEditText.setText("")
-        view.onFocusChange(view.quantityEditText, false)
-
-        assertTrue(view.quantityEditText.text.isNotEmpty())
-        assertEquals(product.quantity.toString(), view.quantityEditText.text.toString())
-    }
-
-    @Test
-    fun shouldResetQuantityWhenViewLostFocusAndQuantityIsZero() {
-        view.setCartProduct(product)
-        view.quantityEditText.setText("0")
-        view.onFocusChange(view.quantityEditText, false)
-
-        assertTrue(view.quantityEditText.text.isNotEmpty())
-        assertEquals(product.quantity.toString(), view.quantityEditText.text.toString())
-    }
-
-    @Test
     fun shouldClearViewFocusOnKeyboardAction() {
-        view.quantityEditText.onEditorAction(EditorInfo.IME_ACTION_DONE)
-        assertFalse(view.quantityEditText.isFocused)
+        view.quantityView.onEditorAction(EditorInfo.IME_ACTION_DONE)
+        assertFalse(view.quantityView.isFocused)
     }
 
     @After

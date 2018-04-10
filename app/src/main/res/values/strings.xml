@@ -189,5 +189,8 @@
     <string name="article">Article</string>
     <string name="order">Order</string>
     <string name="back">Back</string>
+    <string name="more">More</string>
+    <string name="quantity">Quantity</string>
+    <string name="enter_quantity">Enter quantity</string>
 
 </resources>

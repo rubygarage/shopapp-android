@@ -5,8 +5,8 @@ import org.robolectric.annotation.Implements
 import org.robolectric.annotation.RealObject
 import org.robolectric.shadows.ShadowLinearLayout
 
-@Implements(value = TextInputLayout::class, inheritImplementationMethods = true)
-class ShadowTextInputLayout : ShadowLinearLayout() {
+@Implements(value = TextInputLayout::class)
+class ShadowTextInputLayoutWithoutInheritance : ShadowLinearLayout() {
 
     @RealObject
     private lateinit var realTextInputLayout: TextInputLayout

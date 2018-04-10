@@ -18,22 +18,22 @@ import org.robolectric.annotation.Config
 class OrderTitleViewTest {
 
     private lateinit var context: Context
-    private lateinit var itemView: OrderTitleView
+    private lateinit var view: OrderTitleView
 
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
-        itemView = OrderTitleView(context)
+        view = OrderTitleView(context)
     }
 
     @Test
     fun shouldDisplayOrderTitle() {
         val order = MockInstantiator.newOrder()
         val dateFormatter = DateFormatter()
-        itemView.setOrder(order, dateFormatter)
+        view.setOrder(order, dateFormatter)
         assertEquals(context.getString(R.string.order_number_pattern,
-            order.orderNumber).toUpperCase(), itemView.orderNumberTextView.text)
+            order.orderNumber).toUpperCase(), view.orderNumberTextView.text)
         assertEquals(context.getString(R.string.order_date_pattern,
-            dateFormatter.format(order.processedAt)), itemView.orderDateTextView.text)
+            dateFormatter.format(order.processedAt)), view.orderDateTextView.text)
     }
 }

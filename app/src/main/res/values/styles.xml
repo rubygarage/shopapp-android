@@ -176,4 +176,19 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="QuantityView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:paddingEnd">@dimen/horizontal_space</item>
+        <item name="android:paddingStart">@dimen/horizontal_space</item>
+        <item name="android:paddingTop">@dimen/element_space</item>
+        <item name="android:background">@drawable/background_underline_enabled</item>
+        <item name="android:drawableEnd">@drawable/ic_small_arrow_down</item>
+        <item name="android:drawablePadding">@dimen/content_space</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
 </resources>
