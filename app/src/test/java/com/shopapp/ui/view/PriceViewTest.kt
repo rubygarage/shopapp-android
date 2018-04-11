@@ -17,12 +17,12 @@ import org.robolectric.annotation.Config
 class PriceViewTest {
 
     private lateinit var context: Context
-    private lateinit var itemView: PriceView
+    private lateinit var view: PriceView
 
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
-        itemView = PriceView(context)
+        view = PriceView(context)
     }
 
     @Test
@@ -32,16 +32,16 @@ class PriceViewTest {
         val discountPrice = (20).toBigDecimal()
         val shippingPrice = (30).toBigDecimal()
         val totalPrice = (40).toBigDecimal()
-        itemView.setData(subtotalPrice, discountPrice, shippingPrice, totalPrice,
+        view.setData(subtotalPrice, discountPrice, shippingPrice, totalPrice,
             MockInstantiator.DEFAULT_CURRENCY)
 
         assertEquals(formatter.formatPrice(subtotalPrice, MockInstantiator.DEFAULT_CURRENCY),
-            itemView.subtotalValue.text)
+            view.subtotalValue.text)
         assertEquals(formatter.formatPrice(discountPrice, MockInstantiator.DEFAULT_CURRENCY),
-            itemView.discountValue.text)
+            view.discountValue.text)
         assertEquals(formatter.formatPrice(shippingPrice, MockInstantiator.DEFAULT_CURRENCY),
-            itemView.shippingValue.text)
+            view.shippingValue.text)
         assertEquals(formatter.formatPrice(totalPrice, MockInstantiator.DEFAULT_CURRENCY),
-            itemView.totalValue.text)
+            view.totalValue.text)
     }
 }

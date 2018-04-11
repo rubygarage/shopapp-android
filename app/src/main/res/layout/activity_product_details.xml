@@ -74,20 +74,10 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
+            <com.shopapp.ui.view.QuantityView
                 android:id="@+id/quantityEditText"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:gravity="center"
-                android:inputType="number"
-                android:maxLength="3"
-                android:minWidth="50dp"
+                style="@style/QuantityView"
                 android:text="@string/default_product_quantity"
-                android:textSize="13sp"
-                android:theme="@style/EditText"
                 app:layout_constraintStart_toEndOf="@+id/quantity"
                 app:layout_constraintTop_toBottomOf="@+id/productTitle" />
 

@@ -81,21 +81,13 @@
             android:text="@string/quantity_label"
             android:textColor="@color/textColorPrimary"
             android:textSize="13sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
+            app:layout_constraintBaseline_toBaselineOf="@+id/quantityView"
             app:layout_constraintStart_toEndOf="@+id/productImage" />
 
-        <EditText
-            android:id="@+id/quantityEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:minWidth="50dp"
+        <com.shopapp.ui.view.QuantityView
+            android:id="@+id/quantityView"
+            style="@style/QuantityView"
             android:text="@string/default_product_quantity"
-            android:textSize="13sp"
-            android:theme="@style/EditText"
             app:layout_constraintBottom_toTopOf="@+id/bottomHorizontalGuideline"
             app:layout_constraintEnd_toStartOf="@+id/totalPrice"
             app:layout_constraintHorizontal_bias="0.0"
@@ -107,7 +99,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColorSecondary"
             android:textSize="13sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/quantityEditText"
+            app:layout_constraintBaseline_toBaselineOf="@+id/quantityView"
             app:layout_constraintEnd_toStartOf="@+id/endVerticalGuideline" />
 
         <android.support.constraint.Guideline
