@@ -47,7 +47,7 @@ implementation 'com.github.rubygarage:shopapp-android:1.0.5'
 * Gradle to install all the dependencies   
 
 ## License
-The ShopApp Shopify for iOS provider is licensed under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0)
+The ShopApp for Android is licensed under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0)
 ***
 <a href="https://rubygarage.org/"><img src="https://github.com/rubygarage/shopapp-shopify-ios/blob/master/assets/rubygarage.png?raw=true" alt="RubyGarage Logo" width="415" height="128"></a>
 
