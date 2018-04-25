@@ -12,6 +12,7 @@ import com.shopapp.di.component.AppComponent
 import com.shopapp.di.component.DaggerAppComponent
 import com.shopapp.di.module.RepositoryModule
 import com.shopapp.gateway.Api
+import com.shopapp.magento.api.MagentoApi
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 
@@ -29,7 +30,7 @@ open class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val api = null //Initialize your api here.
+        val api = MagentoApi(this)
         val dao = DaoImpl(this)
 
         appComponent = buildAppComponent(api, dao)

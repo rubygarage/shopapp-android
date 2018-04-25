@@ -1,1 +1,1 @@
-include ':app', ':domain', ':data', ':gateway'
+include ':app', ':domain', ':data', ':gateway', ':magento'

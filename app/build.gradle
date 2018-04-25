@@ -48,7 +48,7 @@ jacocoAndroidUnitTestReport {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     implementation "com.android.support:multidex:1.0.3"
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
@@ -80,6 +80,7 @@ dependencies {
     implementation project(':data')
     implementation project(':domain')
     implementation project(':gateway')
+    implementation project(':magento')
 
     testImplementation "com.google.dagger:dagger:$daggerVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
