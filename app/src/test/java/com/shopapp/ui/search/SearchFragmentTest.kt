@@ -64,7 +64,7 @@ class SearchFragmentTest {
     @Test
     fun shouldShowEmptyState() {
         fragment.queryChanged(SEARCH_QUERY)
-        fragment.showContent(emptyList())
+        fragment.showEmptyState()
         assertEquals(View.VISIBLE, fragment.emptyView.visibility)
     }
 

@@ -13,7 +13,7 @@ buildscript {
 
         //DEPENDENCIES
         kotlinVersion = '1.2.40'
-        androidSupportVersion = '27.1.1'
+        androidSupportVersion = '27.1.0'
         rxVersion = '2.1.6'
         rxAndroidVersion = '2.0.1'
         constraintLayoutVersion = '1.1.0-beta3'

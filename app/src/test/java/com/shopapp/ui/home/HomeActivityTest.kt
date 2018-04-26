@@ -1,7 +1,6 @@
 package com.shopapp.ui.home
 
 import android.content.Context
-import android.os.Bundle
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.account.AccountFragment
