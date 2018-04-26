@@ -1,7 +1,7 @@
 package com.shopapp.ui.order.list.contract
 
-import com.shopapp.gateway.entity.Order
 import com.shopapp.domain.interactor.order.OrderListUseCase
+import com.shopapp.gateway.entity.Order
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
@@ -15,7 +15,11 @@ class OrderListPresenter @Inject constructor(private val orderListUseCase: Order
 
         orderListUseCase.execute(
             {
-                view?.showContent(it)
+                if (paginationValue == null && it.isEmpty()) {
+                    view?.showEmptyState()
+                } else {
+                    view?.showContent(it)
+                }
             },
             { resolveError(it) },
             OrderListUseCase.Params(perPage, paginationValue)

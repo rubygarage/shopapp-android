@@ -56,15 +56,17 @@ fun SimpleDraweeView.setResizedImageUri(
     @DimenRes widthRes: Int = R.dimen.default_image_size,
     @DimenRes heightRes: Int = R.dimen.default_image_size
 ) {
-    src?.let {
+    if (src != null) {
         val width = context.resources.getDimensionPixelSize(widthRes)
         val height = context.resources.getDimensionPixelSize(heightRes)
-        val request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(it))
+        val request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(src))
             .setResizeOptions(ResizeOptions(width, height))
             .build()
         controller = Fresco.newDraweeControllerBuilder()
             .setOldController(controller)
             .setImageRequest(request)
             .build()
+    } else {
+        setImageURI(src as? String)
     }
 }

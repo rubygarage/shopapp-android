@@ -3,6 +3,8 @@ package com.shopapp.ui.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.AppCompatTextView
@@ -62,6 +64,9 @@ class QuantityView @JvmOverloads constructor(
         val width = context.resources.getDimensionPixelSize(R.dimen.popup_quantity_width)
         val focusable = true
         val popupWindow = PopupWindow(popupView, width, WRAP_CONTENT, focusable)
+        popupWindow.isTouchable = true
+        popupWindow.isOutsideTouchable = true
+        popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         fillQuantityNumberContainer(popupWindow, popupView.quantityNumberContainer, selectedQuantityNumber)
         popupView.more.setOnClickListener {

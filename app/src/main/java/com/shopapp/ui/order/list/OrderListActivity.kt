@@ -83,12 +83,7 @@ class OrderListActivity :
         super.showContent(data)
         this.dataList.addAll(data)
         adapter.notifyDataSetChanged()
-        if (data.isNotEmpty()) {
-            paginationValue = data.last().paginationValue
-        }
-        if (dataList.isEmpty()) {
-            showEmptyState()
-        }
+        paginationValue = data.lastOrNull()?.paginationValue
     }
 
     //CALLBACK

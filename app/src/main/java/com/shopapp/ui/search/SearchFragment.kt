@@ -81,12 +81,7 @@ class SearchFragment :
         lastQuery = currentQuery
         this.dataList.addAll(data)
         adapter.notifyDataSetChanged()
-        if (data.isNotEmpty()) {
-            paginationValue = data.last().paginationValue
-        }
-        if (dataList.isEmpty() && currentQuery?.isNotBlank() == true) {
-            showEmptyState()
-        }
+        paginationValue = data.lastOrNull()?.paginationValue
     }
 
     override fun hideProgress() {

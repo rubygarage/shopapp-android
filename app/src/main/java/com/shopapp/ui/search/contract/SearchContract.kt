@@ -20,7 +20,13 @@ class SearchPresenter @Inject constructor(private val searchUseCase: SearchUseCa
             return
         }
         searchUseCase.execute(
-            { view?.showContent(it) },
+            {
+                if (paginationValue == null && it.isEmpty()) {
+                    view?.showEmptyState()
+                } else {
+                    view?.showContent(it)
+                }
+            },
             {
                 it.printStackTrace()
                 view?.hideProgress()

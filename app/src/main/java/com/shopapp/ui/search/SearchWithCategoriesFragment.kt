@@ -59,7 +59,7 @@ class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarList
     }
 
     override fun onQueryChanged(query: String) {
-        if (searchFragment.isVisible) {
+        if (searchFragment.isVisible || query.isBlank()) {
             searchFragment.queryChanged(query)
         }
     }
