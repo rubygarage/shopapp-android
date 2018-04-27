@@ -6,27 +6,23 @@ import com.shopapp.magento.api.Constant.DESC_DIRECTION
 class ProductOptionBuilder {
 
     companion object {
-        private const val FILTER_GROUP_PATTERN = "searchCriteria[filterGroups][%1\$d][filters][%2\$d][%3\$s]"
+        private const val FILTER_PARTS_SIZE = 3
+
+        private const val FILTER_GROUP_PATTERN = "searchCriteria[filterGroups][%1\$d][filters][0][%2\$s]"
         private const val SEARCH_CRITERIA_PATTERN = "searchCriteria[%s]"
 
         private const val SORT_ORDER_FIELD = "searchCriteria[sortOrders][0][field]"
         private const val SORT_ORDER_DIRECTION = "searchCriteria[sortOrders][0][direction]"
     }
 
-    private val filterGroup = mutableListOf<Map<String, String>>()
+    private val filterGroupMap = hashMapOf<String, String>()
     private val searchCriteriaMap = hashMapOf<String, String>()
 
     fun addFilterGroup(field: String, value: String, condition: ConditionType = ConditionType.DEFAULT): ProductOptionBuilder {
-        val groupIndex = this.filterGroup.size
-        val filterOption = FilterBuilder().addFilter(groupIndex, field, value, condition).build()
-        filterGroup.add(filterOption)
-        return this
-    }
-
-    fun addFilterGroup(filterBuilder: (groupIndex: Int) -> FilterBuilder): ProductOptionBuilder {
-        val groupIndex = this.filterGroup.size
-        val filters = filterBuilder(groupIndex).build()
-        filterGroup.add(filters)
+        val index = filterGroupMap.size / FILTER_PARTS_SIZE
+        filterGroupMap[FILTER_GROUP_PATTERN.format(index, FilterPart.FIELD.value)] = field
+        filterGroupMap[FILTER_GROUP_PATTERN.format(index, FilterPart.VALUE.value)] = value
+        filterGroupMap[FILTER_GROUP_PATTERN.format(index, FilterPart.CONDITION.value)] = condition.value
         return this
     }
 
@@ -49,27 +45,9 @@ class ProductOptionBuilder {
 
     fun build(): MutableMap<String, String> {
         val result = mutableMapOf<String, String>()
+        result.putAll(filterGroupMap)
         result.putAll(searchCriteriaMap)
-        filterGroup.forEach { result.putAll(it) }
         return result
     }
 
-    class FilterBuilder {
-
-        companion object {
-            private const val FILTER_PARTS_SIZE = 3
-        }
-
-        private val filterMap = hashMapOf<String, String>()
-
-        fun addFilter(groupIndex: Int, field: String, value: String, condition: ConditionType = ConditionType.DEFAULT): FilterBuilder {
-            val filterIndex = filterMap.size / FILTER_PARTS_SIZE
-            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, FilterPart.FIELD.value)] = field
-            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, FilterPart.VALUE.value)] = value
-            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, FilterPart.CONDITION.value)] = condition.value
-            return this
-        }
-
-        fun build() = filterMap
-    }
 }

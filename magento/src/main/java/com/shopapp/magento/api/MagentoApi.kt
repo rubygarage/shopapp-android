@@ -77,6 +77,7 @@ class MagentoApi(context: Context) : Api {
 
         val additionalOptions = ProductOptionBuilder()
             .addFilterGroup(NAME_FIELD, "%$searchQuery%", ConditionType.SEARCH_CONDITION)
+            .build()
         getProductList(perPage, paginationValue, additionalOptions, callback)
     }
 
