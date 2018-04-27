@@ -56,6 +56,18 @@ class SearchPresenterTest {
     }
 
     @Test
+    fun shouldCallUseCaseOnLoadItemsWithoutPaginationValue() {
+        val product = MockInstantiator.newProduct()
+        val products = listOf(product)
+        given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.just(products))
+
+        presenter.search(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
+        val inOrder = inOrder(view, searchUseCase)
+        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)))
+        inOrder.verify(view).showContent(products)
+    }
+
+    @Test
     fun shouldShowContentWhenReceiveEmptyList() {
         val products: List<Product> = emptyList()
         given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.just(products))

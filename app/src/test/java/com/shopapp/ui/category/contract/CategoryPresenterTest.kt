@@ -74,6 +74,21 @@ class CategoryPresenterTest {
     }
 
     @Test
+    fun shouldShowContentWhenReceiveNotEmptyListWithoutPaginationValue() {
+        val product = MockInstantiator.newProduct()
+        val products = listOf(product)
+        val category: Category = mock {
+            on { productList } doReturn products
+        }
+        given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
+        presenter.loadProductList(PER_PAGE, null, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        val params = CategoryUseCase.Params(PER_PAGE, null, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        val inOrder = inOrder(categoryUseCase, view)
+        inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
+        inOrder.verify(view).showContent(products)
+    }
+
+    @Test
     fun shouldShowContentWhenReceiveEmptyList() {
         val products: List<Product> = emptyList()
         val category: Category = mock {
@@ -100,22 +115,6 @@ class CategoryPresenterTest {
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showEmptyState()
     }
-
-    @Test
-    fun shouldNotShowEmptyStateWhenReceiveEmptyList() {
-
-        val products: List<Product> = emptyList()
-        val category: Category = mock {
-            on { productList } doReturn products
-        }
-        given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
-        presenter.loadProductList(PER_PAGE, MockInstantiator.DEFAULT_PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, MockInstantiator.DEFAULT_PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val inOrder = inOrder(categoryUseCase, view)
-        inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
-        inOrder.verify(view, never()).showEmptyState()
-    }
-
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
