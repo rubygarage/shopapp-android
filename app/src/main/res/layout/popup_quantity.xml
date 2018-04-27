@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_stroke"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/quantityNumberContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/more"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?selectableItemBackground"
-        android:paddingBottom="@dimen/vertical_space"
-        android:paddingTop="@dimen/vertical_space">
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/quantityNumberContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="@dimen/element_space"
-            android:drawableStart="@drawable/ic_plus"
-            android:text="@string/more"
-            android:textAllCaps="true"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:orientation="vertical" />
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?selectableItemBackground"
+            android:paddingBottom="@dimen/vertical_space"
+            android:paddingTop="@dimen/vertical_space">
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="@dimen/element_space"
+                android:drawableStart="@drawable/ic_plus"
+                android:text="@string/more"
+                android:textAllCaps="true"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</ScrollView>

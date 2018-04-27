@@ -32,7 +32,6 @@ class OrderListPresenterTest {
 
     private lateinit var presenter: OrderListPresenter
 
-
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
@@ -49,6 +48,37 @@ class OrderListPresenterTest {
         val inOrder = inOrder(view, useCase)
         inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
         inOrder.verify(view).showContent(orderList)
+    }
+
+    @Test
+    fun shouldShowContentWithoutPaginationValue() {
+        given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
+        presenter.getOrders(1, null)
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(view).showContent(orderList)
+    }
+
+    @Test
+    fun shouldShowContentWhenReceiveEmptyList() {
+        val orderList: List<Order> = emptyList()
+
+        given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
+        presenter.getOrders(1, "")
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, "")))
+        inOrder.verify(view).showContent(orderList)
+    }
+
+    @Test
+    fun shouldShowEmptyStateWhenReceiveEmptyListWithoutPaginationValue() {
+        val orderList: List<Order> = emptyList()
+
+        given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
+        presenter.getOrders(1, null)
+        val inOrder = inOrder(view, useCase)
+        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(view).showEmptyState()
     }
 
     @Test

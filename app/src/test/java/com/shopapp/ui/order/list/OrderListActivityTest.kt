@@ -1,7 +1,6 @@
 package com.shopapp.ui.order.list
 
 import android.content.Context
-import android.os.Looper
 import android.view.View
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
@@ -52,7 +51,7 @@ class OrderListActivityTest {
 
     @Test
     fun shouldShowEmptyView() {
-        activity.showContent(emptyList())
+        activity.showEmptyState()
         val emptyView = activity.emptyView
         assertEquals(View.VISIBLE, emptyView.visibility)
         assertEquals(context.getString(R.string.you_have_no_orders_yet), emptyView.emptyMessage.text)

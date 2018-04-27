@@ -2,6 +2,8 @@ package com.shopapp.ui.category
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -10,9 +12,9 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
-import com.shopapp.gateway.entity.SortType
 import com.shopapp.R
 import com.shopapp.ext.getScreenSize
+import com.shopapp.gateway.entity.SortType
 
 class CategorySortPopupFacade(
     private val context: Context,
@@ -38,6 +40,7 @@ class CategorySortPopupFacade(
         popupWindow = PopupWindow(popupView, width, height, focusable)
 
         popupWindow?.let {
+            it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             it.showAsDropDown(view, horizontalSpace, 0, Gravity.CENTER_HORIZONTAL)
             dimBehind(it)
         }

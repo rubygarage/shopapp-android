@@ -64,7 +64,7 @@ class SearchFragmentTest {
     @Test
     fun shouldShowEmptyState() {
         fragment.queryChanged(SEARCH_QUERY)
-        fragment.showContent(emptyList())
+        fragment.showEmptyState()
         assertEquals(View.VISIBLE, fragment.emptyView.visibility)
     }
 
@@ -78,6 +78,13 @@ class SearchFragmentTest {
 
     @Test
     fun shouldSearchProductsOnQueryChange() {
+        fragment.queryChanged(SEARCH_QUERY)
+        verify(fragment.presenter).search(Constant.DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
+    }
+
+    @Test
+    fun shouldSearchProductsOnceWhenOnQueryChangeWithSameValue() {
+        fragment.queryChanged(SEARCH_QUERY)
         fragment.queryChanged(SEARCH_QUERY)
         verify(fragment.presenter).search(Constant.DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
     }

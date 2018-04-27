@@ -16,10 +16,10 @@ class CategoryPresenter @Inject constructor(private val categoryUseCase: Categor
 
         categoryUseCase.execute(
             {
-                if (it.productList.isNotEmpty()) {
-                    view?.showContent(it.productList)
-                } else if (paginationValue == null) {
+                if (paginationValue == null && it.productList.isEmpty()) {
                     view?.showEmptyState()
+                } else {
+                    view?.showContent(it.productList)
                 }
             },
             { resolveError(it) },
