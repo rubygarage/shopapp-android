@@ -15,7 +15,7 @@ import com.shopapp.magento.api.Constant.SKU_FIELD
 import com.shopapp.magento.api.Constant.TYPE_ID_FIELD
 import com.shopapp.magento.api.request.ConditionType
 import com.shopapp.magento.api.request.PaginationPart
-import com.shopapp.magento.api.request.SearchCriteriaMapBuilder
+import com.shopapp.magento.api.request.ProductOptionBuilder
 import com.shopapp.magento.retrofit.RestClient
 import com.shopapp.magento.retrofit.service.ProductService
 import com.shopapp.magento.retrofit.service.StoreService
@@ -26,10 +26,9 @@ class MagentoApi(context: Context) : Api {
     companion object {
         const val HOST = "http://10.14.14.174/"
         private const val BASE_PATH = "rest/V1/"
-        private const val API_KEY = "qnhii9gs7butyd0yeq8qjkt8jutjnsst"
     }
 
-    private val retrofit: Retrofit = RestClient.providesRetrofit(context, HOST + BASE_PATH, API_KEY)
+    private val retrofit: Retrofit = RestClient.providesRetrofit(context, HOST + BASE_PATH)
 
     private val productService by lazy {
         retrofit.create(ProductService::class.java)
@@ -58,7 +57,7 @@ class MagentoApi(context: Context) : Api {
                                 keyword: String?, excludeKeyword: String?,
                                 callback: ApiCallback<List<Product>>) {
 
-        val additionalOptionsBuilder = SearchCriteriaMapBuilder()
+        val additionalOptionsBuilder = ProductOptionBuilder()
         if (sortBy == SortType.RECENT) {
             additionalOptionsBuilder.addSortOrder(CREATED_AT_FIELD, true)
         } else if (sortBy == SortType.TYPE && keyword != null) {
@@ -71,24 +70,23 @@ class MagentoApi(context: Context) : Api {
             return
         }
 
-        getProductList(perPage, paginationValue, additionalOptionsBuilder.build(), callback)
+        getProductList(perPage, paginationValue, additionalOptionsBuilder, callback)
     }
 
     override fun searchProductList(perPage: Int, paginationValue: Any?, searchQuery: String, callback: ApiCallback<List<Product>>) {
 
-        val additionalOptions = SearchCriteriaMapBuilder()
+        val additionalOptions = ProductOptionBuilder()
             .addFilterGroup(NAME_FIELD, "%$searchQuery%", ConditionType.SEARCH_CONDITION)
-            .build()
         getProductList(perPage, paginationValue, additionalOptions, callback)
     }
 
     override fun getProductVariantList(productVariantIdList: List<String>, callback: ApiCallback<List<ProductVariant>>) {
 
-        val additionalOptions = SearchCriteriaMapBuilder()
+        val additionalOptions = ProductOptionBuilder()
         for (sku in productVariantIdList) {
             additionalOptions.addFilterGroup(SKU_FIELD, sku)
         }
-        val mainOptions = SearchCriteriaMapBuilder()
+        val mainOptions = ProductOptionBuilder()
             .addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
             .build()
         mainOptions.putAll(additionalOptions.build())
@@ -226,23 +224,21 @@ class MagentoApi(context: Context) : Api {
     }
 
     private fun getProductList(perPage: Int, paginationValue: Any?,
-                               additionalOptions: Map<String, String>,
+                               optionBuilder: ProductOptionBuilder,
                                callback: ApiCallback<List<Product>>) {
         makeRequestWithPagination(
             paginationValue,
             callback,
             { page ->
 
-                val mainOptions = SearchCriteriaMapBuilder()
-                    .addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
+                val options = optionBuilder.addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
                     .addSearchCriteria(PaginationPart.PAGE_SIZE.value, perPage)
                     .addSearchCriteria(PaginationPart.CURRENT_PAGE.value, page)
                     .build()
-                mainOptions.putAll(additionalOptions)
 
                 storeService.getStoreConfigs()
                     .flatMap { response ->
-                        productService.getProductList(mainOptions)
+                        productService.getProductList(options)
                             .map { it.mapToEntity(response.getCurrency(), page, perPage) }
                     }
                     .subscribe(
