@@ -60,7 +60,8 @@ class CategoryPresenterTest {
 
     @Test
     fun shouldShowContent() {
-        val products: List<Product> = mock()
+        val product = MockInstantiator.newProduct()
+        val products = listOf(product)
         val category: Category = mock {
             on { productList } doReturn products
         }

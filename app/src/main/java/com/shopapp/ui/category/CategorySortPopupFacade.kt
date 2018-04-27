@@ -38,7 +38,6 @@ class CategorySortPopupFacade(
         val height = LinearLayout.LayoutParams.WRAP_CONTENT
         val focusable = true
         popupWindow = PopupWindow(popupView, width, height, focusable)
-        popupWindow?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         popupWindow?.let {
             it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))

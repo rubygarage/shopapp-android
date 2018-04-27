@@ -3,6 +3,7 @@ package com.shopapp.ui.search.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.search.SearchUseCase
 import com.shopapp.gateway.entity.Product
+import com.shopapp.test.MockInstantiator
 import com.shopapp.test.MockInstantiator.DEFAULT_PAGINATION_VALUE
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
@@ -44,12 +45,13 @@ class SearchPresenterTest {
 
     @Test
     fun shouldCallUseCaseOnLoadItems() {
-        val products: List<Product> = mock()
+        val product = MockInstantiator.newProduct()
+        val products = listOf(product)
         given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.just(products))
 
         presenter.search(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)
         val inOrder = inOrder(view, searchUseCase)
-        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT,DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)))
+        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)))
         inOrder.verify(view).showContent(products)
     }
 

@@ -83,6 +83,13 @@ class SearchFragmentTest {
     }
 
     @Test
+    fun shouldSearchProductsOnceWhenOnQueryChangeWithSameValue() {
+        fragment.queryChanged(SEARCH_QUERY)
+        fragment.queryChanged(SEARCH_QUERY)
+        verify(fragment.presenter).search(Constant.DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
+    }
+
+    @Test
     fun shouldClearDataListOnQueryChange() {
         val products = MockInstantiator.newList(MockInstantiator.newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
         fragment.queryChanged(SEARCH_QUERY)
