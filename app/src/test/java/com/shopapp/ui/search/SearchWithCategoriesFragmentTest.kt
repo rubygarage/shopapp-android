@@ -86,4 +86,21 @@ class SearchWithCategoriesFragmentTest {
         verify((fragment as SearchFragment).presenter).search(any(), anyOrNull(), eq(testQuery))
     }
 
+    @Test
+    fun shouldSearchQueryWhenQueryChangedAndSearchFragmentIsVisible1() {
+        fragment.onToolbarStateChanged(true)
+
+        val searchFragment = fragment.childFragmentManager.fragments.firstOrNull()
+        assertNotNull(searchFragment)
+        assertTrue(searchFragment is SearchFragment)
+
+        fragment.onToolbarStateChanged(false)
+        val testQuery = ""
+        fragment.onQueryChanged(testQuery)
+        val categoryFragment = fragment.childFragmentManager.fragments.firstOrNull()
+        assertNotNull(categoryFragment)
+        assertTrue(categoryFragment is CategoryListFragment)
+
+        verify((searchFragment as SearchFragment).presenter).search(any(), anyOrNull(), eq(testQuery))
+    }
 }

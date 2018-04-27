@@ -46,8 +46,33 @@ class SearchPresenterTest {
     fun shouldCallUseCaseOnLoadItems() {
         val products: List<Product> = mock()
         given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.just(products))
+
         presenter.search(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)
-        verify(searchUseCase).execute(any(), any(), any())
+        val inOrder = inOrder(view, searchUseCase)
+        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT,DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)))
+        inOrder.verify(view).showContent(products)
+    }
+
+    @Test
+    fun shouldShowContentWhenReceiveEmptyList() {
+        val products: List<Product> = emptyList()
+        given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.just(products))
+
+        presenter.search(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)
+        val inOrder = inOrder(view, searchUseCase)
+        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)))
+        inOrder.verify(view).showContent(products)
+    }
+
+    @Test
+    fun shouldShowEmptyStateWhenReceiveEmptyListWithoutPaginationValue() {
+        val products: List<Product> = emptyList()
+        given(searchUseCase.buildUseCaseSingle(any())).willReturn(Single.just(products))
+
+        presenter.search(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
+        val inOrder = inOrder(view, searchUseCase)
+        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)))
+        inOrder.verify(view).showEmptyState()
     }
 
     @Test

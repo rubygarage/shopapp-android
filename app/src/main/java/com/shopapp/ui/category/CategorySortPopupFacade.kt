@@ -41,6 +41,7 @@ class CategorySortPopupFacade(
         popupWindow?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         popupWindow?.let {
+            it.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             it.showAsDropDown(view, horizontalSpace, 0, Gravity.CENTER_HORIZONTAL)
             dimBehind(it)
         }

@@ -69,4 +69,12 @@ class ProductItemTest {
         assertEquals(product.title, itemView.titleTextView.text)
         assertEquals(numberFormatter.formatPrice(product.price, product.currency), itemView.price.text)
     }
+
+    @Test
+    fun shouldSetProductDataWithoutImage() {
+        given(product.images).willReturn(listOf())
+        itemView.setProduct(product)
+
+        assertEquals(product.title, itemView.titleTextView.text)
+    }
 }
