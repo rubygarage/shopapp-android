@@ -57,20 +57,20 @@ class MagentoApi(context: Context) : Api {
                                 keyword: String?, excludeKeyword: String?,
                                 callback: ApiCallback<List<Product>>) {
 
-        val additionalOptionsBuilder = ProductOptionBuilder()
+        val optionBuilder = ProductOptionBuilder()
         if (sortBy == SortType.RECENT) {
-            additionalOptionsBuilder.addSortOrder(CREATED_AT_FIELD, true)
+            optionBuilder.addSortOrder(CREATED_AT_FIELD, true)
         } else if (sortBy == SortType.TYPE && keyword != null) {
-            additionalOptionsBuilder.addFilterGroup(ATTRIBUTE_SET_ID_FIELD, keyword)
+            optionBuilder.addFilterGroup(ATTRIBUTE_SET_ID_FIELD, keyword)
             excludeKeyword?.let {
-                additionalOptionsBuilder.addFilterGroup(NAME_FIELD, it, ConditionType.NOT_EQUAL)
+                optionBuilder.addFilterGroup(NAME_FIELD, it, ConditionType.NOT_EQUAL)
             }
         } else if (sortBy == SortType.RELEVANT) {
             callback.onResult(listOf())
             return
         }
 
-        getProductList(perPage, paginationValue, additionalOptionsBuilder, callback)
+        getProductList(perPage, paginationValue, optionBuilder, callback)
     }
 
     override fun searchProductList(perPage: Int, paginationValue: Any?, searchQuery: String, callback: ApiCallback<List<Product>>) {
@@ -82,18 +82,20 @@ class MagentoApi(context: Context) : Api {
 
     override fun getProductVariantList(productVariantIdList: List<String>, callback: ApiCallback<List<ProductVariant>>) {
 
-        val additionalOptions = ProductOptionBuilder()
-        for (sku in productVariantIdList) {
-            additionalOptions.addFilterGroup(SKU_FIELD, sku)
+        val optionBuilder = ProductOptionBuilder()
+        optionBuilder.addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
+        optionBuilder.addFilterGroup {
+            val filterBuilder = ProductOptionBuilder.FilterBuilder()
+            for (sku in productVariantIdList) {
+                filterBuilder.addFilter(it, SKU_FIELD, sku)
+            }
+            filterBuilder
         }
-        val mainOptions = ProductOptionBuilder()
-            .addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
-            .build()
-        mainOptions.putAll(additionalOptions.build())
+        val options = optionBuilder.build()
 
         storeService.getStoreConfigs()
             .flatMap { response ->
-                productService.getProductList(mainOptions)
+                productService.getProductList(options)
                     .map {
                         it.mapToEntity(response.getCurrency(), 1, 1)
                             .map { ProductVariantAdapter.adapt(it) }
