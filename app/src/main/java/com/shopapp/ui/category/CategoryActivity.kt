@@ -144,7 +144,7 @@ class CategoryActivity :
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-        paginationValue = data.last().paginationValue
+        paginationValue = data.lastOrNull()?.paginationValue
         this.dataList.addAll(data)
         adapter.notifyDataSetChanged()
     }

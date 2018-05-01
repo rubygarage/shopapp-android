@@ -15,7 +15,7 @@ class ProductListResponse(
     totalCount: Int
 ) : PaginationResponse(totalCount) {
 
-    fun mapToEntity(currency: String, page: Int, perPage: Int): List<Product> {
+    fun mapToEntityList(currency: String, page: Int, perPage: Int): List<Product> {
         val paginationValue = calculatePaginationValue(page, perPage)
         return items.map { it.mapToEntity(currency, paginationValue) }
     }

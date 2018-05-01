@@ -4,14 +4,15 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-data class Category(var id: String,
-                    var title: String,
-                    var categoryDescription: String,
-                    var additionalDescription: String,
-                    var image: Image?,
-                    var updatedAt: Date,
-                    var productList: List<Product>,
-                    var paginationValue: String? = null
+data class Category(val id: String,
+                    val title: String,
+                    val categoryDescription: String,
+                    val additionalDescription: String,
+                    val image: Image?,
+                    val updatedAt: Date,
+                    val childrenCategoryList: List<Category>,
+                    val productList: List<Product>,
+                    val paginationValue: String? = null
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
@@ -21,6 +22,7 @@ data class Category(var id: String,
         source.readString(),
         source.readParcelable<Image>(Image::class.java.classLoader),
         source.readSerializable() as Date,
+        source.createTypedArrayList(Category.CREATOR),
         source.createTypedArrayList(Product.CREATOR),
         source.readString()
     )
@@ -34,6 +36,7 @@ data class Category(var id: String,
         writeString(additionalDescription)
         writeParcelable(image, 0)
         writeSerializable(updatedAt)
+        writeTypedList(childrenCategoryList)
         writeTypedList(productList)
         writeString(paginationValue)
     }

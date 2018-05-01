@@ -2,9 +2,8 @@ package com.shopapp.ui.category.router
 
 import android.content.Context
 import com.shopapp.gateway.entity.Category
-import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.ui.category.CategoryActivity
-import com.shopapp.ui.product.ProductDetailsActivity
+import com.shopapp.ui.category.CategoryListActivity
 
 class CategoryListRouter {
 
@@ -12,4 +11,7 @@ class CategoryListRouter {
         context?.let { it.startActivity(CategoryActivity.getStartIntent(it, category)) }
     }
 
+    fun showCategoryList(context: Context?, category: Category) {
+        context?.let { it.startActivity(CategoryListActivity.getStartIntent(it, category)) }
+    }
 }

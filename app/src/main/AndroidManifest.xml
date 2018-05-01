@@ -59,6 +59,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ui.category.CategoryListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.shopapp.ui.blog.BlogActivity"
             android:screenOrientation="portrait" />
 
@@ -100,10 +104,6 @@
 
         <activity
             android:name="com.shopapp.ui.address.account.AddressActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.shopapp.ui.base.browser.BrowserActivity"
             android:screenOrientation="portrait" />
 
         <activity

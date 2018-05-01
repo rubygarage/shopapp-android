@@ -14,7 +14,7 @@ interface Api {
 
     fun getProduct(id: String, callback: ApiCallback<Product>)
 
-    fun getCategoryList(perPage: Int, paginationValue: Any?, callback: ApiCallback<List<Category>>)
+    fun getCategoryList(perPage: Int, paginationValue: Any?, rootCategoryId: String?, callback: ApiCallback<List<Category>>)
 
     fun getCategoryDetails(id: String, perPage: Int, paginationValue: Any?, sortBy: SortType? = null,
                            callback: ApiCallback<Category>)

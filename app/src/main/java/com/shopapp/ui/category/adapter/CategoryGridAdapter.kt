@@ -7,11 +7,15 @@ import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.shopapp.ui.item.CategoryItem
 
-class CategoryGridAdapter(categories: List<Category>, onItemClickListener: OnItemClickListener) :
+class CategoryGridAdapter(
+    categories: List<Category>,
+    onItemClickListener: OnItemClickListener,
+    private val isGridMode: Boolean = true
+) :
     BaseRecyclerAdapter<Category>(categories, onItemClickListener) {
 
     override fun getItemView(context: Context, viewType: Int): View {
-        return CategoryItem(context)
+        return CategoryItem(context, isGridMode)
     }
 
     override fun bindData(itemView: View, data: Category, position: Int) {

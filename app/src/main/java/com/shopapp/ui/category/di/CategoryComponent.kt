@@ -1,6 +1,7 @@
 package com.shopapp.ui.category.di
 
 import com.shopapp.ui.category.CategoryActivity
+import com.shopapp.ui.category.CategoryListActivity
 import com.shopapp.ui.category.CategoryListFragment
 import dagger.Subcomponent
 
@@ -8,6 +9,8 @@ import dagger.Subcomponent
 interface CategoryComponent {
 
     fun inject(activity: CategoryActivity)
+
+    fun inject(activity: CategoryListActivity)
 
     fun inject(activity: CategoryListFragment)
 }

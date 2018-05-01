@@ -1,22 +1,26 @@
 package com.shopapp.ui.item
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
-import com.shopapp.gateway.entity.Category
+import android.widget.TextView
+import com.facebook.drawee.view.SimpleDraweeView
 import com.shopapp.R
-import kotlinx.android.synthetic.main.item_category.view.*
+import com.shopapp.gateway.entity.Category
 
-class CategoryItem(context: Context) : ConstraintLayout(context) {
+@SuppressLint("ViewConstructor")
+class CategoryItem(context: Context, isGridMode: Boolean = true) : ConstraintLayout(context) {
 
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-        View.inflate(context, R.layout.item_category, this)
+        val layout = if (isGridMode) R.layout.item_category_grid else R.layout.item_category
+        View.inflate(context, layout, this)
         setBackgroundResource(R.color.white)
     }
 
     fun setCategory(category: Category) {
-        image.setImageURI(category.image?.src)
-        titleText.text = category.title
+        findViewById<TextView>(R.id.titleText).text = category.title
+        findViewById<SimpleDraweeView?>(R.id.image)?.setImageURI(category.image?.src)
     }
 }

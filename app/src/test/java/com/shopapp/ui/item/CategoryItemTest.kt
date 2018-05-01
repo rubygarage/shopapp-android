@@ -2,7 +2,7 @@ package com.shopapp.ui.item
 
 import android.content.Context
 import com.shopapp.test.MockInstantiator
-import kotlinx.android.synthetic.main.item_category.view.*
+import kotlinx.android.synthetic.main.item_category_grid.view.*
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
