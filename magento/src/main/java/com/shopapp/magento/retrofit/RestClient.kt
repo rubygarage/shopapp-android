@@ -21,7 +21,7 @@ object RestClient {
     private const val TIMEOUT: Long = 10
     private const val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
 
-    fun providesRetrofit(context: Context, baseUrl: String, apiKey: String): Retrofit {
+    fun providesRetrofit(context: Context, baseUrl: String): Retrofit {
 
         val gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapter(AttributeValue::class.java, AttributeValueDeserializer())
@@ -34,28 +34,19 @@ object RestClient {
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(providesOkHttp(apiKey, cache))
+            .client(providesOkHttp(cache))
             .build()
     }
 
-    private fun providesOkHttp(apiKey: String, cache: Cache): OkHttpClient {
+    private fun providesOkHttp(cache: Cache): OkHttpClient {
         return OkHttpClient.Builder()
             .cache(cache)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(getLoggingInterceptor())
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-            .addInterceptor(getAuthInterceptor(apiKey))
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)
             .build()
-    }
-
-    private fun getAuthInterceptor(apiKey: String): Interceptor {
-        return Interceptor { chain ->
-            val builder = chain.request().newBuilder()
-            builder.addHeader("Authorization", "Bearer $apiKey")
-            return@Interceptor chain.proceed(builder.build())
-        }
     }
 
     private fun getLoggingInterceptor(): Interceptor {
