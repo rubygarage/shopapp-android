@@ -30,7 +30,7 @@ open class ShopApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val api = MagentoApi(this)
+        val api = MagentoApi(this, "http://10.14.14.227/")
         val dao = DaoImpl(this)
 
         appComponent = buildAppComponent(api, dao)

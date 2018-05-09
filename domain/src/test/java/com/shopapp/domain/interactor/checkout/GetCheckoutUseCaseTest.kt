@@ -1,11 +1,11 @@
 package com.shopapp.domain.interactor.checkout
 
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.domain.repository.CheckoutRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -25,6 +25,6 @@ class GetCheckoutUseCaseTest {
     fun shouldDelegateCallToRepository() {
         val checkoutId = "checkoutId"
         useCase.buildUseCaseSingle(checkoutId)
-        Mockito.verify(checkoutRepository).getCheckout(checkoutId)
+        verify(checkoutRepository).getCheckout(checkoutId)
     }
 }

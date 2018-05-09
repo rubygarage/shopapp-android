@@ -2,8 +2,9 @@ package com.shopapp.magento.retrofit
 
 import android.content.Context
 import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.shopapp.magento.api.response.AttributeValue
+import com.shopapp.magento.api.response.util.AttributeValue
 import com.shopapp.magento.deserializer.AttributeValueDeserializer
 import com.shopapp.magento.deserializer.DateDeserializer
 import okhttp3.Cache
@@ -23,20 +24,20 @@ object RestClient {
 
     fun providesRetrofit(context: Context, baseUrl: String): Retrofit {
 
-        val gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .registerTypeAdapter(AttributeValue::class.java, AttributeValueDeserializer())
-            .registerTypeAdapter(Date::class.java, DateDeserializer())
-            .create()
-
         val cache = Cache(context.cacheDir, cacheSize)
-
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addConverterFactory(GsonConverterFactory.create(createGson()))
             .client(providesOkHttp(cache))
             .build()
     }
+
+    fun createGson(): Gson =
+        GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .registerTypeAdapter(AttributeValue::class.java, AttributeValueDeserializer())
+            .registerTypeAdapter(Date::class.java, DateDeserializer())
+            .create()
 
     private fun providesOkHttp(cache: Cache): OkHttpClient {
         return OkHttpClient.Builder()

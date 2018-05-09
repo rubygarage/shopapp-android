@@ -1,0 +1,40 @@
+{
+  "id": 23,
+  "parent_id": 21,
+  "name": "Jackets",
+  "is_active": true,
+  "position": 1,
+  "level": 4,
+  "children": "",
+  "created_at": "2018-04-30 06:41:05",
+  "updated_at": "2018-04-30 06:41:05",
+  "path": "1\/2\/20\/21\/23",
+  "available_sort_by": [],
+  "include_in_menu": true,
+  "custom_attributes": [
+    {
+      "attribute_code": "is_anchor",
+      "value": "1"
+    },
+    {
+      "attribute_code": "description",
+      "value": "test description"
+    },
+    {
+      "attribute_code": "path",
+      "value": "1\/2\/20\/21\/23"
+    },
+    {
+      "attribute_code": "children_count",
+      "value": "0"
+    },
+    {
+      "attribute_code": "url_key",
+      "value": "jackets-women"
+    },
+    {
+      "attribute_code": "url_path",
+      "value": "women\/tops-women\/jackets-women"
+    }
+  ]
+}

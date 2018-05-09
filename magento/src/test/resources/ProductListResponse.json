@@ -1,0 +1,197 @@
+{
+  "items": [
+    {
+      "id": 36,
+      "sku": "24-MG04",
+      "name": "Aim Analog Watch",
+      "attribute_set_id": 11,
+      "price": 45,
+      "status": 1,
+      "visibility": 4,
+      "type_id": "simple",
+      "created_at": "2018-04-30 06:40:55",
+      "updated_at": "2018-04-30 06:40:57",
+      "product_links": [],
+      "tier_prices": [],
+      "custom_attributes": [
+        {
+          "attribute_code": "description",
+          "value": "<p>Stay light-years ahead of the competition with our Aim Analog Watch.<\/p>\n<ul>\n<li>Japanese quartz movement.<\/li>\n<li>Strap fits 7\" to 8.0\".<\/li>\n<\/ul>"
+        },
+        {
+          "attribute_code": "image",
+          "value": "\/m\/g\/mg04-bk-0.jpg"
+        },
+        {
+          "attribute_code": "small_image",
+          "value": "\/m\/g\/mg04-bk-0.jpg"
+        },
+        {
+          "attribute_code": "thumbnail",
+          "value": "\/m\/g\/mg04-bk-0.jpg"
+        },
+        {
+          "attribute_code": "category_ids",
+          "value": [
+            "3",
+            "6"
+          ]
+        },
+        {
+          "attribute_code": "options_container",
+          "value": "container2"
+        },
+        {
+          "attribute_code": "required_options",
+          "value": "0"
+        },
+        {
+          "attribute_code": "has_options",
+          "value": "0"
+        },
+        {
+          "attribute_code": "url_key",
+          "value": "aim-analog-watch"
+        },
+        {
+          "attribute_code": "tax_class_id",
+          "value": "2"
+        },
+        {
+          "attribute_code": "activity",
+          "value": "9,17,5,11"
+        },
+        {
+          "attribute_code": "material",
+          "value": "44,45"
+        },
+        {
+          "attribute_code": "gender",
+          "value": "80"
+        },
+        {
+          "attribute_code": "category_gear",
+          "value": "86,87,90"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "sku": "24-WG01",
+      "name": "Bolo Sport Watch",
+      "attribute_set_id": 11,
+      "price": 49,
+      "status": 1,
+      "visibility": 4,
+      "type_id": "simple",
+      "created_at": "2018-04-30 06:40:56",
+      "updated_at": "2018-04-30 06:40:56",
+      "product_links": [],
+      "tier_prices": [],
+      "custom_attributes": [
+        {
+          "attribute_code": "description",
+          "value": "<p>The Bolo Sport Watch is sleek, sporty and sized just right to fit your smaller wrist. Easy to read and set up, it features a large digital face and button-activated alarm and stopwatch. The soft-touch resin band promises no-pinch comfort, while the water-resistant design lets you take your workout to the lap pool.<\/p>\n<ul>\n<li>Displays time, day and date.<\/li>\n<li>Two-tone design.<\/li>\n<li>12\/24 hour formats.<\/li>\n<li>Nickel-free buckle on band.<\/li>\n<li>Battery included.<\/li>\n<\/ul>"
+        },
+        {
+          "attribute_code": "special_price",
+          "value": "49.0000"
+        },
+        {
+          "attribute_code": "special_from_date",
+          "value": "2018-04-30 06:40:56"
+        },
+        {
+          "attribute_code": "image",
+          "value": "\/w\/g\/wg01-bk-0.jpg"
+        },
+        {
+          "attribute_code": "small_image",
+          "value": "\/w\/g\/wg01-bk-0.jpg"
+        },
+        {
+          "attribute_code": "thumbnail",
+          "value": "\/w\/g\/wg01-bk-0.jpg"
+        },
+        {
+          "attribute_code": "category_ids",
+          "value": [
+            "3",
+            "6"
+          ]
+        },
+        {
+          "attribute_code": "options_container",
+          "value": "container2"
+        },
+        {
+          "attribute_code": "required_options",
+          "value": "0"
+        },
+        {
+          "attribute_code": "has_options",
+          "value": "0"
+        },
+        {
+          "attribute_code": "url_key",
+          "value": "bolo-sport-watch"
+        },
+        {
+          "attribute_code": "tax_class_id",
+          "value": "2"
+        },
+        {
+          "attribute_code": "activity",
+          "value": "9,17"
+        },
+        {
+          "attribute_code": "material",
+          "value": "48"
+        },
+        {
+          "attribute_code": "gender",
+          "value": "81"
+        },
+        {
+          "attribute_code": "category_gear",
+          "value": "86,87,90"
+        },
+        {
+          "attribute_code": "sale",
+          "value": "1"
+        }
+      ]
+    }
+  ],
+  "search_criteria": {
+    "filter_groups": [
+      {
+        "filters": [
+          {
+            "field": "category_id",
+            "value": "6",
+            "condition_type": "eq"
+          }
+        ]
+      },
+      {
+        "filters": [
+          {
+            "field": "type_id",
+            "value": "simple",
+            "condition_type": "eq"
+          }
+        ]
+      }
+    ],
+    "sort_orders": [
+      {
+        "field": "name",
+        "direction": "ASC"
+      }
+    ],
+    "page_size": 10,
+    "current_page": 1
+  },
+  "total_count": 2
+}

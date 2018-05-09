@@ -1,0 +1,108 @@
+{
+  "id": 2017,
+  "sku": "WSH10-28-Orange",
+  "name": "Ana Running Short-28-Orange",
+  "attribute_set_id": 10,
+  "price": 40,
+  "status": 1,
+  "visibility": 1,
+  "type_id": "simple",
+  "created_at": "2018-04-30 06:41:41",
+  "updated_at": "2018-04-30 06:41:41",
+  "weight": 1,
+  "extension_attributes": {
+    "website_ids": [
+      1
+    ],
+    "category_links": [
+      {
+        "position": 1,
+        "category_id": "28"
+      },
+      {
+        "position": 1,
+        "category_id": "36"
+      },
+      {
+        "position": 1,
+        "category_id": "2"
+      }
+    ]
+  },
+  "product_links": [],
+  "options": [],
+  "media_gallery_entries": [
+    {
+      "id": 3374,
+      "media_type": "image",
+      "label": "",
+      "position": 1,
+      "disabled": false,
+      "types": [
+        "image",
+        "small_image",
+        "thumbnail"
+      ],
+      "file": "\/w\/s\/wsh10-orange_main.jpg"
+    }
+  ],
+  "tier_prices": [],
+  "custom_attributes": [
+    {
+      "attribute_code": "description",
+      "value": "<p>Time to lace up your kicks and beat that personal best in the Ana Running Short.<\/p>"
+    },
+    {
+      "attribute_code": "image",
+      "value": "\/w\/s\/wsh10-orange_main.jpg"
+    },
+    {
+      "attribute_code": "small_image",
+      "value": "\/w\/s\/wsh10-orange_main.jpg"
+    },
+    {
+      "attribute_code": "thumbnail",
+      "value": "\/w\/s\/wsh10-orange_main.jpg"
+    },
+    {
+      "attribute_code": "color",
+      "value": "56"
+    },
+    {
+      "attribute_code": "category_ids",
+      "value": [
+        "28",
+        "36",
+        "2"
+      ]
+    },
+    {
+      "attribute_code": "options_container",
+      "value": "container2"
+    },
+    {
+      "attribute_code": "required_options",
+      "value": "0"
+    },
+    {
+      "attribute_code": "has_options",
+      "value": "0"
+    },
+    {
+      "attribute_code": "url_key",
+      "value": "ana-running-short-28-orange"
+    },
+    {
+      "attribute_code": "msrp_display_actual_price_type",
+      "value": "0"
+    },
+    {
+      "attribute_code": "tax_class_id",
+      "value": "2"
+    },
+    {
+      "attribute_code": "size",
+      "value": "172"
+    }
+  ]
+}

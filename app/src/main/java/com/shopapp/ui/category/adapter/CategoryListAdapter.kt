@@ -7,7 +7,7 @@ import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.shopapp.ui.item.CategoryItem
 
-class CategoryGridAdapter(
+class CategoryListAdapter(
     categories: List<Category>,
     onItemClickListener: OnItemClickListener,
     private val isGridMode: Boolean = true

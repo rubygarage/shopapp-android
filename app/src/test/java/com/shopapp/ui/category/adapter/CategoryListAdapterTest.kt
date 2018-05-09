@@ -19,7 +19,7 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class CategoryGridAdapterTest {
+class CategoryListAdapterTest {
 
     companion object {
         private const val SIZE = 4
@@ -31,13 +31,13 @@ class CategoryGridAdapterTest {
     @Mock
     private lateinit var clickListener: OnItemClickListener
 
-    private lateinit var adapter: CategoryGridAdapter
+    private lateinit var adapter: CategoryListAdapter
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         given(dataList.size).willReturn(SIZE)
-        adapter = CategoryGridAdapter(dataList, clickListener)
+        adapter = CategoryListAdapter(dataList, clickListener)
     }
 
     @Test

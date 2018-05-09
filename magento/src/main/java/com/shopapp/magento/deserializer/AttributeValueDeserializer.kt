@@ -3,7 +3,7 @@ package com.shopapp.magento.deserializer
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import com.shopapp.magento.api.response.AttributeValue
+import com.shopapp.magento.api.response.util.AttributeValue
 import java.lang.reflect.Type
 
 class AttributeValueDeserializer : JsonDeserializer<AttributeValue?> {

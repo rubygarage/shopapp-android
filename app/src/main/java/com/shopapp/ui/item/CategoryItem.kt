@@ -3,7 +3,6 @@ package com.shopapp.ui.item
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
-import android.view.View
 import android.widget.TextView
 import com.facebook.drawee.view.SimpleDraweeView
 import com.shopapp.R
@@ -15,7 +14,7 @@ class CategoryItem(context: Context, isGridMode: Boolean = true) : ConstraintLay
     init {
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         val layout = if (isGridMode) R.layout.item_category_grid else R.layout.item_category
-        View.inflate(context, layout, this)
+        inflate(context, layout, this)
         setBackgroundResource(R.color.white)
     }
 

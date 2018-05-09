@@ -4,8 +4,8 @@ import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.category.CategoryActivity
+import com.shopapp.ui.category.CategoryListActivity
 import com.shopapp.ui.category.CategoryListFragment
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -38,5 +38,16 @@ class CategoryListRouterTest {
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(category, startedIntent.extras.getParcelable(CategoryActivity.EXTRA_CATEGORY))
         assertEquals(CategoryActivity::class.java, shadowIntent.intentClass)
+    }
+
+    @Test
+    fun shouldStartCategoryListActivity() {
+        val category: Category = mock()
+        router.showCategoryList(fragment.context, category)
+
+        val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
+        val shadowIntent = Shadows.shadowOf(startedIntent)
+        assertEquals(category, startedIntent.extras.getParcelable(CategoryListActivity.EXTRA_CATEGORY))
+        assertEquals(CategoryListActivity::class.java, shadowIntent.intentClass)
     }
 }

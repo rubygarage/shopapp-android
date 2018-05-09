@@ -8,7 +8,8 @@ import com.shopapp.magento.api.Constant
 import com.shopapp.magento.api.Constant.DESCRIPTION_ATTRIBUTE
 import com.shopapp.magento.api.Constant.PRODUCT_IMAGE_PATH
 import com.shopapp.magento.api.ext.getValue
-import com.shopapp.magento.util.removeTagsFromHtml
+import com.shopapp.magento.api.response.util.CustomAttribute
+import org.jsoup.Jsoup
 import java.util.*
 
 open class ProductResponse(
@@ -30,12 +31,12 @@ open class ProductResponse(
         val file: String
     )
 
-    fun mapToEntity(currency: String): Product {
+    fun mapToEntity(host: String, currency: String): Product {
 
         val htmlDescription = customAttributes.getValue(DESCRIPTION_ATTRIBUTE) ?: ""
-        val description = removeTagsFromHtml(htmlDescription)
-        val images = mediaGalleryEntries.mapNotNull { ImageAdapter.adapt(PRODUCT_IMAGE_PATH, it) }
-        val productVariant = createProductVariant(images.firstOrNull())
+        val description = Jsoup.parse(htmlDescription).text()
+        val images = mediaGalleryEntries.mapNotNull { ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, it) }
+        val productVariant = createProductVariant(host, images.firstOrNull())
 
         return Product(
             id = sku,
@@ -57,10 +58,10 @@ open class ProductResponse(
         )
     }
 
-    private fun createProductVariant(productImage: Image?): ProductVariant {
+    private fun createProductVariant(host: String, productImage: Image?): ProductVariant {
 
-        val thumbnail = ImageAdapter.adapt(PRODUCT_IMAGE_PATH, customAttributes.getValue(Constant.THUMBNAIL_ATTRIBUTE))
-        val image = ImageAdapter.adapt(PRODUCT_IMAGE_PATH, customAttributes.getValue(Constant.IMAGE_ATTRIBUTE))
+        val thumbnail = ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, customAttributes.getValue(Constant.THUMBNAIL_ATTRIBUTE))
+        val image = ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, customAttributes.getValue(Constant.IMAGE_ATTRIBUTE))
         val images = listOfNotNull(thumbnail, image)
         val mainImage = images.firstOrNull() ?: productImage
 
