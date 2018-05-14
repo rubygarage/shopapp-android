@@ -1,11 +1,12 @@
-package com.shopapp.ui.item
+package com.shopapp.ui.item.category
 
 import android.content.Context
-import android.view.View
+import android.support.v4.content.ContextCompat
 import com.shopapp.R
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.item_category_grid.view.*
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,10 +16,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class CategoryItemTest {
+class CategoryItemGridTest {
 
     private lateinit var context: Context
-    private lateinit var itemView: CategoryItem
+    private lateinit var itemView: CategoryGridItem
 
     @Before
     fun setUpTest() {
@@ -26,20 +27,13 @@ class CategoryItemTest {
     }
 
     @Test
-    fun shouldDisplayCategoryDataWithImage() {
-        itemView = CategoryItem(context)
-        val category = MockInstantiator.newCategory()
-        itemView.setCategory(category)
-        assertEquals(MockInstantiator.DEFAULT_TITLE, itemView.titleText.text)
-        assertNotNull(itemView.findViewById<View?>(R.id.image))
-    }
+    fun shouldDisplayCategoryData() {
+        itemView = CategoryGridItem(context)
+        assertEquals(ContextCompat.getDrawable(context, R.color.white), itemView.background)
 
-    @Test
-    fun shouldDisplayCategoryDataWithoutImage() {
-        itemView = CategoryItem(context, false)
         val category = MockInstantiator.newCategory()
         itemView.setCategory(category)
         assertEquals(MockInstantiator.DEFAULT_TITLE, itemView.titleText.text)
-        assertNull(itemView.findViewById<View?>(R.id.image))
+        assertNotNull(itemView.image)
     }
 }

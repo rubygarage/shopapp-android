@@ -17,9 +17,9 @@ class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {
         }
     }
 
-    override fun getCategoryList(perPage: Int, paginationValue: String?, rootCategoryId: String?): Single<List<Category>> {
+    override fun getCategoryList(perPage: Int, paginationValue: String?, parentCategoryId: String?): Single<List<Category>> {
         return Single.create<List<Category>> { emitter ->
-            api.getCategoryList(perPage, paginationValue, rootCategoryId, RxCallbackSingle<List<Category>>(emitter))
+            api.getCategoryList(perPage, paginationValue, parentCategoryId, RxCallbackSingle<List<Category>>(emitter))
         }
     }
 }

@@ -33,13 +33,14 @@ class CategoryListActivity : PaginationActivity<Category, CategoryListView, Cate
     @Inject
     lateinit var router: CategoryListRouter
 
-    lateinit var rootCategory: Category
+    lateinit var parentCategory: Category
 
     //ANDROID
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        rootCategory = intent.getParcelableExtra(EXTRA_CATEGORY)
+        parentCategory = intent.getParcelableExtra(EXTRA_CATEGORY)
+        setTitle(parentCategory.title)
         loadData()
     }
 
@@ -61,7 +62,7 @@ class CategoryListActivity : PaginationActivity<Category, CategoryListView, Cate
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.getCategoryList(perPageCount(), paginationValue, rootCategory.id)
+        presenter.getCategoryList(perPageCount(), paginationValue, parentCategory.id)
     }
 
     override fun showContent(data: List<Category>) {

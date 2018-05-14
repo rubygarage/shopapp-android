@@ -10,5 +10,5 @@ interface CategoryRepository {
                     sortBy: SortType? = null): Single<Category>
 
     fun getCategoryList(perPage: Int, paginationValue: String? = null,
-                        rootCategoryId: String? = null): Single<List<Category>>
+                        parentCategoryId: String? = null): Single<List<Category>>
 }

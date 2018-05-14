@@ -158,9 +158,9 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CategoryListResponse.json")))
 
         val perPage = 10
-        val rootCategoryId = "rootCategoryId"
+        val parentCategoryId = "parentCategoryId"
         val callback: ApiCallback<List<Category>> = mock()
-        api.getCategoryList(perPage, null, rootCategoryId, callback)
+        api.getCategoryList(perPage, null, parentCategoryId, callback)
 
         argumentCaptor<List<Category>>().apply {
             verify(callback).onResult(capture())
@@ -177,9 +177,9 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
 
         val perPage = 10
         val paginationValue = "2"
-        val rootCategoryId = "rootCategoryId"
+        val parentCategoryId = "parentCategoryId"
         val callback: ApiCallback<List<Category>> = mock()
-        api.getCategoryList(perPage, paginationValue, rootCategoryId, callback)
+        api.getCategoryList(perPage, paginationValue, parentCategoryId, callback)
 
         argumentCaptor<List<Category>>().apply {
             verify(callback).onResult(capture())

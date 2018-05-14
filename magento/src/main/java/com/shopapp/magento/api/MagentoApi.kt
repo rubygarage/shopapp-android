@@ -165,11 +165,11 @@ class MagentoApi : Api {
             )
     }
 
-    override fun getCategoryList(perPage: Int, paginationValue: Any?, rootCategoryId: String?,
+    override fun getCategoryList(perPage: Int, paginationValue: Any?, parentCategoryId: String?,
                                  callback: ApiCallback<List<Category>>) {
 
         if (paginationValue == null) {
-            categoryService.getCategoryList(rootCategoryId)
+            categoryService.getCategoryList(parentCategoryId)
                 .map { it.mapToEntityList() }
                 .subscribe(
                     { callback.onResult(it) },

@@ -11,13 +11,13 @@ class CategoryListUseCase @Inject constructor(private val categoryRepository: Ca
 
     override fun buildUseCaseSingle(params: Params): Single<List<Category>> {
         return with(params) {
-            categoryRepository.getCategoryList(perPage, paginationValue, rootCategoryId)
+            categoryRepository.getCategoryList(perPage, paginationValue, parentCategoryId)
         }
     }
 
     data class Params(
         val perPage: Int,
         val paginationValue: String?,
-        val rootCategoryId: String?
+        val parentCategoryId: String?
     )
 }

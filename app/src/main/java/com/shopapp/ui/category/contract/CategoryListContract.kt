@@ -13,12 +13,12 @@ class CategoryListPresenter @Inject constructor(
 ) :
     BaseLcePresenter<List<Category>, CategoryListView>(categoryListUseCase) {
 
-    fun getCategoryList(perPage: Int, paginationValue: String?, rootCategoryId: String? = null) {
+    fun getCategoryList(perPage: Int, paginationValue: String?, parentCategoryId: String? = null) {
 
         categoryListUseCase.execute(
             { view?.showContent(it) },
             { resolveError(it) },
-            CategoryListUseCase.Params(perPage, paginationValue, rootCategoryId)
+            CategoryListUseCase.Params(perPage, paginationValue, parentCategoryId)
         )
     }
 }

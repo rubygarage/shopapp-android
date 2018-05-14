@@ -10,7 +10,9 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Category
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
+import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
+import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
@@ -45,6 +47,11 @@ class CategoryListActivityTest {
     fun shouldGetCategoriesOnCreate() {
         verify(activity.presenter).getCategoryList(DEFAULT_PER_PAGE_COUNT, null,
             category.id)
+    }
+
+    @Test
+    fun shouldSetCorrectTitle() {
+        assertEquals(MockInstantiator.DEFAULT_TITLE, activity.toolbar.toolbarTitle.text)
     }
 
     @Test
