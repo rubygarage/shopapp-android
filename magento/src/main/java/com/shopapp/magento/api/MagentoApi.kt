@@ -145,10 +145,6 @@ class MagentoApi : Api {
             }
         }
 
-        if (sortBy == SortType.RECENT) {
-            optionsBuilder.addSortOrder(CREATED_AT_FIELD, true)
-        }
-
         val options = optionsBuilder.build()
 
         storeService.getStoreConfigs()
