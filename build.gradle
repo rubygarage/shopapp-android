@@ -6,8 +6,8 @@ buildscript {
         //ANDROID
         androidBuildToolsVersion = '27.0.3'
         androidMinSdkVersion = 19
-        androidTargetSdkVersion = 26
-        androidCompileSdkVersion = 26
+        androidTargetSdkVersion = 27
+        androidCompileSdkVersion = 27
         testInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
         versionName = '1.0.5'
 
