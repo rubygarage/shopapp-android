@@ -12,7 +12,7 @@ buildscript {
         versionName = '1.0.5'
 
         //DEPENDENCIES
-        kotlinVersion = '1.2.40'
+        kotlinVersion = '1.2.41'
         androidSupportVersion = '27.1.0'
         rxVersion = '2.1.6'
         rxAndroidVersion = '2.0.1'

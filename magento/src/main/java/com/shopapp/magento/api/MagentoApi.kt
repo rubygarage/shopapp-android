@@ -6,29 +6,42 @@ import com.shopapp.gateway.ApiCallback
 import com.shopapp.gateway.entity.*
 import com.shopapp.magento.adapter.ProductVariantAdapter
 import com.shopapp.magento.api.Constant.ATTRIBUTE_SET_ID_FIELD
+import com.shopapp.magento.api.Constant.CATEGORY_ID_FIELD
 import com.shopapp.magento.api.Constant.CREATED_AT_FIELD
 import com.shopapp.magento.api.Constant.NAME_FIELD
 import com.shopapp.magento.api.Constant.PAGINATION_END_VALUE
 import com.shopapp.magento.api.Constant.PAGINATION_START_VALUE
+import com.shopapp.magento.api.Constant.PRICE_FIELD
 import com.shopapp.magento.api.Constant.PRODUCT_DEFAULT_TYPE_ID
 import com.shopapp.magento.api.Constant.SKU_FIELD
 import com.shopapp.magento.api.Constant.TYPE_ID_FIELD
 import com.shopapp.magento.api.request.ConditionType
-import com.shopapp.magento.api.request.PaginationPart
+import com.shopapp.magento.api.request.Pagination
 import com.shopapp.magento.api.request.ProductOptionBuilder
 import com.shopapp.magento.retrofit.RestClient
+import com.shopapp.magento.retrofit.service.CategoryService
 import com.shopapp.magento.retrofit.service.ProductService
 import com.shopapp.magento.retrofit.service.StoreService
 import retrofit2.Retrofit
 
-class MagentoApi(context: Context) : Api {
+class MagentoApi : Api {
 
     companion object {
-        const val HOST = "http://10.14.14.174/"
         private const val BASE_PATH = "rest/V1/"
     }
 
-    private val retrofit: Retrofit = RestClient.providesRetrofit(context, HOST + BASE_PATH)
+    private val host: String
+    lateinit var retrofit: Retrofit
+
+    constructor(context: Context, host: String) {
+        this.host = host
+        retrofit = RestClient.providesRetrofit(context, host + BASE_PATH)
+    }
+
+    constructor(host: String, retrofit: Retrofit) {
+        this.host = host
+        this.retrofit = retrofit
+    }
 
     private val productService by lazy {
         retrofit.create(ProductService::class.java)
@@ -38,6 +51,10 @@ class MagentoApi(context: Context) : Api {
         retrofit.create(StoreService::class.java)
     }
 
+    private val categoryService by lazy {
+        retrofit.create(CategoryService::class.java)
+    }
+
     //PRODUCT
 
     override fun getProduct(id: String, callback: ApiCallback<Product>) {
@@ -45,7 +62,7 @@ class MagentoApi(context: Context) : Api {
         storeService.getStoreConfigs()
             .flatMap {
                 val currency = it.getCurrency()
-                productService.getProduct(id).map { it.mapToEntity(currency) }
+                productService.getProduct(id).map { it.mapToEntity(host, currency) }
             }
             .subscribe(
                 { callback.onResult(it) },
@@ -97,7 +114,7 @@ class MagentoApi(context: Context) : Api {
             .flatMap { response ->
                 productService.getProductList(options)
                     .map {
-                        it.mapToEntity(response.getCurrency(), 1, 1)
+                        it.mapToEntityList(host, response.getCurrency(), 1, 1)
                             .map { ProductVariantAdapter.adapt(it) }
                     }
             }
@@ -105,6 +122,62 @@ class MagentoApi(context: Context) : Api {
                 { callback.onResult(it) },
                 { it.printStackTrace() }
             )
+    }
+
+    //CATEGORY
+
+    override fun getCategoryDetails(id: String, perPage: Int, paginationValue: Any?, sortBy: SortType?, callback: ApiCallback<Category>) {
+
+        val page = calculatePage(paginationValue)
+        val optionsBuilder = ProductOptionBuilder().addFilterGroup(CATEGORY_ID_FIELD, id)
+            .addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
+            .addSearchCriteria(Pagination.PAGE_SIZE.value, perPage)
+            .addSearchCriteria(Pagination.CURRENT_PAGE.value, page)
+
+        when (sortBy) {
+            SortType.NAME -> optionsBuilder.addSortOrder(NAME_FIELD)
+            SortType.RECENT -> optionsBuilder.addSortOrder(CREATED_AT_FIELD, true)
+            SortType.PRICE_HIGH_TO_LOW -> optionsBuilder.addSortOrder(PRICE_FIELD, true)
+            SortType.PRICE_LOW_TO_HIGH -> optionsBuilder.addSortOrder(PRICE_FIELD
+            )
+            else -> {
+                /*do nothing*/
+            }
+        }
+
+        val options = optionsBuilder.build()
+
+        storeService.getStoreConfigs()
+            .flatMap { response ->
+                productService.getProductList(options)
+                    .map { it.mapToEntityList(host, response.getCurrency(), page, perPage) }
+            }
+            .flatMap {
+                val productList = if (page == PAGINATION_END_VALUE) listOf() else it
+                categoryService.getCategoryDetails(id)
+                    .map {
+                        it.mapToEntity(host, productList)
+                    }
+            }
+            .subscribe(
+                { callback.onResult(it) },
+                { it.printStackTrace() }
+            )
+    }
+
+    override fun getCategoryList(perPage: Int, paginationValue: Any?, parentCategoryId: String?,
+                                 callback: ApiCallback<List<Category>>) {
+
+        if (paginationValue == null) {
+            categoryService.getCategoryList(parentCategoryId)
+                .map { it.mapToEntityList() }
+                .subscribe(
+                    { callback.onResult(it) },
+                    { it.printStackTrace() }
+                )
+        } else {
+            callback.onResult(listOf())
+        }
     }
 
     //OTHER
@@ -154,14 +227,6 @@ class MagentoApi(context: Context) : Api {
     }
 
     override fun getCardToken(card: Card, callback: ApiCallback<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCategoryDetails(id: String, perPage: Int, paginationValue: Any?, sortBy: SortType?, callback: ApiCallback<Category>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCategoryList(perPage: Int, paginationValue: Any?, callback: ApiCallback<List<Category>>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -234,14 +299,14 @@ class MagentoApi(context: Context) : Api {
             { page ->
 
                 val options = optionBuilder.addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
-                    .addSearchCriteria(PaginationPart.PAGE_SIZE.value, perPage)
-                    .addSearchCriteria(PaginationPart.CURRENT_PAGE.value, page)
+                    .addSearchCriteria(Pagination.PAGE_SIZE.value, perPage)
+                    .addSearchCriteria(Pagination.CURRENT_PAGE.value, page)
                     .build()
 
                 storeService.getStoreConfigs()
                     .flatMap { response ->
                         productService.getProductList(options)
-                            .map { it.mapToEntity(response.getCurrency(), page, perPage) }
+                            .map { it.mapToEntityList(host, response.getCurrency(), page, perPage) }
                     }
                     .subscribe(
                         { callback.onResult(it) },
@@ -255,7 +320,7 @@ class MagentoApi(context: Context) : Api {
         callback: ApiCallback<List<T>>,
         request: (page: Int) -> Unit
     ) {
-        val page = paginationValue.toString().toIntOrNull() ?: PAGINATION_START_VALUE
+        val page = calculatePage(paginationValue)
         if (page == PAGINATION_END_VALUE) {
             callback.onResult(listOf())
             return
@@ -263,4 +328,7 @@ class MagentoApi(context: Context) : Api {
             request(page)
         }
     }
+
+    private fun calculatePage(paginationValue: Any?) =
+        paginationValue.toString().toIntOrNull() ?: PAGINATION_START_VALUE
 }

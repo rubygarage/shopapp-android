@@ -11,10 +11,8 @@ import com.shopapp.gateway.entity.SortType
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 class CategoryRepositoryTest {
 
@@ -73,14 +71,14 @@ class CategoryRepositoryTest {
     @Test
     fun getCategoryListShouldDelegateCallToApi() {
         repository.getCategoryList(perPage, paginationValue).test()
-        verify(api).getCategoryList(eq(perPage), eq(paginationValue), any())
+        verify(api).getCategoryList(eq(perPage), eq(paginationValue), anyOrNull(), any())
     }
 
     @Test
     fun getCategoryListShouldReturnValueWhenOnResult() {
         val categoryList: List<Category> = mock()
-        given(api.getCategoryList(any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Category>>>(2)
+        given(api.getCategoryList(any(), any(), anyOrNull(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Category>>>(3)
             callback.onResult(categoryList)
         })
 
@@ -92,12 +90,12 @@ class CategoryRepositoryTest {
     @Test
     fun getCategoryListShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getCategoryList(any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Category>>>(2)
+        given(api.getCategoryList(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Category>>>(3)
             callback.onFailure(error)
         })
 
-        repository.getCategoryList(perPage, paginationValue)
+        repository.getCategoryList(perPage, paginationValue, categoryId)
             .test()
             .assertError(error)
     }

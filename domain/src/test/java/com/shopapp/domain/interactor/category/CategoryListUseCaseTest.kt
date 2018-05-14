@@ -25,7 +25,8 @@ class CategoryListUseCaseTest {
     fun shouldDelegateCallToRepository() {
         val perPage = 5
         val pagination = "pagination"
-        useCase.buildUseCaseSingle(CategoryListUseCase.Params(perPage, pagination))
-        verify(repository).getCategoryList(perPage, pagination)
+        val parentCategoryId = "parentCategoryId"
+        useCase.buildUseCaseSingle(CategoryListUseCase.Params(perPage, pagination, parentCategoryId))
+        verify(repository).getCategoryList(perPage, pagination, parentCategoryId)
     }
 }

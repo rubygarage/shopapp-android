@@ -1,0 +1,93 @@
+{
+  "id": 20,
+  "parent_id": 2,
+  "name": "Women",
+  "is_active": true,
+  "position": 2,
+  "level": 2,
+  "product_count": 0,
+  "children_data": [
+    {
+      "id": 21,
+      "parent_id": 20,
+      "name": "Tops",
+      "is_active": true,
+      "position": 1,
+      "level": 3,
+      "product_count": 0,
+      "children_data": [
+        {
+          "id": 23,
+          "parent_id": 21,
+          "name": "Jackets",
+          "is_active": true,
+          "position": 1,
+          "level": 4,
+          "product_count": 186,
+          "children_data": []
+        },
+        {
+          "id": 24,
+          "parent_id": 21,
+          "name": "Hoodies & Sweatshirts",
+          "is_active": true,
+          "position": 2,
+          "level": 4,
+          "product_count": 182,
+          "children_data": []
+        },
+        {
+          "id": 25,
+          "parent_id": 21,
+          "name": "Tees",
+          "is_active": true,
+          "position": 3,
+          "level": 4,
+          "product_count": 192,
+          "children_data": []
+        },
+        {
+          "id": 26,
+          "parent_id": 21,
+          "name": "Bras & Tanks",
+          "is_active": true,
+          "position": 4,
+          "level": 4,
+          "product_count": 224,
+          "children_data": []
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "parent_id": 20,
+      "name": "Bottoms",
+      "is_active": true,
+      "position": 2,
+      "level": 3,
+      "product_count": 0,
+      "children_data": [
+        {
+          "id": 27,
+          "parent_id": 22,
+          "name": "Pants",
+          "is_active": true,
+          "position": 1,
+          "level": 4,
+          "product_count": 91,
+          "children_data": []
+        },
+        {
+          "id": 28,
+          "parent_id": 22,
+          "name": "Shorts",
+          "is_active": true,
+          "position": 2,
+          "level": 4,
+          "product_count": 137,
+          "children_data": []
+        }
+      ]
+    }
+  ]
+}

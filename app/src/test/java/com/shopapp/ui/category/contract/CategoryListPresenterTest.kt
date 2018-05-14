@@ -4,13 +4,17 @@ import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.category.CategoryListUseCase
 import com.shopapp.gateway.entity.Category
 import com.shopapp.gateway.entity.Error
+import com.shopapp.test.MockInstantiator.DEFAULT_ID
 import com.shopapp.test.MockInstantiator.DEFAULT_PAGINATION_VALUE
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import io.reactivex.Single
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
@@ -41,7 +45,7 @@ class CategoryListPresenterTest {
         val categories: List<Category> = mock()
         given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.just(categories))
         presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
+        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, null)
         verify(categoryListUseCase).execute(any(), any(), eq(params))
     }
 
@@ -50,7 +54,7 @@ class CategoryListPresenterTest {
         val categories: List<Category> = mock()
         given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.just(categories))
         presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
+        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, null)
         val inOrder = inOrder(categoryListUseCase, view)
         inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showContent(categories)
@@ -60,8 +64,8 @@ class CategoryListPresenterTest {
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
         given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
-        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
+        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
+        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
 
         val inOrder = inOrder(view, categoryListUseCase)
         inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
@@ -71,8 +75,8 @@ class CategoryListPresenterTest {
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
         given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
-        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
+        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
+        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
 
         val inOrder = inOrder(view, categoryListUseCase)
         inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))

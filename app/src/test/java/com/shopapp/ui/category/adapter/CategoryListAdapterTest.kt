@@ -5,7 +5,8 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.base.recycler.OnItemClickListener
-import com.shopapp.ui.item.CategoryItem
+import com.shopapp.ui.item.category.CategoryGridItem
+import com.shopapp.ui.item.category.CategoryItem
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -19,7 +20,7 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
-class CategoryGridAdapterTest {
+class CategoryListAdapterTest {
 
     companion object {
         private const val SIZE = 4
@@ -31,13 +32,13 @@ class CategoryGridAdapterTest {
     @Mock
     private lateinit var clickListener: OnItemClickListener
 
-    private lateinit var adapter: CategoryGridAdapter
+    private lateinit var adapter: CategoryListAdapter
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         given(dataList.size).willReturn(SIZE)
-        adapter = CategoryGridAdapter(dataList, clickListener)
+        adapter = CategoryListAdapter(dataList, clickListener)
     }
 
     @Test
@@ -46,9 +47,16 @@ class CategoryGridAdapterTest {
     }
 
     @Test
-    fun shouldReturnCorrectType() {
+    fun shouldReturnCategoryItem() {
+        adapter = CategoryListAdapter(dataList, clickListener, false)
         val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
         assertTrue(itemView is CategoryItem)
+    }
+
+    @Test
+    fun shouldReturnCategoryGridItem() {
+        val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
+        assertTrue(itemView is CategoryGridItem)
     }
 
     @Test

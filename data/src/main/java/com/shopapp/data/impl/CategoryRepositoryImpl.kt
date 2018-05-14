@@ -1,10 +1,10 @@
 package com.shopapp.data.impl
 
+import com.shopapp.data.rx.RxCallbackSingle
+import com.shopapp.domain.repository.CategoryRepository
 import com.shopapp.gateway.Api
 import com.shopapp.gateway.entity.Category
 import com.shopapp.gateway.entity.SortType
-import com.shopapp.data.rx.RxCallbackSingle
-import com.shopapp.domain.repository.CategoryRepository
 import io.reactivex.Single
 
 class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {
@@ -17,9 +17,9 @@ class CategoryRepositoryImpl(private val api: Api) : CategoryRepository {
         }
     }
 
-    override fun getCategoryList(perPage: Int, paginationValue: String?): Single<List<Category>> {
+    override fun getCategoryList(perPage: Int, paginationValue: String?, parentCategoryId: String?): Single<List<Category>> {
         return Single.create<List<Category>> { emitter ->
-            api.getCategoryList(perPage, paginationValue, RxCallbackSingle<List<Category>>(emitter))
+            api.getCategoryList(perPage, paginationValue, parentCategoryId, RxCallbackSingle<List<Category>>(emitter))
         }
     }
 }

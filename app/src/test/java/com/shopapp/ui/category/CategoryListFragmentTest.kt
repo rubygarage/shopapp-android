@@ -2,6 +2,7 @@ package com.shopapp.ui.category
 
 import android.content.Context
 import android.support.v7.widget.GridLayoutManager
+import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.times
 import com.nhaarman.mockito_kotlin.verify
@@ -17,7 +18,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.support.v4.SupportFragmentTestUtil
 
@@ -58,6 +58,15 @@ class CategoryListFragmentTest {
         val category: Category = mock()
         fragment.onItemClicked(category, 0)
         verify(fragment.router).showCategory(fragment.context, category)
+    }
+
+    @Test
+    fun shouldStartCategoryListActivity() {
+        val category: Category = mock()
+        val childCategoryList = listOf<Category>(mock())
+        given(category.childrenCategoryList).willReturn(childCategoryList)
+        fragment.onItemClicked(category, 0)
+        verify(fragment.router).showCategoryList(fragment.context, category)
     }
 
     @Test
