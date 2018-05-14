@@ -17,6 +17,8 @@ branches:
   only:
     - master
     - develop
+    - feature/implement_magento_api
+    - /^feature\/magento.*$/
 
 script:
   - ./gradlew build jacocoTestReport connectedCheck
