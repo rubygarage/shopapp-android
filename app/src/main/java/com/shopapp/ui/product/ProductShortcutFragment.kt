@@ -111,7 +111,7 @@ class ProductShortcutFragment :
             height = resources.getDimensionPixelSize(R.dimen.product_horizontal_item_size)
             width = height
         } else {
-            layoutManager = GridLayoutManager(context, Constant.SPAN_COUNT)
+            layoutManager = GridLayoutManager(context, Constant.GRID_SPAN_COUNT)
             recyclerView.isNestedScrollingEnabled = false
             height = resources.getDimensionPixelSize(R.dimen.product_grid_item_size)
             width = MATCH_PARENT

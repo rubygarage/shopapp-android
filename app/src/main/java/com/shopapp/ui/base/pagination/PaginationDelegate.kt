@@ -8,7 +8,7 @@ import com.shopapp.R
 import com.shopapp.ui.base.recycler.EndlessRecyclerViewScrollListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.shopapp.ui.base.recycler.divider.GridSpaceDecoration
-import com.shopapp.ui.const.Constant.SPAN_COUNT
+import com.shopapp.ui.const.Constant.GRID_SPAN_COUNT
 
 class PaginationDelegate<M> {
 
@@ -18,9 +18,9 @@ class PaginationDelegate<M> {
             val context = recycler.context
             val layoutManager: RecyclerView.LayoutManager
             if (isGrid) {
-                layoutManager = GridLayoutManager(context, SPAN_COUNT)
+                layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
                 val space = context.resources.getDimensionPixelSize(R.dimen.recycler_divider_space)
-                val decoration = GridSpaceDecoration(space, SPAN_COUNT)
+                val decoration = GridSpaceDecoration(space, GRID_SPAN_COUNT)
                 it.addItemDecoration(decoration)
             } else {
                 layoutManager = LinearLayoutManager(context)

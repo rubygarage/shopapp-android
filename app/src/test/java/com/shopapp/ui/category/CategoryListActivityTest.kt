@@ -7,8 +7,7 @@ import com.shopapp.gateway.entity.Category
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,6 +15,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
+import org.robolectric.fakes.RoboMenuItem
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -45,5 +45,21 @@ class CategoryListActivityTest {
     @Test
     fun shouldAddCategoryListFragment() {
         assertTrue(activity.supportFragmentManager.findFragmentById(R.id.content) is CategoryListFragment)
+    }
+
+    @Test
+    fun shouldFinishActivityWhenBackButtonClicked() {
+        val menuItem = RoboMenuItem(android.R.id.home)
+        activity.onOptionsItemSelected(menuItem)
+
+        assertTrue(activity.isFinishing)
+    }
+
+    @Test
+    fun shouldNotFinishActivityWhenDifferentMenuItemClicked() {
+        val menuItem = RoboMenuItem(android.R.id.edit)
+        activity.onOptionsItemSelected(menuItem)
+
+        assertFalse(activity.isFinishing)
     }
 }

@@ -36,7 +36,9 @@ class SearchWithCategoriesFragmentTest {
     }
 
     @Test
-    fun shouldLoadConfigDataWhenOnCreate() {
+    fun shouldLoadConfigDataOnceWhenOnCreate() {
+        fragment.showContent(mock())
+        fragment.onViewCreated(fragment.view!!, null)
         verify(fragment.presenter).getConfig()
     }
 

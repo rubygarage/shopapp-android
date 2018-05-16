@@ -12,6 +12,7 @@ import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.base.lce.BaseLceFragment
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.GridSpaceDecoration
+import com.shopapp.ui.const.Constant.GRID_SPAN_COUNT
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.contract.ProductListView
@@ -35,7 +36,6 @@ class ProductPopularFragment :
     private lateinit var adapter: ProductListAdapter
 
     companion object {
-        private const val SPAN_COUNT = 2
         private const val MAX_ITEMS = 4
     }
 
@@ -58,7 +58,7 @@ class ProductPopularFragment :
     //SETUP
 
     private fun setupRecycler() {
-        val layoutManager = GridLayoutManager(context, SPAN_COUNT)
+        val layoutManager = GridLayoutManager(context, GRID_SPAN_COUNT)
         val size = resources.getDimensionPixelSize(R.dimen.product_horizontal_item_size)
         adapter = ProductListAdapter(size, size, productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
@@ -67,7 +67,7 @@ class ProductPopularFragment :
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.addItemDecoration(GridSpaceDecoration(
-            resources.getDimensionPixelSize(R.dimen.recycler_divider_space), SPAN_COUNT))
+            resources.getDimensionPixelSize(R.dimen.recycler_divider_space), GRID_SPAN_COUNT))
     }
 
     //LCE
