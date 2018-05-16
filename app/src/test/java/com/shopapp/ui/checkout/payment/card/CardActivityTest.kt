@@ -11,9 +11,9 @@ import com.shopapp.gateway.entity.CardType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Extra
 import kotlinx.android.synthetic.main.activity_card.*
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert.*
 import org.junit.Before

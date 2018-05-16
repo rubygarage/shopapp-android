@@ -11,6 +11,7 @@ import com.shopapp.ui.category.di.CategoryComponent
 import com.shopapp.ui.checkout.di.CheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.CardPaymentComponent
 import com.shopapp.ui.gallery.di.GalleryComponent
+import com.shopapp.ui.home.di.HomeComponent
 import com.shopapp.ui.order.di.OrderComponent
 import com.shopapp.ui.product.di.ProductComponent
 import com.shopapp.ui.search.di.SearchComponent
@@ -21,6 +22,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [RepositoryModule::class, ValidatorModule::class])
 interface AppComponent {
+
+    fun attachHomeComponent(): HomeComponent
 
     fun attachBlogComponent(): BlogComponent
 
@@ -47,5 +50,4 @@ interface AppComponent {
     fun attachSplashComponent(): SplashComponent
 
     fun attachGalleryComponent(): GalleryComponent
-
 }

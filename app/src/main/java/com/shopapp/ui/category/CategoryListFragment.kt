@@ -1,7 +1,9 @@
 package com.shopapp.ui.category
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Category
@@ -16,17 +18,45 @@ class CategoryListFragment :
     PaginationFragment<Category, CategoryListView, CategoryListPresenter>(),
     CategoryListView {
 
+    companion object {
+
+        private const val PARENT_CATEGORY = "parent_category"
+        private const val IS_GRID_MODE = "is_grid_mode"
+
+        fun newInstance(parentCategory: Category?, isGridMode: Boolean?): CategoryListFragment {
+            val fragment = CategoryListFragment()
+            val args = Bundle()
+            args.putParcelable(PARENT_CATEGORY, parentCategory)
+            args.putBoolean(IS_GRID_MODE, isGridMode ?: true)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
     @Inject
     lateinit var categoryListPresenter: CategoryListPresenter
 
     @Inject
     lateinit var router: CategoryListRouter
 
+    private var parentCategory: Category? = null
+    private var isGridMode = true
+
     //ANDROID
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        arguments?.let {
+            parentCategory = it.getParcelable(PARENT_CATEGORY)
+            isGridMode = it.getBoolean(IS_GRID_MODE, true)
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadData(true)
+        if (dataList.isEmpty()) {
+            loadData(true)
+        }
     }
 
     //INIT
@@ -41,7 +71,7 @@ class CategoryListFragment :
 
     //SETUP
 
-    override fun isGrid() = true
+    override fun isGrid() = isGridMode
 
     override fun setupAdapter() = CategoryListAdapter(dataList, this, isGrid())
 
@@ -49,7 +79,7 @@ class CategoryListFragment :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.getCategoryList(perPageCount(), paginationValue)
+        presenter.getCategoryList(perPageCount(), paginationValue, parentCategory?.id)
     }
 
     override fun showContent(data: List<Category>) {
@@ -65,7 +95,7 @@ class CategoryListFragment :
         if (data.childrenCategoryList.isEmpty()) {
             router.showCategory(context, data)
         } else {
-            router.showCategoryList(context, data)
+            router.showCategoryList(context, data, isGrid())
         }
     }
 }

@@ -3,11 +3,12 @@ package com.shopapp.gateway.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Author(var firstName: String,
-                  var lastName: String,
-                  var fullName: String,
-                  var email: String,
-                  var bio: String?
+data class Author(
+    val firstName: String,
+    val lastName: String,
+    val fullName: String,
+    val email: String,
+    val bio: String?
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

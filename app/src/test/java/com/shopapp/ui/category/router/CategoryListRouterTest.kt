@@ -7,6 +7,7 @@ import com.shopapp.ui.category.CategoryActivity
 import com.shopapp.ui.category.CategoryListActivity
 import com.shopapp.ui.category.CategoryListFragment
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -43,11 +44,13 @@ class CategoryListRouterTest {
     @Test
     fun shouldStartCategoryListActivity() {
         val category: Category = mock()
-        router.showCategoryList(fragment.context, category)
+        val isGrid = false
+        router.showCategoryList(fragment.context, category, isGrid)
 
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(category, startedIntent.extras.getParcelable(CategoryListActivity.EXTRA_CATEGORY))
+        assertEquals(category, startedIntent.extras.getParcelable(CategoryListActivity.PARENT_CATEGORY))
+        assertFalse(startedIntent.extras.getBoolean(CategoryListActivity.IS_GRID_MODE))
         assertEquals(CategoryListActivity::class.java, shadowIntent.intentClass)
     }
 }

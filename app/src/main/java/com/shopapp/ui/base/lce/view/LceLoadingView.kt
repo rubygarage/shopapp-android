@@ -15,11 +15,13 @@ class LceLoadingView @JvmOverloads constructor(
 
     companion object {
         private const val DEFAULT_START_TIME = -1L
+        private const val DEFAULT_MIN_DELAY = 50L
         private const val DEFAULT_MIN_SHOW_TIME = 500L
     }
 
     private var startTime: Long = DEFAULT_START_TIME
     private var postedHide = false
+    private var postedShow = false
     private var dismissed = false
     var minShowTime = DEFAULT_MIN_SHOW_TIME
 
@@ -34,6 +36,14 @@ class LceLoadingView @JvmOverloads constructor(
         visibility = View.GONE
     }
 
+    private val delayedShow = Runnable {
+        postedShow = false
+        if (!dismissed) {
+            startTime = System.currentTimeMillis()
+            visibility = View.VISIBLE
+        }
+    }
+
     public override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         removeCallbacks()
@@ -46,14 +56,22 @@ class LceLoadingView @JvmOverloads constructor(
 
     private fun removeCallbacks() {
         removeCallbacks(delayedHide)
+        removeCallbacks(delayedShow)
     }
 
     override fun changeState(state: LceLayout.LceState) {
         post {
             if (state is LceLayout.LceState.LoadingState) {
+                startTime = DEFAULT_START_TIME
                 dismissed = false
-                startTime = System.currentTimeMillis()
-                visibility = View.VISIBLE
+                removeCallbacks(delayedHide)
+                postedHide = false
+                if (!postedShow) {
+                    val delay = if (state.useDelay) DEFAULT_MIN_DELAY else 0
+                    postDelayed(delayedShow, delay)
+                    postedShow = true
+                }
+
                 val background = if (state.isTranslucent) {
                     R.color.colorBackgroundLightTranslucent
                 } else {

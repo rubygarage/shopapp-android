@@ -11,8 +11,8 @@ import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.const.Constant
-import kotlinx.android.synthetic.main.fragment_recent.*
-import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.fragment_product_shortcut.*
+import kotlinx.android.synthetic.main.lce.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -33,40 +33,40 @@ class ProductHorizontalFragmentTest {
         private val sortType = SortType.RECENT
     }
 
-    private lateinit var fragment: ProductHorizontalFragment
+    private lateinit var fragment: ProductShortcutFragment
     private lateinit var context: Context
 
     @Before
     fun setUp() {
-        fragment = ProductHorizontalFragment.newInstance(sortType, KEYWORD, EXCLUDE_KEYWORD)
+        fragment = ProductShortcutFragment.newInstance(sortType, KEYWORD, EXCLUDE_KEYWORD)
         startFragment(fragment)
         context = RuntimeEnvironment.application.baseContext
     }
 
     @Test
     fun shouldReceiveCorrectArguments() {
-        assertEquals(sortType, fragment.arguments?.getSerializable(ProductHorizontalFragment.SORT_TYPE) as SortType)
-        assertEquals(KEYWORD, fragment.arguments?.getString(ProductHorizontalFragment.KEYWORD))
-        assertEquals(EXCLUDE_KEYWORD, fragment.arguments?.getString(ProductHorizontalFragment.EXCLUDE_KEYWORD))
+        assertEquals(sortType, fragment.arguments?.getSerializable(ProductShortcutFragment.SORT_TYPE) as SortType)
+        assertEquals(KEYWORD, fragment.arguments?.getString(ProductShortcutFragment.KEYWORD))
+        assertEquals(EXCLUDE_KEYWORD, fragment.arguments?.getString(ProductShortcutFragment.EXCLUDE_KEYWORD))
     }
 
     @Test
     fun shouldShowRecentTitle() {
-        fragment = ProductHorizontalFragment.newInstance(SortType.RECENT, KEYWORD, EXCLUDE_KEYWORD)
+        fragment = ProductShortcutFragment.newInstance(SortType.RECENT, KEYWORD, EXCLUDE_KEYWORD)
         startFragment(fragment)
         assertEquals(context.getString(R.string.latest_arrivals), fragment.titleText.text.toString())
     }
 
     @Test
     fun shouldShowRelatedTitle() {
-        fragment = ProductHorizontalFragment.newInstance(SortType.TYPE, KEYWORD, EXCLUDE_KEYWORD)
+        fragment = ProductShortcutFragment.newInstance(SortType.TYPE, KEYWORD, EXCLUDE_KEYWORD)
         startFragment(fragment)
         assertEquals(context.getString(R.string.related_items), fragment.titleText.text.toString())
     }
 
     @Test
     fun shouldShowEmptyTitle() {
-        fragment = ProductHorizontalFragment.newInstance(SortType.NAME, KEYWORD, EXCLUDE_KEYWORD)
+        fragment = ProductShortcutFragment.newInstance(SortType.NAME, KEYWORD, EXCLUDE_KEYWORD)
         startFragment(fragment)
         assertEquals("", fragment.titleText.text.toString())
     }
@@ -127,7 +127,7 @@ class ProductHorizontalFragmentTest {
     @Test
     fun shouldNotifyVisibilityListener() {
         val listener: FragmentVisibilityListener = mock()
-        fragment.visibilityListener = listener
+        fragment.fragmentVisibilityListener = listener
 
         val size = 5
         val dataList = MockInstantiator.newList(MockInstantiator.newProduct(), size)

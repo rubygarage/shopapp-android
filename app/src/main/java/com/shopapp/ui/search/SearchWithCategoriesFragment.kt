@@ -1,21 +1,32 @@
 package com.shopapp.ui.search
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.shopapp.R
+import com.shopapp.ShopApplication
+import com.shopapp.gateway.entity.Config
+import com.shopapp.ui.base.lce.BaseLceFragment
+import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.category.CategoryListFragment
-import kotlinx.android.synthetic.main.fragment_search_with_categories.*
+import com.shopapp.ui.search.contract.SearchWithCategoriesPresenter
+import com.shopapp.ui.search.contract.SearchWithCategoriesView
+import kotlinx.android.synthetic.main.fragment_search_with_categories_lce.*
+import javax.inject.Inject
 
-class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarListener {
+class SearchWithCategoriesFragment :
+    BaseLceFragment<Config, SearchWithCategoriesView, SearchWithCategoriesPresenter>(),
+    SearchWithCategoriesView,
+    SearchToolbar.SearchToolbarListener {
+
+    @Inject
+    lateinit var searchWithCategoriesPresenter: SearchWithCategoriesPresenter
+    private var config: Config? = null
 
     private val searchFragment: SearchFragment by lazy {
         SearchFragment()
     }
     private val categoriesFragment: CategoryListFragment by lazy {
-        CategoryListFragment()
+        CategoryListFragment.newInstance(null, config?.isCategoryGridEnabled)
     }
 
     companion object {
@@ -25,13 +36,44 @@ class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarList
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_search_with_categories, container, false)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchToolbar.searchToolbarListener = this
+        config ?: also {
+            lceLayout.changeState(LceLayout.LceState.LoadingState(useDelay = true))
+            presenter.getConfig()
+        }
+    }
+
+    /**
+     * @return 'true' if onBackPressed allowed
+     */
+    fun onBackPressed(): Boolean {
+        return if (searchToolbar.isToolbarExpanded()) {
+            searchToolbar.changeToolbarState()
+            false
+        } else {
+            true
+        }
+    }
+
+    //INIT
+
+    override fun inject() {
+        ShopApplication.appComponent.attachSearchComponent().inject(this)
+    }
+
+    override fun getRootView() = R.layout.fragment_search_with_categories_lce
+
+    override fun getContentView() = R.layout.fragment_search_with_categories
+
+    override fun createPresenter() = searchWithCategoriesPresenter
+
+    //LCE
+
+    override fun showContent(data: Config) {
+        super.showContent(data)
+        config = data
         changeContent(ContentType.Categories)
     }
 
@@ -46,17 +88,7 @@ class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarList
             .commit()
     }
 
-    /**
-     * @return 'true' if onBackPressed allowed
-     */
-    fun onBackPressed(): Boolean {
-        return if (searchToolbar.isToolbarExpanded()) {
-            searchToolbar.changeToolbarState()
-            false
-        } else {
-            true
-        }
-    }
+    //CALLBACK
 
     override fun onQueryChanged(query: String) {
         if (searchFragment.isVisible || query.isBlank()) {

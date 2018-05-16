@@ -5,14 +5,14 @@ import android.os.Parcelable
 import java.math.BigDecimal
 
 data class ProductVariant(
-    var id: String,
-    var title: String,
-    var price: BigDecimal,
-    var isAvailable: Boolean,
-    var selectedOptions: List<VariantOption>,
-    var image: Image? = null,
-    var productImage: Image? = null,
-    var productId: String
+    val id: String,
+    val title: String,
+    val price: BigDecimal,
+    val isAvailable: Boolean,
+    val selectedOptions: List<VariantOption>,
+    val image: Image? = null,
+    val productImage: Image? = null,
+    val productId: String
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

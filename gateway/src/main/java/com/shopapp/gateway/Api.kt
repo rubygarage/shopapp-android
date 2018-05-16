@@ -21,6 +21,8 @@ interface Api {
 
     fun getShopInfo(callback: ApiCallback<Shop>)
 
+    fun getConfig(callback: ApiCallback<Config>)
+
     fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType? = null,
                        reverse: Boolean = false, callback: ApiCallback<List<Article>>)
 
@@ -73,5 +75,4 @@ interface Api {
     fun getCardToken(card: Card, callback: ApiCallback<String>)
 
     fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String, callback: ApiCallback<Order>)
-
 }

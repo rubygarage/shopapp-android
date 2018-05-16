@@ -14,12 +14,15 @@ import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.lce.view.LceLayout
-import kotlinx.android.synthetic.main.fragment_lce.*
-import kotlinx.android.synthetic.main.layout_lce.*
+import com.shopapp.ui.base.ui.FragmentVisibilityListener
+import kotlinx.android.synthetic.main.layout_lce_without_toolbar.*
+import kotlinx.android.synthetic.main.lce.*
 
 abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
     MvpFragment<V, P>(),
     BaseLceView<M> {
+
+    var fragmentVisibilityListener: FragmentVisibilityListener? = null
 
     //ANDROID
 
@@ -45,7 +48,7 @@ abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
     abstract fun inject()
 
     @LayoutRes
-    protected open fun getRootView() = R.layout.fragment_lce
+    protected open fun getRootView() = R.layout.layout_lce_without_toolbar
 
     @LayoutRes
     abstract fun getContentView(): Int

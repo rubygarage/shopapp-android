@@ -8,16 +8,15 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.custom.SimpleTextWatcher
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.MockitoAnnotations
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
@@ -36,7 +35,6 @@ class SignInActivityTest {
 
     @Before
     fun setUpTest() {
-        MockitoAnnotations.initMocks(this)
         activity = Robolectric.setupActivity(SignInActivity::class.java)
         context = RuntimeEnvironment.application.baseContext
     }

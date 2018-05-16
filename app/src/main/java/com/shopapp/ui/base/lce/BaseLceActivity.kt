@@ -15,8 +15,8 @@ import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import com.shopapp.ui.base.lce.view.LceEmptyView
 import com.shopapp.ui.base.lce.view.LceLayout
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.*
 
 abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M, V>> :
     MvpActivity<V, P>(),
@@ -96,7 +96,7 @@ abstract class BaseLceActivity<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
 
     @LayoutRes
     protected open fun getMainLayout(): Int {
-        return R.layout.activity_lce
+        return R.layout.layout_lce
     }
 
     //SETUP

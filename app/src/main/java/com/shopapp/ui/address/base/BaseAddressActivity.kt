@@ -19,7 +19,7 @@ import com.shopapp.ui.base.picker.BaseBottomSheetPicker
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_address.*
-import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
 import javax.inject.Inject
 
 abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :

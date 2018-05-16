@@ -61,7 +61,7 @@ class ProductPopularFragmentTest {
     @Test
     fun shouldNotifyVisibilityListener() {
         val listener: FragmentVisibilityListener = mock()
-        fragment.visibilityListener = listener
+        fragment.fragmentVisibilityListener = listener
 
         val size = 5
         val dataList = MockInstantiator.newList(MockInstantiator.newProduct(), size)

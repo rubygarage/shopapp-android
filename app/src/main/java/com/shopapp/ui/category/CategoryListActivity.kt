@@ -3,81 +3,58 @@ package com.shopapp.ui.category
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import com.shopapp.R
-import com.shopapp.ShopApplication
 import com.shopapp.gateway.entity.Category
-import com.shopapp.ui.base.pagination.PaginationActivity
-import com.shopapp.ui.category.adapter.CategoryListAdapter
-import com.shopapp.ui.category.contract.CategoryListPresenter
-import com.shopapp.ui.category.contract.CategoryListView
-import com.shopapp.ui.category.router.CategoryListRouter
-import javax.inject.Inject
+import kotlinx.android.synthetic.main.activity_category_list.*
 
-class CategoryListActivity : PaginationActivity<Category, CategoryListView, CategoryListPresenter>(),
-    CategoryListView {
+class CategoryListActivity : AppCompatActivity() {
 
     companion object {
 
-        const val EXTRA_CATEGORY = "EXTRA_CATEGORY"
+        val PARENT_CATEGORY = "parent_category"
+        const val IS_GRID_MODE = "is_grid_mode"
 
-        fun getStartIntent(context: Context, category: Category): Intent {
+        fun getStartIntent(context: Context, category: Category, isGrid: Boolean): Intent {
             val intent = Intent(context, CategoryListActivity::class.java)
-            intent.putExtra(EXTRA_CATEGORY, category)
+            intent.putExtra(PARENT_CATEGORY, category)
+            intent.putExtra(IS_GRID_MODE, isGrid)
             return intent
         }
     }
 
-    @Inject
-    lateinit var categoryListPresenter: CategoryListPresenter
-
-    @Inject
-    lateinit var router: CategoryListRouter
-
-    lateinit var parentCategory: Category
-
-    //ANDROID
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parentCategory = intent.getParcelableExtra(EXTRA_CATEGORY)
-        setTitle(parentCategory.title)
-        loadData()
+        setContentView(R.layout.activity_category_list)
+        val parentCategory: Category? = intent.getParcelableExtra(PARENT_CATEGORY)
+        val isGrid = intent.getBooleanExtra(IS_GRID_MODE, true)
+
+        toolbar.setTitle(parentCategory?.title ?: "")
+        setSupportActionBar(toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+            it.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        }
+        val fragment = CategoryListFragment.newInstance(parentCategory, isGrid)
+        supportFragmentManager.beginTransaction()
+            .replace(content.id, fragment)
+            .commit()
     }
 
-    //INIT
-
-    override fun inject() {
-        ShopApplication.appComponent.attachCategoryComponent().inject(this)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_cart, menu)
+        return true
     }
 
-    override fun getContentView() = R.layout.fragment_search_with_categories_list
-
-    override fun createPresenter() = categoryListPresenter
-
-    //SETUP
-
-    override fun setupAdapter() = CategoryListAdapter(dataList, this, isGrid())
-
-    //LCE
-
-    override fun loadData(pullToRefresh: Boolean) {
-        super.loadData(pullToRefresh)
-        presenter.getCategoryList(perPageCount(), paginationValue, parentCategory.id)
-    }
-
-    override fun showContent(data: List<Category>) {
-        super.showContent(data)
-        dataList.addAll(data)
-        adapter.notifyDataSetChanged()
-        data.lastOrNull()?.let { paginationValue = it.paginationValue }
-    }
-
-    //CALLBACK
-    override fun onItemClicked(data: Category, position: Int) {
-        if (data.childrenCategoryList.isEmpty()) {
-            router.showCategory(this, data)
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            true
         } else {
-            router.showCategoryList(this, data)
+            false
         }
     }
 }

@@ -4,11 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.shopapp.ui.custom.CenteredTitleToolbar
-        android:id="@+id/toolbar"
-        style="@style/ToolbarStyle"
+    <com.shopapp.ui.search.SearchToolbar
+        android:id="@+id/searchToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="?attr/actionBarSize" />
 
     <com.shopapp.ui.base.lce.view.LceLayout
         android:id="@+id/lceLayout"

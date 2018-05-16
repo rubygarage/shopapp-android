@@ -3,7 +3,7 @@ package com.shopapp.gateway.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-data class VariantOption(var name: String, var value: String) : Parcelable {
+data class VariantOption(val name: String, val value: String) : Parcelable {
 
     constructor(source: Parcel) : this(
         source.readString(),

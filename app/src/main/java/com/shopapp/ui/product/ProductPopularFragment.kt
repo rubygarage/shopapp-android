@@ -12,7 +12,6 @@ import com.shopapp.gateway.entity.SortType
 import com.shopapp.ui.base.lce.BaseLceFragment
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.GridSpaceDecoration
-import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.contract.ProductListView
@@ -34,7 +33,6 @@ class ProductPopularFragment :
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RELEVANT
     private lateinit var adapter: ProductListAdapter
-    var visibilityListener: FragmentVisibilityListener? = null
 
     companion object {
         private const val SPAN_COUNT = 2
@@ -81,7 +79,7 @@ class ProductPopularFragment :
 
     override fun showContent(data: List<Product>) {
         super.showContent(data)
-        visibilityListener?.changeVisibility(data.isNotEmpty())
+        fragmentVisibilityListener?.changeVisibility(data.isNotEmpty())
         if (data.isNotEmpty()) {
             productList.clear()
             if (data.size >= MAX_ITEMS) {

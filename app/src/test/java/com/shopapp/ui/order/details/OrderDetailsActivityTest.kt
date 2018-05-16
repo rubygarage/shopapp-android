@@ -8,9 +8,9 @@ import com.shopapp.TestShopApplication
 import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_details.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import kotlinx.android.synthetic.main.view_price.view.*

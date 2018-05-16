@@ -11,9 +11,9 @@ import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant.DEFAULT_PER_PAGE_COUNT
 import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After

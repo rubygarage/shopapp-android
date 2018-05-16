@@ -14,11 +14,10 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Policy
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.custom.SimpleTextWatcher
-import com.shopapp.ui.policy.PolicyActivity
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
 import org.junit.Assert.*
@@ -78,7 +77,7 @@ class SignUpActivityTest {
 
     @Test
     fun shouldStartPolicyActivityWhenPrivacySpanClicked() {
-        val spannableString = activity.policyText.text  as SpannableString
+        val spannableString = activity.policyText.text as SpannableString
         val spans = spannableString.getSpans(0, spannableString.length, ClickableSpan::class.java)
 
         assertTrue(spans.isNotEmpty())
@@ -88,7 +87,7 @@ class SignUpActivityTest {
 
     @Test
     fun shouldStartPolicyActivityWhenTermsSpanClicked() {
-        val spannableString = activity.policyText.text  as SpannableString
+        val spannableString = activity.policyText.text as SpannableString
         val spans = spannableString.getSpans(0, spannableString.length, ClickableSpan::class.java)
 
         assertTrue(spans.isNotEmpty())

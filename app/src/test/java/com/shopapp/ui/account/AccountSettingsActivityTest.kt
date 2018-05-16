@@ -7,7 +7,7 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.RxImmediateSchedulerRule
 import kotlinx.android.synthetic.main.activity_account_settings.*
-import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
 import org.junit.Assert.*

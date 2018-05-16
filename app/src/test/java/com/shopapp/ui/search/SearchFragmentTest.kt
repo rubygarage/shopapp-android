@@ -9,7 +9,7 @@ import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_search_with_categories_list.*
-import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse

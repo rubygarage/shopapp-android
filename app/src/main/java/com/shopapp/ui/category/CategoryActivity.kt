@@ -19,8 +19,8 @@ import com.shopapp.ui.category.router.CategoryRouter
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.product.adapter.ProductListAdapter
 import kotlinx.android.synthetic.main.activity_category.*
-import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import javax.inject.Inject
 
 

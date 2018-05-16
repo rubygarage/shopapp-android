@@ -6,13 +6,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.never
-import com.nhaarman.mockito_kotlin.only
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.ui.home.HomeActivity
-import kotlinx.android.synthetic.main.fragment_search_with_categories.*
+import kotlinx.android.synthetic.main.fragment_search_with_categories_lce.*
 import kotlinx.android.synthetic.main.toolbar_search.view.*
 import org.junit.Assert.*
 import org.junit.Before

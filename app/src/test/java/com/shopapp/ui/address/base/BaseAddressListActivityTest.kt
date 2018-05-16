@@ -10,8 +10,8 @@ import com.shopapp.ui.address.base.adapter.AddressListAdapter
 import com.shopapp.ui.address.base.contract.AddressListPresenter
 import com.shopapp.ui.address.base.contract.AddressListView
 import kotlinx.android.synthetic.main.activity_address_list.*
-import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
