@@ -1,12 +1,14 @@
 package com.shopapp.ui.category
 
 import android.content.Context
+import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Category
 import com.shopapp.test.MockInstantiator
 import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -40,36 +42,8 @@ class CategoryListActivityTest {
         assertEquals(MockInstantiator.DEFAULT_TITLE, activity.toolbar.toolbarTitle.text)
     }
 
-    /*@Test
-    fun shouldGetCategoriesOnLoadData() {
-        activity.loadData()
-        verify(activity.presenter, times(2)).getCategoryList(DEFAULT_PER_PAGE_COUNT,
-            null, category.id)
-    }
-
     @Test
-    fun shouldShowData() {
-        val categories = MockInstantiator.newList(MockInstantiator.newCategory(), DEFAULT_PER_PAGE_COUNT)
-        activity.showContent(categories)
-        assertEquals(DEFAULT_PER_PAGE_COUNT, activity.recyclerView.adapter.itemCount)
+    fun shouldAddCategoryListFragment() {
+        assertTrue(activity.supportFragmentManager.findFragmentById(R.id.content) is CategoryListFragment)
     }
-
-    @Test
-    fun shouldStartCategoryActivity() {
-        activity.onItemClicked(category, 0)
-        verify(activity.router).showCategory(activity, category)
-    }
-
-    @Test
-    fun shouldStartCategoryListActivity() {
-        val childCategoryList = listOf<Category>(mock())
-        given(category.childrenCategoryList).willReturn(childCategoryList)
-        activity.onItemClicked(category, 0)
-        verify(activity.router).showCategoryList(activity, category)
-    }
-
-    @Test
-    fun shouldShowItemsAsGrid() {
-        assertFalse(activity.recyclerView.layoutManager is GridLayoutManager)
-    }*/
 }
