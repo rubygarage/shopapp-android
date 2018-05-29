@@ -3,6 +3,7 @@ package com.shopapp.ui.account.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.EditCustomerUseCase
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.shop.ConfigUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -25,6 +26,8 @@ class PersonalInfoPresenterTest {
     @Mock
     private lateinit var view: PersonalInfoView
 
+    private var configUseCase: ConfigUseCase = mock()
+
     private var getCustomerUseCase: GetCustomerUseCase = mock()
 
     private var editCustomerUseCase: EditCustomerUseCase = mock()
@@ -38,7 +41,7 @@ class PersonalInfoPresenterTest {
         MockitoAnnotations.initMocks(this)
         editCustomerUseCase.mock()
         getCustomerUseCase.mock()
-        presenter = PersonalInfoPresenter(getCustomerUseCase, editCustomerUseCase)
+        presenter = PersonalInfoPresenter(configUseCase, getCustomerUseCase, editCustomerUseCase)
         presenter.attachView(view)
     }
 

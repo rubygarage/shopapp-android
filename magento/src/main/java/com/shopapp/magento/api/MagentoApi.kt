@@ -58,7 +58,8 @@ class MagentoApi : Api {
         Config(
             isPopularEnabled = false,
             isBlogEnabled = false,
-            isCategoryGridEnabled = false
+            isCategoryGridEnabled = false,
+            isCustomerPhoneEnabled = false
         )
     }
 
@@ -245,11 +246,6 @@ class MagentoApi : Api {
             )
         }, callback)
     }
-    //SHOP
-
-    override fun getConfig(callback: ApiCallback<Config>) {
-        callback.onResult(config)
-    }
 
     //OTHER
 
@@ -302,6 +298,10 @@ class MagentoApi : Api {
     }
 
     //SHOP
+
+    override fun getConfig(callback: ApiCallback<Config>) {
+        callback.onResult(config)
+    }
 
     override fun getShopInfo(callback: ApiCallback<Shop>) {
         callback.onResult(Shop("", null, null, null, null)) //TODO

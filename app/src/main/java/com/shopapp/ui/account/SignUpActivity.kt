@@ -13,11 +13,14 @@ import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import com.shopapp.gateway.entity.Policy
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.getTrimmedString
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Config
+import com.shopapp.gateway.entity.Policy
 import com.shopapp.ui.account.contract.SignUpPresenter
 import com.shopapp.ui.account.contract.SignUpView
 import com.shopapp.ui.account.router.SignUpRouter
@@ -29,7 +32,7 @@ import javax.inject.Inject
 
 
 class SignUpActivity :
-    BaseLceActivity<Unit, SignUpView, SignUpPresenter>(),
+    BaseLceActivity<Config, SignUpView, SignUpPresenter>(),
     SignUpView {
 
     @Inject
@@ -60,8 +63,16 @@ class SignUpActivity :
         setupInfoText()
         createButton.setOnClickListener {
             clearFormFocus()
-            loadData(true)
+            presenter.signUp(
+                firstNameInput.getTrimmedString(),
+                lastNameInput.getTrimmedString(),
+                emailInput.getTrimmedString(),
+                passwordInput.getTrimmedString(),
+                phoneInput.getTrimmedString()
+            )
         }
+
+        loadData()
     }
 
     override fun onResume() {
@@ -159,6 +170,21 @@ class SignUpActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
+        presenter.getConfig()
+    }
+
+    override fun showContent(data: Config) {
+        super.showContent(data)
+        phoneInputLayout.visibility = if (data.isCustomerPhoneEnabled) VISIBLE else GONE
+    }
+
+    override fun onSignUpFinished() {
+        showMessage(R.string.register_success_message)
+        setResult(Activity.RESULT_OK)
+        finish()
+    }
+
+    override fun onTryAgainButtonClicked() {
         presenter.signUp(
             firstNameInput.getTrimmedString(),
             lastNameInput.getTrimmedString(),
@@ -166,17 +192,6 @@ class SignUpActivity :
             passwordInput.getTrimmedString(),
             phoneInput.getTrimmedString()
         )
-    }
-
-    override fun showContent(data: Unit) {
-        super.showContent(data)
-        showMessage(R.string.register_success_message)
-        setResult(Activity.RESULT_OK)
-        finish()
-    }
-
-    override fun onTryAgainButtonClicked() {
-        loadData(true)
     }
 
     override fun showEmailError() {
