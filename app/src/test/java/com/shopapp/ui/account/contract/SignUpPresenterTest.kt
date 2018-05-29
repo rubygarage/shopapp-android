@@ -93,6 +93,14 @@ class SignUpPresenterTest {
     }
 
     @Test
+    fun shouldShowErrorWhenConfigReceived() {
+        val error = Error.Content()
+        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
+        presenter.getConfig()
+        verify(view).showError(error)
+    }
+
+    @Test
     fun shouldCallOnSignUpFinishedWhenOnUseCaseComplete() {
         given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         presenter.signUp(name, lastName, email, password, phone)

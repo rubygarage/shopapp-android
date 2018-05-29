@@ -30,7 +30,7 @@ class SignUpPresenter @Inject constructor(
 
     fun getConfig() {
         configUseCase.execute(
-            { view.showContent(it) },
+            { view?.showContent(it) },
             { resolveError(it) },
             Unit
         )

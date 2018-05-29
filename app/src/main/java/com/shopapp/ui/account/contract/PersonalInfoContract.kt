@@ -28,7 +28,7 @@ class PersonalInfoPresenter @Inject constructor(
 
     fun getConfig() {
         configUseCase.execute(
-            { view.onConfigReceived(it) },
+            { view?.onConfigReceived(it) },
             { resolveError(it) },
             Unit
         )
