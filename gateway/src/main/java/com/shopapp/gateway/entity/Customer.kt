@@ -5,7 +5,7 @@ data class Customer(
     val email: String,
     val firstName: String,
     val lastName: String,
-    val phone: String,
+    val phone: String?,
     val isAcceptsMarketing: Boolean,
     val addressList: List<Address>,
     val defaultAddress: Address?
