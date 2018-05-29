@@ -1,4 +1,4 @@
-package com.shopapp.domain.interactor.account
+package com.shopapp.domain.interactor.shop
 
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.domain.repository.ShopRepository
@@ -26,5 +26,4 @@ class ShopInfoUseCaseTest {
         useCase.buildUseCaseSingle(Unit)
         verify(shopRepository).getShop()
     }
-
 }

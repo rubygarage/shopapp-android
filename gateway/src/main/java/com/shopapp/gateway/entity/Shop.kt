@@ -3,11 +3,12 @@ package com.shopapp.gateway.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Shop(var name: String,
-                var description: String?,
-                var privacyPolicy: Policy?,
-                var refundPolicy: Policy?,
-                var termsOfService: Policy?
+data class Shop(
+    val name: String,
+    val description: String?,
+    val privacyPolicy: Policy?,
+    val refundPolicy: Policy?,
+    val termsOfService: Policy?
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

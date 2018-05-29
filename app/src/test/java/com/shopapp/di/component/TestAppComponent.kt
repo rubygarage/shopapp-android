@@ -11,6 +11,7 @@ import com.shopapp.ui.category.di.TestCategoryComponent
 import com.shopapp.ui.checkout.di.TestCheckoutComponent
 import com.shopapp.ui.checkout.payment.card.di.TestCardPaymentComponent
 import com.shopapp.ui.gallery.di.TestGalleryComponent
+import com.shopapp.ui.home.di.TestHomeComponent
 import com.shopapp.ui.order.di.TestOrderComponent
 import com.shopapp.ui.product.di.TestProductComponent
 import com.shopapp.ui.search.di.TestSearchComponent
@@ -21,6 +22,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [TestRepositoryModule::class, TestValidatorModule::class])
 interface TestAppComponent : AppComponent {
+
+    override fun attachHomeComponent(): TestHomeComponent
 
     override fun attachBlogComponent(): TestBlogComponent
 

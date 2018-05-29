@@ -5,8 +5,8 @@ import android.view.View
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Error
-import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.Assert.*
 import org.junit.Before

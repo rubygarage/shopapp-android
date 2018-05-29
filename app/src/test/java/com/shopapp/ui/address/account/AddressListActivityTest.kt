@@ -12,7 +12,7 @@ import com.shopapp.ui.address.base.BaseAddressActivity
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_address_list.*
-import kotlinx.android.synthetic.main.activity_lce.*
+import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert.*
 import org.junit.Before

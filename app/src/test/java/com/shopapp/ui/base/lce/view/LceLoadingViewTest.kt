@@ -13,6 +13,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
+
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class LceLoadingViewTest {
@@ -27,9 +28,18 @@ class LceLoadingViewTest {
     }
 
     @Test
-    fun shouldViewBeVisible() {
-        view.changeState(LceLayout.LceState.LoadingState())
+    fun shouldViewBeVisibleAfterDelayEnd() {
+        view.visibility = View.GONE
+        view.changeState(LceLayout.LceState.LoadingState(useDelay = false))
         assertEquals(View.VISIBLE, view.visibility)
+        assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLight), view.background)
+    }
+
+    @Test
+    fun shouldViewBeGoneBeforeDelayEnd() {
+        view.visibility = View.GONE
+        view.changeState(LceLayout.LceState.LoadingState(useDelay = true))
+        assertEquals(View.GONE, view.visibility)
         assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLight), view.background)
     }
 

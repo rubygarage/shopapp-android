@@ -4,15 +4,16 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
 
-data class Category(val id: String,
-                    val title: String,
-                    val categoryDescription: String,
-                    val additionalDescription: String,
-                    val image: Image?,
-                    val updatedAt: Date,
-                    val childrenCategoryList: List<Category>,
-                    val productList: List<Product>,
-                    val paginationValue: String? = null
+data class Category(
+    val id: String,
+    val title: String,
+    val categoryDescription: String,
+    val additionalDescription: String,
+    val image: Image?,
+    val updatedAt: Date,
+    val childrenCategoryList: List<Category>,
+    val productList: List<Product>,
+    val paginationValue: String? = null
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

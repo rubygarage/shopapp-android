@@ -1,6 +1,7 @@
 package com.shopapp.ui.account.di
 
 import com.shopapp.domain.interactor.account.*
+import com.shopapp.domain.interactor.shop.ShopInfoUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.ui.account.contract.*
 import com.shopapp.ui.account.router.AccountRouter

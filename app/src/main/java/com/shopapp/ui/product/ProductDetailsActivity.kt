@@ -26,9 +26,9 @@ import com.shopapp.ui.gallery.GalleryFragment
 import com.shopapp.ui.product.contract.ProductDetailsPresenter
 import com.shopapp.ui.product.contract.ProductDetailsView
 import com.shopapp.ui.product.view.OptionsGroupContainer
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_product_details.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
 import javax.inject.Inject
@@ -184,8 +184,8 @@ class ProductDetailsActivity :
         galleryFragment?.updateProduct(data)
         optionsContainer.setProduct(data, intent.getParcelableExtra(EXTRA_PRODUCT_VARIANT))
 
-        val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type, data.title)
-        relatedFragment.visibilityListener = object : FragmentVisibilityListener {
+        val relatedFragment = ProductShortcutFragment.newInstance(SortType.TYPE, data.type, data.title)
+        relatedFragment.fragmentVisibilityListener = object : FragmentVisibilityListener {
             override fun changeVisibility(isVisible: Boolean) {
                 relatedContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
             }

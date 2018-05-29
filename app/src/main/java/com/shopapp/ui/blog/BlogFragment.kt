@@ -9,7 +9,6 @@ import com.shopapp.gateway.entity.Article
 import com.shopapp.ui.base.lce.BaseLceFragment
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.divider.DividerItemDecorator
-import com.shopapp.ui.base.ui.FragmentVisibilityListener
 import com.shopapp.ui.blog.adapter.BlogAdapter
 import com.shopapp.ui.blog.contract.BlogPresenter
 import com.shopapp.ui.blog.contract.BlogView
@@ -31,7 +30,6 @@ class BlogFragment :
 
     private var articleList = mutableListOf<Article>()
     private lateinit var adapter: BlogAdapter
-    var visibilityListener: FragmentVisibilityListener? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,7 +81,7 @@ class BlogFragment :
 
     override fun showContent(data: List<Article>) {
         super.showContent(data)
-        visibilityListener?.changeVisibility(data.isNotEmpty())
+        fragmentVisibilityListener?.changeVisibility(data.isNotEmpty())
         if (data.isNotEmpty()) {
             this.articleList.clear()
             this.articleList.addAll(data)

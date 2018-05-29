@@ -7,10 +7,10 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -20,7 +20,6 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)

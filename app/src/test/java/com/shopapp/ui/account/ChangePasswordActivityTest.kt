@@ -9,8 +9,8 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_change_password.*
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.After
 import org.junit.Assert.*

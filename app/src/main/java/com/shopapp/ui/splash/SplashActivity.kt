@@ -47,7 +47,7 @@ class SplashActivity : BaseLceActivity<Unit, SplashView, SplashPresenter>(), Spl
         ShopApplication.appComponent.attachSplashComponent().inject(this)
     }
 
-    override fun getMainLayout() = R.layout.activity_lce_without_toolbar
+    override fun getMainLayout() = R.layout.layout_lce_without_toolbar
 
     override fun getContentView() = R.layout.activity_splash
 

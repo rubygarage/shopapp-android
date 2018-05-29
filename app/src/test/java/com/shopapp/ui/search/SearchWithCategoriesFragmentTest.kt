@@ -6,7 +6,7 @@ import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.ui.category.CategoryListFragment
-import kotlinx.android.synthetic.main.fragment_search_with_categories.*
+import kotlinx.android.synthetic.main.fragment_search_with_categories_lce.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -36,7 +36,16 @@ class SearchWithCategoriesFragmentTest {
     }
 
     @Test
-    fun shouldShowCategoriesScreenOnCreate() {
+    fun shouldLoadConfigDataOnceWhenOnCreate() {
+        fragment.showContent(mock())
+        fragment.onViewCreated(fragment.view!!, null)
+        verify(fragment.presenter).getConfig()
+    }
+
+    @Test
+    fun shouldShowCategoriesScreenWhenConfigReceived() {
+        val config = com.shopapp.gateway.entity.Config(false, false, false)
+        fragment.showContent(config)
         val showedFragment = fragment.childFragmentManager.findFragmentById(R.id.container)
         assertTrue(showedFragment is CategoryListFragment)
     }

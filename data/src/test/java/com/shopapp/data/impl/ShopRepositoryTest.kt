@@ -8,16 +8,15 @@ import com.shopapp.data.RxImmediateSchedulerRule
 import com.shopapp.domain.repository.ShopRepository
 import com.shopapp.gateway.Api
 import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Config
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Shop
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 class ShopRepositoryTest {
 
@@ -30,22 +29,24 @@ class ShopRepositoryTest {
 
     private lateinit var repository: ShopRepository
     private lateinit var shopObserver: TestObserver<Shop>
+    private lateinit var configObserver: TestObserver<Config>
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
         repository = ShopRepositoryImpl(api)
         shopObserver = TestObserver()
+        configObserver = TestObserver()
     }
 
     @Test
-    fun changePasswordShouldDelegateCallToApi() {
+    fun getShopShouldDelegateCallToApi() {
         repository.getShop().subscribe()
         verify(api).getShopInfo(any())
     }
 
     @Test
-    fun changePasswordShouldCompleteOnApiResult() {
+    fun getShopShouldCompleteOnApiResult() {
         val shop: Shop = mock()
         given(api.getShopInfo(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
@@ -57,7 +58,7 @@ class ShopRepositoryTest {
     }
 
     @Test
-    fun changePasswordShouldErrorOnApiFailure() {
+    fun getShopShouldErrorOnApiFailure() {
         val error = Error.Content()
         given(api.getShopInfo(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
@@ -67,4 +68,32 @@ class ShopRepositoryTest {
         shopObserver.assertError(error)
     }
 
+    @Test
+    fun getConfigShouldDelegateCallToApi() {
+        repository.getConfig().subscribe()
+        verify(api).getConfig(any())
+    }
+
+    @Test
+    fun getConfigShouldCompleteOnApiResult() {
+        val config: Config = mock()
+        given(api.getConfig(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Config>>(0)
+            callback.onResult(config)
+        })
+        repository.getConfig().subscribe(configObserver)
+        configObserver.assertComplete()
+        configObserver.assertValue(config)
+    }
+
+    @Test
+    fun getConfigShouldErrorOnApiFailure() {
+        val error = Error.Content()
+        given(api.getConfig(any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<Config>>(0)
+            callback.onFailure(error)
+        })
+        repository.getConfig().subscribe(configObserver)
+        configObserver.assertError(error)
+    }
 }

@@ -9,9 +9,9 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.test.MockInstantiator
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_product_details.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -108,8 +108,8 @@ class ProductDetailsActivityTest {
     @Test
     fun shouldHideRecentContainerWhenCallChangeVisibilityWithVisibleFalse() {
         activity.showContent(MockInstantiator.newProduct())
-        val fragment = activity.supportFragmentManager.findFragmentById(R.id.relatedContainer) as ProductHorizontalFragment
-        fragment.visibilityListener?.changeVisibility(false)
+        val fragment = activity.supportFragmentManager.findFragmentById(R.id.relatedContainer) as ProductShortcutFragment
+        fragment.fragmentVisibilityListener?.changeVisibility(false)
         assertEquals(View.GONE, activity.relatedContainer.visibility)
     }
 

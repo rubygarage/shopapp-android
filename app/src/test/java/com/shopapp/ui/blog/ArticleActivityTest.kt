@@ -11,9 +11,9 @@ import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
 import com.shopapp.test.ext.replaceCommandSymbols
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
 import org.junit.Assert.assertEquals

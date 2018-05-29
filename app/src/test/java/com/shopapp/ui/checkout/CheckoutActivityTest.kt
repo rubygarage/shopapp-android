@@ -20,8 +20,8 @@ import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.PaymentType
 import com.shopapp.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_checkout.*
-import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_checkout_failure.view.*
 import kotlinx.android.synthetic.main.view_checkout_my_cart.view.*

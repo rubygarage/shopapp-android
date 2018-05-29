@@ -2,6 +2,7 @@ package com.shopapp.ui.search.di
 
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.ui.search.contract.SearchPresenter
+import com.shopapp.ui.search.contract.SearchWithCategoriesPresenter
 import com.shopapp.ui.search.router.SearchRouter
 import dagger.Module
 import dagger.Provides
@@ -14,4 +15,7 @@ class TestSearchModule {
 
     @Provides
     fun provideSearchRouter(): SearchRouter = mock()
+
+    @Provides
+    fun provideSearchWithCategoriesPresenter(): SearchWithCategoriesPresenter = mock()
 }

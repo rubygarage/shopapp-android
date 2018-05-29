@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.R
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.Assert.assertEquals

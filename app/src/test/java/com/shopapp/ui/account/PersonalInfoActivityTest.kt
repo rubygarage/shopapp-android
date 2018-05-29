@@ -10,7 +10,7 @@ import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_personal_info.*
-import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,7 +20,6 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.Shadows
-import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.shadows.ShadowToast
 

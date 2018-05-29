@@ -82,7 +82,7 @@ class BlogFragmentTest {
     @Test
     fun shouldNotifyVisibilityListener() {
         val listener: FragmentVisibilityListener = mock()
-        fragment.visibilityListener = listener
+        fragment.fragmentVisibilityListener = listener
 
         val articlesCount = 5
         val articleList = MockInstantiator.newList(MockInstantiator.newArticle(), articlesCount)

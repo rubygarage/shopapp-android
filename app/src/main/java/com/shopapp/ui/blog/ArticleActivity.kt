@@ -15,8 +15,8 @@ import com.shopapp.ui.blog.contract.ArticlePresenter
 import com.shopapp.ui.blog.contract.ArticleView
 import com.shopapp.util.HtmlUtil
 import kotlinx.android.synthetic.main.activity_article.*
-import kotlinx.android.synthetic.main.activity_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import javax.inject.Inject
 
 
