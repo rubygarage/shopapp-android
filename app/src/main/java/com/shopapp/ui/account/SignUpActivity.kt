@@ -63,13 +63,7 @@ class SignUpActivity :
         setupInfoText()
         createButton.setOnClickListener {
             clearFormFocus()
-            presenter.signUp(
-                firstNameInput.getTrimmedString(),
-                lastNameInput.getTrimmedString(),
-                emailInput.getTrimmedString(),
-                passwordInput.getTrimmedString(),
-                phoneInput.getTrimmedString()
-            )
+            signUp()
         }
 
         loadData()
@@ -185,13 +179,7 @@ class SignUpActivity :
     }
 
     override fun onTryAgainButtonClicked() {
-        presenter.signUp(
-            firstNameInput.getTrimmedString(),
-            lastNameInput.getTrimmedString(),
-            emailInput.getTrimmedString(),
-            passwordInput.getTrimmedString(),
-            phoneInput.getTrimmedString()
-        )
+        signUp()
     }
 
     override fun showEmailError() {
@@ -208,5 +196,15 @@ class SignUpActivity :
 
     override fun onFailure() {
         changeState(LceLayout.LceState.ContentState)
+    }
+
+    private fun signUp() {
+        presenter.signUp(
+            firstNameInput.getTrimmedString(),
+            lastNameInput.getTrimmedString(),
+            emailInput.getTrimmedString(),
+            passwordInput.getTrimmedString(),
+            phoneInput.getTrimmedString()
+        )
     }
 }
