@@ -1,6 +1,7 @@
 package com.shopapp.ui.account.di
 
 import com.shopapp.domain.interactor.account.*
+import com.shopapp.domain.interactor.shop.ConfigUseCase
 import com.shopapp.domain.interactor.shop.ShopInfoUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.ui.account.contract.*
@@ -15,8 +16,8 @@ import dagger.Provides
 class AuthModule {
 
     @Provides
-    fun provideSignUpPresenter(formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
-        return SignUpPresenter(formValidator, signUpUseCase)
+    fun provideSignUpPresenter(configUseCase: ConfigUseCase, formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
+        return SignUpPresenter(configUseCase, formValidator, signUpUseCase)
     }
 
     @Provides
@@ -39,9 +40,12 @@ class AuthModule {
     }
 
     @Provides
-    fun providePersonalInfoPresenter(customerUseCase: GetCustomerUseCase,
-                                     editCustomerUseCase: EditCustomerUseCase): PersonalInfoPresenter {
-        return PersonalInfoPresenter(customerUseCase, editCustomerUseCase)
+    fun providePersonalInfoPresenter(
+        configUseCase: ConfigUseCase,
+        customerUseCase: GetCustomerUseCase,
+        editCustomerUseCase: EditCustomerUseCase
+    ): PersonalInfoPresenter {
+        return PersonalInfoPresenter(configUseCase, customerUseCase, editCustomerUseCase)
     }
 
     @Provides

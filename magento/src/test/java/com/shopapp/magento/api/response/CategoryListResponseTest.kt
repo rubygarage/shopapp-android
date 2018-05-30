@@ -3,7 +3,7 @@ package com.shopapp.magento.api.response
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class CategoryListResponseTest : ResponseTest<CategoryListResponse>(CategoryListResponse::class.java) {
+class CategoryListResponseTest : BaseResponseTest<CategoryListResponse>(CategoryListResponse::class.java) {
 
     override fun getFilename() = "CategoryListResponse.json"
 

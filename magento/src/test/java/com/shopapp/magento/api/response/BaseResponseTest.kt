@@ -4,7 +4,7 @@ import com.shopapp.magento.retrofit.RestClient
 import com.shopapp.magento.test.JsonFileHelper
 import org.junit.Before
 
-abstract class ResponseTest<T : Any>(private val clazz: Class<T>) {
+abstract class BaseResponseTest<T : Any>(private val clazz: Class<T>) {
 
     lateinit var response: T
 

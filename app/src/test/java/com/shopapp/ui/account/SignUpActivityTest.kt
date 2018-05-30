@@ -8,6 +8,8 @@ import android.text.SpannableString
 import android.text.style.ClickableSpan
 import android.view.View
 import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
@@ -40,6 +42,7 @@ class SignUpActivityTest {
     private lateinit var privacy: Policy
     private lateinit var terms: Policy
     private lateinit var activity: SignUpActivity
+    private val config: com.shopapp.gateway.entity.Config = mock()
 
     @Before
     fun setUpTest() {
@@ -96,8 +99,8 @@ class SignUpActivityTest {
     }
 
     @Test
-    fun shouldShowSuccessMessageOnShowContent() {
-        activity.showContent(Unit)
+    fun shouldShowSuccessMessageOnSignUpFinished() {
+        activity.onSignUpFinished()
         val looper = shadowOf(activity.mainLooper)
         looper.idle()
         assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.register_success_message))
@@ -105,20 +108,20 @@ class SignUpActivityTest {
 
     @Test
     fun shouldChangeStateToContentOnShowContent() {
-        activity.showContent(Unit)
+        activity.showContent(config)
         assertEquals(View.VISIBLE, activity.contentView.visibility)
     }
 
     @Test
-    fun shouldSetOkResultToActivityOnShowContent() {
-        activity.showContent(Unit)
+    fun shouldSetOkResultToActivityOnSignUpFinished() {
+        activity.onSignUpFinished()
         val shadow = shadowOf(activity)
         assertEquals(shadow.resultCode, Activity.RESULT_OK)
     }
 
     @Test
-    fun shouldFinishActivityOnShowContent() {
-        activity.showContent(Unit)
+    fun shouldFinishActivityOnSignUpFinished() {
+        activity.onSignUpFinished()
         assertTrue(activity.isFinishing)
     }
 
@@ -229,6 +232,7 @@ class SignUpActivityTest {
 
     @Test
     fun shouldShowProgressWhenCheckPassed() {
+        activity.showContent(config)
         assertEquals(View.GONE, activity.loadingView.visibility)
         activity.onCheckPassed()
         assertEquals(View.VISIBLE, activity.loadingView.visibility)
@@ -236,9 +240,27 @@ class SignUpActivityTest {
     }
 
     @Test
+    fun shouldShowPhoneInput() {
+        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
+
+        given(config.isCustomerPhoneEnabled).willReturn(true)
+        activity.showContent(config)
+
+        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
+    }
+
+    @Test
+    fun shouldHidePhoneInput() {
+        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
+
+        given(config.isCustomerPhoneEnabled).willReturn(false)
+        activity.showContent(config)
+
+        assertEquals(View.GONE, activity.phoneInputLayout.visibility)
+    }
+
+    @Test
     fun shouldHideProgressWhenFailure() {
-        assertEquals(View.GONE, activity.loadingView.visibility)
-        activity.loadData()
         assertEquals(View.VISIBLE, activity.loadingView.visibility)
         activity.onFailure()
         assertEquals(View.GONE, activity.loadingView.visibility)

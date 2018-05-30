@@ -3,6 +3,8 @@ package com.shopapp.ui.account.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.EditCustomerUseCase
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.shop.ConfigUseCase
+import com.shopapp.gateway.entity.Config
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -25,6 +27,11 @@ class PersonalInfoPresenterTest {
     @Mock
     private lateinit var view: PersonalInfoView
 
+    @Mock
+    private lateinit var config: Config
+
+    private var configUseCase: ConfigUseCase = mock()
+
     private var getCustomerUseCase: GetCustomerUseCase = mock()
 
     private var editCustomerUseCase: EditCustomerUseCase = mock()
@@ -36,15 +43,56 @@ class PersonalInfoPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
+        configUseCase.mock()
         editCustomerUseCase.mock()
         getCustomerUseCase.mock()
-        presenter = PersonalInfoPresenter(getCustomerUseCase, editCustomerUseCase)
+        presenter = PersonalInfoPresenter(configUseCase, getCustomerUseCase, editCustomerUseCase)
         presenter.attachView(view)
     }
 
     @After
     fun tearDown() {
         presenter.detachView(false)
+    }
+
+    @Test
+    fun shouldExecuteUseCaseOnGetConfig() {
+        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.just(config))
+        presenter.getConfig()
+        verify(configUseCase).execute(any(), any(), any())
+    }
+
+    @Test
+    fun shouldCallOnConfigReceived() {
+        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.just(config))
+        presenter.getConfig()
+        val inOrder = inOrder(configUseCase, view)
+        inOrder.verify(configUseCase).execute(any(), any(), any())
+        inOrder.verify(view).onConfigReceived(config)
+    }
+
+    @Test
+    fun getConfigShouldShowMessageWhenReceivedNonCriticalError() {
+        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        presenter.getConfig()
+
+        val inOrder = inOrder(view, configUseCase)
+        inOrder.verify(configUseCase).execute(any(), any(), any())
+        inOrder.verify(view).showMessage(eq("ErrorMessage"))
+    }
+
+    @Test
+    fun getConfigShouldShowErrorWhenReceivedContentError() {
+        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
+        presenter.getConfig()
+
+        argumentCaptor<Error>().apply {
+            val inOrder = inOrder(view, configUseCase)
+            inOrder.verify(configUseCase).execute(any(), any(), any())
+            inOrder.verify(view).showError(capture())
+
+            assertTrue(firstValue is Error.Content)
+        }
     }
 
     @Test

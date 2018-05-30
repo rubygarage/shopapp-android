@@ -6,7 +6,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.text.SimpleDateFormat
 
-class CategoryDetailsResponseTest : ResponseTest<CategoryDetailsResponse>(CategoryDetailsResponse::class.java) {
+class CategoryDetailsResponseTest : BaseResponseTest<CategoryDetailsResponse>(CategoryDetailsResponse::class.java) {
 
     override fun getFilename() = "CategoryDetailsResponse.json"
 

@@ -16,7 +16,7 @@ class HomePresenter @Inject constructor(private val configUseCase: ConfigUseCase
 
     fun getConfig() {
         configUseCase.execute(
-            { view.onConfigReceived(it) },
+            { view?.onConfigReceived(it) },
             { resolveError(it) },
             Unit
         )

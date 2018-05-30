@@ -44,7 +44,7 @@ class SearchWithCategoriesFragmentTest {
 
     @Test
     fun shouldShowCategoriesScreenWhenConfigReceived() {
-        val config = com.shopapp.gateway.entity.Config(false, false, false)
+        val config = com.shopapp.gateway.entity.Config(false, false, false, false)
         fragment.showContent(config)
         val showedFragment = fragment.childFragmentManager.findFragmentById(R.id.container)
         assertTrue(showedFragment is CategoryListFragment)

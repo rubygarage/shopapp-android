@@ -13,7 +13,7 @@ class SearchWithCategoriesPresenter @Inject constructor(private val configUseCas
 
     fun getConfig() {
         configUseCase.execute(
-            { view.showContent(it) },
+            { view?.showContent(it) },
             { resolveError(it) },
             Unit
         )

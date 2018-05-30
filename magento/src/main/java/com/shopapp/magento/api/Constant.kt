@@ -22,4 +22,10 @@ internal object Constant {
     const val PRODUCT_DEFAULT_TYPE_ID = "simple"
     const val ASC_DIRECTION = "ASC"
     const val DESC_DIRECTION = "DESC"
+
+    const val AUTHORIZATION_HEADER = "Authorization"
+    const val ACCESS_TOKEN = "access_token"
+    const val ACCESS_TOKEN_PREFIX = "Bearer"
+    const val ACCESS_KEY = "access_key"
+    const val UNAUTHORIZED_ERROR = "Unauthorized"
 }

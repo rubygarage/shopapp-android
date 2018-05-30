@@ -29,6 +29,7 @@ class PersonalInfoActivityTest {
 
     private lateinit var activity: PersonalInfoActivity
     private lateinit var context: Context
+    private val config: com.shopapp.gateway.entity.Config = mock()
 
     private val oldCustomer: Customer = mock {
         on { email } doReturn "mail@mail.com"
@@ -46,9 +47,35 @@ class PersonalInfoActivityTest {
     }
 
     @Test
-    fun shouldGetCustomerOnLoadData() {
+    fun shouldGetConfigOnLoadData() {
         activity.loadData()
-        verify(activity.presenter, times(2)).getCustomer()
+        verify(activity.presenter, times(2)).getConfig()
+    }
+
+    @Test
+    fun shouldGetCustomerWhenConfigReceived() {
+        activity.onConfigReceived(config)
+        verify(activity.presenter).getCustomer()
+    }
+
+    @Test
+    fun shouldShowPhoneInput() {
+        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
+
+        given(config.isCustomerPhoneEnabled).willReturn(true)
+        activity.onConfigReceived(config)
+
+        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
+    }
+
+    @Test
+    fun shouldHidePhoneInput() {
+        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
+
+        given(config.isCustomerPhoneEnabled).willReturn(false)
+        activity.onConfigReceived(config)
+
+        assertEquals(View.GONE, activity.phoneInputLayout.visibility)
     }
 
     @Test
