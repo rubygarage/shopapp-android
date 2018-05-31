@@ -9,9 +9,14 @@ import retrofit2.http.Query
 
 interface CategoryService {
 
-    @GET("categories")
+    companion object {
+        const val CATEGORY_LIST_URL = "categories"
+        const val CATEGORY_DETAILS_URL = "categories/{categoryId}"
+    }
+
+    @GET(CATEGORY_LIST_URL)
     fun getCategoryList(@Query("rootCategoryId") parentCategoryId: String?): Single<CategoryListResponse>
 
-    @GET("categories/{categoryId}")
+    @GET(CATEGORY_DETAILS_URL)
     fun getCategoryDetails(@Path("categoryId") categoryId: String): Single<CategoryDetailsResponse>
 }
