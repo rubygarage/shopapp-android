@@ -21,8 +21,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    testImplementation "junit:junit:$junitVersion"
-    androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
 }
 
 // build a jar with source files
