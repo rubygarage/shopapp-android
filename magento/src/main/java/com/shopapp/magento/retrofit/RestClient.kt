@@ -22,14 +22,16 @@ object RestClient {
     private const val TIMEOUT: Long = 10
     private const val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
 
-    fun providesRetrofit(context: Context, baseUrl: String): Retrofit {
+    fun providesRetrofit(context: Context, baseUrl: String, vararg cachedUrls: String): Retrofit {
 
         val cache = Cache(context.cacheDir, cacheSize)
+        val cacheInterceptor = CacheInterceptor(*cachedUrls)
+
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(createGson()))
-            .client(providesOkHttp(cache))
+            .client(providesOkHttp(cache, cacheInterceptor))
             .build()
     }
 
@@ -39,16 +41,16 @@ object RestClient {
             .registerTypeAdapter(Date::class.java, DateDeserializer())
             .create()
 
-    private fun providesOkHttp(cache: Cache): OkHttpClient {
-        return OkHttpClient.Builder()
+    private fun providesOkHttp(cache: Cache, cacheInterceptor: CacheInterceptor) =
+        OkHttpClient.Builder()
             .cache(cache)
             .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+            .addNetworkInterceptor(cacheInterceptor)
             .addInterceptor(getLoggingInterceptor())
             .writeTimeout(TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)
             .build()
-    }
 
     private fun getLoggingInterceptor(): Interceptor {
         val interceptor = HttpLoggingInterceptor()

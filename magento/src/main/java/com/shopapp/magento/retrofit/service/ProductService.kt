@@ -9,9 +9,14 @@ import retrofit2.http.QueryMap
 
 interface ProductService {
 
-    @GET("products")
+    companion object {
+        const val PRODUCT_LIST_URL = "products"
+        const val PRODUCT_URL = "products/{sku}"
+    }
+
+    @GET(PRODUCT_LIST_URL)
     fun getProductList(@QueryMap options: Map<String, String>): Single<ProductListResponse>
 
-    @GET("products/{sku}")
+    @GET(PRODUCT_URL)
     fun getProduct(@Path("sku") sku: String): Single<ProductResponse>
 }

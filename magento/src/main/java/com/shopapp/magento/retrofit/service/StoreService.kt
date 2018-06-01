@@ -6,6 +6,10 @@ import retrofit2.http.GET
 
 interface StoreService {
 
-    @GET("store/storeConfigs")
+    companion object {
+        const val STORE_CONFIGS_URL = "store/storeConfigs"
+    }
+
+    @GET(STORE_CONFIGS_URL)
     fun getStoreConfigs(): Single<StoreConfigResponse>
 }

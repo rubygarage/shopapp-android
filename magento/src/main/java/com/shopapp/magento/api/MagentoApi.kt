@@ -44,7 +44,11 @@ class MagentoApi : Api {
 
     constructor(context: Context, host: String) {
         this.host = host
-        retrofit = RestClient.providesRetrofit(context, host + BASE_PATH)
+        retrofit = RestClient.providesRetrofit(
+            context,
+            host + BASE_PATH,
+            StoreService.STORE_CONFIGS_URL
+        )
         preferences = SecurePreferences(context)
     }
 
