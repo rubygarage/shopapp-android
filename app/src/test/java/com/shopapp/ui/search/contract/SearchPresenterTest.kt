@@ -51,7 +51,11 @@ class SearchPresenterTest {
 
         presenter.search(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)
         val inOrder = inOrder(view, searchUseCase)
-        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)))
+        inOrder.verify(searchUseCase).execute(
+            any(),
+            any(),
+            eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY))
+        )
         inOrder.verify(view).showContent(products)
     }
 
@@ -63,7 +67,11 @@ class SearchPresenterTest {
 
         presenter.search(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
         val inOrder = inOrder(view, searchUseCase)
-        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)))
+        inOrder.verify(searchUseCase).execute(
+            any(),
+            any(),
+            eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY))
+        )
         inOrder.verify(view).showContent(products)
     }
 
@@ -74,7 +82,11 @@ class SearchPresenterTest {
 
         presenter.search(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)
         val inOrder = inOrder(view, searchUseCase)
-        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY)))
+        inOrder.verify(searchUseCase).execute(
+            any(),
+            any(),
+            eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, SEARCH_QUERY))
+        )
         inOrder.verify(view).showContent(products)
     }
 
@@ -85,7 +97,11 @@ class SearchPresenterTest {
 
         presenter.search(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)
         val inOrder = inOrder(view, searchUseCase)
-        inOrder.verify(searchUseCase).execute(any(), any(), eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY)))
+        inOrder.verify(searchUseCase).execute(
+            any(),
+            any(),
+            eq(SearchUseCase.Params(DEFAULT_PER_PAGE_COUNT, null, SEARCH_QUERY))
+        )
         inOrder.verify(view).showEmptyState()
     }
 

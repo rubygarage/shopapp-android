@@ -78,20 +78,20 @@ class AuthRepositoryTest {
     @Test
     fun signUpShouldDelegateCallToApi() {
         repository.signUp(
-                "test",
-                "test",
-                "test@email.com",
-                "123456789",
-                "+38063329670"
+            "test",
+            "test",
+            "test@email.com",
+            "123456789",
+            "+38063329670"
         ).subscribe()
 
         verify(api).signUp(
-                eq("test"),
-                eq("test"),
-                eq("test@email.com"),
-                eq("123456789"),
-                eq("+38063329670"),
-                any()
+            eq("test"),
+            eq("test"),
+            eq("test@email.com"),
+            eq("123456789"),
+            eq("+38063329670"),
+            any()
         )
     }
 
@@ -104,11 +104,11 @@ class AuthRepositoryTest {
         })
 
         repository.signUp(
-                "test",
-                "test",
-                "test@email.com",
-                "123456789",
-                "+38063329670"
+            "test",
+            "test",
+            "test@email.com",
+            "123456789",
+            "+38063329670"
         ).subscribe(unitObserver)
 
         unitObserver.assertComplete()
@@ -123,13 +123,13 @@ class AuthRepositoryTest {
         })
 
         repository.signUp(
-                "test",
-                "test",
-                "test@email.com",
-                "123456789",
-                "+38063329670"
+            "test",
+            "test",
+            "test@email.com",
+            "123456789",
+            "+38063329670"
         )
-                .subscribe(unitObserver)
+            .subscribe(unitObserver)
 
         unitObserver.assertError(error)
     }

@@ -73,14 +73,26 @@ class ChangePasswordPresenterTest {
 
     @Test
     fun shouldHideProgressOnUseCaseError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.changePassword("123456789", "123456789")
         verify(view).hideUpdateProgress()
     }
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.changePassword("123456789", "123456789")
         verify(view).showMessage("ErrorMessage")
     }

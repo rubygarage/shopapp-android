@@ -11,7 +11,8 @@ interface ForgotPasswordView : BaseLceView<Unit> {
 
 class ForgotPasswordPresenter(
     private val validator: FieldValidator,
-    private val resetPasswordUseCase: ResetPasswordUseCase) :
+    private val resetPasswordUseCase: ResetPasswordUseCase
+) :
     BaseLcePresenter<Unit, ForgotPasswordView>(resetPasswordUseCase) {
 
     fun forgotPassword(email: String) {

@@ -16,7 +16,8 @@ import com.shopapp.ui.address.base.contract.AddressListView
 import com.shopapp.ui.const.RequestCode
 import javax.inject.Inject
 
-class AddressListActivity : BaseAddressListActivity<AddressListAdapter, AddressListView, AddressListPresenter<AddressListView>>() {
+class AddressListActivity :
+    BaseAddressListActivity<AddressListAdapter, AddressListView, AddressListPresenter<AddressListView>>() {
 
     companion object {
         fun getStartIntent(context: Context) = Intent(context, AddressListActivity::class.java)

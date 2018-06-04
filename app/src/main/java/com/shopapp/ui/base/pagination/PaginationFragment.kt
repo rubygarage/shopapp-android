@@ -61,11 +61,13 @@ abstract class PaginationFragment<M, V : BaseLceView<List<M>>, P : BaseLcePresen
         view?.let {
             adapter = setupAdapter()
             recycler = it.findViewById(R.id.recyclerView)
-            paginationDelegate.setupRecyclerView(this,
+            paginationDelegate.setupRecyclerView(
+                this,
                 recycler,
                 adapter,
                 isGrid(),
-                perPageCount())
+                perPageCount()
+            )
         }
     }
 

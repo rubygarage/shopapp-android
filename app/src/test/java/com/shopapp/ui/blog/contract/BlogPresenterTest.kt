@@ -49,7 +49,11 @@ class BlogPresenterTest {
     fun shouldCallUseCaseOnAuthorizationCheck() {
         given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(articles))
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
-        verify(getArticlesUseCase).execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        verify(getArticlesUseCase).execute(
+            any(),
+            any(),
+            eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE))
+        )
     }
 
     @Test
@@ -57,17 +61,25 @@ class BlogPresenterTest {
         given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(articles))
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
         val inOrder = inOrder(view, getArticlesUseCase)
-        inOrder.verify(getArticlesUseCase).execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        inOrder.verify(getArticlesUseCase)
+            .execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
         inOrder.verify(view).showContent(articles)
     }
 
     @Test
     fun shouldShowMessageOnGetCustomerNonCriticalError() {
-        given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
 
         val inOrder = inOrder(view, getArticlesUseCase)
-        inOrder.verify(getArticlesUseCase).execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        inOrder.verify(getArticlesUseCase)
+            .execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
         inOrder.verify(view).showMessage(eq("ErrorMessage"))
     }
 
@@ -77,7 +89,8 @@ class BlogPresenterTest {
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
 
         val inOrder = inOrder(view, getArticlesUseCase)
-        inOrder.verify(getArticlesUseCase).execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        inOrder.verify(getArticlesUseCase)
+            .execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
         argumentCaptor<Error>().apply {
             inOrder.verify(view).showError(capture())
             assertTrue(firstValue is Error.Content)

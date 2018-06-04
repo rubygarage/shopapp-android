@@ -43,9 +43,12 @@ class SearchToolbar @JvmOverloads constructor(
         transitionSet = TransitionSet()
         transitionSet.addTransition(ChangeBounds())
         transitionSet.addTransition(fadeTransition)
-        expandedLineMarginStart = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start)
-        expandedLineMarginEnd = resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end)
-        collapsedLineMargin = resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin)
+        expandedLineMarginStart =
+                resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start)
+        expandedLineMarginEnd =
+                resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end)
+        collapsedLineMargin =
+                resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin)
         searchProcessor = PublishProcessor.create<String>()
         searchIcon.setOnClickListener(this)
         searchInput.setOnClickListener(this)
@@ -71,7 +74,8 @@ class SearchToolbar @JvmOverloads constructor(
             .subscribe(
                 {
                     TransitionManager.beginDelayedTransition(this, fadeTransition)
-                    clear.visibility = if (it.isNotEmpty() && isExpanded) View.VISIBLE else View.GONE
+                    clear.visibility =
+                            if (it.isNotEmpty() && isExpanded) View.VISIBLE else View.GONE
                 },
                 { error -> error.printStackTrace() }
             )

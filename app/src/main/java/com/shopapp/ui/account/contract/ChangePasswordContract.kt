@@ -20,7 +20,8 @@ interface ChangePasswordView : BaseLceView<Unit> {
 
 class ChangePasswordPresenter(
     private val validator: FieldValidator,
-    private val updatePasswordUseCase: UpdatePasswordUseCase) :
+    private val updatePasswordUseCase: UpdatePasswordUseCase
+) :
     BaseLcePresenter<Unit, ChangePasswordView>(updatePasswordUseCase) {
 
     fun changePassword(password: String, confirmPassword: String) {

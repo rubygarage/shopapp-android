@@ -1,7 +1,7 @@
 package com.shopapp.ui.blog.di
 
-import com.shopapp.domain.interactor.blog.GetArticlesUseCase
 import com.shopapp.domain.interactor.blog.ArticleUseCase
+import com.shopapp.domain.interactor.blog.GetArticlesUseCase
 import com.shopapp.ui.blog.contract.ArticlePresenter
 import com.shopapp.ui.blog.contract.BlogPresenter
 import com.shopapp.ui.blog.router.BlogRouter

@@ -64,7 +64,13 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldShowMessageOnGetCustomerNonCriticalError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)
@@ -96,7 +102,11 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldShowMessageOnUpdateSettingsNonCriticalError() {
-        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical("ErrorMessage")
+            )
+        )
         presenter.updateSettings(true)
 
         val inOrder = inOrder(view, getCustomerUseCase)
@@ -106,7 +116,11 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldShowErrorOnUpdateSettingsContentError() {
-        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
+        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.Content()
+            )
+        )
         presenter.updateSettings(true)
 
         argumentCaptor<Error>().apply {

@@ -33,7 +33,10 @@ class ChangePasswordActivityTest {
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
-        activity = Robolectric.buildActivity(ChangePasswordActivity::class.java, ChangePasswordActivity.getStartIntent(context))
+        activity = Robolectric.buildActivity(
+            ChangePasswordActivity::class.java,
+            ChangePasswordActivity.getStartIntent(context)
+        )
             .create()
             .resume()
             .get()
@@ -47,7 +50,10 @@ class ChangePasswordActivityTest {
 
     @Test
     fun shouldSetTitleOnCreate() {
-        assertEquals(context.getString(R.string.set_new_password), activity.toolbar.toolbarTitle.text)
+        assertEquals(
+            context.getString(R.string.set_new_password),
+            activity.toolbar.toolbarTitle.text
+        )
     }
 
     @Test
@@ -122,19 +128,26 @@ class ChangePasswordActivityTest {
     @Test
     fun shouldShowErrorOnPasswordInvalid() {
         activity.passwordValidError()
-        assertEquals(context.getString(R.string.invalid_password_error_message), activity.passwordInputLayout.error)
+        assertEquals(
+            context.getString(R.string.invalid_password_error_message),
+            activity.passwordInputLayout.error
+        )
     }
 
     @Test
     fun shouldShowErrorOnPasswordNotMatched() {
         activity.passwordsMatchError()
-        assertEquals(context.getString(R.string.password_match_error_message), activity.passwordConfirmInputLayout.error)
+        assertEquals(
+            context.getString(R.string.password_match_error_message),
+            activity.passwordConfirmInputLayout.error
+        )
     }
 
     @Test
     fun shouldShowTranslucentProgressViewOnShowUpdateProgress() {
 
-        val drawable = ColorDrawable(ContextCompat.getColor(context, R.color.colorBackgroundLightTranslucent))
+        val drawable =
+            ColorDrawable(ContextCompat.getColor(context, R.color.colorBackgroundLightTranslucent))
 
         activity.showUpdateProgress()
         assertEquals(View.VISIBLE, activity.loadingView.visibility)
@@ -159,7 +172,10 @@ class ChangePasswordActivityTest {
     @Test
     fun shouldRemoveTextWatcherWhenOnPause() {
         context = RuntimeEnvironment.application.baseContext
-        val activity = Robolectric.buildActivity(ChangePasswordActivity::class.java, ChangePasswordActivity.getStartIntent(context))
+        val activity = Robolectric.buildActivity(
+            ChangePasswordActivity::class.java,
+            ChangePasswordActivity.getStartIntent(context)
+        )
             .create()
             .resume()
             .pause()

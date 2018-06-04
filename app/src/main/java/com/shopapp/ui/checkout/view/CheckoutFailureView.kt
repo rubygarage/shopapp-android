@@ -19,7 +19,10 @@ class CheckoutFailureView @JvmOverloads constructor(
         setBackgroundResource(R.color.white)
     }
 
-    fun setListeners(tryAgainClickListener: OnClickListener, backToShopClickListener: OnClickListener) {
+    fun setListeners(
+        tryAgainClickListener: OnClickListener,
+        backToShopClickListener: OnClickListener
+    ) {
         tryAgainCheckoutButton.setOnClickListener(tryAgainClickListener)
         backToShop.setOnClickListener(backToShopClickListener)
     }

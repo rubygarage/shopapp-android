@@ -110,7 +110,8 @@ class CheckoutPresenter @Inject constructor(
                 view?.checkoutValidationPassed(false)
                 return
             } else if (paymentType == PaymentType.CARD_PAYMENT
-                && (card == null || cardToken == null || billingAddress == null)) {
+                && (card == null || cardToken == null || billingAddress == null)
+            ) {
                 view?.checkoutValidationPassed(false)
                 return
             }

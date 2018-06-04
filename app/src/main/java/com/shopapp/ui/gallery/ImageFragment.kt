@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.shopapp.gateway.entity.Image
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.view.SimpleDraweeView
 import com.shopapp.R
+import com.shopapp.gateway.entity.Image
 import com.shopapp.ui.custom.zoomable.DoubleTapGestureListener
 import com.shopapp.ui.custom.zoomable.ZoomableDraweeView
 
@@ -33,12 +33,17 @@ class ImageFragment : Fragment() {
     private var thumbnailMode = false
     private var image: Image? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         arguments?.let {
             thumbnailMode = it.getBoolean(IS_THUMBNAIL_MODE, false)
             image = it.getParcelable(IMAGE)
         }
-        val layout = if (thumbnailMode) R.layout.fragment_image else R.layout.fragment_zoomable_image
+        val layout =
+            if (thumbnailMode) R.layout.fragment_image else R.layout.fragment_zoomable_image
         return inflater.inflate(layout, container, false)
     }
 

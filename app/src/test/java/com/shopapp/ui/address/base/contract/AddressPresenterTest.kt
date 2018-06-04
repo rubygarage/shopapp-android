@@ -9,7 +9,6 @@ import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Address
 import com.shopapp.gateway.entity.Country
 import com.shopapp.gateway.entity.Error
-import com.shopapp.test.MockInstantiator
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
@@ -54,8 +53,10 @@ class AddressPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = AddressPresenter(fieldValidator, countriesUseCase, addCustomerAddressUseCase,
-            updateCustomerAddressUseCase)
+        presenter = AddressPresenter(
+            fieldValidator, countriesUseCase, addCustomerAddressUseCase,
+            updateCustomerAddressUseCase
+        )
         presenter.attachView(view)
 
         countriesUseCase.mock()
@@ -144,7 +145,11 @@ class AddressPresenterTest {
     @Test
     fun editAddressShouldCallAddressChangedWhenOnCompletableContentError() {
         val error = Error.Content()
-        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
+        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                error
+            )
+        )
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.updateAddress(address)
 
@@ -165,7 +170,11 @@ class AddressPresenterTest {
     fun editAddressShouldCallAddressChangedWhenOnCompletableNonCriticalError() {
         val message = "message"
         val error = Error.NonCritical(message)
-        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
+        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                error
+            )
+        )
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.updateAddress(address)
 

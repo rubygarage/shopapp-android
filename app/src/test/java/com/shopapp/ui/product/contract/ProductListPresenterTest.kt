@@ -53,11 +53,27 @@ class ProductListPresenterTest {
     @Test
     fun shouldShowContentOnSingleSuccess() {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(data))
-        presenter.loadProductList(SortType.NAME, Constant.DEFAULT_PER_PAGE_COUNT, PAGINATION, KEYWORD, EXCLUDE_KEYWORD)
+        presenter.loadProductList(
+            SortType.NAME,
+            Constant.DEFAULT_PER_PAGE_COUNT,
+            PAGINATION,
+            KEYWORD,
+            EXCLUDE_KEYWORD
+        )
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(),
-            eq(GetProductsUseCase.Params(SortType.NAME, Constant.DEFAULT_PER_PAGE_COUNT, PAGINATION, KEYWORD, EXCLUDE_KEYWORD)))
+        inOrder.verify(useCase).execute(
+            any(), any(),
+            eq(
+                GetProductsUseCase.Params(
+                    SortType.NAME,
+                    Constant.DEFAULT_PER_PAGE_COUNT,
+                    PAGINATION,
+                    KEYWORD,
+                    EXCLUDE_KEYWORD
+                )
+            )
+        )
         inOrder.verify(view).showContent(data)
     }
 

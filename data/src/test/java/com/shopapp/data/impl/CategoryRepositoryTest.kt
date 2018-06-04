@@ -40,7 +40,13 @@ class CategoryRepositoryTest {
     @Test
     fun getCategoryShouldDelegateCallToApi() {
         repository.getCategory(categoryId, perPage, paginationValue, SortType.NAME).subscribe()
-        verify(api).getCategory(eq(categoryId), eq(perPage), eq(paginationValue), eq(SortType.NAME), any())
+        verify(api).getCategory(
+            eq(categoryId),
+            eq(perPage),
+            eq(paginationValue),
+            eq(SortType.NAME),
+            any()
+        )
     }
 
     @Test

@@ -112,7 +112,11 @@ class CartPresenterTest {
         val product: CartProduct = MockInstantiator.newCartProduct()
         given(cartQuantityUseCase.buildUseCaseSingle(any())).willReturn(Single.just(product))
         presenter.changeProductQuantity(PRODUCT_VARIANT_ID, PRODUCT_QUANTITY)
-        verify(cartQuantityUseCase).execute(any(), any(), eq(CartQuantityUseCase.Params(PRODUCT_VARIANT_ID, PRODUCT_QUANTITY)))
+        verify(cartQuantityUseCase).execute(
+            any(),
+            any(),
+            eq(CartQuantityUseCase.Params(PRODUCT_VARIANT_ID, PRODUCT_QUANTITY))
+        )
     }
 
     @Test
@@ -122,7 +126,11 @@ class CartPresenterTest {
         presenter.changeProductQuantity(PRODUCT_VARIANT_ID, PRODUCT_QUANTITY)
 
         val inOrder = inOrder(cartQuantityUseCase, error)
-        verify(cartQuantityUseCase).execute(any(), any(), eq(CartQuantityUseCase.Params(PRODUCT_VARIANT_ID, PRODUCT_QUANTITY)))
+        verify(cartQuantityUseCase).execute(
+            any(),
+            any(),
+            eq(CartQuantityUseCase.Params(PRODUCT_VARIANT_ID, PRODUCT_QUANTITY))
+        )
         inOrder.verify(error).printStackTrace()
     }
 

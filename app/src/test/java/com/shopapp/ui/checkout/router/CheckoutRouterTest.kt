@@ -2,8 +2,6 @@ package com.shopapp.ui.checkout.router
 
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
-import com.shopapp.gateway.entity.Checkout
-import com.shopapp.gateway.entity.Customer
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.checkout.CheckoutAddressListActivity
 import com.shopapp.ui.address.checkout.CheckoutUnAuthAddressActivity
@@ -15,7 +13,6 @@ import com.shopapp.ui.const.RequestCode
 import com.shopapp.ui.home.HomeActivity
 import com.shopapp.ui.order.success.OrderSuccessActivity
 import kotlinx.android.synthetic.main.activity_checkout.*
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -51,7 +48,10 @@ class CheckoutRouterTest {
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(order.id, startedIntent.extras.getString(OrderSuccessActivity.ORDER_ID))
-        assertEquals(order.orderNumber, startedIntent.extras.getInt(OrderSuccessActivity.ORDER_NUMBER))
+        assertEquals(
+            order.orderNumber,
+            startedIntent.extras.getInt(OrderSuccessActivity.ORDER_NUMBER)
+        )
         assertEquals(OrderSuccessActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -70,7 +70,8 @@ class CheckoutRouterTest {
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(
-            MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(Extra.CHECKOUT_ID))
+            MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(Extra.CHECKOUT_ID)
+        )
         assertEquals(address, startedIntent.extras.getParcelable(Extra.SELECTED_ADDRESS))
         assertEquals(true, startedIntent.extras.getBoolean(Extra.IS_SHIPPING))
         assertEquals(CheckoutAddressListActivity::class.java, shadowIntent.intentClass)
@@ -133,7 +134,11 @@ class CheckoutRouterTest {
 
     @Test
     fun shouldStartPaymentActivityWhenPaymentViewAddPaymentTypeButtonClicked() {
-        router.showPaymentResult(activity, activity.paymentView.getPaymentType(), RequestCode.PAYMENT)
+        router.showPaymentResult(
+            activity,
+            activity.paymentView.getPaymentType(),
+            RequestCode.PAYMENT
+        )
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(PaymentActivity::class.java, shadowIntent.intentClass)
@@ -142,7 +147,11 @@ class CheckoutRouterTest {
 
     @Test
     fun shouldStartCardActivityWhenPaymentViewAddCardButtonClicked() {
-        router.showCardForResult(activity, activity.paymentView.getCardData().first, RequestCode.CARD)
+        router.showCardForResult(
+            activity,
+            activity.paymentView.getCardData().first,
+            RequestCode.CARD
+        )
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(CardActivity::class.java, shadowIntent.intentClass)

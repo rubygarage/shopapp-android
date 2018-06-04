@@ -1,7 +1,7 @@
 package com.shopapp.ui.order.di
 
-import com.shopapp.domain.interactor.order.OrderDetailsUseCase
 import com.shopapp.domain.interactor.order.GetOrdersUseCase
+import com.shopapp.domain.interactor.order.OrderDetailsUseCase
 import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
 import com.shopapp.ui.order.details.router.OrderRouter
 import com.shopapp.ui.order.list.contract.OrderListPresenter

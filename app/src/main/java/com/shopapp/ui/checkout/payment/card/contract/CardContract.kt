@@ -38,8 +38,10 @@ class CardPresenter @Inject constructor(
         )
     }
 
-    fun processCardData(holderName: String, cardNumber: String, cardMonth: String,
-                        cardYear: String, cardCvv: String) {
+    fun processCardData(
+        holderName: String, cardNumber: String, cardMonth: String,
+        cardYear: String, cardCvv: String
+    ) {
         val cardHolderNamePair = cardValidator.splitHolderName(holderName)
         if (cardHolderNamePair != null) {
             val card = Card(

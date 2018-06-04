@@ -87,7 +87,8 @@ class PaymentView @JvmOverloads constructor(
                 cardDataText.text = context.getString(
                     R.string.card_type_placeholder,
                     context.getString(cardType.nameRes),
-                    card.cardNumber.takeLast(LAST_CARD_NUMBERS))
+                    card.cardNumber.takeLast(LAST_CARD_NUMBERS)
+                )
             } else {
                 cardLogo.visibility = View.GONE
                 cardDataText.text = context.getString(
@@ -95,8 +96,13 @@ class PaymentView @JvmOverloads constructor(
                     card.cardNumber.takeLast(LAST_CARD_NUMBERS)
                 )
             }
-            cardExpiredDate.text = context.getString(R.string.card_exp_placeholder, card.expireMonth, card.expireYear.takeLast(LAST_DATE_NUMBERS))
-            cardHolder.text = context.getString(R.string.full_name_pattern, card.firstName, card.lastName)
+            cardExpiredDate.text = context.getString(
+                R.string.card_exp_placeholder,
+                card.expireMonth,
+                card.expireYear.takeLast(LAST_DATE_NUMBERS)
+            )
+            cardHolder.text =
+                    context.getString(R.string.full_name_pattern, card.firstName, card.lastName)
             addCardButton.visibility = View.GONE
             View.VISIBLE
         } else {

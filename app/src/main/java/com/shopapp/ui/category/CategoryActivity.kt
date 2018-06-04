@@ -139,7 +139,12 @@ class CategoryActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(Constant.DEFAULT_PER_PAGE_COUNT, paginationValue, category.id, sortType)
+        presenter.loadProductList(
+            Constant.DEFAULT_PER_PAGE_COUNT,
+            paginationValue,
+            category.id,
+            sortType
+        )
     }
 
     override fun showContent(data: List<Product>) {

@@ -6,7 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
 import com.shopapp.gateway.entity.Product
 
-class GalleryPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+class GalleryPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentStatePagerAdapter(fragmentManager) {
 
     var product: Product? = null
     var isThumbnailMode: Boolean = false

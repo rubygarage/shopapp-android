@@ -46,7 +46,8 @@ abstract class BaseAddressListActivity<A : AddressListAdapter, V : AddressListVi
 
     private fun setupRecycler() {
         addressListAdapter = getAdapter()
-        val decorator = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
+        val decorator =
+            SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.address_item_divider))
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = addressListAdapter
         recyclerView.addItemDecoration(decorator)

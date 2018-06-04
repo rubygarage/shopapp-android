@@ -52,7 +52,12 @@ class SetupCheckoutUseCaseTest {
 
     @Before
     fun setUpTest() {
-        useCase = SetupCheckoutUseCase(cartRepository, checkoutRepository, authRepository, customerRepository)
+        useCase = SetupCheckoutUseCase(
+            cartRepository,
+            checkoutRepository,
+            authRepository,
+            customerRepository
+        )
         given(cartRepository.getCartProductList()).willReturn(Observable.just(productList))
         given(checkoutRepository.createCheckout(any())).willReturn(Single.just(checkout))
         given(checkoutRepository.setShippingAddress(any(), any())).willReturn(Single.just(checkout))
@@ -78,7 +83,12 @@ class SetupCheckoutUseCaseTest {
 
     @Test
     fun shouldReturnFullCheckoutDataAndSetAddressError() {
-        given(checkoutRepository.setShippingAddress(any(), any())).willReturn(Single.error(Error.Content()))
+        given(
+            checkoutRepository.setShippingAddress(
+                any(),
+                any()
+            )
+        ).willReturn(Single.error(Error.Content()))
         val testObserver = useCase.buildUseCaseSingle(Unit).test()
 
         verify(cartRepository).getCartProductList()

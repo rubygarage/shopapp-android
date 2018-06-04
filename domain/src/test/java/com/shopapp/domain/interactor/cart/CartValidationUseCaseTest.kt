@@ -52,7 +52,13 @@ class CartValidationUseCaseTest {
         given(cartProduct.productVariant).willReturn(productVariant)
 
         given(cartRepository.getCartProductList()).willReturn(Observable.just(listOf(cartProduct)))
-        given(productRepository.getProductVariants(any())).willReturn(Single.just(listOf(productVariant)))
+        given(productRepository.getProductVariants(any())).willReturn(
+            Single.just(
+                listOf(
+                    productVariant
+                )
+            )
+        )
         val testObserver = useCase.buildUseCaseCompletable(Unit).test()
 
         verify(cartRepository).getCartProductList()
@@ -104,7 +110,13 @@ class CartValidationUseCaseTest {
         given(productVariant.id).willReturn(anotherTestId)
 
         given(cartRepository.getCartProductList()).willReturn(Observable.just(listOf(cartProduct)))
-        given(productRepository.getProductVariants(any())).willReturn(Single.just(listOf(productVariant)))
+        given(productRepository.getProductVariants(any())).willReturn(
+            Single.just(
+                listOf(
+                    productVariant
+                )
+            )
+        )
         given(cartRepository.deleteProductListFromCart(any())).willReturn(Completable.complete())
         val testObserver = useCase.buildUseCaseCompletable(Unit).test()
 

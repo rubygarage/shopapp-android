@@ -183,7 +183,15 @@ class CheckoutRepositoryTest {
     fun completeCheckoutByCardShouldReturnValueWhenOnResult() {
         val email = "email"
         val token = "token"
-        given(api.completeCheckoutByCard(eq(checkout), eq(email), eq(address), eq(token), any())).willAnswer({
+        given(
+            api.completeCheckoutByCard(
+                eq(checkout),
+                eq(email),
+                eq(address),
+                eq(token),
+                any()
+            )
+        ).willAnswer({
             val callback = it.getArgument<ApiCallback<Order>>(4)
             callback.onResult(order)
         })
@@ -196,7 +204,15 @@ class CheckoutRepositoryTest {
         val error = Error.Content()
         val email = "email"
         val token = "token"
-        given(api.completeCheckoutByCard(eq(checkout), eq(email), eq(address), eq(token), any())).willAnswer({
+        given(
+            api.completeCheckoutByCard(
+                eq(checkout),
+                eq(email),
+                eq(address),
+                eq(token),
+                any()
+            )
+        ).willAnswer({
             val callback = it.getArgument<ApiCallback<Order>>(4)
             callback.onFailure(error)
         })

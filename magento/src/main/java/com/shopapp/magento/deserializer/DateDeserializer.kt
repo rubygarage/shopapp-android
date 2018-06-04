@@ -15,14 +15,20 @@ class DateDeserializer : JsonDeserializer<Date> {
         private const val DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
     }
 
-    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Date {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type,
+        context: JsonDeserializationContext
+    ): Date {
         try {
             return SimpleDateFormat(DATE_FORMAT, Locale.getDefault()).parse(json.asString)
         } catch (ignored: ParseException) {
         } catch (ignored: IllegalArgumentException) {
         }
 
-        throw JsonParseException("Unparseable date: \"" + json.asString
-                + "\". Supported format: " + DATE_FORMAT)
+        throw JsonParseException(
+            "Unparseable date: \"" + json.asString
+                    + "\". Supported format: " + DATE_FORMAT
+        )
     }
 }

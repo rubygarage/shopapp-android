@@ -26,7 +26,13 @@ class GetCategoriesUseCaseTest {
         val perPage = 5
         val pagination = "pagination"
         val parentCategoryId = "parentCategoryId"
-        useCase.buildUseCaseSingle(GetCategoriesUseCase.Params(perPage, pagination, parentCategoryId))
+        useCase.buildUseCaseSingle(
+            GetCategoriesUseCase.Params(
+                perPage,
+                pagination,
+                parentCategoryId
+            )
+        )
         verify(repository).getCategories(perPage, pagination, parentCategoryId)
     }
 }

@@ -66,7 +66,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (bottomTabNavigation.selectedTabPosition == SEARCH) {
-            val searchFragment: Fragment? = supportFragmentManager.findFragmentByTag(SEARCH.toString())
+            val searchFragment: Fragment? =
+                supportFragmentManager.findFragmentByTag(SEARCH.toString())
             if (searchFragment is SearchWithCategoriesFragment && searchFragment.onBackPressed()) {
                 selectTab(HOME)
             }

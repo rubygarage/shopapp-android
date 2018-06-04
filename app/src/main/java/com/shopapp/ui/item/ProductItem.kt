@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
-import com.shopapp.gateway.entity.Product
-import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.R
+import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.ext.setResizedImageUri
+import com.shopapp.gateway.entity.Product
 import kotlinx.android.synthetic.main.item_product.view.*
 
 @SuppressLint("ViewConstructor")
@@ -26,8 +26,10 @@ class ProductItem(
     fun setProduct(product: Product) {
         titleTextView.text = product.title
         if (product.hasAlternativePrice) {
-            price.text = resources.getString(R.string.range_price,
-                formatter.formatPrice(product.price, product.currency))
+            price.text = resources.getString(
+                R.string.range_price,
+                formatter.formatPrice(product.price, product.currency)
+            )
         } else {
             price.text = formatter.formatPrice(product.price, product.currency)
         }

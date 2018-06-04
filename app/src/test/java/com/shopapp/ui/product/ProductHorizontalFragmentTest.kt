@@ -45,16 +45,25 @@ class ProductHorizontalFragmentTest {
 
     @Test
     fun shouldReceiveCorrectArguments() {
-        assertEquals(sortType, fragment.arguments?.getSerializable(ProductShortcutFragment.SORT_TYPE) as SortType)
+        assertEquals(
+            sortType,
+            fragment.arguments?.getSerializable(ProductShortcutFragment.SORT_TYPE) as SortType
+        )
         assertEquals(KEYWORD, fragment.arguments?.getString(ProductShortcutFragment.KEYWORD))
-        assertEquals(EXCLUDE_KEYWORD, fragment.arguments?.getString(ProductShortcutFragment.EXCLUDE_KEYWORD))
+        assertEquals(
+            EXCLUDE_KEYWORD,
+            fragment.arguments?.getString(ProductShortcutFragment.EXCLUDE_KEYWORD)
+        )
     }
 
     @Test
     fun shouldShowRecentTitle() {
         fragment = ProductShortcutFragment.newInstance(SortType.RECENT, KEYWORD, EXCLUDE_KEYWORD)
         startFragment(fragment)
-        assertEquals(context.getString(R.string.latest_arrivals), fragment.titleText.text.toString())
+        assertEquals(
+            context.getString(R.string.latest_arrivals),
+            fragment.titleText.text.toString()
+        )
     }
 
     @Test
@@ -73,15 +82,20 @@ class ProductHorizontalFragmentTest {
 
     @Test
     fun shouldLoadDataWhenOnViewCreated() {
-        verify(fragment.presenter).loadProductList(sortType, Constant.DEFAULT_PER_PAGE_COUNT,
-            null, KEYWORD, EXCLUDE_KEYWORD)
+        verify(fragment.presenter).loadProductList(
+            sortType, Constant.DEFAULT_PER_PAGE_COUNT,
+            null, KEYWORD, EXCLUDE_KEYWORD
+        )
     }
 
     @Test
     fun shouldSetCorrectRecyclerView() {
         val layoutManager = fragment.recyclerView.layoutManager
         assertTrue(layoutManager is LinearLayoutManager)
-        assertEquals(LinearLayoutManager.HORIZONTAL, (layoutManager as LinearLayoutManager).orientation)
+        assertEquals(
+            LinearLayoutManager.HORIZONTAL,
+            (layoutManager as LinearLayoutManager).orientation
+        )
         assertEquals(1, fragment.recyclerView.itemDecorationCount)
     }
 

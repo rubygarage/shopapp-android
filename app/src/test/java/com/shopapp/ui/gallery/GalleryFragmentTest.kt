@@ -75,11 +75,21 @@ class GalleryFragmentTest {
 
     @Test
     fun shouldShowGallery() {
-        controller = SupportFragmentController.of(GalleryFragment.newInstance(product, true, SELECTED_INDEX))
+        controller = SupportFragmentController.of(
+            GalleryFragment.newInstance(
+                product,
+                true,
+                SELECTED_INDEX
+            )
+        )
         val fragment = controller.create().start().get()
         val adapter = fragment.pager.adapter as GalleryPagerAdapter
         adapter.imageClickListener?.onClick(mock())
-        verify(fragment.router).showFullGallery(fragment.context, product, fragment.pager.currentItem)
+        verify(fragment.router).showFullGallery(
+            fragment.context,
+            product,
+            fragment.pager.currentItem
+        )
     }
 
     @Test

@@ -37,8 +37,10 @@ class CheckoutAddressActivity : BaseAddressActivity<AddressView, AddressPresente
     override fun addressChanged(address: Address) {
         val result = Intent()
         result.putExtra(Extra.ADDRESS, address)
-        result.putExtra(Extra.IS_SELECTED_ADDRESS,
-            intent.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false))
+        result.putExtra(
+            Extra.IS_SELECTED_ADDRESS,
+            intent.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false)
+        )
         setResult(Activity.RESULT_OK, result)
         finish()
     }

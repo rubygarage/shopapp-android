@@ -50,7 +50,8 @@ class SearchFragmentTest {
 
     @Test
     fun shouldShowCategoriesList() {
-        val products = MockInstantiator.newList(MockInstantiator.newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
+        val products =
+            MockInstantiator.newList(MockInstantiator.newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
         fragment.showContent(products)
         assertEquals(View.VISIBLE, fragment.contentView.visibility)
         assertEquals(Constant.DEFAULT_PER_PAGE_COUNT, fragment.recyclerView.adapter.itemCount)
@@ -73,7 +74,10 @@ class SearchFragmentTest {
         fragment.showEmptyState()
         val resId = shadowOf(fragment.emptyView.emptyImage.drawable).createdFromResId
         assertEquals(R.drawable.ic_search_not_found, resId)
-        assertEquals(context.getString(R.string.no_results_found), fragment.emptyView.emptyMessage.text.toString())
+        assertEquals(
+            context.getString(R.string.no_results_found),
+            fragment.emptyView.emptyMessage.text.toString()
+        )
     }
 
     @Test
@@ -91,7 +95,8 @@ class SearchFragmentTest {
 
     @Test
     fun shouldClearDataListOnQueryChange() {
-        val products = MockInstantiator.newList(MockInstantiator.newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
+        val products =
+            MockInstantiator.newList(MockInstantiator.newProduct(), Constant.DEFAULT_PER_PAGE_COUNT)
         fragment.queryChanged(SEARCH_QUERY)
         fragment.showContent(products)
 

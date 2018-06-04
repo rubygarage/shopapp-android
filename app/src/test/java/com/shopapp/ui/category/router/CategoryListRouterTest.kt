@@ -49,7 +49,10 @@ class CategoryListRouterTest {
 
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(category, startedIntent.extras.getParcelable(CategoryListActivity.PARENT_CATEGORY))
+        assertEquals(
+            category,
+            startedIntent.extras.getParcelable(CategoryListActivity.PARENT_CATEGORY)
+        )
         assertFalse(startedIntent.extras.getBoolean(CategoryListActivity.IS_GRID_MODE))
         assertEquals(CategoryListActivity::class.java, shadowIntent.intentClass)
     }

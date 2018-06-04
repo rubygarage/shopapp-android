@@ -33,7 +33,14 @@ class CompleteCheckoutByCardUseCaseTest {
     fun shouldDelegateCallToRepository() {
         val email = "email"
         val token = "token"
-        useCase.buildUseCaseSingle(CompleteCheckoutByCardUseCase.Params(checkout, email, address, token))
+        useCase.buildUseCaseSingle(
+            CompleteCheckoutByCardUseCase.Params(
+                checkout,
+                email,
+                address,
+                token
+            )
+        )
         Mockito.verify(checkoutRepository).completeCheckoutByCard(checkout, email, address, token)
     }
 }

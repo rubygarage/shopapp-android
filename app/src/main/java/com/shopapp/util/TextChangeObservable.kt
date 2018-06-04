@@ -7,8 +7,10 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.MainThreadDisposable
 
-class TextChangeObservable constructor(val view: TextView,
-                                       private val withInitValue: Boolean = false) : Observable<String>() {
+class TextChangeObservable constructor(
+    val view: TextView,
+    private val withInitValue: Boolean = false
+) : Observable<String>() {
 
     override fun subscribeActual(observer: Observer<in String>?) {
         observer?.let {
@@ -21,9 +23,11 @@ class TextChangeObservable constructor(val view: TextView,
         }
     }
 
-    internal class Listener(private val view: TextView,
-                            private val observer: Observer<in String>,
-                            withInitValue: Boolean) : MainThreadDisposable(), TextWatcher {
+    internal class Listener(
+        private val view: TextView,
+        private val observer: Observer<in String>,
+        withInitValue: Boolean
+    ) : MainThreadDisposable(), TextWatcher {
         init {
             if (withInitValue && !isDisposed) {
                 observer.onNext("")

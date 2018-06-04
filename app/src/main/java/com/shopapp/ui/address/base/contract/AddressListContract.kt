@@ -1,11 +1,11 @@
 package com.shopapp.ui.address.base.contract
 
-import com.shopapp.gateway.entity.Address
 import com.shopapp.domain.interactor.account.DeleteCustomerAddressUseCase
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.SetDefaultAddressUseCase
 import com.shopapp.domain.interactor.base.UseCase
 import com.shopapp.ext.swap
+import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 
@@ -55,7 +55,10 @@ open class AddressListPresenter<V : AddressListView>(
         )
     }
 
-    private fun sortAddressList(defaultAddress: Address?, addressList: List<Address>?): List<Address> {
+    private fun sortAddressList(
+        defaultAddress: Address?,
+        addressList: List<Address>?
+    ): List<Address> {
         val mutableAddressList = addressList?.toMutableList() ?: mutableListOf()
         defaultAddress?.let {
             val defaultIndex = mutableAddressList.indexOf(it)

@@ -69,7 +69,13 @@ class ForgotPasswordPresenterTest {
     @Test
     fun shouldShowMessageWhenReturnNonCriticalError() {
         val errorMessage = "errorMessage"
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical(errorMessage)))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    errorMessage
+                )
+            )
+        )
         given(validator.isEmailValid(any())).willReturn(true)
         presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
 
@@ -81,7 +87,13 @@ class ForgotPasswordPresenterTest {
     @Test
     fun shouldShowErrorWhenReturnContentError() {
         val isNetworkError = true
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(isNetworkError)))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.Content(
+                    isNetworkError
+                )
+            )
+        )
         given(validator.isEmailValid(any())).willReturn(true)
         presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
 

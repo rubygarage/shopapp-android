@@ -29,8 +29,15 @@ class GetProductsUseCaseTest {
         val paginationValue = "paginationValue"
         val keyword = "keyword"
         val excludeKeyword = "excludeKeyword"
-        val params = GetProductsUseCase.Params(sortType, perPage, paginationValue, keyword, excludeKeyword)
+        val params =
+            GetProductsUseCase.Params(sortType, perPage, paginationValue, keyword, excludeKeyword)
         useCase.buildUseCaseSingle(params)
-        verify(productRepository).getProducts(perPage, paginationValue, sortType, keyword, excludeKeyword)
+        verify(productRepository).getProducts(
+            perPage,
+            paginationValue,
+            sortType,
+            keyword,
+            excludeKeyword
+        )
     }
 }

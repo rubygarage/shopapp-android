@@ -60,14 +60,26 @@ class ProductRepositoryTest {
 
     @Test
     fun getProductsShouldDelegateCallToApi() {
-        repository.getProducts(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD).subscribe()
-        verify(api).getProducts(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD), eq(EXCLUDE_KEYWORD), any())
+        repository.getProducts(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD)
+            .subscribe()
+        verify(api).getProducts(
+            eq(PER_PAGE),
+            eq(PAGINATION_VALUE),
+            eq(sortBy),
+            eq(KEYWORD),
+            eq(EXCLUDE_KEYWORD),
+            any()
+        )
     }
 
     @Test
     fun getProductsShouldReturnValueWhenOnResult() {
-        given(api.getProducts(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
-            eq(EXCLUDE_KEYWORD), any())).willAnswer({
+        given(
+            api.getProducts(
+                eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
+                eq(EXCLUDE_KEYWORD), any()
+            )
+        ).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Product>>>(5)
             callback.onResult(productList)
         })
@@ -79,8 +91,12 @@ class ProductRepositoryTest {
     @Test
     fun getProductsShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getProducts(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
-            eq(EXCLUDE_KEYWORD), any())).willAnswer({
+        given(
+            api.getProducts(
+                eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
+                eq(EXCLUDE_KEYWORD), any()
+            )
+        ).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Product>>>(5)
             callback.onFailure(error)
         })

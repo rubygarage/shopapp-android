@@ -1,9 +1,9 @@
 package com.shopapp.di.module
 
-import com.shopapp.gateway.Api
-import com.shopapp.data.impl.*
 import com.shopapp.data.dao.Dao
+import com.shopapp.data.impl.*
 import com.shopapp.domain.repository.*
+import com.shopapp.gateway.Api
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

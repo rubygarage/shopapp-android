@@ -16,47 +16,47 @@ class CheckoutAddressModule {
 
     @Provides
     fun provideCheckoutUnAuthAddressPresenter(
-            formValidator: FieldValidator,
-            countriesUseCase: GetCountriesUseCase,
-            setShippingAddressUseCase: SetShippingAddressUseCase,
-            addCustomerAddressUseCase: AddCustomerAddressUseCase,
-            updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
+        formValidator: FieldValidator,
+        countriesUseCase: GetCountriesUseCase,
+        setShippingAddressUseCase: SetShippingAddressUseCase,
+        addCustomerAddressUseCase: AddCustomerAddressUseCase,
+        updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
     ): CheckoutUnAuthAddressPresenter = CheckoutUnAuthAddressPresenter(
-            formValidator,
-            countriesUseCase,
-            setShippingAddressUseCase,
-            addCustomerAddressUseCase,
-            updateCustomerAddressUseCase
+        formValidator,
+        countriesUseCase,
+        setShippingAddressUseCase,
+        addCustomerAddressUseCase,
+        updateCustomerAddressUseCase
     )
 
     @Provides
     fun provideCheckoutAddressListPresenter(
-            getCustomerUseCase: GetCustomerUseCase,
-            deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
-            setDefaultAddressUseCase: SetDefaultAddressUseCase,
-            setShippingAddressUseCase: SetShippingAddressUseCase
+        getCustomerUseCase: GetCustomerUseCase,
+        deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
+        setDefaultAddressUseCase: SetDefaultAddressUseCase,
+        setShippingAddressUseCase: SetShippingAddressUseCase
     ): CheckoutAddressListPresenter {
         return CheckoutAddressListPresenter(
-                getCustomerUseCase,
-                deleteCustomerAddressUseCase,
-                setDefaultAddressUseCase,
-                setShippingAddressUseCase
+            getCustomerUseCase,
+            deleteCustomerAddressUseCase,
+            setDefaultAddressUseCase,
+            setShippingAddressUseCase
         )
     }
 
     @Provides
     fun provideAddressPresenter(
-            formValidator: FieldValidator,
-            countriesUseCase: GetCountriesUseCase,
-            addCustomerAddressUseCase: AddCustomerAddressUseCase,
-            updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
+        formValidator: FieldValidator,
+        countriesUseCase: GetCountriesUseCase,
+        addCustomerAddressUseCase: AddCustomerAddressUseCase,
+        updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
     ): AddressPresenter<AddressView> =
-            AddressPresenter(
-                    formValidator,
-                    countriesUseCase,
-                    addCustomerAddressUseCase,
-                    updateCustomerAddressUseCase
-            )
+        AddressPresenter(
+            formValidator,
+            countriesUseCase,
+            addCustomerAddressUseCase,
+            updateCustomerAddressUseCase
+        )
 
     @Provides
     fun provideCheckoutAddressesRouter(): CheckoutAddressRouter = CheckoutAddressRouter()

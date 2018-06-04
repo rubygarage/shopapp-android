@@ -35,7 +35,8 @@ open class ProductResponse(
 
         val htmlDescription = customAttributes.getValue(DESCRIPTION_ATTRIBUTE) ?: ""
         val description = Jsoup.parse(htmlDescription).text()
-        val images = mediaGalleryEntries.mapNotNull { ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, it) }
+        val images =
+            mediaGalleryEntries.mapNotNull { ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, it) }
         val productVariant = createProductVariant(host, images.firstOrNull())
 
         return Product(
@@ -60,8 +61,16 @@ open class ProductResponse(
 
     private fun createProductVariant(host: String, productImage: Image?): ProductVariant {
 
-        val thumbnail = ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, customAttributes.getValue(Constant.THUMBNAIL_ATTRIBUTE))
-        val image = ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, customAttributes.getValue(Constant.IMAGE_ATTRIBUTE))
+        val thumbnail = ImageAdapter.adapt(
+            host,
+            PRODUCT_IMAGE_PATH,
+            customAttributes.getValue(Constant.THUMBNAIL_ATTRIBUTE)
+        )
+        val image = ImageAdapter.adapt(
+            host,
+            PRODUCT_IMAGE_PATH,
+            customAttributes.getValue(Constant.IMAGE_ATTRIBUTE)
+        )
         val images = listOfNotNull(thumbnail, image)
         val mainImage = images.firstOrNull() ?: productImage
 

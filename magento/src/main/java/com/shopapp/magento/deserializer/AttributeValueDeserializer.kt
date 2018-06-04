@@ -8,7 +8,11 @@ import java.lang.reflect.Type
 
 class AttributeValueDeserializer : JsonDeserializer<AttributeValue?> {
 
-    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): AttributeValue? {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type,
+        context: JsonDeserializationContext
+    ): AttributeValue? {
         return if (json.isJsonPrimitive || json.isJsonObject) {
             AttributeValue(data = json.asString)
         } else if (json.isJsonArray) {

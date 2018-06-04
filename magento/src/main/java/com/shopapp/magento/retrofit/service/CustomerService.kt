@@ -26,12 +26,16 @@ interface CustomerService {
     fun getCustomer(@Header(AUTHORIZATION_HEADER) token: String): Single<CustomerResponse>
 
     @PUT(CUSTOMER_URL)
-    fun updateCustomer(@Header(AUTHORIZATION_HEADER) token: String,
-                       @Body request: UpdateCustomerRequest): Single<CustomerResponse>
+    fun updateCustomer(
+        @Header(AUTHORIZATION_HEADER) token: String,
+        @Body request: UpdateCustomerRequest
+    ): Single<CustomerResponse>
 
     @PUT(UPDATE_PASSWORD_URL)
-    fun updatePassword(@Header(AUTHORIZATION_HEADER) token: String,
-                       @Body request: UpdatePasswordRequest): Single<Boolean>
+    fun updatePassword(
+        @Header(AUTHORIZATION_HEADER) token: String,
+        @Body request: UpdatePasswordRequest
+    ): Single<Boolean>
 
     @PUT(RESET_PASSWORD_URL)
     fun resetPassword(@Body request: ResetPasswordRequest): Single<Boolean>

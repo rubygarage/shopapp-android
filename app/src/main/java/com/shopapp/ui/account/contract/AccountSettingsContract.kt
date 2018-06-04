@@ -9,7 +9,8 @@ interface AccountSettingsView : BaseLceView<Boolean>
 
 class AccountSettingsPresenter(
     private val customerUseCase: GetCustomerUseCase,
-    private val updateSettingsUseCase: UpdateCustomerSettingsUseCase) :
+    private val updateSettingsUseCase: UpdateCustomerSettingsUseCase
+) :
     BaseLcePresenter<Boolean, AccountSettingsView>(customerUseCase, updateSettingsUseCase) {
 
     fun getCustomer() {

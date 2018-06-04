@@ -30,8 +30,10 @@ class QuantityView @JvmOverloads constructor(
     }
 
     private val numberTextSize = context.resources.getDimension(R.dimen.popup_text_size)
-    private val horizontalNumberPadding = context.resources.getDimensionPixelSize(R.dimen.horizontal_space)
-    private val verticalNumberPadding = context.resources.getDimensionPixelSize(R.dimen.element_space)
+    private val horizontalNumberPadding =
+        context.resources.getDimensionPixelSize(R.dimen.horizontal_space)
+    private val verticalNumberPadding =
+        context.resources.getDimensionPixelSize(R.dimen.element_space)
     private val numberTextColor = ContextCompat.getColor(context, R.color.textColorPrimary)
     private val selectedNumberTextBackgroundRes = R.color.selectedColor
     private val numberTextBackgroundRes: Int
@@ -68,7 +70,11 @@ class QuantityView @JvmOverloads constructor(
         popupWindow.isOutsideTouchable = true
         popupWindow.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        fillQuantityNumberContainer(popupWindow, popupView.quantityNumberContainer, selectedQuantityNumber)
+        fillQuantityNumberContainer(
+            popupWindow,
+            popupView.quantityNumberContainer,
+            selectedQuantityNumber
+        )
         popupView.more.setOnClickListener {
             showQuantityInputDialog()
             popupWindow.dismiss()
@@ -93,8 +99,10 @@ class QuantityView @JvmOverloads constructor(
             val numberQuantityTextView = TextView(context)
             numberQuantityTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, numberTextSize)
             numberQuantityTextView.setTextColor(numberTextColor)
-            numberQuantityTextView.setPadding(horizontalNumberPadding, verticalNumberPadding,
-                horizontalNumberPadding, verticalNumberPadding)
+            numberQuantityTextView.setPadding(
+                horizontalNumberPadding, verticalNumberPadding,
+                horizontalNumberPadding, verticalNumberPadding
+            )
             numberQuantityTextView.setOnClickListener(clickListener)
             numberQuantityTextView.text = i.toString()
             val backgroundColor = if (i == selectedQuantityNumber)
@@ -108,7 +116,8 @@ class QuantityView @JvmOverloads constructor(
     }
 
     private fun showQuantityInputDialog(selectedQuantity: String = "") {
-        val dialogInputView = LayoutInflater.from(context).inflate(R.layout.view_dialog_quantity_input, null)
+        val dialogInputView =
+            LayoutInflater.from(context).inflate(R.layout.view_dialog_quantity_input, null)
         val dialogInput = dialogInputView.dialogInput
         val dialog = AlertDialog.Builder(context)
             .setTitle(R.string.quantity)

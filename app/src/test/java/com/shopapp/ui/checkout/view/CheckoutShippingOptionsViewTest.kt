@@ -31,8 +31,14 @@ class CheckoutShippingOptionsViewTest {
 
     @Test
     fun shouldShowDefaultMessageWhenDataDoesNotSet() {
-        assertEquals(ContextCompat.getColor(context, R.color.textColorSecondary), view.title.currentTextColor)
-        assertEquals(context.getString(R.string.please_add_shipping_address_first), view.message.text)
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorSecondary),
+            view.title.currentTextColor
+        )
+        assertEquals(
+            context.getString(R.string.please_add_shipping_address_first),
+            view.message.text
+        )
         assertEquals(View.VISIBLE, view.message.visibility)
         assertEquals(View.GONE, view.recyclerView.visibility)
     }
@@ -42,7 +48,10 @@ class CheckoutShippingOptionsViewTest {
         val checkout = MockInstantiator.newCheckout()
 
         view.setData(checkout, emptyList())
-        assertEquals(ContextCompat.getColor(context, R.color.textColorSecondary), view.title.currentTextColor)
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorSecondary),
+            view.title.currentTextColor
+        )
         assertEquals(context.getString(R.string.order_can_not_be_processed), view.message.text)
         assertEquals(View.VISIBLE, view.message.visibility)
         assertEquals(View.GONE, view.recyclerView.visibility)
@@ -55,7 +64,10 @@ class CheckoutShippingOptionsViewTest {
         val shippingRates = MockInstantiator.newList(MockInstantiator.newShippingRate(), size)
 
         view.setData(checkout, shippingRates)
-        assertEquals(ContextCompat.getColor(context, R.color.textColorPrimary), view.title.currentTextColor)
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorPrimary),
+            view.title.currentTextColor
+        )
         assertEquals(View.GONE, view.message.visibility)
         assertEquals(View.VISIBLE, view.recyclerView.visibility)
         assertEquals(size, view.recyclerView.adapter.itemCount)
@@ -68,14 +80,23 @@ class CheckoutShippingOptionsViewTest {
         val shippingRates = MockInstantiator.newList(MockInstantiator.newShippingRate(), size)
 
         view.setData(checkout, shippingRates)
-        assertEquals(ContextCompat.getColor(context, R.color.textColorPrimary), view.title.currentTextColor)
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorPrimary),
+            view.title.currentTextColor
+        )
         assertEquals(View.GONE, view.message.visibility)
         assertEquals(View.VISIBLE, view.recyclerView.visibility)
         assertEquals(size, view.recyclerView.adapter.itemCount)
 
         view.unSelectAddress()
-        assertEquals(ContextCompat.getColor(context, R.color.textColorSecondary), view.title.currentTextColor)
-        assertEquals(context.getString(R.string.please_add_shipping_address_first), view.message.text)
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorSecondary),
+            view.title.currentTextColor
+        )
+        assertEquals(
+            context.getString(R.string.please_add_shipping_address_first),
+            view.message.text
+        )
         assertEquals(View.VISIBLE, view.message.visibility)
         assertEquals(View.GONE, view.recyclerView.visibility)
     }

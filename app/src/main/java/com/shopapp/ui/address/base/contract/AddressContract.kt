@@ -21,18 +21,18 @@ interface AddressView : BaseLceView<Address?> {
 }
 
 open class AddressPresenter<V : AddressView>(
-        private val fieldValidator: FieldValidator,
-        private val countriesUseCase: GetCountriesUseCase,
-        private val addCustomerAddressUseCase: AddCustomerAddressUseCase,
-        private val updateCustomerAddressUseCase: UpdateCustomerAddressUseCase,
-        vararg useCases: UseCase
+    private val fieldValidator: FieldValidator,
+    private val countriesUseCase: GetCountriesUseCase,
+    private val addCustomerAddressUseCase: AddCustomerAddressUseCase,
+    private val updateCustomerAddressUseCase: UpdateCustomerAddressUseCase,
+    vararg useCases: UseCase
 ) :
-        BaseLcePresenter<Address?, V>(
-                countriesUseCase,
-                addCustomerAddressUseCase,
-                updateCustomerAddressUseCase,
-                *useCases
-        ) {
+    BaseLcePresenter<Address?, V>(
+        countriesUseCase,
+        addCustomerAddressUseCase,
+        updateCustomerAddressUseCase,
+        *useCases
+    ) {
 
     fun submitAddress(address: Address) {
         if (fieldValidator.isAddressValid(address)) {
@@ -54,31 +54,31 @@ open class AddressPresenter<V : AddressView>(
 
     fun getCountries() {
         countriesUseCase.execute(
-                { view.countriesLoaded(it) },
-                { resolveError(it) },
-                Unit
+            { view.countriesLoaded(it) },
+            { resolveError(it) },
+            Unit
         )
     }
 
     private fun addCustomerAddress(address: Address) {
         addCustomerAddressUseCase.execute(
-                { view?.addressChanged(address) },
-                {
-                    resolveError(it)
-                    view?.addressChanged(address)
-                },
-                address
+            { view?.addressChanged(address) },
+            {
+                resolveError(it)
+                view?.addressChanged(address)
+            },
+            address
         )
     }
 
     private fun updateCustomerAddress(address: Address) {
         updateCustomerAddressUseCase.execute(
-                { view?.addressChanged(address) },
-                {
-                    resolveError(it)
-                    view?.addressChanged(address)
-                },
-                UpdateCustomerAddressUseCase.Params(address)
+            { view?.addressChanged(address) },
+            {
+                resolveError(it)
+                view?.addressChanged(address)
+            },
+            UpdateCustomerAddressUseCase.Params(address)
         )
     }
 }

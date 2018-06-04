@@ -14,7 +14,8 @@ import com.shopapp.ui.address.checkout.contract.CheckoutUnAuthAddressPresenter
 import com.shopapp.ui.const.Extra
 import javax.inject.Inject
 
-class CheckoutUnAuthAddressActivity : BaseAddressActivity<AddressView, CheckoutUnAuthAddressPresenter>() {
+class CheckoutUnAuthAddressActivity :
+    BaseAddressActivity<AddressView, CheckoutUnAuthAddressPresenter>() {
 
     companion object {
 

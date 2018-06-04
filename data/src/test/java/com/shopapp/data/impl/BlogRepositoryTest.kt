@@ -15,10 +15,8 @@ import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
 
 class BlogRepositoryTest {
 
@@ -84,7 +82,13 @@ class BlogRepositoryTest {
     @Test
     fun getArticlesShouldDelegateCallToApi() {
         repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe()
-        verify(api).getArticles(eq(perPage), eq(paginationValue), eq(SortType.RECENT), eq(true), any())
+        verify(api).getArticles(
+            eq(perPage),
+            eq(paginationValue),
+            eq(SortType.RECENT),
+            eq(true),
+            any()
+        )
     }
 
     @Test
@@ -93,7 +97,8 @@ class BlogRepositoryTest {
             val callback = it.getArgument<ApiCallback<List<Article>>>(4)
             callback.onResult(articleListResult)
         })
-        repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe(articleListObserver)
+        repository.getArticles(perPage, paginationValue, SortType.RECENT, true)
+            .subscribe(articleListObserver)
         articleListObserver.assertValue(articleListResult)
         articleListObserver.assertComplete()
     }
@@ -105,7 +110,8 @@ class BlogRepositoryTest {
             val callback = it.getArgument<ApiCallback<List<Article>>>(4)
             callback.onFailure(error)
         })
-        repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe(articleListObserver)
+        repository.getArticles(perPage, paginationValue, SortType.RECENT, true)
+            .subscribe(articleListObserver)
         articleListObserver.assertError(error)
     }
 }

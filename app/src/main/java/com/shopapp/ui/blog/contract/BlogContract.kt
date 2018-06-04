@@ -1,7 +1,7 @@
 package com.shopapp.ui.blog.contract
 
-import com.shopapp.gateway.entity.Article
 import com.shopapp.domain.interactor.blog.GetArticlesUseCase
+import com.shopapp.gateway.entity.Article
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject

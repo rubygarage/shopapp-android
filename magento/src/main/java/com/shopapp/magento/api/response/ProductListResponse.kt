@@ -45,8 +45,16 @@ class ProductListResponse(
 
             val htmlDescription = customAttributes.getValue(DESCRIPTION_ATTRIBUTE) ?: ""
             val description = Jsoup.parse(htmlDescription).text()
-            val thumbnail = ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, customAttributes.getValue(THUMBNAIL_ATTRIBUTE))
-            val image = ImageAdapter.adapt(host, PRODUCT_IMAGE_PATH, customAttributes.getValue(IMAGE_ATTRIBUTE))
+            val thumbnail = ImageAdapter.adapt(
+                host,
+                PRODUCT_IMAGE_PATH,
+                customAttributes.getValue(THUMBNAIL_ATTRIBUTE)
+            )
+            val image = ImageAdapter.adapt(
+                host,
+                PRODUCT_IMAGE_PATH,
+                customAttributes.getValue(IMAGE_ATTRIBUTE)
+            )
             val images = listOfNotNull(thumbnail, image)
 
             return Product(

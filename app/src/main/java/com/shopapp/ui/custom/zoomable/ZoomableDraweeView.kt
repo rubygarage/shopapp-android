@@ -35,7 +35,8 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
         override fun onFinalImageSet(
             id: String?,
             imageInfo: Any?,
-            animatable: Animatable?) {
+            animatable: Animatable?
+        ) {
             this@ZoomableDraweeView.onFinalImageSet()
         }
 
@@ -161,7 +162,8 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
      * @param allowTouchInterceptionWhileZoomed true if the parent needs to intercept touches
      */
     fun setAllowTouchInterceptionWhileZoomed(
-        allowTouchInterceptionWhileZoomed: Boolean) {
+        allowTouchInterceptionWhileZoomed: Boolean
+    ) {
         mAllowTouchInterceptionWhileZoomed = allowTouchInterceptionWhileZoomed
     }
 
@@ -204,7 +206,8 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
      */
     private fun setControllers(
         controller: DraweeController?,
-        hugeImageController: DraweeController?) {
+        hugeImageController: DraweeController?
+    ) {
         setControllersInternal(null, null)
         mZoomableController.setEnabled(false)
         setControllersInternal(controller, hugeImageController)
@@ -212,7 +215,8 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
 
     private fun setControllersInternal(
         controller: DraweeController?,
-        hugeImageController: DraweeController?) {
+        hugeImageController: DraweeController?
+    ) {
         removeControllerListener(getController())
         addControllerListener(controller)
         mHugeImageController = hugeImageController
@@ -226,7 +230,9 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
     }
 
     private fun removeControllerListener(controller: DraweeController?) {
-        (controller as? AbstractDraweeController<*, *>)?.removeControllerListener(mControllerListener)
+        (controller as? AbstractDraweeController<*, *>)?.removeControllerListener(
+            mControllerListener
+        )
     }
 
     private fun addControllerListener(controller: DraweeController?) {
@@ -244,8 +250,12 @@ class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingView {
                 val callerContext = controller.callerContext
                 if (callerContext != null) {
                     throw RuntimeException(
-                        String.format("Exception in onDraw, callerContext=%s", callerContext.toString()),
-                        e)
+                        String.format(
+                            "Exception in onDraw, callerContext=%s",
+                            callerContext.toString()
+                        ),
+                        e
+                    )
                 }
             }
             throw e

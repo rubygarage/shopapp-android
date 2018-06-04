@@ -24,7 +24,8 @@ class FragmentExtensionTest {
     @Before
     fun setUp() {
         context = RuntimeEnvironment.application.baseContext
-        activity = Robolectric.buildActivity(TestActivity::class.java).create().start().resume().get()
+        activity =
+                Robolectric.buildActivity(TestActivity::class.java).create().start().resume().get()
     }
 
     @Test

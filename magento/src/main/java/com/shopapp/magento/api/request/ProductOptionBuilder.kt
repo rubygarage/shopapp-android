@@ -6,7 +6,8 @@ import com.shopapp.magento.api.Constant.DESC_DIRECTION
 class ProductOptionBuilder {
 
     companion object {
-        private const val FILTER_GROUP_PATTERN = "searchCriteria[filterGroups][%1\$d][filters][%2\$d][%3\$s]"
+        private const val FILTER_GROUP_PATTERN =
+            "searchCriteria[filterGroups][%1\$d][filters][%2\$d][%3\$s]"
         const val SEARCH_CRITERIA_PATTERN = "searchCriteria[%s]"
 
         const val SORT_ORDER_FIELD = "searchCriteria[sortOrders][0][field]"
@@ -16,7 +17,11 @@ class ProductOptionBuilder {
     private val filterGroup = mutableListOf<Map<String, String>>()
     private val searchCriteriaMap = hashMapOf<String, String>()
 
-    fun addFilterGroup(field: String, value: String, condition: ConditionType = ConditionType.DEFAULT): ProductOptionBuilder {
+    fun addFilterGroup(
+        field: String,
+        value: String,
+        condition: ConditionType = ConditionType.DEFAULT
+    ): ProductOptionBuilder {
         val groupIndex = this.filterGroup.size
         val filterOption = FilterBuilder().addFilter(groupIndex, field, value, condition).build()
         filterGroup.add(filterOption)
@@ -58,11 +63,22 @@ class ProductOptionBuilder {
 
         private val filterMap = hashMapOf<String, String>()
 
-        fun addFilter(groupIndex: Int, field: String, value: String, condition: ConditionType = ConditionType.DEFAULT): FilterBuilder {
+        fun addFilter(
+            groupIndex: Int,
+            field: String,
+            value: String,
+            condition: ConditionType = ConditionType.DEFAULT
+        ): FilterBuilder {
             val filterIndex = filterMap.size / FILTER_PARTS_SIZE
-            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, Filter.FIELD.value)] = field
-            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, Filter.VALUE.value)] = value
-            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, Filter.CONDITION.value)] = condition.value
+            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, Filter.FIELD.value)] =
+                    field
+            filterMap[FILTER_GROUP_PATTERN.format(groupIndex, filterIndex, Filter.VALUE.value)] =
+                    value
+            filterMap[FILTER_GROUP_PATTERN.format(
+                groupIndex,
+                filterIndex,
+                Filter.CONDITION.value
+            )] = condition.value
             return this
         }
 

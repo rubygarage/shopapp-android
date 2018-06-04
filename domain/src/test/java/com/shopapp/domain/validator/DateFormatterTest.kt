@@ -36,6 +36,7 @@ class DateFormatterTest {
             simpleDateFormat.parse("01/01/2018"),
             simpleDateFormat.parse("17/10/2017"),
             simpleDateFormat.parse("18/12/2017"),
-            simpleDateFormat.parse("19/12/2017"))
+            simpleDateFormat.parse("19/12/2017")
+        )
     }
 }

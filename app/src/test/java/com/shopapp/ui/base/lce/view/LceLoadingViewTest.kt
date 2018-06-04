@@ -32,7 +32,10 @@ class LceLoadingViewTest {
         view.visibility = View.GONE
         view.changeState(LceLayout.LceState.LoadingState(useDelay = false))
         assertEquals(View.VISIBLE, view.visibility)
-        assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLight), view.background)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.colorBackgroundLight),
+            view.background
+        )
     }
 
     @Test
@@ -40,14 +43,20 @@ class LceLoadingViewTest {
         view.visibility = View.GONE
         view.changeState(LceLayout.LceState.LoadingState(useDelay = true))
         assertEquals(View.GONE, view.visibility)
-        assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLight), view.background)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.colorBackgroundLight),
+            view.background
+        )
     }
 
     @Test
     fun shouldViewBeTranslucent() {
         view.changeState(LceLayout.LceState.LoadingState(true))
         assertEquals(View.VISIBLE, view.visibility)
-        assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent), view.background)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent),
+            view.background
+        )
     }
 
     @Test

@@ -39,7 +39,8 @@ class ProductDetailsActivityTest {
         context = RuntimeEnvironment.application.baseContext
         productVariant = MockInstantiator.newProductVariant()
         val intent = ProductDetailsActivity.getStartIntent(context, productVariant)
-        activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent).create().resume().get()
+        activity = Robolectric.buildActivity(ProductDetailsActivity::class.java, intent).create()
+            .resume().get()
     }
 
     @Test
@@ -61,8 +62,10 @@ class ProductDetailsActivityTest {
         val data = MockInstantiator.newProduct()
         activity.showContent(data)
         assertEquals(0, activity.description.layoutParams.height)
-        assertEquals(R.drawable.ic_plus,
-            shadowOf(activity.descriptionLabel.compoundDrawablesRelative[2]).createdFromResId)
+        assertEquals(
+            R.drawable.ic_plus,
+            shadowOf(activity.descriptionLabel.compoundDrawablesRelative[2]).createdFromResId
+        )
     }
 
     @Test
@@ -71,8 +74,10 @@ class ProductDetailsActivityTest {
         activity.showContent(data)
         activity.descriptionLabel.performClick()
         assertEquals(ViewGroup.LayoutParams.WRAP_CONTENT, activity.description.layoutParams.height)
-        assertEquals(R.drawable.ic_minus,
-            shadowOf(activity.descriptionLabel.compoundDrawables[2]).createdFromResId)
+        assertEquals(
+            R.drawable.ic_minus,
+            shadowOf(activity.descriptionLabel.compoundDrawables[2]).createdFromResId
+        )
     }
 
     @Test
@@ -83,7 +88,12 @@ class ProductDetailsActivityTest {
         activity.onVariantSelected(productVariant)
         activity.quantityEditText.setText(quantity.toString())
         activity.cartButton.performClick()
-        verify(activity.presenter).addProductToCart(productVariant, data.title, data.currency, quantity.toString())
+        verify(activity.presenter).addProductToCart(
+            productVariant,
+            data.title,
+            data.currency,
+            quantity.toString()
+        )
     }
 
     @Test
@@ -108,7 +118,8 @@ class ProductDetailsActivityTest {
     @Test
     fun shouldHideRecentContainerWhenCallChangeVisibilityWithVisibleFalse() {
         activity.showContent(MockInstantiator.newProduct())
-        val fragment = activity.supportFragmentManager.findFragmentById(R.id.relatedContainer) as ProductShortcutFragment
+        val fragment =
+            activity.supportFragmentManager.findFragmentById(R.id.relatedContainer) as ProductShortcutFragment
         fragment.fragmentVisibilityListener?.changeVisibility(false)
         assertEquals(View.GONE, activity.relatedContainer.visibility)
     }
@@ -118,8 +129,10 @@ class ProductDetailsActivityTest {
         val target = context.getString(R.string.product)
         activity.showError(Error.Critical())
         assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
-        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, target),
-            activity.lceLayout.errorView.errorMessage.text)
+        assertEquals(
+            context.getString(R.string.сould_not_find_with_placeholder, target),
+            activity.lceLayout.errorView.errorMessage.text
+        )
     }
 
     @After

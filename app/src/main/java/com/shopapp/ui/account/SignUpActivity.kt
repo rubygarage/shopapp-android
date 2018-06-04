@@ -48,7 +48,11 @@ class SignUpActivity :
         const val PRIVACY_POLICY = "privacy_policy"
         const val TERMS_OF_SERVICE = "terms_of_service"
 
-        fun getStartIntent(context: Context, privacyPolicy: Policy?, termsOfService: Policy?): Intent {
+        fun getStartIntent(
+            context: Context,
+            privacyPolicy: Policy?,
+            termsOfService: Policy?
+        ): Intent {
             val intent = Intent(context, SignUpActivity::class.java)
             intent.putExtra(PRIVACY_POLICY, privacyPolicy)
             intent.putExtra(TERMS_OF_SERVICE, termsOfService)
@@ -110,7 +114,12 @@ class SignUpActivity :
                     router.showPolicy(this@SignUpActivity, privacyPolicy)
                 }
             }
-            privacyPolicySpan.setSpan(clickablePrivacyPolicySpan, 0, privacyPolicySpan.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            privacyPolicySpan.setSpan(
+                clickablePrivacyPolicySpan,
+                0,
+                privacyPolicySpan.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
 
             val termsOfServiceSpan = SpannableString(getString(R.string.terms_of_service))
             val clickableTermsOfServiceSpan = object : ClickableSpan() {
@@ -118,7 +127,12 @@ class SignUpActivity :
                     router.showPolicy(this@SignUpActivity, termsOfService)
                 }
             }
-            termsOfServiceSpan.setSpan(clickableTermsOfServiceSpan, 0, termsOfServiceSpan.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            termsOfServiceSpan.setSpan(
+                clickableTermsOfServiceSpan,
+                0,
+                termsOfServiceSpan.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
 
             val space = Character.SPACE_SEPARATOR.toChar().toString()
             policyText.text = TextUtils.concat(

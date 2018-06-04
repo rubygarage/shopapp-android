@@ -5,7 +5,6 @@ import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.address.account.AddressActivity
 import com.shopapp.ui.address.account.AddressListActivity
 import com.shopapp.ui.const.RequestCode
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test

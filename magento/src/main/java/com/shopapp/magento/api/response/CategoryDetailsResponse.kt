@@ -22,7 +22,11 @@ class CategoryDetailsResponse(
 
         val htmlDescription = customAttributes.getValue(Constant.DESCRIPTION_ATTRIBUTE) ?: ""
         val description = Jsoup.parse(htmlDescription).text()
-        val image = ImageAdapter.adapt(host, CATEGORY_IMAGE_PATH, customAttributes.getValue(IMAGE_ATTRIBUTE))
+        val image = ImageAdapter.adapt(
+            host,
+            CATEGORY_IMAGE_PATH,
+            customAttributes.getValue(IMAGE_ATTRIBUTE)
+        )
 
         return Category(
             id = id,

@@ -45,7 +45,8 @@ class CardPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = CardPresenter(checkCreditCardUseCase, getAcceptedCardTypesUseCase, cardValidator)
+        presenter =
+                CardPresenter(checkCreditCardUseCase, getAcceptedCardTypesUseCase, cardValidator)
         presenter.attachView(view)
         checkCreditCardUseCase.mock()
         getAcceptedCardTypesUseCase.mock()
@@ -54,7 +55,11 @@ class CardPresenterTest {
     @Test
     fun shouldShowContentOnSingleSuccessWhenGetAcceptedCardTypes() {
         val cardTypeList: List<CardType> = mock()
-        given(getAcceptedCardTypesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(cardTypeList))
+        given(getAcceptedCardTypesUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.just(
+                cardTypeList
+            )
+        )
         presenter.getAcceptedCardTypes()
 
         val inOrder = inOrder(view, getAcceptedCardTypesUseCase)
@@ -64,7 +69,13 @@ class CardPresenterTest {
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalErrorWhenGetAcceptedCardTypes() {
-        given(getAcceptedCardTypesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getAcceptedCardTypesUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getAcceptedCardTypes()
 
         val inOrder = inOrder(view, getAcceptedCardTypesUseCase)
@@ -101,7 +112,13 @@ class CardPresenterTest {
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalErrorWhenGetToken() {
-        given(checkCreditCardUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(checkCreditCardUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getToken(card)
 
         val inOrder = inOrder(view, checkCreditCardUseCase)

@@ -2,8 +2,8 @@ package com.shopapp.ui.item
 
 import android.content.Context
 import android.widget.CompoundButton
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
+import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.address.checkout.adapter.CheckoutAddressListAdapter
 import kotlinx.android.synthetic.main.item_checkout_address.view.*
 
@@ -18,7 +18,8 @@ class CheckoutAddressItem(context: Context) :
     fun setAddress(address: Address, defaultAddress: Address?, selectedAddress: Address?) {
         setAddress(address, defaultAddress)
         selectedAddressRadioButton.setOnCheckedChangeListener(null)
-        selectedAddressRadioButton.isChecked = address.id == selectedAddress?.id || address == selectedAddress
+        selectedAddressRadioButton.isChecked = address.id == selectedAddress?.id || address ==
+                selectedAddress
         selectedAddressRadioButton.setOnCheckedChangeListener(this)
     }
 

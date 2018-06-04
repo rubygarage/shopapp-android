@@ -67,7 +67,8 @@ class DaoTest {
         given(iterator.hasNext()).willReturn(true, false)
         given(iterator.next()).willReturn(cartProductData)
         val selectionResult: ReactiveResult<CartProductDataEntity> = mock()
-        val observableResult: Observable<ReactiveResult<CartProductDataEntity>> = Observable.just(selectionResult)
+        val observableResult: Observable<ReactiveResult<CartProductDataEntity>> =
+            Observable.just(selectionResult)
         val selection: Selection<ReactiveResult<CartProductDataEntity>> = mock()
         given(store.select(CartProductDataEntity::class)).willReturn(selection)
         given(selection.get()).willReturn(selectionResult)
@@ -88,7 +89,8 @@ class DaoTest {
     @Test
     fun getCartDataListShouldReturnError() {
         val selectionResult: ReactiveResult<CartProductDataEntity> = mock()
-        val observableResult: Observable<ReactiveResult<CartProductDataEntity>> = Observable.error(error)
+        val observableResult: Observable<ReactiveResult<CartProductDataEntity>> =
+            Observable.error(error)
         val selection: Selection<ReactiveResult<CartProductDataEntity>> = mock()
         given(store.select(CartProductDataEntity::class)).willReturn(selection)
         given(selection.get()).willReturn(selectionResult)
@@ -316,7 +318,8 @@ class DaoTest {
         given(store.update(any<CartProductDataEntity>())).willReturn(Single.just(cartProductData))
         val newQuantity = 100
         var result: CartProduct? = null
-        daoImpl.changeCartProductQuantity(PRODUCT_VARIANT_ID, newQuantity).subscribe(Consumer { result = it })
+        daoImpl.changeCartProductQuantity(PRODUCT_VARIANT_ID, newQuantity)
+            .subscribe(Consumer { result = it })
 
         argumentCaptor<CartProductDataEntity>().apply {
             verify(store).update(capture())
@@ -341,7 +344,8 @@ class DaoTest {
         given(where.get()).willReturn(selectionResult)
         given(selectionResult.iterator()).willReturn(iterator)
         val newQuantity = 100
-        daoImpl.changeCartProductQuantity(PRODUCT_VARIANT_ID, newQuantity).subscribe(cartProductObserver)
+        daoImpl.changeCartProductQuantity(PRODUCT_VARIANT_ID, newQuantity)
+            .subscribe(cartProductObserver)
 
         verify(store, never()).update(any<CartProductDataEntity>())
         cartProductObserver.assertErrorMessage(DaoImpl.PRODUCT_NOT_FOUND_ERROR)

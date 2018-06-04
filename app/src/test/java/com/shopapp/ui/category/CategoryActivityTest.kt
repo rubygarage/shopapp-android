@@ -113,8 +113,10 @@ class CategoryActivityTest {
         val target = context.getString(R.string.category)
         activity.showError(Error.Critical())
         assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
-        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, target),
-            activity.lceLayout.errorView.errorMessage.text)
+        assertEquals(
+            context.getString(R.string.сould_not_find_with_placeholder, target),
+            activity.lceLayout.errorView.errorMessage.text
+        )
     }
 
     @After
