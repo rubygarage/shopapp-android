@@ -48,8 +48,7 @@ class CustomerResponse(
         val city: String,
         val firstname: String,
         val lastname: String,
-        val region: RegionData,
-        val defaultShipping: Boolean
+        val region: RegionData
     ) {
 
         fun mapToEntity(countries: List<Country>): Address? {

@@ -61,7 +61,7 @@ class BaseAddressActivityTest {
     }
 
     @Test
-    fun shouldSetupPickersWhenCountriesLoaded() {
+    fun shouldShowCountryPickerWhenCountryInputClicked() {
         val size = 5
         val countries = MockInstantiator.newList(MockInstantiator.newCountry(), size)
         activity.countriesLoaded(countries)
@@ -71,6 +71,50 @@ class BaseAddressActivityTest {
             activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
         assertNotNull(dialog)
         assertEquals(size, dialog!!.recyclerView.adapter.itemCount)
+    }
+
+    @Test
+    fun shouldShowStatePickerWhenStateInputClicked() {
+        val size = 5
+        val countries = MockInstantiator.newList(MockInstantiator.newCountry(), size)
+        activity.countriesLoaded(countries)
+
+        activity.countryInput.getOnClickListener()?.onClick(activity.countryInput)
+        val countryDialog = activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
+        assertNotNull(countryDialog)
+        assertEquals(size, countryDialog!!.recyclerView.adapter.itemCount)
+
+        val country = countries[0]
+        countryDialog.onDoneButtonClickedListener?.onDoneButtonClicked(country)
+
+        assertEquals(View.VISIBLE, activity.stateInputContainer.visibility)
+        activity.stateInput.getOnClickListener()?.onClick(activity.stateInput)
+        val stateDialog = activity.supportFragmentManager.findFragmentByTag(StateBottomSheetPicker::class.java.name) as? StateBottomSheetPicker
+        assertNotNull(stateDialog)
+        assertEquals(country.states?.size, stateDialog!!.recyclerView.adapter.itemCount)
+
+        assertTrue(activity.stateInput.text.isBlank())
+        stateDialog.onDoneButtonClickedListener?.onDoneButtonClicked(country.states!![0])
+        assertFalse(activity.stateInput.text.isBlank())
+        assertEquals(country.states!![0].name, activity.stateInput.text.toString())
+    }
+
+    @Test
+    fun shouldNotShowStateInputWhenStateInputClickedAndStateListIsNull() {
+        val size = 5
+        val countries = MockInstantiator.newList(MockInstantiator.newCountry(), size)
+        activity.countriesLoaded(countries)
+
+        activity.countryInput.getOnClickListener()?.onClick(activity.countryInput)
+        val countryDialog = activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
+        assertNotNull(countryDialog)
+        assertEquals(size, countryDialog!!.recyclerView.adapter.itemCount)
+
+        val country = countries[0]
+        given(country.states).willReturn(null)
+        countryDialog.onDoneButtonClickedListener?.onDoneButtonClicked(country)
+
+        assertEquals(View.GONE, activity.stateInputContainer.visibility)
     }
 
     @Test

@@ -142,6 +142,18 @@ class MagentoApi : Api {
             )
     }
 
+    override fun searchProductList(
+        perPage: Int,
+        paginationValue: Any?,
+        searchQuery: String,
+        callback: ApiCallback<List<Product>>
+    ) {
+
+        val additionalOptions = ProductOptionBuilder()
+            .addFilterGroup(NAME_FIELD, "%$searchQuery%", ConditionType.SEARCH_CONDITION)
+        getProductList(perPage, paginationValue, additionalOptions, callback)
+    }
+
     override fun getProductVariants(
         ids: List<String>,
         callback: ApiCallback<List<ProductVariant>>
@@ -189,6 +201,13 @@ class MagentoApi : Api {
         callback: ApiCallback<List<Category>>
     ) {
 
+    override fun getCategoryDetails(
+        id: String,
+        perPage: Int,
+        paginationValue: Any?,
+        sortBy: SortType?,
+        callback: ApiCallback<Category>
+    ) {
         if (paginationValue == null) {
             categoryService.getCategoryList(parentCategoryId)
                 .map { it.mapToEntityList() }
@@ -289,6 +308,13 @@ class MagentoApi : Api {
         callback.onResult(Unit)
     }
 
+    override fun signUp(
+        firstName: String, lastName: String, email: String, password: String,
+        phone: String, callback: ApiCallback<Unit>
+    ) {
+        val customerData = SignUpRequest.CustomerData(email, firstName, lastName)
+        val request = SignUpRequest(customerData, password)
+        customerService.signUp(request)
 
     override fun isSignedIn(callback: ApiCallback<Boolean>) {
         callback.onResult(getSession() != null)
@@ -350,7 +376,12 @@ class MagentoApi : Api {
             )
     }
 
-    override fun editCustomerInfo(firstName: String, lastName: String, phone: String, callback: ApiCallback<Customer>) {
+    override fun editCustomerInfo(
+        firstName: String,
+        lastName: String,
+        phone: String,
+        callback: ApiCallback<Customer>
+    ) {
         sendTokenizedRequest({ token ->
             getCustomer(token).flatMap {
                 val editCustomerRequest = UpdateCustomerRequest.CustomerData(
@@ -425,7 +456,10 @@ class MagentoApi : Api {
                 val addressList = it.addressList.toMutableList()
                 addressList.removeAll { it.id == addressId }
                 val updatedCustomer = it.copy(addressList = addressList)
-                customerService.editCustomer(token, CustomerRequest(CustomerRequest.CustomerData(updatedCustomer)))
+                customerService.editCustomer(
+                    token,
+                    CustomerRequest(CustomerRequest.CustomerData(updatedCustomer))
+                )
             }
                 .subscribe(
                     { callback.onResult(Unit) },
@@ -440,10 +474,17 @@ class MagentoApi : Api {
                 val addressList = it.addressList.toMutableList()
                 val oldAddress = addressList.find { it.id == address.id }
                 val oldAddressIndex = addressList.indexOf(oldAddress)
-                addressList[oldAddressIndex] = address
-                val defaultAddress = if (it.defaultAddress?.id == address.id) address else it.defaultAddress
-                val updatedCustomer = it.copy(addressList = addressList, defaultAddress = defaultAddress)
-                customerService.editCustomer(token, CustomerRequest(CustomerRequest.CustomerData(updatedCustomer)))
+                if (oldAddressIndex >= 0) {
+                    addressList[oldAddressIndex] = address
+                }
+                val defaultAddress =
+                    if (it.defaultAddress?.id == address.id) address else it.defaultAddress
+                val updatedCustomer =
+                    it.copy(addressList = addressList, defaultAddress = defaultAddress)
+                customerService.editCustomer(
+                    token,
+                    CustomerRequest(CustomerRequest.CustomerData(updatedCustomer))
+                )
             }
                 .subscribe(
                     { callback.onResult(Unit) },
@@ -457,7 +498,10 @@ class MagentoApi : Api {
             getCustomer(token).flatMap {
                 val defaultAddress = it.addressList.find { it.id == addressId }
                 val updatedCustomer = it.copy(defaultAddress = defaultAddress)
-                customerService.editCustomer(token, CustomerRequest(CustomerRequest.CustomerData(updatedCustomer)))
+                customerService.editCustomer(
+                    token,
+                    CustomerRequest(CustomerRequest.CustomerData(updatedCustomer))
+                )
             }
                 .subscribe(
                     { callback.onResult(Unit) },
@@ -468,7 +512,7 @@ class MagentoApi : Api {
 
     override fun getCountries(callback: ApiCallback<List<Country>>) {
         customerService.getCountries()
-            .map { it.map { it.mapToEntity() } }
+            .map { it.mapToEntityList() }
             .subscribe(
                 { callback.onResult(it) },
                 { callback.onFailure(handleError(it)) }
@@ -487,11 +531,20 @@ class MagentoApi : Api {
 
     //OTHER
 
-    override fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String, callback: ApiCallback<Order>) {
+    override fun completeCheckoutByCard(
+        checkout: Checkout,
+        email: String,
+        address: Address,
+        creditCardVaultToken: String,
+        callback: ApiCallback<Order>
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Checkout>) {
+    override fun createCheckout(
+        cartProductList: List<CartProduct>,
+        callback: ApiCallback<Checkout>
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -504,6 +557,13 @@ class MagentoApi : Api {
     }
 
     override fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>) {
+    override fun getArticleList(
+        perPage: Int,
+        paginationValue: Any?,
+        sortBy: SortType?,
+        reverse: Boolean,
+        callback: ApiCallback<List<Article>>
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -550,6 +610,11 @@ class MagentoApi : Api {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getOrders(
+        perPage: Int,
+        paginationValue: Any?,
+        callback: ApiCallback<List<Order>>
+    ) {
     override fun getAcceptedCardTypes(callback: ApiCallback<List<CardType>>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -561,6 +626,11 @@ class MagentoApi : Api {
     // Countries
 
     override fun getCountries(callback: ApiCallback<List<Country>>) {
+    override fun selectShippingRate(
+        checkoutId: String,
+        shippingRate: ShippingRate,
+        callback: ApiCallback<Checkout>
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -570,6 +640,11 @@ class MagentoApi : Api {
         perPage: Int,
         paginationValue: Any?,
         callback: ApiCallback<List<Order>>
+    ) {
+    override fun setShippingAddress(
+        checkoutId: String,
+        address: Address,
+        callback: ApiCallback<Checkout>
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -604,7 +679,7 @@ class MagentoApi : Api {
     private fun processCustomerResponse(customerResponse: CustomerResponse) =
         customerService.getCountries()
             .map {
-                val countries = it.map { it.mapToEntity() }
+                val countries = it.mapToEntityList()
                 customerResponse.mapToEntity(countries)
             }
 

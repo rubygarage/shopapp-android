@@ -28,8 +28,8 @@
       "telephone": "558866666",
       "postcode": "49000",
       "city": "cty",
-      "firstname": "fn",
-      "lastname": "ln",
+      "firstname": "test firstname",
+      "lastname": "test lastname",
       "default_shipping": true
     }
   ],

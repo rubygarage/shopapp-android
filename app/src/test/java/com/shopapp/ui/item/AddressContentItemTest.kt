@@ -42,6 +42,19 @@ class AddressContentItemTest {
     }
 
     @Test
+    fun shouldSkipNullData() {
+        val address = MockInstantiator.newAddress()
+        given(address.state).willReturn(null)
+        view.setAddress(address)
+
+        assertEquals(context.getString(R.string.full_name_pattern, address.firstName, address.lastName),
+            view.name.text)
+        val addressText = "${address.address}, ${address.secondAddress}, ${address.city}," +
+                " ${address.zip}, ${address.country.name}"
+        assertEquals(addressText, view.addressText.text.toString())
+    }
+
+    @Test
     fun shouldPhoneBeVisible() {
         val address = MockInstantiator.newAddress()
         given(address.phone).willReturn(MockInstantiator.DEFAULT_PHONE)

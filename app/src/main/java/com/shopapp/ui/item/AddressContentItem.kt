@@ -41,12 +41,10 @@ class AddressContentItem @JvmOverloads constructor(
     }
 
     private fun appendAddress(str: String?) {
-        str?.let {
-            if (it.isNotEmpty()) {
-                val separator = if (addressText.text.isEmpty()) "" else ", "
-                addressText.append(separator)
-                addressText.append(str)
-            }
+        if (str?.isNotBlank() == true) {
+            val separator = if (addressText.text.isEmpty()) "" else ", "
+            addressText.append(separator)
+            addressText.append(str)
         }
     }
 }
