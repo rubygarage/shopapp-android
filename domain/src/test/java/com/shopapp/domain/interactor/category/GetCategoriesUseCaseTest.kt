@@ -9,16 +9,16 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class CategoryListUseCaseTest {
+class GetCategoriesUseCaseTest {
 
-    private lateinit var useCase: CategoryListUseCase
+    private lateinit var useCase: GetCategoriesUseCase
 
     @Mock
     private lateinit var repository: CategoryRepository
 
     @Before
     fun setUpTest() {
-        useCase = CategoryListUseCase(repository)
+        useCase = GetCategoriesUseCase(repository)
     }
 
     @Test
@@ -26,7 +26,7 @@ class CategoryListUseCaseTest {
         val perPage = 5
         val pagination = "pagination"
         val parentCategoryId = "parentCategoryId"
-        useCase.buildUseCaseSingle(CategoryListUseCase.Params(perPage, pagination, parentCategoryId))
-        verify(repository).getCategoryList(perPage, pagination, parentCategoryId)
+        useCase.buildUseCaseSingle(GetCategoriesUseCase.Params(perPage, pagination, parentCategoryId))
+        verify(repository).getCategories(perPage, pagination, parentCategoryId)
     }
 }

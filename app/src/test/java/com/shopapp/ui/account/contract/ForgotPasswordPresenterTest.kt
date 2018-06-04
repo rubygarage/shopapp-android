@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.interactor.account.ForgotPasswordUseCase
+import com.shopapp.domain.interactor.account.ResetPasswordUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
@@ -29,7 +29,7 @@ class ForgotPasswordPresenterTest {
     private lateinit var view: ForgotPasswordView
 
     @Mock
-    private lateinit var useCase: ForgotPasswordUseCase
+    private lateinit var useCase: ResetPasswordUseCase
 
     @Mock
     private lateinit var validator: FieldValidator

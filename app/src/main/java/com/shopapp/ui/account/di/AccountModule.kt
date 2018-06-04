@@ -13,7 +13,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class AuthModule {
+class AccountModule {
 
     @Provides
     fun provideSignUpPresenter(configUseCase: ConfigUseCase, formValidator: FieldValidator, signUpUseCase: SignUpUseCase): SignUpPresenter {
@@ -22,8 +22,8 @@ class AuthModule {
 
     @Provides
     fun provideSignInPresenter(
-        formValidator: FieldValidator,
-        signInUseCase: SignInUseCase
+            formValidator: FieldValidator,
+            signInUseCase: SignInUseCase
     ): SignInPresenter {
         return SignInPresenter(formValidator, signInUseCase)
     }
@@ -35,28 +35,28 @@ class AuthModule {
     }
 
     @Provides
-    fun provideForgotPasswordPresenter(formValidator: FieldValidator, forgotPasswordUseCase: ForgotPasswordUseCase): ForgotPasswordPresenter {
-        return ForgotPasswordPresenter(formValidator, forgotPasswordUseCase)
+    fun provideForgotPasswordPresenter(formValidator: FieldValidator, resetPasswordUseCase: ResetPasswordUseCase): ForgotPasswordPresenter {
+        return ForgotPasswordPresenter(formValidator, resetPasswordUseCase)
     }
 
     @Provides
     fun providePersonalInfoPresenter(
-        configUseCase: ConfigUseCase,
-        customerUseCase: GetCustomerUseCase,
-        editCustomerUseCase: EditCustomerUseCase
+            configUseCase: ConfigUseCase,
+            customerUseCase: GetCustomerUseCase,
+            updateCustomerUseCase: UpdateCustomerUseCase
     ): PersonalInfoPresenter {
-        return PersonalInfoPresenter(configUseCase, customerUseCase, editCustomerUseCase)
+        return PersonalInfoPresenter(configUseCase, customerUseCase, updateCustomerUseCase)
     }
 
     @Provides
-    fun provideChangePasswordPresenter(validator: FieldValidator, changePasswordUseCase: ChangePasswordUseCase): ChangePasswordPresenter {
-        return ChangePasswordPresenter(validator, changePasswordUseCase)
+    fun provideChangePasswordPresenter(validator: FieldValidator, updatePasswordUseCase: UpdatePasswordUseCase): ChangePasswordPresenter {
+        return ChangePasswordPresenter(validator, updatePasswordUseCase)
     }
 
     @Provides
     fun provideAccountSettingsPresenter(customerUseCase: GetCustomerUseCase,
-                                        updateAccountSettingsUseCase: UpdateAccountSettingsUseCase): AccountSettingsPresenter {
-        return AccountSettingsPresenter(customerUseCase, updateAccountSettingsUseCase)
+                                        updateCustomerSettingsUseCase: UpdateCustomerSettingsUseCase): AccountSettingsPresenter {
+        return AccountSettingsPresenter(customerUseCase, updateCustomerSettingsUseCase)
     }
 
     @Provides

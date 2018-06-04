@@ -29,6 +29,6 @@ class SetShippingRateUseCaseTest {
     fun shouldDelegateCallToRepository() {
         val checkoutId = "checkoutId"
         useCase.buildUseCaseSingle(SetShippingRateUseCase.Params(checkoutId, shippingRate))
-        Mockito.verify(checkoutRepository).selectShippingRate(checkoutId, shippingRate)
+        Mockito.verify(checkoutRepository).setShippingRate(checkoutId, shippingRate)
     }
 }

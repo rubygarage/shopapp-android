@@ -90,7 +90,7 @@ class SignUpActivity :
     override fun createPresenter() = signUpPresenter
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent().inject(this)
+        ShopApplication.appComponent.attachAccountComponent().inject(this)
     }
 
     override fun useModalStyle() = true

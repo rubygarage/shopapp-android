@@ -82,30 +82,30 @@ class BlogRepositoryTest {
     }
 
     @Test
-    fun getArticleListShouldDelegateCallToApi() {
-        repository.getArticleList(perPage, paginationValue, SortType.RECENT, true).subscribe()
-        verify(api).getArticleList(eq(perPage), eq(paginationValue), eq(SortType.RECENT), eq(true), any())
+    fun getArticlesShouldDelegateCallToApi() {
+        repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe()
+        verify(api).getArticles(eq(perPage), eq(paginationValue), eq(SortType.RECENT), eq(true), any())
     }
 
     @Test
-    fun getArticleListShouldReturnValueWhenOnResult() {
-        given(api.getArticleList(any(), any(), any(), any(), any())).willAnswer({
+    fun getArticlesShouldReturnValueWhenOnResult() {
+        given(api.getArticles(any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Article>>>(4)
             callback.onResult(articleListResult)
         })
-        repository.getArticleList(perPage, paginationValue, SortType.RECENT, true).subscribe(articleListObserver)
+        repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe(articleListObserver)
         articleListObserver.assertValue(articleListResult)
         articleListObserver.assertComplete()
     }
 
     @Test
-    fun getArticleListShouldReturnErrorOnFailure() {
+    fun getArticlesShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getArticleList(any(), any(), any(), any(), any())).willAnswer({
+        given(api.getArticles(any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Article>>>(4)
             callback.onFailure(error)
         })
-        repository.getArticleList(perPage, paginationValue, SortType.RECENT, true).subscribe(articleListObserver)
+        repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe(articleListObserver)
         articleListObserver.assertError(error)
     }
 }

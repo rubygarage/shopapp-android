@@ -2,7 +2,7 @@ package com.shopapp.ui.product.di
 
 import com.shopapp.domain.interactor.cart.CartAddItemUseCase
 import com.shopapp.domain.interactor.product.ProductDetailsUseCase
-import com.shopapp.domain.interactor.product.ProductListUseCase
+import com.shopapp.domain.interactor.product.GetProductsUseCase
 import com.shopapp.ui.product.contract.ProductDetailsPresenter
 import com.shopapp.ui.product.contract.ProductListPresenter
 import com.shopapp.ui.product.router.ProductRouter
@@ -18,8 +18,8 @@ class ProductModule {
     }
 
     @Provides
-    fun provideProductListPresenter(productListUseCase: ProductListUseCase): ProductListPresenter {
-        return ProductListPresenter(productListUseCase)
+    fun provideProductListPresenter(getProductsUseCase: GetProductsUseCase): ProductListPresenter {
+        return ProductListPresenter(getProductsUseCase)
     }
 
     @Provides

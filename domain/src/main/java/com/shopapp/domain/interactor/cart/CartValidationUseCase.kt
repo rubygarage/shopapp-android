@@ -20,15 +20,15 @@ class CartValidationUseCase @Inject constructor(
                 if (it.isEmpty()) {
                     Completable.complete()
                 } else {
-                    filterProductList(it)
+                    filterProducts(it)
                 }
             }
     }
 
-    private fun filterProductList(productIdList: List<String>): Completable {
-        return productRepository.getProductVariantList(productIdList)
+    private fun filterProducts(ids: List<String>): Completable {
+        return productRepository.getProductVariants(ids)
             .flatMapCompletable { productList ->
-                val result = productIdList.filter { id -> productList.find { it.id == id } == null }
+                val result = ids.filter { id -> productList.find { it.id == id } == null }
                 if (result.isNotEmpty()) {
                     cartRepository.deleteProductListFromCart(result)
                 } else {

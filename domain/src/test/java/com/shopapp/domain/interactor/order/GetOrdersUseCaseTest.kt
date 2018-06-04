@@ -9,24 +9,24 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class OrderListUseCaseTest {
+class GetOrdersUseCaseTest {
 
-    private lateinit var useCase: OrderListUseCase
+    private lateinit var useCase: GetOrdersUseCase
 
     @Mock
     private lateinit var orderRepository: OrderRepository
 
     @Before
     fun setUpTest() {
-        useCase = OrderListUseCase(orderRepository)
+        useCase = GetOrdersUseCase(orderRepository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
         val perPage = 5
         val pagination = "pagination"
-        val params = OrderListUseCase.Params(perPage, pagination)
+        val params = GetOrdersUseCase.Params(perPage, pagination)
         useCase.buildUseCaseSingle(params)
-        verify(orderRepository).getOrderList(perPage, pagination)
+        verify(orderRepository).getOrders(perPage, pagination)
     }
 }

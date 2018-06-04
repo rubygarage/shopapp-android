@@ -1,7 +1,7 @@
 package com.shopapp.domain.interactor.account
 
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.domain.repository.CustomerRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -9,22 +9,21 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class UpdateAccountSettingsUseCaseTest {
+class UpdateCustomerSettingsUseCaseTest {
 
-    private lateinit var useCase: UpdateAccountSettingsUseCase
+    private lateinit var useCase: UpdateCustomerSettingsUseCase
 
     @Mock
-    private lateinit var authRepository: AuthRepository
+    private lateinit var repository: CustomerRepository
 
     @Before
     fun setUpTest() {
-        useCase = UpdateAccountSettingsUseCase(authRepository)
+        useCase = UpdateCustomerSettingsUseCase(repository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
         useCase.buildUseCaseCompletable(false)
-        verify(authRepository).updateAccountSettings(false)
+        verify(repository).updateCustomerSettings(false)
     }
-
 }

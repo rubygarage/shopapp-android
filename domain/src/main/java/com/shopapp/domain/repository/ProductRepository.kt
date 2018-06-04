@@ -9,10 +9,10 @@ interface ProductRepository {
 
     fun getProduct(productId: String): Single<Product>
 
-    fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
+    fun getProducts(perPage: Int, paginationValue: Any?, sortBy: SortType?,
                        keyword: String?, excludeKeyword: String?): Single<List<Product>>
 
-    fun getProductVariantList(productVariantIdList: List<String>): Single<List<ProductVariant>>
+    fun searchProducts(query: String, perPage: Int, paginationValue: String?): Single<List<Product>>
 
-    fun searchProductListByQuery(searchQuery: String, perPage: Int, paginationValue: String?): Single<List<Product>>
+    fun getProductVariants(ids: List<String>): Single<List<ProductVariant>>
 }

@@ -1,6 +1,6 @@
 package com.shopapp.magento.api.request
 
-class ChangePasswordRequest(
+class UpdatePasswordRequest(
     val currentPassword: String,
     val newPassword: String
 )

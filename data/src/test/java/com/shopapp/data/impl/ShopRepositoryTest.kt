@@ -42,13 +42,13 @@ class ShopRepositoryTest {
     @Test
     fun getShopShouldDelegateCallToApi() {
         repository.getShop().subscribe()
-        verify(api).getShopInfo(any())
+        verify(api).getShop(any())
     }
 
     @Test
     fun getShopShouldCompleteOnApiResult() {
         val shop: Shop = mock()
-        given(api.getShopInfo(any())).willAnswer({
+        given(api.getShop(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onResult(shop)
         })
@@ -60,7 +60,7 @@ class ShopRepositoryTest {
     @Test
     fun getShopShouldErrorOnApiFailure() {
         val error = Error.Content()
-        given(api.getShopInfo(any())).willAnswer({
+        given(api.getShop(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onFailure(error)
         })

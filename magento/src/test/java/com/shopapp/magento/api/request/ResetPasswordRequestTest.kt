@@ -4,13 +4,13 @@ import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class ForgotPasswordRequestTest {
+class ResetPasswordRequestTest {
 
     @Test
     fun shouldCorrectlySerialize() {
 
         val email = "testEmail"
-        val request = ForgotPasswordRequest(email)
+        val request = ResetPasswordRequest(email)
 
         val gson = Gson()
         val result = gson.toJson(request)

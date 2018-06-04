@@ -4,14 +4,14 @@ import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class ChangePasswordRequestTest {
+class UpdatePasswordRequestTest {
 
     @Test
     fun shouldCorrectlySerialize() {
 
         val currentPassword = "currentTestPassword"
         val newPassword = "newTestPassword"
-        val request = ChangePasswordRequest(currentPassword, newPassword)
+        val request = UpdatePasswordRequest(currentPassword, newPassword)
 
         val gson = Gson()
         val result = gson.toJson(request)

@@ -1,9 +1,9 @@
 package com.shopapp.ui.address.base.contract
 
 import com.shopapp.R
-import com.shopapp.domain.interactor.account.CreateCustomerAddressUseCase
-import com.shopapp.domain.interactor.account.EditCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.AddCustomerAddressUseCase
 import com.shopapp.domain.interactor.account.GetCountriesUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerAddressUseCase
 import com.shopapp.domain.interactor.base.UseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Address
@@ -21,64 +21,64 @@ interface AddressView : BaseLceView<Address?> {
 }
 
 open class AddressPresenter<V : AddressView>(
-    private val fieldValidator: FieldValidator,
-    private val countriesUseCase: GetCountriesUseCase,
-    private val createCustomerAddressUseCase: CreateCustomerAddressUseCase,
-    private val editCustomerAddressUseCase: EditCustomerAddressUseCase,
-    vararg useCases: UseCase
+        private val fieldValidator: FieldValidator,
+        private val countriesUseCase: GetCountriesUseCase,
+        private val addCustomerAddressUseCase: AddCustomerAddressUseCase,
+        private val updateCustomerAddressUseCase: UpdateCustomerAddressUseCase,
+        vararg useCases: UseCase
 ) :
-    BaseLcePresenter<Address?, V>(
-        countriesUseCase,
-        createCustomerAddressUseCase,
-        editCustomerAddressUseCase,
-        *useCases
-    ) {
+        BaseLcePresenter<Address?, V>(
+                countriesUseCase,
+                addCustomerAddressUseCase,
+                updateCustomerAddressUseCase,
+                *useCases
+        ) {
 
     fun submitAddress(address: Address) {
         if (fieldValidator.isAddressValid(address)) {
-            createCustomerAddress(address)
+            addCustomerAddress(address)
         } else {
             view?.submitAddressError()
             view?.showMessage(R.string.invalid_address)
         }
     }
 
-    fun editAddress(addressId: String, address: Address) {
+    fun updateAddress(address: Address) {
         if (fieldValidator.isAddressValid(address)) {
-            editCustomerAddress(addressId, address)
+            updateCustomerAddress(address)
         } else {
             view?.submitAddressError()
             view?.showMessage(R.string.invalid_address)
         }
     }
 
-    fun getCountriesList() {
+    fun getCountries() {
         countriesUseCase.execute(
-            { view.countriesLoaded(it) },
-            { resolveError(it) },
-            Unit
+                { view.countriesLoaded(it) },
+                { resolveError(it) },
+                Unit
         )
     }
 
-    private fun createCustomerAddress(address: Address) {
-        createCustomerAddressUseCase.execute(
-            { view?.addressChanged(address) },
-            {
-                resolveError(it)
-                view?.addressChanged(address)
-            },
-            address
+    private fun addCustomerAddress(address: Address) {
+        addCustomerAddressUseCase.execute(
+                { view?.addressChanged(address) },
+                {
+                    resolveError(it)
+                    view?.addressChanged(address)
+                },
+                address
         )
     }
 
-    private fun editCustomerAddress(addressId: String, address: Address) {
-        editCustomerAddressUseCase.execute(
-            { view?.addressChanged(address) },
-            {
-                resolveError(it)
-                view?.addressChanged(address)
-            },
-            EditCustomerAddressUseCase.Params(addressId, address)
+    private fun updateCustomerAddress(address: Address) {
+        updateCustomerAddressUseCase.execute(
+                { view?.addressChanged(address) },
+                {
+                    resolveError(it)
+                    view?.addressChanged(address)
+                },
+                UpdateCustomerAddressUseCase.Params(address)
         )
     }
 }

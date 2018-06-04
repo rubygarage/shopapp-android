@@ -23,8 +23,8 @@ import kotlinx.android.synthetic.main.layout_lce.*
 import javax.inject.Inject
 
 abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
-    BaseLceActivity<Address?, V, P>(),
-    AddressView {
+        BaseLceActivity<Address?, V, P>(),
+        AddressView {
 
     @Inject
     lateinit var addressPresenter: P
@@ -137,10 +137,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     protected open fun submitAddress() {
         if (isEditMode) {
             address?.let {
-                presenter.editAddress(
-                    it.id,
-                    getAddress()
-                )
+                presenter.updateAddress(getAddress())
             }
         } else {
             presenter.submitAddress(getAddress())
@@ -164,15 +161,16 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     protected fun getAddress() = Address(
-        address = addressInput.getTrimmedString(),
-        secondAddress = secondAddressInput.getTrimmedString(),
-        city = cityInput.getTrimmedString(),
-        country = countryInput.getTrimmedString(),
-        state = stateInput.getTrimmedString(),
-        firstName = firstNameInput.getTrimmedString(),
-        lastName = lastNameInput.getTrimmedString(),
-        zip = postalCodeInput.getTrimmedString().toUpperCase(),
-        phone = phoneInput.getTrimmedString()
+            id = address?.id ?: Address.NO_ID,
+            address = addressInput.getTrimmedString(),
+            secondAddress = secondAddressInput.getTrimmedString(),
+            city = cityInput.getTrimmedString(),
+            country = countryInput.getTrimmedString(),
+            state = stateInput.getTrimmedString(),
+            firstName = firstNameInput.getTrimmedString(),
+            lastName = lastNameInput.getTrimmedString(),
+            zip = postalCodeInput.getTrimmedString().toUpperCase(),
+            phone = phoneInput.getTrimmedString()
     )
 
     private fun fillFields(address: Address?) {
@@ -245,6 +243,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
     private fun loadCountries() {
         lceLayout.changeState(LceLayout.LceState.LoadingState(true))
-        presenter.getCountriesList()
+        presenter.getCountries()
     }
 }

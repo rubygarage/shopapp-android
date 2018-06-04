@@ -15,26 +15,26 @@ class AddressModule {
 
     @Provides
     fun provideAddressPresenter(
-        formValidator: FieldValidator,
-        countriesUseCase: GetCountriesUseCase,
-        createCustomerAddressUseCase: CreateCustomerAddressUseCase,
-        editCustomerAddressUseCase: EditCustomerAddressUseCase
+            formValidator: FieldValidator,
+            countriesUseCase: GetCountriesUseCase,
+            addCustomerAddressUseCase: AddCustomerAddressUseCase,
+            updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
     ): AddressPresenter<AddressView> = AddressPresenter(
-        formValidator,
-        countriesUseCase,
-        createCustomerAddressUseCase,
-        editCustomerAddressUseCase
+            formValidator,
+            countriesUseCase,
+            addCustomerAddressUseCase,
+            updateCustomerAddressUseCase
     )
 
     @Provides
     fun provideAddressListPresenter(
-        getCustomerUseCase: GetCustomerUseCase,
-        deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
-        setDefaultAddressUseCase: SetDefaultAddressUseCase
+            getCustomerUseCase: GetCustomerUseCase,
+            deleteCustomerAddressUseCase: DeleteCustomerAddressUseCase,
+            setDefaultAddressUseCase: SetDefaultAddressUseCase
     ) = AddressListPresenter<AddressListView>(
-        getCustomerUseCase,
-        deleteCustomerAddressUseCase,
-        setDefaultAddressUseCase
+            getCustomerUseCase,
+            deleteCustomerAddressUseCase,
+            setDefaultAddressUseCase
     )
 
     @Provides

@@ -1,7 +1,7 @@
 package com.shopapp.ui.category.contract
 
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.domain.interactor.category.CategoryListUseCase
+import com.shopapp.domain.interactor.category.GetCategoriesUseCase
 import com.shopapp.gateway.entity.Category
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator.DEFAULT_ID
@@ -28,58 +28,58 @@ class CategoryListPresenterTest {
     private lateinit var view: CategoryListView
 
     @Mock
-    private lateinit var categoryListUseCase: CategoryListUseCase
+    private lateinit var getCategoriesUseCase: GetCategoriesUseCase
 
     private lateinit var presenter: CategoryListPresenter
 
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = CategoryListPresenter(categoryListUseCase)
+        presenter = CategoryListPresenter(getCategoriesUseCase)
         presenter.attachView(view)
-        categoryListUseCase.mock()
+        getCategoriesUseCase.mock()
     }
 
     @Test
     fun shouldExecuteUseCase() {
         val categories: List<Category> = mock()
-        given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.just(categories))
+        given(getCategoriesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(categories))
         presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, null)
-        verify(categoryListUseCase).execute(any(), any(), eq(params))
+        val params = GetCategoriesUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, null)
+        verify(getCategoriesUseCase).execute(any(), any(), eq(params))
     }
 
     @Test
     fun shouldShowContent() {
         val categories: List<Category> = mock()
-        given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.just(categories))
+        given(getCategoriesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(categories))
         presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, null)
-        val inOrder = inOrder(categoryListUseCase, view)
-        inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
+        val params = GetCategoriesUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, null)
+        val inOrder = inOrder(getCategoriesUseCase, view)
+        inOrder.verify(getCategoriesUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showContent(categories)
     }
 
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
-        given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getCategoriesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
         presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
+        val params = GetCategoriesUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
 
-        val inOrder = inOrder(view, categoryListUseCase)
-        inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
+        val inOrder = inOrder(view, getCategoriesUseCase)
+        inOrder.verify(getCategoriesUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showMessage("ErrorMessage")
     }
 
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
-        given(categoryListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
+        given(getCategoriesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
-        val params = CategoryListUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
+        val params = GetCategoriesUseCase.Params(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
 
-        val inOrder = inOrder(view, categoryListUseCase)
-        inOrder.verify(categoryListUseCase).execute(any(), any(), eq(params))
+        val inOrder = inOrder(view, getCategoriesUseCase)
+        inOrder.verify(getCategoriesUseCase).execute(any(), any(), eq(params))
         argumentCaptor<Error>().apply {
             inOrder.verify(view).showError(capture())
             assertTrue(firstValue is Error.Content)

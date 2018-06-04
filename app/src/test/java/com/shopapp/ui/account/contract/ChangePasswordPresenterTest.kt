@@ -1,7 +1,7 @@
 package com.shopapp.ui.account.contract
 
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.domain.interactor.account.ChangePasswordUseCase
+import com.shopapp.domain.interactor.account.UpdatePasswordUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -25,7 +25,7 @@ class ChangePasswordPresenterTest {
     private lateinit var view: ChangePasswordView
 
     @Mock
-    private lateinit var useCase: ChangePasswordUseCase
+    private lateinit var useCase: UpdatePasswordUseCase
 
     @Mock
     private lateinit var validator: FieldValidator

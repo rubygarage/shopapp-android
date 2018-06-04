@@ -1,6 +1,6 @@
 package com.shopapp.ui.category.di
 
-import com.shopapp.domain.interactor.category.CategoryListUseCase
+import com.shopapp.domain.interactor.category.GetCategoriesUseCase
 import com.shopapp.domain.interactor.category.CategoryUseCase
 import com.shopapp.ui.category.contract.CategoryListPresenter
 import com.shopapp.ui.category.contract.CategoryPresenter
@@ -18,8 +18,8 @@ class CategoryModule {
     }
 
     @Provides
-    fun provideCategoryListPresenter(categoryListUseCase: CategoryListUseCase): CategoryListPresenter {
-        return CategoryListPresenter(categoryListUseCase)
+    fun provideCategoryListPresenter(getCategoriesUseCase: GetCategoriesUseCase): CategoryListPresenter {
+        return CategoryListPresenter(getCategoriesUseCase)
     }
 
     @Provides

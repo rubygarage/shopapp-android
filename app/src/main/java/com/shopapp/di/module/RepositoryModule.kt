@@ -43,4 +43,7 @@ class RepositoryModule(private val api: Api, private val dao: Dao) {
     @Singleton
     fun provideCheckoutRepository(): CheckoutRepository = CheckoutRepositoryImpl(api)
 
+    @Provides
+    @Singleton
+    fun provideCustomerRepository(): CustomerRepository = CustomerRepositoryImpl(api)
 }

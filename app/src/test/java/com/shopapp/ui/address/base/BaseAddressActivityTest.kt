@@ -53,7 +53,7 @@ class BaseAddressActivityTest {
     fun shouldLoadDataWhenOnCreate() {
         assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
         assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent), activity.lceLayout.loadingView.background)
-        verify(activity.presenter).getCountriesList()
+        verify(activity.presenter).getCountries()
     }
 
     @Test
@@ -159,7 +159,7 @@ class BaseAddressActivityTest {
         activity.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         activity.tryAgainButton.performClick()
 
-        verify(activity.presenter, times(2)).getCountriesList()
+        verify(activity.presenter, times(2)).getCountries()
     }
 
     @Test
@@ -214,7 +214,6 @@ class BaseAddressActivityTest {
     }
 
     class TestBaseAddressActivity : BaseAddressActivity<AddressView, AddressPresenter<AddressView>>() {
-
 
         override fun inject() {
             TestShopApplication.testAppComponent.attachAddressComponent().inject(this)

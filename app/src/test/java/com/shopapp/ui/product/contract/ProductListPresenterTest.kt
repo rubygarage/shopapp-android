@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.inOrder
-import com.shopapp.domain.interactor.product.ProductListUseCase
+import com.shopapp.domain.interactor.product.GetProductsUseCase
 import com.shopapp.gateway.entity.Product
 import com.shopapp.gateway.entity.SortType
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -36,7 +36,7 @@ class ProductListPresenterTest {
     private lateinit var view: ProductListView
 
     @Mock
-    private lateinit var useCase: ProductListUseCase
+    private lateinit var useCase: GetProductsUseCase
 
     @Mock
     private lateinit var data: List<Product>
@@ -57,7 +57,7 @@ class ProductListPresenterTest {
 
         val inOrder = inOrder(view, useCase)
         inOrder.verify(useCase).execute(any(), any(),
-            eq(ProductListUseCase.Params(SortType.NAME, Constant.DEFAULT_PER_PAGE_COUNT, PAGINATION, KEYWORD, EXCLUDE_KEYWORD)))
+            eq(GetProductsUseCase.Params(SortType.NAME, Constant.DEFAULT_PER_PAGE_COUNT, PAGINATION, KEYWORD, EXCLUDE_KEYWORD)))
         inOrder.verify(view).showContent(data)
     }
 

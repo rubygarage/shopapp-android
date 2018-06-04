@@ -10,7 +10,7 @@ class SetShippingRateUseCase @Inject constructor(private val checkoutRepository:
     SingleUseCase<Checkout, SetShippingRateUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params) = with(params) {
-        checkoutRepository.selectShippingRate(checkoutId, shippingRate)
+        checkoutRepository.setShippingRate(checkoutId, shippingRate)
     }
 
     class Params(

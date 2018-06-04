@@ -58,7 +58,7 @@ class ChangePasswordActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent().inject(this)
+        ShopApplication.appComponent.attachAccountComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_change_password

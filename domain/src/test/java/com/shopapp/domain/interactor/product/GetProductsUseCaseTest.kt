@@ -10,16 +10,16 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class ProductListUseCaseTest {
+class GetProductsUseCaseTest {
 
-    private lateinit var useCase: ProductListUseCase
+    private lateinit var useCase: GetProductsUseCase
 
     @Mock
     private lateinit var productRepository: ProductRepository
 
     @Before
     fun setUpTest() {
-        useCase = ProductListUseCase(productRepository)
+        useCase = GetProductsUseCase(productRepository)
     }
 
     @Test
@@ -29,8 +29,8 @@ class ProductListUseCaseTest {
         val paginationValue = "paginationValue"
         val keyword = "keyword"
         val excludeKeyword = "excludeKeyword"
-        val params = ProductListUseCase.Params(sortType, perPage, paginationValue, keyword, excludeKeyword)
+        val params = GetProductsUseCase.Params(sortType, perPage, paginationValue, keyword, excludeKeyword)
         useCase.buildUseCaseSingle(params)
-        verify(productRepository).getProductList(perPage, paginationValue, sortType, keyword, excludeKeyword)
+        verify(productRepository).getProducts(perPage, paginationValue, sortType, keyword, excludeKeyword)
     }
 }

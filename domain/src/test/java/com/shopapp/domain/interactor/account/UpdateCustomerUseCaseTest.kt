@@ -9,22 +9,25 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class GetCustomerUseCaseTest {
+class UpdateCustomerUseCaseTest {
 
-    private lateinit var useCase: GetCustomerUseCase
+    private lateinit var useCase: UpdateCustomerUseCase
 
     @Mock
     private lateinit var repository: CustomerRepository
 
     @Before
     fun setUpTest() {
-        useCase = GetCustomerUseCase(repository)
+        useCase = UpdateCustomerUseCase(repository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
-        useCase.buildUseCaseSingle(Unit)
-        verify(repository).getCustomer()
-    }
+        val name = "name"
+        val lastName = "lastName"
+        val phone = "0633291677"
 
+        useCase.buildUseCaseSingle(UpdateCustomerUseCase.Params(name, lastName, phone))
+        verify(repository).updateCustomer(name, lastName, phone)
+    }
 }

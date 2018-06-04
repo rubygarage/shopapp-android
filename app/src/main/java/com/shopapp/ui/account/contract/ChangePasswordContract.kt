@@ -1,6 +1,6 @@
 package com.shopapp.ui.account.contract
 
-import com.shopapp.domain.interactor.account.ChangePasswordUseCase
+import com.shopapp.domain.interactor.account.UpdatePasswordUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
@@ -20,8 +20,8 @@ interface ChangePasswordView : BaseLceView<Unit> {
 
 class ChangePasswordPresenter(
     private val validator: FieldValidator,
-    private val changePasswordUseCase: ChangePasswordUseCase) :
-    BaseLcePresenter<Unit, ChangePasswordView>(changePasswordUseCase) {
+    private val updatePasswordUseCase: UpdatePasswordUseCase) :
+    BaseLcePresenter<Unit, ChangePasswordView>(updatePasswordUseCase) {
 
     fun changePassword(password: String, confirmPassword: String) {
         var isError = false
@@ -38,7 +38,7 @@ class ChangePasswordPresenter(
 
         if (!isError) {
             view?.showUpdateProgress()
-            changePasswordUseCase.execute(
+            updatePasswordUseCase.execute(
                 {
                     view?.let {
                         it.hideUpdateProgress()

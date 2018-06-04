@@ -236,20 +236,20 @@ class CheckoutRepositoryTest {
     }
 
     @Test
-    fun selectShippingRateShouldDelegateCallToApi() {
+    fun setShippingRateShouldDelegateCallToApi() {
         val checkoutId = "checkoutId"
-        repository.selectShippingRate(checkoutId, shippingRate).subscribe()
-        verify(api).selectShippingRate(eq(checkoutId), eq(shippingRate), any())
+        repository.setShippingRate(checkoutId, shippingRate).subscribe()
+        verify(api).setShippingRate(eq(checkoutId), eq(shippingRate), any())
     }
 
     @Test
-    fun selectShippingRateShouldReturnValueWhenOnResult() {
+    fun setShippingRateShouldReturnValueWhenOnResult() {
         val checkoutId = "checkoutId"
-        given(api.selectShippingRate(eq(checkoutId), eq(shippingRate), any())).willAnswer({
+        given(api.setShippingRate(eq(checkoutId), eq(shippingRate), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Checkout>>(2)
             callback.onResult(checkout)
         })
-        repository.selectShippingRate(checkoutId, shippingRate).subscribe(checkoutObserver)
+        repository.setShippingRate(checkoutId, shippingRate).subscribe(checkoutObserver)
         checkoutObserver.assertValue(checkout)
     }
 
@@ -257,11 +257,11 @@ class CheckoutRepositoryTest {
     fun selectShippingRateShouldReturnErrorOnFailure() {
         val error = Error.Content()
         val checkoutId = "checkoutId"
-        given(api.selectShippingRate(eq(checkoutId), eq(shippingRate), any())).willAnswer({
+        given(api.setShippingRate(eq(checkoutId), eq(shippingRate), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Checkout>>(2)
             callback.onFailure(error)
         })
-        repository.selectShippingRate(checkoutId, shippingRate).subscribe(checkoutObserver)
+        repository.setShippingRate(checkoutId, shippingRate).subscribe(checkoutObserver)
         checkoutObserver.assertError(error)
     }
 

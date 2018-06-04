@@ -37,7 +37,7 @@ class CartValidationUseCaseTest {
         val testObserver = useCase.buildUseCaseCompletable(Unit).test()
 
         verify(cartRepository).getCartProductList()
-        verify(productRepository, never()).getProductVariantList(any())
+        verify(productRepository, never()).getProductVariants(any())
         verify(cartRepository, never()).deleteProductListFromCart(any())
         testObserver.assertComplete()
     }
@@ -52,12 +52,12 @@ class CartValidationUseCaseTest {
         given(cartProduct.productVariant).willReturn(productVariant)
 
         given(cartRepository.getCartProductList()).willReturn(Observable.just(listOf(cartProduct)))
-        given(productRepository.getProductVariantList(any())).willReturn(Single.just(listOf(productVariant)))
+        given(productRepository.getProductVariants(any())).willReturn(Single.just(listOf(productVariant)))
         val testObserver = useCase.buildUseCaseCompletable(Unit).test()
 
         verify(cartRepository).getCartProductList()
         argumentCaptor<List<String>>().apply {
-            verify(productRepository).getProductVariantList(capture())
+            verify(productRepository).getProductVariants(capture())
             assertEquals(testId, firstValue.first())
         }
         verify(cartRepository, never()).deleteProductListFromCart(any())
@@ -74,13 +74,13 @@ class CartValidationUseCaseTest {
         given(cartProduct.productVariant).willReturn(productVariant)
 
         given(cartRepository.getCartProductList()).willReturn(Observable.just(listOf(cartProduct)))
-        given(productRepository.getProductVariantList(any())).willReturn(Single.just(listOf()))
+        given(productRepository.getProductVariants(any())).willReturn(Single.just(listOf()))
         given(cartRepository.deleteProductListFromCart(any())).willReturn(Completable.complete())
         val testObserver = useCase.buildUseCaseCompletable(Unit).test()
 
         verify(cartRepository).getCartProductList()
         argumentCaptor<List<String>>().apply {
-            verify(productRepository).getProductVariantList(capture())
+            verify(productRepository).getProductVariants(capture())
             assertEquals(testId, firstValue.first())
         }
         argumentCaptor<List<String>>().apply {
@@ -104,13 +104,13 @@ class CartValidationUseCaseTest {
         given(productVariant.id).willReturn(anotherTestId)
 
         given(cartRepository.getCartProductList()).willReturn(Observable.just(listOf(cartProduct)))
-        given(productRepository.getProductVariantList(any())).willReturn(Single.just(listOf(productVariant)))
+        given(productRepository.getProductVariants(any())).willReturn(Single.just(listOf(productVariant)))
         given(cartRepository.deleteProductListFromCart(any())).willReturn(Completable.complete())
         val testObserver = useCase.buildUseCaseCompletable(Unit).test()
 
         verify(cartRepository).getCartProductList()
         argumentCaptor<List<String>>().apply {
-            verify(productRepository).getProductVariantList(capture())
+            verify(productRepository).getProductVariants(capture())
             assertEquals(testId, firstValue.first())
         }
         argumentCaptor<List<String>>().apply {

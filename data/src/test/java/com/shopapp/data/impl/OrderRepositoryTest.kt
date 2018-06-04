@@ -53,8 +53,8 @@ class OrderRepositoryTest {
     }
 
     @Test
-    fun getOrderListShouldDelegateCallToApi() {
-        repository.getOrderList(perPage, paginationValue).subscribe()
+    fun getOrdersShouldDelegateCallToApi() {
+        repository.getOrders(perPage, paginationValue).subscribe()
         verify(api).getOrders(eq(perPage), eq(paginationValue), any())
     }
 
@@ -64,7 +64,7 @@ class OrderRepositoryTest {
             val callback = it.getArgument<ApiCallback<List<Order>>>(2)
             callback.onResult(orderList)
         })
-        repository.getOrderList(perPage, paginationValue).subscribe(orderListObserver)
+        repository.getOrders(perPage, paginationValue).subscribe(orderListObserver)
         orderListObserver.assertValue(orderList)
     }
 
@@ -75,7 +75,7 @@ class OrderRepositoryTest {
             val callback = it.getArgument<ApiCallback<List<Order>>>(2)
             callback.onFailure(error)
         })
-        repository.getOrderList(perPage, paginationValue).subscribe(orderListObserver)
+        repository.getOrders(perPage, paginationValue).subscribe(orderListObserver)
         orderListObserver.assertError(error)
     }
 
