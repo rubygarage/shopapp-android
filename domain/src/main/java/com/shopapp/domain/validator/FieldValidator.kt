@@ -10,13 +10,13 @@ class FieldValidator {
     }
 
     private val EMAIL_ADDRESS = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}"
-                    + "\\@"
-                    + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
-                    + "("
-                    + "\\."
-                    + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
-                    + ")+"
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}"
+                + "\\@"
+                + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
+                + "("
+                + "\\."
+                + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
+                + ")+"
     )
 
     fun isEmailValid(email: String): Boolean = EMAIL_ADDRESS.matcher(email).matches()
@@ -24,11 +24,12 @@ class FieldValidator {
     fun isPasswordValid(password: String): Boolean = !password.isEmpty()
             && password.length >= MIN_PASSWORD_LENGTH
 
-    fun isAddressValid(addressObject: Address): Boolean {
+    fun isAddressValid(addressObject: Address?): Boolean {
         return with(addressObject) {
-            address.isNotBlank()
+            this != null
+                    && ((country.states?.isNotEmpty() ?: false && state != null) || country.states?.isEmpty() ?: true)
+                    && address.isNotBlank()
                     && city.isNotBlank()
-                    && country.isNotBlank()
                     && firstName.isNotBlank()
                     && lastName.isNotBlank()
                     && zip.isNotBlank()

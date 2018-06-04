@@ -28,9 +28,9 @@ class AddressContentItem @JvmOverloads constructor(
         appendAddress(address.address)
         appendAddress(address.secondAddress)
         appendAddress(address.city)
-        appendAddress(address.state)
+        appendAddress(address.state?.name)
         appendAddress(address.zip)
-        appendAddress(address.country)
+        appendAddress(address.country.name)
 
         if (TextUtils.isEmpty(address.phone)) {
             phone.visibility = View.GONE

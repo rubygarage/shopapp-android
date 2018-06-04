@@ -82,8 +82,8 @@ class BaseAddressActivityTest {
         assertEquals(address.address, activity.addressInput.text.toString())
         assertEquals(address.secondAddress, activity.secondAddressInput.text.toString())
         assertEquals(address.city, activity.cityInput.text.toString())
-        assertEquals(address.state, activity.stateInput.text.toString())
-        assertEquals(address.country, activity.countryInput.text.toString())
+        assertEquals(address.state?.name, activity.stateInput.text.toString())
+        assertEquals(address.country.name, activity.countryInput.text.toString())
         assertEquals(address.zip, activity.postalCodeInput.text.toString())
         assertEquals(address.phone, activity.phoneInput.text.toString())
     }
@@ -122,8 +122,8 @@ class BaseAddressActivityTest {
         assertEquals(address.address, activity.addressInput.text.toString())
         assertEquals(address.secondAddress, activity.secondAddressInput.text.toString())
         assertEquals(address.city, activity.cityInput.text.toString())
-        assertEquals(address.state, activity.stateInput.text.toString())
-        assertEquals(address.country, activity.countryInput.text.toString())
+        assertEquals(address.state?.name, activity.stateInput.text.toString())
+        assertEquals(address.country.name, activity.countryInput.text.toString())
         assertEquals(address.zip, activity.postalCodeInput.text.toString())
         assertEquals(address.phone, activity.phoneInput.text.toString())
     }
@@ -190,14 +190,14 @@ class BaseAddressActivityTest {
 
     @Test
     fun shouldHideStateViewOnNullStates() {
+        val country = MockInstantiator.newCountry()
+        given(country.states).willReturn(null)
         val intent = Intent(context, TestBaseAddressActivity::class.java)
+        given(address.country).willReturn(country)
         intent.putExtra(Extra.ADDRESS, address)
         val activity =
             Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
                 .get()
-
-        val country = MockInstantiator.newCountry()
-        given(country.states).willReturn(null)
 
         activity.countriesLoaded(listOf(country))
 
@@ -209,6 +209,7 @@ class BaseAddressActivityTest {
         val country = MockInstantiator.newCountry()
         given(country.states).willReturn(listOf())
         val intent = Intent(context, TestBaseAddressActivity::class.java)
+        given(address.country).willReturn(country)
         intent.putExtra(Extra.ADDRESS, address)
         val activity =
             Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()

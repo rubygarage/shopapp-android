@@ -13,7 +13,6 @@ import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
 import io.reactivex.Single
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -75,9 +74,9 @@ class AddressPresenterTest {
     }
 
     @Test
-    fun submitAddressShouldCallAddressChangedWhenOnSingleSuccess() {
+    fun submitAddressShouldCallAddressChangedWhenOnCompletableSuccess() {
         val result = "result"
-        given(addCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.just(result))
+        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Single.just(result))
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
@@ -87,9 +86,9 @@ class AddressPresenterTest {
     }
 
     @Test
-    fun submitAddressShouldCallAddressChangedWhenOnSingleContentError() {
+    fun submitAddressShouldCallAddressChangedWhenOnCompletableContentError() {
         val error = Error.Content()
-        given(addCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
+        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
@@ -104,10 +103,10 @@ class AddressPresenterTest {
     }
 
     @Test
-    fun submitAddressShouldCallAddressChangedWhenOnSingleNonCriticalError() {
+    fun submitAddressShouldCallAddressChangedWhenOnCompletableNonCriticalError() {
         val message = "message"
         val error = Error.NonCritical(message)
-        given(addCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
+        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
@@ -133,13 +132,9 @@ class AddressPresenterTest {
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.updateAddress(address)
 
-        argumentCaptor<UpdateCustomerAddressUseCase.Params>().apply {
-            val inOrder = inOrder(view, updateCustomerAddressUseCase)
-            inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
-            inOrder.verify(view).addressChanged(address)
-
-            assertEquals(address, firstValue.address)
-        }
+        val inOrder = inOrder(view, updateCustomerAddressUseCase)
+        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
+        inOrder.verify(view).addressChanged(address)
     }
 
     @Test
@@ -155,10 +150,7 @@ class AddressPresenterTest {
 
 
         val inOrder = inOrder(view, updateCustomerAddressUseCase)
-        argumentCaptor<UpdateCustomerAddressUseCase.Params>().apply {
-            inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
-            assertEquals(address, firstValue.address)
-        }
+        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), eq(address))
         argumentCaptor<Error>().apply {
             inOrder.verify(view).showError(capture())
             assertTrue(firstValue is Error.Content)
@@ -178,14 +170,10 @@ class AddressPresenterTest {
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.updateAddress(address)
 
-        argumentCaptor<UpdateCustomerAddressUseCase.Params>().apply {
-            val inOrder = inOrder(view, updateCustomerAddressUseCase)
-            inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
-            inOrder.verify(view).showMessage(message)
-            inOrder.verify(view).addressChanged(address)
-
-            assertEquals(address, firstValue.address)
-        }
+        val inOrder = inOrder(view, updateCustomerAddressUseCase)
+        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
+        inOrder.verify(view).showMessage(message)
+        inOrder.verify(view).addressChanged(address)
     }
 
     @Test

@@ -78,7 +78,7 @@ open class AddressPresenter<V : AddressView>(
                 resolveError(it)
                 view?.addressChanged(address)
             },
-            UpdateCustomerAddressUseCase.Params(address)
+            address
         )
     }
 }

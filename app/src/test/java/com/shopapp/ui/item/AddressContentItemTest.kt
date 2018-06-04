@@ -37,7 +37,7 @@ class AddressContentItemTest {
             view.name.text
         )
         val addressText = "${address.address}, ${address.secondAddress}, ${address.city}," +
-                " ${address.state}, ${address.zip}, ${address.country}"
+                " ${address.state?.name}, ${address.zip}, ${address.country.name}"
         assertEquals(addressText, view.addressText.text.toString())
     }
 

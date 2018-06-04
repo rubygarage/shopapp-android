@@ -139,6 +139,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     fun getCustomerShouldReturnCustomerWhenSessionExist() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
+        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json")))
 
         val token = "test token"
         val password = "test password"
@@ -305,7 +306,9 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     fun editCustomerInfoShouldReturnCustomerWhenSessionExist() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
+        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
+        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json")))
 
         val firstName = "firstName"
         val secondName = "secondName"

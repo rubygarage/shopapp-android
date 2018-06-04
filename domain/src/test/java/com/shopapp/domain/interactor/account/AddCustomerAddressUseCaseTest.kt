@@ -26,7 +26,7 @@ class AddCustomerAddressUseCaseTest {
     @Test
     fun shouldDelegateCallToRepository() {
         val address: Address = mock()
-        useCase.buildUseCaseSingle(address)
+        useCase.buildUseCaseCompletable(address)
         verify(repository).addCustomerAddress(address)
     }
 }

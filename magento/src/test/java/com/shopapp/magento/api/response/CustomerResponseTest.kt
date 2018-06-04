@@ -9,11 +9,11 @@ class CustomerResponseTest : BaseResponseTest<CustomerResponse>(CustomerResponse
 
     @Test
     fun shouldCorrectlyParse() {
-        val result = response.mapToEntity()
+        val result = response.mapToEntity(listOf()) //TODO
 
         assertEquals("9", result.id)
         assertEquals("test@mail.com", result.email)
-        assertEquals("f", result.firstName)
-        assertEquals("l", result.lastName)
+        assertEquals("test firstname", result.firstName)
+        assertEquals("test lastname", result.lastName)
     }
 }
