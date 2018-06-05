@@ -1,9 +1,9 @@
 package com.shopapp.domain.interactor.category
 
-import com.shopapp.gateway.entity.Category
-import com.shopapp.gateway.entity.SortType
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.CategoryRepository
+import com.shopapp.gateway.entity.Category
+import com.shopapp.gateway.entity.SortType
 import io.reactivex.Single
 import javax.inject.Inject
 

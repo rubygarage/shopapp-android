@@ -8,7 +8,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetArticlesUseCase @Inject constructor(private val blogRepository: BlogRepository) :
-        SingleUseCase<List<Article>, GetArticlesUseCase.Params>() {
+    SingleUseCase<List<Article>, GetArticlesUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<Article>> {
         return with(params) {
@@ -17,7 +17,7 @@ class GetArticlesUseCase @Inject constructor(private val blogRepository: BlogRep
     }
 
     data class Params(
-            val perPage: Int,
-            val paginationValue: String? = null
+        val perPage: Int,
+        val paginationValue: String? = null
     )
 }

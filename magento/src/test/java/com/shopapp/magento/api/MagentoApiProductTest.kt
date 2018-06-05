@@ -164,13 +164,13 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun searchProductListShouldReturnEmptyProductList() {
+    fun searchProductsShouldReturnEmptyProductList() {
 
         val perPage = 10
         val paginationValue = PAGINATION_END_VALUE
         val searchQuery = "testSearchQuery"
         val callback: ApiCallback<List<Product>> = mock()
-        api.searchProductList(perPage, paginationValue, searchQuery, callback)
+        api.searchProducts(perPage, paginationValue, searchQuery, callback)
 
         argumentCaptor<List<Product>>().apply {
             verify(callback).onResult(capture())

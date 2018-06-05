@@ -1,8 +1,8 @@
 package com.shopapp.domain.interactor.cart
 
-import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.domain.interactor.base.ObservableUseCase
 import com.shopapp.domain.repository.CartRepository
+import com.shopapp.gateway.entity.CartProduct
 import io.reactivex.Observable
 import javax.inject.Inject
 

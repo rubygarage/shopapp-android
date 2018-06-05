@@ -1,9 +1,9 @@
 package com.shopapp.domain.interactor.checkout
 
-import com.shopapp.gateway.entity.Address
-import com.shopapp.gateway.entity.Checkout
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Checkout
 import io.reactivex.Single
 import javax.inject.Inject
 

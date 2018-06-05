@@ -216,7 +216,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnUnitWhenSessionAndOldPasswordExist() {
+    fun updatePasswordShouldReturnUnitWhenSessionAndOldPasswordExist() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json"))
@@ -240,14 +240,14 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnErrorWhenOldPasswordDoesNotExist() {
+    fun updatePasswordShouldReturnErrorWhenOldPasswordDoesNotExist() {
 
         val token = "test token"
         val newPassword = "new password"
 
         mockSession(token, null)
         val callback: ApiCallback<Unit> = mock()
-        api.changePassword(newPassword, callback)
+        api.updatePassword(newPassword, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -258,7 +258,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnErrorWhenSessionAndOldPasswordDoesNotExist() {
+    fun updatePasswordShouldReturnErrorWhenSessionAndOldPasswordDoesNotExist() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json"))
@@ -278,7 +278,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnErrorWhenSessionAndOldPasswordExist() {
+    fun updatePasswordShouldReturnErrorWhenSessionAndOldPasswordExist() {
 
         val response = MockResponse()
         response.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
@@ -424,7 +424,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun createCustomerAddressShouldReturnUnit() {
+    fun addCustomerAddressShouldReturnUnit() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
@@ -447,7 +447,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
             on { country } doReturn countryMock
         }
         val callback: ApiCallback<Unit> = mock()
-        api.createCustomerAddress(address, callback)
+        api.addCustomerAddress(address, callback)
         verify(callback).onResult(Unit)
 
         val customerRequest = server.takeRequest()
@@ -457,7 +457,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun createCustomerAddressShouldReturnError() {
+    fun addCustomerAddressShouldReturnError() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
@@ -481,7 +481,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
             on { country } doReturn countryMock
         }
         val callback: ApiCallback<Unit> = mock()
-        api.createCustomerAddress(address, callback)
+        api.addCustomerAddress(address, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -497,12 +497,12 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun createCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
+    fun addCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
 
         mockSession(null, null)
         val address: Address = mock()
         val callback: ApiCallback<Unit> = mock()
-        api.createCustomerAddress(address, callback)
+        api.addCustomerAddress(address, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -586,7 +586,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun editCustomerAddressShouldReturnUnit() {
+    fun updateCustomerAddressShouldReturnUnit() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
@@ -609,7 +609,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
             on { country } doReturn countryMock
         }
         val callback: ApiCallback<Unit> = mock()
-        api.editCustomerAddress(address, callback)
+        api.updateCustomerAddress(address, callback)
         verify(callback).onResult(Unit)
 
         val customerRequest = server.takeRequest()
@@ -619,7 +619,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun editCustomerAddressShouldReturnError() {
+    fun updateCustomerAddressShouldReturnError() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
@@ -640,7 +640,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
             on { country } doReturn countryMock
         }
         val callback: ApiCallback<Unit> = mock()
-        api.editCustomerAddress(address, callback)
+        api.updateCustomerAddress(address, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -656,7 +656,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun editCustomerAddressShouldReturnErrorAndClearSession() {
+    fun updateCustomerAddressShouldReturnErrorAndClearSession() {
 
         server.enqueue(
             MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
@@ -677,7 +677,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
             on { country } doReturn countryMock
         }
         val callback: ApiCallback<Unit> = mock()
-        api.editCustomerAddress(address, callback)
+        api.updateCustomerAddress(address, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -696,12 +696,12 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun editCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
+    fun updateCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
 
         mockSession(null, null)
         val address: Address = mock()
         val callback: ApiCallback<Unit> = mock()
-        api.editCustomerAddress(address, callback)
+        api.updateCustomerAddress(address, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())

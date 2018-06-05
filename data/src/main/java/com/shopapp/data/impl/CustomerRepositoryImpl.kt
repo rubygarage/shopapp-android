@@ -16,8 +16,8 @@ class CustomerRepositoryImpl(private val api: Api) : CustomerRepository {
         return Single.create { api.getCustomer(RxCallbackSingle(it)) }
     }
 
-    override fun addCustomerAddress(address: Address): Single<String> {
-        return Single.create { api.addCustomerAddress(address, RxCallbackSingle<String>(it)) }
+    override fun addCustomerAddress(address: Address): Completable {
+        return Completable.create { api.addCustomerAddress(address, RxCallbackCompletable(it)) }
     }
 
     override fun getCountries(): Single<List<Country>> {

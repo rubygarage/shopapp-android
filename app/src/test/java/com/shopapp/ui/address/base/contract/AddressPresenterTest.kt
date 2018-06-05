@@ -75,8 +75,7 @@ class AddressPresenterTest {
 
     @Test
     fun submitAddressShouldCallAddressChangedWhenOnCompletableSuccess() {
-        val result = "result"
-        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Single.just(result))
+        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
@@ -88,7 +87,11 @@ class AddressPresenterTest {
     @Test
     fun submitAddressShouldCallAddressChangedWhenOnCompletableContentError() {
         val error = Error.Content()
-        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
+        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                error
+            )
+        )
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
@@ -106,7 +109,11 @@ class AddressPresenterTest {
     fun submitAddressShouldCallAddressChangedWhenOnCompletableNonCriticalError() {
         val message = "message"
         val error = Error.NonCritical(message)
-        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
+        given(addCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                error
+            )
+        )
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
@@ -133,7 +140,7 @@ class AddressPresenterTest {
         presenter.updateAddress(address)
 
         val inOrder = inOrder(view, updateCustomerAddressUseCase)
-        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
+        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), eq(address))
         inOrder.verify(view).addressChanged(address)
     }
 
@@ -171,7 +178,7 @@ class AddressPresenterTest {
         presenter.updateAddress(address)
 
         val inOrder = inOrder(view, updateCustomerAddressUseCase)
-        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
+        inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), eq(address))
         inOrder.verify(view).showMessage(message)
         inOrder.verify(view).addressChanged(address)
     }

@@ -1,9 +1,9 @@
 package com.shopapp.domain.interactor.checkout
 
-import com.shopapp.gateway.entity.Checkout
-import com.shopapp.gateway.entity.ShippingRate
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.gateway.entity.Checkout
+import com.shopapp.gateway.entity.ShippingRate
 import javax.inject.Inject
 
 class SetShippingRateUseCase @Inject constructor(private val checkoutRepository: CheckoutRepository) :

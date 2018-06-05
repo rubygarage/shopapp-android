@@ -26,7 +26,7 @@ class UpdateCustomerAddressUseCaseTest {
     @Test
     fun shouldDelegateCallToRepository() {
         val address: Address = mock()
-        useCase.buildUseCaseCompletable(UpdateCustomerAddressUseCase.Params(address))
+        useCase.buildUseCaseCompletable(address)
         verify(repository).updateCustomerAddress(address)
     }
 }

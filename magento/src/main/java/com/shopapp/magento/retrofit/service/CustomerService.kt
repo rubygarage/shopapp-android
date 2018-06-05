@@ -3,7 +3,6 @@ package com.shopapp.magento.retrofit.service
 import com.shopapp.magento.api.Constant.AUTHORIZATION_HEADER
 import com.shopapp.magento.api.request.*
 import com.shopapp.magento.api.response.CountryListResponse
-import com.shopapp.magento.api.response.CountryResponse
 import com.shopapp.magento.api.response.CustomerResponse
 import io.reactivex.Single
 import retrofit2.http.*
@@ -31,7 +30,7 @@ interface CustomerService {
     @PUT(CUSTOMER_URL)
     fun updateCustomer(
         @Header(AUTHORIZATION_HEADER) token: String,
-        @Body request: UpdateCustomerRequest
+        @Body request: CustomerRequest
     ): Single<CustomerResponse>
 
     @PUT(UPDATE_PASSWORD_URL)
@@ -44,5 +43,5 @@ interface CustomerService {
     fun resetPassword(@Body request: ResetPasswordRequest): Single<Boolean>
 
     @GET(COUNTRIES_URL)
-    fun getCountries(): Single<List<CountryListResponse.CountryResponse>>
+    fun getCountries(): Single<CountryListResponse>
 }

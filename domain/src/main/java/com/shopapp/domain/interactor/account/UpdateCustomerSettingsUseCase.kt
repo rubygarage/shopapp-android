@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class UpdateCustomerSettingsUseCase @Inject constructor(private val repository: CustomerRepository) :
-        CompletableUseCase<Boolean>() {
+    CompletableUseCase<Boolean>() {
 
     override fun buildUseCaseCompletable(params: Boolean): Completable {
         return repository.updateCustomerSettings(params)

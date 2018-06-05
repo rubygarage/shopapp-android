@@ -168,17 +168,16 @@ class CustomerRepositoryTest {
 
     @Test
     fun addCustomerAddressShouldCompleteOnApiResult() {
-        val addressId = "addressId"
         given(api.addCustomerAddress(any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<String>>(1)
-            callback.onResult(addressId)
+            val callback = it.getArgument<ApiCallback<Unit>>(1)
+            callback.onResult(Unit)
         })
-        repository.addCustomerAddress(address).subscribe(stringObserver)
-        stringObserver.assertValue(addressId)
+        repository.addCustomerAddress(address).subscribe(unitObserver)
+        unitObserver.assertComplete()
     }
 
     @Test
-    fun addustomerAddressShouldErrorOnApiFailure() {
+    fun addCustomerAddressShouldErrorOnApiFailure() {
         val error = Error.Content()
         given(api.addCustomerAddress(any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Unit>>(1)
