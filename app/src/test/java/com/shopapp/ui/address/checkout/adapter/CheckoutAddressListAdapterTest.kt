@@ -3,7 +3,7 @@ package com.shopapp.ui.address.checkout.adapter
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.item.CheckoutAddressItem
-import org.junit.Assert
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +32,7 @@ class CheckoutAddressListAdapterTest {
     @Test
     fun shouldReturnCheckoutAddressItem() {
         val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
-        Assert.assertTrue(itemView is CheckoutAddressItem)
+        assertTrue(itemView is CheckoutAddressItem)
     }
 
     @Test

@@ -569,7 +569,6 @@ class MagentoApi : Api {
         paginationValue.toString().toIntOrNull() ?: PAGINATION_START_VALUE
 
     private fun handleError(throwable: Throwable): Error {
-        throwable.printStackTrace()
         return if (throwable is HttpException) {
             if (throwable.code() == HttpURLConnection.HTTP_UNAUTHORIZED) {
                 removeSession()
