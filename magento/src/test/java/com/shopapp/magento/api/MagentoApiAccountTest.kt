@@ -656,6 +656,46 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
+    fun editCustomerAddressShouldReturnErrorAndClearSession() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_UNAUTHORIZED)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val address: Address = mock {
+            val countryMock: Country = mock {
+                on { id } doReturn "id"
+            }
+            on { country } doReturn countryMock
+        }
+        val callback: ApiCallback<Unit> = mock()
+        api.editCustomerAddress(address, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+
+        verify(sharedPreferences.edit()).remove(Constant.ACCESS_KEY)
+        verify(sharedPreferences.edit()).remove(Constant.ACCESS_TOKEN)
+    }
+
+    @Test
     fun editCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
 
         mockSession(null, null)
