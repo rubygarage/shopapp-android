@@ -42,7 +42,9 @@ class OrderDetailsActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = OrderDetailsActivity.getStartIntent(context, ORDER_ID)
-        activity = Robolectric.buildActivity(OrderDetailsActivity::class.java, intent).create().start().get()
+        activity =
+                Robolectric.buildActivity(OrderDetailsActivity::class.java, intent).create().start()
+                    .get()
         formatterMock = mock {
             on { formatPrice(any(), any()) } doAnswer { "${it.arguments[0]} ${it.arguments[1]} " }
         }
@@ -121,8 +123,10 @@ class OrderDetailsActivityTest {
         val target = context.getString(R.string.order)
         activity.showError(Error.Critical())
         assertEquals(View.VISIBLE, activity.lceLayout.errorView.visibility)
-        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, target),
-            activity.lceLayout.errorView.errorMessage.text)
+        assertEquals(
+            context.getString(R.string.сould_not_find_with_placeholder, target),
+            activity.lceLayout.errorView.errorMessage.text
+        )
     }
 
     @After

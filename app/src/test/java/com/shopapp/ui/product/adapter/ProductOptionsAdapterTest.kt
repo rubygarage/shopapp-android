@@ -80,13 +80,13 @@ class ProductOptionsAdapterTest {
     }
 
     @Test
-    fun shouldReturnTextView(){
+    fun shouldReturnTextView() {
         val view = adapter.getItemView(context, 0)
         assertTrue(view is TextView)
     }
 
     @Test
-    fun shouldSetUnSelectedStylesOnNullSelectedVariant(){
+    fun shouldSetUnSelectedStylesOnNullSelectedVariant() {
         adapter.selectedVariantOptions = null
         adapter.bindData(itemView, TEST_DATA, 0)
         verify(itemView).setBackgroundResource(R.drawable.background_unselected_variant)

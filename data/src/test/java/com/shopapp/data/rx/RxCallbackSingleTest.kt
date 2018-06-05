@@ -2,7 +2,6 @@ package com.shopapp.data.rx
 
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.gateway.entity.Error
-import io.reactivex.CompletableEmitter
 import io.reactivex.SingleEmitter
 import org.junit.Before
 import org.junit.Test

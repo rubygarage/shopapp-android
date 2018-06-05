@@ -31,7 +31,11 @@ abstract class BaseLceFragment<in M, V : BaseLceView<M>, P : BaseLcePresenter<M,
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(getRootView(), container, false)
     }
 

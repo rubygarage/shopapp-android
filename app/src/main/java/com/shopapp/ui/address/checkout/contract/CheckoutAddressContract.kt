@@ -1,9 +1,9 @@
 package com.shopapp.ui.address.checkout.contract
 
 import com.shopapp.R
-import com.shopapp.domain.interactor.account.CreateCustomerAddressUseCase
-import com.shopapp.domain.interactor.account.EditCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.AddCustomerAddressUseCase
 import com.shopapp.domain.interactor.account.GetCountriesUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerAddressUseCase
 import com.shopapp.domain.interactor.checkout.SetShippingAddressUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Address
@@ -14,14 +14,14 @@ class CheckoutUnAuthAddressPresenter(
     private val fieldValidator: FieldValidator,
     countriesUseCase: GetCountriesUseCase,
     private val setShippingAddressUseCase: SetShippingAddressUseCase,
-    createCustomerAddressUseCase: CreateCustomerAddressUseCase,
-    editCustomerAddressUseCase: EditCustomerAddressUseCase
+    addCustomerAddressUseCase: AddCustomerAddressUseCase,
+    updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
 ) :
     AddressPresenter<AddressView>(
         fieldValidator,
         countriesUseCase,
-        createCustomerAddressUseCase,
-        editCustomerAddressUseCase,
+        addCustomerAddressUseCase,
+        updateCustomerAddressUseCase,
         setShippingAddressUseCase
     ) {
 

@@ -2,7 +2,7 @@ package com.shopapp.magento.api.request
 
 import com.google.gson.annotations.SerializedName
 
-class EditCustomerRequest(val customer: CustomerData) {
+class UpdateCustomerRequest(val customer: CustomerData) {
 
     class CustomerData(
         val email: String,

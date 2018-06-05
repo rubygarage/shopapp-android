@@ -87,7 +87,12 @@ class OptionsGroupContainerTest {
 
         val productOption = MockInstantiator.newProductOption()
 
-        given(firstProductVariant.selectedOptions).willReturn(listOf(firstVariantOption, secondVariantOption))
+        given(firstProductVariant.selectedOptions).willReturn(
+            listOf(
+                firstVariantOption,
+                secondVariantOption
+            )
+        )
         given(productOption.values).willReturn(listOf(firstVariantValue, secondVariantValue))
 
         given(product.options).willReturn(listOf(productOption))

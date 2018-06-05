@@ -3,8 +3,8 @@ package com.shopapp.ui.account.di
 import com.shopapp.ui.account.*
 import dagger.Subcomponent
 
-@Subcomponent(modules = [AuthModule::class])
-interface AuthComponent {
+@Subcomponent(modules = [AccountModule::class])
+interface AccountComponent {
 
     fun inject(fragment: AccountFragment)
 

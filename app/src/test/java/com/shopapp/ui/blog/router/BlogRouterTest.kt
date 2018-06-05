@@ -36,7 +36,10 @@ class BlogRouterTest {
 
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ArticleActivity.EXTRA_ARTICLE_ID))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(ArticleActivity.EXTRA_ARTICLE_ID)
+        )
         assertEquals(ArticleActivity::class.java, shadowIntent.intentClass)
     }
 

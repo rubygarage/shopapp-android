@@ -20,7 +20,11 @@ class GalleryFragment : Fragment() {
         private const val IS_THUMBNAIL_MODE = "is_thumbnail_mode"
         private const val SELECTED_POSITION = "selected_position"
 
-        fun newInstance(product: Product? = null, isThumbnailMode: Boolean = false, selectedPosition: Int = 0): GalleryFragment {
+        fun newInstance(
+            product: Product? = null,
+            isThumbnailMode: Boolean = false,
+            selectedPosition: Int = 0
+        ): GalleryFragment {
             val fragment = GalleryFragment()
             val args = Bundle()
             args.putParcelable(PRODUCT, product)
@@ -44,7 +48,11 @@ class GalleryFragment : Fragment() {
         ShopApplication.appComponent.attachGalleryComponent().inject(this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_gallery, container, false)
     }
 

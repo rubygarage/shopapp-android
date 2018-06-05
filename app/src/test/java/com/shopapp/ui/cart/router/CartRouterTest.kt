@@ -50,7 +50,10 @@ class CartRouterTest {
         router.showProduct(activity, MockInstantiator.newProductVariant())
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
         assertNotNull(startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }

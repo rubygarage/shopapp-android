@@ -116,7 +116,8 @@ class HomeFragment :
     private fun addChildFragment(
         isFragmentAllowed: Boolean,
         childContainer: View,
-        fragmentCreator: () -> BaseLceFragment<*, *, *>) {
+        fragmentCreator: () -> BaseLceFragment<*, *, *>
+    ) {
         if (isFragmentAllowed) {
             val childFragment = fragmentCreator()
             childFragment.fragmentVisibilityListener = object : FragmentVisibilityListener {

@@ -20,7 +20,8 @@ class CheckedChangeObservable(private val view: CompoundButton) : Observable<Boo
 
     internal class Listener(
         private val view: CompoundButton,
-        private val observer: Observer<in Boolean>) : MainThreadDisposable(), CompoundButton.OnCheckedChangeListener {
+        private val observer: Observer<in Boolean>
+    ) : MainThreadDisposable(), CompoundButton.OnCheckedChangeListener {
 
         override fun onCheckedChanged(compoundButton: CompoundButton, isChecked: Boolean) {
             if (!isDisposed) {

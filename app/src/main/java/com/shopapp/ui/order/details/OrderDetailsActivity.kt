@@ -17,8 +17,8 @@ import com.shopapp.ui.order.details.adapter.OrderProductsAdapter
 import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
 import com.shopapp.ui.order.details.contract.OrderDetailsView
 import com.shopapp.ui.order.details.router.OrderRouter
-import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.activity_order_details.*
+import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.lce.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -88,7 +88,8 @@ class OrderDetailsActivity :
             BigDecimal.ZERO,
             data.totalShippingPrice ?: BigDecimal.ZERO,
             data.totalPrice,
-            data.currency)
+            data.currency
+        )
 
         val address = data.address
         if (address != null) {
@@ -98,7 +99,8 @@ class OrderDetailsActivity :
             shippingAddressTitle.visibility = View.GONE
         }
 
-        val spaceDecoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin))
+        val spaceDecoration =
+            SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_details_product_item_vertical_margin))
         recyclerView.addItemDecoration(spaceDecoration)
         recyclerView.adapter = OrderProductsAdapter(data.orderProducts, this, data.currency)
         recyclerView.layoutManager = LinearLayoutManager(this)

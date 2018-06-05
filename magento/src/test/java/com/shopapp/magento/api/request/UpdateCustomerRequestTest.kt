@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class EditCustomerRequestTest {
+class UpdateCustomerRequestTest {
 
     @Test
     fun shouldCorrectlySerialize() {
@@ -13,8 +13,8 @@ class EditCustomerRequestTest {
         val firstName = "testFirstName"
         val lastName = "testLastName"
         val websiteId = 0
-        val customerData = EditCustomerRequest.CustomerData(email, firstName, lastName, websiteId, listOf())
-        val request = EditCustomerRequest(customerData)
+        val customerData = UpdateCustomerRequest.CustomerData(email, firstName, lastName, websiteId, listOf())
+        val request = UpdateCustomerRequest(customerData)
 
         val gson = Gson()
         val result = gson.toJson(request)

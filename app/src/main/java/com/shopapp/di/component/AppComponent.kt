@@ -2,7 +2,7 @@ package com.shopapp.di.component
 
 import com.shopapp.di.module.RepositoryModule
 import com.shopapp.di.module.ValidatorModule
-import com.shopapp.ui.account.di.AuthComponent
+import com.shopapp.ui.account.di.AccountComponent
 import com.shopapp.ui.address.account.di.AddressComponent
 import com.shopapp.ui.address.checkout.di.CheckoutAddressComponent
 import com.shopapp.ui.blog.di.BlogComponent
@@ -35,7 +35,7 @@ interface AppComponent {
 
     fun attachCartComponent(): CartComponent
 
-    fun attachAuthComponent(): AuthComponent
+    fun attachAccountComponent(): AccountComponent
 
     fun attachOrderComponent(): OrderComponent
 

@@ -40,7 +40,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getProductListWithRecentSortTypeShouldReturnProductList() {
+    fun getProductsWithRecentSortTypeShouldReturnProductList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -49,7 +49,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
         val paginationValue = "12"
         val sortBy = SortType.RECENT
         val callback: ApiCallback<List<Product>> = mock()
-        api.getProductList(perPage, paginationValue, sortBy, null, null, callback)
+        api.getProducts(perPage, paginationValue, sortBy, null, null, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -72,7 +72,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getProductListWithTypeSortTypeShouldReturnProductList() {
+    fun getProductsWithTypeSortTypeShouldReturnProductList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -83,7 +83,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
         val keyword = "testKeyword"
         val excludeKeyword = "testExcludeKeyword"
         val callback: ApiCallback<List<Product>> = mock()
-        api.getProductList(perPage, paginationValue, sortBy, keyword, excludeKeyword, callback)
+        api.getProducts(perPage, paginationValue, sortBy, keyword, excludeKeyword, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -111,12 +111,12 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getProductListWithRelevantSortTypeShouldReturnEmptyList() {
+    fun getProductsWithRelevantSortTypeShouldReturnEmptyList() {
 
         val perPage = 10
         val sortBy = SortType.RELEVANT
         val callback: ApiCallback<List<Product>> = mock()
-        api.getProductList(perPage, null, sortBy, null, null, callback)
+        api.getProducts(perPage, null, sortBy, null, null, callback)
 
         argumentCaptor<List<Product>>().apply {
             verify(callback).onResult(capture())
@@ -126,7 +126,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun searchProductListShouldReturnProductList() {
+    fun searchProductsShouldReturnProductList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -135,7 +135,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
         val paginationValue = "12"
         val searchQuery = "testSearchQuery"
         val callback: ApiCallback<List<Product>> = mock()
-        api.searchProductList(perPage, paginationValue, searchQuery, callback)
+        api.searchProducts(perPage, paginationValue, searchQuery, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -160,7 +160,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getProductVariantListShouldReturnProductVariantList() {
+    fun getProductVariantsShouldReturnProductVariantList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -169,7 +169,7 @@ class MagentoApiProductTest : BaseMagentoApiTest() {
         val secondVariantId = "secondVariantId"
         val ids = listOf(firstVariantId, secondVariantId)
         val callback: ApiCallback<List<ProductVariant>> = mock()
-        api.getProductVariantList(ids, callback)
+        api.getProductVariants(ids, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)

@@ -3,8 +3,8 @@ package com.shopapp.ui.address.checkout.adapter
 import android.content.Context
 import android.view.View
 import com.shopapp.gateway.entity.Address
-import com.shopapp.ui.item.CheckoutAddressItem
 import com.shopapp.ui.address.base.adapter.AddressListAdapter
+import com.shopapp.ui.item.CheckoutAddressItem
 
 class CheckoutAddressListAdapter(
     dataList: List<Address>,

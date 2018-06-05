@@ -36,7 +36,13 @@ class SignUpPresenter @Inject constructor(
         )
     }
 
-    fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String) {
+    fun signUp(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+        phone: String
+    ) {
 
         var isError = false
         if (!fieldValidator.isEmailValid(email)) {

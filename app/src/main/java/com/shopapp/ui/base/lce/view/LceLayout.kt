@@ -52,7 +52,9 @@ class LceLayout @JvmOverloads constructor(
     }
 
     sealed class LceState {
-        class LoadingState(val isTranslucent: Boolean = false, val useDelay: Boolean = false) : LceState()
+        class LoadingState(val isTranslucent: Boolean = false, val useDelay: Boolean = false) :
+            LceState()
+
         object ContentState : LceState()
         object EmptyState : LceState()
         class ErrorState(val error: Error) : LceState()

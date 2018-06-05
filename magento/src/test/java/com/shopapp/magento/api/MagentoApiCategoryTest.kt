@@ -14,7 +14,7 @@ import org.junit.Test
 class MagentoApiCategoryTest : BaseMagentoApiTest() {
 
     @Test
-    fun getCategoryDetailsWithNameSortTypeShouldReturnCategory() {
+    fun getCategoryWithNameSortTypeShouldReturnCategory() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -25,7 +25,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
         val paginationValue = "2"
         val sortType = SortType.NAME
         val callback: ApiCallback<Category> = mock()
-        api.getCategoryDetails(testId, perPage, paginationValue, sortType, callback)
+        api.getCategory(testId, perPage, paginationValue, sortType, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -48,7 +48,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getCategoryDetailsWithRecentSortTypeShouldReturnCategory() {
+    fun getCategoryWithRecentSortTypeShouldReturnCategory() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -59,7 +59,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
         val paginationValue = "2"
         val sortType = SortType.RECENT
         val callback: ApiCallback<Category> = mock()
-        api.getCategoryDetails(testId, perPage, paginationValue, sortType, callback)
+        api.getCategory(testId, perPage, paginationValue, sortType, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -83,7 +83,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getCategoryDetailsWithPriceHighToLowSortTypeShouldReturnCategory() {
+    fun getCategoryWithPriceHighToLowSortTypeShouldReturnCategory() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -94,7 +94,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
         val paginationValue = "2"
         val sortType = SortType.PRICE_HIGH_TO_LOW
         val callback: ApiCallback<Category> = mock()
-        api.getCategoryDetails(testId, perPage, paginationValue, sortType, callback)
+        api.getCategory(testId, perPage, paginationValue, sortType, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -118,7 +118,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getCategoryDetailsWithPriceLowToHighSortTypeShouldReturnCategory() {
+    fun getCategoryWithPriceLowToHighSortTypeShouldReturnCategory() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("StoreConfigResponse.json")))
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("ProductListResponse.json")))
@@ -129,7 +129,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
         val paginationValue = "2"
         val sortType = SortType.PRICE_LOW_TO_HIGH
         val callback: ApiCallback<Category> = mock()
-        api.getCategoryDetails(testId, perPage, paginationValue, sortType, callback)
+        api.getCategory(testId, perPage, paginationValue, sortType, callback)
 
         val storeConfigRequest = server.takeRequest()
         assertEquals("/store/storeConfigs", storeConfigRequest.path)
@@ -153,14 +153,14 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getCategoryListShouldReturnCategoryList() {
+    fun getCategoriesShouldReturnCategoryList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CategoryListResponse.json")))
 
         val perPage = 10
         val parentCategoryId = "parentCategoryId"
         val callback: ApiCallback<List<Category>> = mock()
-        api.getCategoryList(perPage, null, parentCategoryId, callback)
+        api.getCategories(perPage, null, parentCategoryId, callback)
 
         argumentCaptor<List<Category>>().apply {
             verify(callback).onResult(capture())
@@ -171,7 +171,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun getCategoryListShouldReturnEmptyList() {
+    fun getCategoriesShouldReturnEmptyList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CategoryListResponse.json")))
 
@@ -179,7 +179,7 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
         val paginationValue = "2"
         val parentCategoryId = "parentCategoryId"
         val callback: ApiCallback<List<Category>> = mock()
-        api.getCategoryList(perPage, paginationValue, parentCategoryId, callback)
+        api.getCategories(perPage, paginationValue, parentCategoryId, callback)
 
         argumentCaptor<List<Category>>().apply {
             verify(callback).onResult(capture())

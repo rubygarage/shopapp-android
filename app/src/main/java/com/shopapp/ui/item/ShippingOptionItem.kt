@@ -5,9 +5,9 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import com.shopapp.gateway.entity.ShippingRate
-import com.shopapp.domain.formatter.NumberFormatter
 import com.shopapp.R
+import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.ShippingRate
 import com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
 import kotlinx.android.synthetic.main.item_shipping_option.view.*
 

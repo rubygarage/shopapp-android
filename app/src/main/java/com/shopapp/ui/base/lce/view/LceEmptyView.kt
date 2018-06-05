@@ -18,7 +18,10 @@ class LceEmptyView @JvmOverloads constructor(
     LceView {
 
     init {
-        layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        layoutParams = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         View.inflate(context, R.layout.view_lce_empty, this)
     }
 

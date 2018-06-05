@@ -77,7 +77,8 @@ class CheckoutAddressListActivity :
                 loadData()
             } else if (isEditAddressRequest) {
                 val address: Address? = data?.getParcelableExtra(Extra.ADDRESS)
-                val isSelectedAddress = data?.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false) == true
+                val isSelectedAddress =
+                    data?.getBooleanExtra(Extra.IS_SELECTED_ADDRESS, false) == true
                 if (address != null && isSelectedAddress) {
                     onAddressSelected(address)
                 }
@@ -155,7 +156,12 @@ class CheckoutAddressListActivity :
     override fun onEditButtonClicked(address: Address) {
         doAction(address, true, {
             val isSelectedAddress = address == selectedAddress
-            router.showCheckoutAddressForResult(this, RequestCode.EDIT_SHIPPING_ADDRESS, address, isSelectedAddress)
+            router.showCheckoutAddressForResult(
+                this,
+                RequestCode.EDIT_SHIPPING_ADDRESS,
+                address,
+                isSelectedAddress
+            )
         })
     }
 

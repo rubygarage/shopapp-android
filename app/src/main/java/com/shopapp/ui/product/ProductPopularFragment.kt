@@ -66,8 +66,11 @@ class ProductPopularFragment :
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = false
-        recyclerView.addItemDecoration(GridSpaceDecoration(
-            resources.getDimensionPixelSize(R.dimen.recycler_divider_space), GRID_SPAN_COUNT))
+        recyclerView.addItemDecoration(
+            GridSpaceDecoration(
+                resources.getDimensionPixelSize(R.dimen.recycler_divider_space), GRID_SPAN_COUNT
+            )
+        )
     }
 
     //LCE

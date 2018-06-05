@@ -7,7 +7,6 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.gateway.entity.Address
 import com.shopapp.test.MockInstantiator
-import com.shopapp.ui.address.base.BaseAddressActivity
 import com.shopapp.ui.const.Extra
 import kotlinx.android.synthetic.main.activity_address.*
 import org.junit.Assert.*
@@ -37,8 +36,10 @@ class CheckoutUnAuthAddressActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         address = MockInstantiator.newAddress()
-        val intent = CheckoutUnAuthAddressActivity.getStartIntent(context, CHECKOUT_ID, address, true)
-        activity = Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent).create().get()
+        val intent =
+            CheckoutUnAuthAddressActivity.getStartIntent(context, CHECKOUT_ID, address, true)
+        activity = Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent)
+            .create().get()
     }
 
     @Test
@@ -71,18 +72,27 @@ class CheckoutUnAuthAddressActivityTest {
 
     @Test
     fun shouldShowErrorWhenSubmitButtonClicked() {
-        val intent = CheckoutUnAuthAddressActivity.getStartIntent(context, CHECKOUT_ID, address, false)
-        val activity = Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent).create().get()
+        val intent =
+            CheckoutUnAuthAddressActivity.getStartIntent(context, CHECKOUT_ID, address, false)
+        val activity =
+            Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent).create()
+                .get()
         given(activity.fieldValidator.isAddressValid(any())).willReturn(false)
         activity.submitButton.performClick()
 
-        assertEquals(context.getString(R.string.invalid_address), ShadowToast.getTextOfLatestToast())
+        assertEquals(
+            context.getString(R.string.invalid_address),
+            ShadowToast.getTextOfLatestToast()
+        )
     }
 
     @Test
     fun shouldSetResultAndFinishWhenSubmitButtonClicked() {
-        val intent = CheckoutUnAuthAddressActivity.getStartIntent(context, CHECKOUT_ID, address, false)
-        val activity = Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent).create().get()
+        val intent =
+            CheckoutUnAuthAddressActivity.getStartIntent(context, CHECKOUT_ID, address, false)
+        val activity =
+            Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent).create()
+                .get()
         given(activity.fieldValidator.isAddressValid(any())).willReturn(true)
         activity.submitButton.performClick()
 

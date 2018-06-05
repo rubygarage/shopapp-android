@@ -1,7 +1,7 @@
 package com.shopapp.ui.account.contract
 
-import com.shopapp.domain.interactor.account.EditCustomerUseCase
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerUseCase
 import com.shopapp.domain.interactor.shop.ConfigUseCase
 import com.shopapp.gateway.entity.Config
 import com.shopapp.gateway.entity.Customer
@@ -23,8 +23,12 @@ interface PersonalInfoView : BaseLceView<Customer> {
 class PersonalInfoPresenter @Inject constructor(
     private val configUseCase: ConfigUseCase,
     private val customerUseCase: GetCustomerUseCase,
-    private val editCustomerUseCase: EditCustomerUseCase
-) : BaseLcePresenter<Customer, PersonalInfoView>(configUseCase, customerUseCase, editCustomerUseCase) {
+    private val updateCustomerUseCase: UpdateCustomerUseCase
+) : BaseLcePresenter<Customer, PersonalInfoView>(
+    configUseCase,
+    customerUseCase,
+    updateCustomerUseCase
+) {
 
     fun getConfig() {
         configUseCase.execute(
@@ -49,7 +53,7 @@ class PersonalInfoPresenter @Inject constructor(
 
     fun editCustomer(name: String, lastName: String, phone: String) {
 
-        editCustomerUseCase.execute(
+        updateCustomerUseCase.execute(
             {
                 view?.onCustomerChanged(it)
             },
@@ -57,7 +61,7 @@ class PersonalInfoPresenter @Inject constructor(
                 resolveError(it)
                 view?.hideProgress()
             },
-            EditCustomerUseCase.Params(name, lastName, phone)
+            UpdateCustomerUseCase.Params(name, lastName, phone)
         )
     }
 

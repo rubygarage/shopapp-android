@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 
-inline fun FragmentManager.replaceOnce(@IdRes containerViewId: Int, fragmentTag: String,
-                                       body: () -> Fragment, withBackStack: Boolean = true): FragmentTransaction {
+inline fun FragmentManager.replaceOnce(
+    @IdRes containerViewId: Int, fragmentTag: String,
+    body: () -> Fragment, withBackStack: Boolean = true
+): FragmentTransaction {
     val transaction = this.beginTransaction()
     val fragment = this.findFragmentByTag(fragmentTag)
     if (fragment == null) {
@@ -18,8 +20,10 @@ inline fun FragmentManager.replaceOnce(@IdRes containerViewId: Int, fragmentTag:
     return transaction
 }
 
-inline fun FragmentManager.replaceByTag(@IdRes containerViewId: Int, fragmentTag: String,
-                                        body: () -> Fragment, withBackStack: Boolean = true): FragmentTransaction {
+inline fun FragmentManager.replaceByTag(
+    @IdRes containerViewId: Int, fragmentTag: String,
+    body: () -> Fragment, withBackStack: Boolean = true
+): FragmentTransaction {
     val transaction = this.beginTransaction()
     val fragment = this.findFragmentByTag(fragmentTag)
     if (fragment != null) {

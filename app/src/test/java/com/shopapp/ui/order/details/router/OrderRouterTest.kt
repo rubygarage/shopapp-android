@@ -25,7 +25,9 @@ class OrderRouterTest {
     fun setUpTest() {
         val context = RuntimeEnvironment.application.baseContext
         val intent = OrderDetailsActivity.getStartIntent(context, MockInstantiator.DEFAULT_ID)
-        activity = Robolectric.buildActivity(OrderDetailsActivity::class.java, intent).create().start().get()
+        activity =
+                Robolectric.buildActivity(OrderDetailsActivity::class.java, intent).create().start()
+                    .get()
         router = OrderRouter()
     }
 
@@ -36,10 +38,14 @@ class OrderRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity.application).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(productVariant,
-            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
+        assertEquals(
+            productVariant,
+            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT)
+        )
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 

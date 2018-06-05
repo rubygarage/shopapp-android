@@ -12,8 +12,10 @@ import com.shopapp.ui.const.Constant.GRID_SPAN_COUNT
 
 class PaginationDelegate<M> {
 
-    fun setupRecyclerView(paginationListener: PaginationListener, recycler: RecyclerView?,
-                          adapter: BaseRecyclerAdapter<M>, isGrid: Boolean, perPageCount: Int) {
+    fun setupRecyclerView(
+        paginationListener: PaginationListener, recycler: RecyclerView?,
+        adapter: BaseRecyclerAdapter<M>, isGrid: Boolean, perPageCount: Int
+    ) {
         recycler?.let {
             val context = recycler.context
             val layoutManager: RecyclerView.LayoutManager

@@ -57,8 +57,12 @@ class ProductItemTest {
         itemView.setProduct(product)
 
         assertEquals(product.title, itemView.titleTextView.text)
-        assertEquals(context.getString(R.string.range_price,
-            numberFormatter.formatPrice(product.price, product.currency)), itemView.price.text)
+        assertEquals(
+            context.getString(
+                R.string.range_price,
+                numberFormatter.formatPrice(product.price, product.currency)
+            ), itemView.price.text
+        )
     }
 
     @Test
@@ -67,7 +71,10 @@ class ProductItemTest {
         itemView.setProduct(product)
 
         assertEquals(product.title, itemView.titleTextView.text)
-        assertEquals(numberFormatter.formatPrice(product.price, product.currency), itemView.price.text)
+        assertEquals(
+            numberFormatter.formatPrice(product.price, product.currency),
+            itemView.price.text
+        )
     }
 
     @Test

@@ -13,7 +13,7 @@ interface CheckoutRepository {
 
     fun getShippingRates(checkoutId: String): Single<List<ShippingRate>>
 
-    fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout>
+    fun setShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout>
 
     fun getAcceptedCardTypes(): Single<List<CardType>>
 

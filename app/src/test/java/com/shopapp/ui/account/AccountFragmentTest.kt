@@ -11,8 +11,8 @@ import com.shopapp.gateway.entity.Policy
 import com.shopapp.gateway.entity.Shop
 import com.shopapp.ui.const.RequestCode
 import com.shopapp.ui.home.HomeActivity
-import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import org.junit.Assert
 import org.junit.Assert.*
@@ -133,7 +133,10 @@ class AccountFragmentTest {
         val looper = Shadows.shadowOf(fragment.activity?.mainLooper)
         fragment.signedOut()
         looper.idle()
-        Assert.assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.logout_success_message))
+        Assert.assertEquals(
+            ShadowToast.getTextOfLatestToast(),
+            context.getString(R.string.logout_success_message)
+        )
     }
 
     @Test

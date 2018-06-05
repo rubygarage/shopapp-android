@@ -32,8 +32,10 @@ class GalleryActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         product = MockInstantiator.newProduct()
-        activity = Robolectric.buildActivity(GalleryActivity::class.java,
-            GalleryActivity.getStartIntent(context, product, position))
+        activity = Robolectric.buildActivity(
+            GalleryActivity::class.java,
+            GalleryActivity.getStartIntent(context, product, position)
+        )
             .create()
             .resume()
             .get()
@@ -42,7 +44,10 @@ class GalleryActivityTest {
     @Test
     fun shouldReceiveCorrectData() {
         assertEquals(product, activity.intent.getParcelableExtra<Product>(EXTRA_PRODUCT))
-        assertEquals(position, activity.intent.getIntExtra(GalleryActivity.EXTRA_SELECTED_POSITION, -1))
+        assertEquals(
+            position,
+            activity.intent.getIntExtra(GalleryActivity.EXTRA_SELECTED_POSITION, -1)
+        )
     }
 
     @Test

@@ -36,15 +36,20 @@ class OptionsContainerTest {
     @Test
     fun shouldShowCorrectData() {
         itemView.setProductOption(productOption, null)
-        assertEquals(context.getString(R.string.product_option_title_pattern, productOption.name), itemView.titleText.text.toString())
+        assertEquals(
+            context.getString(R.string.product_option_title_pattern, productOption.name),
+            itemView.titleText.text.toString()
+        )
         assertEquals(productOption.values.size, itemView.recyclerView.adapter.itemCount)
     }
 
     @Test
     fun shouldReturnVariantOption() {
         itemView.setProductOption(productOption, null)
-        assertEquals(VariantOption(productOption.name, productOption.values.first()),
-            itemView.getSelectedVariantOption())
+        assertEquals(
+            VariantOption(productOption.name, productOption.values.first()),
+            itemView.getSelectedVariantOption()
+        )
     }
 
     @Test

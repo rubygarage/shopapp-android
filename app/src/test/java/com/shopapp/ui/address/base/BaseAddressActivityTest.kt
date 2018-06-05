@@ -17,8 +17,8 @@ import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.const.Extra
 import kotlinx.android.synthetic.main.activity_address.*
-import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
+import kotlinx.android.synthetic.main.layout_lce.*
 import kotlinx.android.synthetic.main.lce.*
 import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
@@ -46,14 +46,18 @@ class BaseAddressActivityTest {
     fun setUpTest() {
         address = MockInstantiator.newAddress()
         context = RuntimeEnvironment.application.baseContext
-        activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java).create().resume().get()
+        activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java).create().resume()
+            .get()
     }
 
     @Test
     fun shouldLoadDataWhenOnCreate() {
         assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
-        assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent), activity.lceLayout.loadingView.background)
-        verify(activity.presenter).getCountriesList()
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent),
+            activity.lceLayout.loadingView.background
+        )
+        verify(activity.presenter).getCountries()
     }
 
     @Test
@@ -63,7 +67,8 @@ class BaseAddressActivityTest {
         activity.countriesLoaded(countries)
 
         activity.countryInput.getOnClickListener()?.onClick(activity.countryInput)
-        val dialog = activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
+        val dialog =
+            activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
         assertNotNull(dialog)
         assertEquals(size, dialog!!.recyclerView.adapter.itemCount)
     }
@@ -94,7 +99,10 @@ class BaseAddressActivityTest {
 
     @Test
     fun shouldSetupNewAddressModeByDefault() {
-        assertEquals(context.getString(R.string.add_new_address), activity.toolbar.toolbarTitle.text)
+        assertEquals(
+            context.getString(R.string.add_new_address),
+            activity.toolbar.toolbarTitle.text
+        )
         assertEquals(context.getString(R.string.submit), activity.submitButton.text)
     }
 
@@ -102,7 +110,9 @@ class BaseAddressActivityTest {
     fun shouldSetupEditModeWhenAddressIsInExtra() {
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
-        val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
+        val activity =
+            Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
+                .get()
 
         assertEquals(context.getString(R.string.edit_address), activity.toolbar.toolbarTitle.text)
         assertEquals(context.getString(R.string.edit), activity.submitButton.text)
@@ -155,18 +165,22 @@ class BaseAddressActivityTest {
     fun shouldReloadCountries() {
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
-        val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
+        val activity =
+            Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
+                .get()
         activity.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         activity.tryAgainButton.performClick()
 
-        verify(activity.presenter, times(2)).getCountriesList()
+        verify(activity.presenter, times(2)).getCountries()
     }
 
     @Test
     fun shouldOpenStatePicker() {
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
-        val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
+        val activity =
+            Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
+                .get()
 
         activity.countriesLoaded(listOf(MockInstantiator.newCountry()))
         activity.stateInput.getOnClickListener()?.onClick(activity.stateInput)
@@ -178,7 +192,9 @@ class BaseAddressActivityTest {
     fun shouldHideStateViewOnNullStates() {
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
-        val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
+        val activity =
+            Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
+                .get()
 
         val country = MockInstantiator.newCountry()
         given(country.states).willReturn(null)
@@ -194,7 +210,9 @@ class BaseAddressActivityTest {
         given(country.states).willReturn(listOf())
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
-        val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
+        val activity =
+            Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
+                .get()
 
         activity.countriesLoaded(listOf(country))
         assertEquals(View.GONE, activity.stateInputContainer.visibility)
@@ -204,7 +222,9 @@ class BaseAddressActivityTest {
     fun shouldShowContentState() {
         val intent = Intent(context, TestBaseAddressActivity::class.java)
         intent.putExtra(Extra.ADDRESS, address)
-        val activity = Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume().get()
+        val activity =
+            Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
+                .get()
 
         activity.changeState(LceLayout.LceState.ErrorState(Error.Content()))
         assertEquals(View.VISIBLE, activity.errorView.visibility)
@@ -213,8 +233,8 @@ class BaseAddressActivityTest {
         assertEquals(View.GONE, activity.errorView.visibility)
     }
 
-    class TestBaseAddressActivity : BaseAddressActivity<AddressView, AddressPresenter<AddressView>>() {
-
+    class TestBaseAddressActivity :
+        BaseAddressActivity<AddressView, AddressPresenter<AddressView>>() {
 
         override fun inject() {
             TestShopApplication.testAppComponent.attachAddressComponent().inject(this)

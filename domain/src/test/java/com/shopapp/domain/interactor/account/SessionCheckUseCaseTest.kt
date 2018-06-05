@@ -24,7 +24,7 @@ class SessionCheckUseCaseTest {
     @Test
     fun shouldDelegateCallToRepository() {
         useCase.buildUseCaseSingle(Unit)
-        verify(authRepository).isLoggedIn()
+        verify(authRepository).isSignedIn()
     }
 
 }

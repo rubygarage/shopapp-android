@@ -1,6 +1,6 @@
 package com.shopapp.ui.category.contract
 
-import com.shopapp.domain.interactor.category.CategoryListUseCase
+import com.shopapp.domain.interactor.category.GetCategoriesUseCase
 import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
@@ -9,16 +9,16 @@ import javax.inject.Inject
 interface CategoryListView : BaseLceView<List<Category>>
 
 class CategoryListPresenter @Inject constructor(
-    private val categoryListUseCase: CategoryListUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCase
 ) :
-    BaseLcePresenter<List<Category>, CategoryListView>(categoryListUseCase) {
+    BaseLcePresenter<List<Category>, CategoryListView>(getCategoriesUseCase) {
 
     fun getCategoryList(perPage: Int, paginationValue: String?, parentCategoryId: String? = null) {
 
-        categoryListUseCase.execute(
+        getCategoriesUseCase.execute(
             { view?.showContent(it) },
             { resolveError(it) },
-            CategoryListUseCase.Params(perPage, paginationValue, parentCategoryId)
+            GetCategoriesUseCase.Params(perPage, paginationValue, parentCategoryId)
         )
     }
 }

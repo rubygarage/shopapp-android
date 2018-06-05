@@ -66,7 +66,11 @@ class SignUpPresenterTest {
     fun shouldExecuteUseCaseOnValidData() {
         given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         presenter.signUp(name, lastName, email, password, phone)
-        verify(signUpUseCase).execute(any(), any(), eq(SignUpUseCase.Params(name, lastName, email, password, phone)))
+        verify(signUpUseCase).execute(
+            any(),
+            any(),
+            eq(SignUpUseCase.Params(name, lastName, email, password, phone))
+        )
     }
 
     @Test
@@ -109,14 +113,26 @@ class SignUpPresenterTest {
 
     @Test
     fun shouldNotifyFailureOnUseCaseError() {
-        given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.signUp(name, lastName, email, password, phone)
         verify(view).onCheckPassed()
     }
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
-        given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.signUp(name, lastName, email, password, phone)
         verify(view).showMessage("ErrorMessage")
     }

@@ -48,10 +48,14 @@ class HomeFragmentTest {
     @Test
     fun shouldShowHorizontalProductShortcutFragment() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         val layoutManager = childFragment.recyclerView.layoutManager
         assertTrue(layoutManager is LinearLayoutManager)
-        assertEquals(LinearLayoutManager.HORIZONTAL, (layoutManager as LinearLayoutManager).orientation)
+        assertEquals(
+            LinearLayoutManager.HORIZONTAL,
+            (layoutManager as LinearLayoutManager).orientation
+        )
     }
 
     @Test
@@ -59,7 +63,8 @@ class HomeFragmentTest {
         given(config.isPopularEnabled).willReturn(false)
         given(config.isBlogEnabled).willReturn(false)
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         val layoutManager = childFragment.recyclerView.layoutManager
         assertTrue(layoutManager is GridLayoutManager)
         assertEquals(GridLayoutManager.VERTICAL, (layoutManager as GridLayoutManager).orientation)
@@ -94,7 +99,8 @@ class HomeFragmentTest {
     @Test
     fun shouldShowRecentContainerWhenCallChangeVisibilityWithVisibleTrue() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(true)
         assertEquals(View.VISIBLE, fragment.recentContainer.visibility)
     }
@@ -102,7 +108,8 @@ class HomeFragmentTest {
     @Test
     fun shouldHideRecentContainerWhenCallChangeVisibilityWithVisibleFalse() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(false)
         assertEquals(View.GONE, fragment.recentContainer.visibility)
     }
@@ -110,7 +117,8 @@ class HomeFragmentTest {
     @Test
     fun shouldShowPopularContainerWhenCallChangeVisibilityWithVisibleTrue() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(true)
         assertEquals(View.VISIBLE, fragment.popularContainer.visibility)
     }
@@ -118,7 +126,8 @@ class HomeFragmentTest {
     @Test
     fun shouldHidePopularContainerWhenCallChangeVisibilityWithVisibleFalse() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(false)
         assertEquals(View.GONE, fragment.popularContainer.visibility)
     }
@@ -126,7 +135,8 @@ class HomeFragmentTest {
     @Test
     fun shouldShowBlogContainerWhenCallChangeVisibilityWithVisibleTrue() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(true)
         assertEquals(View.VISIBLE, fragment.blogContainer.visibility)
     }
@@ -134,7 +144,8 @@ class HomeFragmentTest {
     @Test
     fun shouldHideBlogContainerWhenCallChangeVisibilityWithVisibleFalse() {
         fragment.onConfigReceived(config)
-        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
+        val childFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(false)
         assertEquals(View.GONE, fragment.blogContainer.visibility)
     }
@@ -142,17 +153,32 @@ class HomeFragmentTest {
     @Test
     fun shouldStopRefreshAndStartLoadDataWhenOnRefresh() {
         fragment.onConfigReceived(config)
-        val productHorizontalFragment = fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
-        val productPopularFragment = fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
-        val blogFragment = fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
+        val productHorizontalFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
+        val productPopularFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
+        val blogFragment =
+            fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
 
         fragment.refreshLayout.isRefreshing = true
         assertTrue(fragment.refreshLayout.isRefreshing)
 
         fragment.onRefresh()
         assertTrue(fragment.refreshLayout.isRefreshing)
-        verify(productHorizontalFragment.presenter, times(2)).loadProductList(any(), any(), anyOrNull(), anyOrNull(), anyOrNull())
-        verify(productPopularFragment.presenter, times(2)).loadProductList(any(), any(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(productHorizontalFragment.presenter, times(2)).loadProductList(
+            any(),
+            any(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
+        verify(productPopularFragment.presenter, times(2)).loadProductList(
+            any(),
+            any(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
         verify(blogFragment.presenter, times(2)).loadArticles(any(), anyOrNull())
     }
 }

@@ -125,22 +125,27 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
         countryInput.setOnClickListener {
             it.hideKeyboard()
-            countryPicker.show(supportFragmentManager, CountryBottomSheetPicker::class.java.name, countryInput.text.toString())
+            countryPicker.show(
+                supportFragmentManager,
+                CountryBottomSheetPicker::class.java.name,
+                countryInput.text.toString()
+            )
         }
 
         stateInput.setOnClickListener {
             it.hideKeyboard()
-            statePicker.show(supportFragmentManager, StateBottomSheetPicker::class.java.name, stateInput.text.toString())
+            statePicker.show(
+                supportFragmentManager,
+                StateBottomSheetPicker::class.java.name,
+                stateInput.text.toString()
+            )
         }
     }
 
     protected open fun submitAddress() {
         if (isEditMode) {
             address?.let {
-                presenter.editAddress(
-                    it.id,
-                    getAddress()
-                )
+                presenter.updateAddress(getAddress())
             }
         } else {
             presenter.submitAddress(getAddress())
@@ -164,6 +169,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     protected fun getAddress() = Address(
+        id = address?.id ?: Address.NO_ID,
         address = addressInput.getTrimmedString(),
         secondAddress = secondAddressInput.getTrimmedString(),
         city = cityInput.getTrimmedString(),
@@ -191,12 +197,13 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
     private fun setupCountries(countries: List<Country>) {
         countryPicker.setData(countries)
-        countryPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
-            override fun onDoneButtonClicked(selectedData: Country) {
-                countryInput.setText(selectedData.name)
-                setupStates(selectedData)
-            }
-        }
+        countryPicker.onDoneButtonClickedListener =
+                object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
+                    override fun onDoneButtonClicked(selectedData: Country) {
+                        countryInput.setText(selectedData.name)
+                        setupStates(selectedData)
+                    }
+                }
     }
 
     private fun setupStates(country: Country) {
@@ -204,11 +211,12 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         if (states != null && states.isNotEmpty()) {
             stateInputContainer.visibility = View.VISIBLE
             statePicker.setData(states)
-            statePicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<State> {
-                override fun onDoneButtonClicked(selectedData: State) {
-                    stateInput.setText(selectedData.name)
-                }
-            }
+            statePicker.onDoneButtonClickedListener =
+                    object : BaseBottomSheetPicker.OnDoneButtonClickedListener<State> {
+                        override fun onDoneButtonClicked(selectedData: State) {
+                            stateInput.setText(selectedData.name)
+                        }
+                    }
         } else {
             stateInputContainer.visibility = View.GONE
         }
@@ -245,6 +253,6 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
     private fun loadCountries() {
         lceLayout.changeState(LceLayout.LceState.LoadingState(true))
-        presenter.getCountriesList()
+        presenter.getCountries()
     }
 }

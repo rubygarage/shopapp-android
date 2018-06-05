@@ -60,7 +60,9 @@ class LceEmptyViewTest {
         assertEquals(context.getString(R.string.shop), view.emptyMessage.text.toString())
 
         view.customiseEmptyImage(R.drawable.ic_launcher_background)
-        assertEquals(ContextCompat.getDrawable(context, R.drawable.ic_launcher_background),
-            view.emptyImage.drawable)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.drawable.ic_launcher_background),
+            view.emptyImage.drawable
+        )
     }
 }

@@ -101,7 +101,10 @@ class SignInActivityTest {
         activity.showContent(Unit)
         val looper = shadowOf(activity.mainLooper)
         looper.idle()
-        assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.login_success_message))
+        assertEquals(
+            ShadowToast.getTextOfLatestToast(),
+            context.getString(R.string.login_success_message)
+        )
     }
 
     @Test
@@ -158,7 +161,10 @@ class SignInActivityTest {
     @Test
     fun shouldRemoveTextWatcherWhenOnPause() {
         context = RuntimeEnvironment.application.baseContext
-        val activity = Robolectric.buildActivity(SignInActivity::class.java, SignInActivity.getStartIntent(context))
+        val activity = Robolectric.buildActivity(
+            SignInActivity::class.java,
+            SignInActivity.getStartIntent(context)
+        )
             .create()
             .resume()
             .pause()
@@ -193,7 +199,10 @@ class SignInActivityTest {
         activity.showEmailError()
 
         assertTrue(activity.emailInputLayout.isErrorEnabled)
-        assertEquals(context.getString(R.string.invalid_email_error_message), activity.emailInputLayout.error)
+        assertEquals(
+            context.getString(R.string.invalid_email_error_message),
+            activity.emailInputLayout.error
+        )
     }
 
     @Test
@@ -201,7 +210,10 @@ class SignInActivityTest {
         activity.showPasswordError()
 
         assertTrue(activity.passwordInputLayout.isErrorEnabled)
-        assertEquals(context.getString(R.string.invalid_password_error_message), activity.passwordInputLayout.error)
+        assertEquals(
+            context.getString(R.string.invalid_password_error_message),
+            activity.passwordInputLayout.error
+        )
     }
 
     @Test

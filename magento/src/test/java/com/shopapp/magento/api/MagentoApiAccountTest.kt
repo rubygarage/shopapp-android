@@ -119,7 +119,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         given(sharedPreferences.getString(anyOrNull(), anyOrNull())).willReturn("token")
 
         val callback: ApiCallback<Boolean> = mock()
-        api.isLoggedIn(callback)
+        api.isSignedIn(callback)
 
         verify(callback).onResult(true)
     }
@@ -130,7 +130,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         given(sharedPreferences.getString(anyOrNull(), anyOrNull())).willReturn(null)
 
         val callback: ApiCallback<Boolean> = mock()
-        api.isLoggedIn(callback)
+        api.isSignedIn(callback)
 
         verify(callback).onResult(false)
     }
@@ -207,7 +207,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         mockSession(token, oldPassword)
         val callback: ApiCallback<Unit> = mock()
-        api.changePassword(newPassword, callback)
+        api.updatePassword(newPassword, callback)
 
         val request = server.takeRequest()
         assertEquals("/customers/me/password", request.path)
@@ -226,7 +226,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         val newPassword = "new password"
         mockSession(null, null)
         val callback: ApiCallback<Unit> = mock()
-        api.changePassword(newPassword, callback)
+        api.updatePassword(newPassword, callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -250,7 +250,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         mockSession(token, oldPassword)
         val callback: ApiCallback<Unit> = mock()
-        api.changePassword(newPassword, callback)
+        api.updatePassword(newPassword, callback)
 
         val request = server.takeRequest()
         assertEquals("/customers/me/password", request.path)
@@ -270,7 +270,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         val email = "test@mail.com"
         val callback: ApiCallback<Unit> = mock()
-        api.forgotPassword(email, callback)
+        api.resetPassword(email, callback)
 
         val request = server.takeRequest()
         assertEquals("/customers/password", request.path)
@@ -288,7 +288,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         val email = "test@mail.com"
         val callback: ApiCallback<Unit> = mock()
-        api.forgotPassword(email, callback)
+        api.resetPassword(email, callback)
 
         val request = server.takeRequest()
         assertEquals("/customers/password", request.path)
@@ -312,7 +312,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         mockSession("", "")
         val callback: ApiCallback<Customer> = mock()
-        api.editCustomerInfo(firstName, secondName, "", callback)
+        api.updateCustomer(firstName, secondName, "", callback)
 
         val request = server.takeRequest()
         assertEquals("/customers/me", request.path)
@@ -337,7 +337,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         mockSession("", "")
         val callback: ApiCallback<Customer> = mock()
-        api.editCustomerInfo(firstName, secondName, "", callback)
+        api.updateCustomer(firstName, secondName, "", callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
@@ -355,7 +355,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         val callback: ApiCallback<Customer> = mock()
         mockSession(null, null)
-        api.editCustomerInfo(firstName, secondName, "", callback)
+        api.updateCustomer(firstName, secondName, "", callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())

@@ -44,7 +44,11 @@ class CategoryListFragment :
 
     //ANDROID
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         arguments?.let {
             parentCategory = it.getParcelable(PARENT_CATEGORY)
             isGridMode = it.getBoolean(IS_GRID_MODE, true)

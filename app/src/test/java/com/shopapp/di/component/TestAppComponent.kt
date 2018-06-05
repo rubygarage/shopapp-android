@@ -2,7 +2,7 @@ package com.shopapp.di.component
 
 import com.shopapp.di.module.TestRepositoryModule
 import com.shopapp.di.module.TestValidatorModule
-import com.shopapp.ui.account.di.TestAuthComponent
+import com.shopapp.ui.account.di.TestAccountComponent
 import com.shopapp.ui.address.account.di.TestAddressComponent
 import com.shopapp.ui.address.checkout.di.TestCheckoutAddressComponent
 import com.shopapp.ui.blog.di.TestBlogComponent
@@ -35,7 +35,7 @@ interface TestAppComponent : AppComponent {
 
     override fun attachCartComponent(): TestCartComponent
 
-    override fun attachAuthComponent(): TestAuthComponent
+    override fun attachAccountComponent(): TestAccountComponent
 
     override fun attachOrderComponent(): TestOrderComponent
 

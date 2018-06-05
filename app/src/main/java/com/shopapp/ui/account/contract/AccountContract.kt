@@ -1,11 +1,11 @@
 package com.shopapp.ui.account.contract
 
-import com.shopapp.gateway.entity.Customer
-import com.shopapp.gateway.entity.Shop
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.SessionCheckUseCase
-import com.shopapp.domain.interactor.shop.ShopInfoUseCase
 import com.shopapp.domain.interactor.account.SignOutUseCase
+import com.shopapp.domain.interactor.shop.ShopInfoUseCase
+import com.shopapp.gateway.entity.Customer
+import com.shopapp.gateway.entity.Shop
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
@@ -25,8 +25,10 @@ class AccountPresenter @Inject constructor(
     private val shopInfoUseCase: ShopInfoUseCase,
     private val getCustomerUseCase: GetCustomerUseCase
 ) :
-    BaseLcePresenter<Boolean, AccountView>(sessionCheckUseCase, signOutUseCase,
-        shopInfoUseCase, getCustomerUseCase) {
+    BaseLcePresenter<Boolean, AccountView>(
+        sessionCheckUseCase, signOutUseCase,
+        shopInfoUseCase, getCustomerUseCase
+    ) {
 
     fun isAuthorized() {
         sessionCheckUseCase.execute(

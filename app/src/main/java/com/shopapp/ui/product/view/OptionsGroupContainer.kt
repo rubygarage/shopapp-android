@@ -31,7 +31,8 @@ class OptionsGroupContainer @JvmOverloads constructor(
     fun setProduct(product: Product, preselectedVariant: ProductVariant?) {
 
         visibility = if (product.options.isEmpty() ||
-            (product.options.size == 1 && product.options.first().values.size == 1)) {
+            (product.options.size == 1 && product.options.first().values.size == 1)
+        ) {
             View.GONE
         } else {
             alpha = 0f

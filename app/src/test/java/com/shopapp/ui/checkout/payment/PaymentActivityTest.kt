@@ -29,7 +29,8 @@ class PaymentActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = PaymentActivity.getStartIntent(context, null)
-        activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume().get()
+        activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start()
+            .resume().get()
     }
 
     @Test
@@ -42,7 +43,9 @@ class PaymentActivityTest {
     @Test
     fun shouldRadioButtonCheckedWithPreSelectedData() {
         val intent = PaymentActivity.getStartIntent(context, PaymentType.CARD_PAYMENT)
-        val activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume().get()
+        val activity =
+            Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume()
+                .get()
 
         assertTrue(activity.cardPayRadioButton.isChecked)
         assertFalse(activity.androidPayRadioButton.isChecked)
@@ -56,7 +59,10 @@ class PaymentActivityTest {
         val shadowActivity = shadowOf(activity)
         val resultIntent = shadowActivity.resultIntent
         assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
-        assertEquals(PaymentType.CARD_PAYMENT, resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE))
+        assertEquals(
+            PaymentType.CARD_PAYMENT,
+            resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE)
+        )
         assertTrue(shadowActivity.isFinishing)
     }
 
@@ -67,7 +73,10 @@ class PaymentActivityTest {
         val shadowActivity = shadowOf(activity)
         val resultIntent = shadowActivity.resultIntent
         assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
-        assertEquals(PaymentType.ANDROID_PAYMENT, resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE))
+        assertEquals(
+            PaymentType.ANDROID_PAYMENT,
+            resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE)
+        )
         assertTrue(shadowActivity.isFinishing)
     }
 
@@ -78,21 +87,28 @@ class PaymentActivityTest {
         val shadowActivity = shadowOf(activity)
         val resultIntent = shadowActivity.resultIntent
         assertEquals(Activity.RESULT_OK, shadowActivity.resultCode)
-        assertEquals(PaymentType.WEB_PAYMENT, resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE))
+        assertEquals(
+            PaymentType.WEB_PAYMENT,
+            resultIntent.extras.getSerializable(Extra.PAYMENT_TYPE)
+        )
         assertTrue(shadowActivity.isFinishing)
     }
 
     @Test
     fun shouldCheckAndroidPayment() {
         val intent = PaymentActivity.getStartIntent(context, PaymentType.ANDROID_PAYMENT)
-        val activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume().get()
+        val activity =
+            Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume()
+                .get()
         assertTrue(activity.androidPayRadioButton.isChecked)
     }
 
     @Test
     fun shouldCheckWebPayment() {
         val intent = PaymentActivity.getStartIntent(context, PaymentType.WEB_PAYMENT)
-        val activity = Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume().get()
+        val activity =
+            Robolectric.buildActivity(PaymentActivity::class.java, intent).create().start().resume()
+                .get()
         assertTrue(activity.webPayRadioButton.isChecked)
     }
 

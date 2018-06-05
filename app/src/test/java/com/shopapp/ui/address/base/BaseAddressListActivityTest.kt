@@ -85,7 +85,8 @@ class BaseAddressListActivityTest {
     }
 
     class TestBaseAddressListActivity
-        : BaseAddressListActivity<AddressListAdapter, AddressListView, AddressListPresenter<AddressListView>>() {
+        :
+        BaseAddressListActivity<AddressListAdapter, AddressListView, AddressListPresenter<AddressListView>>() {
 
         override fun getAdapter() = AddressListAdapter(dataList, this, this)
 

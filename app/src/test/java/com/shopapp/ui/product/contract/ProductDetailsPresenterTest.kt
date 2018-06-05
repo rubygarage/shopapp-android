@@ -62,7 +62,13 @@ class ProductDetailsPresenterTest {
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
-        given(productDetailsUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(productDetailsUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.loadProductDetails(MockInstantiator.DEFAULT_ID)
 
         val inOrder = inOrder(view, productDetailsUseCase)
@@ -73,8 +79,10 @@ class ProductDetailsPresenterTest {
     @Test
     fun shouldShowMessageOnInvalidQuantityString() {
         val productVariant = MockInstantiator.newProductVariant()
-        presenter.addProductToCart(productVariant, MockInstantiator.DEFAULT_TITLE,
-            MockInstantiator.DEFAULT_CURRENCY, "invalidQuantityString")
+        presenter.addProductToCart(
+            productVariant, MockInstantiator.DEFAULT_TITLE,
+            MockInstantiator.DEFAULT_CURRENCY, "invalidQuantityString"
+        )
 
         verify(view).showMessage(R.string.quantity_warning_message)
     }
@@ -95,8 +103,10 @@ class ProductDetailsPresenterTest {
     @Test
     fun shouldShowErrorMessageWhenQuantityLessThanOne() {
         val productVariant = MockInstantiator.newProductVariant()
-        presenter.addProductToCart(productVariant, MockInstantiator.DEFAULT_TITLE,
-            MockInstantiator.DEFAULT_CURRENCY, "0")
+        presenter.addProductToCart(
+            productVariant, MockInstantiator.DEFAULT_TITLE,
+            MockInstantiator.DEFAULT_CURRENCY, "0"
+        )
 
         verify(view).showMessage(R.string.quantity_warning_message)
     }
@@ -106,8 +116,10 @@ class ProductDetailsPresenterTest {
         val cartProduct: CartProduct = MockInstantiator.newCartProduct()
         val productVariant = cartProduct.productVariant
         given(cartAddItemUseCase.buildUseCaseSingle(any())).willReturn(Single.just(cartProduct))
-        presenter.addProductToCart(productVariant, MockInstantiator.DEFAULT_TITLE,
-            MockInstantiator.DEFAULT_CURRENCY, "1")
+        presenter.addProductToCart(
+            productVariant, MockInstantiator.DEFAULT_TITLE,
+            MockInstantiator.DEFAULT_CURRENCY, "1"
+        )
 
         argumentCaptor<CartProduct>().apply {
             verify(cartAddItemUseCase).execute(any(), any(), capture())
@@ -123,9 +135,17 @@ class ProductDetailsPresenterTest {
     fun shouldShowErrorWhenProductAddedToCartFailure() {
         val cartProduct: CartProduct = MockInstantiator.newCartProduct()
         val productVariant = cartProduct.productVariant
-        given(cartAddItemUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
-        presenter.addProductToCart(productVariant, MockInstantiator.DEFAULT_TITLE,
-            MockInstantiator.DEFAULT_CURRENCY, "1")
+        given(cartAddItemUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
+        presenter.addProductToCart(
+            productVariant, MockInstantiator.DEFAULT_TITLE,
+            MockInstantiator.DEFAULT_CURRENCY, "1"
+        )
 
         argumentCaptor<CartProduct>().apply {
             verify(cartAddItemUseCase).execute(any(), any(), capture())

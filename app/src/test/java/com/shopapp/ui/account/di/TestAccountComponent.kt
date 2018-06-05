@@ -4,7 +4,7 @@ import com.shopapp.ui.account.*
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TestAuthModule::class])
-interface TestAuthComponent : AuthComponent {
+interface TestAccountComponent : AccountComponent {
 
     override fun inject(fragment: AccountFragment)
 

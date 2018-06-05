@@ -47,7 +47,12 @@ class ShippingOptionItemTest {
     fun shouldShowUnCheckedData() {
         val shippingRate = MockInstantiator.newShippingRate()
         val selectedShippingRate = MockInstantiator.newShippingRate()
-        itemView.setData(shippingRate, selectedShippingRate, MockInstantiator.DEFAULT_CURRENCY, formatter)
+        itemView.setData(
+            shippingRate,
+            selectedShippingRate,
+            MockInstantiator.DEFAULT_CURRENCY,
+            formatter
+        )
         assertEquals(false, itemView.radioButton.isChecked)
         assertEquals(TEST_PRICE, itemView.price.text)
         assertEquals(shippingRate.title, itemView.name.text)

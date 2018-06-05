@@ -7,5 +7,5 @@ import dagger.Subcomponent
 interface SplashComponent {
 
     fun inject(activity: SplashActivity)
-    
+
 }

@@ -1,7 +1,7 @@
 package com.shopapp.ui.blog.contract
 
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.domain.interactor.blog.ArticleListUseCase
+import com.shopapp.domain.interactor.blog.GetArticlesUseCase
 import com.shopapp.gateway.entity.Article
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -30,7 +30,7 @@ class BlogPresenterTest {
     private lateinit var view: BlogView
 
     @Mock
-    private lateinit var articleListUseCase: ArticleListUseCase
+    private lateinit var getArticlesUseCase: GetArticlesUseCase
 
     @Mock
     private lateinit var articles: List<Article>
@@ -40,44 +40,57 @@ class BlogPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = BlogPresenter(articleListUseCase)
+        presenter = BlogPresenter(getArticlesUseCase)
         presenter.attachView(view)
-        articleListUseCase.mock()
+        getArticlesUseCase.mock()
     }
 
     @Test
     fun shouldCallUseCaseOnAuthorizationCheck() {
-        given(articleListUseCase.buildUseCaseSingle(any())).willReturn(Single.just(articles))
+        given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(articles))
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
-        verify(articleListUseCase).execute(any(), any(), eq(ArticleListUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        verify(getArticlesUseCase).execute(
+            any(),
+            any(),
+            eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE))
+        )
     }
 
     @Test
     fun shouldShowContent() {
-        given(articleListUseCase.buildUseCaseSingle(any())).willReturn(Single.just(articles))
+        given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(articles))
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
-        val inOrder = inOrder(view, articleListUseCase)
-        inOrder.verify(articleListUseCase).execute(any(), any(), eq(ArticleListUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        val inOrder = inOrder(view, getArticlesUseCase)
+        inOrder.verify(getArticlesUseCase)
+            .execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
         inOrder.verify(view).showContent(articles)
     }
 
     @Test
     fun shouldShowMessageOnGetCustomerNonCriticalError() {
-        given(articleListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
 
-        val inOrder = inOrder(view, articleListUseCase)
-        inOrder.verify(articleListUseCase).execute(any(), any(), eq(ArticleListUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        val inOrder = inOrder(view, getArticlesUseCase)
+        inOrder.verify(getArticlesUseCase)
+            .execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
         inOrder.verify(view).showMessage(eq("ErrorMessage"))
     }
 
     @Test
     fun shouldShowErrorOnGetCustomerContentError() {
-        given(articleListUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
+        given(getArticlesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
         presenter.loadArticles(PAGE_SIZE, PAGINATION_VALUE)
 
-        val inOrder = inOrder(view, articleListUseCase)
-        inOrder.verify(articleListUseCase).execute(any(), any(), eq(ArticleListUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
+        val inOrder = inOrder(view, getArticlesUseCase)
+        inOrder.verify(getArticlesUseCase)
+            .execute(any(), any(), eq(GetArticlesUseCase.Params(PAGE_SIZE, PAGINATION_VALUE)))
         argumentCaptor<Error>().apply {
             inOrder.verify(view).showError(capture())
             assertTrue(firstValue is Error.Content)

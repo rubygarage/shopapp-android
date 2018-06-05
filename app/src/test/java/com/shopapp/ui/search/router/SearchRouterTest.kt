@@ -32,7 +32,10 @@ class SearchRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 

@@ -5,10 +5,10 @@ import com.shopapp.domain.repository.AuthRepository
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class ForgotPasswordUseCase @Inject constructor(private val authRepository: AuthRepository) :
+class ResetPasswordUseCase @Inject constructor(private val repository: AuthRepository) :
     CompletableUseCase<String>() {
 
     override fun buildUseCaseCompletable(params: String): Completable {
-        return authRepository.forgotPassword(params)
+        return repository.resetPassword(params)
     }
 }

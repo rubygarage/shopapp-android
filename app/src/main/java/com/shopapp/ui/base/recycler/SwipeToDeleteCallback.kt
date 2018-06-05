@@ -7,9 +7,14 @@ import android.view.View
 import com.shopapp.R
 
 
-class SwipeToDeleteCallback(private val onItemSwipeListener: OnItemSwipeListener) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+class SwipeToDeleteCallback(private val onItemSwipeListener: OnItemSwipeListener) :
+    ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-    override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+    override fun onMove(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        target: RecyclerView.ViewHolder
+    ): Boolean {
         return true
     }
 
@@ -20,13 +25,17 @@ class SwipeToDeleteCallback(private val onItemSwipeListener: OnItemSwipeListener
         }
     }
 
-    override fun onChildDrawOver(c: Canvas, recyclerView: RecyclerView,
-                                 viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float,
-                                 actionState: Int, isCurrentlyActive: Boolean) {
+    override fun onChildDrawOver(
+        c: Canvas, recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float,
+        actionState: Int, isCurrentlyActive: Boolean
+    ) {
         val foregroundView: View? = viewHolder?.itemView?.findViewById(R.id.foregroundView)
         foregroundView?.let {
-            ItemTouchHelper.Callback.getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY,
-                actionState, isCurrentlyActive)
+            ItemTouchHelper.Callback.getDefaultUIUtil().onDrawOver(
+                c, recyclerView, foregroundView, dX, dY,
+                actionState, isCurrentlyActive
+            )
         }
     }
 
@@ -37,13 +46,17 @@ class SwipeToDeleteCallback(private val onItemSwipeListener: OnItemSwipeListener
         }
     }
 
-    override fun onChildDraw(c: Canvas, recyclerView: RecyclerView,
-                             viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float,
-                             actionState: Int, isCurrentlyActive: Boolean) {
+    override fun onChildDraw(
+        c: Canvas, recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float,
+        actionState: Int, isCurrentlyActive: Boolean
+    ) {
         val foregroundView: View? = viewHolder?.itemView?.findViewById(R.id.foregroundView)
         foregroundView?.let {
-            ItemTouchHelper.Callback.getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY,
-                actionState, isCurrentlyActive)
+            ItemTouchHelper.Callback.getDefaultUIUtil().onDraw(
+                c, recyclerView, foregroundView, dX, dY,
+                actionState, isCurrentlyActive
+            )
         }
     }
 

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.TaskStackBuilder
 import android.view.View
 import com.shopapp.R
 import com.shopapp.ShopApplication
@@ -20,8 +19,6 @@ import com.shopapp.ui.checkout.view.CheckoutShippingOptionsView
 import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.PaymentType
 import com.shopapp.ui.const.RequestCode
-import com.shopapp.ui.home.HomeActivity
-import com.shopapp.ui.order.success.OrderSuccessActivity
 import kotlinx.android.synthetic.main.activity_checkout.*
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import net.yslibrary.android.keyboardvisibilityevent.Unregistrar
@@ -89,7 +86,8 @@ class CheckoutActivity :
             if ((isAddShippingAddress || isEditShippingAddress) && isAddressChanged) {
                 loadData()
             } else if (isPayment) {
-                val paymentType: PaymentType? = data?.getSerializableExtra(Extra.PAYMENT_TYPE) as? PaymentType
+                val paymentType: PaymentType? =
+                    data?.getSerializableExtra(Extra.PAYMENT_TYPE) as? PaymentType
                 paymentView.setPaymentType(paymentType)
             } else if (isCard) {
                 val card: Card? = data?.getParcelableExtra(Extra.CARD)
@@ -131,13 +129,15 @@ class CheckoutActivity :
                 checkout?.let {
                     val address = it.address
                     if (customer != null) {
-                        router.showCheckoutAddressListForResult(activity = this,
+                        router.showCheckoutAddressListForResult(
+                            activity = this,
                             checkoutId = it.checkoutId,
                             selectedAddress = address,
                             isShippingAddress = true,
                             shippingAddress = null,
                             billingAddress = paymentView.getAddress(),
-                            requestCode = RequestCode.EDIT_SHIPPING_ADDRESS)
+                            requestCode = RequestCode.EDIT_SHIPPING_ADDRESS
+                        )
                     } else if (address != null) {
                         checkout?.let {
                             router.showCheckoutUnAuthAddressListForResult(
@@ -145,7 +145,8 @@ class CheckoutActivity :
                                 it.checkoutId,
                                 address,
                                 true,
-                                RequestCode.EDIT_SHIPPING_ADDRESS)
+                                RequestCode.EDIT_SHIPPING_ADDRESS
+                            )
                         }
                     }
                 }
@@ -164,7 +165,10 @@ class CheckoutActivity :
                         )
                     } else {
                         router.showCheckoutUnAuthAddressListForResult(
-                            this, it.checkoutId, isShippingAddress = true, requestCode = RequestCode.ADD_SHIPPING_ADDRESS
+                            this,
+                            it.checkoutId,
+                            isShippingAddress = true,
+                            requestCode = RequestCode.ADD_SHIPPING_ADDRESS
                         )
                     }
                 }
@@ -188,7 +192,8 @@ class CheckoutActivity :
                         isShippingAddress = false,
                         shippingAddress = checkout?.address,
                         billingAddress = null,
-                        requestCode = RequestCode.ADD_BILLING_ADDRESS)
+                        requestCode = RequestCode.ADD_BILLING_ADDRESS
+                    )
                 } else {
                     router.showCheckoutUnAuthAddressListForResult(
                         activity = this,
@@ -235,8 +240,10 @@ class CheckoutActivity :
         val paymentType = paymentView.getPaymentType()
         val cardData = paymentView.getCardData()
         val shippingData = paymentView.getAddress()
-        presenter.verifyCheckoutData(checkout, shippingAddress, email, paymentType, cardData.first,
-            cardData.second, shippingData)
+        presenter.verifyCheckoutData(
+            checkout, shippingAddress, email, paymentType, cardData.first,
+            cardData.second, shippingData
+        )
     }
 
     //LCE

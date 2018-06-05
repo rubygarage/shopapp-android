@@ -39,7 +39,10 @@ class CheckoutShippingAddressView @JvmOverloads constructor(
 
     fun getAddress() = address
 
-    fun setClickListeners(editClickListener: OnClickListener, addAddressClickListener: OnClickListener) {
+    fun setClickListeners(
+        editClickListener: OnClickListener,
+        addAddressClickListener: OnClickListener
+    ) {
         editButton.setOnClickListener(editClickListener)
         addNewAddressButton.setOnClickListener(addAddressClickListener)
     }

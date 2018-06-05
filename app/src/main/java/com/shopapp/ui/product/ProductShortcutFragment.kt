@@ -82,7 +82,15 @@ class ProductShortcutFragment :
             else -> ""
         }
         titleText.text = title
-        seeAll.setOnClickListener { router.showProductList(context, title, sortType, keyword, excludeKeyword) }
+        seeAll.setOnClickListener {
+            router.showProductList(
+                context,
+                title,
+                sortType,
+                keyword,
+                excludeKeyword
+            )
+        }
         changeSeeAllState()
         setupRecycler()
         loadData(true)
@@ -119,7 +127,8 @@ class ProductShortcutFragment :
         adapter = ProductListAdapter(width, height, productList, this)
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
+        val decoration =
+            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
         recyclerView.addItemDecoration(decoration)
     }
 

@@ -83,24 +83,25 @@ class MagentoApi : Api {
         retrofit.create(CustomerService::class.java)
     }
 
-    //PRODUCT
+    // Config
 
-    override fun getProduct(id: String, callback: ApiCallback<Product>) {
-
-        storeService.getStoreConfigs()
-            .flatMap {
-                val currency = it.getCurrency()
-                productService.getProduct(id).map { it.mapToEntity(host, currency) }
-            }
-            .subscribe(
-                { callback.onResult(it) },
-                { it.printStackTrace() }
-            )
+    override fun getConfig(callback: ApiCallback<Config>) {
+        callback.onResult(config)
     }
 
-    override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
-                                keyword: String?, excludeKeyword: String?,
-                                callback: ApiCallback<List<Product>>) {
+    // Shop
+
+    override fun getShop(callback: ApiCallback<Shop>) {
+        callback.onResult(Shop("", null, null, null, null)) //TODO
+    }
+
+    // Products
+
+    override fun getProducts(
+        perPage: Int, paginationValue: Any?, sortBy: SortType?,
+        keyword: String?, excludeKeyword: String?,
+        callback: ApiCallback<List<Product>>
+    ) {
 
         val optionBuilder = ProductOptionBuilder()
         if (sortBy == SortType.RECENT) {
@@ -118,20 +119,28 @@ class MagentoApi : Api {
         getProductList(perPage, paginationValue, optionBuilder, callback)
     }
 
-    override fun searchProductList(perPage: Int, paginationValue: Any?, searchQuery: String, callback: ApiCallback<List<Product>>) {
-
-        val additionalOptions = ProductOptionBuilder()
-            .addFilterGroup(NAME_FIELD, "%$searchQuery%", ConditionType.SEARCH_CONDITION)
-        getProductList(perPage, paginationValue, additionalOptions, callback)
+    override fun getProduct(id: String, callback: ApiCallback<Product>) {
+        storeService.getStoreConfigs()
+            .flatMap {
+                val currency = it.getCurrency()
+                productService.getProduct(id).map { it.mapToEntity(host, currency) }
+            }
+            .subscribe(
+                { callback.onResult(it) },
+                { it.printStackTrace() }
+            )
     }
 
-    override fun getProductVariantList(productVariantIdList: List<String>, callback: ApiCallback<List<ProductVariant>>) {
+    override fun getProductVariants(
+        ids: List<String>,
+        callback: ApiCallback<List<ProductVariant>>
+    ) {
 
         val optionBuilder = ProductOptionBuilder()
         optionBuilder.addFilterGroup(TYPE_ID_FIELD, PRODUCT_DEFAULT_TYPE_ID)
         optionBuilder.addFilterGroup {
             val filterBuilder = ProductOptionBuilder.FilterBuilder()
-            for (sku in productVariantIdList) {
+            for (sku in ids) {
                 filterBuilder.addFilter(it, SKU_FIELD, sku)
             }
             filterBuilder
@@ -152,9 +161,39 @@ class MagentoApi : Api {
             )
     }
 
-    //CATEGORY
+    override fun searchProducts(
+        perPage: Int, paginationValue: Any?, query: String,
+        callback: ApiCallback<List<Product>>
+    ) {
 
-    override fun getCategoryDetails(id: String, perPage: Int, paginationValue: Any?, sortBy: SortType?, callback: ApiCallback<Category>) {
+        val additionalOptions = ProductOptionBuilder()
+            .addFilterGroup(NAME_FIELD, "%$query%", ConditionType.SEARCH_CONDITION)
+        getProductList(perPage, paginationValue, additionalOptions, callback)
+    }
+
+    // Categories
+
+    override fun getCategories(
+        perPage: Int, paginationValue: Any?, parentCategoryId: String?,
+        callback: ApiCallback<List<Category>>
+    ) {
+
+        if (paginationValue == null) {
+            categoryService.getCategoryList(parentCategoryId)
+                .map { it.mapToEntityList() }
+                .subscribe(
+                    { callback.onResult(it) },
+                    { it.printStackTrace() }
+                )
+        } else {
+            callback.onResult(listOf())
+        }
+    }
+
+    override fun getCategory(
+        id: String, perPage: Int, paginationValue: Any?, sortBy: SortType?,
+        callback: ApiCallback<Category>
+    ) {
 
         val page = calculatePage(paginationValue)
         val optionsBuilder = ProductOptionBuilder().addFilterGroup(CATEGORY_ID_FIELD, id)
@@ -166,7 +205,8 @@ class MagentoApi : Api {
             SortType.NAME -> optionsBuilder.addSortOrder(NAME_FIELD)
             SortType.RECENT -> optionsBuilder.addSortOrder(CREATED_AT_FIELD, true)
             SortType.PRICE_HIGH_TO_LOW -> optionsBuilder.addSortOrder(PRICE_FIELD, true)
-            SortType.PRICE_LOW_TO_HIGH -> optionsBuilder.addSortOrder(PRICE_FIELD
+            SortType.PRICE_LOW_TO_HIGH -> optionsBuilder.addSortOrder(
+                PRICE_FIELD
             )
             else -> {
                 /*do nothing*/
@@ -193,22 +233,34 @@ class MagentoApi : Api {
             )
     }
 
-    override fun getCategoryList(perPage: Int, paginationValue: Any?, parentCategoryId: String?,
-                                 callback: ApiCallback<List<Category>>) {
+    // Articles
 
-        if (paginationValue == null) {
-            categoryService.getCategoryList(parentCategoryId)
-                .map { it.mapToEntityList() }
-                .subscribe(
-                    { callback.onResult(it) },
-                    { it.printStackTrace() }
-                )
-        } else {
-            callback.onResult(listOf())
-        }
+    override fun getArticles(
+        perPage: Int, paginationValue: Any?, sortBy: SortType?,
+        reverse: Boolean, callback: ApiCallback<List<Article>>
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    //ACCOUNT
+    override fun getArticle(id: String, callback: ApiCallback<Pair<Article, String>>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    // Authentication
+
+    override fun signUp(
+        firstName: String, lastName: String, email: String, password: String,
+        phone: String, callback: ApiCallback<Unit>
+    ) {
+
+        val customerData = SignUpRequest.CustomerData(email, firstName, lastName)
+        val request = SignUpRequest(customerData, password)
+        customerService.signUp(request)
+            .subscribe(
+                { signIn(email, password, callback) },
+                { callback.onFailure(handleError(it)) }
+            )
+    }
 
     override fun signIn(email: String, password: String, callback: ApiCallback<Unit>) {
         customerService.signIn(SignInRequest(email, password))
@@ -226,19 +278,22 @@ class MagentoApi : Api {
         callback.onResult(Unit)
     }
 
-    override fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String, callback: ApiCallback<Unit>) {
-        val customerData = SignUpRequest.CustomerData(email, firstName, lastName)
-        val request = SignUpRequest(customerData, password)
-        customerService.signUp(request)
+
+    override fun isSignedIn(callback: ApiCallback<Boolean>) {
+        callback.onResult(getSession() != null)
+    }
+
+    override fun resetPassword(email: String, callback: ApiCallback<Unit>) {
+        customerService.resetPassword(ResetPasswordRequest(email))
             .subscribe(
-                { signIn(email, password, callback) },
+                {
+                    callback.onResult(Unit)
+                },
                 { callback.onFailure(handleError(it)) }
             )
     }
 
-    override fun isLoggedIn(callback: ApiCallback<Boolean>) {
-        callback.onResult(getSession() != null)
-    }
+    // Customer
 
     override fun getCustomer(callback: ApiCallback<Customer?>) {
         sendTokenizedRequest({
@@ -251,13 +306,39 @@ class MagentoApi : Api {
         }, callback)
     }
 
-    //OTHER
+    override fun updateCustomer(
+        firstName: String, lastName: String, phone: String,
+        callback: ApiCallback<Customer>
+    ) {
 
-    override fun changePassword(password: String, callback: ApiCallback<Unit>) {
+        sendTokenizedRequest({ token ->
+            getCustomer(token).flatMap {
+                val editCustomerRequest = UpdateCustomerRequest.CustomerData(
+                    it.email,
+                    firstName,
+                    lastName,
+                    0,
+                    listOf()
+                )
+                customerService.updateCustomer(token, UpdateCustomerRequest(editCustomerRequest))
+            }
+                .map { it.mapToEntity() }
+                .subscribe(
+                    { callback.onResult(it) },
+                    { callback.onFailure(handleError(it)) }
+                )
+        }, callback)
+    }
+
+    override fun updateCustomerSettings(isAcceptMarketing: Boolean, callback: ApiCallback<Unit>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun updatePassword(password: String, callback: ApiCallback<Unit>) {
         sendTokenizedRequest({ token ->
             val accessKey = getAccessKey()
             if (accessKey != null) {
-                customerService.changePassword(token, ChangePasswordRequest(accessKey, password))
+                customerService.updatePassword(token, UpdatePasswordRequest(accessKey, password))
                     .subscribe(
                         {
                             saveSession(password, token)
@@ -271,105 +352,11 @@ class MagentoApi : Api {
         }, callback)
     }
 
-    override fun forgotPassword(email: String, callback: ApiCallback<Unit>) {
-        customerService.forgotPassword(ForgotPasswordRequest(email))
-            .subscribe(
-                {
-                    callback.onResult(Unit)
-                },
-                { callback.onFailure(handleError(it)) }
-            )
-    }
-
-    override fun editCustomerInfo(firstName: String, lastName: String, phone: String, callback: ApiCallback<Customer>) {
-        sendTokenizedRequest({ token ->
-            getCustomer(token).flatMap {
-                val editCustomerRequest = EditCustomerRequest.CustomerData(
-                    it.email,
-                    firstName,
-                    lastName,
-                    0,
-                    listOf()
-                )
-                customerService.editCustomer(token, EditCustomerRequest(editCustomerRequest))
-            }
-                .map { it.mapToEntity() }
-                .subscribe(
-                    { callback.onResult(it) },
-                    { callback.onFailure(handleError(it)) }
-                )
-        }, callback)
-    }
-
-    //SHOP
-
-    override fun getConfig(callback: ApiCallback<Config>) {
-        callback.onResult(config)
-    }
-
-    override fun getShopInfo(callback: ApiCallback<Shop>) {
-        callback.onResult(Shop("", null, null, null, null)) //TODO
-    }
-
-    //OTHER
-
-    override fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String, callback: ApiCallback<Order>) {
+    override fun addCustomerAddress(address: Address, callback: ApiCallback<String>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun createCheckout(cartProductList: List<CartProduct>, callback: ApiCallback<Checkout>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun createCustomerAddress(address: Address, callback: ApiCallback<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun editCustomerAddress(addressId: String, address: Address, callback: ApiCallback<Unit>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getAcceptedCardTypes(callback: ApiCallback<List<CardType>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getArticle(id: String, callback: ApiCallback<Pair<Article, String>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getArticleList(perPage: Int, paginationValue: Any?, sortBy: SortType?, reverse: Boolean, callback: ApiCallback<List<Article>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCardToken(card: Card, callback: ApiCallback<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getCountries(callback: ApiCallback<List<Country>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getOrder(orderId: String, callback: ApiCallback<Order>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getOrders(perPage: Int, paginationValue: Any?, callback: ApiCallback<List<Order>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getShippingRates(checkoutId: String, callback: ApiCallback<List<ShippingRate>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate, callback: ApiCallback<Checkout>) {
+    override fun updateCustomerAddress(address: Address, callback: ApiCallback<Unit>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -377,15 +364,82 @@ class MagentoApi : Api {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setShippingAddress(checkoutId: String, address: Address, callback: ApiCallback<Checkout>) {
+    override fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun updateCustomerSettings(isAcceptMarketing: Boolean, callback: ApiCallback<Unit>) {
+    // Payment
+
+    override fun createCheckout(
+        cartProductList: List<CartProduct>,
+        callback: ApiCallback<Checkout>
+    ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    /* SESSION */
+    override fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setShippingAddress(
+        checkoutId: String,
+        address: Address,
+        callback: ApiCallback<Checkout>
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getShippingRates(checkoutId: String, callback: ApiCallback<List<ShippingRate>>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setShippingRate(
+        checkoutId: String,
+        shippingRate: ShippingRate,
+        callback: ApiCallback<Checkout>
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun completeCheckoutByCard(
+        checkout: Checkout,
+        email: String,
+        address: Address,
+        creditCardVaultToken: String,
+        callback: ApiCallback<Order>
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getAcceptedCardTypes(callback: ApiCallback<List<CardType>>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getCardToken(card: Card, callback: ApiCallback<String>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    // Countries
+
+    override fun getCountries(callback: ApiCallback<List<Country>>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    // Orders
+
+    override fun getOrders(
+        perPage: Int,
+        paginationValue: Any?,
+        callback: ApiCallback<List<Order>>
+    ) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getOrder(orderId: String, callback: ApiCallback<Order>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    /* Session */
 
     private fun saveSession(password: String, token: String) {
         preferences.edit()
@@ -408,9 +462,11 @@ class MagentoApi : Api {
     private fun getCustomer(token: String) = customerService.getCustomer(token)
         .map { it.mapToEntity() }
 
-    private fun getProductList(perPage: Int, paginationValue: Any?,
-                               optionBuilder: ProductOptionBuilder,
-                               callback: ApiCallback<List<Product>>) {
+    private fun getProductList(
+        perPage: Int, paginationValue: Any?,
+        optionBuilder: ProductOptionBuilder,
+        callback: ApiCallback<List<Product>>
+    ) {
         makeRequestWithPagination(
             paginationValue,
             callback,
@@ -464,7 +520,10 @@ class MagentoApi : Api {
         }
     }
 
-    private inline fun sendTokenizedRequest(request: (token: String) -> Unit, callback: ApiCallback<*>) {
+    private inline fun sendTokenizedRequest(
+        request: (token: String) -> Unit,
+        callback: ApiCallback<*>
+    ) {
         getSession()?.let {
             request(it)
         } ?: callback.onFailure(Error.NonCritical(UNAUTHORIZED_ERROR))

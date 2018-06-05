@@ -32,7 +32,10 @@ class OrderSuccessRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(OrderDetailsActivity.EXTRA_ORDER_ID))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(OrderDetailsActivity.EXTRA_ORDER_ID)
+        )
         assertEquals(OrderDetailsActivity::class.java, shadowIntent.intentClass)
     }
 }

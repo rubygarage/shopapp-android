@@ -1,7 +1,7 @@
 package com.shopapp.ui.blog.di
 
-import com.shopapp.domain.interactor.blog.ArticleListUseCase
 import com.shopapp.domain.interactor.blog.ArticleUseCase
+import com.shopapp.domain.interactor.blog.GetArticlesUseCase
 import com.shopapp.ui.blog.contract.ArticlePresenter
 import com.shopapp.ui.blog.contract.BlogPresenter
 import com.shopapp.ui.blog.router.BlogRouter
@@ -12,8 +12,8 @@ import dagger.Provides
 class BlogModule {
 
     @Provides
-    fun provideBlogPresenter(articleListUseCase: ArticleListUseCase): BlogPresenter {
-        return BlogPresenter(articleListUseCase)
+    fun provideBlogPresenter(getArticlesUseCase: GetArticlesUseCase): BlogPresenter {
+        return BlogPresenter(getArticlesUseCase)
     }
 
     @Provides

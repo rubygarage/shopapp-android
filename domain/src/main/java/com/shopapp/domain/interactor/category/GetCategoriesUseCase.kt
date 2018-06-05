@@ -6,18 +6,18 @@ import com.shopapp.gateway.entity.Category
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CategoryListUseCase @Inject constructor(private val categoryRepository: CategoryRepository) :
-    SingleUseCase<List<Category>, CategoryListUseCase.Params>() {
+class GetCategoriesUseCase @Inject constructor(private val repository: CategoryRepository) :
+        SingleUseCase<List<Category>, GetCategoriesUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<Category>> {
         return with(params) {
-            categoryRepository.getCategoryList(perPage, paginationValue, parentCategoryId)
+            repository.getCategories(perPage, paginationValue, parentCategoryId)
         }
     }
 
     data class Params(
-        val perPage: Int,
-        val paginationValue: String?,
-        val parentCategoryId: String?
+            val perPage: Int,
+            val paginationValue: String?,
+            val parentCategoryId: String?
     )
 }

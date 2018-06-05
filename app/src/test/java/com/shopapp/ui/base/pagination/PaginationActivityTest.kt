@@ -96,7 +96,8 @@ class PaginationActivityTest {
         activity.finish()
     }
 
-    private class TestPaginationActivity : PaginationActivity<Any, BaseLceView<Any>, TestBaseLcePresenter>() {
+    private class TestPaginationActivity :
+        PaginationActivity<Any, BaseLceView<Any>, TestBaseLcePresenter>() {
 
         val mockListener: OnItemClickListener = mock()
 

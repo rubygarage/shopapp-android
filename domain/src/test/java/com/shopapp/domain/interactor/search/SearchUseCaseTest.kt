@@ -1,11 +1,7 @@
 package com.shopapp.domain.interactor.search
 
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.interactor.product.ProductListUseCase
 import com.shopapp.domain.repository.ProductRepository
-import com.shopapp.gateway.entity.Product
-import com.shopapp.gateway.entity.SortType
-import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +28,7 @@ class SearchUseCaseTest {
         val query = "query"
         val params = SearchUseCase.Params(perPage, paginationValue, query)
         useCase.buildUseCaseSingle(params)
-        verify(productRepository).searchProductListByQuery(query, perPage, paginationValue)
+        verify(productRepository).searchProducts(query, perPage, paginationValue)
     }
 
 }

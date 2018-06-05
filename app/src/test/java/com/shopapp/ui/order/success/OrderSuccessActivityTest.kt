@@ -33,7 +33,9 @@ class OrderSuccessActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = OrderSuccessActivity.getStartIntent(context, ORDER_ID, ORDER_NUMBER)
-        activity = Robolectric.buildActivity(OrderSuccessActivity::class.java, intent).create().start().get()
+        activity =
+                Robolectric.buildActivity(OrderSuccessActivity::class.java, intent).create().start()
+                    .get()
     }
 
     @Test

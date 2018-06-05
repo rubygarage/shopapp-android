@@ -39,9 +39,15 @@ class ProductRouterTest {
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(title, startedIntent.extras.getString(ProductListActivity.TITLE))
-        assertEquals(sortType, startedIntent.extras.getSerializable(ProductListActivity.SORT_TYPE) as SortType)
+        assertEquals(
+            sortType,
+            startedIntent.extras.getSerializable(ProductListActivity.SORT_TYPE) as SortType
+        )
         assertEquals(keyword, startedIntent.extras.getString(ProductListActivity.KEYWORD))
-        assertEquals(excludeKeyword, startedIntent.extras.getString(ProductListActivity.EXCLUDE_KEYWORD))
+        assertEquals(
+            excludeKeyword,
+            startedIntent.extras.getString(ProductListActivity.EXCLUDE_KEYWORD)
+        )
         assertEquals(ProductListActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -51,7 +57,10 @@ class ProductRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 }

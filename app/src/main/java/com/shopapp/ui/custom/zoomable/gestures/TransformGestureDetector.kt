@@ -10,7 +10,8 @@ import android.view.MotionEvent
  * The instance of this detector is passed to the listeners, so it can be queried
  * for pivot, translation, scale or rotation.
  */
-class TransformGestureDetector(private val mDetector: MultiPointerGestureDetector) : MultiPointerGestureDetector.Listener {
+class TransformGestureDetector(private val mDetector: MultiPointerGestureDetector) :
+    MultiPointerGestureDetector.Listener {
 
     private var mListener: Listener? = null
 
@@ -36,11 +37,17 @@ class TransformGestureDetector(private val mDetector: MultiPointerGestureDetecto
 
     /** Gets the X component of the translation  */
     val translationX: Float
-        get() = calcAverage(mDetector.currentX, mDetector.pointerCount) - calcAverage(mDetector.startX, mDetector.pointerCount)
+        get() = calcAverage(
+            mDetector.currentX,
+            mDetector.pointerCount
+        ) - calcAverage(mDetector.startX, mDetector.pointerCount)
 
     /** Gets the Y component of the translation  */
     val translationY: Float
-        get() = calcAverage(mDetector.currentY, mDetector.pointerCount) - calcAverage(mDetector.startY, mDetector.pointerCount)
+        get() = calcAverage(
+            mDetector.currentY,
+            mDetector.pointerCount
+        ) - calcAverage(mDetector.startY, mDetector.pointerCount)
 
     /** Gets the scale  */
     val scale: Float
@@ -53,7 +60,8 @@ class TransformGestureDetector(private val mDetector: MultiPointerGestureDetecto
                 val currentDeltaX = mDetector.currentX[1] - mDetector.currentX[0]
                 val currentDeltaY = mDetector.currentY[1] - mDetector.currentY[0]
                 val startDist = Math.hypot(startDeltaX.toDouble(), startDeltaY.toDouble()).toFloat()
-                val currentDist = Math.hypot(currentDeltaX.toDouble(), currentDeltaY.toDouble()).toFloat()
+                val currentDist =
+                    Math.hypot(currentDeltaX.toDouble(), currentDeltaY.toDouble()).toFloat()
                 currentDist / startDist
             }
         }
@@ -68,8 +76,10 @@ class TransformGestureDetector(private val mDetector: MultiPointerGestureDetecto
                 val startDeltaY = mDetector.startY[1] - mDetector.startY[0]
                 val currentDeltaX = mDetector.currentX[1] - mDetector.currentX[0]
                 val currentDeltaY = mDetector.currentY[1] - mDetector.currentY[0]
-                val startAngle = Math.atan2(startDeltaY.toDouble(), startDeltaX.toDouble()).toFloat()
-                val currentAngle = Math.atan2(currentDeltaY.toDouble(), currentDeltaX.toDouble()).toFloat()
+                val startAngle =
+                    Math.atan2(startDeltaY.toDouble(), startDeltaX.toDouble()).toFloat()
+                val currentAngle =
+                    Math.atan2(currentDeltaY.toDouble(), currentDeltaX.toDouble()).toFloat()
                 currentAngle - startAngle
             }
         }

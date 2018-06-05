@@ -22,8 +22,10 @@ class PriceView @JvmOverloads constructor(
         layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
     }
 
-    fun setData(subtotalPrice: BigDecimal, discountPrice: BigDecimal, shippingPrice: BigDecimal,
-                totalPrice: BigDecimal, currencyCode: String) {
+    fun setData(
+        subtotalPrice: BigDecimal, discountPrice: BigDecimal, shippingPrice: BigDecimal,
+        totalPrice: BigDecimal, currencyCode: String
+    ) {
         subtotalValue.text = formatter.formatPrice(subtotalPrice, currencyCode)
         discountValue.text = formatter.formatPrice(discountPrice, currencyCode)
         shippingValue.text = formatter.formatPrice(shippingPrice, currencyCode)

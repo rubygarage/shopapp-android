@@ -40,7 +40,10 @@ class CategoryRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productMock.id, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
+        assertEquals(
+            productMock.id,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 }

@@ -37,7 +37,10 @@ class OrderProductItemTest {
         itemView.setOrderProduct(orderProduct, MockInstantiator.DEFAULT_CURRENCY)
 
         assertEquals(productVariant!!.title, itemView.titleText.text)
-        assertEquals(context.getString(R.string.quantity_label_pattern, orderProduct.quantity), itemView.quantity.text)
+        assertEquals(
+            context.getString(R.string.quantity_label_pattern, orderProduct.quantity),
+            itemView.quantity.text
+        )
         val totalPrice = numberFormatter.formatPrice(
             productVariant.price * orderProduct.quantity.toBigDecimal(),
             MockInstantiator.DEFAULT_CURRENCY
