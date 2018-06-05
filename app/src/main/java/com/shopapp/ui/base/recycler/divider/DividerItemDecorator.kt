@@ -8,7 +8,8 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 
 
-class DividerItemDecorator(context: Context?, @DrawableRes drawable: Int) : RecyclerView.ItemDecoration() {
+class DividerItemDecorator(context: Context?, @DrawableRes drawable: Int) :
+    RecyclerView.ItemDecoration() {
 
     private val drawable: Drawable? = context?.let { ContextCompat.getDrawable(it, drawable) }
 

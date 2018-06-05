@@ -10,7 +10,8 @@ class ProductVariantAdapterTest {
 
     @Test
     fun shouldAdaptFromProductVariantDataToVariantOption() {
-        val result = ProductVariantAdapter.adaptFromStore(RequeryMockInstantiator.newProductVariant())
+        val result =
+            ProductVariantAdapter.adaptFromStore(RequeryMockInstantiator.newProductVariant())
         assertEquals(ConstantHolder.DEFAULT_ID, result.id)
         assertEquals(ConstantHolder.DEFAULT_ID, result.productId)
         assertEquals(ConstantHolder.DEFAULT_TITLE, result.title)

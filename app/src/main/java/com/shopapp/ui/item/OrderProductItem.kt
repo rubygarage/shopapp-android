@@ -12,11 +12,14 @@ import kotlinx.android.synthetic.main.item_order_product.view.*
 import java.math.BigDecimal
 
 @SuppressLint("ViewConstructor")
-class OrderProductItem constructor(context: Context, private val formatter: NumberFormatter)
-    : ConstraintLayout(context) {
+class OrderProductItem constructor(context: Context, private val formatter: NumberFormatter) :
+    ConstraintLayout(context) {
 
     init {
-        layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        layoutParams = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         View.inflate(context, R.layout.item_order_product, this)
         setBackgroundResource(R.color.white)
     }
@@ -51,8 +54,10 @@ class OrderProductItem constructor(context: Context, private val formatter: Numb
 
     private fun changeEachPriceVisibility(price: BigDecimal, quantity: Int, currency: String) {
         if (quantity > 1) {
-            eachPrice.text = context.getString(R.string.each_price_pattern,
-                formatter.formatPrice(price, currency))
+            eachPrice.text = context.getString(
+                R.string.each_price_pattern,
+                formatter.formatPrice(price, currency)
+            )
             eachPrice.visibility = View.VISIBLE
         } else {
             eachPrice.visibility = View.GONE

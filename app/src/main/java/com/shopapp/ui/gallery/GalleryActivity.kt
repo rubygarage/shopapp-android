@@ -41,7 +41,8 @@ class GalleryActivity : AppCompatActivity() {
         }
 
         supportFragmentManager.replaceOnce(R.id.galleryContainer, GalleryFragment::javaClass.name, {
-            val fragment = GalleryFragment.newInstance(product = product, selectedPosition = selectedPosition)
+            val fragment =
+                GalleryFragment.newInstance(product = product, selectedPosition = selectedPosition)
             fragment.imageClickListener = View.OnClickListener {
                 toolbar.visibility =
                         if (toolbar.visibility == View.VISIBLE) View.GONE else View.VISIBLE

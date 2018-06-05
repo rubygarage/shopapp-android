@@ -2,7 +2,7 @@ package com.shopapp.domain.interactor.account
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.domain.repository.CustomerRepository
 import com.shopapp.gateway.entity.Address
 import org.junit.Before
 import org.junit.Test
@@ -11,23 +11,22 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class EditCustomerAddressUseCaseTest {
+class UpdateCustomerAddressUseCaseTest {
 
-    private lateinit var useCase: EditCustomerAddressUseCase
+    private lateinit var useCase: UpdateCustomerAddressUseCase
 
     @Mock
-    private lateinit var authRepository: AuthRepository
+    private lateinit var repository: CustomerRepository
 
     @Before
     fun setUpTest() {
-        useCase = EditCustomerAddressUseCase(authRepository)
+        useCase = UpdateCustomerAddressUseCase(repository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
-        val addressId = "addressId"
         val address: Address = mock()
-        useCase.buildUseCaseCompletable(EditCustomerAddressUseCase.Params(addressId, address))
-        verify(authRepository).editCustomerAddress(addressId, address)
+        useCase.buildUseCaseCompletable(UpdateCustomerAddressUseCase.Params(address))
+        verify(repository).updateCustomerAddress(address)
     }
 }

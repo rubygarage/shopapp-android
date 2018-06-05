@@ -53,8 +53,18 @@ class CategoryPresenterTest {
             on { productList } doReturn products
         }
         given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
-        presenter.loadProductList(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        presenter.loadProductList(
+            PER_PAGE,
+            PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
+        val params = CategoryUseCase.Params(
+            PER_PAGE,
+            PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
         verify(categoryUseCase).execute(any(), any(), eq(params))
     }
 
@@ -66,8 +76,18 @@ class CategoryPresenterTest {
             on { productList } doReturn products
         }
         given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
-        presenter.loadProductList(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        presenter.loadProductList(
+            PER_PAGE,
+            PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
+        val params = CategoryUseCase.Params(
+            PER_PAGE,
+            PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
         val inOrder = inOrder(categoryUseCase, view)
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showContent(products)
@@ -95,8 +115,18 @@ class CategoryPresenterTest {
             on { productList } doReturn products
         }
         given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.just(category))
-        presenter.loadProductList(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        presenter.loadProductList(
+            PER_PAGE,
+            PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
+        val params = CategoryUseCase.Params(
+            PER_PAGE,
+            PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
         val inOrder = inOrder(categoryUseCase, view)
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
         inOrder.verify(view).showContent(products)
@@ -119,8 +149,18 @@ class CategoryPresenterTest {
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
         given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
-        presenter.loadProductList(PER_PAGE, MockInstantiator.DEFAULT_PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, MockInstantiator.DEFAULT_PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        presenter.loadProductList(
+            PER_PAGE,
+            MockInstantiator.DEFAULT_PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
+        val params = CategoryUseCase.Params(
+            PER_PAGE,
+            MockInstantiator.DEFAULT_PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
 
         val inOrder = inOrder(view, categoryUseCase)
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))
@@ -130,8 +170,18 @@ class CategoryPresenterTest {
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
         given(categoryUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
-        presenter.loadProductList(PER_PAGE, MockInstantiator.DEFAULT_PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
-        val params = CategoryUseCase.Params(PER_PAGE, MockInstantiator.DEFAULT_PAGINATION_VALUE, MockInstantiator.DEFAULT_ID, SORT_TYPE)
+        presenter.loadProductList(
+            PER_PAGE,
+            MockInstantiator.DEFAULT_PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
+        val params = CategoryUseCase.Params(
+            PER_PAGE,
+            MockInstantiator.DEFAULT_PAGINATION_VALUE,
+            MockInstantiator.DEFAULT_ID,
+            SORT_TYPE
+        )
 
         val inOrder = inOrder(view, categoryUseCase)
         inOrder.verify(categoryUseCase).execute(any(), any(), eq(params))

@@ -47,8 +47,10 @@ class SignUpActivityTest {
         context = RuntimeEnvironment.application.baseContext
         privacy = MockInstantiator.newPolicy()
         terms = MockInstantiator.newPolicy()
-        activity = Robolectric.buildActivity(SignUpActivity::class.java,
-            SignUpActivity.getStartIntent(context, privacy, terms))
+        activity = Robolectric.buildActivity(
+            SignUpActivity::class.java,
+            SignUpActivity.getStartIntent(context, privacy, terms)
+        )
             .create()
             .resume()
             .get()
@@ -68,8 +70,10 @@ class SignUpActivityTest {
 
     @Test
     fun shouldNotSetPolicyTextWhenDataDoesNotExist() {
-        activity = Robolectric.buildActivity(SignUpActivity::class.java,
-            SignUpActivity.getStartIntent(context, null, null))
+        activity = Robolectric.buildActivity(
+            SignUpActivity::class.java,
+            SignUpActivity.getStartIntent(context, null, null)
+        )
             .create()
             .resume()
             .get()
@@ -101,7 +105,10 @@ class SignUpActivityTest {
         activity.showContent(Unit)
         val looper = shadowOf(activity.mainLooper)
         looper.idle()
-        assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.register_success_message))
+        assertEquals(
+            ShadowToast.getTextOfLatestToast(),
+            context.getString(R.string.register_success_message)
+        )
     }
 
     @Test
@@ -126,13 +133,19 @@ class SignUpActivityTest {
     @Test
     fun shouldShowErrorOnPasswordInvalid() {
         activity.showPasswordError()
-        assertEquals(context.getString(R.string.invalid_password_error_message), activity.passwordInputLayout.error)
+        assertEquals(
+            context.getString(R.string.invalid_password_error_message),
+            activity.passwordInputLayout.error
+        )
     }
 
     @Test
     fun shouldShowErrorOnEmailInvalid() {
         activity.showEmailError()
-        assertEquals(context.getString(R.string.invalid_email_error_message), activity.emailInputLayout.error)
+        assertEquals(
+            context.getString(R.string.invalid_email_error_message),
+            activity.emailInputLayout.error
+        )
     }
 
     @Test
@@ -190,8 +203,10 @@ class SignUpActivityTest {
     @Test
     fun shouldRemoveTextWatcherWhenOnPause() {
         context = RuntimeEnvironment.application.baseContext
-        val activity = Robolectric.buildActivity(SignUpActivity::class.java,
-            SignUpActivity.getStartIntent(context, null, null))
+        val activity = Robolectric.buildActivity(
+            SignUpActivity::class.java,
+            SignUpActivity.getStartIntent(context, null, null)
+        )
             .create()
             .resume()
             .pause()
@@ -233,7 +248,10 @@ class SignUpActivityTest {
         assertEquals(View.GONE, activity.loadingView.visibility)
         activity.onCheckPassed()
         assertEquals(View.VISIBLE, activity.loadingView.visibility)
-        assertEquals(ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent), activity.lceLayout.loadingView.background)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.colorBackgroundLightTranslucent),
+            activity.lceLayout.loadingView.background
+        )
     }
 
     @Test

@@ -8,7 +8,8 @@ import com.shopapp.ui.custom.zoomable.gestures.TransformGestureDetector
  * Abstract class for ZoomableController that adds animation capabilities to
  * DefaultZoomableController.
  */
-abstract class AbstractAnimatedZoomableController(transformGestureDetector: TransformGestureDetector) : DefaultZoomableController(transformGestureDetector) {
+abstract class AbstractAnimatedZoomableController(transformGestureDetector: TransformGestureDetector) :
+    DefaultZoomableController(transformGestureDetector) {
 
     protected val startValues = FloatArray(9)
     protected val stopValues = FloatArray(9)
@@ -47,7 +48,8 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
     override fun zoomToPoint(
         scale: Float,
         imagePoint: PointF,
-        viewPoint: PointF) {
+        viewPoint: PointF
+    ) {
         zoomToPoint(scale, imagePoint, viewPoint, LIMIT_ALL, 0, null)
     }
 
@@ -73,13 +75,15 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
         viewPoint: PointF,
         @LimitFlag limitFlags: Int,
         durationMs: Long,
-        onAnimationComplete: Runnable?) {
+        onAnimationComplete: Runnable?
+    ) {
         calculateZoomToPointTransform(
             mNewTransform,
             scale,
             imagePoint,
             viewPoint,
-            limitFlags)
+            limitFlags
+        )
         setTransform(mNewTransform, durationMs, onAnimationComplete)
     }
 
@@ -98,7 +102,8 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
     private fun setTransform(
         newTransform: Matrix,
         durationMs: Long,
-        onAnimationComplete: Runnable?) {
+        onAnimationComplete: Runnable?
+    ) {
         if (durationMs <= 0) {
             setTransformImmediate(newTransform)
         } else {
@@ -135,7 +140,8 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
     abstract fun setTransformAnimated(
         newTransform: Matrix,
         durationMs: Long,
-        onAnimationComplete: Runnable?)
+        onAnimationComplete: Runnable?
+    )
 
     protected abstract fun stopAnimation()
 }

@@ -41,13 +41,13 @@ class ShopRepositoryTest {
     @Test
     fun changePasswordShouldDelegateCallToApi() {
         repository.getShop().subscribe()
-        verify(api).getShopInfo(any())
+        verify(api).getShop(any())
     }
 
     @Test
     fun changePasswordShouldCompleteOnApiResult() {
         val shop: Shop = mock()
-        given(api.getShopInfo(any())).willAnswer({
+        given(api.getShop(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onResult(shop)
         })
@@ -59,7 +59,7 @@ class ShopRepositoryTest {
     @Test
     fun changePasswordShouldErrorOnApiFailure() {
         val error = Error.Content()
-        given(api.getShopInfo(any())).willAnswer({
+        given(api.getShop(any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Shop>>(0)
             callback.onFailure(error)
         })

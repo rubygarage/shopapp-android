@@ -7,10 +7,10 @@ import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.Constant
-import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_list.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.layout_lce.view.*
+import kotlinx.android.synthetic.main.lce.*
+import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_empty.view.*
 import org.junit.After
@@ -54,7 +54,10 @@ class OrderListActivityTest {
         activity.showEmptyState()
         val emptyView = activity.emptyView
         assertEquals(View.VISIBLE, emptyView.visibility)
-        assertEquals(context.getString(R.string.you_have_no_orders_yet), emptyView.emptyMessage.text)
+        assertEquals(
+            context.getString(R.string.you_have_no_orders_yet),
+            emptyView.emptyMessage.text
+        )
         assertEquals(context.getString(R.string.start_shopping), emptyView.emptyButton.text)
         assertEquals(View.VISIBLE, emptyView.emptyButton.visibility)
         val shadowDrawable = shadowOf(emptyView.emptyImage.drawable)

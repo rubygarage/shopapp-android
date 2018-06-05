@@ -33,7 +33,8 @@ class OptionsContainer @JvmOverloads constructor(
 
     fun setProductOption(productOption: ProductOption, preselectedOption: VariantOption?) {
         this.productOption = productOption
-        titleText.text = context.getString(R.string.product_option_title_pattern, productOption.name)
+        titleText.text =
+                context.getString(R.string.product_option_title_pattern, productOption.name)
         val defaultVariant = preselectedOption
                 ?: VariantOption(productOption.name, productOption.values.first())
         adapter = ProductOptionsAdapter(defaultVariant, productOption.values, this)
@@ -41,7 +42,8 @@ class OptionsContainer @JvmOverloads constructor(
             leftSpace = resources.getDimensionPixelSize(R.dimen.variant_margin),
             skipFirst = true
         )
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = adapter
         recyclerView.addItemDecoration(decorator)
     }

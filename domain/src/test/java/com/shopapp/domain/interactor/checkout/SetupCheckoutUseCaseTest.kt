@@ -7,6 +7,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.domain.repository.AuthRepository
 import com.shopapp.domain.repository.CartRepository
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.domain.repository.CustomerRepository
 import com.shopapp.gateway.entity.*
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -33,6 +34,9 @@ class SetupCheckoutUseCaseTest {
     private lateinit var authRepository: AuthRepository
 
     @Mock
+    private lateinit var customerRepository: CustomerRepository
+
+    @Mock
     private lateinit var productList: List<CartProduct>
 
     @Mock
@@ -48,12 +52,17 @@ class SetupCheckoutUseCaseTest {
 
     @Before
     fun setUpTest() {
-        useCase = SetupCheckoutUseCase(cartRepository, checkoutRepository, authRepository)
+        useCase = SetupCheckoutUseCase(
+            cartRepository,
+            checkoutRepository,
+            authRepository,
+            customerRepository
+        )
         given(cartRepository.getCartProductList()).willReturn(Observable.just(productList))
         given(checkoutRepository.createCheckout(any())).willReturn(Single.just(checkout))
         given(checkoutRepository.setShippingAddress(any(), any())).willReturn(Single.just(checkout))
-        given(authRepository.isLoggedIn()).willReturn(Single.just(true))
-        given(authRepository.getCustomer()).willReturn(Single.just(customer))
+        given(authRepository.isSignedIn()).willReturn(Single.just(true))
+        given(customerRepository.getCustomer()).willReturn(Single.just(customer))
 
         given(checkout.checkoutId).willReturn(CHECKOUT_ID)
         given(customer.defaultAddress).willReturn(address)
@@ -65,8 +74,8 @@ class SetupCheckoutUseCaseTest {
 
         verify(cartRepository).getCartProductList()
         verify(checkoutRepository).createCheckout(productList)
-        verify(authRepository).isLoggedIn()
-        verify(authRepository).getCustomer()
+        verify(authRepository).isSignedIn()
+        verify(customerRepository).getCustomer()
         verify(checkoutRepository).setShippingAddress(CHECKOUT_ID, address)
 
         testObserver.assertValue(Triple(productList, checkout, customer))
@@ -74,13 +83,18 @@ class SetupCheckoutUseCaseTest {
 
     @Test
     fun shouldReturnFullCheckoutDataAndSetAddressError() {
-        given(checkoutRepository.setShippingAddress(any(), any())).willReturn(Single.error(Error.Content()))
+        given(
+            checkoutRepository.setShippingAddress(
+                any(),
+                any()
+            )
+        ).willReturn(Single.error(Error.Content()))
         val testObserver = useCase.buildUseCaseSingle(Unit).test()
 
         verify(cartRepository).getCartProductList()
         verify(checkoutRepository).createCheckout(productList)
-        verify(authRepository).isLoggedIn()
-        verify(authRepository).getCustomer()
+        verify(authRepository).isSignedIn()
+        verify(customerRepository).getCustomer()
         verify(checkoutRepository).setShippingAddress(CHECKOUT_ID, address)
 
         testObserver.assertValue(Triple(productList, checkout, customer))
@@ -93,8 +107,8 @@ class SetupCheckoutUseCaseTest {
 
         verify(cartRepository).getCartProductList()
         verify(checkoutRepository).createCheckout(productList)
-        verify(authRepository).isLoggedIn()
-        verify(authRepository).getCustomer()
+        verify(authRepository).isSignedIn()
+        verify(customerRepository).getCustomer()
         verify(checkoutRepository, never()).setShippingAddress(CHECKOUT_ID, address)
 
         testObserver.assertValue(Triple(productList, checkout, customer))
@@ -102,13 +116,13 @@ class SetupCheckoutUseCaseTest {
 
     @Test
     fun shouldReturnCheckoutDataWithoutCustomer() {
-        given(authRepository.isLoggedIn()).willReturn(Single.just(false))
+        given(authRepository.isSignedIn()).willReturn(Single.just(false))
         val testObserver = useCase.buildUseCaseSingle(Unit).test()
 
         verify(cartRepository).getCartProductList()
         verify(checkoutRepository).createCheckout(productList)
-        verify(authRepository).isLoggedIn()
-        verify(authRepository, never()).getCustomer()
+        verify(authRepository).isSignedIn()
+        verify(customerRepository, never()).getCustomer()
         verify(checkoutRepository, never()).setShippingAddress(CHECKOUT_ID, address)
 
         testObserver.assertValue(Triple(productList, checkout, null))

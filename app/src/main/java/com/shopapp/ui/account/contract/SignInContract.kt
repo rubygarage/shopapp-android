@@ -42,7 +42,8 @@ class SignInPresenter @Inject constructor(
                     view?.onFailure()
                     resolveError(it)
                 },
-                SignInUseCase.Params(email, password))
+                SignInUseCase.Params(email, password)
+            )
         }
     }
 }

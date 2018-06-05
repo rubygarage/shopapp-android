@@ -32,9 +32,9 @@ class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
         }
     }
 
-    override fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout> {
+    override fun setShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout> {
         return Single.create<Checkout> {
-            api.selectShippingRate(checkoutId, shippingRate, RxCallbackSingle<Checkout>(it))
+            api.setShippingRate(checkoutId, shippingRate, RxCallbackSingle<Checkout>(it))
         }
     }
 

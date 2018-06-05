@@ -35,8 +35,14 @@ class OrderListRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productVariant.productId, startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(productVariant, startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
+        assertEquals(
+            productVariant.productId,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
+        assertEquals(
+            productVariant,
+            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT)
+        )
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 
@@ -54,7 +60,10 @@ class OrderListRouterTest {
 
         val startedIntent = Shadows.shadowOf(activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(MockInstantiator.DEFAULT_ID, startedIntent.extras.getString(OrderDetailsActivity.EXTRA_ORDER_ID))
+        assertEquals(
+            MockInstantiator.DEFAULT_ID,
+            startedIntent.extras.getString(OrderDetailsActivity.EXTRA_ORDER_ID)
+        )
         assertEquals(OrderDetailsActivity::class.java, shadowIntent.intentClass)
     }
 }

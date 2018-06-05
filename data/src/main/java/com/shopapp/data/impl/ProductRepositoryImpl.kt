@@ -16,25 +16,25 @@ class ProductRepositoryImpl(private val api: Api) : ProductRepository {
         }
     }
 
-    override fun getProductList(perPage: Int, paginationValue: Any?, sortBy: SortType?,
-                                keyword: String?, excludeKeyword: String?): Single<List<Product>> {
+    override fun getProducts(perPage: Int, paginationValue: Any?, sortBy: SortType?,
+                             keyword: String?, excludeKeyword: String?): Single<List<Product>> {
         return Single.create<List<Product>> { emitter ->
-            api.getProductList(perPage, paginationValue, sortBy,
-                keyword, excludeKeyword, RxCallbackSingle<List<Product>>(emitter))
+            api.getProducts(perPage, paginationValue, sortBy,
+                    keyword, excludeKeyword, RxCallbackSingle<List<Product>>(emitter))
         }
     }
 
-    override fun getProductVariantList(productVariantIdList: List<String>): Single<List<ProductVariant>> {
+    override fun getProductVariants(ids: List<String>): Single<List<ProductVariant>> {
         return Single.create<List<ProductVariant>> { emitter ->
-            api.getProductVariantList(productVariantIdList, RxCallbackSingle<List<ProductVariant>>(emitter))
+            api.getProductVariants(ids, RxCallbackSingle<List<ProductVariant>>(emitter))
         }
     }
 
-    override fun searchProductListByQuery(searchQuery: String, perPage: Int,
-                                          paginationValue: String?): Single<List<Product>> {
+    override fun searchProducts(query: String, perPage: Int,
+                                paginationValue: String?): Single<List<Product>> {
         return Single.create<List<Product>> { emitter ->
-            api.searchProductList(perPage, paginationValue, searchQuery,
-                RxCallbackSingle<List<Product>>(emitter))
+            api.searchProducts(perPage, paginationValue, query,
+                    RxCallbackSingle<List<Product>>(emitter))
         }
     }
 }

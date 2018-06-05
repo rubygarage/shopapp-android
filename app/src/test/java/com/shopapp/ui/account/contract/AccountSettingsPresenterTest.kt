@@ -2,7 +2,7 @@ package com.shopapp.ui.account.contract
 
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
-import com.shopapp.domain.interactor.account.UpdateAccountSettingsUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerSettingsUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -30,7 +30,7 @@ class AccountSettingsPresenterTest {
     private lateinit var getCustomerUseCase: GetCustomerUseCase
 
     @Mock
-    private lateinit var accountSettingsUseCase: UpdateAccountSettingsUseCase
+    private lateinit var customerSettingsUseCase: UpdateCustomerSettingsUseCase
 
     private lateinit var presenter: AccountSettingsPresenter
 
@@ -39,10 +39,10 @@ class AccountSettingsPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = AccountSettingsPresenter(getCustomerUseCase, accountSettingsUseCase)
+        presenter = AccountSettingsPresenter(getCustomerUseCase, customerSettingsUseCase)
         presenter.attachView(view)
         getCustomerUseCase.mock()
-        accountSettingsUseCase.mock()
+        customerSettingsUseCase.mock()
     }
 
     @Test
@@ -64,7 +64,13 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldShowMessageOnGetCustomerNonCriticalError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)
@@ -89,29 +95,37 @@ class AccountSettingsPresenterTest {
 
     @Test
     fun shouldExecuteUseCaseOnUpdateSettings() {
-        given(accountSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
+        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         presenter.updateSettings(true)
-        verify(accountSettingsUseCase).execute(any(), any(), eq(true))
+        verify(customerSettingsUseCase).execute(any(), any(), eq(true))
     }
 
     @Test
     fun shouldShowMessageOnUpdateSettingsNonCriticalError() {
-        given(accountSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical("ErrorMessage")
+            )
+        )
         presenter.updateSettings(true)
 
         val inOrder = inOrder(view, getCustomerUseCase)
-        verify(accountSettingsUseCase).execute(any(), any(), eq(true))
+        verify(customerSettingsUseCase).execute(any(), any(), eq(true))
         inOrder.verify(view).showMessage(eq("ErrorMessage"))
     }
 
     @Test
     fun shouldShowErrorOnUpdateSettingsContentError() {
-        given(accountSettingsUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content()))
+        given(customerSettingsUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.Content()
+            )
+        )
         presenter.updateSettings(true)
 
         argumentCaptor<Error>().apply {
             val inOrder = inOrder(view, getCustomerUseCase)
-            verify(accountSettingsUseCase).execute(any(), any(), eq(true))
+            verify(customerSettingsUseCase).execute(any(), any(), eq(true))
             inOrder.verify(view).showError(capture())
 
             assertTrue(firstValue is Error.Content)

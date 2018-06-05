@@ -32,7 +32,12 @@ class CheckoutAddressRouterTest {
     @Test
     fun shouldShowCheckoutAddressActivity() {
         val address = MockInstantiator.newAddress()
-        router.showCheckoutAddressForResult(activity, RequestCode.ADD_BILLING_ADDRESS, address, true)
+        router.showCheckoutAddressForResult(
+            activity,
+            RequestCode.ADD_BILLING_ADDRESS,
+            address,
+            true
+        )
 
         val intentForResult = Shadows.shadowOf(activity).nextStartedActivityForResult
         assertEquals(RequestCode.ADD_BILLING_ADDRESS, intentForResult.requestCode)

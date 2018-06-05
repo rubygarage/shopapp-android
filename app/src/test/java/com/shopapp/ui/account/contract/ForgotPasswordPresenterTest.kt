@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
-import com.shopapp.domain.interactor.account.ForgotPasswordUseCase
+import com.shopapp.domain.interactor.account.ResetPasswordUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.MockInstantiator
@@ -29,7 +29,7 @@ class ForgotPasswordPresenterTest {
     private lateinit var view: ForgotPasswordView
 
     @Mock
-    private lateinit var useCase: ForgotPasswordUseCase
+    private lateinit var useCase: ResetPasswordUseCase
 
     @Mock
     private lateinit var validator: FieldValidator
@@ -69,7 +69,13 @@ class ForgotPasswordPresenterTest {
     @Test
     fun shouldShowMessageWhenReturnNonCriticalError() {
         val errorMessage = "errorMessage"
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical(errorMessage)))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    errorMessage
+                )
+            )
+        )
         given(validator.isEmailValid(any())).willReturn(true)
         presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
 
@@ -81,7 +87,13 @@ class ForgotPasswordPresenterTest {
     @Test
     fun shouldShowErrorWhenReturnContentError() {
         val isNetworkError = true
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.Content(isNetworkError)))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.Content(
+                    isNetworkError
+                )
+            )
+        )
         given(validator.isEmailValid(any())).willReturn(true)
         presenter.forgotPassword(MockInstantiator.DEFAULT_EMAIL)
 

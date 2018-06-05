@@ -60,7 +60,8 @@ class OrderListActivity :
 
     override fun setupRecyclerView() {
         super.setupRecyclerView()
-        val spaceDecoration = SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_item_vertical_margin))
+        val spaceDecoration =
+            SpaceDecoration(topSpace = resources.getDimensionPixelSize(R.dimen.order_item_vertical_margin))
         recyclerView.addItemDecoration(spaceDecoration)
         recyclerView.addItemDecoration(BackgroundItemDecoration(R.color.white))
     }

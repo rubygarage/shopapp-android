@@ -6,15 +6,16 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.graphics.Matrix
 import android.view.animation.DecelerateInterpolator
-import com.shopapp.ui.custom.zoomable.gestures.TransformGestureDetector
 import com.facebook.common.internal.Preconditions
+import com.shopapp.ui.custom.zoomable.gestures.TransformGestureDetector
 
 /**
  * ZoomableController that adds animation capabilities to DefaultZoomableController using standard
  * Android animation classes
  */
 class AnimatedZoomableController @SuppressLint("NewApi")
-constructor(transformGestureDetector: TransformGestureDetector) : AbstractAnimatedZoomableController(transformGestureDetector) {
+constructor(transformGestureDetector: TransformGestureDetector) :
+    AbstractAnimatedZoomableController(transformGestureDetector) {
 
     private val mValueAnimator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f)
 
@@ -26,7 +27,8 @@ constructor(transformGestureDetector: TransformGestureDetector) : AbstractAnimat
     override fun setTransformAnimated(
         newTransform: Matrix,
         durationMs: Long,
-        onAnimationComplete: Runnable?) {
+        onAnimationComplete: Runnable?
+    ) {
         stopAnimation()
         Preconditions.checkArgument(durationMs > 0)
         Preconditions.checkState(!isAnimating)

@@ -133,7 +133,10 @@ class PersonalInfoActivityTest {
     @Test
     fun shouldRemoveTextWatcherWhenOnPause() {
         context = RuntimeEnvironment.application.baseContext
-        val activity = Robolectric.buildActivity(PersonalInfoActivity::class.java, PersonalInfoActivity.getStartIntent(context))
+        val activity = Robolectric.buildActivity(
+            PersonalInfoActivity::class.java,
+            PersonalInfoActivity.getStartIntent(context)
+        )
             .create()
             .resume()
             .pause()
@@ -173,7 +176,10 @@ class PersonalInfoActivityTest {
         val looper = Shadows.shadowOf(activity.mainLooper)
         looper.idle()
 
-        assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.customer_changed))
+        assertEquals(
+            ShadowToast.getTextOfLatestToast(),
+            context.getString(R.string.customer_changed)
+        )
         assertEquals(Activity.RESULT_OK, Shadows.shadowOf(activity).resultCode)
     }
 

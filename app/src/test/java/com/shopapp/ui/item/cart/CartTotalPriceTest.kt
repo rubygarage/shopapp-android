@@ -44,7 +44,8 @@ class CartTotalPriceTest {
         val size = 2
         val list = MockInstantiator.newList(MockInstantiator.newCartProduct(), size)
         view.setData(list, formatter)
-        val expected = context.resources.getQuantityString(R.plurals.order_total_plurals, size, size)
+        val expected =
+            context.resources.getQuantityString(R.plurals.order_total_plurals, size, size)
         assertEquals(expected, view.orderTotalLabel.text.toString())
     }
 
@@ -54,7 +55,8 @@ class CartTotalPriceTest {
         val list = MockInstantiator.newList(MockInstantiator.newCartProduct(), size)
         view.setData(list, formatter)
 
-        val expectedPrice = size * MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
+        val expectedPrice =
+            size * MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
         val expected = expectedPrice.toString() + MockInstantiator.DEFAULT_CURRENCY
         assertEquals(expected, view.orderTotalValue.text.toString())
     }

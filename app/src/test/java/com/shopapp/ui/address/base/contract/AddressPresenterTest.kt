@@ -2,14 +2,13 @@ package com.shopapp.ui.address.base.contract
 
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
-import com.shopapp.domain.interactor.account.CreateCustomerAddressUseCase
-import com.shopapp.domain.interactor.account.EditCustomerAddressUseCase
+import com.shopapp.domain.interactor.account.AddCustomerAddressUseCase
 import com.shopapp.domain.interactor.account.GetCountriesUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerAddressUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Address
 import com.shopapp.gateway.entity.Country
 import com.shopapp.gateway.entity.Error
-import com.shopapp.test.MockInstantiator
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
@@ -38,10 +37,10 @@ class AddressPresenterTest {
     private lateinit var countriesUseCase: GetCountriesUseCase
 
     @Mock
-    private lateinit var createCustomerAddressUseCase: CreateCustomerAddressUseCase
+    private lateinit var addCustomerAddressUseCase: AddCustomerAddressUseCase
 
     @Mock
-    private lateinit var editCustomerAddressUseCase: EditCustomerAddressUseCase
+    private lateinit var updateCustomerAddressUseCase: UpdateCustomerAddressUseCase
 
     @Mock
     private lateinit var address: Address
@@ -54,13 +53,15 @@ class AddressPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = AddressPresenter(fieldValidator, countriesUseCase, createCustomerAddressUseCase,
-            editCustomerAddressUseCase)
+        presenter = AddressPresenter(
+            fieldValidator, countriesUseCase, addCustomerAddressUseCase,
+            updateCustomerAddressUseCase
+        )
         presenter.attachView(view)
 
         countriesUseCase.mock()
-        createCustomerAddressUseCase.mock()
-        editCustomerAddressUseCase.mock()
+        addCustomerAddressUseCase.mock()
+        updateCustomerAddressUseCase.mock()
     }
 
     @Test
@@ -76,25 +77,25 @@ class AddressPresenterTest {
     @Test
     fun submitAddressShouldCallAddressChangedWhenOnSingleSuccess() {
         val result = "result"
-        given(createCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.just(result))
+        given(addCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.just(result))
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
-        val inOrder = inOrder(view, createCustomerAddressUseCase)
-        inOrder.verify(createCustomerAddressUseCase).execute(any(), any(), eq(address))
+        val inOrder = inOrder(view, addCustomerAddressUseCase)
+        inOrder.verify(addCustomerAddressUseCase).execute(any(), any(), eq(address))
         inOrder.verify(view).addressChanged(address)
     }
 
     @Test
     fun submitAddressShouldCallAddressChangedWhenOnSingleContentError() {
         val error = Error.Content()
-        given(createCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
+        given(addCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
         argumentCaptor<Error>().apply {
-            val inOrder = inOrder(view, createCustomerAddressUseCase)
-            inOrder.verify(createCustomerAddressUseCase).execute(any(), any(), eq(address))
+            val inOrder = inOrder(view, addCustomerAddressUseCase)
+            inOrder.verify(addCustomerAddressUseCase).execute(any(), any(), eq(address))
             inOrder.verify(view).showError(capture())
             inOrder.verify(view).addressChanged(address)
 
@@ -106,12 +107,12 @@ class AddressPresenterTest {
     fun submitAddressShouldCallAddressChangedWhenOnSingleNonCriticalError() {
         val message = "message"
         val error = Error.NonCritical(message)
-        given(createCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
+        given(addCustomerAddressUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
         given(fieldValidator.isAddressValid(any())).willReturn(true)
         presenter.submitAddress(address)
 
-        val inOrder = inOrder(view, createCustomerAddressUseCase)
-        inOrder.verify(createCustomerAddressUseCase).execute(any(), any(), eq(address))
+        val inOrder = inOrder(view, addCustomerAddressUseCase)
+        inOrder.verify(addCustomerAddressUseCase).execute(any(), any(), eq(address))
         inOrder.verify(view).showMessage(message)
         inOrder.verify(view).addressChanged(address)
     }
@@ -119,7 +120,7 @@ class AddressPresenterTest {
     @Test
     fun editAddressShouldShowErrorWhenEditInvalidAddress() {
         given(fieldValidator.isAddressValid(any())).willReturn(false)
-        presenter.editAddress(MockInstantiator.DEFAULT_ID, address)
+        presenter.updateAddress(address)
 
         val inOrder = inOrder(view)
         inOrder.verify(view).submitAddressError()
@@ -128,16 +129,15 @@ class AddressPresenterTest {
 
     @Test
     fun editAddressShouldCallAddressChangedWhenOnCompletableSuccess() {
-        given(editCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
+        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         given(fieldValidator.isAddressValid(any())).willReturn(true)
-        presenter.editAddress(MockInstantiator.DEFAULT_ID, address)
+        presenter.updateAddress(address)
 
-        argumentCaptor<EditCustomerAddressUseCase.Params>().apply {
-            val inOrder = inOrder(view, editCustomerAddressUseCase)
-            inOrder.verify(editCustomerAddressUseCase).execute(any(), any(), capture())
+        argumentCaptor<UpdateCustomerAddressUseCase.Params>().apply {
+            val inOrder = inOrder(view, updateCustomerAddressUseCase)
+            inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
             inOrder.verify(view).addressChanged(address)
 
-            assertEquals(MockInstantiator.DEFAULT_ID, firstValue.addressId)
             assertEquals(address, firstValue.address)
         }
     }
@@ -145,15 +145,18 @@ class AddressPresenterTest {
     @Test
     fun editAddressShouldCallAddressChangedWhenOnCompletableContentError() {
         val error = Error.Content()
-        given(editCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
+        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                error
+            )
+        )
         given(fieldValidator.isAddressValid(any())).willReturn(true)
-        presenter.editAddress(MockInstantiator.DEFAULT_ID, address)
+        presenter.updateAddress(address)
 
 
-        val inOrder = inOrder(view, editCustomerAddressUseCase)
-        argumentCaptor<EditCustomerAddressUseCase.Params>().apply {
-            inOrder.verify(editCustomerAddressUseCase).execute(any(), any(), capture())
-            assertEquals(MockInstantiator.DEFAULT_ID, firstValue.addressId)
+        val inOrder = inOrder(view, updateCustomerAddressUseCase)
+        argumentCaptor<UpdateCustomerAddressUseCase.Params>().apply {
+            inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
             assertEquals(address, firstValue.address)
         }
         argumentCaptor<Error>().apply {
@@ -167,17 +170,20 @@ class AddressPresenterTest {
     fun editAddressShouldCallAddressChangedWhenOnCompletableNonCriticalError() {
         val message = "message"
         val error = Error.NonCritical(message)
-        given(editCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(error))
+        given(updateCustomerAddressUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                error
+            )
+        )
         given(fieldValidator.isAddressValid(any())).willReturn(true)
-        presenter.editAddress(MockInstantiator.DEFAULT_ID, address)
+        presenter.updateAddress(address)
 
-        argumentCaptor<EditCustomerAddressUseCase.Params>().apply {
-            val inOrder = inOrder(view, editCustomerAddressUseCase)
-            inOrder.verify(editCustomerAddressUseCase).execute(any(), any(), capture())
+        argumentCaptor<UpdateCustomerAddressUseCase.Params>().apply {
+            val inOrder = inOrder(view, updateCustomerAddressUseCase)
+            inOrder.verify(updateCustomerAddressUseCase).execute(any(), any(), capture())
             inOrder.verify(view).showMessage(message)
             inOrder.verify(view).addressChanged(address)
 
-            assertEquals(MockInstantiator.DEFAULT_ID, firstValue.addressId)
             assertEquals(address, firstValue.address)
         }
     }
@@ -185,7 +191,7 @@ class AddressPresenterTest {
     @Test
     fun getCountriesListShouldCallCountriesLoaded() {
         given(countriesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(countryList))
-        presenter.getCountriesList()
+        presenter.getCountries()
 
         val inOrder = inOrder(view, countriesUseCase)
         inOrder.verify(countriesUseCase).execute(any(), any(), any())
@@ -196,7 +202,7 @@ class AddressPresenterTest {
     fun getCountriesListCallAddressChangedWhenOnSingleContentError() {
         val error = Error.Content()
         given(countriesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
-        presenter.getCountriesList()
+        presenter.getCountries()
 
         argumentCaptor<Error>().apply {
             val inOrder = inOrder(view, countriesUseCase)
@@ -212,7 +218,7 @@ class AddressPresenterTest {
         val message = "message"
         val error = Error.NonCritical(message)
         given(countriesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
-        presenter.getCountriesList()
+        presenter.getCountries()
 
         val inOrder = inOrder(view, countriesUseCase)
         inOrder.verify(countriesUseCase).execute(any(), any(), any())

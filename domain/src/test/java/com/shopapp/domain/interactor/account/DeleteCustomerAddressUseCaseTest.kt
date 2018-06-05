@@ -1,6 +1,6 @@
 package com.shopapp.domain.interactor.account
 
-import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.domain.repository.CustomerRepository
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -14,17 +14,17 @@ class DeleteCustomerAddressUseCaseTest {
     private lateinit var useCase: DeleteCustomerAddressUseCase
 
     @Mock
-    private lateinit var authRepository: AuthRepository
+    private lateinit var repository: CustomerRepository
 
     @Before
     fun setUpTest() {
-        useCase = DeleteCustomerAddressUseCase(authRepository)
+        useCase = DeleteCustomerAddressUseCase(repository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
         val addressId = "addressId"
         useCase.buildUseCaseCompletable(addressId)
-        Mockito.verify(authRepository).deleteCustomerAddress(addressId)
+        Mockito.verify(repository).deleteCustomerAddress(addressId)
     }
 }

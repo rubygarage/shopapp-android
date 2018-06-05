@@ -58,7 +58,7 @@ class ChangePasswordActivity :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent().inject(this)
+        ShopApplication.appComponent.attachAccountComponent().inject(this)
     }
 
     override fun getContentView() = R.layout.activity_change_password
@@ -89,7 +89,8 @@ class ChangePasswordActivity :
     }
 
     private fun checkInputFields() {
-        updateButton.isEnabled = passwordConfirmInput.text.isNotBlank() && passwordInput.text.isNotBlank()
+        updateButton.isEnabled = passwordConfirmInput.text.isNotBlank() &&
+                passwordInput.text.isNotBlank()
     }
 
     //LCE
@@ -123,6 +124,9 @@ class ChangePasswordActivity :
 
     override fun onClick(v: View?) {
         clearFormFocus()
-        presenter.changePassword(passwordInput.text.toString(), passwordConfirmInput.text.toString())
+        presenter.changePassword(
+            passwordInput.text.toString(),
+            passwordConfirmInput.text.toString()
+        )
     }
 }

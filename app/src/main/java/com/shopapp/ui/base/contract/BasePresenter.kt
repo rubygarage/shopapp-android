@@ -1,8 +1,8 @@
 package com.shopapp.ui.base.contract
 
-import com.shopapp.domain.interactor.base.UseCase
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView
+import com.shopapp.domain.interactor.base.UseCase
 
 open class BasePresenter<V : MvpView>(vararg useCases: UseCase) : MvpBasePresenter<V>() {
 

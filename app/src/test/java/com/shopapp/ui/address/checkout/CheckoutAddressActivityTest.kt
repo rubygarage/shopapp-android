@@ -29,7 +29,8 @@ class CheckoutAddressActivityTest {
         context = RuntimeEnvironment.application.baseContext
         address = MockInstantiator.newAddress()
         val intent = CheckoutAddressActivity.getStartIntent(context, address, true)
-        activity = Robolectric.buildActivity(CheckoutAddressActivity::class.java, intent).create().get()
+        activity = Robolectric.buildActivity(CheckoutAddressActivity::class.java, intent).create()
+            .get()
     }
 
     @Test

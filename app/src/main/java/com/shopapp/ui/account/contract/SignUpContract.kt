@@ -23,7 +23,13 @@ class SignUpPresenter @Inject constructor(
 ) :
     BaseLcePresenter<Unit, SignUpView>(signUpUseCase) {
 
-    fun signUp(firstName: String, lastName: String, email: String, password: String, phone: String) {
+    fun signUp(
+        firstName: String,
+        lastName: String,
+        email: String,
+        password: String,
+        phone: String
+    ) {
 
         var isError = false
         if (!fieldValidator.isEmailValid(email)) {

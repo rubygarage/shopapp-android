@@ -24,9 +24,10 @@ data class ProductOption(var id: String,
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<ProductOption> = object : Parcelable.Creator<ProductOption> {
-            override fun createFromParcel(source: Parcel): ProductOption = ProductOption(source)
-            override fun newArray(size: Int): Array<ProductOption?> = arrayOfNulls(size)
-        }
+        val CREATOR: Parcelable.Creator<ProductOption> =
+            object : Parcelable.Creator<ProductOption> {
+                override fun createFromParcel(source: Parcel): ProductOption = ProductOption(source)
+                override fun newArray(size: Int): Array<ProductOption?> = arrayOfNulls(size)
+            }
     }
 }

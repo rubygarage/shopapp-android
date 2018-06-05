@@ -2,8 +2,8 @@ package com.shopapp.ui.product.adapter
 
 import android.content.Context
 import android.view.View
-import com.shopapp.gateway.entity.Product
 import com.shopapp.domain.formatter.NumberFormatter
+import com.shopapp.gateway.entity.Product
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.shopapp.ui.item.ProductItem

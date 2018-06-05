@@ -44,7 +44,10 @@ class DateBottomSheetPickerTest {
         fragment = DateBottomSheetPicker.newInstance(DateBottomSheetPicker.DATE_TYPE_YEAR)
         fragment.show(fragmentManager, "", "")
 
-        assertEquals(MAX_AVAILABLE_YEARS_COUNT + currentYear, fragment.recyclerView.adapter.itemCount)
+        assertEquals(
+            MAX_AVAILABLE_YEARS_COUNT + currentYear,
+            fragment.recyclerView.adapter.itemCount
+        )
     }
 
 }

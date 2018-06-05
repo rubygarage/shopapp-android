@@ -34,8 +34,15 @@ class OrderItemTest {
         val order = MockInstantiator.newOrder()
         itemView.setOrder(order)
         assertEquals(order.orderProducts.size.toString(), itemView.itemsCountValueTextView.text)
-        assertEquals(context.resources.getString(R.string.total_price_pattern,
-            numberFormatter.formatPrice(order.totalPrice, order.currency)), itemView.totalPriceTextView.text)
-        assertEquals(order.orderProducts.size, itemView.productVariantsRecyclerView.adapter.itemCount)
+        assertEquals(
+            context.resources.getString(
+                R.string.total_price_pattern,
+                numberFormatter.formatPrice(order.totalPrice, order.currency)
+            ), itemView.totalPriceTextView.text
+        )
+        assertEquals(
+            order.orderProducts.size,
+            itemView.productVariantsRecyclerView.adapter.itemCount
+        )
     }
 }

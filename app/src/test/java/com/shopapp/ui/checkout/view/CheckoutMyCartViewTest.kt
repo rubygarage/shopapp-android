@@ -49,10 +49,14 @@ class CheckoutMyCartViewTest {
 
         val startedIntent = Shadows.shadowOf(application).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
-        assertEquals(productVariantMock.productId,
-            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID))
-        assertEquals(productVariantMock,
-            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT))
+        assertEquals(
+            productVariantMock.productId,
+            startedIntent.extras.getString(ProductDetailsActivity.EXTRA_PRODUCT_ID)
+        )
+        assertEquals(
+            productVariantMock,
+            startedIntent.extras.getParcelable(ProductDetailsActivity.EXTRA_PRODUCT_VARIANT)
+        )
         assertEquals(ProductDetailsActivity::class.java, shadowIntent.intentClass)
     }
 

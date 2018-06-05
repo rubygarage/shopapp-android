@@ -6,8 +6,8 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
+import com.shopapp.gateway.entity.Address
 import com.shopapp.ui.address.base.adapter.AddressListAdapter
 import kotlinx.android.synthetic.main.item_address.view.*
 

@@ -72,7 +72,15 @@ class ProductHorizontalFragment :
             else -> ""
         }
         titleText.text = title
-        seeAll.setOnClickListener { router.showProductList(context, title, sortType, keyword, excludeKeyword) }
+        seeAll.setOnClickListener {
+            router.showProductList(
+                context,
+                title,
+                sortType,
+                keyword,
+                excludeKeyword
+            )
+        }
         changeSeeAllState()
         setupRecycler()
         loadData(true)

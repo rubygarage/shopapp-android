@@ -18,7 +18,8 @@ class UpperCaseHintTextInputLayoutTest {
 
     @Before
     fun setUpTest() {
-        val contextWrapper = ContextThemeWrapper(RuntimeEnvironment.application.baseContext, R.style.AppTheme)
+        val contextWrapper =
+            ContextThemeWrapper(RuntimeEnvironment.application.baseContext, R.style.AppTheme)
         view = UpperCaseHintTextInputLayout(contextWrapper)
     }
 

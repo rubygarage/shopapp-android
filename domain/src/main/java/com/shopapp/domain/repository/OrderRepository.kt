@@ -5,9 +5,7 @@ import io.reactivex.Single
 
 interface OrderRepository {
 
-    fun getOrderList(perPage: Int, paginationValue: Any?): Single<List<Order>>
-
+    fun getOrders(perPage: Int, paginationValue: Any?): Single<List<Order>>
 
     fun getOrder(orderId: String): Single<Order>
-
 }

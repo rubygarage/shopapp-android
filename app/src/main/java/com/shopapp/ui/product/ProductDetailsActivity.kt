@@ -135,8 +135,10 @@ class ProductDetailsActivity :
             selectedProductVariant?.let {
                 val variant = it
                 product?.let {
-                    presenter.addProductToCart(variant, it.title,
-                        it.currency, quantityEditText.text.toString())
+                    presenter.addProductToCart(
+                        variant, it.title,
+                        it.currency, quantityEditText.text.toString()
+                    )
                 }
             }
         }
@@ -184,13 +186,15 @@ class ProductDetailsActivity :
         galleryFragment?.updateProduct(data)
         optionsContainer.setProduct(data, intent.getParcelableExtra(EXTRA_PRODUCT_VARIANT))
 
-        val relatedFragment = ProductHorizontalFragment.newInstance(SortType.TYPE, data.type, data.title)
-        relatedFragment.visibilityListener = object : FragmentVisibilityListener {
+        val relatedFragment =
+            ProductShortcutFragment.newInstance(SortType.TYPE, data.type, data.title)
+        relatedFragment.fragmentVisibilityListener = object : FragmentVisibilityListener {
             override fun changeVisibility(isVisible: Boolean) {
                 relatedContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
             }
         }
-        supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.relatedContainer, relatedFragment)
+            .commit()
     }
 
     override fun productAddedToCart() {
@@ -204,7 +208,8 @@ class ProductDetailsActivity :
         priceValue.isEnabled = isEnabled
         cartButton.isEnabled = isEnabled
         if (isEnabled) {
-            priceValue.text = product?.let { formatter.formatPrice(productVariant!!.price, it.currency) }
+            priceValue.text =
+                    product?.let { formatter.formatPrice(productVariant!!.price, it.currency) }
             selectedProductVariant = productVariant
         } else {
             priceValue.setText(R.string.n_a_placeholder)

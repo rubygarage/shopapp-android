@@ -93,7 +93,7 @@ class AccountFragment :
     //INIT
 
     override fun inject() {
-        ShopApplication.appComponent.attachAuthComponent().inject(this)
+        ShopApplication.appComponent.attachAccountComponent().inject(this)
     }
 
     override fun getRootView() = R.layout.fragment_account_lce
@@ -109,7 +109,12 @@ class AccountFragment :
             router.showSignInForResult(this, RequestCode.SIGN_IN)
         }
         createAccount.setOnClickListener {
-            router.showSignUpForResult(this, shop?.privacyPolicy, shop?.termsOfService, RequestCode.SIGN_UP)
+            router.showSignUpForResult(
+                this,
+                shop?.privacyPolicy,
+                shop?.termsOfService,
+                RequestCode.SIGN_UP
+            )
         }
         myOrders.setOnClickListener {
             router.showOrderList(context)
@@ -172,7 +177,11 @@ class AccountFragment :
             authGroup.visibility = View.VISIBLE
             unauthGroup.visibility = View.GONE
             if (customer.firstName.isNotBlank() || customer.lastName.isNotBlank()) {
-                val fullName = getString(R.string.full_name_pattern, customer.firstName, customer.lastName).trim()
+                val fullName = getString(
+                    R.string.full_name_pattern,
+                    customer.firstName,
+                    customer.lastName
+                ).trim()
                 name.text = fullName
                 avatarView.setName(fullName)
             } else {

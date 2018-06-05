@@ -9,6 +9,6 @@ import io.reactivex.Single
 class ShopRepositoryImpl(private val api: Api) : ShopRepository {
 
     override fun getShop(): Single<Shop> {
-        return Single.create<Shop> { api.getShopInfo(RxCallbackSingle<Shop>(it)) }
+        return Single.create<Shop> { api.getShop(RxCallbackSingle<Shop>(it)) }
     }
 }

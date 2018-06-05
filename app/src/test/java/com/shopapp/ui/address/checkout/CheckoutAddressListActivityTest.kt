@@ -63,20 +63,29 @@ class CheckoutAddressListActivityTest {
     @Test
     fun shouldSetBillingTitle() {
         activity = getBillingModeActivity()
-        assertEquals(context.getString(R.string.billing_address), activity.toolbar.toolbarTitle.text)
+        assertEquals(
+            context.getString(R.string.billing_address),
+            activity.toolbar.toolbarTitle.text
+        )
     }
 
     @Test
     fun shouldSetSippingTitle() {
         activity = getShippingModeActivity()
-        assertEquals(context.getString(R.string.shipping_address), activity.toolbar.toolbarTitle.text)
+        assertEquals(
+            context.getString(R.string.shipping_address),
+            activity.toolbar.toolbarTitle.text
+        )
     }
 
     @Test
     fun shouldStartCheckoutAddressActivity() {
         activity = getBillingModeActivity()
         activity.onClick(null)
-        verify(activity.router).showCheckoutAddressForResult(activity, RequestCode.ADD_SHIPPING_ADDRESS)
+        verify(activity.router).showCheckoutAddressForResult(
+            activity,
+            RequestCode.ADD_SHIPPING_ADDRESS
+        )
     }
 
     @Test
@@ -128,7 +137,10 @@ class CheckoutAddressListActivityTest {
         val shadowAlertDialog = shadowOf(dialog)
 
         assertEquals(context.getString(R.string.delete_address_message), shadowAlertDialog.message)
-        assertEquals(context.getString(R.string.delete), dialog.getButton(AlertDialog.BUTTON_POSITIVE).text.toString())
+        assertEquals(
+            context.getString(R.string.delete),
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).text.toString()
+        )
     }
 
     @Test
@@ -193,7 +205,10 @@ class CheckoutAddressListActivityTest {
         val shadowAlertDialog = shadowOf(dialog)
 
         assertEquals(context.getString(R.string.edit_address_message), shadowAlertDialog.message)
-        assertEquals(context.getString(R.string.edit), dialog.getButton(AlertDialog.BUTTON_POSITIVE).text.toString())
+        assertEquals(
+            context.getString(R.string.edit),
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).text.toString()
+        )
     }
 
     @Test
@@ -205,7 +220,12 @@ class CheckoutAddressListActivityTest {
         assertNull(ShadowAlertDialog.getLatestAlertDialog())
 
 
-        verify(activity.router).showCheckoutAddressForResult(activity, RequestCode.EDIT_SHIPPING_ADDRESS, address, false)
+        verify(activity.router).showCheckoutAddressForResult(
+            activity,
+            RequestCode.EDIT_SHIPPING_ADDRESS,
+            address,
+            false
+        )
     }
 
     @Test
@@ -219,7 +239,12 @@ class CheckoutAddressListActivityTest {
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).performClick()
 
-        verify(activity.router).showCheckoutAddressForResult(activity, RequestCode.EDIT_SHIPPING_ADDRESS, shippingAddress, true)
+        verify(activity.router).showCheckoutAddressForResult(
+            activity,
+            RequestCode.EDIT_SHIPPING_ADDRESS,
+            shippingAddress,
+            true
+        )
     }
 
     @Test
@@ -316,25 +341,31 @@ class CheckoutAddressListActivityTest {
     }
 
     private fun getShippingModeActivity(): CheckoutAddressListActivity {
-        val intent = CheckoutAddressListActivity.getStartIntent(context,
+        val intent = CheckoutAddressListActivity.getStartIntent(
+            context,
             MockInstantiator.DEFAULT_ID,
             shippingAddress,
             true,
             shippingAddress,
-            billingAddress)
+            billingAddress
+        )
 
-        return Robolectric.buildActivity(CheckoutAddressListActivity::class.java, intent).create().start().resume().visible().get()
+        return Robolectric.buildActivity(CheckoutAddressListActivity::class.java, intent).create()
+            .start().resume().visible().get()
     }
 
     private fun getBillingModeActivity(): CheckoutAddressListActivity {
-        val intent = CheckoutAddressListActivity.getStartIntent(context,
+        val intent = CheckoutAddressListActivity.getStartIntent(
+            context,
             MockInstantiator.DEFAULT_ID,
             shippingAddress,
             false,
             shippingAddress,
-            billingAddress)
+            billingAddress
+        )
 
-        return Robolectric.buildActivity(CheckoutAddressListActivity::class.java, intent).create().start().resume().visible().get()
+        return Robolectric.buildActivity(CheckoutAddressListActivity::class.java, intent).create()
+            .start().resume().visible().get()
     }
 
 }

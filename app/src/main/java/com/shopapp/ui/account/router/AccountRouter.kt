@@ -45,9 +45,20 @@ class AccountRouter {
         }
     }
 
-    fun showSignUpForResult(fragment: Fragment, privacyPolicy: Policy?, termsOfService: Policy?, requestCode: Int) {
+    fun showSignUpForResult(
+        fragment: Fragment,
+        privacyPolicy: Policy?,
+        termsOfService: Policy?,
+        requestCode: Int
+    ) {
         fragment.context?.let {
-            fragment.startActivityForResult(SignUpActivity.getStartIntent(it, privacyPolicy, termsOfService), requestCode)
+            fragment.startActivityForResult(
+                SignUpActivity.getStartIntent(
+                    it,
+                    privacyPolicy,
+                    termsOfService
+                ), requestCode
+            )
         }
     }
 

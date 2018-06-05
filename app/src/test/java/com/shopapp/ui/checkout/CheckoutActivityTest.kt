@@ -96,8 +96,10 @@ class CheckoutActivityTest {
         activity.showContent(checkout)
         val address = checkout.address
 
-        verify(activity.presenter).verifyCheckoutData(eq(checkout), eq(address), anyOrNull(),
-            anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter).verifyCheckoutData(
+            eq(checkout), eq(address), anyOrNull(),
+            anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()
+        )
     }
 
     @Test
@@ -170,8 +172,10 @@ class CheckoutActivityTest {
     fun shouldVerifyCheckoutWhenEmailChanged() {
         activity.onEmailChanged()
 
-        verify(activity.presenter).verifyCheckoutData(anyOrNull(), anyOrNull(), anyOrNull(),
-            anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter).verifyCheckoutData(
+            anyOrNull(), anyOrNull(), anyOrNull(),
+            anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull()
+        )
     }
 
     @Test
@@ -298,7 +302,12 @@ class CheckoutActivityTest {
         activity.paymentView.setPaymentType(PaymentType.CARD_PAYMENT)
         activity.failureView.tryAgainCheckoutButton.performClick()
 
-        verify(activity.presenter).completeCheckoutByCard(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter).completeCheckoutByCard(
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
     }
 
     @Test
@@ -306,7 +315,12 @@ class CheckoutActivityTest {
         activity.paymentView.setPaymentType(PaymentType.CARD_PAYMENT)
         activity.placeOrderButton.performClick()
 
-        verify(activity.presenter).completeCheckoutByCard(anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter).completeCheckoutByCard(
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
     }
 
     @Test
@@ -317,7 +331,11 @@ class CheckoutActivityTest {
 
         activity.showContent(checkout)
         activity.startActivityForResult(
-            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            CheckoutUnAuthAddressActivity.getStartIntent(
+                context,
+                checkout.checkoutId,
+                isShipping = true
+            ),
             RequestCode.ADD_SHIPPING_ADDRESS
         )
 
@@ -325,7 +343,15 @@ class CheckoutActivityTest {
         shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
 
         verify(activity.presenter, times(1)).getCheckoutData()
-        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(any(), any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(
+            any(),
+            any(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
     }
 
     @Test
@@ -336,7 +362,11 @@ class CheckoutActivityTest {
 
         activity.showContent(checkout)
         activity.startActivityForResult(
-            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            CheckoutUnAuthAddressActivity.getStartIntent(
+                context,
+                checkout.checkoutId,
+                isShipping = true
+            ),
             RequestCode.ADD_SHIPPING_ADDRESS
         )
 
@@ -344,7 +374,15 @@ class CheckoutActivityTest {
         shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
 
         verify(activity.presenter).getCheckoutData()
-        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(any(), any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(
+            any(),
+            any(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
     }
 
     @Test
@@ -355,7 +393,11 @@ class CheckoutActivityTest {
 
         activity.showContent(checkout)
         activity.startActivityForResult(
-            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            CheckoutUnAuthAddressActivity.getStartIntent(
+                context,
+                checkout.checkoutId,
+                isShipping = true
+            ),
             RequestCode.EDIT_SHIPPING_ADDRESS
         )
 
@@ -363,7 +405,15 @@ class CheckoutActivityTest {
         shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
 
         verify(activity.presenter).getCheckoutData()
-        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(any(), any(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull(), anyOrNull())
+        verify(activity.presenter, atLeastOnce()).verifyCheckoutData(
+            any(),
+            any(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull(),
+            anyOrNull()
+        )
     }
 
     @Test
@@ -445,7 +495,10 @@ class CheckoutActivityTest {
         dataIntent.putExtra(Extra.CARD, card)
         dataIntent.putExtra(Extra.CARD_TOKEN, cardToken)
 
-        activity.startActivityForResult(CardActivity.getStartIntent(context, card), RequestCode.CARD)
+        activity.startActivityForResult(
+            CardActivity.getStartIntent(context, card),
+            RequestCode.CARD
+        )
 
         val requestIntent = shadowActivity.nextStartedActivityForResult
         shadowActivity.receiveResult(requestIntent.intent, Activity.RESULT_OK, dataIntent)
@@ -461,7 +514,11 @@ class CheckoutActivityTest {
 
         activity.showContent(checkout)
         activity.startActivityForResult(
-            CheckoutUnAuthAddressActivity.getStartIntent(context, checkout.checkoutId, isShipping = true),
+            CheckoutUnAuthAddressActivity.getStartIntent(
+                context,
+                checkout.checkoutId,
+                isShipping = true
+            ),
             RequestCode.ADD_SHIPPING_ADDRESS
         )
 
@@ -479,7 +536,14 @@ class CheckoutActivityTest {
         activity.paymentView.setAddressData(address)
 
         activity.startActivityForResult(
-            CheckoutAddressListActivity.getStartIntent(context, checkout.checkoutId, null, false, null, null),
+            CheckoutAddressListActivity.getStartIntent(
+                context,
+                checkout.checkoutId,
+                null,
+                false,
+                null,
+                null
+            ),
             RequestCode.EDIT_BILLING_ADDRESS
         )
 
@@ -499,7 +563,14 @@ class CheckoutActivityTest {
         activity.shippingAddressView.setAddress(address)
 
         activity.startActivityForResult(
-            CheckoutAddressListActivity.getStartIntent(context, checkout.checkoutId, null, true, address, null),
+            CheckoutAddressListActivity.getStartIntent(
+                context,
+                checkout.checkoutId,
+                null,
+                true,
+                address,
+                null
+            ),
             RequestCode.EDIT_SHIPPING_ADDRESS
         )
 
@@ -510,6 +581,9 @@ class CheckoutActivityTest {
         assertEquals(null, activity.shippingAddressView.getAddress())
         val messageView = activity.shippingOptionsView.findViewById<TextView>(R.id.message)
         assertEquals(View.VISIBLE, messageView.visibility)
-        assertEquals(context.resources.getString(R.string.please_add_shipping_address_first), messageView.text.toString())
+        assertEquals(
+            context.resources.getString(R.string.please_add_shipping_address_first),
+            messageView.text.toString()
+        )
     }
 }

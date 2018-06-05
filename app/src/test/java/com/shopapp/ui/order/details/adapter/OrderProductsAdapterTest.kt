@@ -4,9 +4,9 @@ import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.OrderProduct
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.OrderProductItem
-import com.shopapp.test.MockInstantiator
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before

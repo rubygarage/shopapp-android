@@ -43,8 +43,10 @@ abstract class BottomSheetPickerAdapter<T> :
         return index
     }
 
-    class ItemViewHolder(itemView: View,
-                         private val clickListener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewHolder(
+        itemView: View,
+        private val clickListener: OnItemClickListener
+    ) : RecyclerView.ViewHolder(itemView) {
 
         fun bindData(data: String, selectedItemData: String?) {
             if (itemView is BottomSheetPickerItem) {

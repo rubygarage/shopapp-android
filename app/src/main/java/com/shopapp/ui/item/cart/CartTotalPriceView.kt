@@ -27,7 +27,11 @@ class CartTotalPriceView @JvmOverloads constructor(
             .map { it.quantity.toBigDecimal() * it.productVariant.price }
             .sum()
 
-        orderTotalLabel.text = context.resources.getQuantityString(R.plurals.order_total_plurals, data.size, data.size)
+        orderTotalLabel.text = context.resources.getQuantityString(
+            R.plurals.order_total_plurals,
+            data.size,
+            data.size
+        )
         orderTotalValue.text = formatter.formatPrice(totalPrice, currency)
     }
 }

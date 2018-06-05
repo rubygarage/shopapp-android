@@ -1,14 +1,14 @@
 package com.shopapp.domain.interactor.account
 
 import com.shopapp.domain.interactor.base.CompletableUseCase
-import com.shopapp.domain.repository.AuthRepository
+import com.shopapp.domain.repository.CustomerRepository
 import io.reactivex.Completable
 import javax.inject.Inject
 
-class SetDefaultAddressUseCase @Inject constructor(private val authRepository: AuthRepository) :
-    CompletableUseCase<String>() {
+class SetDefaultAddressUseCase @Inject constructor(private val repository: CustomerRepository) :
+        CompletableUseCase<String>() {
 
     override fun buildUseCaseCompletable(params: String): Completable {
-        return authRepository.setDefaultShippingAddress(params)
+        return repository.setDefaultShippingAddress(params)
     }
 }

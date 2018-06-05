@@ -8,7 +8,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager
 
 abstract class EndlessRecyclerViewScrollListener(
     private val layoutManager: RecyclerView.LayoutManager,
-    private var withHeader: Boolean = false) : RecyclerView.OnScrollListener() {
+    private var withHeader: Boolean = false
+) : RecyclerView.OnScrollListener() {
 
     private var visibleThreshold = 5
     private var currentPage = 0
@@ -44,8 +45,10 @@ abstract class EndlessRecyclerViewScrollListener(
                 val lastVisibleItemPositions = layoutManager.findLastVisibleItemPositions(null)
                 lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions)
             }
-            is GridLayoutManager -> lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-            is LinearLayoutManager -> lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+            is GridLayoutManager -> lastVisibleItemPosition =
+                    layoutManager.findLastVisibleItemPosition()
+            is LinearLayoutManager -> lastVisibleItemPosition =
+                    layoutManager.findLastVisibleItemPosition()
         }
 
         if (itemsWithoutHeaderTotalCount < previousTotalItemCount) {

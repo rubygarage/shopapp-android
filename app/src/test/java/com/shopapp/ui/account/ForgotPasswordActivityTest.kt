@@ -31,7 +31,10 @@ class ForgotPasswordActivityTest {
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
-        activity = Robolectric.buildActivity(ForgotPasswordActivity::class.java, ForgotPasswordActivity.getStartIntent(context))
+        activity = Robolectric.buildActivity(
+            ForgotPasswordActivity::class.java,
+            ForgotPasswordActivity.getStartIntent(context)
+        )
             .create()
             .resume()
             .get()
@@ -40,7 +43,10 @@ class ForgotPasswordActivityTest {
 
     @Test
     fun shouldSetTitleOnCreate() {
-        assertEquals(context.getString(R.string.forgot_password), activity.toolbar.toolbarTitle.text)
+        assertEquals(
+            context.getString(R.string.forgot_password),
+            activity.toolbar.toolbarTitle.text
+        )
     }
 
     @Test
@@ -115,7 +121,10 @@ class ForgotPasswordActivityTest {
     @Test
     fun shouldSetErrorToInputLayoutOnEmailError() {
         activity.showEmailValidError()
-        assertEquals(context.getString(R.string.invalid_email_error_message), activity.emailInputLayout.error)
+        assertEquals(
+            context.getString(R.string.invalid_email_error_message),
+            activity.emailInputLayout.error
+        )
     }
 
     @Test
@@ -126,7 +135,10 @@ class ForgotPasswordActivityTest {
     @Test
     fun shouldRemoveTextWatcherWhenOnPause() {
         context = RuntimeEnvironment.application.baseContext
-        val activity = Robolectric.buildActivity(ForgotPasswordActivity::class.java, ForgotPasswordActivity.getStartIntent(context))
+        val activity = Robolectric.buildActivity(
+            ForgotPasswordActivity::class.java,
+            ForgotPasswordActivity.getStartIntent(context)
+        )
             .create()
             .resume()
             .pause()

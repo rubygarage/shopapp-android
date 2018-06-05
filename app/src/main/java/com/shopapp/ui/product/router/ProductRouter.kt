@@ -11,8 +11,20 @@ class ProductRouter {
         context?.let { it.startActivity(ProductDetailsActivity.getStartIntent(it, id)) }
     }
 
-    fun showProductList(context: Context?, title: String, sortType: SortType = SortType.NAME,
-                        keyword: String? = null, excludeKeyword: String? = null) {
-        context?.let { it.startActivity(ProductListActivity.getStartIntent(it, title, sortType, keyword, excludeKeyword)) }
+    fun showProductList(
+        context: Context?, title: String, sortType: SortType = SortType.NAME,
+        keyword: String? = null, excludeKeyword: String? = null
+    ) {
+        context?.let {
+            it.startActivity(
+                ProductListActivity.getStartIntent(
+                    it,
+                    title,
+                    sortType,
+                    keyword,
+                    excludeKeyword
+                )
+            )
+        }
     }
 }

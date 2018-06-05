@@ -44,7 +44,10 @@ class GalleryRouterTest {
         val startedIntent = Shadows.shadowOf(fragment.activity).nextStartedActivity
         val shadowIntent = Shadows.shadowOf(startedIntent)
         assertEquals(product, startedIntent.extras.getParcelable(GalleryActivity.EXTRA_PRODUCT))
-        assertEquals(fragment.pager.currentItem, startedIntent.extras.getInt(GalleryActivity.EXTRA_SELECTED_POSITION))
+        assertEquals(
+            fragment.pager.currentItem,
+            startedIntent.extras.getInt(GalleryActivity.EXTRA_SELECTED_POSITION)
+        )
         assertEquals(GalleryActivity::class.java, shadowIntent.intentClass)
     }
 }

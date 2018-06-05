@@ -42,13 +42,19 @@ class CategoryRepositoryTest {
     @Test
     fun getCategoryShouldDelegateCallToApi() {
         repository.getCategory(categoryId, perPage, paginationValue, SortType.NAME).subscribe()
-        verify(api).getCategoryDetails(eq(categoryId), eq(perPage), eq(paginationValue), eq(SortType.NAME), any())
+        verify(api).getCategory(
+            eq(categoryId),
+            eq(perPage),
+            eq(paginationValue),
+            eq(SortType.NAME),
+            any()
+        )
     }
 
     @Test
     fun getCategoryShouldReturnValueWhenOnResult() {
         val category: Category = mock()
-        given(api.getCategoryDetails(any(), any(), any(), any(), any())).willAnswer({
+        given(api.getCategory(any(), any(), any(), any(), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<Category>>(4)
             callback.onResult(category)
         })
@@ -60,7 +66,7 @@ class CategoryRepositoryTest {
     @Test
     fun getCategoryShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getCategoryDetails(any(), any(), any(), any(), any())).will {
+        given(api.getCategory(any(), any(), any(), any(), any())).will {
             val callback = it.getArgument<ApiCallback<Category>>(4)
             callback.onFailure(error)
         }
@@ -71,33 +77,33 @@ class CategoryRepositoryTest {
     }
 
     @Test
-    fun getCategoryListShouldDelegateCallToApi() {
-        repository.getCategoryList(perPage, paginationValue).test()
-        verify(api).getCategoryList(eq(perPage), eq(paginationValue), any())
+    fun getCategoriesShouldDelegateCallToApi() {
+        repository.getCategories(perPage, paginationValue).test()
+        verify(api).getCategories(eq(perPage), eq(paginationValue), any())
     }
 
     @Test
-    fun getCategoryListShouldReturnValueWhenOnResult() {
+    fun getCategoriesShouldReturnValueWhenOnResult() {
         val categoryList: List<Category> = mock()
-        given(api.getCategoryList(any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Category>>>(2)
+        given(api.getCategories(any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Category>>>(3)
             callback.onResult(categoryList)
         })
 
-        repository.getCategoryList(perPage, paginationValue)
+        repository.getCategories(perPage, paginationValue)
             .test()
             .assertValue(categoryList)
     }
 
     @Test
-    fun getCategoryListShouldReturnErrorOnFailure() {
+    fun getCategoriesShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getCategoryList(any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Category>>>(2)
+        given(api.getCategories(any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Category>>>(3)
             callback.onFailure(error)
         })
 
-        repository.getCategoryList(perPage, paginationValue)
+        repository.getCategories(perPage, paginationValue)
             .test()
             .assertError(error)
     }

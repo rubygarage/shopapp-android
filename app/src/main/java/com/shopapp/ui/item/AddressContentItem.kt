@@ -5,8 +5,8 @@ import android.support.v7.widget.LinearLayoutCompat
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
-import com.shopapp.gateway.entity.Address
 import com.shopapp.R
+import com.shopapp.gateway.entity.Address
 import kotlinx.android.synthetic.main.item_address_content.view.*
 
 class AddressContentItem @JvmOverloads constructor(
@@ -22,7 +22,8 @@ class AddressContentItem @JvmOverloads constructor(
     }
 
     fun setAddress(address: Address) {
-        name.text = context.getString(R.string.full_name_pattern, address.firstName, address.lastName)
+        name.text =
+                context.getString(R.string.full_name_pattern, address.firstName, address.lastName)
         addressText.text = ""
         appendAddress(address.address)
         appendAddress(address.secondAddress)

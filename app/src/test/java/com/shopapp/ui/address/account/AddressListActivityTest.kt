@@ -8,13 +8,12 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
 import com.shopapp.test.MockInstantiator
-import com.shopapp.ui.address.base.BaseAddressActivity
-import com.shopapp.ui.const.Extra
 import com.shopapp.ui.const.RequestCode
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -39,7 +38,10 @@ class AddressListActivityTest {
 
     @Test
     fun shouldSetCorrectTitle() {
-        assertEquals(context.getString(R.string.shipping_address), activity.toolbar.toolbarTitle.text)
+        assertEquals(
+            context.getString(R.string.shipping_address),
+            activity.toolbar.toolbarTitle.text
+        )
     }
 
     @Test
@@ -51,14 +53,22 @@ class AddressListActivityTest {
     fun shouldStartAddressActivityWhenEditButtonClicked() {
         val address = MockInstantiator.newAddress()
         activity.onEditButtonClicked(address)
-        verify(activity.router).showAddressForResult(activity,  RequestCode.EDIT_SHIPPING_ADDRESS, address)
+        verify(activity.router).showAddressForResult(
+            activity,
+            RequestCode.EDIT_SHIPPING_ADDRESS,
+            address
+        )
 
     }
 
     @Test
     fun shouldStartAddressActivityWhenHeaderButtonClicked() {
         activity.onClick(null)
-        verify(activity.router).showAddressForResult(activity,  RequestCode.ADD_SHIPPING_ADDRESS, null)
+        verify(activity.router).showAddressForResult(
+            activity,
+            RequestCode.ADD_SHIPPING_ADDRESS,
+            null
+        )
     }
 
     @Test

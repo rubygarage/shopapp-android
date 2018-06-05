@@ -52,7 +52,11 @@ class AddressListPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = AddressListPresenter(getCustomerUseCase, deleteCustomerAddressUseCase, setDefaultAddressUseCase)
+        presenter = AddressListPresenter(
+            getCustomerUseCase,
+            deleteCustomerAddressUseCase,
+            setDefaultAddressUseCase
+        )
         presenter.attachView(view)
 
         getCustomerUseCase.mock()

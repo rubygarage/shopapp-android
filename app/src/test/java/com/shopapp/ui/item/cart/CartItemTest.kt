@@ -49,20 +49,28 @@ class CartItemTest {
     @Test
     fun shouldSetTitle() {
         view.setCartProduct(product)
-        val expected = context.resources.getString(R.string.cart_product_title, MockInstantiator.DEFAULT_TITLE, MockInstantiator.DEFAULT_TITLE)
+        val expected = context.resources.getString(
+            R.string.cart_product_title,
+            MockInstantiator.DEFAULT_TITLE,
+            MockInstantiator.DEFAULT_TITLE
+        )
         assertEquals(expected, view.titleText.text.toString())
     }
 
     @Test
     fun shouldSetQuantity() {
         view.setCartProduct(product)
-        assertEquals(MockInstantiator.DEFAULT_QUANTITY.toString(), view.quantityView.text.toString())
+        assertEquals(
+            MockInstantiator.DEFAULT_QUANTITY.toString(),
+            view.quantityView.text.toString()
+        )
     }
 
     @Test
     fun shouldSetPrice() {
         view.setCartProduct(product)
-        val expectedPrice = MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
+        val expectedPrice =
+            MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
         val expected = expectedPrice.toString() + MockInstantiator.DEFAULT_CURRENCY
         assertEquals(expected, view.totalPrice.text.toString())
     }
@@ -70,7 +78,8 @@ class CartItemTest {
     @Test
     fun shouldChangePriceOnQuantityChanged() {
         view.setCartProduct(product)
-        val expectedPrice = MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
+        val expectedPrice =
+            MockInstantiator.DEFAULT_PRICE.toInt() * MockInstantiator.DEFAULT_QUANTITY
         val expected = expectedPrice.toString() + MockInstantiator.DEFAULT_CURRENCY
         assertEquals(expected, view.totalPrice.text.toString())
 
