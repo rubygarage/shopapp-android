@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class UpdatePasswordUseCase @Inject constructor(private val repository: CustomerRepository) :
-        CompletableUseCase<String>() {
+    CompletableUseCase<String>() {
 
     override fun buildUseCaseCompletable(params: String): Completable {
         return repository.updatePassword(params)

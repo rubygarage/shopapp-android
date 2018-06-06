@@ -22,6 +22,7 @@ import com.shopapp.magento.api.Constant.SKU_FIELD
 import com.shopapp.magento.api.Constant.TYPE_ID_FIELD
 import com.shopapp.magento.api.Constant.UNAUTHORIZED_ERROR
 import com.shopapp.magento.api.request.*
+import com.shopapp.magento.api.response.CustomerResponse
 import com.shopapp.magento.api.response.util.NetworkErrorParser
 import com.shopapp.magento.retrofit.RestClient
 import com.shopapp.magento.retrofit.service.CategoryService
@@ -47,7 +48,8 @@ class MagentoApi : Api {
         retrofit = RestClient.providesRetrofit(
             context,
             host + BASE_PATH,
-            StoreService.STORE_CONFIGS_URL
+            StoreService.STORE_CONFIGS_URL,
+            CustomerService.COUNTRIES_URL
         )
         preferences = SecurePreferences(context)
     }
@@ -157,7 +159,7 @@ class MagentoApi : Api {
             }
             .subscribe(
                 { callback.onResult(it) },
-                { it.printStackTrace() }
+                { callback.onFailure(handleError(it)) }
             )
     }
 
@@ -177,7 +179,6 @@ class MagentoApi : Api {
         perPage: Int, paginationValue: Any?, parentCategoryId: String?,
         callback: ApiCallback<List<Category>>
     ) {
-
         if (paginationValue == null) {
             categoryService.getCategoryList(parentCategoryId)
                 .map { it.mapToEntityList() }
@@ -229,7 +230,7 @@ class MagentoApi : Api {
             }
             .subscribe(
                 { callback.onResult(it) },
-                { it.printStackTrace() }
+                { callback.onFailure(handleError(it)) }
             )
     }
 
@@ -278,7 +279,6 @@ class MagentoApi : Api {
         callback.onResult(Unit)
     }
 
-
     override fun isSignedIn(callback: ApiCallback<Boolean>) {
         callback.onResult(getSession() != null)
     }
@@ -310,19 +310,12 @@ class MagentoApi : Api {
         firstName: String, lastName: String, phone: String,
         callback: ApiCallback<Customer>
     ) {
-
         sendTokenizedRequest({ token ->
             getCustomer(token).flatMap {
-                val editCustomerRequest = UpdateCustomerRequest.CustomerData(
-                    it.email,
-                    firstName,
-                    lastName,
-                    0,
-                    listOf()
-                )
-                customerService.updateCustomer(token, UpdateCustomerRequest(editCustomerRequest))
+                val customerRequest = CustomerRequest.CustomerData(it)
+                customerService.updateCustomer(token, CustomerRequest(customerRequest))
+                    .flatMap { processCustomerResponse(it) }
             }
-                .map { it.mapToEntity() }
                 .subscribe(
                     { callback.onResult(it) },
                     { callback.onFailure(handleError(it)) }
@@ -352,28 +345,89 @@ class MagentoApi : Api {
         }, callback)
     }
 
-    override fun addCustomerAddress(address: Address, callback: ApiCallback<String>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addCustomerAddress(address: Address, callback: ApiCallback<Unit>) {
+        sendTokenizedRequest({ token ->
+            getCustomer(token).map {
+                val addressList = it.addressList.toMutableList()
+                val defaultAddress = if (addressList.isEmpty()) address else it.defaultAddress
+                addressList.add(address)
+                it.copy(addressList = addressList, defaultAddress = defaultAddress)
+            }
+                .flatMap {
+                    val editCustomerRequest = CustomerRequest.CustomerData(it)
+                    customerService.updateCustomer(token, CustomerRequest(editCustomerRequest))
+                        .flatMap { processCustomerResponse(it) }
+                }
+                .subscribe(
+                    { callback.onResult(Unit) },
+                    { callback.onFailure(handleError(it)) }
+                )
+        }, callback)
     }
 
     override fun updateCustomerAddress(address: Address, callback: ApiCallback<Unit>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        sendTokenizedRequest({ token ->
+            getCustomer(token).flatMap {
+                val addressList = it.addressList.toMutableList()
+                val oldAddress = addressList.find { it.id == address.id }
+                val oldAddressIndex = addressList.indexOf(oldAddress)
+                if (oldAddressIndex >= 0) {
+                    addressList[oldAddressIndex] = address
+                }
+                val defaultAddress =
+                    if (it.defaultAddress?.id == address.id) address else it.defaultAddress
+                val updatedCustomer =
+                    it.copy(addressList = addressList, defaultAddress = defaultAddress)
+                customerService.updateCustomer(
+                    token,
+                    CustomerRequest(CustomerRequest.CustomerData(updatedCustomer))
+                )
+            }
+                .subscribe(
+                    { callback.onResult(Unit) },
+                    { callback.onFailure(handleError(it)) }
+                )
+        }, callback)
     }
 
     override fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        sendTokenizedRequest({ token ->
+            getCustomer(token).flatMap {
+                val addressList = it.addressList.toMutableList()
+                addressList.removeAll { it.id == addressId }
+                val updatedCustomer = it.copy(addressList = addressList)
+                customerService.updateCustomer(
+                    token,
+                    CustomerRequest(CustomerRequest.CustomerData(updatedCustomer))
+                )
+            }
+                .subscribe(
+                    { callback.onResult(Unit) },
+                    { callback.onFailure(handleError(it)) }
+                )
+        }, callback)
     }
 
-    // Payment
+    override fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>) {
+        sendTokenizedRequest({ token ->
+            getCustomer(token).flatMap {
+                val defaultAddress = it.addressList.find { it.id == addressId }
+                val updatedCustomer = it.copy(defaultAddress = defaultAddress)
+                customerService.updateCustomer(
+                    token,
+                    CustomerRequest(CustomerRequest.CustomerData(updatedCustomer))
+                )
+            }
+                .subscribe(
+                    { callback.onResult(Unit) },
+                    { callback.onFailure(handleError(it)) }
+                )
+        }, callback)
+    }
 
-    override fun createCheckout(
-        cartProductList: List<CartProduct>,
-        callback: ApiCallback<Checkout>
-    ) {
+    // Payments
+
+    override fun createCheckout(cartProducts: List<CartProduct>, callback: ApiCallback<Checkout>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -394,19 +448,15 @@ class MagentoApi : Api {
     }
 
     override fun setShippingRate(
-        checkoutId: String,
-        shippingRate: ShippingRate,
+        checkoutId: String, shippingRate: ShippingRate,
         callback: ApiCallback<Checkout>
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun completeCheckoutByCard(
-        checkout: Checkout,
-        email: String,
-        address: Address,
-        creditCardVaultToken: String,
-        callback: ApiCallback<Order>
+        checkout: Checkout, email: String, address: Address,
+        creditCardVaultToken: String, callback: ApiCallback<Order>
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -422,7 +472,12 @@ class MagentoApi : Api {
     // Countries
 
     override fun getCountries(callback: ApiCallback<List<Country>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        customerService.getCountries()
+            .map { it.mapToEntityList() }
+            .subscribe(
+                { callback.onResult(it) },
+                { callback.onFailure(handleError(it)) }
+            )
     }
 
     // Orders
@@ -460,7 +515,14 @@ class MagentoApi : Api {
     }
 
     private fun getCustomer(token: String) = customerService.getCustomer(token)
-        .map { it.mapToEntity() }
+        .flatMap { processCustomerResponse(it) }
+
+    private fun processCustomerResponse(customerResponse: CustomerResponse) =
+        customerService.getCountries()
+            .map {
+                val countries = it.mapToEntityList()
+                customerResponse.mapToEntity(countries)
+            }
 
     private fun getProductList(
         perPage: Int, paginationValue: Any?,
@@ -484,7 +546,7 @@ class MagentoApi : Api {
                     }
                     .subscribe(
                         { callback.onResult(it) },
-                        { it.printStackTrace() }
+                        { callback.onFailure(handleError(it)) }
                     )
             })
     }

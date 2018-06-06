@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_error.view.*
 import org.junit.After
-import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -77,7 +77,7 @@ class CategoryActivityTest {
         activity.sortLayout.performClick()
 
         val popup = Shadows.shadowOf(RuntimeEnvironment.application).latestPopupWindow
-        Assert.assertNotNull(popup)
+        assertNotNull(popup)
     }
 
     @Test

@@ -10,7 +10,7 @@ interface CustomerRepository {
 
     fun getCustomer(): Single<Customer?>
 
-    fun addCustomerAddress(address: Address): Single<String>
+    fun addCustomerAddress(address: Address): Completable
 
     fun updateCustomerAddress(address: Address): Completable
 

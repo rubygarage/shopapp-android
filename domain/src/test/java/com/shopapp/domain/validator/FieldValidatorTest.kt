@@ -4,6 +4,8 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.given
 import com.nhaarman.mockito_kotlin.mock
 import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
+import com.shopapp.gateway.entity.State
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -73,9 +75,25 @@ class FieldValidatorTest {
     }
 
     @Test
-    fun isAddressValidWithEmptyCountryShouldReturnFalse() {
+    fun isAddressValidWithEmptyCountryStatesAndNullStateShouldReturnTrue() {
         val address = prepareAddress()
-        given(address.country).willReturn("")
+        given(address.country.states).willReturn(listOf())
+        given(address.state).willReturn(null)
+        assertTrue(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithNullCountryStatesAndNullStateShouldReturnTrue() {
+        val address = prepareAddress()
+        given(address.country.states).willReturn(null)
+        given(address.state).willReturn(null)
+        assertTrue(fieldValidator.isAddressValid(address))
+    }
+
+    @Test
+    fun isAddressValidWithCountryStatesAndNullStateShouldReturnFalse() {
+        val address = prepareAddress()
+        given(address.state).willReturn(null)
         assertFalse(fieldValidator.isAddressValid(address))
     }
 
@@ -103,8 +121,6 @@ class FieldValidatorTest {
     @Test
     fun isAddressValidWithEmptyDataShouldReturnFalse() {
         val address = prepareAddress()
-        given(address.address).willReturn("")
-        given(address.country).willReturn("")
         given(address.firstName).willReturn("")
         given(address.lastName).willReturn("")
         given(address.zip).willReturn("")
@@ -112,15 +128,21 @@ class FieldValidatorTest {
     }
 
     private fun prepareAddress(): Address = mock {
-        on { address }.doReturn("address")
-        on { secondAddress }.doReturn("secondAddress")
-        on { city }.doReturn("city")
-        on { country }.doReturn("country")
-        on { state }.doReturn("state")
-        on { firstName }.doReturn("firstName")
-        on { lastName }.doReturn("lastName")
-        on { zip }.doReturn("zip")
-        on { phone }.doReturn("phone")
+
+        val stateMock: State = mock()
+        val countryMock: Country = mock {
+            on { states } doReturn (listOf(stateMock))
+        }
+
+        on { address } doReturn ("address")
+        on { secondAddress } doReturn ("secondAddress")
+        on { city } doReturn ("city")
+        on { country } doReturn (countryMock)
+        on { state } doReturn (stateMock)
+        on { firstName } doReturn ("firstName")
+        on { lastName } doReturn ("lastName")
+        on { zip } doReturn ("zip")
+        on { phone } doReturn ("phone")
     }
 
 }

@@ -77,7 +77,7 @@ interface Api {
 
     fun updatePassword(password: String, callback: ApiCallback<Unit>)
 
-    fun addCustomerAddress(address: Address, callback: ApiCallback<String>)
+    fun addCustomerAddress(address: Address, callback: ApiCallback<Unit>)
 
     fun updateCustomerAddress(address: Address, callback: ApiCallback<Unit>)
 

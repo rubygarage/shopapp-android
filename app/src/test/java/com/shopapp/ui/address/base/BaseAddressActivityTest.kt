@@ -61,7 +61,7 @@ class BaseAddressActivityTest {
     }
 
     @Test
-    fun shouldSetupPickersWhenCountriesLoaded() {
+    fun shouldShowCountryPickerWhenCountryInputClicked() {
         val size = 5
         val countries = MockInstantiator.newList(MockInstantiator.newCountry(), size)
         activity.countriesLoaded(countries)
@@ -74,6 +74,50 @@ class BaseAddressActivityTest {
     }
 
     @Test
+    fun shouldShowStatePickerWhenStateInputClicked() {
+        val size = 5
+        val countries = MockInstantiator.newList(MockInstantiator.newCountry(), size)
+        activity.countriesLoaded(countries)
+
+        activity.countryInput.getOnClickListener()?.onClick(activity.countryInput)
+        val countryDialog = activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
+        assertNotNull(countryDialog)
+        assertEquals(size, countryDialog!!.recyclerView.adapter.itemCount)
+
+        val country = countries[0]
+        countryDialog.onDoneButtonClickedListener?.onDoneButtonClicked(country)
+
+        assertEquals(View.VISIBLE, activity.stateInputContainer.visibility)
+        activity.stateInput.getOnClickListener()?.onClick(activity.stateInput)
+        val stateDialog = activity.supportFragmentManager.findFragmentByTag(StateBottomSheetPicker::class.java.name) as? StateBottomSheetPicker
+        assertNotNull(stateDialog)
+        assertEquals(country.states?.size, stateDialog!!.recyclerView.adapter.itemCount)
+
+        assertTrue(activity.stateInput.text.isBlank())
+        stateDialog.onDoneButtonClickedListener?.onDoneButtonClicked(country.states!![0])
+        assertFalse(activity.stateInput.text.isBlank())
+        assertEquals(country.states!![0].name, activity.stateInput.text.toString())
+    }
+
+    @Test
+    fun shouldNotShowStateInputWhenStateInputClickedAndStateListIsNull() {
+        val size = 5
+        val countries = MockInstantiator.newList(MockInstantiator.newCountry(), size)
+        activity.countriesLoaded(countries)
+
+        activity.countryInput.getOnClickListener()?.onClick(activity.countryInput)
+        val countryDialog = activity.supportFragmentManager.findFragmentByTag(CountryBottomSheetPicker::class.java.name) as? CountryBottomSheetPicker
+        assertNotNull(countryDialog)
+        assertEquals(size, countryDialog!!.recyclerView.adapter.itemCount)
+
+        val country = countries[0]
+        given(country.states).willReturn(null)
+        countryDialog.onDoneButtonClickedListener?.onDoneButtonClicked(country)
+
+        assertEquals(View.GONE, activity.stateInputContainer.visibility)
+    }
+
+    @Test
     fun shouldFillFieldsWhenShowContent() {
         activity.showContent(address)
 
@@ -82,8 +126,8 @@ class BaseAddressActivityTest {
         assertEquals(address.address, activity.addressInput.text.toString())
         assertEquals(address.secondAddress, activity.secondAddressInput.text.toString())
         assertEquals(address.city, activity.cityInput.text.toString())
-        assertEquals(address.state, activity.stateInput.text.toString())
-        assertEquals(address.country, activity.countryInput.text.toString())
+        assertEquals(address.state?.name, activity.stateInput.text.toString())
+        assertEquals(address.country.name, activity.countryInput.text.toString())
         assertEquals(address.zip, activity.postalCodeInput.text.toString())
         assertEquals(address.phone, activity.phoneInput.text.toString())
     }
@@ -122,8 +166,8 @@ class BaseAddressActivityTest {
         assertEquals(address.address, activity.addressInput.text.toString())
         assertEquals(address.secondAddress, activity.secondAddressInput.text.toString())
         assertEquals(address.city, activity.cityInput.text.toString())
-        assertEquals(address.state, activity.stateInput.text.toString())
-        assertEquals(address.country, activity.countryInput.text.toString())
+        assertEquals(address.state?.name, activity.stateInput.text.toString())
+        assertEquals(address.country.name, activity.countryInput.text.toString())
         assertEquals(address.zip, activity.postalCodeInput.text.toString())
         assertEquals(address.phone, activity.phoneInput.text.toString())
     }
@@ -190,14 +234,14 @@ class BaseAddressActivityTest {
 
     @Test
     fun shouldHideStateViewOnNullStates() {
+        val country = MockInstantiator.newCountry()
+        given(country.states).willReturn(null)
         val intent = Intent(context, TestBaseAddressActivity::class.java)
+        given(address.country).willReturn(country)
         intent.putExtra(Extra.ADDRESS, address)
         val activity =
             Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()
                 .get()
-
-        val country = MockInstantiator.newCountry()
-        given(country.states).willReturn(null)
 
         activity.countriesLoaded(listOf(country))
 
@@ -209,6 +253,7 @@ class BaseAddressActivityTest {
         val country = MockInstantiator.newCountry()
         given(country.states).willReturn(listOf())
         val intent = Intent(context, TestBaseAddressActivity::class.java)
+        given(address.country).willReturn(country)
         intent.putExtra(Extra.ADDRESS, address)
         val activity =
             Robolectric.buildActivity(TestBaseAddressActivity::class.java, intent).create().resume()

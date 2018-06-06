@@ -7,14 +7,14 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetOrdersUseCase @Inject constructor(private val repository: OrderRepository) :
-        SingleUseCase<List<Order>, GetOrdersUseCase.Params>() {
+    SingleUseCase<List<Order>, GetOrdersUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: GetOrdersUseCase.Params): Single<List<Order>> {
         return repository.getOrders(params.perPage, params.paginationValue)
     }
 
     data class Params(
-            val perPage: Int,
-            val paginationValue: String?
+        val perPage: Int,
+        val paginationValue: String?
     )
 }

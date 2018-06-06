@@ -2,6 +2,8 @@ package com.shopapp.magento.api
 
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.gateway.ApiCallback
+import com.shopapp.gateway.entity.Address
+import com.shopapp.gateway.entity.Country
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.magento.api.Constant.ACCESS_TOKEN_PREFIX
@@ -16,7 +18,9 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     @Test
     fun signInShouldReturnUnit() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json")))
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json"))
+        )
 
         val email = "test@mail.ru"
         val password = "password"
@@ -29,7 +33,10 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         verify(callback).onResult(Unit)
 
         verify(sharedPreferences.edit()).putString(Constant.ACCESS_KEY, password)
-        verify(sharedPreferences.edit()).putString(Constant.ACCESS_TOKEN, "$ACCESS_TOKEN_PREFIX cpylcc7caabqmta9u21ixsavl3f1i3hq")
+        verify(sharedPreferences.edit()).putString(
+            Constant.ACCESS_TOKEN,
+            "$ACCESS_TOKEN_PREFIX cpylcc7caabqmta9u21ixsavl3f1i3hq"
+        )
     }
 
     @Test
@@ -70,8 +77,12 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     @Test
     fun signUpShouldReturnUnit() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json")))
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json"))
+        )
 
         val password = "test password"
 
@@ -86,7 +97,10 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
 
         verify(callback).onResult(Unit)
         verify(sharedPreferences.edit()).putString(Constant.ACCESS_KEY, password)
-        verify(sharedPreferences.edit()).putString(Constant.ACCESS_TOKEN, "$ACCESS_TOKEN_PREFIX cpylcc7caabqmta9u21ixsavl3f1i3hq")
+        verify(sharedPreferences.edit()).putString(
+            Constant.ACCESS_TOKEN,
+            "$ACCESS_TOKEN_PREFIX cpylcc7caabqmta9u21ixsavl3f1i3hq"
+        )
     }
 
     @Test
@@ -138,7 +152,12 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     @Test
     fun getCustomerShouldReturnCustomerWhenSessionExist() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
 
         val token = "test token"
         val password = "test password"
@@ -197,9 +216,11 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnUnitWhenSessionAndOldPasswordExist() {
+    fun updatePasswordShouldReturnUnitWhenSessionAndOldPasswordExist() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json")))
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json"))
+        )
 
         val token = "test token"
         val oldPassword = "old password"
@@ -219,9 +240,29 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnErrorWhenSessionAndOldPasswordDoesNotExist() {
+    fun updatePasswordShouldReturnErrorWhenOldPasswordDoesNotExist() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json")))
+        val token = "test token"
+        val newPassword = "new password"
+
+        mockSession(token, null)
+        val callback: ApiCallback<Unit> = mock()
+        api.updatePassword(newPassword, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+    }
+
+    @Test
+    fun updatePasswordShouldReturnErrorWhenSessionAndOldPasswordDoesNotExist() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("TokenResponse.json"))
+        )
 
         val newPassword = "new password"
         mockSession(null, null)
@@ -237,7 +278,7 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     }
 
     @Test
-    fun changePasswordShouldReturnErrorWhenSessionAndOldPasswordExist() {
+    fun updatePasswordShouldReturnErrorWhenSessionAndOldPasswordExist() {
 
         val response = MockResponse()
         response.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
@@ -266,7 +307,9 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     @Test
     fun forgotPasswordShouldReturnUnit() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("BooleanResponse.json")))
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("BooleanResponse.json"))
+        )
 
         val email = "test@mail.com"
         val callback: ApiCallback<Unit> = mock()
@@ -304,8 +347,18 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
     @Test
     fun editCustomerInfoShouldReturnCustomerWhenSessionExist() {
 
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
-        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json")))
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
 
         val firstName = "firstName"
         val secondName = "secondName"
@@ -314,8 +367,10 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         val callback: ApiCallback<Customer> = mock()
         api.updateCustomer(firstName, secondName, "", callback)
 
-        val request = server.takeRequest()
-        assertEquals("/customers/me", request.path)
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
 
         argumentCaptor<Customer>().apply {
             verify(callback).onResult(capture())
@@ -339,6 +394,9 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         val callback: ApiCallback<Customer> = mock()
         api.updateCustomer(firstName, secondName, "", callback)
 
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())
             verify(callback).onFailure(capture())
@@ -356,6 +414,407 @@ class MagentoApiAccountTest : BaseMagentoApiTest() {
         val callback: ApiCallback<Customer> = mock()
         mockSession(null, null)
         api.updateCustomer(firstName, secondName, "", callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+    }
+
+    @Test
+    fun addCustomerAddressShouldReturnUnit() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+
+        mockSession("", "")
+        val address: Address = mock {
+            val countryMock: Country = mock {
+                on { id } doReturn "id"
+            }
+            on { country } doReturn countryMock
+        }
+        val callback: ApiCallback<Unit> = mock()
+        api.addCustomerAddress(address, callback)
+        verify(callback).onResult(Unit)
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun addCustomerAddressShouldReturnError() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val address: Address = mock {
+            val countryMock: Country = mock {
+                on { id } doReturn "id"
+            }
+            on { country } doReturn countryMock
+        }
+        val callback: ApiCallback<Unit> = mock()
+        api.addCustomerAddress(address, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun addCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
+
+        mockSession(null, null)
+        val address: Address = mock()
+        val callback: ApiCallback<Unit> = mock()
+        api.addCustomerAddress(address, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+    }
+
+    @Test
+    fun deleteCustomerAddressShouldReturnUnit() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+
+        mockSession("", "")
+        val callback: ApiCallback<Unit> = mock()
+        api.deleteCustomerAddress("id", callback)
+        verify(callback).onResult(Unit)
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun deleteCustomerAddressShouldReturnError() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val callback: ApiCallback<Unit> = mock()
+        api.deleteCustomerAddress("id", callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun deleteCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
+
+        mockSession(null, null)
+        val callback: ApiCallback<Unit> = mock()
+        api.deleteCustomerAddress("id", callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+    }
+
+    @Test
+    fun updateCustomerAddressShouldReturnUnit() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+
+        mockSession("", "")
+        val address: Address = mock {
+            val countryMock: Country = mock {
+                on { id } doReturn "id"
+            }
+            on { country } doReturn countryMock
+        }
+        val callback: ApiCallback<Unit> = mock()
+        api.updateCustomerAddress(address, callback)
+        verify(callback).onResult(Unit)
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun updateCustomerAddressShouldReturnError() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val address: Address = mock {
+            val countryMock: Country = mock {
+                on { id } doReturn "id"
+            }
+            on { country } doReturn countryMock
+        }
+        val callback: ApiCallback<Unit> = mock()
+        api.updateCustomerAddress(address, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun updateCustomerAddressShouldReturnErrorAndClearSession() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_UNAUTHORIZED)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val address: Address = mock {
+            val countryMock: Country = mock {
+                on { id } doReturn "id"
+            }
+            on { country } doReturn countryMock
+        }
+        val callback: ApiCallback<Unit> = mock()
+        api.updateCustomerAddress(address, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+
+        verify(sharedPreferences.edit()).remove(Constant.ACCESS_KEY)
+        verify(sharedPreferences.edit()).remove(Constant.ACCESS_TOKEN)
+    }
+
+    @Test
+    fun updateCustomerAddressShouldReturnErrorWhenSessionDoesNotExist() {
+
+        mockSession(null, null)
+        val address: Address = mock()
+        val callback: ApiCallback<Unit> = mock()
+        api.updateCustomerAddress(address, callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+    }
+
+    @Test
+    fun setDefaultShippingAddressShouldReturnUnit() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+
+        mockSession("", "")
+        val callback: ApiCallback<Unit> = mock()
+        api.setDefaultShippingAddress("id", callback)
+        verify(callback).onResult(Unit)
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun setDefaultShippingAddressShouldReturnError() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CustomerResponse.json"))
+        )
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val callback: ApiCallback<Unit> = mock()
+        api.setDefaultShippingAddress("id", callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+
+        val customerRequest = server.takeRequest()
+        assertEquals("/customers/me", customerRequest.path)
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun setDefaultShippingAddressShouldReturnErrorWhenSessionDoesNotExist() {
+
+        mockSession(null, null)
+        val callback: ApiCallback<Unit> = mock()
+        api.setDefaultShippingAddress("id", callback)
+
+        argumentCaptor<Error>().apply {
+            verify(callback, never()).onResult(any())
+            verify(callback).onFailure(capture())
+
+            assertTrue(firstValue is Error.NonCritical)
+        }
+    }
+
+    @Test
+    fun getCountriesShouldReturnUnit() {
+
+        server.enqueue(
+            MockResponse().setBody(jsonHelper.getJsonContents("CountryListResponse.json"))
+        )
+
+        mockSession("", "")
+        val callback: ApiCallback<List<Country>> = mock()
+        api.getCountries(callback)
+        argumentCaptor<List<Country>>().apply {
+            verify(callback).onResult(capture())
+
+            assertTrue(firstValue.isNotEmpty())
+        }
+
+        val countryRequest = server.takeRequest()
+        assertEquals("/directory/countries", countryRequest.path)
+    }
+
+    @Test
+    fun getCountriesShouldReturnError() {
+
+        val errorResponse = MockResponse()
+        errorResponse.setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
+        errorResponse.setBody(jsonHelper.getJsonContents("ErrorResponse.json"))
+        server.enqueue(errorResponse)
+
+        mockSession("", "")
+        val callback: ApiCallback<List<Country>> = mock()
+        api.getCountries(callback)
 
         argumentCaptor<Error>().apply {
             verify(callback, never()).onResult(any())

@@ -31,6 +31,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     private var isEditMode = false
     private var address: Address? = null
     private lateinit var fieldTextWatcher: TextWatcher
+    private val countries: MutableList<Country> = mutableListOf()
 
     private val countryPicker: CountryBottomSheetPicker by lazy {
         CountryBottomSheetPicker.newInstance()
@@ -143,12 +144,14 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
     }
 
     protected open fun submitAddress() {
-        if (isEditMode) {
-            address?.let {
-                presenter.updateAddress(getAddress())
+        getAddress()?.let { newAddress ->
+            if (isEditMode) {
+                address?.let {
+                    presenter.updateAddress(newAddress.copy(id = it.id))
+                }
+            } else {
+                presenter.submitAddress(newAddress)
             }
-        } else {
-            presenter.submitAddress(getAddress())
         }
     }
 
@@ -168,18 +171,23 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
         submitButton.isEnabled = isEnabled
     }
 
-    protected fun getAddress() = Address(
-        id = address?.id ?: Address.NO_ID,
-        address = addressInput.getTrimmedString(),
-        secondAddress = secondAddressInput.getTrimmedString(),
-        city = cityInput.getTrimmedString(),
-        country = countryInput.getTrimmedString(),
-        state = stateInput.getTrimmedString(),
-        firstName = firstNameInput.getTrimmedString(),
-        lastName = lastNameInput.getTrimmedString(),
-        zip = postalCodeInput.getTrimmedString().toUpperCase(),
-        phone = phoneInput.getTrimmedString()
-    )
+    protected fun getAddress(): Address? {
+        return countries.find { it.name == countryInput.getTrimmedString() }?.let {
+            val stateName = stateInput.getTrimmedString()
+            val state = it.states?.find { it.name == stateName }
+            Address(
+                address = addressInput.getTrimmedString(),
+                secondAddress = secondAddressInput.getTrimmedString(),
+                city = cityInput.getTrimmedString(),
+                country = it,
+                state = state,
+                firstName = firstNameInput.getTrimmedString(),
+                lastName = lastNameInput.getTrimmedString(),
+                zip = postalCodeInput.getTrimmedString().toUpperCase(),
+                phone = phoneInput.getTrimmedString()
+            )
+        }
+    }
 
     private fun fillFields(address: Address?) {
         address?.let {
@@ -188,14 +196,15 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
             addressInput.setText(it.address)
             secondAddressInput.setText(it.secondAddress)
             cityInput.setText(it.city)
-            stateInput.setText(it.state ?: "")
-            countryInput.setText(it.country)
+            stateInput.setText(it.state?.name ?: "")
+            countryInput.setText(it.country.name)
             postalCodeInput.setText(it.zip)
             phoneInput.setText(it.phone ?: "")
         }
     }
 
     private fun setupCountries(countries: List<Country>) {
+        this.countries.addAll(countries)
         countryPicker.setData(countries)
         countryPicker.onDoneButtonClickedListener =
                 object : BaseBottomSheetPicker.OnDoneButtonClickedListener<Country> {
@@ -229,7 +238,7 @@ abstract class BaseAddressActivity<V : AddressView, P : AddressPresenter<V>> :
 
         setupCountries(countries)
         address?.let {
-            val index = countries.map { it.name }.indexOf(it.country)
+            val index = countries.indexOf(it.country)
             if (index >= 0) {
                 setupStates(countries[index])
             }

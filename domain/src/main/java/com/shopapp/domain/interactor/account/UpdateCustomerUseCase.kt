@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class UpdateCustomerUseCase @Inject constructor(private val repository: CustomerRepository) :
-        SingleUseCase<Customer, UpdateCustomerUseCase.Params>() {
+    SingleUseCase<Customer, UpdateCustomerUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<Customer> {
         return with(params) {
@@ -16,8 +16,8 @@ class UpdateCustomerUseCase @Inject constructor(private val repository: Customer
     }
 
     data class Params(
-            val firstName: String,
-            val lastName: String,
-            val phone: String
+        val firstName: String,
+        val lastName: String,
+        val phone: String
     )
 }

@@ -53,6 +53,7 @@ class CheckoutUnAuthAddressActivityTest {
 
     @Test
     fun shouldSubmitAddressWhenSubmitButtonClicked() {
+        activity.countriesLoaded(listOf(MockInstantiator.newCountry()))
         activity.submitButton.performClick()
 
         argumentCaptor<Address>().apply {
@@ -63,8 +64,8 @@ class CheckoutUnAuthAddressActivityTest {
             assertEquals(address.address, firstValue.address)
             assertEquals(address.secondAddress, firstValue.secondAddress)
             assertEquals(address.city, firstValue.city)
-            assertEquals(address.state, firstValue.state)
-            assertEquals(address.country, firstValue.country)
+            assertEquals(address.state?.name, firstValue.state?.name)
+            assertEquals(address.country.name, firstValue.country.name)
             assertEquals(address.zip.toUpperCase(), firstValue.zip)
             assertEquals(address.phone, firstValue.phone)
         }
@@ -94,6 +95,7 @@ class CheckoutUnAuthAddressActivityTest {
             Robolectric.buildActivity(CheckoutUnAuthAddressActivity::class.java, intent).create()
                 .get()
         given(activity.fieldValidator.isAddressValid(any())).willReturn(true)
+        activity.countriesLoaded(listOf(MockInstantiator.newCountry()))
         activity.submitButton.performClick()
 
         val shadowActivity = Shadows.shadowOf(activity)
@@ -105,8 +107,8 @@ class CheckoutUnAuthAddressActivityTest {
         assertEquals(address.address, resultAddress.address)
         assertEquals(address.secondAddress, resultAddress.secondAddress)
         assertEquals(address.city, resultAddress.city)
-        assertEquals(address.state, resultAddress.state)
-        assertEquals(address.country, resultAddress.country)
+        assertEquals(address.state?.name, resultAddress.state?.name)
+        assertEquals(address.country.name, resultAddress.country.name)
         assertEquals(address.zip.toUpperCase(), resultAddress.zip)
         assertEquals(address.phone, resultAddress.phone)
 

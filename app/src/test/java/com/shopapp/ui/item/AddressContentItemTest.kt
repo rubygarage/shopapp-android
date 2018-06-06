@@ -37,7 +37,20 @@ class AddressContentItemTest {
             view.name.text
         )
         val addressText = "${address.address}, ${address.secondAddress}, ${address.city}," +
-                " ${address.state}, ${address.zip}, ${address.country}"
+                " ${address.state?.name}, ${address.zip}, ${address.country.name}"
+        assertEquals(addressText, view.addressText.text.toString())
+    }
+
+    @Test
+    fun shouldSkipNullData() {
+        val address = MockInstantiator.newAddress()
+        given(address.state).willReturn(null)
+        view.setAddress(address)
+
+        assertEquals(context.getString(R.string.full_name_pattern, address.firstName, address.lastName),
+            view.name.text)
+        val addressText = "${address.address}, ${address.secondAddress}, ${address.city}," +
+                " ${address.zip}, ${address.country.name}"
         assertEquals(addressText, view.addressText.text.toString())
     }
 

@@ -31,7 +31,6 @@ class CheckoutUnAuthAddressActivity :
             intent.putExtra(Extra.IS_SHIPPING, isShipping)
             return intent
         }
-
     }
 
     @Inject
@@ -56,14 +55,18 @@ class CheckoutUnAuthAddressActivity :
     //SETUP
 
     override fun submitAddress() {
-        val address = getAddress()
+        val newAddress = getAddress()
         if (isShippingAddress) {
             checkoutId?.let {
-                presenter.submitShippingAddress(it, address)
+                newAddress?.let { address ->
+                    presenter.submitShippingAddress(it, address)
+                }
             }
         } else {
-            if (fieldValidator.isAddressValid(address)) {
-                addressChanged(address)
+            if (fieldValidator.isAddressValid(newAddress)) {
+                newAddress?.let { address ->
+                    addressChanged(address)
+                }
             } else {
                 showMessage(R.string.invalid_address)
             }

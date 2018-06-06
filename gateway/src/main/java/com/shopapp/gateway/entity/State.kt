@@ -4,15 +4,15 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class State(
-    val id: Long,
-    val countryId: Long,
+    val id: String,
+    val countryId: String,
     val code: String,
     val name: String
 ) : Parcelable {
 
     constructor(source: Parcel) : this(
-        source.readLong(),
-        source.readLong(),
+        source.readString(),
+        source.readString(),
         source.readString(),
         source.readString()
     )
@@ -20,8 +20,8 @@ data class State(
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeLong(id)
-        writeLong(countryId)
+        writeString(id)
+        writeString(countryId)
         writeString(code)
         writeString(name)
     }

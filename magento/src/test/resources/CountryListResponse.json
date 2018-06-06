@@ -1,0 +1,140 @@
+[
+  {
+    "id": "AD",
+    "two_letter_abbreviation": "AD",
+    "three_letter_abbreviation": "AND",
+    "full_name_locale": "Andorra",
+    "full_name_english": "Andorra"
+  },
+  {
+    "id": "AE",
+    "two_letter_abbreviation": "AE",
+    "three_letter_abbreviation": "ARE",
+    "full_name_locale": "United Arab Emirates",
+    "full_name_english": "United Arab Emirates"
+  },
+  {
+    "id": "AF",
+    "two_letter_abbreviation": "AF",
+    "three_letter_abbreviation": "AFG",
+    "full_name_locale": "Afghanistan",
+    "full_name_english": "Afghanistan"
+  },
+  {
+    "id": "AG",
+    "two_letter_abbreviation": "AG",
+    "three_letter_abbreviation": "ATG",
+    "full_name_locale": "Antigua & Barbuda",
+    "full_name_english": "Antigua & Barbuda"
+  },
+  {
+    "id": "AI",
+    "two_letter_abbreviation": "AI",
+    "three_letter_abbreviation": "AIA",
+    "full_name_locale": "Anguilla",
+    "full_name_english": "Anguilla"
+  },
+  {
+    "id": "AL",
+    "two_letter_abbreviation": "AL",
+    "three_letter_abbreviation": "ALB",
+    "full_name_locale": "Albania",
+    "full_name_english": "Albania"
+  },
+  {
+    "id": "AM",
+    "two_letter_abbreviation": "AM",
+    "three_letter_abbreviation": "ARM",
+    "full_name_locale": "Armenia",
+    "full_name_english": "Armenia"
+  },
+  {
+    "id": "AN",
+    "two_letter_abbreviation": "AN",
+    "three_letter_abbreviation": "ANT",
+    "full_name_locale": "Netherlands Antilles",
+    "full_name_english": "Netherlands Antilles"
+  },
+  {
+    "id": "AO",
+    "two_letter_abbreviation": "AO",
+    "three_letter_abbreviation": "AGO",
+    "full_name_locale": "Angola",
+    "full_name_english": "Angola"
+  },
+  {
+    "id": "AQ",
+    "two_letter_abbreviation": "AQ",
+    "three_letter_abbreviation": "ATA",
+    "full_name_locale": "Antarctica",
+    "full_name_english": "Antarctica"
+  },
+  {
+    "id": "AR",
+    "two_letter_abbreviation": "AR",
+    "three_letter_abbreviation": "ARG",
+    "full_name_locale": "Argentina",
+    "full_name_english": "Argentina"
+  },
+  {
+    "id": "AS",
+    "two_letter_abbreviation": "AS",
+    "three_letter_abbreviation": "ASM",
+    "full_name_locale": "American Samoa",
+    "full_name_english": "American Samoa"
+  },
+  {
+    "id": "AT",
+    "two_letter_abbreviation": "AT",
+    "three_letter_abbreviation": "AUT",
+    "full_name_locale": "Austria",
+    "full_name_english": "Austria",
+    "available_regions": [
+      {
+        "id": "102",
+        "code": "BL",
+        "name": "Burgenland"
+      },
+      {
+        "id": "99",
+        "code": "KN",
+        "name": "K\u00e4rnten"
+      },
+      {
+        "id": "96",
+        "code": "NO",
+        "name": "Nieder\u00f6sterreich"
+      },
+      {
+        "id": "97",
+        "code": "OO",
+        "name": "Ober\u00f6sterreich"
+      },
+      {
+        "id": "98",
+        "code": "SB",
+        "name": "Salzburg"
+      },
+      {
+        "id": "100",
+        "code": "ST",
+        "name": "Steiermark"
+      },
+      {
+        "id": "101",
+        "code": "TI",
+        "name": "Tirol"
+      },
+      {
+        "id": "103",
+        "code": "VB",
+        "name": "Vorarlberg"
+      },
+      {
+        "id": "95",
+        "code": "WI",
+        "name": "Wien"
+      }
+    ]
+  }
+]

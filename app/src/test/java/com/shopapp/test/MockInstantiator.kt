@@ -142,12 +142,16 @@ object MockInstantiator {
     }
 
     fun newAddress(): Address = mock {
+
+        val countryMock = newCountry()
+        val stateMock = newState()
+
         on { id } doReturn DEFAULT_ID
         on { address } doReturn DEFAULT_ADDRESS
         on { secondAddress } doReturn DEFAULT_ADDRESS
         on { city } doReturn DEFAULT_CITY
-        on { country } doReturn DEFAULT_COUNTRY_NAME
-        on { state } doReturn DEFAULT_STATE
+        on { country } doReturn countryMock
+        on { state } doReturn stateMock
         on { firstName } doReturn DEFAULT_FIRST_NAME
         on { lastName } doReturn DEFAULT_LAST_NAME
         on { zip } doReturn DEFAULT_ZIP
@@ -252,15 +256,15 @@ object MockInstantiator {
 
         val statesMock = newList(newState(), 5)
 
-        on { id } doReturn DEFAULT_NUMBER_ID
+        on { id } doReturn DEFAULT_ID
         on { code } doReturn DEFAULT_CODE
         on { name } doReturn DEFAULT_COUNTRY_NAME
         on { states } doReturn statesMock
     }
 
     fun newState(): State = mock {
-        on { id } doReturn DEFAULT_NUMBER_ID
-        on { countryId } doReturn DEFAULT_NUMBER_ID
+        on { id } doReturn DEFAULT_ID
+        on { countryId } doReturn DEFAULT_ID
         on { code } doReturn DEFAULT_CODE
         on { name } doReturn DEFAULT_NAME
     }
