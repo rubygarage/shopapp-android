@@ -10,7 +10,6 @@ import com.shopapp.data.dao.Dao
 import com.shopapp.data.dao.impl.DaoImpl
 import com.shopapp.di.component.AppComponent
 import com.shopapp.di.component.DaggerAppComponent
-import com.shopapp.di.module.ConfigModule
 import com.shopapp.di.module.RepositoryModule
 import com.shopapp.gateway.Api
 import com.shopapp.magento.api.MagentoApi
