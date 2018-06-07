@@ -13,5 +13,4 @@ class ValidatorModule {
 
     @Provides
     fun provideCardValidator() = CardValidator()
-
 }

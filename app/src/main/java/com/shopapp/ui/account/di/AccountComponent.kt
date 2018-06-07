@@ -8,6 +8,10 @@ interface AccountComponent {
 
     fun inject(fragment: AccountFragment)
 
+    fun inject(fragment: AccountAuthFragment)
+
+    fun inject(fragment: AccountUnAuthFragment)
+
     fun inject(activity: SignUpActivity)
 
     fun inject(activity: SignInActivity)

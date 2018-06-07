@@ -10,8 +10,10 @@ import com.shopapp.data.dao.Dao
 import com.shopapp.data.dao.impl.DaoImpl
 import com.shopapp.di.component.AppComponent
 import com.shopapp.di.component.DaggerAppComponent
+import com.shopapp.di.module.ConfigModule
 import com.shopapp.di.module.RepositoryModule
 import com.shopapp.gateway.Api
+import com.shopapp.gateway.entity.Config
 import com.shopapp.magento.api.MagentoApi
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
@@ -33,7 +35,7 @@ open class ShopApplication : Application() {
         val api = MagentoApi(this, "http://10.14.14.29/")
         val dao = DaoImpl(this)
 
-        appComponent = buildAppComponent(api, dao)
+        appComponent = buildAppComponent(api, dao, api.getConfig())
 
         setupFresco()
         setupFabric()
@@ -44,10 +46,11 @@ open class ShopApplication : Application() {
         }
     }
 
-    protected open fun buildAppComponent(api: Api?, dao: Dao?): AppComponent {
+    protected open fun buildAppComponent(api: Api?, dao: Dao?, config: Config?): AppComponent {
         val builder = DaggerAppComponent.builder()
-        if (api != null && dao != null) {
+        if (api != null && dao != null && config != null) {
             builder.repositoryModule(RepositoryModule(api, dao))
+                .configModule(ConfigModule(config))
         }
         return builder.build()
     }

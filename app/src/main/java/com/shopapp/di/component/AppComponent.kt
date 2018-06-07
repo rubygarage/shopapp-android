@@ -1,5 +1,6 @@
 package com.shopapp.di.component
 
+import com.shopapp.di.module.ConfigModule
 import com.shopapp.di.module.RepositoryModule
 import com.shopapp.di.module.ValidatorModule
 import com.shopapp.ui.account.di.AccountComponent
@@ -20,7 +21,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RepositoryModule::class, ValidatorModule::class])
+@Component(modules = [RepositoryModule::class, ValidatorModule::class, ConfigModule::class])
 interface AppComponent {
 
     fun attachHomeComponent(): HomeComponent

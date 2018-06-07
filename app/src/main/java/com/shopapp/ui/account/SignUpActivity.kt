@@ -13,13 +13,10 @@ import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.getTrimmedString
 import com.shopapp.ext.hideKeyboard
-import com.shopapp.gateway.entity.Config
 import com.shopapp.gateway.entity.Policy
 import com.shopapp.ui.account.contract.SignUpPresenter
 import com.shopapp.ui.account.contract.SignUpView
@@ -32,7 +29,7 @@ import javax.inject.Inject
 
 
 class SignUpActivity :
-    BaseLceActivity<Config, SignUpView, SignUpPresenter>(),
+    BaseLceActivity<Unit, SignUpView, SignUpPresenter>(),
     SignUpView {
 
     @Inject
@@ -67,10 +64,8 @@ class SignUpActivity :
         setupInfoText()
         createButton.setOnClickListener {
             clearFormFocus()
-            signUp()
+            loadData(true)
         }
-
-        loadData()
     }
 
     override fun onResume() {
@@ -178,22 +173,24 @@ class SignUpActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.getConfig()
+        presenter.signUp(
+            firstNameInput.getTrimmedString(),
+            lastNameInput.getTrimmedString(),
+            emailInput.getTrimmedString(),
+            passwordInput.getTrimmedString(),
+            phoneInput.getTrimmedString()
+        )
     }
 
-    override fun showContent(data: Config) {
+    override fun showContent(data: Unit) {
         super.showContent(data)
-        phoneInputLayout.visibility = if (data.isCustomerPhoneEnabled) VISIBLE else GONE
-    }
-
-    override fun onSignUpFinished() {
         showMessage(R.string.register_success_message)
         setResult(Activity.RESULT_OK)
         finish()
     }
 
     override fun onTryAgainButtonClicked() {
-        signUp()
+        loadData(true)
     }
 
     override fun showEmailError() {
@@ -210,15 +207,5 @@ class SignUpActivity :
 
     override fun onFailure() {
         changeState(LceLayout.LceState.ContentState)
-    }
-
-    private fun signUp() {
-        presenter.signUp(
-            firstNameInput.getTrimmedString(),
-            lastNameInput.getTrimmedString(),
-            emailInput.getTrimmedString(),
-            passwordInput.getTrimmedString(),
-            phoneInput.getTrimmedString()
-        )
     }
 }

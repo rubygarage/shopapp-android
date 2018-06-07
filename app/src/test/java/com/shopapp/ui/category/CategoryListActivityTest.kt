@@ -29,7 +29,7 @@ class CategoryListActivityTest {
     fun setUp() {
         context = RuntimeEnvironment.application.baseContext
         category = MockInstantiator.newCategory()
-        val intent = CategoryListActivity.getStartIntent(context, category, false)
+        val intent = CategoryListActivity.getStartIntent(context, category)
         activity = Robolectric.buildActivity(CategoryListActivity::class.java, intent)
             .create()
             .resume()

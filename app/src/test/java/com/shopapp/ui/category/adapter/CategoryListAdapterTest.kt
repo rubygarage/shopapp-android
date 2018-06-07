@@ -6,16 +6,13 @@ import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.category.CategoryGridItem
-import com.shopapp.ui.item.category.CategoryItem
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -47,21 +44,8 @@ class CategoryListAdapterTest {
     }
 
     @Test
-    fun shouldReturnCategoryItem() {
-        adapter = CategoryListAdapter(dataList, clickListener, false)
-        val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
-        assertTrue(itemView is CategoryItem)
-    }
-
-    @Test
-    fun shouldReturnCategoryGridItem() {
-        val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
-        assertTrue(itemView is CategoryGridItem)
-    }
-
-    @Test
     fun shouldCallSetCategory() {
-        val itemView: CategoryItem = mock()
+        val itemView: CategoryGridItem = mock()
         val category: Category = mock()
         adapter.bindData(itemView, category, 0)
         verify(itemView).setCategory(category)

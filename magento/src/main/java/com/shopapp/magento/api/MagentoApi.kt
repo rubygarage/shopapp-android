@@ -60,15 +60,6 @@ class MagentoApi : Api {
         this.preferences = preferences
     }
 
-    private val config by lazy {
-        Config(
-            isPopularEnabled = false,
-            isBlogEnabled = false,
-            isCategoryGridEnabled = false,
-            isCustomerPhoneEnabled = false
-        )
-    }
-
     private val productService by lazy {
         retrofit.create(ProductService::class.java)
     }
@@ -87,9 +78,11 @@ class MagentoApi : Api {
 
     // Config
 
-    override fun getConfig(callback: ApiCallback<Config>) {
-        callback.onResult(config)
-    }
+    override fun getConfig() = Config(
+        isPopularEnabled = false,
+        isBlogEnabled = false,
+        isOrdersEnabled = false
+    )
 
     // Shop
 

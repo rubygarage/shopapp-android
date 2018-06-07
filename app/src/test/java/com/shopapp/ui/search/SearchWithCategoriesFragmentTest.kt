@@ -36,21 +36,6 @@ class SearchWithCategoriesFragmentTest {
     }
 
     @Test
-    fun shouldLoadConfigDataOnceWhenOnCreate() {
-        fragment.showContent(mock())
-        fragment.onViewCreated(fragment.view!!, null)
-        verify(fragment.presenter).getConfig()
-    }
-
-    @Test
-    fun shouldShowCategoriesScreenWhenConfigReceived() {
-        val config = com.shopapp.gateway.entity.Config(false, false, false, false)
-        fragment.showContent(config)
-        val showedFragment = fragment.childFragmentManager.findFragmentById(R.id.container)
-        assertTrue(showedFragment is CategoryListFragment)
-    }
-
-    @Test
     fun shouldShowCategoriesScreen() {
         fragment.onToolbarStateChanged(true)
         val showedFragment = fragment.childFragmentManager.findFragmentById(R.id.container)

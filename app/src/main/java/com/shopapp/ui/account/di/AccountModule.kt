@@ -1,7 +1,6 @@
 package com.shopapp.ui.account.di
 
 import com.shopapp.domain.interactor.account.*
-import com.shopapp.domain.interactor.shop.ConfigUseCase
 import com.shopapp.domain.interactor.shop.ShopInfoUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.ui.account.contract.*
@@ -17,11 +16,10 @@ class AccountModule {
 
     @Provides
     fun provideSignUpPresenter(
-        configUseCase: ConfigUseCase,
         formValidator: FieldValidator,
         signUpUseCase: SignUpUseCase
     ): SignUpPresenter {
-        return SignUpPresenter(configUseCase, formValidator, signUpUseCase)
+        return SignUpPresenter(formValidator, signUpUseCase)
     }
 
     @Provides
@@ -55,11 +53,10 @@ class AccountModule {
 
     @Provides
     fun providePersonalInfoPresenter(
-        configUseCase: ConfigUseCase,
         customerUseCase: GetCustomerUseCase,
         updateCustomerUseCase: UpdateCustomerUseCase
     ): PersonalInfoPresenter {
-        return PersonalInfoPresenter(configUseCase, customerUseCase, updateCustomerUseCase)
+        return PersonalInfoPresenter(customerUseCase, updateCustomerUseCase)
     }
 
     @Provides

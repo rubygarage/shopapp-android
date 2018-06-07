@@ -6,18 +6,19 @@ import android.view.View
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.R
 import com.shopapp.TestShopApplication
+import com.shopapp.di.module.TestConfigModule
 import com.shopapp.ui.blog.BlogFragment
 import com.shopapp.ui.product.ProductPopularFragment
 import com.shopapp.ui.product.ProductShortcutFragment
+import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_product_shortcut.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import org.robolectric.shadows.support.v4.SupportFragmentController
+import org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment
 
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest = Config.NONE, application = TestShopApplication::class)
@@ -28,26 +29,22 @@ class HomeFragmentTest {
 
     @Before
     fun setUp() {
-        config = mock()
+        config = TestConfigModule.config
         given(config.isPopularEnabled).willReturn(true)
         given(config.isBlogEnabled).willReturn(true)
-        given(config.isCategoryGridEnabled).willReturn(true)
-        fragment = SupportFragmentController.of(HomeFragment())
-            .create()
-            .resume()
-            .visible()
-            .get()
+        fragment = HomeFragment()
+
     }
 
     @Test
     fun shouldShowProductShortcutFragment() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         assertTrue(fragment.childFragmentManager.findFragmentById(R.id.recentContainer) is ProductShortcutFragment)
     }
 
     @Test
     fun shouldShowHorizontalProductShortcutFragment() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         val layoutManager = childFragment.recyclerView.layoutManager
@@ -62,7 +59,7 @@ class HomeFragmentTest {
     fun shouldShowVerticalProductShortcutFragment() {
         given(config.isPopularEnabled).willReturn(false)
         given(config.isBlogEnabled).willReturn(false)
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         val layoutManager = childFragment.recyclerView.layoutManager
@@ -72,33 +69,33 @@ class HomeFragmentTest {
 
     @Test
     fun shouldShowProductPopularFragment() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         assertTrue(fragment.childFragmentManager.findFragmentById(R.id.popularContainer) is ProductPopularFragment)
     }
 
     @Test
     fun shouldNotShowProductPopularFragment() {
         given(config.isPopularEnabled).willReturn(false)
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         assertNull(fragment.childFragmentManager.findFragmentById(R.id.popularContainer))
     }
 
     @Test
     fun shouldShowBlogFragment() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         assertTrue(fragment.childFragmentManager.findFragmentById(R.id.blogContainer) is BlogFragment)
     }
 
     @Test
     fun shouldNotShowBlogFragment() {
         given(config.isBlogEnabled).willReturn(false)
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         assertNull(fragment.childFragmentManager.findFragmentById(R.id.blogContainer))
     }
 
     @Test
     fun shouldShowRecentContainerWhenCallChangeVisibilityWithVisibleTrue() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(true)
@@ -107,7 +104,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldHideRecentContainerWhenCallChangeVisibilityWithVisibleFalse() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(false)
@@ -116,7 +113,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldShowPopularContainerWhenCallChangeVisibilityWithVisibleTrue() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(true)
@@ -125,7 +122,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldHidePopularContainerWhenCallChangeVisibilityWithVisibleFalse() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.popularContainer) as ProductPopularFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(false)
@@ -134,7 +131,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldShowBlogContainerWhenCallChangeVisibilityWithVisibleTrue() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(true)
@@ -143,7 +140,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldHideBlogContainerWhenCallChangeVisibilityWithVisibleFalse() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val childFragment =
             fragment.childFragmentManager.findFragmentById(R.id.blogContainer) as BlogFragment
         childFragment.fragmentVisibilityListener?.changeVisibility(false)
@@ -152,7 +149,7 @@ class HomeFragmentTest {
 
     @Test
     fun shouldStopRefreshAndStartLoadDataWhenOnRefresh() {
-        fragment.onConfigReceived(config)
+        startFragment(fragment)
         val productHorizontalFragment =
             fragment.childFragmentManager.findFragmentById(R.id.recentContainer) as ProductShortcutFragment
         val productPopularFragment =
