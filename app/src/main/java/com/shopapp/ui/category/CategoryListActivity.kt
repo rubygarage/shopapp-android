@@ -14,7 +14,7 @@ class CategoryListActivity : AppCompatActivity() {
 
     companion object {
 
-        val PARENT_CATEGORY = "parent_category"
+        const val PARENT_CATEGORY = "parent_category"
 
         fun getStartIntent(context: Context, category: Category): Intent {
             val intent = Intent(context, CategoryListActivity::class.java)
