@@ -122,41 +122,4 @@ class AccountAuthFragmentTest {
         fragment.shippingAddress.performClick()
         verify(fragment.router).showAddressList(fragment.context)
     }
-
-    /*
-    @Test
-    fun shouldShowSignIn() {
-        fragment.signInButton.performClick()
-        verify(fragment.router).showSignInForResult(fragment, RequestCode.SIGN_IN)
-    }
-
-    @Test
-    fun shouldShowSignUp() {
-        val shop: Shop = mock()
-        val terms: Policy = mock()
-        val privacy: Policy = mock()
-        given(shop.termsOfService).willReturn(terms)
-        given(shop.privacyPolicy).willReturn(privacy)
-        fragment.shopReceived(shop)
-        fragment.createAccount.performClick()
-        verify(fragment.router).showSignUpForResult(fragment, privacy, terms, RequestCode.SIGN_UP)
-    }
-
-    @Test
-    fun shouldShowOrder() {
-        fragment.myOrders.performClick()
-        verify(fragment.router).showOrderList(fragment.context)
-    }
-
-    @Test
-    fun shouldShowPersonalInfo() {
-        fragment.personalInfo.performClick()
-        verify(fragment.router).showPersonalInfoForResult(fragment, RequestCode.PERSONAL_INFO)
-    }
-
-    @Test
-    fun shouldShowAddressList() {
-        fragment.shippingAddress.performClick()
-        verify(fragment.router).showAddressList(fragment.context)
-    }*/
 }

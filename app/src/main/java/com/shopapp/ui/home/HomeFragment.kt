@@ -65,26 +65,24 @@ class HomeFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
     ) {
         if (isFragmentAllowed) {
             val containerId = container.id
-            childFragmentManager.replaceOnce(
+            val fragment = childFragmentManager.replaceOnce(
                 containerViewId = containerId,
                 fragmentTag = containerId.toString(),
-                creator = creator,
-                setup = {
-                    val fragment = it as? BaseLceFragment<*, *, *>
-                    fragment?.fragmentVisibilityListener = object : FragmentVisibilityListener {
+                creator = creator
+            )
+            when (fragment) {
+                is ProductShortcutFragment -> productShortcutFragment = fragment
+                is ProductPopularFragment -> popularFragment = fragment
+                is BlogFragment -> blogFragment = fragment
+            }
+            (fragment as? BaseLceFragment<*, *, *>)?.fragmentVisibilityListener =
+                    object : FragmentVisibilityListener {
                         override fun changeVisibility(isVisible: Boolean) {
                             refreshLayout.isRefreshing = false
                             container.visibility =
                                     if (isVisible) View.VISIBLE else View.GONE
                         }
                     }
-                    when (fragment) {
-                        is ProductShortcutFragment -> productShortcutFragment = fragment
-                        is ProductPopularFragment -> popularFragment = fragment
-                        is BlogFragment -> blogFragment = fragment
-                    }
-                }
-            ).commit()
         } else {
             container.visibility = View.GONE
         }

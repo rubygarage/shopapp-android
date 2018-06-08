@@ -48,7 +48,7 @@ class GalleryActivity : AppCompatActivity() {
                         if (toolbar.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
             fragment
-        }, false).commit()
+        }, false)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
