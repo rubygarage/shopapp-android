@@ -35,11 +35,9 @@ class FragmentExtensionTest {
         activity
             .supportFragmentManager
             .replaceOnce(android.R.id.content, TestFragment::javaClass.name, { first }, false)
-            .commit()
         activity
             .supportFragmentManager
             .replaceOnce(android.R.id.content, TestFragment::javaClass.name, { second }, false)
-            .commit()
 
         assertEquals(1, activity.supportFragmentManager.fragments.size)
         assertEquals(first, activity.supportFragmentManager.fragments[0])
@@ -50,7 +48,6 @@ class FragmentExtensionTest {
         activity
             .supportFragmentManager
             .replaceOnce(android.R.id.content, TestFragment::javaClass.name, { TestFragment() })
-            .commit()
         assertEquals(1, activity.supportFragmentManager.backStackEntryCount)
     }
 
@@ -66,21 +63,18 @@ class FragmentExtensionTest {
         activity
             .supportFragmentManager
             .replaceByTag(android.R.id.content, tag, { first })
-            .commit()
 
         assertEquals(first, activity.supportFragmentManager.fragments[0])
 
         activity
             .supportFragmentManager
             .replaceByTag(android.R.id.content, secondTag, { second })
-            .commit()
 
         assertEquals(second, activity.supportFragmentManager.fragments[0])
 
         activity
             .supportFragmentManager
             .replaceByTag(android.R.id.content, tag, { third })
-            .commit()
 
         assertEquals(first, activity.supportFragmentManager.fragments[0])
     }
@@ -97,21 +91,18 @@ class FragmentExtensionTest {
         activity
             .supportFragmentManager
             .replaceByTag(android.R.id.content, tag, { first }, false)
-            .commit()
 
         assertEquals(first, activity.supportFragmentManager.fragments[0])
 
         activity
             .supportFragmentManager
             .replaceByTag(android.R.id.content, secondTag, { second }, false)
-            .commit()
 
         assertEquals(second, activity.supportFragmentManager.fragments[0])
 
         activity
             .supportFragmentManager
             .replaceByTag(android.R.id.content, tag, { third }, false)
-            .commit()
 
         assertNotEquals(first, activity.supportFragmentManager.fragments[0])
         assertEquals(third, activity.supportFragmentManager.fragments[0])
