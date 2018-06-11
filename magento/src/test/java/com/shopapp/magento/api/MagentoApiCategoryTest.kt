@@ -156,6 +156,8 @@ class MagentoApiCategoryTest : BaseMagentoApiTest() {
     fun getCategoriesShouldReturnCategoryList() {
 
         server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CategoryListResponse.json")))
+        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CategoryDetailsResponse.json")))
+        server.enqueue(MockResponse().setBody(jsonHelper.getJsonContents("CategoryDetailsResponse.json")))
 
         val perPage = 10
         val parentCategoryId = "parentCategoryId"

@@ -2,7 +2,7 @@ package com.shopapp.magento.api
 
 internal object Constant {
     const val PRODUCT_IMAGE_PATH = "pub/media/catalog/product"
-    const val CATEGORY_IMAGE_PATH = "pub/media/catalog/category"
+    const val CATEGORY_IMAGE_PATH = "pub/media/catalog/category/"
 
     const val PAGINATION_START_VALUE = 1
     const val PAGINATION_END_VALUE = -1
