@@ -29,6 +29,7 @@ import com.shopapp.magento.retrofit.service.CategoryService
 import com.shopapp.magento.retrofit.service.CustomerService
 import com.shopapp.magento.retrofit.service.ProductService
 import com.shopapp.magento.retrofit.service.StoreService
+import io.reactivex.Observable
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import java.net.HttpURLConnection
@@ -122,7 +123,7 @@ class MagentoApi : Api {
             }
             .subscribe(
                 { callback.onResult(it) },
-                { it.printStackTrace() }
+                { callback.onFailure(handleError(it)) }
             )
     }
 
@@ -175,9 +176,16 @@ class MagentoApi : Api {
         if (paginationValue == null) {
             categoryService.getCategoryList(parentCategoryId)
                 .map { it.mapToEntityList() }
+                .flatMapObservable { Observable.fromArray(it) }
+                .flatMapIterable { it }
+                .flatMapSingle { category ->
+                    categoryService.getCategoryDetails(category.id)
+                        .map { category.copy(image = it.mapToEntity(host, listOf()).image) }
+                }
+                .toList()
                 .subscribe(
                     { callback.onResult(it) },
-                    { it.printStackTrace() }
+                    { callback.onFailure(handleError(it)) }
                 )
         } else {
             callback.onResult(listOf())
