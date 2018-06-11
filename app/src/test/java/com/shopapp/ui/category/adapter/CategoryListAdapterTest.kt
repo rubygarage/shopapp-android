@@ -7,12 +7,14 @@ import com.shopapp.gateway.entity.Category
 import com.shopapp.ui.base.recycler.OnItemClickListener
 import com.shopapp.ui.item.category.CategoryGridItem
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
@@ -36,6 +38,13 @@ class CategoryListAdapterTest {
         MockitoAnnotations.initMocks(this)
         given(dataList.size).willReturn(SIZE)
         adapter = CategoryListAdapter(dataList, clickListener)
+    }
+
+    @Test
+    fun shouldReturnCategoryGridItem() {
+        adapter = CategoryListAdapter(dataList, clickListener)
+        val itemView = adapter.getItemView(RuntimeEnvironment.application.applicationContext, 0)
+        assertNotNull(itemView)
     }
 
     @Test

@@ -1,10 +1,12 @@
 package com.shopapp.gateway.entity
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.math.BigDecimal
 import java.util.*
 
+@SuppressLint("ParcelCreator") //https://youtrack.jetbrains.com/issue/KT-19300
 @Parcelize
 data class Product(
     val id: String,

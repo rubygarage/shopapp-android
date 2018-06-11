@@ -45,6 +45,15 @@ class CategoryListFragmentTest {
     }
 
     @Test
+    fun shouldNotGetCategoriesOnCreateWhenListIsNotEmpty() {
+        val categories =
+            MockInstantiator.newList(MockInstantiator.newCategory(), DEFAULT_PER_PAGE_COUNT)
+        fragment.showContent(categories)
+        fragment.onViewCreated(fragment.view!!, null)
+        verify(fragment.presenter, times(1)).getCategoryList(DEFAULT_PER_PAGE_COUNT, null, DEFAULT_ID)
+    }
+
+    @Test
     fun shouldGetCategoriesOnLoadData() {
         fragment.loadData()
         verify(fragment.presenter, times(2)).getCategoryList(
