@@ -1,14 +1,12 @@
 package com.shopapp.ui.account.contract
 
 import com.shopapp.domain.interactor.account.SignUpUseCase
-import com.shopapp.domain.interactor.shop.ConfigUseCase
 import com.shopapp.domain.validator.FieldValidator
-import com.shopapp.gateway.entity.Config
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
 
-interface SignUpView : BaseLceView<Config> {
+interface SignUpView : BaseLceView<Unit> {
 
     fun showEmailError()
 
@@ -16,25 +14,14 @@ interface SignUpView : BaseLceView<Config> {
 
     fun onCheckPassed()
 
-    fun onSignUpFinished()
-
     fun onFailure()
 }
 
 class SignUpPresenter @Inject constructor(
-    private val configUseCase: ConfigUseCase,
     private val fieldValidator: FieldValidator,
     private val signUpUseCase: SignUpUseCase
 ) :
-    BaseLcePresenter<Config, SignUpView>(configUseCase, signUpUseCase) {
-
-    fun getConfig() {
-        configUseCase.execute(
-            { view?.showContent(it) },
-            { resolveError(it) },
-            Unit
-        )
-    }
+    BaseLcePresenter<Unit, SignUpView>(signUpUseCase) {
 
     fun signUp(
         firstName: String,
@@ -56,7 +43,7 @@ class SignUpPresenter @Inject constructor(
         if (!isError) {
             view?.onCheckPassed()
             signUpUseCase.execute(
-                { view?.onSignUpFinished() },
+                { view?.showContent(Unit) },
                 {
                     view?.onFailure()
                     resolveError(it)

@@ -11,7 +11,7 @@ class CategoryListRouter {
         context?.let { it.startActivity(CategoryActivity.getStartIntent(it, category)) }
     }
 
-    fun showCategoryList(context: Context?, category: Category, isGrid: Boolean) {
-        context?.let { it.startActivity(CategoryListActivity.getStartIntent(it, category, isGrid)) }
+    fun showCategoryList(context: Context?, category: Category) {
+        context?.let { it.startActivity(CategoryListActivity.getStartIntent(it, category)) }
     }
 }

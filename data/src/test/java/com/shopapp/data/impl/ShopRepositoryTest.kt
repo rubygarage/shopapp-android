@@ -67,33 +67,4 @@ class ShopRepositoryTest {
         repository.getShop().subscribe(shopObserver)
         shopObserver.assertError(error)
     }
-
-    @Test
-    fun getConfigShouldDelegateCallToApi() {
-        repository.getConfig().subscribe()
-        verify(api).getConfig(any())
-    }
-
-    @Test
-    fun getConfigShouldCompleteOnApiResult() {
-        val config: Config = mock()
-        given(api.getConfig(any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<Config>>(0)
-            callback.onResult(config)
-        })
-        repository.getConfig().subscribe(configObserver)
-        configObserver.assertComplete()
-        configObserver.assertValue(config)
-    }
-
-    @Test
-    fun getConfigShouldErrorOnApiFailure() {
-        val error = Error.Content()
-        given(api.getConfig(any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<Config>>(0)
-            callback.onFailure(error)
-        })
-        repository.getConfig().subscribe(configObserver)
-        configObserver.assertError(error)
-    }
 }

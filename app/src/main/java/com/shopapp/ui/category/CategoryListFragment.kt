@@ -21,13 +21,11 @@ class CategoryListFragment :
     companion object {
 
         private const val PARENT_CATEGORY = "parent_category"
-        private const val IS_GRID_MODE = "is_grid_mode"
 
-        fun newInstance(parentCategory: Category?, isGridMode: Boolean?): CategoryListFragment {
+        fun newInstance(parentCategory: Category?): CategoryListFragment {
             val fragment = CategoryListFragment()
             val args = Bundle()
             args.putParcelable(PARENT_CATEGORY, parentCategory)
-            args.putBoolean(IS_GRID_MODE, isGridMode ?: true)
             fragment.arguments = args
             return fragment
         }
@@ -40,7 +38,6 @@ class CategoryListFragment :
     lateinit var router: CategoryListRouter
 
     private var parentCategory: Category? = null
-    private var isGridMode = true
 
     //ANDROID
 
@@ -51,7 +48,6 @@ class CategoryListFragment :
     ): View? {
         arguments?.let {
             parentCategory = it.getParcelable(PARENT_CATEGORY)
-            isGridMode = it.getBoolean(IS_GRID_MODE, true)
         }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -75,9 +71,9 @@ class CategoryListFragment :
 
     //SETUP
 
-    override fun isGrid() = isGridMode
+    override fun isGrid() = true
 
-    override fun setupAdapter() = CategoryListAdapter(dataList, this, isGrid())
+    override fun setupAdapter() = CategoryListAdapter(dataList, this)
 
     //LCE
 
@@ -99,7 +95,7 @@ class CategoryListFragment :
         if (data.childrenCategoryList.isEmpty()) {
             router.showCategory(context, data)
         } else {
-            router.showCategoryList(context, data, isGrid())
+            router.showCategoryList(context, data)
         }
     }
 }

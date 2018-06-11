@@ -1,33 +1,13 @@
 package com.shopapp.gateway.entity
 
-import android.os.Parcel
+import android.annotation.SuppressLint
 import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@SuppressLint("ParcelCreator") //https://youtrack.jetbrains.com/issue/KT-19300
+@Parcelize
 data class Image(
     val id: String,
     val src: String,
     val alt: String?
-) : Parcelable {
-
-    constructor(source: Parcel) : this(
-        source.readString(),
-        source.readString(),
-        source.readString()
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(id)
-        writeString(src)
-        writeString(alt)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<Image> = object : Parcelable.Creator<Image> {
-            override fun createFromParcel(source: Parcel): Image = Image(source)
-            override fun newArray(size: Int): Array<Image?> = arrayOfNulls(size)
-        }
-    }
-}
+) : Parcelable

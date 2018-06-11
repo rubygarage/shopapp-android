@@ -47,35 +47,9 @@ class PersonalInfoActivityTest {
     }
 
     @Test
-    fun shouldGetConfigOnLoadData() {
+    fun shouldGetCustomerOnLoadData() {
         activity.loadData()
-        verify(activity.presenter, times(2)).getConfig()
-    }
-
-    @Test
-    fun shouldGetCustomerWhenConfigReceived() {
-        activity.onConfigReceived(config)
-        verify(activity.presenter).getCustomer()
-    }
-
-    @Test
-    fun shouldShowPhoneInput() {
-        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
-
-        given(config.isCustomerPhoneEnabled).willReturn(true)
-        activity.onConfigReceived(config)
-
-        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
-    }
-
-    @Test
-    fun shouldHidePhoneInput() {
-        assertEquals(View.VISIBLE, activity.phoneInputLayout.visibility)
-
-        given(config.isCustomerPhoneEnabled).willReturn(false)
-        activity.onConfigReceived(config)
-
-        assertEquals(View.GONE, activity.phoneInputLayout.visibility)
+        verify(activity.presenter, times(2)).getCustomer()
     }
 
     @Test

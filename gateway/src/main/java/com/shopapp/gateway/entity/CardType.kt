@@ -2,7 +2,6 @@ package com.shopapp.gateway.entity
 
 import com.shopapp.gateway.R
 
-
 enum class CardType(val nameRes: Int, val logoRes: Int) {
     VISA(R.string.visa, R.drawable.ic_visa),
     MASTER_CARD(R.string.mastercard, R.drawable.ic_master_card),

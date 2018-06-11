@@ -2,13 +2,15 @@ package com.shopapp.ui.account
 
 import android.app.Activity
 import android.content.Context
-import android.view.View
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.R
 import com.shopapp.TestShopApplication
-import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Policy
 import com.shopapp.gateway.entity.Shop
+import com.shopapp.test.MockInstantiator
 import com.shopapp.ui.const.RequestCode
 import com.shopapp.ui.home.HomeActivity
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -52,10 +54,10 @@ class AccountFragmentTest {
     }
 
     @Test
-    fun shouldShowSettingsMenuItemWhenUserIsAuthorised() {
+    fun shouldShowSettingsMenuItemWhenCustomerReceived() {
         val menu = shadowOf(fragment.activity).optionsMenu
         assertFalse(menu.findItem(R.id.settings).isVisible)
-        fragment.showContent(true)
+        fragment.customerReceived(MockInstantiator.newCustomer())
         assertTrue(menu.findItem(R.id.settings).isVisible)
     }
 
@@ -102,10 +104,19 @@ class AccountFragmentTest {
     }
 
     @Test
-    fun shouldShowAuthViewsIfNotSignedIn() {
+    fun shouldShowUnAuthFragmentIfNotSignedIn() {
         fragment.showContent(false)
-        assertEquals(View.VISIBLE, fragment.unauthGroup.visibility)
-        assertEquals(View.GONE, fragment.authGroup.visibility)
+        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.accountContainer)
+        assertNotNull(childFragment)
+        assertTrue(childFragment is AccountUnAuthFragment)
+    }
+
+    @Test
+    fun shouldShowAuthFragmentIfSignedIn() {
+        fragment.customerReceived(MockInstantiator.newCustomer())
+        val childFragment = fragment.childFragmentManager.findFragmentById(R.id.accountContainer)
+        assertNotNull(childFragment)
+        assertTrue(childFragment is AccountAuthFragment)
     }
 
     @Test
@@ -124,8 +135,6 @@ class AccountFragmentTest {
     fun shouldCheckSessionOnSignedOut() {
         fragment.signedOut()
         verify(fragment.presenter, times(2)).isAuthorized()
-        assertEquals(View.VISIBLE, fragment.unauthGroup.visibility)
-        assertEquals(View.GONE, fragment.authGroup.visibility)
     }
 
     @Test
@@ -143,98 +152,6 @@ class AccountFragmentTest {
     fun shouldCheckAuthOnNullCustomer() {
         fragment.customerReceived(null)
         verify(fragment.presenter, times(2)).isAuthorized()
-    }
-
-    @Test
-    fun shouldShowCustomerTitleView() {
-        val customer: Customer = mock {
-            on { firstName } doReturn "name"
-            on { lastName } doReturn "lastName"
-        }
-        val resultName = context.getString(R.string.full_name_pattern, "name", "lastName")
-        fragment.customerReceived(customer)
-        assertEquals(View.GONE, fragment.unauthGroup.visibility)
-        assertEquals(View.VISIBLE, fragment.authGroup.visibility)
-        assertEquals(resultName, fragment.name.text.toString())
-        assertEquals("NL", fragment.avatarView.text.toString())
-    }
-
-    @Test
-    fun shouldShowCustomerTitleViewWhenFirstNameIsEmpty() {
-        val customer: Customer = mock {
-            on { firstName } doReturn ""
-            on { lastName } doReturn "lastName"
-        }
-        val resultName = context.getString(R.string.full_name_pattern, "", "lastName").trim()
-        fragment.customerReceived(customer)
-        assertEquals(View.GONE, fragment.unauthGroup.visibility)
-        assertEquals(View.VISIBLE, fragment.authGroup.visibility)
-        assertEquals(resultName, fragment.name.text.toString())
-        assertEquals("L", fragment.avatarView.text.toString())
-    }
-
-    @Test
-    fun shouldShowCustomerTitleViewWhenLastNameIsEmpty() {
-        val customer: Customer = mock {
-            on { firstName } doReturn "name"
-            on { lastName } doReturn ""
-        }
-        val resultName = context.getString(R.string.full_name_pattern, "name", "").trim()
-        fragment.customerReceived(customer)
-        assertEquals(View.GONE, fragment.unauthGroup.visibility)
-        assertEquals(View.VISIBLE, fragment.authGroup.visibility)
-        assertEquals(resultName, fragment.name.text.toString())
-        assertEquals("N", fragment.avatarView.text.toString())
-    }
-
-    @Test
-    fun shouldShowCustomerEmailIfNameIsEmpty() {
-        val customer: Customer = mock {
-            on { firstName } doReturn ""
-            on { lastName } doReturn ""
-            on { email } doReturn "email@test.com"
-        }
-        fragment.customerReceived(customer)
-        assertEquals(View.GONE, fragment.unauthGroup.visibility)
-        assertEquals(View.VISIBLE, fragment.authGroup.visibility)
-        assertEquals("email@test.com", fragment.name.text.toString())
-        assertEquals("E", fragment.avatarView.text.toString())
-    }
-
-    @Test
-    fun shouldShowSignIn() {
-        fragment.signInButton.performClick()
-        verify(fragment.router).showSignInForResult(fragment, RequestCode.SIGN_IN)
-    }
-
-    @Test
-    fun shouldShowSignUp() {
-        val shop: Shop = mock()
-        val terms: Policy = mock()
-        val privacy: Policy = mock()
-        given(shop.termsOfService).willReturn(terms)
-        given(shop.privacyPolicy).willReturn(privacy)
-        fragment.shopReceived(shop)
-        fragment.createAccount.performClick()
-        verify(fragment.router).showSignUpForResult(fragment, privacy, terms, RequestCode.SIGN_UP)
-    }
-
-    @Test
-    fun shouldShowOrder() {
-        fragment.myOrders.performClick()
-        verify(fragment.router).showOrderList(fragment.context)
-    }
-
-    @Test
-    fun shouldShowPersonalInfo() {
-        fragment.personalInfo.performClick()
-        verify(fragment.router).showPersonalInfoForResult(fragment, RequestCode.PERSONAL_INFO)
-    }
-
-    @Test
-    fun shouldShowAddressList() {
-        fragment.shippingAddress.performClick()
-        verify(fragment.router).showAddressList(fragment.context)
     }
 
     @Test

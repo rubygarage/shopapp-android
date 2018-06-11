@@ -5,14 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.widget.Toast
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.hideKeyboard
 import com.shopapp.ext.setTextWhenDisable
-import com.shopapp.gateway.entity.Config
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.ui.account.contract.PersonalInfoPresenter
 import com.shopapp.ui.account.contract.PersonalInfoView
@@ -139,11 +136,6 @@ class PersonalInfoActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.getConfig()
-    }
-
-    override fun onConfigReceived(config: Config) {
-        phoneInputLayout.visibility = if (config.isCustomerPhoneEnabled) VISIBLE else GONE
         presenter.getCustomer()
     }
 

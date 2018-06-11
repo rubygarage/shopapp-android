@@ -1,5 +1,6 @@
 package com.shopapp.di.component
 
+import com.shopapp.di.module.TestConfigModule
 import com.shopapp.di.module.TestRepositoryModule
 import com.shopapp.di.module.TestValidatorModule
 import com.shopapp.ui.account.di.TestAccountComponent
@@ -20,7 +21,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [TestRepositoryModule::class, TestValidatorModule::class])
+@Component(modules = [TestRepositoryModule::class, TestValidatorModule::class, TestConfigModule::class])
 interface TestAppComponent : AppComponent {
 
     override fun attachHomeComponent(): TestHomeComponent

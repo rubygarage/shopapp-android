@@ -3,6 +3,7 @@ package com.shopapp.ui.account
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuInflater
@@ -46,14 +47,15 @@ class AccountFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupButtons()
+        logout.setOnClickListener {
+            presenter.signOut()
+        }
         if (shop == null) {
             presenter.getShopInfo()
         } else {
             setupShop()
         }
 
-        customer?.let { customerReceived(it) }
         loadData(customer != null)
     }
 
@@ -104,38 +106,14 @@ class AccountFragment :
 
     //SETUP
 
-    private fun setupButtons() {
-        signInButton.setOnClickListener {
-            router.showSignInForResult(this, RequestCode.SIGN_IN)
-        }
-        createAccount.setOnClickListener {
-            router.showSignUpForResult(
-                this,
-                shop?.privacyPolicy,
-                shop?.termsOfService,
-                RequestCode.SIGN_UP
-            )
-        }
-        myOrders.setOnClickListener {
-            router.showOrderList(context)
-        }
-        personalInfo.setOnClickListener {
-            router.showPersonalInfoForResult(this, RequestCode.PERSONAL_INFO)
-        }
-        shippingAddress.setOnClickListener {
-            router.showAddressList(context)
-        }
-        logout.setOnClickListener {
-            presenter.signOut()
-        }
-    }
-
     private fun setupPolicy(view: View, policy: Policy?) {
-        if (policy != null) {
-            view.setOnClickListener { router.showPolicy(context, policy) }
-            view.visibility = View.VISIBLE
-        } else {
-            view.visibility = View.GONE
+        view.post {
+            if (policy != null) {
+                view.setOnClickListener { router.showPolicy(context, policy) }
+                view.visibility = View.VISIBLE
+            } else {
+                view.visibility = View.GONE
+            }
         }
     }
 
@@ -157,13 +135,30 @@ class AccountFragment :
     override fun showContent(data: Boolean) {
         super.showContent(data)
         if (data) {
-            settingsMenuItem?.isVisible = true
             presenter.getCustomer()
         } else {
-            settingsMenuItem?.isVisible = false
-            unauthGroup.visibility = View.VISIBLE
-            authGroup.visibility = View.GONE
+            changeViewState(false)
         }
+    }
+
+    private fun changeViewState(isCustomerAuthorized: Boolean, customer: Customer? = null) {
+        val oldFragment: Fragment? = childFragmentManager.findFragmentById(R.id.accountContainer)
+        val newFragment: Fragment = if (isCustomerAuthorized && customer != null) {
+            AccountAuthFragment.newInstance(customer)
+        } else {
+            AccountUnAuthFragment.newInstance(shop)
+        }
+
+        if (newFragment.javaClass != oldFragment?.javaClass) {
+            childFragmentManager.beginTransaction()
+                .replace(R.id.accountContainer, newFragment)
+                .commit()
+        }
+
+        val authVisibility = if (isCustomerAuthorized) View.VISIBLE else View.INVISIBLE
+        logout.visibility = authVisibility
+        bottomSpace.visibility = authVisibility
+        settingsMenuItem?.isVisible = isCustomerAuthorized
     }
 
     override fun shopReceived(shop: Shop) {
@@ -174,20 +169,7 @@ class AccountFragment :
     override fun customerReceived(customer: Customer?) {
         this.customer = customer
         if (customer != null) {
-            authGroup.visibility = View.VISIBLE
-            unauthGroup.visibility = View.GONE
-            if (customer.firstName.isNotBlank() || customer.lastName.isNotBlank()) {
-                val fullName = getString(
-                    R.string.full_name_pattern,
-                    customer.firstName,
-                    customer.lastName
-                ).trim()
-                name.text = fullName
-                avatarView.setName(fullName)
-            } else {
-                name.text = customer.email
-                avatarView.setName(customer.email)
-            }
+            changeViewState(true, customer)
         } else {
             loadData()
         }
@@ -198,5 +180,4 @@ class AccountFragment :
         showMessage(R.string.logout_success_message)
         loadData()
     }
-
 }

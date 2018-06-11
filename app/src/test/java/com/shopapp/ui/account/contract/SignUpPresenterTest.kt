@@ -2,14 +2,12 @@ package com.shopapp.ui.account.contract
 
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.SignUpUseCase
-import com.shopapp.domain.interactor.shop.ConfigUseCase
 import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.gateway.entity.Config
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
 import com.shopapp.test.ext.mock
 import io.reactivex.Completable
-import io.reactivex.Single
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -26,9 +24,6 @@ class SignUpPresenterTest {
 
     @Mock
     private lateinit var view: SignUpView
-
-    @Mock
-    private lateinit var configUseCase: ConfigUseCase
 
     @Mock
     private lateinit var signUpUseCase: SignUpUseCase
@@ -50,9 +45,8 @@ class SignUpPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = SignUpPresenter(configUseCase, validator, signUpUseCase)
+        presenter = SignUpPresenter(validator, signUpUseCase)
         presenter.attachView(view)
-        configUseCase.mock()
         signUpUseCase.mock()
         validator.mock()
     }
@@ -90,25 +84,10 @@ class SignUpPresenterTest {
     }
 
     @Test
-    fun shouldShowContentWhenConfigReceived() {
-        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.just(config))
-        presenter.getConfig()
-        verify(view).showContent(config)
-    }
-
-    @Test
-    fun shouldShowErrorWhenConfigReceived() {
-        val error = Error.Content()
-        given(configUseCase.buildUseCaseSingle(any())).willReturn(Single.error(error))
-        presenter.getConfig()
-        verify(view).showError(error)
-    }
-
-    @Test
-    fun shouldCallOnSignUpFinishedWhenOnUseCaseComplete() {
+    fun shouldCallShowContentWhenOnUseCaseComplete() {
         given(signUpUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
         presenter.signUp(name, lastName, email, password, phone)
-        verify(view).onSignUpFinished()
+        verify(view).showContent(Unit)
     }
 
     @Test

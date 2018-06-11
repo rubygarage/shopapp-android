@@ -6,7 +6,7 @@ interface Api {
 
     // Config
 
-    fun getConfig(callback: ApiCallback<Config>)
+    fun getConfig(): Config
 
     // Shop
 

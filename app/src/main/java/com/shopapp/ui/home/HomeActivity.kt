@@ -102,7 +102,7 @@ class HomeActivity : AppCompatActivity() {
                 SEARCH -> SearchWithCategoriesFragment()
                 else -> AccountFragment()
             }
-        }).commit()
+        })
     }
 
     private fun selectTab(position: Int) {

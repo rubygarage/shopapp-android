@@ -14,13 +14,11 @@ class CategoryListActivity : AppCompatActivity() {
 
     companion object {
 
-        val PARENT_CATEGORY = "parent_category"
-        const val IS_GRID_MODE = "is_grid_mode"
+        const val PARENT_CATEGORY = "parent_category"
 
-        fun getStartIntent(context: Context, category: Category, isGrid: Boolean): Intent {
+        fun getStartIntent(context: Context, category: Category): Intent {
             val intent = Intent(context, CategoryListActivity::class.java)
             intent.putExtra(PARENT_CATEGORY, category)
-            intent.putExtra(IS_GRID_MODE, isGrid)
             return intent
         }
     }
@@ -29,7 +27,6 @@ class CategoryListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_list)
         val parentCategory: Category? = intent.getParcelableExtra(PARENT_CATEGORY)
-        val isGrid = intent.getBooleanExtra(IS_GRID_MODE, true)
 
         toolbar.setTitle(parentCategory?.title ?: "")
         setSupportActionBar(toolbar)
@@ -38,7 +35,7 @@ class CategoryListActivity : AppCompatActivity() {
             it.setDisplayShowTitleEnabled(false)
             it.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         }
-        val fragment = CategoryListFragment.newInstance(parentCategory, isGrid)
+        val fragment = CategoryListFragment.newInstance(parentCategory)
         supportFragmentManager.beginTransaction()
             .replace(content.id, fragment)
             .commit()

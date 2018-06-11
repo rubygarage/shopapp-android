@@ -30,12 +30,11 @@ class CategoryListFragmentTest {
     private lateinit var fragment: CategoryListFragment
     private lateinit var context: Context
     private lateinit var category: Category
-    private val isGrid = false
 
     @Before
     fun setUp() {
         category = MockInstantiator.newCategory()
-        fragment = CategoryListFragment.newInstance(category, isGrid)
+        fragment = CategoryListFragment.newInstance(category)
         SupportFragmentTestUtil.startFragment(fragment)
         context = RuntimeEnvironment.application.baseContext
     }
@@ -43,6 +42,15 @@ class CategoryListFragmentTest {
     @Test
     fun shouldGetCategoriesOnCreate() {
         verify(fragment.presenter).getCategoryList(DEFAULT_PER_PAGE_COUNT, null, DEFAULT_ID)
+    }
+
+    @Test
+    fun shouldNotGetCategoriesOnCreateWhenListIsNotEmpty() {
+        val categories =
+            MockInstantiator.newList(MockInstantiator.newCategory(), DEFAULT_PER_PAGE_COUNT)
+        fragment.showContent(categories)
+        fragment.onViewCreated(fragment.view!!, null)
+        verify(fragment.presenter, times(1)).getCategoryList(DEFAULT_PER_PAGE_COUNT, null, DEFAULT_ID)
     }
 
     @Test
@@ -76,7 +84,7 @@ class CategoryListFragmentTest {
         val childCategoryList = listOf<Category>(mock())
         given(category.childrenCategoryList).willReturn(childCategoryList)
         fragment.onItemClicked(category, 0)
-        verify(fragment.router).showCategoryList(fragment.context, category, isGrid)
+        verify(fragment.router).showCategoryList(fragment.context, category)
     }
 
     @Test
@@ -86,7 +94,7 @@ class CategoryListFragmentTest {
 
     @Test
     fun shouldShowItemsAsGrid() {
-        fragment = CategoryListFragment.newInstance(category, true)
+        fragment = CategoryListFragment.newInstance(category)
         SupportFragmentTestUtil.startFragment(fragment)
         assertTrue(fragment.recyclerView.layoutManager is GridLayoutManager)
     }
