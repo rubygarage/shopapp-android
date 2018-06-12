@@ -9,11 +9,15 @@ import io.reactivex.Single
 
 class BlogRepositoryImpl(private val api: Api) : BlogRepository {
 
-    override fun getArticles(perPage: Int, paginationValue: Any?, sortBy: SortType?,
-                                reverse: Boolean): Single<List<Article>> {
+    override fun getArticles(
+        perPage: Int, paginationValue: Any?, sortBy: SortType?,
+        reverse: Boolean
+    ): Single<List<Article>> {
         return Single.create<List<Article>> { emitter ->
-            api.getArticles(perPage, paginationValue, sortBy, reverse,
-                    RxCallbackSingle<List<Article>>(emitter))
+            api.getArticles(
+                perPage, paginationValue, sortBy, reverse,
+                RxCallbackSingle<List<Article>>(emitter)
+            )
         }
     }
 

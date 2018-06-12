@@ -1,8 +1,8 @@
 package com.shopapp.data.dao.adapter
 
-import com.shopapp.gateway.entity.ProductVariant
 import com.shopapp.data.dao.entity.ProductVariantData
 import com.shopapp.data.dao.entity.ProductVariantDataEntity
+import com.shopapp.gateway.entity.ProductVariant
 
 object ProductVariantAdapter {
 
@@ -12,7 +12,8 @@ object ProductVariantAdapter {
         product.title = adaptee.title
         product.price = adaptee.price.toFloat()
         product.isAvailable = adaptee.isAvailable
-        product.selectedOptions = adaptee.selectedOptions.map { VariantOptionAdapter.adaptToStore(it) }
+        product.selectedOptions =
+                adaptee.selectedOptions.map { VariantOptionAdapter.adaptToStore(it) }
         product.image = ImageAdapter.adaptToStore(adaptee.image)
         product.productItemId = adaptee.productId
         product.productImage = ImageAdapter.adaptToStore(adaptee.productImage)

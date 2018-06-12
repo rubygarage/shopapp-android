@@ -15,8 +15,10 @@ class PaginationDelegate<M> {
         private const val SPAN_COUNT = 2
     }
 
-    fun setupRecyclerView(paginationListener: PaginationListener, recycler: RecyclerView?,
-                          adapter: BaseRecyclerAdapter<M>, isGrid: Boolean, perPageCount: Int) {
+    fun setupRecyclerView(
+        paginationListener: PaginationListener, recycler: RecyclerView?,
+        adapter: BaseRecyclerAdapter<M>, isGrid: Boolean, perPageCount: Int
+    ) {
         recycler?.let {
             val context = recycler.context
             val layoutManager: RecyclerView.LayoutManager

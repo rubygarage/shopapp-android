@@ -3,8 +3,8 @@ package com.shopapp.ui.item
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.view.View
-import com.shopapp.gateway.entity.Category
 import com.shopapp.R
+import com.shopapp.gateway.entity.Category
 import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryItem(context: Context) : ConstraintLayout(context) {

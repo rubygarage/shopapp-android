@@ -8,6 +8,8 @@ interface CategoryRepository {
 
     fun getCategories(perPage: Int, paginationValue: String? = null): Single<List<Category>>
 
-    fun getCategory(categoryId: String, productPerPage: Int, productPaginationValue: String? = null,
-                    sortBy: SortType? = null): Single<Category>
+    fun getCategory(
+        categoryId: String, productPerPage: Int, productPaginationValue: String? = null,
+        sortBy: SortType? = null
+    ): Single<Category>
 }

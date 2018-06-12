@@ -1,8 +1,8 @@
 package com.shopapp.data.dao.adapter
 
-import com.shopapp.gateway.entity.VariantOption
 import com.shopapp.data.dao.entity.VariantOptionData
 import com.shopapp.data.dao.entity.VariantOptionDataEntity
+import com.shopapp.gateway.entity.VariantOption
 
 object VariantOptionAdapter {
 

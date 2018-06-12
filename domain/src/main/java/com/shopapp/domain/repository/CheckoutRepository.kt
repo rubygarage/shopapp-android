@@ -19,5 +19,10 @@ interface CheckoutRepository {
 
     fun getCardToken(card: Card): Single<String>
 
-    fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String): Single<Order>
+    fun completeCheckoutByCard(
+        checkout: Checkout,
+        email: String,
+        address: Address,
+        creditCardVaultToken: String
+    ): Single<Order>
 }

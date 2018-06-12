@@ -3,9 +3,10 @@ package com.shopapp.gateway.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-data class ProductOption(var id: String,
-                         var name: String,
-                         var values: List<String>
+data class ProductOption(
+    var id: String,
+    var name: String,
+    var values: List<String>
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

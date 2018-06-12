@@ -7,7 +7,7 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class UpdateCustomerAddressUseCase @Inject constructor(private val repository: CustomerRepository) :
-        CompletableUseCase<UpdateCustomerAddressUseCase.Params>() {
+    CompletableUseCase<UpdateCustomerAddressUseCase.Params>() {
 
     override fun buildUseCaseCompletable(params: Params): Completable {
         return repository.updateCustomerAddress(params.address)

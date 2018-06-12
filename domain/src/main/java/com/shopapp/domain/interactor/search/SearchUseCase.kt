@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class SearchUseCase @Inject constructor(private val productRepository: ProductRepository) :
-        SingleUseCase<List<Product>, SearchUseCase.Params>() {
+    SingleUseCase<List<Product>, SearchUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
         return with(params) {
@@ -16,8 +16,8 @@ class SearchUseCase @Inject constructor(private val productRepository: ProductRe
     }
 
     data class Params(
-            val perPage: Int,
-            val paginationValue: String?,
-            val query: String
+        val perPage: Int,
+        val paginationValue: String?,
+        val query: String
     )
 }

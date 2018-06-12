@@ -1,9 +1,9 @@
 package com.shopapp.data.impl
 
+import com.shopapp.data.rx.RxCallbackSingle
+import com.shopapp.domain.repository.ShopRepository
 import com.shopapp.gateway.Api
 import com.shopapp.gateway.entity.Shop
-import com.shopapp.domain.repository.ShopRepository
-import com.shopapp.data.rx.RxCallbackSingle
 import io.reactivex.Single
 
 class ShopRepositoryImpl(private val api: Api) : ShopRepository {

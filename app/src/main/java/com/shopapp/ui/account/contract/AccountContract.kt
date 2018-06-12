@@ -2,8 +2,8 @@ package com.shopapp.ui.account.contract
 
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.SessionCheckUseCase
-import com.shopapp.domain.interactor.account.SignOutUseCase
 import com.shopapp.domain.interactor.account.ShopInfoUseCase
+import com.shopapp.domain.interactor.account.SignOutUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Shop
 import com.shopapp.ui.base.contract.BaseLcePresenter

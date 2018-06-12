@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetCountriesUseCase @Inject constructor(private val repository: CustomerRepository) :
-        SingleUseCase<List<Country>, Unit>() {
+    SingleUseCase<List<Country>, Unit>() {
 
     override fun buildUseCaseSingle(params: Unit): Single<List<Country>> {
         return repository.getCountries()

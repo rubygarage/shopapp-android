@@ -13,11 +13,11 @@ import android.text.TextWatcher
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
-import com.shopapp.gateway.entity.Policy
 import com.shopapp.R
 import com.shopapp.ShopApplication
 import com.shopapp.ext.getTrimmedString
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Policy
 import com.shopapp.ui.account.contract.SignUpPresenter
 import com.shopapp.ui.account.contract.SignUpView
 import com.shopapp.ui.account.router.SignUpRouter

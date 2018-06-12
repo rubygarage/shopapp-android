@@ -31,7 +31,12 @@ class SetupCheckoutUseCase @Inject constructor(
             .flatMap {
                 Single.zip(Single.just(it), checkoutRepository.createCheckout(it),
                     BiFunction<List<CartProduct>, Checkout,
-                            Pair<List<CartProduct>, Checkout>> { products, checkout -> Pair(products, checkout) })
+                            Pair<List<CartProduct>, Checkout>> { products, checkout ->
+                        Pair(
+                            products,
+                            checkout
+                        )
+                    })
             }
     }
 

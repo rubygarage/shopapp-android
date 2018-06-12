@@ -1,9 +1,9 @@
 package com.shopapp.data.impl
 
-import com.shopapp.gateway.Api
-import com.shopapp.gateway.entity.*
 import com.shopapp.data.rx.RxCallbackSingle
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.entity.*
 import io.reactivex.Single
 
 class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
@@ -50,9 +50,20 @@ class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
         }
     }
 
-    override fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String): Single<Order> {
+    override fun completeCheckoutByCard(
+        checkout: Checkout,
+        email: String,
+        address: Address,
+        creditCardVaultToken: String
+    ): Single<Order> {
         return Single.create<Order> {
-            api.completeCheckoutByCard(checkout, email, address, creditCardVaultToken, RxCallbackSingle<Order>(it))
+            api.completeCheckoutByCard(
+                checkout,
+                email,
+                address,
+                creditCardVaultToken,
+                RxCallbackSingle<Order>(it)
+            )
         }
     }
 }

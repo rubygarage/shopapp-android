@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class AddCustomerAddressUseCase @Inject constructor(private val repository: CustomerRepository) :
-        SingleUseCase<String, Address>() {
+    SingleUseCase<String, Address>() {
 
     override fun buildUseCaseSingle(params: Address): Single<String> {
         return repository.addCustomerAddress(params)
