@@ -187,8 +187,8 @@ class ProductDetailsActivity :
         optionsContainer.setProduct(data, intent.getParcelableExtra(EXTRA_PRODUCT_VARIANT))
 
         val relatedFragment =
-            ProductShortcutFragment.newInstance(SortType.TYPE, data.type, data.title)
-        relatedFragment.fragmentVisibilityListener = object : FragmentVisibilityListener {
+            ProductHorizontalFragment.newInstance(SortType.TYPE, data.type, data.title)
+        relatedFragment.visibilityListener = object : FragmentVisibilityListener {
             override fun changeVisibility(isVisible: Boolean) {
                 relatedContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
             }

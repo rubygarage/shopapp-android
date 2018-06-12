@@ -4,7 +4,7 @@ import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.SessionCheckUseCase
 import com.shopapp.domain.interactor.account.SignOutUseCase
-import com.shopapp.domain.interactor.shop.ShopInfoUseCase
+import com.shopapp.domain.interactor.account.ShopInfoUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Shop

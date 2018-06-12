@@ -17,9 +17,9 @@ import com.shopapp.ui.order.details.adapter.OrderProductsAdapter
 import com.shopapp.ui.order.details.contract.OrderDetailsPresenter
 import com.shopapp.ui.order.details.contract.OrderDetailsView
 import com.shopapp.ui.order.details.router.OrderRouter
+import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.activity_order_details.*
-import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 

@@ -17,10 +17,10 @@ import com.shopapp.ui.address.base.contract.AddressView
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.const.Extra
 import kotlinx.android.synthetic.main.activity_address.*
+import kotlinx.android.synthetic.main.activity_lce.*
 import kotlinx.android.synthetic.main.bottom_sheet_picker.*
 import kotlinx.android.synthetic.main.layout_lce.*
-import kotlinx.android.synthetic.main.lce.*
-import kotlinx.android.synthetic.main.lce.view.*
+import kotlinx.android.synthetic.main.layout_lce.view.*
 import kotlinx.android.synthetic.main.view_base_toolbar.view.*
 import kotlinx.android.synthetic.main.view_lce_error.*
 import org.junit.Assert.*

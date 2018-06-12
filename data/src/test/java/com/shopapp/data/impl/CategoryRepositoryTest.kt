@@ -86,7 +86,7 @@ class CategoryRepositoryTest {
     fun getCategoriesShouldReturnValueWhenOnResult() {
         val categoryList: List<Category> = mock()
         given(api.getCategories(any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Category>>>(3)
+            val callback = it.getArgument<ApiCallback<List<Category>>>(2)
             callback.onResult(categoryList)
         })
 
@@ -99,7 +99,7 @@ class CategoryRepositoryTest {
     fun getCategoriesShouldReturnErrorOnFailure() {
         val error = Error.Content()
         given(api.getCategories(any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Category>>>(3)
+            val callback = it.getArgument<ApiCallback<List<Category>>>(2)
             callback.onFailure(error)
         })
 

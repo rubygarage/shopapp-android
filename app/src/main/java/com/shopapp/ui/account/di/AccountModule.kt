@@ -18,7 +18,7 @@ class AccountModule {
         formValidator: FieldValidator,
         signUpUseCase: SignUpUseCase
     ): SignUpPresenter {
-        return SignUpPresenter(configUseCase, formValidator, signUpUseCase)
+        return SignUpPresenter(formValidator, signUpUseCase)
     }
 
     @Provides

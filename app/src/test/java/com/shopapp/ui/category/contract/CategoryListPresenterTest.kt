@@ -68,7 +68,7 @@ class CategoryListPresenterTest {
                 )
             )
         )
-        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
+        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
         val params = GetCategoriesUseCase.Params(
             DEFAULT_PER_PAGE_COUNT,
             DEFAULT_PAGINATION_VALUE
@@ -82,7 +82,7 @@ class CategoryListPresenterTest {
     @Test
     fun shouldShowErrorOnUseCaseContentError() {
         given(getCategoriesUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
-        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE, DEFAULT_ID)
+        presenter.getCategoryList(DEFAULT_PER_PAGE_COUNT, DEFAULT_PAGINATION_VALUE)
         val params = GetCategoriesUseCase.Params(
             DEFAULT_PER_PAGE_COUNT,
             DEFAULT_PAGINATION_VALUE
