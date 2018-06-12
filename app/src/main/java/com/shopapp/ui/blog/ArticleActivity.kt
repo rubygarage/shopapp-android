@@ -24,11 +24,6 @@ class ArticleActivity :
     BaseLceActivity<Pair<Article, String>, ArticleView, ArticlePresenter>(),
     ArticleView {
 
-    @Inject
-    lateinit var articlePresenter: ArticlePresenter
-
-    private var shareUrl: String? = null
-
     companion object {
         const val EXTRA_ARTICLE_ID = "extra_article_id"
         private const val FRAME_HEIGHT_MULTIPLIER = 0.66
@@ -39,6 +34,11 @@ class ArticleActivity :
             return intent
         }
     }
+
+    @Inject
+    lateinit var articlePresenter: ArticlePresenter
+
+    private var shareUrl: String? = null
 
     //ANDROID
 

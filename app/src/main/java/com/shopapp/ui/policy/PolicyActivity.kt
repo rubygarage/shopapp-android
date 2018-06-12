@@ -11,8 +11,6 @@ import kotlinx.android.synthetic.main.activity_policy.*
 
 class PolicyActivity : AppCompatActivity() {
 
-    private lateinit var policy: Policy
-
     companion object {
 
         const val EXTRA_POLICY = "EXTRA_POLICY"
@@ -23,6 +21,8 @@ class PolicyActivity : AppCompatActivity() {
             return intent
         }
     }
+
+    private lateinit var policy: Policy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

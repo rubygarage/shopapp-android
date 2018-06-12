@@ -21,6 +21,10 @@ import javax.inject.Inject
 class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
     SignInView {
 
+    companion object {
+        fun getStartIntent(context: Context) = Intent(context, SignInActivity::class.java)
+    }
+
     @Inject
     lateinit var signInPresenter: SignInPresenter
 
@@ -29,10 +33,6 @@ class SignInActivity : BaseLceActivity<Unit, SignInView, SignInPresenter>(),
 
     private lateinit var emailTextWatcher: TextWatcher
     private lateinit var passwordTextWatcher: TextWatcher
-
-    companion object {
-        fun getStartIntent(context: Context) = Intent(context, SignInActivity::class.java)
-    }
 
     //ANDROID
 

@@ -21,18 +21,18 @@ class OrderListActivity :
     PaginationActivity<Order, OrderListView, OrderListPresenter>(),
     OrderListView, OrderListAdapter.OnOrderItemClickListener {
 
-    @Inject
-    lateinit var orderListPresenter: OrderListPresenter
-
-    @Inject
-    lateinit var router: OrderListRouter
-
     companion object {
 
         fun getStartIntent(context: Context): Intent {
             return Intent(context, OrderListActivity::class.java)
         }
     }
+
+    @Inject
+    lateinit var orderListPresenter: OrderListPresenter
+
+    @Inject
+    lateinit var router: OrderListRouter
 
     //ANDROID
 

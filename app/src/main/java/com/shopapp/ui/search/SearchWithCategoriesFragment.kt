@@ -11,18 +11,18 @@ import kotlinx.android.synthetic.main.fragment_search_with_categories_lce.*
 
 class SearchWithCategoriesFragment : Fragment(), SearchToolbar.SearchToolbarListener {
 
-    private val searchFragment: SearchFragment by lazy {
-        SearchFragment()
-    }
-    private val categoriesFragment: CategoryListFragment by lazy {
-        CategoryListFragment.newInstance(null)
-    }
-
     companion object {
         enum class ContentType {
             Search,
             Categories
         }
+    }
+
+    private val searchFragment: SearchFragment by lazy {
+        SearchFragment()
+    }
+    private val categoriesFragment: CategoryListFragment by lazy {
+        CategoryListFragment.newInstance(null)
     }
 
     override fun onCreateView(

@@ -30,6 +30,10 @@ class CartActivity :
     CartItem.ActionListener,
     SwipeToDeleteCallback.OnItemSwipeListener {
 
+    companion object {
+        fun getStartIntent(context: Context) = Intent(context, CartActivity::class.java)
+    }
+
     @Inject
     lateinit var cartPresenter: CartPresenter
 
@@ -39,10 +43,6 @@ class CartActivity :
     private val data: MutableList<CartProduct> = mutableListOf()
     private lateinit var adapter: CartAdapter
     private val formatter = NumberFormatter()
-
-    companion object {
-        fun getStartIntent(context: Context) = Intent(context, CartActivity::class.java)
-    }
 
     //ANDROID
 

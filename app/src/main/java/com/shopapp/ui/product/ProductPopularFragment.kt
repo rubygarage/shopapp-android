@@ -25,6 +25,10 @@ class ProductPopularFragment :
     ProductListView,
     OnItemClickListener {
 
+    companion object {
+        private const val MAX_ITEMS = 4
+    }
+
     @Inject
     lateinit var productListPresenter: ProductListPresenter
 
@@ -34,10 +38,6 @@ class ProductPopularFragment :
     private val productList = mutableListOf<Product>()
     private val sortType = SortType.RELEVANT
     private lateinit var adapter: ProductListAdapter
-
-    companion object {
-        private const val MAX_ITEMS = 4
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

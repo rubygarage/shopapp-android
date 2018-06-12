@@ -27,8 +27,6 @@ class OrderDetailsActivity :
     BaseLceActivity<Order, OrderDetailsView, OrderDetailsPresenter>(),
     OrderDetailsView, OnItemClickListener {
 
-    private var order: Order? = null
-
     companion object {
         const val EXTRA_ORDER_ID = "EXTRA_ORDER_ID"
 
@@ -45,6 +43,7 @@ class OrderDetailsActivity :
     @Inject
     lateinit var router: OrderRouter
 
+    private var order: Order? = null
     private lateinit var orderId: String
     private lateinit var formatter: NumberFormatter
 

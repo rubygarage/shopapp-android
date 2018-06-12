@@ -29,19 +29,6 @@ class CategoryActivity :
     CategoryView,
     CategorySortPopupFacade.OnSortTypeChangeListener {
 
-    @Inject
-    lateinit var categoryPresenter: CategoryPresenter
-
-    @Inject
-    lateinit var router: CategoryRouter
-
-    private lateinit var category: Category
-    private var sortType: SortType = SortType.NAME
-    private var positiveScrollOffset = 0
-    private var negativeScrollOffset = 0
-    private var isCollapsed = false
-    private var categorySortPopupFacade: CategorySortPopupFacade? = null
-
     companion object {
 
         private const val PROGRESS_START_BIAS = 0.2f
@@ -54,6 +41,19 @@ class CategoryActivity :
             return intent
         }
     }
+
+    @Inject
+    lateinit var categoryPresenter: CategoryPresenter
+
+    @Inject
+    lateinit var router: CategoryRouter
+
+    private lateinit var category: Category
+    private var sortType: SortType = SortType.NAME
+    private var positiveScrollOffset = 0
+    private var negativeScrollOffset = 0
+    private var isCollapsed = false
+    private var categorySortPopupFacade: CategorySortPopupFacade? = null
 
     //ANDROID
 

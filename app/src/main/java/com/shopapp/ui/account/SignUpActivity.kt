@@ -32,15 +32,6 @@ class SignUpActivity :
     BaseLceActivity<Unit, SignUpView, SignUpPresenter>(),
     SignUpView {
 
-    @Inject
-    lateinit var signUpPresenter: SignUpPresenter
-
-    @Inject
-    lateinit var router: SignUpRouter
-
-    private lateinit var emailTextWatcher: TextWatcher
-    private lateinit var passwordTextWatcher: TextWatcher
-
     companion object {
         const val PRIVACY_POLICY = "privacy_policy"
         const val TERMS_OF_SERVICE = "terms_of_service"
@@ -56,6 +47,15 @@ class SignUpActivity :
             return intent
         }
     }
+
+    @Inject
+    lateinit var signUpPresenter: SignUpPresenter
+
+    @Inject
+    lateinit var router: SignUpRouter
+
+    private lateinit var emailTextWatcher: TextWatcher
+    private lateinit var passwordTextWatcher: TextWatcher
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

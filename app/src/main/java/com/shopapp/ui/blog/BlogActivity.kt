@@ -21,15 +21,16 @@ class BlogActivity :
     PaginationActivity<Article, BlogView, BlogPresenter>(),
     BlogView {
 
+    companion object {
+        fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)
+    }
+
+
     @Inject
     lateinit var blogPresenter: BlogPresenter
 
     @Inject
     lateinit var router: BlogRouter
-
-    companion object {
-        fun getStartIntent(context: Context) = Intent(context, BlogActivity::class.java)
-    }
 
     //ANDROID
 
