@@ -22,10 +22,15 @@ object RestClient {
     private const val TIMEOUT: Long = 10
     private const val cacheSize: Long = 10 * 1024 * 1024 // 10 MB
 
-    fun providesRetrofit(context: Context, baseUrl: String, vararg cachedUrls: String): Retrofit {
+    fun providesRetrofit(
+        context: Context,
+        baseUrl: String,
+        longCachedUrls: List<String>,
+        shortCachedUrls: List<String>
+    ): Retrofit {
 
         val cache = Cache(context.cacheDir, cacheSize)
-        val cacheInterceptor = CacheInterceptor(*cachedUrls)
+        val cacheInterceptor = CacheInterceptor(longCachedUrls, shortCachedUrls)
 
         return Retrofit.Builder()
             .baseUrl(baseUrl)

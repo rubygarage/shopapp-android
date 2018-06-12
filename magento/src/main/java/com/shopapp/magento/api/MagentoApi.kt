@@ -47,10 +47,13 @@ class MagentoApi : Api {
     constructor(context: Context, host: String) {
         this.host = host
         retrofit = RestClient.providesRetrofit(
-            context,
-            host + BASE_PATH,
-            StoreService.STORE_CONFIGS_URL,
-            CustomerService.COUNTRIES_URL
+            context = context,
+            baseUrl = host + BASE_PATH,
+            longCachedUrls = listOf(
+                StoreService.STORE_CONFIGS_URL,
+                CustomerService.COUNTRIES_URL
+            ),
+            shortCachedUrls = listOf()
         )
         preferences = SecurePreferences(context)
     }
@@ -238,8 +241,7 @@ class MagentoApi : Api {
     // Articles
 
     override fun getArticles(
-        perPage: Int, paginationValue: Any?, sortBy: SortType?,
-        reverse: Boolean, callback: ApiCallback<List<Article>>
+        perPage: Int, paginationValue: Any?, sortBy: SortType?, callback: ApiCallback<List<Article>>
     ) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

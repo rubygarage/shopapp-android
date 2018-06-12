@@ -44,7 +44,7 @@ interface Api {
 
     fun getArticles(
         perPage: Int, paginationValue: Any?, sortBy: SortType? = null,
-        reverse: Boolean = false, callback: ApiCallback<List<Article>>
+        callback: ApiCallback<List<Article>>
     )
 
     fun getArticle(id: String, callback: ApiCallback<Pair<Article, String>>)
