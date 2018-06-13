@@ -12,7 +12,7 @@ class GetArticlesUseCase @Inject constructor(private val blogRepository: BlogRep
 
     override fun buildUseCaseSingle(params: Params): Single<List<Article>> {
         return with(params) {
-            blogRepository.getArticles(perPage, paginationValue, SortType.RECENT, true)
+            blogRepository.getArticles(perPage, paginationValue, SortType.RECENT)
         }
     }
 

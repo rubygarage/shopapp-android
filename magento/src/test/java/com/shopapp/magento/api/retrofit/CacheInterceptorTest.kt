@@ -2,6 +2,7 @@ package com.shopapp.magento.api.retrofit
 
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.given
+import com.nhaarman.mockito_kotlin.never
 import com.nhaarman.mockito_kotlin.verify
 import com.shopapp.magento.retrofit.CacheInterceptor
 import okhttp3.HttpUrl
@@ -16,17 +17,22 @@ import org.mockito.MockitoAnnotations
 class CacheInterceptorTest {
 
     companion object {
-        private const val CACHED_URL = "product/path"
+        private const val LONG_CACHED_URL = "category/path"
+        private const val SHORT_CACHED_URL = "product/path"
     }
 
     @Mock
     private lateinit var mockedChain: Interceptor.Chain
+
     @Mock
     private lateinit var mockedRequest: Request
+
     @Mock
     private lateinit var mockedResponse: Response
+
     @Mock
     private lateinit var mockedUrl: HttpUrl
+
     @Mock
     private lateinit var responseBuilder: Response.Builder
 
@@ -45,28 +51,48 @@ class CacheInterceptorTest {
         given(responseBuilder.header(any(), any())).willReturn(responseBuilder)
         given(responseBuilder.build()).willReturn(mockedResponse)
 
-        interceptor = CacheInterceptor(CACHED_URL)
+        interceptor = CacheInterceptor(
+            longCachedUrls = listOf(LONG_CACHED_URL),
+            shortCachedUrls = listOf(SHORT_CACHED_URL)
+        )
     }
 
     @Test
     fun shouldSetShortCacheAge() {
-        given(mockedUrl.encodedPath()).willReturn("test/category/path")
-
-        interceptor.intercept(mockedChain)
-
-        verify(responseBuilder).removeHeader(CacheInterceptor.PRAGMA_HEADER)
-        verify(responseBuilder).removeHeader(CacheInterceptor.CACHE_CONTROL_HEADER)
-        verify(responseBuilder).header(CacheInterceptor.CACHE_CONTROL_HEADER, "max-age=60, only-if-cached")
-    }
-
-    @Test
-    fun shouldSetLongCacheAge() {
         given(mockedUrl.encodedPath()).willReturn("test/product/path")
 
         interceptor.intercept(mockedChain)
 
         verify(responseBuilder).removeHeader(CacheInterceptor.PRAGMA_HEADER)
         verify(responseBuilder).removeHeader(CacheInterceptor.CACHE_CONTROL_HEADER)
-        verify(responseBuilder).header(CacheInterceptor.CACHE_CONTROL_HEADER, "max-age=3600, only-if-cached")
+        verify(responseBuilder).header(
+            CacheInterceptor.CACHE_CONTROL_HEADER,
+            "max-age=60, only-if-cached"
+        )
+    }
+
+    @Test
+    fun shouldSetLongCacheAge() {
+        given(mockedUrl.encodedPath()).willReturn("test/category/path")
+
+        interceptor.intercept(mockedChain)
+
+        verify(responseBuilder).removeHeader(CacheInterceptor.PRAGMA_HEADER)
+        verify(responseBuilder).removeHeader(CacheInterceptor.CACHE_CONTROL_HEADER)
+        verify(responseBuilder).header(
+            CacheInterceptor.CACHE_CONTROL_HEADER,
+            "max-age=3600, only-if-cached"
+        )
+    }
+
+    @Test
+    fun shouldNotSetCacheAge() {
+        given(mockedUrl.encodedPath()).willReturn("test/article/path")
+
+        interceptor.intercept(mockedChain)
+
+        verify(responseBuilder, never()).removeHeader(any())
+        verify(responseBuilder, never()).removeHeader(any())
+        verify(responseBuilder, never()).header(any(), any())
     }
 }

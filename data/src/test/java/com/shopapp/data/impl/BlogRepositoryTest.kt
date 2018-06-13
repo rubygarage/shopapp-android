@@ -81,23 +81,22 @@ class BlogRepositoryTest {
 
     @Test
     fun getArticlesShouldDelegateCallToApi() {
-        repository.getArticles(perPage, paginationValue, SortType.RECENT, true).subscribe()
+        repository.getArticles(perPage, paginationValue, SortType.RECENT).subscribe()
         verify(api).getArticles(
             eq(perPage),
             eq(paginationValue),
             eq(SortType.RECENT),
-            eq(true),
             any()
         )
     }
 
     @Test
     fun getArticlesShouldReturnValueWhenOnResult() {
-        given(api.getArticles(any(), any(), any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Article>>>(4)
+        given(api.getArticles(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Article>>>(3)
             callback.onResult(articleListResult)
         })
-        repository.getArticles(perPage, paginationValue, SortType.RECENT, true)
+        repository.getArticles(perPage, paginationValue, SortType.RECENT)
             .subscribe(articleListObserver)
         articleListObserver.assertValue(articleListResult)
         articleListObserver.assertComplete()
@@ -106,11 +105,11 @@ class BlogRepositoryTest {
     @Test
     fun getArticlesShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getArticles(any(), any(), any(), any(), any())).willAnswer({
-            val callback = it.getArgument<ApiCallback<List<Article>>>(4)
+        given(api.getArticles(any(), any(), any(), any())).willAnswer({
+            val callback = it.getArgument<ApiCallback<List<Article>>>(3)
             callback.onFailure(error)
         })
-        repository.getArticles(perPage, paginationValue, SortType.RECENT, true)
+        repository.getArticles(perPage, paginationValue, SortType.RECENT)
             .subscribe(articleListObserver)
         articleListObserver.assertError(error)
     }

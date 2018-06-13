@@ -25,6 +25,6 @@ class GetArticlesUseCaseTest {
     @Test
     fun shouldDelegateCallToRepository() {
         useCase.buildUseCaseSingle(GetArticlesUseCase.Params(1, null))
-        verify(blogRepository).getArticles(1, null, SortType.RECENT, true)
+        verify(blogRepository).getArticles(1, null, SortType.RECENT)
     }
 }
