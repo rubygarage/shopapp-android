@@ -54,7 +54,8 @@ class BaseRecyclerAdapterTest {
     @Test
     fun shouldReturnFooterViewHolder() {
         val parent = FrameLayout(context)
-        val viewHolder = adapter.createViewHolder(parent, adapter.getItemViewType(dataList.size + 1))
+        val viewHolder =
+            adapter.createViewHolder(parent, adapter.getItemViewType(dataList.size + 1))
         assertTrue(viewHolder is BaseRecyclerAdapter.FooterViewHolder)
         assertNotNull(viewHolder.itemView)
     }
@@ -67,7 +68,8 @@ class BaseRecyclerAdapterTest {
     }
 
 
-    private class TestBaseRecyclerAdapter(dataList: List<Any>) : BaseRecyclerAdapter<Any>(dataList) {
+    private class TestBaseRecyclerAdapter(dataList: List<Any>) :
+        BaseRecyclerAdapter<Any>(dataList) {
 
         val bindFooterCallListener: CallListener = mock()
 

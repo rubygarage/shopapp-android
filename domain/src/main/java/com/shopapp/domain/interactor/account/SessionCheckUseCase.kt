@@ -9,6 +9,6 @@ class SessionCheckUseCase @Inject constructor(private val authRepository: AuthRe
     SingleUseCase<Boolean, Unit>() {
 
     override fun buildUseCaseSingle(params: Unit): Single<Boolean> {
-        return authRepository.isLoggedIn()
+        return authRepository.isSignedIn()
     }
 }

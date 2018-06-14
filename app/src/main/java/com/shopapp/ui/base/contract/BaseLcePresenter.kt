@@ -3,7 +3,8 @@ package com.shopapp.ui.base.contract
 import com.shopapp.domain.interactor.base.UseCase
 import com.shopapp.gateway.entity.Error
 
-open class BaseLcePresenter<in M, V : BaseLceView<M>>(vararg useCases: UseCase) : BasePresenter<V>(*useCases) {
+open class BaseLcePresenter<in M, V : BaseLceView<M>>(vararg useCases: UseCase) :
+    BasePresenter<V>(*useCases) {
 
     open fun doAction(action: String) {
 

@@ -1,9 +1,9 @@
 package com.shopapp.data.impl
 
-import com.shopapp.gateway.Api
-import com.shopapp.gateway.entity.*
 import com.shopapp.data.rx.RxCallbackSingle
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.gateway.Api
+import com.shopapp.gateway.entity.*
 import io.reactivex.Single
 
 class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
@@ -14,9 +14,9 @@ class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
         }
     }
 
-    override fun getCheckout(checkoutId: String): Single<Checkout> {
+    override fun getCheckout(id: String): Single<Checkout> {
         return Single.create<Checkout> {
-            api.getCheckout(checkoutId, RxCallbackSingle<Checkout>(it))
+            api.getCheckout(id, RxCallbackSingle<Checkout>(it))
         }
     }
 
@@ -32,9 +32,9 @@ class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
         }
     }
 
-    override fun selectShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout> {
+    override fun setShippingRate(checkoutId: String, shippingRate: ShippingRate): Single<Checkout> {
         return Single.create<Checkout> {
-            api.selectShippingRate(checkoutId, shippingRate, RxCallbackSingle<Checkout>(it))
+            api.setShippingRate(checkoutId, shippingRate, RxCallbackSingle<Checkout>(it))
         }
     }
 
@@ -50,9 +50,20 @@ class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
         }
     }
 
-    override fun completeCheckoutByCard(checkout: Checkout, email: String, address: Address, creditCardVaultToken: String): Single<Order> {
+    override fun completeCheckoutByCard(
+        checkout: Checkout,
+        email: String,
+        address: Address,
+        creditCardVaultToken: String
+    ): Single<Order> {
         return Single.create<Order> {
-            api.completeCheckoutByCard(checkout, email, address, creditCardVaultToken, RxCallbackSingle<Order>(it))
+            api.completeCheckoutByCard(
+                checkout,
+                email,
+                address,
+                creditCardVaultToken,
+                RxCallbackSingle<Order>(it)
+            )
         }
     }
 }

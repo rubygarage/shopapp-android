@@ -30,8 +30,10 @@ class QuantityViewTest {
 
     private lateinit var context: Context
     private lateinit var view: QuantityView
-    private val downEvent = MotionEvent.obtain(10L, 10L, MotionEvent.ACTION_DOWN,
-        0f, 0f, 0)
+    private val downEvent = MotionEvent.obtain(
+        10L, 10L, MotionEvent.ACTION_DOWN,
+        0f, 0f, 0
+    )
     private val listener: QuantityView.OnQuantityChangeListener = mock()
 
     @Before
@@ -43,8 +45,10 @@ class QuantityViewTest {
 
     @Test
     fun shouldDoNothingWhenViewReceiveDifferentMotionEvent() {
-        val scrollEvent = MotionEvent.obtain(10L, 10L, MotionEvent.ACTION_SCROLL,
-            0f, 0f, 0)
+        val scrollEvent = MotionEvent.obtain(
+            10L, 10L, MotionEvent.ACTION_SCROLL,
+            0f, 0f, 0
+        )
         view.onTouchEvent(scrollEvent)
 
         val popup = shadowOf(RuntimeEnvironment.application).latestPopupWindow

@@ -48,7 +48,8 @@ class CategoryListFragmentTest {
 
     @Test
     fun shouldShowData() {
-        val categories = MockInstantiator.newList(MockInstantiator.newCategory(), DEFAULT_PER_PAGE_COUNT)
+        val categories =
+            MockInstantiator.newList(MockInstantiator.newCategory(), DEFAULT_PER_PAGE_COUNT)
         fragment.showContent(categories)
         assertEquals(DEFAULT_PER_PAGE_COUNT, fragment.recyclerView.adapter.itemCount)
     }

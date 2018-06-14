@@ -4,9 +4,9 @@ import android.content.Context
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.View
-import com.shopapp.gateway.entity.Order
-import com.shopapp.domain.formatter.DateFormatter
 import com.shopapp.R
+import com.shopapp.domain.formatter.DateFormatter
+import com.shopapp.gateway.entity.Order
 import kotlinx.android.synthetic.main.view_order_title.view.*
 
 class OrderTitleView @JvmOverloads constructor(
@@ -21,9 +21,13 @@ class OrderTitleView @JvmOverloads constructor(
     }
 
     fun setOrder(order: Order, dateFormatter: DateFormatter) {
-        orderNumberTextView.text = resources.getString(R.string.order_number_pattern,
-            order.orderNumber).toUpperCase()
-        orderDateTextView.text = resources.getString(R.string.order_date_pattern,
-            dateFormatter.format(order.processedAt))
+        orderNumberTextView.text = resources.getString(
+            R.string.order_number_pattern,
+            order.orderNumber
+        ).toUpperCase()
+        orderDateTextView.text = resources.getString(
+            R.string.order_date_pattern,
+            dateFormatter.format(order.processedAt)
+        )
     }
 }

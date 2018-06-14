@@ -99,7 +99,8 @@ class PaginationFragmentTest {
         assertTrue(fragment.activity!!.isFinishing)
     }
 
-    class TestPaginationFragment : PaginationFragment<Any, BaseLceView<Any>, TestBaseLcePresenter>() {
+    class TestPaginationFragment :
+        PaginationFragment<Any, BaseLceView<Any>, TestBaseLcePresenter>() {
 
         val mockListener: OnItemClickListener = mock()
 

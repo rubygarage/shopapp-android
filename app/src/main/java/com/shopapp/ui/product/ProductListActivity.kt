@@ -28,8 +28,10 @@ class ProductListActivity :
         const val KEYWORD = "keyword"
         const val EXCLUDE_KEYWORD = "exclude_keyword"
 
-        fun getStartIntent(context: Context, title: String, sortType: SortType = SortType.NAME,
-                           keyword: String? = null, excludeKeyword: String? = null): Intent {
+        fun getStartIntent(
+            context: Context, title: String, sortType: SortType = SortType.NAME,
+            keyword: String? = null, excludeKeyword: String? = null
+        ): Intent {
             val intent = Intent(context, ProductListActivity::class.java)
             intent.putExtra(TITLE, title)
             intent.putExtra(SORT_TYPE, sortType)
@@ -91,7 +93,13 @@ class ProductListActivity :
 
     override fun loadData(pullToRefresh: Boolean) {
         super.loadData(pullToRefresh)
-        presenter.loadProductList(sortType, DEFAULT_PER_PAGE_COUNT, paginationValue, keyword, excludeKeyword)
+        presenter.loadProductList(
+            sortType,
+            DEFAULT_PER_PAGE_COUNT,
+            paginationValue,
+            keyword,
+            excludeKeyword
+        )
     }
 
     override fun showContent(data: List<Product>) {

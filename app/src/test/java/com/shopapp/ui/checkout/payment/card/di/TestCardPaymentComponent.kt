@@ -4,7 +4,7 @@ import com.shopapp.ui.checkout.payment.card.CardActivity
 import dagger.Subcomponent
 
 @Subcomponent(modules = [TestCardPaymentModule::class])
-interface TestCardPaymentComponent: CardPaymentComponent {
+interface TestCardPaymentComponent : CardPaymentComponent {
 
     override fun inject(activity: CardActivity)
 }

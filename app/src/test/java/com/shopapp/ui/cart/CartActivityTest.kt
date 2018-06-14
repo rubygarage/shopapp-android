@@ -119,8 +119,14 @@ class CartActivityTest {
         activity.showEmptyState()
         val id = shadowOf(activity.emptyView.emptyImage.drawable).createdFromResId
         assertEquals(R.drawable.ic_cart_empty, id)
-        assertEquals(context.getString(R.string.empty_cart_message), activity.emptyView.emptyMessage.text)
-        assertEquals(context.getString(R.string.start_shopping), activity.emptyView.emptyButton.text)
+        assertEquals(
+            context.getString(R.string.empty_cart_message),
+            activity.emptyView.emptyMessage.text
+        )
+        assertEquals(
+            context.getString(R.string.start_shopping),
+            activity.emptyView.emptyButton.text
+        )
         assertEquals(View.VISIBLE, activity.emptyView.emptyButton.visibility)
     }
 

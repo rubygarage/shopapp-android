@@ -1,8 +1,8 @@
 package com.shopapp.domain.interactor.search
 
-import com.shopapp.gateway.entity.Product
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.ProductRepository
+import com.shopapp.gateway.entity.Product
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -11,7 +11,7 @@ class SearchUseCase @Inject constructor(private val productRepository: ProductRe
 
     override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
         return with(params) {
-            productRepository.searchProductListByQuery(query, perPage, paginationValue)
+            productRepository.searchProducts(query, perPage, paginationValue)
         }
     }
 

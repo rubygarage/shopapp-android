@@ -43,8 +43,11 @@ class ProductListActivityTest {
     @Before
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
-        val intent = ProductListActivity.getStartIntent(context, TITLE, sortType, KEYWORD, EXCLUDE_KEYWORD)
-        activity = Robolectric.buildActivity(ProductListActivity::class.java, intent).create().start().resume().visible().get()
+        val intent =
+            ProductListActivity.getStartIntent(context, TITLE, sortType, KEYWORD, EXCLUDE_KEYWORD)
+        activity =
+                Robolectric.buildActivity(ProductListActivity::class.java, intent).create().start()
+                    .resume().visible().get()
     }
 
     @Test
@@ -54,15 +57,20 @@ class ProductListActivityTest {
 
     @Test
     fun shouldLoadDataWhenOnCreate() {
-        verify(activity.presenter).loadProductList(sortType, Constant.DEFAULT_PER_PAGE_COUNT,
-            null, KEYWORD, EXCLUDE_KEYWORD)
+        verify(activity.presenter).loadProductList(
+            sortType, Constant.DEFAULT_PER_PAGE_COUNT,
+            null, KEYWORD, EXCLUDE_KEYWORD
+        )
         assertEquals(View.VISIBLE, activity.lceLayout.loadingView.visibility)
     }
 
     @Test
     fun shouldSetCorrectRecyclerView() {
         assertTrue(activity.recyclerView.layoutManager is GridLayoutManager)
-        assertEquals(ContextCompat.getDrawable(context, R.color.white), activity.recyclerView.background)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.white),
+            activity.recyclerView.background
+        )
     }
 
     @Test

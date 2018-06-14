@@ -1,8 +1,8 @@
 package com.shopapp.ui.account.contract
 
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.domain.interactor.account.EditCustomerUseCase
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -27,7 +27,7 @@ class PersonalInfoPresenterTest {
 
     private var getCustomerUseCase: GetCustomerUseCase = mock()
 
-    private var editCustomerUseCase: EditCustomerUseCase = mock()
+    private var updateCustomerUseCase: UpdateCustomerUseCase = mock()
 
     private lateinit var presenter: PersonalInfoPresenter
 
@@ -36,9 +36,9 @@ class PersonalInfoPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        editCustomerUseCase.mock()
+        updateCustomerUseCase.mock()
         getCustomerUseCase.mock()
-        presenter = PersonalInfoPresenter(getCustomerUseCase, editCustomerUseCase)
+        presenter = PersonalInfoPresenter(getCustomerUseCase, updateCustomerUseCase)
         presenter.attachView(view)
     }
 
@@ -75,7 +75,13 @@ class PersonalInfoPresenterTest {
 
     @Test
     fun shouldShowMessageOnGetCustomerNonCriticalError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)
@@ -102,14 +108,15 @@ class PersonalInfoPresenterTest {
         val name = "name"
         val lastName = "lastName"
         val phone = "06333291677"
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.just(customer))
+        given(updateCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.just(customer))
         presenter.editCustomer(name, lastName, phone)
-        verify(editCustomerUseCase).execute(any(), any(), eq(EditCustomerUseCase.Params(name, lastName, phone)))
+        verify(updateCustomerUseCase)
+            .execute(any(), any(), eq(UpdateCustomerUseCase.Params(name, lastName, phone)))
     }
 
     @Test
     fun shouldUpdateCustomerOnEditCustomer() {
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.just(customer))
+        given(updateCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.just(customer))
         presenter.editCustomer("name", "lastName", "06333291677")
         verify(view).onCustomerChanged(customer)
     }
@@ -121,11 +128,13 @@ class PersonalInfoPresenterTest {
         val lastName = "lastName"
         val phone = "06333291677"
 
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(updateCustomerUseCase.buildUseCaseSingle(any()))
+            .willReturn(Single.error(Error.NonCritical("ErrorMessage")))
         presenter.editCustomer(name, lastName, phone)
 
-        val inOrder = inOrder(view, editCustomerUseCase)
-        inOrder.verify(editCustomerUseCase).execute(any(), any(), eq(EditCustomerUseCase.Params(name, lastName, phone)))
+        val inOrder = inOrder(view, updateCustomerUseCase)
+        inOrder.verify(updateCustomerUseCase)
+            .execute(any(), any(), eq(UpdateCustomerUseCase.Params(name, lastName, phone)))
         inOrder.verify(view).showMessage(eq("ErrorMessage"))
     }
 
@@ -135,12 +144,14 @@ class PersonalInfoPresenterTest {
         val lastName = "lastName"
         val phone = "06333291677"
 
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
+        given(updateCustomerUseCase.buildUseCaseSingle(any()))
+            .willReturn(Single.error(Error.Content()))
         presenter.editCustomer(name, lastName, phone)
 
         argumentCaptor<Error>().apply {
-            val inOrder = inOrder(view, editCustomerUseCase)
-            inOrder.verify(editCustomerUseCase).execute(any(), any(), eq(EditCustomerUseCase.Params(name, lastName, phone)))
+            val inOrder = inOrder(view, updateCustomerUseCase)
+            inOrder.verify(updateCustomerUseCase)
+                .execute(any(), any(), eq(UpdateCustomerUseCase.Params(name, lastName, phone)))
             inOrder.verify(view).showError(capture())
 
             assertTrue(firstValue is Error.Content)
@@ -149,7 +160,8 @@ class PersonalInfoPresenterTest {
 
     @Test
     fun shouldExplicitHideProgressOnEditCustomerError() {
-        given(editCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content()))
+        given(updateCustomerUseCase.buildUseCaseSingle(any()))
+            .willReturn(Single.error(Error.Content()))
         presenter.editCustomer("name", "lastName", "06333291677")
         verify(view).hideProgress()
     }

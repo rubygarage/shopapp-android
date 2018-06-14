@@ -31,7 +31,8 @@ class CartWidget @JvmOverloads constructor(
         ShopApplication.appComponent.attachCartComponent().inject(this)
         val tv = TypedValue()
         if (context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            val actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+            val actionBarHeight =
+                TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
             layoutParams = LayoutParams(actionBarHeight, actionBarHeight)
         }
         View.inflate(context, R.layout.widget_cart, this)

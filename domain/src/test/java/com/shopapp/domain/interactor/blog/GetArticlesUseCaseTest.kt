@@ -10,21 +10,21 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class ArticleListUseCaseTest {
+class GetArticlesUseCaseTest {
 
-    private lateinit var useCase: ArticleListUseCase
+    private lateinit var useCase: GetArticlesUseCase
 
     @Mock
     private lateinit var blogRepository: BlogRepository
 
     @Before
     fun setUpTest() {
-        useCase = ArticleListUseCase(blogRepository)
+        useCase = GetArticlesUseCase(blogRepository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
-        useCase.buildUseCaseSingle(ArticleListUseCase.Params(1, null))
-        verify(blogRepository).getArticleList(1, null, SortType.RECENT, true)
+        useCase.buildUseCaseSingle(GetArticlesUseCase.Params(1, null))
+        verify(blogRepository).getArticles(1, null, SortType.RECENT, true)
     }
 }

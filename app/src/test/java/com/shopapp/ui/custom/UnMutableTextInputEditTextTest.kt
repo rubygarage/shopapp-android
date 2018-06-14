@@ -23,7 +23,8 @@ class UnMutableTextInputEditTextTest {
 
     @Before
     fun setUpTest() {
-        val contextWrapper = ContextThemeWrapper(RuntimeEnvironment.application.baseContext, R.style.AppTheme)
+        val contextWrapper =
+            ContextThemeWrapper(RuntimeEnvironment.application.baseContext, R.style.AppTheme)
         view = UnMutableTextInputEditText(contextWrapper, null)
     }
 

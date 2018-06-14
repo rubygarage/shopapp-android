@@ -1,8 +1,8 @@
 package com.shopapp.domain.interactor.checkout
 
-import com.shopapp.gateway.entity.Card
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.gateway.entity.Card
 import io.reactivex.Single
 import javax.inject.Inject
 

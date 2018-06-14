@@ -1,9 +1,9 @@
 package com.shopapp.ui.cart.contract
 
-import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.domain.interactor.cart.CartItemsUseCase
 import com.shopapp.domain.interactor.cart.CartQuantityUseCase
 import com.shopapp.domain.interactor.cart.CartRemoveUseCase
+import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 import javax.inject.Inject
@@ -15,7 +15,11 @@ class CartPresenter @Inject constructor(
     private val cartRemoveUseCase: CartRemoveUseCase,
     private val cartQuantityUseCase: CartQuantityUseCase
 ) :
-    BaseLcePresenter<List<CartProduct>, CartView>(cartItemsUseCase, cartRemoveUseCase, cartQuantityUseCase) {
+    BaseLcePresenter<List<CartProduct>, CartView>(
+        cartItemsUseCase,
+        cartRemoveUseCase,
+        cartQuantityUseCase
+    ) {
 
     fun loadCartItems() {
 

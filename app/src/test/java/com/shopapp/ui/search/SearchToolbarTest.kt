@@ -82,8 +82,14 @@ class SearchToolbarTest {
         val drawableId = shadowOf(toolbar.bottomLine.background).createdFromResId
         assertEquals(R.color.colorPrimary, drawableId)
         val params = toolbar.bottomLine.layoutParams as ViewGroup.MarginLayoutParams
-        assertEquals(context.resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start), params.leftMargin)
-        assertEquals(context.resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end), params.rightMargin)
+        assertEquals(
+            context.resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_start),
+            params.leftMargin
+        )
+        assertEquals(
+            context.resources.getDimensionPixelSize(R.dimen.search_toolbar_expanded_line_margin_end),
+            params.rightMargin
+        )
     }
 
     @Test
@@ -94,8 +100,14 @@ class SearchToolbarTest {
         val drawableId = shadowOf(toolbar.bottomLine.background).createdFromResId
         assertEquals(R.color.colorBackgroundDark, drawableId)
         val params = toolbar.bottomLine.layoutParams as ViewGroup.MarginLayoutParams
-        assertEquals(context.resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin), params.leftMargin)
-        assertEquals(context.resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin), params.rightMargin)
+        assertEquals(
+            context.resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin),
+            params.leftMargin
+        )
+        assertEquals(
+            context.resources.getDimensionPixelSize(R.dimen.search_toolbar_collapsed_line_margin),
+            params.rightMargin
+        )
     }
 
     @Test

@@ -28,7 +28,8 @@ class HomeActivityTest {
     fun setUpTest() {
         context = RuntimeEnvironment.application.baseContext
         val intent = HomeActivity.getStartIntent(context)
-        activity = Robolectric.buildActivity(HomeActivity::class.java, intent).create().start().get()
+        activity =
+                Robolectric.buildActivity(HomeActivity::class.java, intent).create().start().get()
     }
 
     @Test

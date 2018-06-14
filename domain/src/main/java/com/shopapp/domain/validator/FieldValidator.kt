@@ -10,13 +10,13 @@ class FieldValidator {
     }
 
     private val EMAIL_ADDRESS = Pattern.compile(
-            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}"
-                    + "\\@"
-                    + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
-                    + "("
-                    + "\\."
-                    + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
-                    + ")+"
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}"
+                + "\\@"
+                + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
+                + "("
+                + "\\."
+                + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
+                + ")+"
     )
 
     fun isEmailValid(email: String): Boolean = EMAIL_ADDRESS.matcher(email).matches()

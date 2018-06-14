@@ -65,8 +65,12 @@ class CardActivityTest {
         assertEquals(View.GONE, activity.dc.visibility)
         assertEquals(View.GONE, activity.jcb.visibility)
 
-        activity.showContent(listOf(CardType.VISA, CardType.MASTER_CARD, CardType.AMERICAN_EXPRESS,
-            CardType.DISCOVER, CardType.DINERS_CLUB, CardType.JCB))
+        activity.showContent(
+            listOf(
+                CardType.VISA, CardType.MASTER_CARD, CardType.AMERICAN_EXPRESS,
+                CardType.DISCOVER, CardType.DINERS_CLUB, CardType.JCB
+            )
+        )
 
         assertEquals(View.VISIBLE, activity.visa.visibility)
         assertEquals(View.VISIBLE, activity.masterCard.visibility)
@@ -105,7 +109,8 @@ class CardActivityTest {
     fun shouldFinishActivityWhenCardValidationPassed() {
         val card = MockInstantiator.newCard()
         val intent = CardActivity.getStartIntent(context, card)
-        val activity = Robolectric.buildActivity(CardActivity::class.java, intent).create().start().get()
+        val activity =
+            Robolectric.buildActivity(CardActivity::class.java, intent).create().start().get()
         activity.cardPassValidation(card)
 
         assertTrue(shadowOf(activity).isFinishing)
@@ -115,10 +120,14 @@ class CardActivityTest {
     fun shouldPreFillInputFields() {
         val card = MockInstantiator.newCard()
         val intent = CardActivity.getStartIntent(context, card)
-        val activity = Robolectric.buildActivity(CardActivity::class.java, intent).create().start().resume().get()
+        val activity =
+            Robolectric.buildActivity(CardActivity::class.java, intent).create().start().resume()
+                .get()
 
-        assertEquals(activity.getString(R.string.full_name_pattern, card.firstName, card.lastName),
-            activity.holderNameInput.text.toString())
+        assertEquals(
+            activity.getString(R.string.full_name_pattern, card.firstName, card.lastName),
+            activity.holderNameInput.text.toString()
+        )
         assertEquals(card.cardNumber, activity.cardNumberInput.text.toString())
         assertEquals(card.expireMonth, activity.monthInput.text.toString())
         assertEquals(card.expireYear, activity.yearInput.text.toString())
@@ -140,11 +149,15 @@ class CardActivityTest {
     fun shouldProcessCardDataWhenSubmitButtonClicked() {
         val card = MockInstantiator.newCard()
         val intent = CardActivity.getStartIntent(context, card)
-        val activity = Robolectric.buildActivity(CardActivity::class.java, intent).create().start().resume().get()
+        val activity =
+            Robolectric.buildActivity(CardActivity::class.java, intent).create().start().resume()
+                .get()
         activity.submitButton.performClick()
 
-        verify(activity.presenter).processCardData("${card.firstName} ${card.lastName}",
-            card.cardNumber, card.expireMonth, card.expireYear, card.verificationCode)
+        verify(activity.presenter).processCardData(
+            "${card.firstName} ${card.lastName}",
+            card.cardNumber, card.expireMonth, card.expireYear, card.verificationCode
+        )
     }
 
     @Test
@@ -153,7 +166,8 @@ class CardActivityTest {
         activity.monthInput.getOnClickListener()?.onClick(activity.monthInput)
         activity.supportFragmentManager.executePendingTransactions()
 
-        val dialog = activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_MONTH)
+        val dialog =
+            activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_MONTH)
         assertNotNull(dialog)
         assertTrue(dialog.isVisible)
     }
@@ -164,7 +178,8 @@ class CardActivityTest {
         activity.yearInput.getOnClickListener()?.onClick(activity.yearInput)
         activity.supportFragmentManager.executePendingTransactions()
 
-        val dialog = activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_YEAR)
+        val dialog =
+            activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_YEAR)
         assertNotNull(dialog)
         assertTrue(dialog.isVisible)
     }
@@ -174,7 +189,8 @@ class CardActivityTest {
         val activity = activityController.create().start().resume().visible().get()
         activity.cardNumberInput.onEditorAction(EditorInfo.IME_ACTION_NEXT)
 
-        val dialog = activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_MONTH)
+        val dialog =
+            activity.supportFragmentManager.findFragmentByTag(DateBottomSheetPicker.DATE_TYPE_MONTH)
         assertNotNull(dialog)
         assertTrue(dialog.isVisible)
     }

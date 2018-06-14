@@ -22,11 +22,21 @@ class GestureListenerWrapper : GestureDetector.SimpleOnGestureListener() {
         mDelegate.onLongPress(e)
     }
 
-    override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
+    override fun onScroll(
+        e1: MotionEvent,
+        e2: MotionEvent,
+        distanceX: Float,
+        distanceY: Float
+    ): Boolean {
         return mDelegate.onScroll(e1, e2, distanceX, distanceY)
     }
 
-    override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+    override fun onFling(
+        e1: MotionEvent,
+        e2: MotionEvent,
+        velocityX: Float,
+        velocityY: Float
+    ): Boolean {
         return mDelegate.onFling(e1, e2, velocityX, velocityY)
     }
 

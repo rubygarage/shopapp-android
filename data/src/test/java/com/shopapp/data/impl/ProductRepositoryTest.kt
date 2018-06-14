@@ -59,32 +59,48 @@ class ProductRepositoryTest {
     }
 
     @Test
-    fun getProductListShouldDelegateCallToApi() {
-        repository.getProductList(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD).subscribe()
-        verify(api).getProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD), eq(EXCLUDE_KEYWORD), any())
+    fun getProductsShouldDelegateCallToApi() {
+        repository.getProducts(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD)
+            .subscribe()
+        verify(api).getProducts(
+            eq(PER_PAGE),
+            eq(PAGINATION_VALUE),
+            eq(sortBy),
+            eq(KEYWORD),
+            eq(EXCLUDE_KEYWORD),
+            any()
+        )
     }
 
     @Test
-    fun getProductListShouldReturnValueWhenOnResult() {
-        given(api.getProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
-            eq(EXCLUDE_KEYWORD), any())).willAnswer({
+    fun getProductsShouldReturnValueWhenOnResult() {
+        given(
+            api.getProducts(
+                eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
+                eq(EXCLUDE_KEYWORD), any()
+            )
+        ).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Product>>>(5)
             callback.onResult(productList)
         })
-        repository.getProductList(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD)
+        repository.getProducts(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD)
             .subscribe(productListObserver)
         productListObserver.assertValue(productList)
     }
 
     @Test
-    fun getProductListShouldReturnErrorOnFailure() {
+    fun getProductsShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
-            eq(EXCLUDE_KEYWORD), any())).willAnswer({
+        given(
+            api.getProducts(
+                eq(PER_PAGE), eq(PAGINATION_VALUE), eq(sortBy), eq(KEYWORD),
+                eq(EXCLUDE_KEYWORD), any()
+            )
+        ).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Product>>>(5)
             callback.onFailure(error)
         })
-        repository.getProductList(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD)
+        repository.getProducts(PER_PAGE, PAGINATION_VALUE, sortBy, KEYWORD, EXCLUDE_KEYWORD)
             .subscribe(productListObserver)
         productListObserver.assertError(error)
     }
@@ -117,57 +133,57 @@ class ProductRepositoryTest {
     }
 
     @Test
-    fun getProductVariantListShouldDelegateCallToApi() {
-        repository.getProductVariantList(listOf(PRODUCT_ID)).subscribe()
-        verify(api).getProductVariantList(eq(listOf(PRODUCT_ID)), any())
+    fun getProductVariantsShouldDelegateCallToApi() {
+        repository.getProductVariants(listOf(PRODUCT_ID)).subscribe()
+        verify(api).getProductVariants(eq(listOf(PRODUCT_ID)), any())
     }
 
     @Test
-    fun getProductVariantListShouldReturnValueWhenOnResult() {
-        given(api.getProductVariantList(eq(listOf(PRODUCT_ID)), any())).willAnswer({
+    fun getProductVariantsShouldReturnValueWhenOnResult() {
+        given(api.getProductVariants(eq(listOf(PRODUCT_ID)), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<ProductVariant>>>(1)
             callback.onResult(productVariantList)
         })
-        repository.getProductVariantList(listOf(PRODUCT_ID)).subscribe(productVariantListObserver)
+        repository.getProductVariants(listOf(PRODUCT_ID)).subscribe(productVariantListObserver)
         productVariantListObserver.assertValue(productVariantList)
     }
 
     @Test
-    fun getProductVariantListShouldReturnErrorOnFailure() {
+    fun getProductVariantsShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.getProductVariantList(eq(listOf(PRODUCT_ID)), any())).willAnswer({
+        given(api.getProductVariants(eq(listOf(PRODUCT_ID)), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<ProductVariant>>>(1)
             callback.onFailure(error)
         })
-        repository.getProductVariantList(listOf(PRODUCT_ID)).subscribe(productVariantListObserver)
+        repository.getProductVariants(listOf(PRODUCT_ID)).subscribe(productVariantListObserver)
         productVariantListObserver.assertError(error)
     }
 
     @Test
-    fun searchProductShouldDelegateCallToApi() {
-        repository.searchProductListByQuery(QUERY, PER_PAGE, PAGINATION_VALUE).subscribe()
-        verify(api).searchProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())
+    fun searchProductsShouldDelegateCallToApi() {
+        repository.searchProducts(QUERY, PER_PAGE, PAGINATION_VALUE).subscribe()
+        verify(api).searchProducts(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())
     }
 
     @Test
-    fun searchProductShouldReturnValueWhenOnResult() {
-        given(api.searchProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())).willAnswer({
+    fun searchProductsShouldReturnValueWhenOnResult() {
+        given(api.searchProducts(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Product>>>(3)
             callback.onResult(productList)
         })
-        repository.searchProductListByQuery(QUERY, PER_PAGE, PAGINATION_VALUE)
+        repository.searchProducts(QUERY, PER_PAGE, PAGINATION_VALUE)
             .test()
             .assertValue(productList)
     }
 
     @Test
-    fun searchProductShouldReturnErrorOnFailure() {
+    fun searchProductsShouldReturnErrorOnFailure() {
         val error = Error.Content()
-        given(api.searchProductList(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())).willAnswer({
+        given(api.searchProducts(eq(PER_PAGE), eq(PAGINATION_VALUE), eq(QUERY), any())).willAnswer({
             val callback = it.getArgument<ApiCallback<List<Product>>>(3)
             callback.onFailure(error)
         })
-        repository.searchProductListByQuery(QUERY, PER_PAGE, PAGINATION_VALUE)
+        repository.searchProducts(QUERY, PER_PAGE, PAGINATION_VALUE)
             .test()
             .assertError(error)
     }

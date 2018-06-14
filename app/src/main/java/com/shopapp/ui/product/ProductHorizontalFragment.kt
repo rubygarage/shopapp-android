@@ -72,7 +72,15 @@ class ProductHorizontalFragment :
             else -> ""
         }
         titleText.text = title
-        seeAll.setOnClickListener { router.showProductList(context, title, sortType, keyword, excludeKeyword) }
+        seeAll.setOnClickListener {
+            router.showProductList(
+                context,
+                title,
+                sortType,
+                keyword,
+                excludeKeyword
+            )
+        }
         changeSeeAllState()
         setupRecycler()
         loadData(true)
@@ -95,7 +103,8 @@ class ProductHorizontalFragment :
         val size = resources.getDimensionPixelSize(R.dimen.product_horizontal_item_size)
         adapter = ProductListAdapter(size, size, productList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
-        val decoration = SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
+        val decoration =
+            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.content_space))
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
         recyclerView.setHasFixedSize(true)

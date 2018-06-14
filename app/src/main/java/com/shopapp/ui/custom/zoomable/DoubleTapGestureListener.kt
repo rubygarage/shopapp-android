@@ -9,7 +9,8 @@ import android.view.MotionEvent
  *
  * @see ZoomableDraweeView.setTapListener
  */
-class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) : GestureDetector.SimpleOnGestureListener() {
+class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) :
+    GestureDetector.SimpleOnGestureListener() {
     private val mDoubleTapViewPoint = PointF()
     private val mDoubleTapImagePoint = PointF()
     private var mDoubleTapScale = 1f
@@ -51,14 +52,16 @@ class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) : Ge
                             vp,
                             DefaultZoomableController.LIMIT_ALL,
                             DURATION_MS.toLong(),
-                            null)
+                            null
+                        )
                     } else {
                         zc.zoomToPoint(
                             minScale,
                             ip,
                             vp,
                             DefaultZoomableController.LIMIT_ALL,
-                            DURATION_MS.toLong(), null)
+                            DURATION_MS.toLong(), null
+                        )
                     }
                 }
                 mDoubleTapScroll = false
@@ -70,7 +73,8 @@ class DoubleTapGestureListener(private val mDraweeView: ZoomableDraweeView) : Ge
     private fun shouldStartDoubleTapScroll(viewPoint: PointF): Boolean {
         val dist = Math.hypot(
             (viewPoint.x - mDoubleTapViewPoint.x).toDouble(),
-            (viewPoint.y - mDoubleTapViewPoint.y).toDouble())
+            (viewPoint.y - mDoubleTapViewPoint.y).toDouble()
+        )
         return dist > DOUBLE_TAP_SCROLL_THRESHOLD
     }
 

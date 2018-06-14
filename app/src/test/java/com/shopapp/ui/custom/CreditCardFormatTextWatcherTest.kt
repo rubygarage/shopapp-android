@@ -21,11 +21,19 @@ class CreditCardFormatTextWatcherTest {
 
         val textView = EditText(RuntimeEnvironment.application.baseContext)
         textView.setText(cardNumberText)
-        val spans = textView.text.getSpans(0, cardNumberText.length, CreditCardFormatTextWatcher.PaddingRightSpan::class.java)
+        val spans = textView.text.getSpans(
+            0,
+            cardNumberText.length,
+            CreditCardFormatTextWatcher.PaddingRightSpan::class.java
+        )
         assertEquals(0, spans.size)
 
         formatter.formatCardNumber(textView)
-        val formattedSpans = textView.text.getSpans(0, cardNumberText.length, CreditCardFormatTextWatcher.PaddingRightSpan::class.java)
+        val formattedSpans = textView.text.getSpans(
+            0,
+            cardNumberText.length,
+            CreditCardFormatTextWatcher.PaddingRightSpan::class.java
+        )
         assertEquals(3, formattedSpans.size)
         assertEquals(padding, formattedSpans.first().mPadding)
     }

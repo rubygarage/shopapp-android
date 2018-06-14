@@ -25,16 +25,20 @@ class ProductOptionsAdapter(
 
     override fun getItemView(context: Context, viewType: Int): View {
         val itemView = TextView(context)
-        itemView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-            context.resources.getDimension(R.dimen.variant_text_size))
+        itemView.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX,
+            context.resources.getDimension(R.dimen.variant_text_size)
+        )
         return itemView
     }
 
     override fun bindData(itemView: View, data: String, position: Int) {
         if (itemView is TextView) {
             itemView.text = data
-            val background = if (selectedVariantOptions?.value == data) selectedBackgroundRes else unselectedBackgroundRes
-            val textColorRes = if (selectedVariantOptions?.value == data) selectedTextRes else unselectedTextRes
+            val background =
+                if (selectedVariantOptions?.value == data) selectedBackgroundRes else unselectedBackgroundRes
+            val textColorRes =
+                if (selectedVariantOptions?.value == data) selectedTextRes else unselectedTextRes
             itemView.setBackgroundResource(background)
             itemView.setTextColor(ContextCompat.getColor(itemView.context, textColorRes))
         }

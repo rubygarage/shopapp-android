@@ -48,7 +48,11 @@ class SplashPresenterTest {
 
     @Test
     fun shouldCallValidationErrorWhenUseCaseReturnError() {
-        given(cartValidationUseCase.buildUseCaseCompletable(Unit)).willReturn(Completable.error(Error.Critical()))
+        given(cartValidationUseCase.buildUseCaseCompletable(Unit)).willReturn(
+            Completable.error(
+                Error.Critical()
+            )
+        )
         presenter.validateItems()
 
         val inOrder = inOrder(view, cartValidationUseCase)

@@ -3,9 +3,10 @@ package com.shopapp.gateway.entity
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Image(var id: String,
-                 var src: String,
-                 var alt: String?
+data class Image(
+    var id: String,
+    var src: String,
+    var alt: String?
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

@@ -16,44 +16,53 @@ import com.shopapp.ui.order.success.OrderSuccessActivity
 class CheckoutRouter {
 
     fun showPaymentResult(activity: Activity, paymentType: PaymentType?, requestCode: Int) {
-        activity.startActivityForResult(PaymentActivity.getStartIntent(activity, paymentType), requestCode)
+        activity.startActivityForResult(
+            PaymentActivity.getStartIntent(activity, paymentType),
+            requestCode
+        )
     }
 
     fun showCardForResult(activity: Activity, card: Card?, requestCode: Int) {
         activity.startActivityForResult(CardActivity.getStartIntent(activity, card), requestCode)
     }
 
-    fun showCheckoutAddressListForResult(activity: Activity,
-                                         checkoutId: String? = null,
-                                         selectedAddress: Address? = null,
-                                         isShippingAddress: Boolean,
-                                         shippingAddress: Address?,
-                                         billingAddress: Address?,
-                                         requestCode: Int) {
+    fun showCheckoutAddressListForResult(
+        activity: Activity,
+        checkoutId: String? = null,
+        selectedAddress: Address? = null,
+        isShippingAddress: Boolean,
+        shippingAddress: Address?,
+        billingAddress: Address?,
+        requestCode: Int
+    ) {
 
-        activity.startActivityForResult(CheckoutAddressListActivity.getStartIntent(
-            context = activity,
-            checkoutId = checkoutId,
-            selectedAddress = selectedAddress,
-            isShippingAddress = isShippingAddress,
-            shippingAddress = shippingAddress,
-            billingAddress = billingAddress
-        ),
+        activity.startActivityForResult(
+            CheckoutAddressListActivity.getStartIntent(
+                context = activity,
+                checkoutId = checkoutId,
+                selectedAddress = selectedAddress,
+                isShippingAddress = isShippingAddress,
+                shippingAddress = shippingAddress,
+                billingAddress = billingAddress
+            ),
             requestCode
         )
     }
 
-    fun showCheckoutUnAuthAddressListForResult(activity: Activity,
-                                               checkoutId: String? = null,
-                                               selectedAddress: Address? = null,
-                                               isShippingAddress: Boolean = false,
-                                               requestCode: Int) {
-        activity.startActivityForResult(CheckoutUnAuthAddressActivity.getStartIntent(
-            context = activity,
-            checkoutId = checkoutId,
-            address = selectedAddress,
-            isShipping = isShippingAddress
-        ),
+    fun showCheckoutUnAuthAddressListForResult(
+        activity: Activity,
+        checkoutId: String? = null,
+        selectedAddress: Address? = null,
+        isShippingAddress: Boolean = false,
+        requestCode: Int
+    ) {
+        activity.startActivityForResult(
+            CheckoutUnAuthAddressActivity.getStartIntent(
+                context = activity,
+                checkoutId = checkoutId,
+                address = selectedAddress,
+                isShipping = isShippingAddress
+            ),
             requestCode
         )
     }

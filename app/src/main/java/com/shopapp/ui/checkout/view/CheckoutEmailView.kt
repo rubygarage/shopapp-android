@@ -7,10 +7,10 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import com.shopapp.gateway.entity.Customer
-import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.R
+import com.shopapp.domain.validator.FieldValidator
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Customer
 import com.shopapp.ui.const.Constant
 import com.shopapp.ui.custom.SimpleTextWatcher
 import kotlinx.android.synthetic.main.view_checkout_email.view.*

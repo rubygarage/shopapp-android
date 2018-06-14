@@ -1,8 +1,8 @@
 package com.shopapp.domain.interactor.order
 
-import com.shopapp.gateway.entity.Order
 import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.OrderRepository
+import com.shopapp.gateway.entity.Order
 import io.reactivex.Single
 import javax.inject.Inject
 

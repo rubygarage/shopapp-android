@@ -93,16 +93,24 @@ class PaymentViewTest {
         view.setCardData(card, "")
 
         assertEquals(View.VISIBLE, view.cardGroup.visibility)
-        assertEquals(ContextCompat.getDrawable(context, CardType.VISA.logoRes), view.cardLogo.drawable)
         assertEquals(
-            context.getString(R.string.card_type_placeholder,
-                context.getString(CardType.VISA.nameRes),
-                card.cardNumber.takeLast(LAST_CARD_NUMBERS)), view.cardDataText.text
+            ContextCompat.getDrawable(context, CardType.VISA.logoRes),
+            view.cardLogo.drawable
         )
         assertEquals(
-            context.getString(R.string.card_exp_placeholder,
+            context.getString(
+                R.string.card_type_placeholder,
+                context.getString(CardType.VISA.nameRes),
+                card.cardNumber.takeLast(LAST_CARD_NUMBERS)
+            ), view.cardDataText.text
+        )
+        assertEquals(
+            context.getString(
+                R.string.card_exp_placeholder,
                 card.expireMonth,
-                card.expireYear.takeLast(LAST_DATE_NUMBERS)), view.cardExpiredDate.text)
+                card.expireYear.takeLast(LAST_DATE_NUMBERS)
+            ), view.cardExpiredDate.text
+        )
         assertEquals(
             context.getString(R.string.full_name_pattern, card.firstName, card.lastName),
             view.cardHolder.text
@@ -118,14 +126,19 @@ class PaymentViewTest {
 
         assertEquals(View.VISIBLE, view.cardGroup.visibility)
         assertEquals(View.GONE, view.cardLogo.visibility)
-        assertEquals(context.getString(
-            R.string.card_unknown_placeholder,
-            card.cardNumber.takeLast(LAST_CARD_NUMBERS)
-        ), view.cardDataText.text)
         assertEquals(
-            context.getString(R.string.card_exp_placeholder,
+            context.getString(
+                R.string.card_unknown_placeholder,
+                card.cardNumber.takeLast(LAST_CARD_NUMBERS)
+            ), view.cardDataText.text
+        )
+        assertEquals(
+            context.getString(
+                R.string.card_exp_placeholder,
                 card.expireMonth,
-                card.expireYear.takeLast(LAST_DATE_NUMBERS)), view.cardExpiredDate.text)
+                card.expireYear.takeLast(LAST_DATE_NUMBERS)
+            ), view.cardExpiredDate.text
+        )
         assertEquals(
             context.getString(R.string.full_name_pattern, card.firstName, card.lastName),
             view.cardHolder.text

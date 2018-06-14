@@ -1,7 +1,7 @@
 package com.shopapp.ui.order.list.contract
 
 import com.nhaarman.mockito_kotlin.*
-import com.shopapp.domain.interactor.order.OrderListUseCase
+import com.shopapp.domain.interactor.order.GetOrdersUseCase
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Order
 import com.shopapp.test.RxImmediateSchedulerRule
@@ -25,7 +25,7 @@ class OrderListPresenterTest {
     private lateinit var view: OrderListView
 
     @Mock
-    private lateinit var useCase: OrderListUseCase
+    private lateinit var useCase: GetOrdersUseCase
 
     @Mock
     private lateinit var orderList: List<Order>
@@ -46,7 +46,7 @@ class OrderListPresenterTest {
         presenter.getOrders(1, null)
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(useCase).execute(any(), any(), eq(GetOrdersUseCase.Params(1, null)))
         inOrder.verify(view).showContent(orderList)
     }
 
@@ -55,7 +55,7 @@ class OrderListPresenterTest {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
         presenter.getOrders(1, null)
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(useCase).execute(any(), any(), eq(GetOrdersUseCase.Params(1, null)))
         inOrder.verify(view).showContent(orderList)
     }
 
@@ -66,7 +66,7 @@ class OrderListPresenterTest {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
         presenter.getOrders(1, "")
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, "")))
+        inOrder.verify(useCase).execute(any(), any(), eq(GetOrdersUseCase.Params(1, "")))
         inOrder.verify(view).showContent(orderList)
     }
 
@@ -77,7 +77,7 @@ class OrderListPresenterTest {
         given(useCase.buildUseCaseSingle(any())).willReturn(Single.just(orderList))
         presenter.getOrders(1, null)
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(useCase).execute(any(), any(), eq(GetOrdersUseCase.Params(1, null)))
         inOrder.verify(view).showEmptyState()
     }
 
@@ -87,7 +87,7 @@ class OrderListPresenterTest {
         presenter.getOrders(1, null)
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(useCase).execute(any(), any(), eq(GetOrdersUseCase.Params(1, null)))
         inOrder.verify(view).showMessage("ErrorMessage")
     }
 
@@ -97,7 +97,7 @@ class OrderListPresenterTest {
         presenter.getOrders(1, null)
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(OrderListUseCase.Params(1, null)))
+        inOrder.verify(useCase).execute(any(), any(), eq(GetOrdersUseCase.Params(1, null)))
         argumentCaptor<Error>().apply {
             inOrder.verify(view).showError(capture())
             assertTrue(firstValue is Error.Content)

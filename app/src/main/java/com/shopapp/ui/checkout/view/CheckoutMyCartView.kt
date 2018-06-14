@@ -28,11 +28,15 @@ class CheckoutMyCartView @JvmOverloads constructor(
     init {
         View.inflate(context, R.layout.view_checkout_my_cart, this)
         orientation = VERTICAL
-        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        recyclerView.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.adapter = ProductVariantAdapter(cartProductList, this)
         GravitySnapHelper(Gravity.START).attachToRecyclerView(recyclerView)
         val decoration =
-            SpaceDecoration(leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider), skipFirst = true)
+            SpaceDecoration(
+                leftSpace = resources.getDimensionPixelSize(R.dimen.product_variant_item_divider),
+                skipFirst = true
+            )
         recyclerView.addItemDecoration(decoration)
     }
 

@@ -62,8 +62,10 @@ class CheckoutPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = CheckoutPresenter(setupCheckoutUseCase, cartRemoveAllUseCase, getCheckoutUseCase,
-            getShippingRatesUseCase, setShippingRateUseCase, completeCheckoutByCardUseCase)
+        presenter = CheckoutPresenter(
+            setupCheckoutUseCase, cartRemoveAllUseCase, getCheckoutUseCase,
+            getShippingRatesUseCase, setShippingRateUseCase, completeCheckoutByCardUseCase
+        )
         presenter.attachView(view)
 
         setupCheckoutUseCase.mock()
@@ -92,7 +94,13 @@ class CheckoutPresenterTest {
 
     @Test
     fun getCheckoutDataShouldShowMessageAndShowErrorScreenOnUseCaseNonCriticalError() {
-        given(setupCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(setupCheckoutUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getCheckoutData()
 
         val inOrder = inOrder(view, setupCheckoutUseCase)
@@ -129,7 +137,13 @@ class CheckoutPresenterTest {
 
     @Test
     fun getCheckoutShouldShowMessageOnUseCaseNonCriticalError() {
-        given(getCheckoutUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getCheckoutUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getCheckout(CHECKOUT_ID)
 
         val inOrder = inOrder(view, getCheckoutUseCase)
@@ -152,7 +166,11 @@ class CheckoutPresenterTest {
     @Test
     fun getShippingRatesShouldCallShippingRatesReceivedWhenOnSuccess() {
         val shippingRates = listOf<ShippingRate>()
-        given(getShippingRatesUseCase.buildUseCaseSingle(any())).willReturn(Single.just(shippingRates))
+        given(getShippingRatesUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.just(
+                shippingRates
+            )
+        )
         presenter.getShippingRates(CHECKOUT_ID)
 
         val inOrder = inOrder(view, getShippingRatesUseCase)
@@ -179,7 +197,13 @@ class CheckoutPresenterTest {
     @Test
     fun setShippingRatesShouldCallShowContentWhenOnError() {
         val shippingRate: ShippingRate = mock()
-        given(setShippingRateUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(setShippingRateUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.setShippingRates(checkout, shippingRate)
 
         argumentCaptor<SetShippingRateUseCase.Params>().apply {
@@ -196,8 +220,17 @@ class CheckoutPresenterTest {
     fun completeCheckoutByCardShouldCallCheckoutCompletedWhenOnSuccess() {
         val resultOrder = MockInstantiator.newOrder()
         given(cartRemoveAllUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
-        given(completeCheckoutByCardUseCase.buildUseCaseSingle(any())).willReturn(Single.just(resultOrder))
-        presenter.completeCheckoutByCard(checkout, MockInstantiator.DEFAULT_EMAIL, address, CARD_TOKEN)
+        given(completeCheckoutByCardUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.just(
+                resultOrder
+            )
+        )
+        presenter.completeCheckoutByCard(
+            checkout,
+            MockInstantiator.DEFAULT_EMAIL,
+            address,
+            CARD_TOKEN
+        )
 
         argumentCaptor<CompleteCheckoutByCardUseCase.Params>().apply {
             val inOrder = inOrder(view, completeCheckoutByCardUseCase, cartRemoveAllUseCase)
@@ -216,8 +249,19 @@ class CheckoutPresenterTest {
     fun completeCheckoutByCardShouldCallCheckoutErrorWhenOnError() {
         val resultOrder = MockInstantiator.newOrder()
         given(cartRemoveAllUseCase.buildUseCaseCompletable(any())).willReturn(Completable.complete())
-        given(completeCheckoutByCardUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
-        presenter.completeCheckoutByCard(checkout, MockInstantiator.DEFAULT_EMAIL, address, CARD_TOKEN)
+        given(completeCheckoutByCardUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.Content(
+                    false
+                )
+            )
+        )
+        presenter.completeCheckoutByCard(
+            checkout,
+            MockInstantiator.DEFAULT_EMAIL,
+            address,
+            CARD_TOKEN
+        )
 
         argumentCaptor<CompleteCheckoutByCardUseCase.Params>().apply {
             val inOrder = inOrder(view, completeCheckoutByCardUseCase, cartRemoveAllUseCase)
@@ -235,72 +279,90 @@ class CheckoutPresenterTest {
 
     @Test
     fun verifyCheckoutDataShouldPass() {
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(true)
     }
 
     @Test
     fun verifyCheckoutDataShouldPassWhenPaymentTypeIsNotACardAndCardIsNull() {
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.WEB_PAYMENT, null, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.WEB_PAYMENT, null, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(true)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenCheckoutIsNull() {
-        presenter.verifyCheckoutData(null, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            null, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenEmailIsNull() {
-        presenter.verifyCheckoutData(checkout, address, null, PaymentType.CARD_PAYMENT, card,
-            CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, address, null, PaymentType.CARD_PAYMENT, card,
+            CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenShippingAddressIsNull() {
-        presenter.verifyCheckoutData(checkout, null, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, null, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenPaymentTypeIsNull() {
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            null, card, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            null, card, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenPaymentTypeIsCardAndCardIsNull() {
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, null, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, null, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenPaymentTypeIsCardAndCardTokenIsNull() {
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, card, null, address)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, null, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
 
     @Test
     fun verifyCheckoutDataShouldNotPassWhenPaymentTypeIsCardAndBillingAddressIsNull() {
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, null)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, null
+        )
 
         verify(view).checkoutValidationPassed(false)
     }
@@ -308,8 +370,10 @@ class CheckoutPresenterTest {
     @Test
     fun verifyCheckoutDataShouldNotPassWhenShippingRateIsNull() {
         given(checkout.shippingRate).willReturn(null)
-        presenter.verifyCheckoutData(checkout, address, MockInstantiator.DEFAULT_EMAIL,
-            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address)
+        presenter.verifyCheckoutData(
+            checkout, address, MockInstantiator.DEFAULT_EMAIL,
+            PaymentType.CARD_PAYMENT, card, CARD_TOKEN, address
+        )
 
         verify(view).checkoutValidationPassed(false)
     }

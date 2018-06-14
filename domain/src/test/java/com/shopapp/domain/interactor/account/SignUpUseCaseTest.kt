@@ -28,7 +28,15 @@ class SignUpUseCaseTest {
         val email = "email@test.com"
         val password = "123456789"
         val phone = "+380633291677"
-        useCase.buildUseCaseCompletable(SignUpUseCase.Params(firstName, lastName, email, password, phone))
+        useCase.buildUseCaseCompletable(
+            SignUpUseCase.Params(
+                firstName,
+                lastName,
+                email,
+                password,
+                phone
+            )
+        )
         verify(authRepository).signUp(firstName, lastName, email, password, phone)
     }
 

@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.shopapp.ui.base.recycler.OnItemClickListener
 
-abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
-                                      protected val onItemClickListener: OnItemClickListener? = null) :
+abstract class BaseRecyclerAdapter<T>(
+    protected val dataList: List<T>,
+    protected val onItemClickListener: OnItemClickListener? = null
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var withHeader = false
@@ -75,7 +77,11 @@ abstract class BaseRecyclerAdapter<T>(protected val dataList: List<T>,
 
     }
 
-    class DefaultViewHolder(itemView: View, onItemClickListener: OnItemClickListener?, withHeader: Boolean) :
+    class DefaultViewHolder(
+        itemView: View,
+        onItemClickListener: OnItemClickListener?,
+        withHeader: Boolean
+    ) :
         RecyclerView.ViewHolder(itemView) {
 
         init {

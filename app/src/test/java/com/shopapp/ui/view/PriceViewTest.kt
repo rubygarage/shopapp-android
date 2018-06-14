@@ -32,16 +32,26 @@ class PriceViewTest {
         val discountPrice = (20).toBigDecimal()
         val shippingPrice = (30).toBigDecimal()
         val totalPrice = (40).toBigDecimal()
-        view.setData(subtotalPrice, discountPrice, shippingPrice, totalPrice,
-            MockInstantiator.DEFAULT_CURRENCY)
+        view.setData(
+            subtotalPrice, discountPrice, shippingPrice, totalPrice,
+            MockInstantiator.DEFAULT_CURRENCY
+        )
 
-        assertEquals(formatter.formatPrice(subtotalPrice, MockInstantiator.DEFAULT_CURRENCY),
-            view.subtotalValue.text)
-        assertEquals(formatter.formatPrice(discountPrice, MockInstantiator.DEFAULT_CURRENCY),
-            view.discountValue.text)
-        assertEquals(formatter.formatPrice(shippingPrice, MockInstantiator.DEFAULT_CURRENCY),
-            view.shippingValue.text)
-        assertEquals(formatter.formatPrice(totalPrice, MockInstantiator.DEFAULT_CURRENCY),
-            view.totalValue.text)
+        assertEquals(
+            formatter.formatPrice(subtotalPrice, MockInstantiator.DEFAULT_CURRENCY),
+            view.subtotalValue.text
+        )
+        assertEquals(
+            formatter.formatPrice(discountPrice, MockInstantiator.DEFAULT_CURRENCY),
+            view.discountValue.text
+        )
+        assertEquals(
+            formatter.formatPrice(shippingPrice, MockInstantiator.DEFAULT_CURRENCY),
+            view.shippingValue.text
+        )
+        assertEquals(
+            formatter.formatPrice(totalPrice, MockInstantiator.DEFAULT_CURRENCY),
+            view.totalValue.text
+        )
     }
 }

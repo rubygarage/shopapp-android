@@ -7,12 +7,18 @@ import com.shopapp.gateway.entity.SortType
 import io.reactivex.Single
 import javax.inject.Inject
 
-class ProductListUseCase @Inject constructor(private val productRepository: ProductRepository) :
-    SingleUseCase<List<Product>, ProductListUseCase.Params>() {
+class GetProductsUseCase @Inject constructor(private val productRepository: ProductRepository) :
+    SingleUseCase<List<Product>, GetProductsUseCase.Params>() {
 
     override fun buildUseCaseSingle(params: Params): Single<List<Product>> {
         return with(params) {
-            productRepository.getProductList(perPage, paginationValue, sortType, keyword, excludeKeyword)
+            productRepository.getProducts(
+                perPage,
+                paginationValue,
+                sortType,
+                keyword,
+                excludeKeyword
+            )
         }
     }
 

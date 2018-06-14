@@ -1,9 +1,9 @@
 package com.shopapp.di.module
 
-import com.shopapp.gateway.Api
-import com.shopapp.data.impl.*
 import com.shopapp.data.dao.Dao
+import com.shopapp.data.impl.*
 import com.shopapp.domain.repository.*
+import com.shopapp.gateway.Api
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -43,4 +43,7 @@ class RepositoryModule(private val api: Api, private val dao: Dao) {
     @Singleton
     fun provideCheckoutRepository(): CheckoutRepository = CheckoutRepositoryImpl(api)
 
+    @Provides
+    @Singleton
+    fun provideCustomerRepository(): CustomerRepository = CustomerRepositoryImpl(api)
 }

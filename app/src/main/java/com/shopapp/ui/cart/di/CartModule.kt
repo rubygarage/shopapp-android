@@ -14,9 +14,11 @@ import dagger.Provides
 class CartModule {
 
     @Provides
-    fun provideCartPresenter(cartItemsUseCase: CartItemsUseCase,
-                             cartRemoveUseCase: CartRemoveUseCase,
-                             cartQuantityUseCase: CartQuantityUseCase): CartPresenter {
+    fun provideCartPresenter(
+        cartItemsUseCase: CartItemsUseCase,
+        cartRemoveUseCase: CartRemoveUseCase,
+        cartQuantityUseCase: CartQuantityUseCase
+    ): CartPresenter {
         return CartPresenter(cartItemsUseCase, cartRemoveUseCase, cartQuantityUseCase)
     }
 

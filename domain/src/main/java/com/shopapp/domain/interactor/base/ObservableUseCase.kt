@@ -8,8 +8,10 @@ abstract class ObservableUseCase<T, in Params> : UseCase() {
 
     abstract fun buildUseCaseObservable(params: Params): Observable<T>
 
-    fun execute(onSuccess: ((t: T) -> Unit), onError: ((t: Throwable) -> Unit),
-                onComplete: (() -> Unit), params: Params) {
+    fun execute(
+        onSuccess: ((t: T) -> Unit), onError: ((t: Throwable) -> Unit),
+        onComplete: (() -> Unit), params: Params
+    ) {
         checkIsAttachedToLifecycle()
         disposeLatest()
         val disposable = buildUseCaseObservable(params)

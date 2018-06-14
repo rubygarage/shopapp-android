@@ -49,8 +49,10 @@ class CheckoutUnAuthAddressPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = CheckoutUnAuthAddressPresenter(fieldValidator, mock(), setShippingAddressUseCase,
-            mock(), mock())
+        presenter = CheckoutUnAuthAddressPresenter(
+            fieldValidator, mock(), setShippingAddressUseCase,
+            mock(), mock()
+        )
         presenter.attachView(view)
 
         setShippingAddressUseCase.mock()

@@ -4,6 +4,7 @@ import com.shopapp.domain.interactor.base.SingleUseCase
 import com.shopapp.domain.repository.AuthRepository
 import com.shopapp.domain.repository.CartRepository
 import com.shopapp.domain.repository.CheckoutRepository
+import com.shopapp.domain.repository.CustomerRepository
 import com.shopapp.gateway.entity.CartProduct
 import com.shopapp.gateway.entity.Checkout
 import com.shopapp.gateway.entity.Customer
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class SetupCheckoutUseCase @Inject constructor(
     private val cartRepository: CartRepository,
     private val checkoutRepository: CheckoutRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val customerRepository: CustomerRepository
 ) :
     SingleUseCase<Triple<List<CartProduct>, Checkout, Customer?>, Unit>() {
 
@@ -29,7 +31,12 @@ class SetupCheckoutUseCase @Inject constructor(
             .flatMap {
                 Single.zip(Single.just(it), checkoutRepository.createCheckout(it),
                     BiFunction<List<CartProduct>, Checkout,
-                            Pair<List<CartProduct>, Checkout>> { products, checkout -> Pair(products, checkout) })
+                            Pair<List<CartProduct>, Checkout>> { products, checkout ->
+                        Pair(
+                            products,
+                            checkout
+                        )
+                    })
             }
     }
 
@@ -43,9 +50,9 @@ class SetupCheckoutUseCase @Inject constructor(
     }
 
     private fun getCustomer(): Single<Any?> {
-        return authRepository.isLoggedIn().flatMap {
+        return authRepository.isSignedIn().flatMap {
             if (it) {
-                return@flatMap authRepository.getCustomer()
+                return@flatMap customerRepository.getCustomer()
             } else {
                 return@flatMap Single.just(Any())
             }

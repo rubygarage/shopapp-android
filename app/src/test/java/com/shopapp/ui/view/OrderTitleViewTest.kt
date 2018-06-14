@@ -31,9 +31,17 @@ class OrderTitleViewTest {
         val order = MockInstantiator.newOrder()
         val dateFormatter = DateFormatter()
         view.setOrder(order, dateFormatter)
-        assertEquals(context.getString(R.string.order_number_pattern,
-            order.orderNumber).toUpperCase(), view.orderNumberTextView.text)
-        assertEquals(context.getString(R.string.order_date_pattern,
-            dateFormatter.format(order.processedAt)), view.orderDateTextView.text)
+        assertEquals(
+            context.getString(
+                R.string.order_number_pattern,
+                order.orderNumber
+            ).toUpperCase(), view.orderNumberTextView.text
+        )
+        assertEquals(
+            context.getString(
+                R.string.order_date_pattern,
+                dateFormatter.format(order.processedAt)
+            ), view.orderDateTextView.text
+        )
     }
 }

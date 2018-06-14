@@ -133,7 +133,10 @@ class AccountFragmentTest {
         val looper = Shadows.shadowOf(fragment.activity?.mainLooper)
         fragment.signedOut()
         looper.idle()
-        Assert.assertEquals(ShadowToast.getTextOfLatestToast(), context.getString(R.string.logout_success_message))
+        Assert.assertEquals(
+            ShadowToast.getTextOfLatestToast(),
+            context.getString(R.string.logout_success_message)
+        )
     }
 
     @Test

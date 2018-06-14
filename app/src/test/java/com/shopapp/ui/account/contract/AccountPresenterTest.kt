@@ -3,8 +3,8 @@ package com.shopapp.ui.account.contract
 import com.nhaarman.mockito_kotlin.*
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
 import com.shopapp.domain.interactor.account.SessionCheckUseCase
-import com.shopapp.domain.interactor.account.ShopInfoUseCase
 import com.shopapp.domain.interactor.account.SignOutUseCase
+import com.shopapp.domain.interactor.account.ShopInfoUseCase
 import com.shopapp.gateway.entity.Customer
 import com.shopapp.gateway.entity.Error
 import com.shopapp.gateway.entity.Shop
@@ -52,7 +52,12 @@ class AccountPresenterTest {
     @Before
     fun setUpTest() {
         MockitoAnnotations.initMocks(this)
-        presenter = AccountPresenter(sessionCheckUseCase, signOutUseCase, shopInfoUseCase, getCustomerUseCase)
+        presenter = AccountPresenter(
+            sessionCheckUseCase,
+            signOutUseCase,
+            shopInfoUseCase,
+            getCustomerUseCase
+        )
         presenter.attachView(view)
         sessionCheckUseCase.mock()
         signOutUseCase.mock()
@@ -82,7 +87,13 @@ class AccountPresenterTest {
 
     @Test
     fun shouldShowMessageOnAuthCheckNonCriticalError() {
-        given(sessionCheckUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(sessionCheckUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.isAuthorized()
 
         val inOrder = inOrder(view, sessionCheckUseCase)
@@ -122,7 +133,13 @@ class AccountPresenterTest {
 
     @Test
     fun shouldShowMessageOnSignOutNonCriticalError() {
-        given(signOutUseCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(signOutUseCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.signOut()
 
         val inOrder = inOrder(view, signOutUseCase)
@@ -202,7 +219,13 @@ class AccountPresenterTest {
 
     @Test
     fun shouldReturnNullCustomerOnGetCustomerNonCriticalError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.NonCritical("ErrorMessage")))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)
@@ -212,7 +235,13 @@ class AccountPresenterTest {
 
     @Test
     fun shouldReturnNullCustomerOnGetCustomerContentError() {
-        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(Single.error(Error.Content(false)))
+        given(getCustomerUseCase.buildUseCaseSingle(any())).willReturn(
+            Single.error(
+                Error.Content(
+                    false
+                )
+            )
+        )
         presenter.getCustomer()
 
         val inOrder = inOrder(view, getCustomerUseCase)

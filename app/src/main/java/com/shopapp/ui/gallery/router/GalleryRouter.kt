@@ -7,7 +7,15 @@ import com.shopapp.ui.gallery.GalleryActivity
 class GalleryRouter {
 
     fun showFullGallery(context: Context?, product: Product?, selectedPosition: Int = 0) {
-        context?.let { it.startActivity(GalleryActivity.getStartIntent(it, product, selectedPosition)) }
+        context?.let {
+            it.startActivity(
+                GalleryActivity.getStartIntent(
+                    it,
+                    product,
+                    selectedPosition
+                )
+            )
+        }
     }
 
 }

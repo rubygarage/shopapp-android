@@ -29,7 +29,10 @@ class CartRepositoryImpl(private val dao: Dao) : CartRepository {
         return dao.deleteAllProductsFromCart()
     }
 
-    override fun changeCartProductQuantity(productVariantId: String, newQuantity: Int): Single<CartProduct> {
+    override fun changeCartProductQuantity(
+        productVariantId: String,
+        newQuantity: Int
+    ): Single<CartProduct> {
         return dao.changeCartProductQuantity(productVariantId, newQuantity)
     }
 

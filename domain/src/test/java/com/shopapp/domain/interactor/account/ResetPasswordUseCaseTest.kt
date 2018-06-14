@@ -9,26 +9,23 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class EditCustomerUseCaseTest {
+class ResetPasswordUseCaseTest {
 
-    private lateinit var useCase: EditCustomerUseCase
+    private lateinit var useCase: ResetPasswordUseCase
 
     @Mock
     private lateinit var authRepository: AuthRepository
 
     @Before
     fun setUpTest() {
-        useCase = EditCustomerUseCase(authRepository)
+        useCase = ResetPasswordUseCase(authRepository)
     }
 
     @Test
     fun shouldDelegateCallToRepository() {
-        val name = "name"
-        val lastName = "lastName"
-        val phone = "0633291677"
-
-        useCase.buildUseCaseSingle(EditCustomerUseCase.Params(name, lastName, phone))
-        verify(authRepository).editCustomer(name, lastName, phone)
+        val email = "test@test.com"
+        useCase.buildUseCaseCompletable(email)
+        verify(authRepository).resetPassword(email)
     }
 
 }

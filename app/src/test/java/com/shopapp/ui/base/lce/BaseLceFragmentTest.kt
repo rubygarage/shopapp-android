@@ -103,7 +103,9 @@ class BaseLceFragmentTest {
     fun shouldShowNotFoundErrorWithDefaultMessageWhenCriticalErrorReceived() {
         fragment.showError(Error.Critical())
         assertEquals(View.VISIBLE, fragment.lceLayout.errorView.visibility)
-        assertEquals(context.getString(R.string.сould_not_find),
-            fragment.lceLayout.errorView.errorMessage.text)
+        assertEquals(
+            context.getString(R.string.сould_not_find),
+            fragment.lceLayout.errorView.errorMessage.text
+        )
     }
 }

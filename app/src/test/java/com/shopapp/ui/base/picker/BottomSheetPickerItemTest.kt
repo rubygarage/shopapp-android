@@ -31,8 +31,14 @@ class BottomSheetPickerItemTest {
         val data = "testData"
         itemView.bindData(data, data)
         assertEquals(data, itemView.titleView.text)
-        assertEquals(ContextCompat.getDrawable(context, R.drawable.background_selected_picker_item), itemView.titleView.background)
-        assertEquals(ContextCompat.getColor(context, R.color.textColorPrimary), itemView.titleView.currentTextColor)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.drawable.background_selected_picker_item),
+            itemView.titleView.background
+        )
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorPrimary),
+            itemView.titleView.currentTextColor
+        )
     }
 
     @Test
@@ -41,8 +47,14 @@ class BottomSheetPickerItemTest {
         val selectedData = null
         itemView.bindData(data, selectedData)
         assertEquals(data, itemView.titleView.text)
-        assertEquals(ContextCompat.getDrawable(context, R.color.transparent), itemView.titleView.background)
-        assertEquals(ContextCompat.getColor(context, R.color.textColorSecondary), itemView.titleView.currentTextColor)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.color.transparent),
+            itemView.titleView.background
+        )
+        assertEquals(
+            ContextCompat.getColor(context, R.color.textColorSecondary),
+            itemView.titleView.currentTextColor
+        )
     }
 
     @Test

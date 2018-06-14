@@ -3,9 +3,9 @@ package com.shopapp.ui.address.base.adapter
 import android.content.Context
 import android.view.View
 import com.shopapp.gateway.entity.Address
+import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 import com.shopapp.ui.item.AddressHeaderItem
 import com.shopapp.ui.item.AddressItem
-import com.shopapp.ui.base.recycler.adapter.BaseRecyclerAdapter
 
 open class AddressListAdapter(
     dataList: List<Address>,

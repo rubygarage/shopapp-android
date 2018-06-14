@@ -47,11 +47,13 @@ class HomeFragment :
             {
                 val fragment = ProductHorizontalFragment.newInstance(SortType.RECENT)
                 productHorizontalFragment = fragment
-                productHorizontalFragment?.visibilityListener = object : FragmentVisibilityListener {
-                    override fun changeVisibility(isVisible: Boolean) {
-                        recentContainer.visibility = if (isVisible) View.VISIBLE else View.GONE
-                    }
-                }
+                productHorizontalFragment?.visibilityListener =
+                        object : FragmentVisibilityListener {
+                            override fun changeVisibility(isVisible: Boolean) {
+                                recentContainer.visibility =
+                                        if (isVisible) View.VISIBLE else View.GONE
+                            }
+                        }
                 fragment
             }
         ).commit()

@@ -32,8 +32,10 @@ class AddressContentItemTest {
         val address = MockInstantiator.newAddress()
         view.setAddress(address)
 
-        assertEquals(context.getString(R.string.full_name_pattern, address.firstName, address.lastName),
-            view.name.text)
+        assertEquals(
+            context.getString(R.string.full_name_pattern, address.firstName, address.lastName),
+            view.name.text
+        )
         val addressText = "${address.address}, ${address.secondAddress}, ${address.city}," +
                 " ${address.state}, ${address.zip}, ${address.country}"
         assertEquals(addressText, view.addressText.text.toString())
@@ -46,7 +48,10 @@ class AddressContentItemTest {
         view.setAddress(address)
 
         assertEquals(View.VISIBLE, view.phone.visibility)
-        assertEquals(context.getString(R.string.tel_prefix, address.phone), view.phone.text.toString())
+        assertEquals(
+            context.getString(R.string.tel_prefix, address.phone),
+            view.phone.text.toString()
+        )
     }
 
     @Test

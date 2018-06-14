@@ -7,12 +7,12 @@ import android.os.Bundle
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import com.shopapp.gateway.entity.Card
-import com.shopapp.gateway.entity.CardType
-import com.shopapp.domain.detector.CardTypeDetector
 import com.shopapp.R
 import com.shopapp.ShopApplication
+import com.shopapp.domain.detector.CardTypeDetector
 import com.shopapp.ext.hideKeyboard
+import com.shopapp.gateway.entity.Card
+import com.shopapp.gateway.entity.CardType
 import com.shopapp.ui.base.lce.BaseLceActivity
 import com.shopapp.ui.base.lce.view.LceLayout
 import com.shopapp.ui.base.picker.BaseBottomSheetPicker
@@ -105,21 +105,24 @@ class CardActivity :
 
     private fun setupPickers() {
         monthPicker = DateBottomSheetPicker.newInstance(DateBottomSheetPicker.DATE_TYPE_MONTH)
-        monthPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<String> {
-            override fun onDoneButtonClicked(selectedData: String) {
-                monthInput.setText(selectedData)
-            }
-        }
+        monthPicker.onDoneButtonClickedListener =
+                object : BaseBottomSheetPicker.OnDoneButtonClickedListener<String> {
+                    override fun onDoneButtonClicked(selectedData: String) {
+                        monthInput.setText(selectedData)
+                    }
+                }
         yearPicker = DateBottomSheetPicker.newInstance(DateBottomSheetPicker.DATE_TYPE_YEAR)
-        yearPicker.onDoneButtonClickedListener = object : BaseBottomSheetPicker.OnDoneButtonClickedListener<String> {
-            override fun onDoneButtonClicked(selectedData: String) {
-                yearInput.setText(selectedData)
-            }
-        }
+        yearPicker.onDoneButtonClickedListener =
+                object : BaseBottomSheetPicker.OnDoneButtonClickedListener<String> {
+                    override fun onDoneButtonClicked(selectedData: String) {
+                        yearInput.setText(selectedData)
+                    }
+                }
     }
 
     private fun setupListeners() {
-        cardMaskTextWatcher = CreditCardFormatTextWatcher(this, resources.getDimension(R.dimen.card_padding))
+        cardMaskTextWatcher =
+                CreditCardFormatTextWatcher(this, resources.getDimension(R.dimen.card_padding))
         cardTextWatcher = object : SimpleTextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 cardLogo.setImageResource(cardTypeDetector.detect(s.toString())?.logoRes ?: 0)
@@ -136,7 +139,11 @@ class CardActivity :
         }
         yearInput.setOnClickListener {
             it.hideKeyboard()
-            yearPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_YEAR, yearInput.text.toString())
+            yearPicker.show(
+                supportFragmentManager,
+                DateBottomSheetPicker.DATE_TYPE_YEAR,
+                yearInput.text.toString()
+            )
         }
         submitButton.setOnClickListener {
             changeState(LceLayout.LceState.LoadingState(true))
@@ -161,7 +168,11 @@ class CardActivity :
     }
 
     private fun showMonthPicker() {
-        monthPicker.show(supportFragmentManager, DateBottomSheetPicker.DATE_TYPE_MONTH, monthInput.text.toString())
+        monthPicker.show(
+            supportFragmentManager,
+            DateBottomSheetPicker.DATE_TYPE_MONTH,
+            monthInput.text.toString()
+        )
     }
 
     private fun checkInputFields() {
@@ -175,7 +186,13 @@ class CardActivity :
     private fun fillCardData() {
         if (holderNameInput.text.isBlank()) {
             card?.let {
-                holderNameInput.setText(getString(R.string.full_name_pattern, it.firstName, it.lastName))
+                holderNameInput.setText(
+                    getString(
+                        R.string.full_name_pattern,
+                        it.firstName,
+                        it.lastName
+                    )
+                )
                 cardNumberInput.setText(it.cardNumber)
                 monthInput.setText(it.expireMonth)
                 yearInput.setText(it.expireYear)

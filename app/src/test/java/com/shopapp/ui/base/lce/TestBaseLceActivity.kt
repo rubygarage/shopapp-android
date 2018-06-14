@@ -5,7 +5,8 @@ import com.shopapp.R
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 
-class TestBaseLceActivity : BaseLceActivity<Any, BaseLceView<Any>, BaseLcePresenter<Any, BaseLceView<Any>>>() {
+class TestBaseLceActivity :
+    BaseLceActivity<Any, BaseLceView<Any>, BaseLcePresenter<Any, BaseLceView<Any>>>() {
 
     override fun inject() {
     }

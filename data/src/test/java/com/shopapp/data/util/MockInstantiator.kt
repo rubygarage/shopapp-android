@@ -1,10 +1,11 @@
 package com.shopapp.data.util
 
-import com.shopapp.gateway.entity.*
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import java.math.BigDecimal
-import java.util.*
+import com.shopapp.gateway.entity.CartProduct
+import com.shopapp.gateway.entity.Image
+import com.shopapp.gateway.entity.ProductVariant
+import com.shopapp.gateway.entity.VariantOption
 
 object MockInstantiator {
 

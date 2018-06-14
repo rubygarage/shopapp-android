@@ -1,7 +1,7 @@
 package com.shopapp.ui.account.contract
 
 import com.shopapp.domain.interactor.account.GetCustomerUseCase
-import com.shopapp.domain.interactor.account.UpdateAccountSettingsUseCase
+import com.shopapp.domain.interactor.account.UpdateCustomerSettingsUseCase
 import com.shopapp.ui.base.contract.BaseLcePresenter
 import com.shopapp.ui.base.contract.BaseLceView
 
@@ -9,7 +9,8 @@ interface AccountSettingsView : BaseLceView<Boolean>
 
 class AccountSettingsPresenter(
     private val customerUseCase: GetCustomerUseCase,
-    private val updateSettingsUseCase: UpdateAccountSettingsUseCase) :
+    private val updateSettingsUseCase: UpdateCustomerSettingsUseCase
+) :
     BaseLcePresenter<Boolean, AccountSettingsView>(customerUseCase, updateSettingsUseCase) {
 
     fun getCustomer() {

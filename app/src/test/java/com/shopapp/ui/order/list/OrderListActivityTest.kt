@@ -54,7 +54,10 @@ class OrderListActivityTest {
         activity.showEmptyState()
         val emptyView = activity.emptyView
         assertEquals(View.VISIBLE, emptyView.visibility)
-        assertEquals(context.getString(R.string.you_have_no_orders_yet), emptyView.emptyMessage.text)
+        assertEquals(
+            context.getString(R.string.you_have_no_orders_yet),
+            emptyView.emptyMessage.text
+        )
         assertEquals(context.getString(R.string.start_shopping), emptyView.emptyButton.text)
         assertEquals(View.VISIBLE, emptyView.emptyButton.visibility)
         val shadowDrawable = shadowOf(emptyView.emptyImage.drawable)

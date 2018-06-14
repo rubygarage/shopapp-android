@@ -33,8 +33,10 @@ class LceErrorViewTest {
         assertEquals(View.VISIBLE, view.visibility)
 
         assertEquals(context.getString(R.string.default_error), view.errorMessage.text.toString())
-        assertEquals(ContextCompat.getDrawable(context, R.drawable.ic_sentiment_very_dissatisfied),
-            view.errorImage.drawable)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.drawable.ic_sentiment_very_dissatisfied),
+            view.errorImage.drawable
+        )
         assertEquals(View.VISIBLE, view.tryAgainButton.visibility)
         assertEquals(View.GONE, view.backButton.visibility)
     }
@@ -44,9 +46,14 @@ class LceErrorViewTest {
         view.changeState(LceLayout.LceState.ErrorState(Error.Content(true)))
         assertEquals(View.VISIBLE, view.visibility)
 
-        assertEquals(context.getString(R.string.network_connection_error), view.errorMessage.text.toString())
-        assertEquals(ContextCompat.getDrawable(context, R.drawable.ic_no_signal),
-            view.errorImage.drawable)
+        assertEquals(
+            context.getString(R.string.network_connection_error),
+            view.errorMessage.text.toString()
+        )
+        assertEquals(
+            ContextCompat.getDrawable(context, R.drawable.ic_no_signal),
+            view.errorImage.drawable
+        )
         assertEquals(View.VISIBLE, view.tryAgainButton.visibility)
         assertEquals(View.GONE, view.backButton.visibility)
     }
@@ -56,8 +63,10 @@ class LceErrorViewTest {
         view.changeState(LceLayout.LceState.ErrorState(Error.Critical()))
         assertEquals(View.VISIBLE, view.visibility)
 
-        assertEquals(ContextCompat.getDrawable(context, R.drawable.ic_categories_empty),
-            view.errorImage.drawable)
+        assertEquals(
+            ContextCompat.getDrawable(context, R.drawable.ic_categories_empty),
+            view.errorImage.drawable
+        )
         assertEquals(View.GONE, view.tryAgainButton.visibility)
         assertEquals(View.VISIBLE, view.backButton.visibility)
     }
@@ -74,7 +83,10 @@ class LceErrorViewTest {
         val testTarget = "test_target"
         view.errorTarget = testTarget
         view.changeState(LceLayout.LceState.ErrorState(Error.Critical()))
-        assertEquals(context.getString(R.string.сould_not_find_with_placeholder, testTarget), view.errorMessage.text.toString())
+        assertEquals(
+            context.getString(R.string.сould_not_find_with_placeholder, testTarget),
+            view.errorMessage.text.toString()
+        )
     }
 
     @Test

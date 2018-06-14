@@ -52,7 +52,8 @@ class SignInPresenterTest {
         presenter.logIn("email@test.com", "123456789")
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
+        inOrder.verify(useCase)
+            .execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
         inOrder.verify(view).showContent(any())
     }
 
@@ -65,21 +66,35 @@ class SignInPresenterTest {
 
     @Test
     fun shouldNotifyViewOnUseCaseError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.logIn("email@test.com", "123456789")
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
+        inOrder.verify(useCase)
+            .execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
         inOrder.verify(view).onFailure()
     }
 
     @Test
     fun shouldShowMessageOnUseCaseNonCriticalError() {
-        given(useCase.buildUseCaseCompletable(any())).willReturn(Completable.error(Error.NonCritical("ErrorMessage")))
+        given(useCase.buildUseCaseCompletable(any())).willReturn(
+            Completable.error(
+                Error.NonCritical(
+                    "ErrorMessage"
+                )
+            )
+        )
         presenter.logIn("email@test.com", "123456789")
 
         val inOrder = inOrder(view, useCase)
-        inOrder.verify(useCase).execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
+        inOrder.verify(useCase)
+            .execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
         inOrder.verify(view).showMessage("ErrorMessage")
     }
 
@@ -90,7 +105,8 @@ class SignInPresenterTest {
 
         argumentCaptor<Error>().apply {
             val inOrder = inOrder(view, useCase)
-            inOrder.verify(useCase).execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
+            inOrder.verify(useCase)
+                .execute(any(), any(), eq(SignInUseCase.Params("email@test.com", "123456789")))
             inOrder.verify(view).showError(capture())
 
             assertTrue(firstValue is Error.Content)

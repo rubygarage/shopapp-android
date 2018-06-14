@@ -5,23 +5,24 @@ import android.os.Parcelable
 import java.math.BigDecimal
 import java.util.*
 
-data class Product(var id: String,
-                   var title: String,
-                   var productDescription: String,
-                   var additionalDescription: String,
-                   var currency: String,
-                   var price: BigDecimal,
-                   var hasAlternativePrice: Boolean,
-                   var discount: String? = null,
-                   var vendor: String,
-                   var type: String,
-                   var createdAt: Date,
-                   var updatedAt: Date,
-                   var tags: List<String>,
-                   var images: List<Image>,
-                   var options: List<ProductOption>,
-                   var variants: List<ProductVariant>,
-                   var paginationValue: String? = null
+data class Product(
+    var id: String,
+    var title: String,
+    var productDescription: String,
+    var additionalDescription: String,
+    var currency: String,
+    var price: BigDecimal,
+    var hasAlternativePrice: Boolean,
+    var discount: String? = null,
+    var vendor: String,
+    var type: String,
+    var createdAt: Date,
+    var updatedAt: Date,
+    var tags: List<String>,
+    var images: List<Image>,
+    var options: List<ProductOption>,
+    var variants: List<ProductVariant>,
+    var paginationValue: String? = null
 ) : Parcelable {
 
     constructor(source: Parcel) : this(

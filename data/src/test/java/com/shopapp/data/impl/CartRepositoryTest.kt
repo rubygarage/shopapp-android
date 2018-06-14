@@ -15,7 +15,7 @@ class CartRepositoryTest {
     companion object {
         private const val ID = "id"
     }
-    
+
     @Mock
     private lateinit var dao: Dao
 

@@ -10,7 +10,8 @@ import com.shopapp.ui.custom.zoomable.gestures.TransformGestureDetector
 /**
  * Zoomable controller that calculates transformation based on touch events.
  */
-open class DefaultZoomableController(protected val detector: TransformGestureDetector) : ZoomableController, TransformGestureDetector.Listener {
+open class DefaultZoomableController(protected val detector: TransformGestureDetector) :
+    ZoomableController, TransformGestureDetector.Listener {
     // View bounds, in view-absolute coordinates
     /**
      * Gets the view bounds.
@@ -187,7 +188,11 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * @param srcPoints  source array
      * @param numPoints  number of points to map
      */
-    private fun mapAbsoluteToRelative(destPoints: FloatArray, srcPoints: FloatArray, numPoints: Int) {
+    private fun mapAbsoluteToRelative(
+        destPoints: FloatArray,
+        srcPoints: FloatArray,
+        numPoints: Int
+    ) {
         for (i in 0 until numPoints) {
             destPoints[i * 2 + 0] = (srcPoints[i * 2 + 0] - imageBounds.left) / imageBounds.width()
             destPoints[i * 2 + 1] = (srcPoints[i * 2 + 1] - imageBounds.top) / imageBounds.height()
@@ -203,7 +208,11 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      * @param srcPoints  source array
      * @param numPoints  number of points to map
      */
-    private fun mapRelativeToAbsolute(destPoints: FloatArray, srcPoints: FloatArray, numPoints: Int) {
+    private fun mapRelativeToAbsolute(
+        destPoints: FloatArray,
+        srcPoints: FloatArray,
+        numPoints: Int
+    ) {
         for (i in 0 until numPoints) {
             destPoints[i * 2 + 0] = srcPoints[i * 2 + 0] * imageBounds.width() + imageBounds.left
             destPoints[i * 2 + 1] = srcPoints[i * 2 + 1] * imageBounds.height() + imageBounds.top
@@ -239,7 +248,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         scale: Float,
         imagePoint: PointF,
         viewPoint: PointF,
-        @LimitFlag limitFlags: Int): Boolean {
+        @LimitFlag limitFlags: Int
+    ): Boolean {
         val viewAbsolute = mTempValues
         viewAbsolute[0] = imagePoint.x
         viewAbsolute[1] = imagePoint.y
@@ -248,7 +258,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         val distanceY = viewPoint.y - viewAbsolute[1]
         var transformCorrected = false
         outTransform.setScale(scale, scale, viewAbsolute[0], viewAbsolute[1])
-        transformCorrected = transformCorrected or limitScale(outTransform, viewAbsolute[0], viewAbsolute[1], limitFlags)
+        transformCorrected = transformCorrected or
+                limitScale(outTransform, viewAbsolute[0], viewAbsolute[1], limitFlags)
         outTransform.postTranslate(distanceX, distanceY)
         transformCorrected = transformCorrected or limitTranslation(outTransform, limitFlags)
         return transformCorrected
@@ -296,7 +307,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
      */
     private fun calculateGestureTransform(
         outTransform: Matrix,
-        @LimitFlag limitTypes: Int): Boolean {
+        @LimitFlag limitTypes: Int
+    ): Boolean {
         val detector = this.detector
         var transformCorrected = false
         outTransform.set(mPreviousTransform)
@@ -308,7 +320,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
             val scale = detector.scale
             outTransform.postScale(scale, scale, detector.pivotX, detector.pivotY)
         }
-        transformCorrected = transformCorrected or limitScale(outTransform, detector.pivotX, detector.pivotY, limitTypes)
+        transformCorrected = transformCorrected or
+                limitScale(outTransform, detector.pivotX, detector.pivotY, limitTypes)
         if (isTranslationEnabled) {
             outTransform.postTranslate(detector.translationX, detector.translationY)
         }
@@ -335,7 +348,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         transform: Matrix,
         pivotX: Float,
         pivotY: Float,
-        @LimitFlag limitTypes: Int): Boolean {
+        @LimitFlag limitTypes: Int
+    ): Boolean {
         if (!shouldLimit(limitTypes, LIMIT_SCALE)) {
             return false
         }
@@ -393,7 +407,8 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         imageEnd: Float,
         limitStart: Float,
         limitEnd: Float,
-        limitCenter: Float): Float {
+        limitCenter: Float
+    ): Float {
         val imageWidth = imageEnd - imageStart
         val limitWidth = limitEnd - limitStart
         val limitInnerWidth = Math.min(limitCenter - limitStart, limitEnd - limitCenter) * 2
@@ -487,8 +502,10 @@ open class DefaultZoomableController(protected val detector: TransformGestureDet
         return viewBounds.height().toInt()
     }
 
-    @IntDef(flag = true, value = [LIMIT_NONE, LIMIT_TRANSLATION_X,
-        LIMIT_TRANSLATION_Y, LIMIT_SCALE, LIMIT_ALL])
+    @IntDef(
+        flag = true, value = [LIMIT_NONE, LIMIT_TRANSLATION_X,
+            LIMIT_TRANSLATION_Y, LIMIT_SCALE, LIMIT_ALL]
+    )
     @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
     annotation class LimitFlag
 
