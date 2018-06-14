@@ -14,9 +14,9 @@ class OrderRepositoryImpl(private val api: Api) : OrderRepository {
         }
     }
 
-    override fun getOrder(orderId: String): Single<Order> {
+    override fun getOrder(id: String): Single<Order> {
         return Single.create<Order> { emitter ->
-            api.getOrder(orderId, RxCallbackSingle<Order>(emitter))
+            api.getOrder(id, RxCallbackSingle<Order>(emitter))
         }
     }
 }

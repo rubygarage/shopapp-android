@@ -7,5 +7,5 @@ interface OrderRepository {
 
     fun getOrders(perPage: Int, paginationValue: Any?): Single<List<Order>>
 
-    fun getOrder(orderId: String): Single<Order>
+    fun getOrder(id: String): Single<Order>
 }

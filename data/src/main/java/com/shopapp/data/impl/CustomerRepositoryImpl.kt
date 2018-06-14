@@ -28,15 +28,15 @@ class CustomerRepositoryImpl(private val api: Api) : CustomerRepository {
         return Completable.create { api.updateCustomerAddress(address, RxCallbackCompletable(it)) }
     }
 
-    override fun deleteCustomerAddress(addressId: String): Completable {
+    override fun deleteCustomerAddress(id: String): Completable {
         return Completable.create {
-            api.deleteCustomerAddress(addressId, RxCallbackCompletable(it))
+            api.deleteCustomerAddress(id, RxCallbackCompletable(it))
         }
     }
 
-    override fun setDefaultShippingAddress(addressId: String): Completable {
+    override fun setDefaultShippingAddress(id: String): Completable {
         return Completable.create {
-            api.setDefaultShippingAddress(addressId, RxCallbackCompletable(it))
+            api.setDefaultShippingAddress(id, RxCallbackCompletable(it))
         }
     }
 

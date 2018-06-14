@@ -14,9 +14,9 @@ interface CustomerRepository {
 
     fun updateCustomerAddress(address: Address): Completable
 
-    fun deleteCustomerAddress(addressId: String): Completable
+    fun deleteCustomerAddress(id: String): Completable
 
-    fun setDefaultShippingAddress(addressId: String): Completable
+    fun setDefaultShippingAddress(id: String): Completable
 
     fun updateCustomer(firstName: String, lastName: String, phone: String): Single<Customer>
 

@@ -77,15 +77,15 @@ interface Api {
 
     fun updateCustomerAddress(address: Address, callback: ApiCallback<Unit>)
 
-    fun setDefaultShippingAddress(addressId: String, callback: ApiCallback<Unit>)
+    fun setDefaultShippingAddress(id: String, callback: ApiCallback<Unit>)
 
-    fun deleteCustomerAddress(addressId: String, callback: ApiCallback<Unit>)
+    fun deleteCustomerAddress(id: String, callback: ApiCallback<Unit>)
 
     // Payments
 
     fun createCheckout(cartProducts: List<CartProduct>, callback: ApiCallback<Checkout>)
 
-    fun getCheckout(checkoutId: String, callback: ApiCallback<Checkout>)
+    fun getCheckout(id: String, callback: ApiCallback<Checkout>)
 
     fun setShippingAddress(checkoutId: String, address: Address, callback: ApiCallback<Checkout>)
 
@@ -113,5 +113,5 @@ interface Api {
 
     fun getOrders(perPage: Int, paginationValue: Any? = null, callback: ApiCallback<List<Order>>)
 
-    fun getOrder(orderId: String, callback: ApiCallback<Order>)
+    fun getOrder(id: String, callback: ApiCallback<Order>)
 }

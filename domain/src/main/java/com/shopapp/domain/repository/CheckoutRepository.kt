@@ -7,7 +7,7 @@ interface CheckoutRepository {
 
     fun createCheckout(cartProductList: List<CartProduct>): Single<Checkout>
 
-    fun getCheckout(checkoutId: String): Single<Checkout>
+    fun getCheckout(id: String): Single<Checkout>
 
     fun setShippingAddress(checkoutId: String, address: Address): Single<Checkout>
 

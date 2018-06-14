@@ -14,9 +14,9 @@ class CheckoutRepositoryImpl(private val api: Api) : CheckoutRepository {
         }
     }
 
-    override fun getCheckout(checkoutId: String): Single<Checkout> {
+    override fun getCheckout(id: String): Single<Checkout> {
         return Single.create<Checkout> {
-            api.getCheckout(checkoutId, RxCallbackSingle<Checkout>(it))
+            api.getCheckout(id, RxCallbackSingle<Checkout>(it))
         }
     }
 
