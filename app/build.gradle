@@ -5,6 +5,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.fabric'
 apply plugin: 'jacoco-android'
 
+def apiLibrary = null
+
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
@@ -21,6 +23,37 @@ android {
         versionName globalConfiguration["versionName"]
 
         multiDexEnabled true
+    }
+
+    flavorDimensions "api"
+
+    productFlavors {
+        withoutApi {
+            dimension "api"
+        }
+        shopifyApi {
+            dimension "api"
+
+            def shopappShopifyVersion = project.getProperties().get("shopappShopifyVersion")
+            if (shopappShopifyVersion != null) {
+                apiLibrary = "com.github.rubygarage:shopapp-shopify-android:$shopappShopifyVersion"
+            }
+
+            def appId = project.getProperties().get("appId")
+            applicationId = appId != null ? appId : applicationId
+
+            def domain = project.getProperties().get("domain")
+            buildConfigField "String", "BASE_DOMAIN", "\"$domain\""
+
+            def accessToken = project.getProperties().get("token")
+            buildConfigField "String", "STOREFRONT_ACCESS_TOKEN", "\"$accessToken\""
+
+            def apiKey = project.getProperties().get("apiKey")
+            buildConfigField "String", "API_KEY", "\"$apiKey\""
+
+            def apiPassword = project.getProperties().get("apiPassword")
+            buildConfigField "String", "API_PASSWORD", "\"$apiPassword\""
+        }
     }
 
     testOptions {
@@ -80,6 +113,11 @@ dependencies {
     implementation project(':data')
     implementation project(':domain')
     implementation project(':gateway')
+    if (apiLibrary != null) {
+        implementation(apiLibrary) {
+            exclude module: 'shopapp-android'
+        }
+    }
 
     testImplementation "com.google.dagger:dagger:$daggerVersion"
     kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
@@ -91,6 +129,13 @@ dependencies {
     testImplementation "org.robolectric:shadows-support-v4:3.3.2"
     testImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
     androidTestImplementation "com.android.support.test:runner:$testRunnerVersion"
+}
+
+android.variantFilter { variant ->
+    def activeProductFlavor = project.getProperties().get("activeProductFlavor")
+    if (activeProductFlavor != null && variant.getFlavors().get(0).name != activeProductFlavor) {
+        variant.setIgnore(true)
+    }
 }
 
 project.afterEvaluate {

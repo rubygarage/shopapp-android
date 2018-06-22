@@ -19,7 +19,7 @@ branches:
     - develop
 
 script:
-  - ./gradlew build jacocoTestReport connectedCheck
+  - ./gradlew -PactiveProductFlavor="withoutApi" build jacocoTestReport connectedCheck
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
